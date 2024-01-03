@@ -1,0 +1,39 @@
+/* src/components/Header/Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+}
+
+.phone {
+    margin-right: 20px;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.auth-buttons button {
+    margin-right: 10px;
+}
+
+.search input {
+    padding: 5px;
+    width: 200px;
+}
