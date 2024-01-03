@@ -1,18 +1,67 @@
+// const express = require('express');
+// const router = express.Router();
+// const Order = require('../models/Order');
+//
+// // Создание нового заказа (только для зарегистрированных пользователей)
+// router.post('/', async (req, res) => {
+//     if (req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     const { products, totalAmount } = req.body;
+//
+//     const order = new Order({
+//         user: req.user._id,
+//         userName: req.user.name, // Добавленная строка
+//         products,
+//         totalAmount,
+//     });
+//
+//     try {
+//         const newOrder = await order.save();
+//         res.status(201).json(newOrder);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+//
+// // Получение списка заказов для зарегистрированных пользователей
+// router.get('/my-orders', async (req, res) => {
+//     if (req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     try {
+//         const orders = await Order.find({ user: req.user._id });
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+//
+// module.exports = router;
+
+
+
+
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
 
-// Создание нового заказа (только для зарегистрированных пользователей)
+// Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
-    if (req.user.role === 'guest') {
-        return res.status(403).json({ message: 'Permission denied' });
+    const { user, products, totalAmount } = req.body;
+
+    // Если пользователь гость, проверим наличие необходимых данных
+    if (!user && (!req.user || req.user.role === 'guest')) {
+        if (!req.body.guestInfo || !req.body.guestInfo.name || !req.body.guestInfo.email) {
+            return res.status(400).json({ message: 'Guest information is incomplete' });
+        }
     }
 
-    const { products, totalAmount } = req.body;
-
     const order = new Order({
-        user: req.user._id,
-        userName: req.user.name, // Добавленная строка
+        user,
+        guestInfo: user ? undefined : req.body.guestInfo, // Используем информацию о госте, если пользователь не зарегистрирован
         products,
         totalAmount,
     });
@@ -32,7 +81,7 @@ router.get('/my-orders', async (req, res) => {
     }
 
     try {
-        const orders = await Order.find({ user: req.user._id });
+        const orders = await Order.find({ $or: [{ user: req.user._id }, { 'guestInfo.email': req.user.email }] });
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -40,3 +89,4 @@ router.get('/my-orders', async (req, res) => {
 });
 
 module.exports = router;
+

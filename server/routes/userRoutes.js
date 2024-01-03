@@ -72,6 +72,7 @@ router.post('/register', async (req, res) => {
 
 
 
+
 // Аутентификация пользователя
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -89,13 +90,49 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
+        let role = user.role;
+
+        // Добавим проверку для администратора
+        if (email === 'admin@gmail.com' && password === 'admin') {
+            role = 'admin';
+        }
+
         // Создаем токен для пользователя
-        const token = jwt.sign({ user }, process.env.SECRET_KEY);
+        const token = jwt.sign({ userId: user._id, email: user.email, role }, process.env.SECRET_KEY);
 
         res.json({ user, token });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+
+
+// // Аутентификация пользователя
+// router.post('/login', async (req, res) => {
+//     const { email, password } = req.body;
+//
+//     try {
+//         const user = await User.findOne({ email });
+//
+//         if (!user) {
+//             return res.status(401).json({ message: 'Invalid credentials' });
+//         }
+//
+//         const isPasswordValid = await bcrypt.compare(password, user.password);
+//
+//         if (!isPasswordValid) {
+//             return res.status(401).json({ message: 'Invalid credentials' });
+//         }
+//
+//         // Создаем токен для пользователя
+//         const token = jwt.sign({ user }, process.env.SECRET_KEY);
+//
+//         res.json({ user, token });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 module.exports = router;
