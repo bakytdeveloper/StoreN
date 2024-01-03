@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         address: { type: String },
         // Дополнительные поля профиля
     },
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
+    // isAdmin: { type: Boolean, default: false }, // Новое поле для статуса администратора
+
+
 });
 
 const User = mongoose.model('User', userSchema);

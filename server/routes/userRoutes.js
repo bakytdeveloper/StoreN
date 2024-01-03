@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Order = require('../models/Order');
+
 
 // // Регистрация нового пользователя
 // router.post('/register', async (req, res) => {
@@ -134,5 +136,37 @@ router.post('/login', async (req, res) => {
 //         res.status(500).json({ message: error.message });
 //     }
 // });
+
+
+// Получение информации о текущем пользователе
+router.get('/profile', async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password');
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Обновление информации о текущем пользователе
+router.patch('/profile', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, { new: true }).select('-password');
+        res.json(updatedUser);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Получение истории заказов текущего пользователя
+router.get('/orders', async (req, res) => {
+    try {
+        const orders = await Order.find({ user: req.user._id }).populate('products.product');
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = router;
