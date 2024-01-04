@@ -12,6 +12,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+// Получение списка всех категорий
+router.get('/categories', async (req, res) => {
+    try {
+        const categories = await Product.distinct('category');
+        res.json({ categories });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
 // Создание нового продукта (только для администратора)
 router.post('/', async (req, res) => {
     if (req.user.role !== 'admin') {
