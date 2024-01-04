@@ -1,0 +1,61 @@
+// src/components/ProductList/ProductList.js
+
+import React, { useState, useEffect } from 'react';
+import './ProductList.css';
+import bas from './basket.png'
+
+const ProductList = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('http://localhost:5500/api/products'); // Замените на реальный эндпоинт
+                const data = await response.json();
+                console.log('Products data:', data); // Добавим вывод данных в консоль
+                setProducts(data || []); // Обновляем состояние с данными, а не с data.products
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    console.log('Rendering products:', products); // Добавим дополнительный вывод в консоль
+
+
+    // if (!products.length) {
+    //     console.log('No products to display'); // Добавим дополнительный вывод в консоль
+    //     return <div>Loading...</div>;
+    // }
+
+
+
+
+    return (
+        <div className="product-list">
+            {products.map((product) => (
+                <div className="product-card" key={product._id}>
+                    <img src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'} alt={product.name} />
+                    <div className="details">
+                        <div className="type">{product.type}</div>
+                        <div className="brand">{product.brand}</div>
+                        <div className="name">{product.name}</div>
+                        <div className="price">${product.price}</div>
+                    </div>
+                    <div className="actions">
+                        <button className="cart-button" title="Add to Cart">
+                            <img style={{width: "15px", height: "15px"}} src={bas} alt="Cart" />
+                        </button>
+                        <button className="buy-button" title="Buy Now">
+                            Buy
+                        </button>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default ProductList;
