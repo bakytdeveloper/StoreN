@@ -22,7 +22,7 @@ const Sidebar = () => {
 
     return (
         <div className="sidebar">
-            <h2>Categories</h2>
+            <h2>Товары</h2>
             <ul>
                 {categories.map((category) => (
                     <li key={category}>{category}</li>

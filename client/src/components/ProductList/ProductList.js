@@ -44,9 +44,9 @@ const ProductList = ({ searchKeyword }) => {
     return (
         <div className="product-list">
             {filteredProducts.map((product) => (
-                <Link to={`/products/${product._id}`} key={product._id} className="product-card">
+                <Link  className="product-card" to={`/products/${product._id}`} key={product._id} className="product-card">
 
-                <div className="product-card" key={product._id}>
+                {/*<div className="product-card" key={product._id}>*/}
                     <img src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'} alt={product.name} />
                     <div className="details">
                         <div className="type">{product.type}</div>
@@ -62,7 +62,7 @@ const ProductList = ({ searchKeyword }) => {
                             Buy
                         </button>
                     </div>
-                </div>
+                {/*// </div>*/}
                 </Link>
             ))}
         </div>

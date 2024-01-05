@@ -30,10 +30,15 @@
 }
 
 .details {
+    /*margin-left: 20px;*/
+    /*margin-right: 25px;*/
+    /*flex: 1;*/
+    text-decoration: none;
     padding: 10px;
 }
 .brand {
     font-weight: bold;
+
 }
 
 .type, .brand, .name {

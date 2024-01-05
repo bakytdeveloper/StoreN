@@ -108,7 +108,7 @@ const ProductDetails = () => {
             <div className="image-gallery">
 
 
-                <img src={selectedImage} alt={product.name} className="main-image" />
+                {/*<img src={selectedImage} alt={product.name} className="main-image" />*/}
                 <div className="thumbnail-gallery">
                     {product.images.map((image) => (
                         <img
@@ -119,35 +119,34 @@ const ProductDetails = () => {
                             onClick={() => handleImageClick(image)}
                         />
                     ))}
+                    {/*<img src={selectedImage} alt={product.name} className="main-image" />*/}
                 </div>
+                <img src={selectedImage} alt={product.name} className="main-image" />
             </div>
             <div className="details">
-
-                alt={product.name} />
-                <div className="details">
 
                     <div className="type">{product.type}</div>
                     <div className="brand">{product.brand}</div>
                     <div className="name">{product.name}</div>
                     {/*<div className="price">${product.price}</div>*/}
-                    <div className="description">{product.description}</div>
+                    <div className="description">Описание: {product.description}</div>
                     <div className="characteristics">
-                        <h3>Characteristics:</h3>
+                        <h3>Характеристики:</h3>
                         <ul>
                             {product.characteristics.map((char) => (
-                                <li key={char.name}>
+                                <li className="character" key={char.name}>
                                     <strong>{char.name}:</strong> {char.value}
                                 </li>
                             ))}
                         </ul>
                     </div>
-                    <div className="price">${product.price}</div>
+                    <div className="price">{product.price} KGS</div>
 
-                </div>
-            </div>
+                {/*</div>*/}
             <div className="actions">
                 <button className="buy-now">Купить сейчас</button>
                 <button className="add-to-cart">Положить в корзину</button>
+            </div>
             </div>
         </div>
     );
