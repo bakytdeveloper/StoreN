@@ -1,3 +1,50 @@
+/*!* src/components/Header/Header.css *!*/
+
+/*.header {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 10px 20px;*/
+/*    background-color: #f0f0f0;*/
+/*}*/
+
+/*.brand {*/
+/*    font-size: 24px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.contact {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+/*.phone {*/
+/*    margin-right: 20px;*/
+/*}*/
+
+/*.social-icons img {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    margin-right: 10px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.auth-buttons button {*/
+/*    margin-right: 10px;*/
+/*}*/
+
+/*.search input {*/
+/*    padding: 5px;*/
+/*    width: 200px;*/
+/*}*/
+
+
+
+
+
+
+
+
 /* src/components/Header/Header.css */
 
 .header {
@@ -6,11 +53,19 @@
     align-items: center;
     padding: 10px 20px;
     background-color: #f0f0f0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Добавим небольшую тень для выделения шапки */
 }
 
-.brand {
-    font-size: 24px;
+.title {
+    font-size: 54px;
     font-weight: bold;
+    text-decoration: none; /* Уберем стандартное подчеркивание ссылки */
+    color: #5d2103; /* Черный цвет текста */
+    font-family: Phosphate;
+}
+
+.brand:hover {
+    color: #555; /* Изменяем цвет при наведении для акцента */
 }
 
 .contact {
@@ -20,20 +75,66 @@
 
 .phone {
     margin-right: 20px;
+    font-weight: bold;
+}
+
+.social-icons a {
+    text-decoration: none; /* Уберем стандартное подчеркивание ссылок */
+    color: #555; /* Черный цвет иконок */
 }
 
 .social-icons img {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     margin-right: 10px;
     cursor: pointer;
+    transition: transform 0.3s ease; /* Добавим анимацию при наведении */
+}
+
+.social-icons img:hover {
+    transform: scale(1.2); /* Увеличим размер иконки при наведении */
 }
 
 .auth-buttons button {
     margin-right: 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #3498db; /* Цвет фона кнопок */
+    color: #fff; /* Белый цвет текста */
+    border: none;
+    border-radius: 3px;
+    transition: background-color 0.3s ease; /* Добавим анимацию при наведении */
+}
+
+.auth-buttons button:hover {
+    background-color: #2980b9; /* Изменяем цвет кнопки при наведении */
 }
 
 .search input {
-    padding: 5px;
+    padding: 8px;
     width: 200px;
+    border: 1px solid #ddd; /* Добавим рамку вокруг поля поиска */
+    border-radius: 3px;
 }
+
+/* Добавим стили для мобильных устройств (адаптивность) */
+@media only screen and (max-width: 768px) {
+    .header {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+    }
+    .brand {
+        font-size: 24px;
+    }
+
+    .brand, .contact, .auth-buttons, .search {
+        margin-bottom: 10px;
+    }
+
+    .search input {
+        width: 100%;
+    }
+}
+

@@ -5,6 +5,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
+
 }
 
 .product-card {
@@ -14,6 +15,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     cursor: pointer;
+    text-align: center;
 }
 
 .product-card:hover {
@@ -28,6 +30,9 @@
 
 .details {
     padding: 10px;
+}
+.brand {
+    font-weight: bold;
 }
 
 .type, .brand, .name {

@@ -12,8 +12,8 @@ import tik from "./tik-tok.png";
 const Header = () => {
     return (
         <div className="header">
-            <Link to="/" className="brand">
-                <h1 className="brand"> Store <span className="sp">N</span></h1>
+            <Link to="/" className="title">
+                <h1 style={{fontSize: "35px"}} className="title"> Store <span className="sp">N</span></h1>
             </Link>
             <div className="contact">
                 <div className="phone">XXX-XX-XX-XX</div>
