@@ -93,9 +93,21 @@ const ProductDetails = () => {
         setSelectedImage(image);
     };
 
+    const handleClose = () => {
+        // Мокап перенаправления на предыдущую страницу
+        // В реальном проекте замените на свой маршрут или метод возврата
+        window.history.back();
+    };
+
+
     return (
         <div className="product-details">
+            <button className="close-button" onClick={handleClose}>
+                &#10006;
+            </button>
             <div className="image-gallery">
+
+
                 <img src={selectedImage} alt={product.name} className="main-image" />
                 <div className="thumbnail-gallery">
                     {product.images.map((image) => (
@@ -110,8 +122,10 @@ const ProductDetails = () => {
                 </div>
             </div>
             <div className="details">
+
                 alt={product.name} />
                 <div className="details">
+
                     <div className="type">{product.type}</div>
                     <div className="brand">{product.brand}</div>
                     <div className="name">{product.name}</div>
