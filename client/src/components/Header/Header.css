@@ -51,7 +51,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 3px 20px;
     background-color: #f0f0f0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Добавим небольшую тень для выделения шапки */
 }
@@ -60,11 +60,11 @@
     font-size: 54px;
     font-weight: bold;
     text-decoration: none; /* Уберем стандартное подчеркивание ссылки */
-    color: #5d2103; /* Черный цвет текста */
-    font-family: Phosphate;
+    color: #120398; /* Черный цвет текста */
+    font-family: Luminari;
 }
 
-.brand:hover {
+.title:hover {
     color: #555; /* Изменяем цвет при наведении для акцента */
 }
 

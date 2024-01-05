@@ -1,6 +1,6 @@
 // src/components/Header/Header.js
 
-import React from 'react';
+import React, {useState} from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,15 @@ import tel from "./telegram.png";
 import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
 
-const Header = () => {
+const Header = ({ onSearch }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        onSearch(value);
+    };
+
     return (
         <div className="header">
             <Link to="/" className="title">
@@ -40,7 +48,11 @@ const Header = () => {
                 <button>Cart</button>
             </div>
             <div className="search">
-                <input type="text" placeholder="Search" />
+                <input type="text"
+
+                    placeholder="Поиск..."
+                    value={searchTerm}
+                    onChange={handleSearchChange} />
             </div>
         </div>
     );

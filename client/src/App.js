@@ -1,23 +1,25 @@
 // src/App.js
 
-import React from 'react';
+import React, {useState} from 'react';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import './App.css';
 import ProductList from "./components/ProductList/ProductList";
 
 const App = () => {
-    // const handleCategorySelect = (category) => {
-    //     // Обработка выбора категории, например, загрузка товаров этой категории
-    //     console.log(`Selected category: ${category}`);
-    // };
+    const [searchKeyword, setSearchKeyword] = useState('');
+
+
+    const handleSearch = (keyword) => {
+        setSearchKeyword(keyword);
+    };
 
     return (
         <div className="app">
-            <Header />
+            <Header onSearch={handleSearch}  />
             <div className="main-content">
                 <Sidebar />
-                <ProductList />
+                <ProductList searchKeyword={searchKeyword} />
 
                 {/* Добавьте другие компоненты и контент здесь */}
             </div>

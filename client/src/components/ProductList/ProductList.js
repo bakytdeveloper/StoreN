@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react';
 import './ProductList.css';
 import bas from './basket.png'
 
-const ProductList = () => {
+const ProductList = ({ searchKeyword }) => {
     const [products, setProducts] = useState([]);
+    const [selectedType, setSelectedType] = useState(null);
+
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -25,17 +27,22 @@ const ProductList = () => {
     console.log('Rendering products:', products); // Добавим дополнительный вывод в консоль
 
 
-    // if (!products.length) {
-    //     console.log('No products to display'); // Добавим дополнительный вывод в консоль
-    //     return <div>Loading...</div>;
-    // }
+    const filteredProducts = products
+        .filter((product) => !selectedType || product.type === selectedType)
+        .filter((product) =>
+            searchKeyword
+                ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                product.brand.toLowerCase().includes(searchKeyword.toLowerCase())
+                : true
+        );
 
 
 
 
     return (
         <div className="product-list">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
                 <div className="product-card" key={product._id}>
                     <img src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'} alt={product.name} />
                     <div className="details">
