@@ -16,6 +16,7 @@
     transition: transform 0.3s;
     cursor: pointer;
     text-align: center;
+    padding-top: 3px;
 }
 
 .product-card:hover {
@@ -40,9 +41,16 @@
     margin-bottom: 5px;
 }
 
+.price span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #024875;
+}
+
 .price {
     font-size: 16px;
     font-weight: bold;
+    color: #2980b9;
 }
 
 .actions {

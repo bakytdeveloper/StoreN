@@ -49,7 +49,7 @@ const ProductList = ({ searchKeyword }) => {
                         <div className="type">{product.type}</div>
                         <div className="brand">{product.brand}</div>
                         <div className="name">{product.name}</div>
-                        <div className="price">${product.price}</div>
+                        <div className="price"><span>KGS</span> {product.price}</div>
                     </div>
                     <div className="actions">
                         <button className="cart-button" title="Add to Cart">
