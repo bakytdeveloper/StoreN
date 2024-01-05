@@ -1,0 +1,51 @@
+/* src/components/ProductDetails/ProductDetails.css */
+
+.product-details {
+    display: flex;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    width: 40%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.details {
+    flex-grow: 1;
+}
+
+.type, .brand, .name {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description {
+    margin-bottom: 20px;
+}
+
+.characteristics {
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}

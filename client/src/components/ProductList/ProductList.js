@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css';
 import bas from './basket.png'
+import {Link} from "react-router-dom";
 
 const ProductList = ({ searchKeyword }) => {
     const [products, setProducts] = useState([]);
@@ -43,6 +44,8 @@ const ProductList = ({ searchKeyword }) => {
     return (
         <div className="product-list">
             {filteredProducts.map((product) => (
+                <Link to={`/products/${product._id}`} key={product._id} className="product-card">
+
                 <div className="product-card" key={product._id}>
                     <img src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'} alt={product.name} />
                     <div className="details">
@@ -60,6 +63,7 @@ const ProductList = ({ searchKeyword }) => {
                         </button>
                     </div>
                 </div>
+                </Link>
             ))}
         </div>
     );
