@@ -54,6 +54,7 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
+const User = require("../models/User");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
@@ -75,6 +76,12 @@ router.post('/', async (req, res) => {
 
     try {
         const newOrder = await order.save();
+
+        // Если пользователь - зарегистрированный клиент, добавим заказ в его историю
+        if (user && user.role === 'customer') {
+            await User.findByIdAndUpdate(user, { $push: { orders: newOrder._id } });
+        }
+
         res.status(201).json(newOrder);
     } catch (error) {
         res.status(400).json({ message: error.message });

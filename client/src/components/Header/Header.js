@@ -43,9 +43,9 @@ const Header = ({ onSearch }) => {
                 </div>
             </div>
             <div className="auth-buttons">
-                <button>Login/Register</button>
-                <button>Profile</button>
-                <button>Cart</button>
+                <Link to="/login" className="auth-button">Login/Register</Link>
+                <Link to="/profile" className="auth-button">Profile</Link>
+                <Link to="/cart" className="auth-button">Cart</Link>
             </div>
             <div className="search">
                 <input type="text"
