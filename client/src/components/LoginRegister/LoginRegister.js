@@ -216,6 +216,7 @@ const LoginRegister = () => {
                 // Успешная регистрация или вход
                 // Сохранить токен в localStorage или cookies
                 localStorage.setItem('token', data.token);
+                toast.success('Successfully logged in or registered');
 
                 // Перейти на страницу профиля или другую нужную
                 history.push('/');
