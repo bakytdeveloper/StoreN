@@ -59,3 +59,10 @@ const Header = ({ onSearch }) => {
 };
 
 export default Header;
+
+// <div className="cart">
+//     <Link to="/cart" className="cart-icon">
+//         🛒
+//     </Link>
+//     <span className="cart-count">{cartItems.length}</span>
+// </div>
