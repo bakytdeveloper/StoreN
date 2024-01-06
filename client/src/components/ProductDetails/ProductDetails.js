@@ -129,7 +129,8 @@ const ProductDetails = () => {
                     <div className="brand">{product.brand}</div>
                     <div className="name">{product.name}</div>
                     {/*<div className="price">${product.price}</div>*/}
-                    <div className="description">Описание: {product.description}</div>
+                    <div className="description">
+                       <strong>Описание:</strong>  {product.description}</div>
                     <div className="characteristics">
                         <h3>Характеристики:</h3>
                         <ul>
