@@ -11,7 +11,8 @@ const LoginRegister = () => {
     const history = useHistory();
 
     const handleLoginRegister = async () => {
-        const url = isRegisterMode ? '/register' : '/login';
+        const url = isRegisterMode ? 'http://localhost:5500/api/users/register'
+            : 'http://localhost:5500/api/users/login';
 
         try {
             const response = await fetch(url, {
@@ -36,11 +37,12 @@ const LoginRegister = () => {
                 // Перейти на страницу профиля или другую нужную
                 history.push('/profile');
             } else {
-                console.error(data.message);
+                console.error('Response error:', response);
+                console.error('Data error:', data);
                 // Обработка ошибок, например, вывод сообщения об ошибке
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Fetch error:', error);
         }
     };
 

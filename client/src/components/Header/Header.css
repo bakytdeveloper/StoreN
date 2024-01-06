@@ -95,7 +95,7 @@
     transform: scale(1.2); /* Увеличим размер иконки при наведении */
 }
 
-.auth-buttons button {
+.auth-button {
     margin-right: 10px;
     padding: 8px 15px;
     font-size: 14px;
@@ -107,7 +107,7 @@
     transition: background-color 0.3s ease; /* Добавим анимацию при наведении */
 }
 
-.auth-buttons button:hover {
+.auth-button:hover {
     background-color: #2980b9; /* Изменяем цвет кнопки при наведении */
 }
 
