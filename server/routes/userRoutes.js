@@ -66,9 +66,9 @@ router.post('/register', async (req, res) => {
         // Создаем токен для нового пользователя
         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
 
-        res.status(201).json({ user: newUser, token });
+        res.status(201).json({ user: newUser, token, success: true  });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message, success: false });
     }
 });
 
@@ -102,9 +102,9 @@ router.post('/login', async (req, res) => {
         // Создаем токен для пользователя
         const token = jwt.sign({ userId: user._id, email: user.email, role }, process.env.SECRET_KEY);
 
-        res.json({ user, token });
+        res.json({ user, token, success: true });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message, success: false });
     }
 });
 
