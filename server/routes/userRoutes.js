@@ -141,6 +141,11 @@ router.post('/login', async (req, res) => {
 // Получение информации о текущем пользователе
 router.get('/profile', async (req, res) => {
     try {
+        // Проверка наличия аутентифицированного пользователя
+        if (!req.user) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
         const user = await User.findById(req.user._id).select('-password');
         res.json(user);
     } catch (error) {

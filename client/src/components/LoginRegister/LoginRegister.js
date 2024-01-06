@@ -1,6 +1,7 @@
 // src/components/LoginRegister/LoginRegister.js
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './LoginRegister.css';
 
 const LoginRegister = () => {
     const [email, setEmail] = useState('');
@@ -35,7 +36,8 @@ const LoginRegister = () => {
                 localStorage.setItem('token', data.token);
 
                 // Перейти на страницу профиля или другую нужную
-                history.push('/profile');
+                history.push('/');
+                // history.push('/profile');
             } else {
                 console.error('Response error:', response);
                 console.error('Data error:', data);
@@ -47,7 +49,7 @@ const LoginRegister = () => {
     };
 
     return (
-        <div>
+        <form>
             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
             {isRegisterMode && (
                 <input
@@ -75,7 +77,7 @@ const LoginRegister = () => {
             <p onClick={() => setRegisterMode(!isRegisterMode)}>
                 {isRegisterMode ? 'Already have an account? Login here.' : 'Don\'t have an account? Register here.'}
             </p>
-        </div>
+        </form>
     );
 };
 

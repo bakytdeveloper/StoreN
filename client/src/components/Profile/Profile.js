@@ -10,7 +10,7 @@ const Profile = () => {
                 const token = localStorage.getItem('token');
 
                 if (token) {
-                    const response = await fetch('/profile', {
+                    const response = await fetch('http://localhost:5500/api/users/profile', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -23,6 +23,7 @@ const Profile = () => {
                         setUser(data);
                     } else {
                         console.error(data.message);
+                        console.error('Full response:', response); // Вывод полного ответа в консоль
                         // Обработка ошибок, например, перенаправление на страницу входа
                     }
                 }

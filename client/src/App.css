@@ -68,6 +68,7 @@
 }
 a {
   text-decoration: none;
+  color: black;
 }
 
 a .auth-buttons button {
