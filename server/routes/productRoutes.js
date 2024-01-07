@@ -23,6 +23,16 @@ router.get('/categories', async (req, res) => {
     }
 });
 
+// Получение списка всех категорий
+router.get('/types', async (req, res) => {
+    try {
+        const types = await Product.distinct('type');
+        res.json({ types });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 // Получение информации о конкретном продукте по ID
 router.get('/:id', async (req, res) => {

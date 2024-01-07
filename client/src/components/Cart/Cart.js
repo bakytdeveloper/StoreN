@@ -135,7 +135,7 @@ const Cart = ({ cartItems, setCartItems }) => {
 
     return (
         <div className="cart">
-            <h2>Cart</h2>
+            <h2>Корзина</h2>
             {cartItems.length === 0 ? (
                 <p>Your cart is empty</p>
             ) : (
@@ -158,7 +158,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                                 <span>{item.quantity}</span>
                                 <button onClick={() => handleQuantityChange(item.productId, 'increase')}>+</button>
                                 <div>
-                                    <span>Total: </span>
+                                    <span>Сумма: </span>
                                     <span>{(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
                                 <button onClick={() => handleRemoveItem(item.productId)}>Remove</button>
@@ -167,7 +167,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                     ))}
                     <div className="cart-summary">
                         <div>
-                            <span>Total Price: </span>
+                            <span>Общая сумма: </span>
                             <span>{totalPrice.toFixed(2)}</span>
                         </div>
                         <button>Order</button>

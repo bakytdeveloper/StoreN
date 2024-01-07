@@ -90,47 +90,6 @@ import LoginRegister from "./components/LoginRegister/LoginRegister";
 import Profile from "./components/Profile/Profile";
 import Cart from "./components/Cart/Cart";
 
-// const App = () => {
-//     const [searchKeyword, setSearchKeyword] = useState('');
-//
-//     const handleSearch = (keyword) => {
-//         setSearchKeyword(keyword);
-//     };
-//
-//     return (
-//         <Router>
-//             <div className="app">
-//                 <Header onSearch={handleSearch} />
-//                 <div className="main-content">
-//                     <Sidebar />
-//                     <Switch>
-//                         <Route path="/products/:productId">
-//                             <ProductDetails />
-//                         </Route>
-//                         <Route path="/login">
-//                             <LoginRegister />
-//                         </Route>
-//                         <Route path="/profile">
-//                             <Profile />
-//                         </Route>
-//                         <Route path="/cart">
-//                             <Cart />
-//                         </Route>
-//                         <Route path="/">
-//                             <ProductList searchKeyword={searchKeyword} />
-//                         </Route>
-//                     </Switch>
-//                 </div>
-//             </div>
-//         </Router>
-//     );
-// };
-//
-// export default App;
-
-
-
-
 
 
 const App = () => {
