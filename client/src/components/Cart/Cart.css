@@ -1,0 +1,29 @@
+/* src/components/Cart/Cart.css */
+
+.cart {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+li:last-child {
+    border-bottom: none;
+}
