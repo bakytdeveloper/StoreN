@@ -92,9 +92,12 @@
 
 import React, { useState, useEffect } from 'react';
 import './Cart.css';
+import {useHistory} from "react-router-dom";
 
 const Cart = ({ cartItems, setCartItems }) => {
     const [totalPrice, setTotalPrice] = useState(0);
+    const history = useHistory();
+
 
     // Функция для изменения количества товара в корзине
     const handleQuantityChange = (productId, operation) => {
@@ -112,13 +115,19 @@ const Cart = ({ cartItems, setCartItems }) => {
     const handleRemoveItem = (productId) => {
         const updatedCart = cartItems.filter((item) => item.productId !== productId);
         setCartItems(updatedCart);
+        if (updatedCart.length === 0) {
+            history.push('/products'); // Замените на нужный URL вашей страницы с товарами
+        }
     };
 
     // Функция для расчета общей стоимости товаров в корзине
     useEffect(() => {
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         setTotalPrice(total);
-    }, [cartItems]);
+        if (cartItems.length === 0) {
+            history.push('/products'); // Замените на нужный URL вашей страницы с товарами
+        }
+    }, [cartItems, history]);
 
     return (
         <div className="cart">
