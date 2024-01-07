@@ -158,7 +158,7 @@ const App = () => {
                             <Profile />
                         </Route>
                         <Route path="/cart">
-                            <Cart cartItems={cartItems} />
+                            <Cart cartItems={cartItems} setCartItems={setCartItems} />
                         </Route>
                         <Route path="/">
                             <ProductList searchKeyword={searchKeyword} cartItems={cartItems} setCartItems={setCartItems} />
