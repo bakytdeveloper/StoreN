@@ -108,7 +108,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems }) => {
             );
             setCartItems(updatedCart);
         } else {
-            setCartItems([...cartItems, { productId: product._id, name: product.name, quantity: 1 }]);
+            setCartItems([...cartItems, { productId: product._id,  image: product.images[0],
+                brand: product.brand, name: product.name, price: product.price, quantity: 1 }]);
         }
     };
 
