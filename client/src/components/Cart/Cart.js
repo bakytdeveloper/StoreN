@@ -129,6 +129,10 @@ const Cart = ({ cartItems, setCartItems }) => {
         }
     }, [cartItems, history]);
 
+    const handleBackToShopping = () => {
+        history.push('/products'); // Замените на нужный URL вашей страницы с товарами
+    };
+
     return (
         <div className="cart">
             <h2>Cart</h2>
@@ -168,7 +172,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                         </div>
                         <button>Order</button>
                         <button onClick={() => setCartItems([])}>Clear Cart</button>
-                        <button>Back to Shopping</button>
+                        <button onClick={handleBackToShopping}>Back to Shopping</button>
                     </div>
                 </div>
             )}
