@@ -1,5 +1,4 @@
-//
-//
+
 //
 // // src/components/ProductList/ProductList.js
 //
@@ -9,15 +8,16 @@
 // import { Link } from 'react-router-dom';
 //
 // const ProductList = ({ searchKeyword, cartItems, setCartItems }) => {
-//     const [products, setProducts] = useState([]);
+// // const ProductList = ({ searchKeyword, cartItems, setCartItems, setSelectedType, setProducts }) => {
+//     const [products, setProductsList] = useState([]);
 //     const [selectedType, setSelectedType] = useState(null);
 //
 //     useEffect(() => {
 //         const fetchProducts = async () => {
 //             try {
-//                 const response = await fetch('http://localhost:5500/api/products'); // Замените на реальный эндпоинт
+//                 const response = await fetch('http://localhost:5500/api/products');
 //                 const data = await response.json();
-//                 setProducts(data || []);
+//                 setProductsList(data || []);
 //             } catch (error) {
 //                 console.error('Error fetching products:', error);
 //             }
@@ -35,10 +35,12 @@
 //             );
 //             setCartItems(updatedCart);
 //         } else {
-//             setCartItems([...cartItems, { productId: product._id,  image: product.images[0],
+//             setCartItems([...cartItems, { productId: product._id, image: product.images[0],
 //                 brand: product.brand, name: product.name, price: product.price, quantity: 1 }]);
 //         }
 //     };
+//
+//
 //
 //     const filteredProducts = products
 //         .filter((product) => !selectedType || product.type === selectedType)
@@ -87,108 +89,51 @@
 
 
 
-//
-// // src/components/ProductList/ProductList.js
-//
-// import React, { useState, useEffect } from 'react';
-// import './ProductList.css';
-// import bas from './basket.png';
-// import { Link } from 'react-router-dom';
-//
-// const ProductList = ({ searchKeyword, cartItems, setCartItems, setSelectedType, setProducts }) => {
-//     const [products, setProductsList] = useState([]);
-//
-//     useEffect(() => {
-//         const fetchProducts = async () => {
-//             try {
-//                 const response = await fetch('http://localhost:5500/api/products');
-//                 const data = await response.json();
-//                 setProductsList(data || []);
-//             } catch (error) {
-//                 console.error('Error fetching products:', error);
-//             }
-//         };
-//
-//         fetchProducts();
-//     }, []);
-//
-//     const handleAddToCart = (product) => {
-//         const itemInCart = cartItems.find((item) => item.productId === product._id);
-//
-//         if (itemInCart) {
-//             const updatedCart = cartItems.map((item) =>
-//                 item.productId === product._id ? { ...item, quantity: item.quantity + 1 } : item
-//             );
-//             setCartItems(updatedCart);
-//         } else {
-//             setCartItems([...cartItems, { productId: product._id, image: product.images[0],
-//                 brand: product.brand, name: product.name, price: product.price, quantity: 1 }]);
-//         }
-//     };
-//
-//     return (
-//         <div className="product-list">
-//             {products.map((product) => (
-//                 <div className="product-card" key={product._id}>
-//                     <Link to={`/products/${product._id}`}>
-//                         <img
-//                             src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'}
-//                             alt={product.name}
-//                         />
-//                         <div className="details">
-//                             <div className="type">{product.type}</div>
-//                             <div className="brand">{product.brand}</div>
-//                             <div className="name">{product.name}</div>
-//                             <div className="price">
-//                                 <span>KGS</span> {product.price}
-//                             </div>
-//                         </div>
-//                     </Link>
-//                     <div className="actions">
-//                         <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-//                             <img style={{ width: '15px', height: '15px' }} src={bas} alt="Cart" />
-//                         </button>
-//                         <button className="buy-button" title="Buy Now">
-//                             Buy
-//                         </button>
-//                     </div>
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// };
-//
-// export default ProductList;
 
 
-
-
-
-// src/components/ProductList/ProductList.js
 
 import React, { useState, useEffect } from 'react';
 import './ProductList.css';
 import bas from './basket.png';
 import { Link } from 'react-router-dom';
 
-const ProductList = ({ searchKeyword, cartItems, setCartItems }) => {
-// const ProductList = ({ searchKeyword, cartItems, setCartItems, setSelectedType, setProducts }) => {
-    const [products, setProductsList] = useState([]);
+
+const ProductList = ({ searchKeyword, cartItems, setCartItems, products }) => {
     const [selectedType, setSelectedType] = useState(null);
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch('http://localhost:5500/api/products');
-                const data = await response.json();
-                setProductsList(data || []);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
+        if (products && products.length > 0) {
+            // Если продукты уже переданы, использовать их
+            setFilteredProducts(filterProducts(products));
+        } else {
+            // Иначе делаем запрос на сервер для получения продуктов
+            fetchProducts();
+        }
+    }, [searchKeyword, selectedType, products]);
 
-        fetchProducts();
-    }, []);
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('http://localhost:5500/api/products');
+            const data = await response.json();
+            setFilteredProducts(filterProducts(data || []));
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    const filterProducts = (productsToFilter) => {
+        return productsToFilter
+            .filter((product) => !selectedType || product.type === selectedType)
+            .filter(
+                (product) =>
+                    searchKeyword
+                        ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        product.brand.toLowerCase().includes(searchKeyword.toLowerCase())
+                        : true
+            );
+    };
 
     const handleAddToCart = (product) => {
         const itemInCart = cartItems.find((item) => item.productId === product._id);
@@ -199,23 +144,19 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems }) => {
             );
             setCartItems(updatedCart);
         } else {
-            setCartItems([...cartItems, { productId: product._id, image: product.images[0],
-                brand: product.brand, name: product.name, price: product.price, quantity: 1 }]);
+            setCartItems([
+                ...cartItems,
+                {
+                    productId: product._id,
+                    image: product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg',
+                    brand: product.brand,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                },
+            ]);
         }
     };
-
-
-
-    const filteredProducts = products
-        .filter((product) => !selectedType || product.type === selectedType)
-        .filter(
-            (product) =>
-                searchKeyword
-                    ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                    product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                    product.brand.toLowerCase().includes(searchKeyword.toLowerCase())
-                    : true
-        );
 
     return (
         <div className="product-list">
@@ -236,7 +177,11 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems }) => {
                         </div>
                     </Link>
                     <div className="actions">
-                        <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                        <button
+                            className="cart-button"
+                            title="Add to Cart"
+                            onClick={() => handleAddToCart(product)}
+                        >
                             <img style={{ width: '15px', height: '15px' }} src={bas} alt="Cart" />
                         </button>
                         <button className="buy-button" title="Buy Now">
@@ -250,6 +195,17 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems }) => {
 };
 
 export default ProductList;
+
+
+
+
+
+
+
+
+
+
+
 
 
 

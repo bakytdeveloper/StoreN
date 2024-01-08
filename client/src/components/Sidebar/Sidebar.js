@@ -1,123 +1,4 @@
-// // src/components/Sidebar/Sidebar.js
-//
-// import React, { useState, useEffect } from 'react';
-// import './Sidebar.css';
-//
-// const Sidebar = () => {
-//     const [categories, setCategories] = useState([]);
-//
-//     useEffect(() => {
-//         const fetchCategories = async () => {
-//             try {
-//                 const response = await fetch('http://localhost:5500/api/products/categories');
-//                 const data = await response.json();
-//                 setCategories(data.categories);
-//             } catch (error) {
-//                 console.error('Error fetching categories:', error);
-//             }
-//         };
-//
-//         fetchCategories();
-//     }, []);
-//
-//     return (
-//         <div className="sidebar">
-//             <h2>Товары</h2>
-//             <ul>
-//                 {categories.map((category) => (
-//                     <li key={category}>{category}</li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// };
-//
-// export default Sidebar;
-//
-//
-//
-//
-//
 
-
-
-
-
-
-// // src/components/Sidebar/Sidebar.js
-//
-// import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-// import './Sidebar.css';
-//
-// const Sidebar = ({ setProducts, setSelectedType, setSearchKeyword }) => {
-//     const [categories, setCategories] = useState([]);
-//     const [currentCategory, setCurrentCategory] = useState(null);
-//
-//     useEffect(() => {
-//         const fetchCategories = async () => {
-//             try {
-//                 const response = await fetch('http://localhost:5500/api/products/categories');
-//                 const data = await response.json();
-//                 setCategories(data.categories);
-//             } catch (error) {
-//                 console.error('Error fetching categories:', error);
-//             }
-//         };
-//         fetchCategories();
-//     }, []);
-//
-//     const handleCategoryClick = async (category) => {
-//         try {
-//             const response = await fetch(`http://localhost:5500/api/products?category=${category}`);
-//             const data = await response.json();
-//             setProducts(data || []);
-//             setCurrentCategory(category);
-//             setSelectedType(null);
-//             setSearchKeyword('');
-//         } catch (error) {
-//             console.error('Error fetching products by category:', error);
-//         }
-//     };
-//
-//     const handleBackClick = async () => {
-//         try {
-//             const response = await fetch('http://localhost:5500/api/products');
-//             const data = await response.json();
-//             setProducts(data || []);
-//             setCurrentCategory(null);
-//             setSelectedType(null);
-//             setSearchKeyword('');
-//         } catch (error) {
-//             console.error('Error fetching all products:', error);
-//         }
-//     };
-//
-//     return (
-//         <div className="sidebar">
-//             <h2>Товары</h2>
-//             <ul>
-//                 {currentCategory ? (
-//                     <li className="back-button" onClick={handleBackClick}>
-//                         Назад
-//                     </li>
-//                 ) : null}
-//                 {categories.map((category) => (
-//                     <li key={category} onClick={() => handleCategoryClick(category)}>
-//                         {category}
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// };
-//
-// export default Sidebar;
-
-
-
-
-//
 // // src/components/Sidebar/Sidebar.js
 //
 // import React, { useState, useEffect } from 'react';
@@ -201,10 +82,82 @@
 
 
 
+// import React, { useState, useEffect } from 'react';
+// import './Sidebar.css';
+//
+// const Sidebar = ({ onSelectType }) => {
+//     const [categories, setCategories] = useState([]);
+//     const [types, setTypes] = useState([]);
+//     const [selectedCategory, setSelectedCategory] = useState(null);
+//
+//     useEffect(() => {
+//         const fetchCategories = async () => {
+//             try {
+//                 const response = await fetch('http://localhost:5500/api/products/categories');
+//                 const data = await response.json();
+//                 setCategories(data.categories);
+//             } catch (error) {
+//                 console.error('Error fetching categories:', error);
+//             }
+//         };
+//
+//         fetchCategories();
+//     }, []);
+//
+//     const handleCategoryClick = async (category) => {
+//         try {
+//             const response = await fetch(`http://localhost:5500/api/products/types/${category}`);
+//             const data = await response.json();
+//
+//             setSelectedCategory(category);
+//             setTypes(data.types);
+//         } catch (error) {
+//             console.error('Error fetching products by category:', error);
+//         }
+//     };
+//
+//     const handleBackClick = () => {
+//         setSelectedCategory(null);
+//         setTypes([]);
+//     };
+//
+//     return (
+//         <div className="sidebar">
+//             <h2>Товары</h2>
+//             <ul>
+//                 {selectedCategory ? (
+//                     <>
+//                         <li key="back" onClick={handleBackClick}>
+//                             Назад
+//                         </li>
+//                         {types.map((type) => (
+//                             <li key={type} onClick={() => onSelectType(type)}>
+//                                 {type}
+//                             </li>
+//                         ))}
+//                     </>
+//                 ) : (
+//                     categories.map((category) => (
+//                         <li key={category} onClick={() => handleCategoryClick(category)}>
+//                             {category}
+//                         </li>
+//                     ))
+//                 )}
+//             </ul>
+//         </div>
+//     );
+// };
+//
+// export default Sidebar;
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 
-const Sidebar = ({ onSelectType }) => {
+const Sidebar = ({ setProducts }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -219,7 +172,6 @@ const Sidebar = ({ onSelectType }) => {
                 console.error('Error fetching categories:', error);
             }
         };
-
         fetchCategories();
     }, []);
 
@@ -227,17 +179,28 @@ const Sidebar = ({ onSelectType }) => {
         try {
             const response = await fetch(`http://localhost:5500/api/products/types/${category}`);
             const data = await response.json();
-
-            setSelectedCategory(category);
             setTypes(data.types);
+            setSelectedCategory(category);
+            setProducts(data.products);
         } catch (error) {
-            console.error('Error fetching products by category:', error);
+            console.error('Error fetching types by category:', error);
         }
     };
 
     const handleBackClick = () => {
         setSelectedCategory(null);
         setTypes([]);
+        setProducts([]);
+    };
+
+    const handleTypeClick = async (type) => {
+        try {
+            const response = await fetch(`http://localhost:5500/api/products?category=${selectedCategory}&type=${type}`);
+            const data = await response.json();
+            setProducts(data || []);
+        } catch (error) {
+            console.error('Error fetching products by type:', error);
+        }
     };
 
     return (
@@ -250,7 +213,7 @@ const Sidebar = ({ onSelectType }) => {
                             Назад
                         </li>
                         {types.map((type) => (
-                            <li key={type} onClick={() => onSelectType(type)}>
+                            <li key={type} onClick={() => handleTypeClick(type)}>
                                 {type}
                             </li>
                         ))}
