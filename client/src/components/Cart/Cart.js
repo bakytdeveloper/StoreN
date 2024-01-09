@@ -1,98 +1,9 @@
-//
-//
-//
-// // src/components/Cart/Cart.js
-//
-// import React, { useState } from 'react';
-// import './Cart.css';
-//
-// const Cart = ({ cartItems, setCartItems }) => {
-//     const [totalPrice, setTotalPrice] = useState(0);
-//
-//     // Функция для изменения количества товара в корзине
-//     const handleQuantityChange = (productId, operation) => {
-//         const updatedCart = cartItems.map((item) => {
-//             if (item.productId === productId) {
-//                 const newQuantity = operation === 'increase' ? item.quantity + 1 : item.quantity - 1;
-//                 return { ...item, quantity: newQuantity < 0 ? 0 : newQuantity };
-//             }
-//             return item;
-//         });
-//         setCartItems(updatedCart);
-//         calculateTotalPrice(updatedCart);
-//     };
-//
-//     // Функция для удаления товара из корзины
-//     const handleRemoveItem = (productId) => {
-//         const updatedCart = cartItems.filter((item) => item.productId !== productId);
-//         setCartItems(updatedCart);
-//         calculateTotalPrice(updatedCart);
-//     };
-//
-//     // Функция для расчета общей стоимости товаров в корзине
-//     const calculateTotalPrice = (updatedCart) => {
-//         const total = updatedCart.reduce((acc, item) => +acc + item.price * item.quantity, 0);
-//         setTotalPrice(total);
-//     };
-//
-//     return (
-//         <div className="cart">
-//             <h2>Cart</h2>
-//             {cartItems.length === 0 ? (
-//                 <p>Your cart is empty</p>
-//             ) : (
-//                 <div>
-//                     {cartItems.map((item) => (
-//                         <div className="cart-item" key={item.productId}>
-//                             <div className="item-info">
-//                                 <img src={item.image} alt={item.name} />
-//                                 <div className="item-details">
-//                                     <div>{item.type}</div>
-//                                     <div>{item.brand}</div>
-//                                     <div>{item.name}</div>
-//                                     <div>
-//                                         <span>KGS</span> {item.price}
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                             <div className="item-quantity">
-//                                 <button onClick={() => handleQuantityChange(item.productId, 'decrease')}>-</button>
-//                                 <span>{item.quantity}</span>
-//                                 <button onClick={() => handleQuantityChange(item.productId, 'increase')}>+</button>
-//                                 <div>
-//                                     <span>Total: </span>
-//                                     <span>{item.price * item.quantity}</span>
-//                                 </div>
-//                                 <button onClick={() => handleRemoveItem(item.productId)}>Remove</button>
-//                             </div>
-//                         </div>
-//                     ))}
-//                     <div className="cart-summary">
-//                         <div>
-//                             <span>Total Price: </span>
-//                             <span>{totalPrice}</span>
-//                         </div>
-//                         <button>Order</button>
-//                         <button onClick={() => setCartItems([])}>Clear Cart</button>
-//                         <button>Back to Shopping</button>
-//                     </div>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-//
-// export default Cart;
-
-
-
-
 
 // // src/components/Cart/Cart.js
 //
 // import React, { useState, useEffect } from 'react';
 // import './Cart.css';
-// import {useHistory} from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
 //
 // const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 //     const [totalPrice, setTotalPrice] = useState(0);
@@ -104,14 +15,11 @@
 //         return () => setShowSidebar(true);
 //     }, [setShowSidebar]);
 //
-//
-//
 //     // Функция для изменения количества товара в корзине
-//     const handleQuantityChange = (productId, operation) => {
+//     const handleQuantityChange = (productId, newQuantity) => {
 //         const updatedCart = cartItems.map((item) => {
 //             if (item.productId === productId) {
-//                 const newQuantity = operation === 'increase' ? item.quantity + 1 : item.quantity - 1;
-//                 return { ...item, quantity: newQuantity < 0 ? 0 : newQuantity };
+//                 return { ...item, quantity: newQuantity };
 //             }
 //             return item;
 //         });
@@ -152,8 +60,8 @@
 //                             <div className="item-info">
 //                                 <img src={item.image} alt={item.name} />
 //                                 <div className="item-details">
-//                                     <div style={{fontWeight: "bold"}}>{item.type}</div>
-//                                     <div style={{ fontWeight: "bold", fontSize: "15px"}}>{item.brand}</div>
+//                                     <div style={{ fontWeight: 'bold' }}>{item.type}</div>
+//                                     <div style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</div>
 //                                     <div>{item.name}</div>
 //                                     <div>
 //                                         <span>KGS</span> {item.price}
@@ -161,11 +69,15 @@
 //                                 </div>
 //                             </div>
 //                             <div className="item-quantity">
-//                                 <button onClick={() => handleQuantityChange(item.productId, 'decrease')}>-</button>
-//                                 <span>{item.quantity}</span>
-//                                 <button onClick={() => handleQuantityChange(item.productId, 'increase')}>+</button>
+//                                 <button onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>-</button>
+//                                 <input
+//                                     type="number"
+//                                     value={item.quantity}
+//                                     onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
+//                                 />
+//                                 <button onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>
 //                                 <div>
-//                                     <div style={{display: "inline"}}>Сумма: </div>
+//                                     <div> Сумма: </div>
 //                                     <span>{(item.price * item.quantity).toFixed(2)}</span>
 //                                 </div>
 //                                 <button onClick={() => handleRemoveItem(item.productId)}>Remove</button>
@@ -192,6 +104,8 @@
 
 
 
+
+
 // src/components/Cart/Cart.js
 
 import React, { useState, useEffect } from 'react';
@@ -212,7 +126,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const handleQuantityChange = (productId, newQuantity) => {
         const updatedCart = cartItems.map((item) => {
             if (item.productId === productId) {
-                return { ...item, quantity: newQuantity };
+                // Проверка на уменьшение значения ниже нуля
+                const validQuantity = Math.max(newQuantity, 0);
+                return { ...item, quantity: validQuantity };
             }
             return item;
         });
@@ -270,7 +186,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                 />
                                 <button onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>
                                 <div>
-                                    <div style={{ display: 'inline' }}>Сумма: </div>
+                                    <div> Сумма: </div>
                                     <span>{(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
                                 <button onClick={() => handleRemoveItem(item.productId)}>Remove</button>
