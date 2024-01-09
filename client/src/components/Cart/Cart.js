@@ -94,9 +94,16 @@ import React, { useState, useEffect } from 'react';
 import './Cart.css';
 import {useHistory} from "react-router-dom";
 
-const Cart = ({ cartItems, setCartItems }) => {
+const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const history = useHistory();
+
+    useEffect(() => {
+        setShowSidebar(false);
+        // Очищаем флаг при размонтировании компонента
+        return () => setShowSidebar(true);
+    }, [setShowSidebar]);
+
 
 
     // Функция для изменения количества товара в корзине
