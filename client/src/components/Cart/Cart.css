@@ -393,8 +393,8 @@
     padding: 20px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 70%;
+    border-radius: 3px;
+    width: 85%;
     margin: auto;
 }
 
@@ -418,6 +418,8 @@
     margin-right: 20px;
 }
 
+
+
 .item-info {
     display: flex;
     align-items: center;
@@ -432,6 +434,15 @@
 
 .item-details {
     font-size: 14px;
+    display: flex;
+}
+.item-details div {
+    margin-left: 15px;
+}
+
+.item-details div span {
+    font-weight: bold;
+    color: #0355a7;
 }
 
 .item-quantity {

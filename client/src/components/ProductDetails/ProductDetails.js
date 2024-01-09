@@ -63,10 +63,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
 
-const ProductDetails = () => {
+const ProductDetails = ({setShowSidebar}) => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
+
+    useEffect(() => {
+        setShowSidebar(false);
+        // Очищаем флаг при размонтировании компонента
+        return () => setShowSidebar(true);
+    }, [setShowSidebar]);
+
 
     useEffect(() => {
         // Мокап запроса к бэкенду для получения информации о товаре
@@ -143,12 +150,18 @@ const ProductDetails = () => {
                     </div>
                     <div className="price">{product.price} KGS</div>
 
+
                 {/*</div>*/}
             <div className="actions">
                 <button className="buy-now">Купить сейчас</button>
                 <button className="add-to-cart">Положить в корзину</button>
             </div>
+
+                {/*<button className="close-button" onClick={handleClose}>*/}
+                {/*    &#10006;*/}
+                {/*</button>*/}
             </div>
+
         </div>
     );
 };

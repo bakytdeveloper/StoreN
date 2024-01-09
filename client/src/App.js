@@ -157,7 +157,7 @@ const App = () => {
                     {showSidebar && <Sidebar setProducts={setProducts} />}
                     <Switch>
                         <Route path="/products/:productId">
-                            <ProductDetails />
+                            <ProductDetails  setShowSidebar={setShowSidebar} />
                         </Route>
                         <Route path="/login">
                             <LoginRegister />
