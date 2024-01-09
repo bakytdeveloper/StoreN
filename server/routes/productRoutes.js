@@ -87,12 +87,35 @@ router.post('/', async (req, res) => {
 });
 
 
+// // Получение списка всех типов товаров по категории
+// router.get('/types/:category', async (req, res) => {
+//     try {
+//         const types = await Product.distinct('type', { category: req.params.category });
+//         const products = await Product.find({ category: req.params.category });
+//
+//         res.json({ types, products });
+//     } catch (error) {
+//         console.error('Error fetching products by category:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
+
 // Получение списка всех типов товаров по категории
 router.get('/types/:category', async (req, res) => {
     try {
-        const types = await Product.distinct('type', { category: req.params.category });
-        const products = await Product.find({ category: req.params.category });
+        const { category } = req.params;
+        const { type } = req.query;
 
+        let query = { category };
+
+        if (type) {
+            query = { ...query, type };
+        }
+
+        const types = await Product.distinct('type', { category });
+        const products = await Product.find(query);
         res.json({ types, products });
     } catch (error) {
         console.error('Error fetching products by category:', error);
