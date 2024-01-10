@@ -138,6 +138,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import LoginRegister from './components/LoginRegister/LoginRegister';
 import Profile from './components/Profile/Profile';
 import Cart from './components/Cart/Cart';
+import AdminPanel from "./components/Admin/AdminPanel";
 
 const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -173,6 +174,11 @@ const App = () => {
                                 setShowSidebar={setShowSidebar}
                             />
                         </Route>
+
+                        <Route path="/admin">
+                            <AdminPanel /> {/* Добавлен маршрут для администраторской панели */}
+                        </Route>
+
                         <Route path="/">
                             {/* Передаем showSidebar в компонент ProductList */}
                             <ProductList
