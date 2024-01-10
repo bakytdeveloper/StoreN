@@ -180,7 +180,7 @@
 
 
 // src/components/LoginRegister/LoginRegister.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -193,6 +193,17 @@ const LoginRegister = () => {
     const [isRegisterMode, setRegisterMode] = useState(false);
 
     const history = useHistory();
+
+    useEffect(() => {
+        // Проверяем, является ли введенный email и password учетными данными администратора
+        if (email === 'admin@gmail.com' && password === 'admin') {
+            // Автоматический вход для администратора
+            localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
+            toast.success('Successfully logged in as admin');
+            history.push('/admin'); // Перейти на страницу администратора
+        }
+    }, [email, password, history]);
+
 
     const handleLoginRegister = async () => {
         const url = isRegisterMode ? 'http://localhost:5500/api/users/register' : 'http://localhost:5500/api/users/login';
