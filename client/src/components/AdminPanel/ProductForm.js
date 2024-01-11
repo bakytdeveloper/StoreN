@@ -1,11 +1,11 @@
 // src/components/AdminPanel/ProductForm.js
 import React, { useState, useEffect } from 'react';
 
-const ProductForm = ({ selectedProduct, setProducts, setSelectedProduct }) => {
+const ProductForm = ({ product, onSubmit, onCancel }) => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        price: '',
+        price: 0,
         category: '',
         type: '',
         brand: '',
@@ -14,76 +14,92 @@ const ProductForm = ({ selectedProduct, setProducts, setSelectedProduct }) => {
     });
 
     useEffect(() => {
-        if (selectedProduct) {
-            setFormData(selectedProduct);
-        } else {
-            setFormData({
-                name: '',
-                description: '',
-                price: '',
-                category: '',
-                type: '',
-                brand: '',
-                characteristics: [],
-                images: [],
-            });
+        if (product) {
+            setFormData(product);
         }
-    }, [selectedProduct]);
+    }, [product]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleCharacteristicChange = (index, field, value) => {
+        const updatedCharacteristics = [...formData.characteristics];
+        updatedCharacteristics[index][field] = value;
+        setFormData({ ...formData, characteristics: updatedCharacteristics });
+    };
+
+    const handleImageChange = (index, value) => {
+        const updatedImages = [...formData.images];
+        updatedImages[index] = value;
+        setFormData({ ...formData, images: updatedImages });
+    };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        const url = selectedProduct
-            ? `http://localhost:5500/api/products/${selectedProduct._id}`
-            : 'http://localhost:5500/api/products';
-
-        const method = selectedProduct ? 'PUT' : 'POST';
-
-        try {
-            const response = await fetch(url, {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                if (selectedProduct) {
-                    // Update existing product
-                    setProducts((prevProducts) =>
-                        prevProducts.map((product) =>
-                            product._id === selectedProduct._id ? data : product
-                        )
-                    );
-                } else {
-                    // Add new product
-                    setProducts((prevProducts) => [...prevProducts, data]);
-                }
-
-                setSelectedProduct(null);
-            } else {
-                console.error('Response error:', response);
-                console.error('Data error:', data);
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-        }
+        onSubmit(formData);
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <h3>{selectedProduct ? 'Edit Product' : 'Add Product'}</h3>
-            {/* Add input fields and form controls for product details */}
-            <button type="submit">{selectedProduct ? 'Update' : 'Add'}</button>
+            <label>Name:</label>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+
+            <label>Description:</label>
+            <textarea name="description" value={formData.description} onChange={handleChange} required />
+
+            <label>Price:</label>
+            <input type="number" name="price" value={formData.price} onChange={handleChange} required />
+
+            <label>Category:</label>
+            <input type="text" name="category" value={formData.category} onChange={handleChange} required />
+
+            <label>Type:</label>
+            <input type="text" name="type" value={formData.type} onChange={handleChange} required />
+
+            <label>Brand:</label>
+            <input type="text" name="brand" value={formData.brand} onChange={handleChange} required />
+
+            <label>Characteristics:</label>
+            {formData.characteristics.map((char, index) => (
+                <div key={index}>
+                    <input
+                        type="text"
+                        value={char.name}
+                        onChange={(e) => handleCharacteristicChange(index, 'name', e.target.value)}
+                        placeholder="Characteristic Name"
+                    />
+                    <input
+                        type="text"
+                        value={char.value}
+                        onChange={(e) => handleCharacteristicChange(index, 'value', e.target.value)}
+                        placeholder="Characteristic Value"
+                    />
+                </div>
+            ))}
+            <button type="button" onClick={() => setFormData({ ...formData, characteristics: [...formData.characteristics, { name: '', value: '' }] })}>
+                Add Characteristic
+            </button>
+
+            <label>Images:</label>
+            {formData.images.map((image, index) => (
+                <div key={index}>
+                    <input
+                        type="text"
+                        value={image}
+                        onChange={(e) => handleImageChange(index, e.target.value)}
+                        placeholder="Image URL"
+                    />
+                </div>
+            ))}
+            <button type="button" onClick={() => setFormData({ ...formData, images: [...formData.images, ''] })}>
+                Add Image
+            </button>
+
+            <button type="submit">Submit</button>
+            <button type="button" onClick={onCancel}>
+                Cancel
+            </button>
         </form>
     );
 };
