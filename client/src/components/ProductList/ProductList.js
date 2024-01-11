@@ -239,7 +239,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products }) => {
                     searchKeyword
                         ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
                         product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                        product.brand.toLowerCase().includes(searchKeyword.toLowerCase())
+                        product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        product.type.toLowerCase().includes(searchKeyword.toLowerCase())
                         : true
             );
     };
