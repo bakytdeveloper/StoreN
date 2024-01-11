@@ -112,7 +112,7 @@ const AdminPanel = () => {
         } catch (error) {
             console.error('Error deleting product:', error);
         }
-    };
+    }
 
     const handleFormSubmit = async (formData) => {
         try {
