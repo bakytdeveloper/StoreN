@@ -294,10 +294,11 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products }) => {
                             title="Add to Cart"
                             onClick={() => handleAddToCart(product)}
                         >
-                            <img style={{ width: '15px', height: '15px' }} src={bas} alt="Cart" />
+                            <strong>+</strong>
+                            <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
                         </button>
                         <button className="buy-button" title="Buy Now">
-                            Buy
+                            Заказать
                         </button>
                     </div>
                 </div>

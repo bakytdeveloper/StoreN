@@ -120,6 +120,7 @@
     margin-top: 5px;
     width: 66px;
     height: auto;
+    padding-left: 0;
 
 }
 
@@ -141,11 +142,11 @@
 }
 
 .auth-button img:hover {
-    width: 34px;
     height: auto;
     text-align: center;
     margin-top: 2px;
     background: none;
+    color: red;
 
 }
 
