@@ -1,5 +1,6 @@
 // src/components/AdminPanel/ProductForm.js
 import React, { useState, useEffect } from 'react';
+import './ProductForm.css';
 
 const ProductForm = ({ product, onSubmit, onCancel }) => {
     const [formData, setFormData] = useState({
