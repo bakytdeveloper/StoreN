@@ -4,6 +4,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
+
+// Роуты
+const adminRoutes = require('./routes/adminRoutes'); // Добавлен импорт adminRoutes
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 dotenv.config();
 
 const app = express();
@@ -22,15 +29,14 @@ mongoose.connect(process.env.MONGODB_URI)
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 
-// Роуты
-const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes');
-const orderRoutes = require('./routes/orderRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/admin', adminRoutes); // Добавлен новый маршрут для администратора
+
 
 // Запуск сервера
 app.listen(PORT, () => {
