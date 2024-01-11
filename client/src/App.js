@@ -138,7 +138,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import LoginRegister from './components/LoginRegister/LoginRegister';
 import Profile from './components/Profile/Profile';
 import Cart from './components/Cart/Cart';
-import AdminPanel from "./components/Admin/AdminPanel";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
 
 const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
