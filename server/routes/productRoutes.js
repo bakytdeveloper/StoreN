@@ -124,6 +124,62 @@ router.get('/types/:category', async (req, res) => {
 });
 
 
+// Обновление информации о продукте по ID (только для администратора)
+router.put('/:id', async (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Permission denied' });
+    }
+
+    const { name, description, price, category, type, brand, characteristics, images } = req.body;
+
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(
+            req.params.id,
+            {
+                name,
+                description,
+                price,
+                category,
+                type,
+                brand,
+                characteristics,
+                images,
+            },
+            { new: true }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+// Удаление продукта по ID (только для администратора)
+router.delete('/:id', async (req, res) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Permission denied' });
+    }
+
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        res.json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
 
 
 module.exports = router;
