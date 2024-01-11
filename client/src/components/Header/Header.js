@@ -9,8 +9,12 @@ import tel from "./telegram.png";
 import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
 
-const Header = ({ onSearch }) => {
+import trol from './trolley.png'
+
+const Header = ({ onSearch, cartItems }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
@@ -45,8 +49,10 @@ const Header = ({ onSearch }) => {
             <div className="auth-buttons">
                 <Link to="/login" className="auth-button">Login/Register</Link>
                 <Link to="/profile" className="auth-button">Profile</Link>
-                <Link to="/cart" className="auth-button">Cart</Link>
+                {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>*/}
             </div>
+            <Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>
+
             <div className="search">
                 <input type="text"
 

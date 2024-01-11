@@ -187,6 +187,8 @@ const App = () => {
                                 setCartItems={setCartItems}
                                 products={products}
                                 showSidebar={showSidebar}
+                                setProducts={setProducts} // Передаем функцию setProducts
+
                             />
                         </Route>
                     </Switch>

@@ -43,14 +43,6 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>Name:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-
-            <label>Description:</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} required />
-
-            <label>Price:</label>
-            <input type="number" name="price" value={formData.price} onChange={handleChange} required />
 
             <label>Category:</label>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
@@ -60,6 +52,25 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
             <label>Brand:</label>
             <input type="text" name="brand" value={formData.brand} onChange={handleChange} required />
+
+
+            <label>Name:</label>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+
+            <label>Description:</label>
+            <textarea name="description" value={formData.description} onChange={handleChange} required />
+
+            <label>Price:</label>
+            <input type="number" name="price" value={formData.price} onChange={handleChange} required />
+
+            {/*<label>Category:</label>*/}
+            {/*<input type="text" name="category" value={formData.category} onChange={handleChange} required />*/}
+
+            {/*<label>Type:</label>*/}
+            {/*<input type="text" name="type" value={formData.type} onChange={handleChange} required />*/}
+
+            {/*<label>Brand:</label>*/}
+            {/*<input type="text" name="brand" value={formData.brand} onChange={handleChange} required />*/}
 
             <label>Characteristics:</label>
             {formData.characteristics.map((char, index) => (
