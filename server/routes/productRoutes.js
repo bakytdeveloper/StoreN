@@ -126,9 +126,9 @@ router.get('/types/:category', async (req, res) => {
 
 // Обновление информации о продукте по ID (только для администратора)
 router.put('/:id', async (req, res) => {
-    // if (req.user.role !== 'admin') {
-    //     return res.status(403).json({ message: 'Permission denied' });
-    // }
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Permission denied' });
+    }
 
     const { name, description, price, category, type, brand, characteristics, images } = req.body;
 
