@@ -13,7 +13,7 @@ const CheckoutForm = ({ onSubmit }) => {
     const handleSubmit = () => {
         // Проверьте, что введены все необходимые данные
         if (!firstName || !lastName || !email || !address || !phoneNumber || !paymentMethod) {
-            alert('Please enter all required information');
+            alert('Пожалуйста, введите всю необходимую информацию');
             return;
         }
 
@@ -31,20 +31,20 @@ const CheckoutForm = ({ onSubmit }) => {
 
     return (
         <div>
-            <h2>Checkout</h2>
-            <label>First Name:</label>
+            <h2>Оформите заказ</h2>
+            <label>Имя:</label>
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            <label>Last Name:</label>
+            <label>Фамилия:</label>
             <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
             <label>Email:</label>
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <label>Address:</label>
+            <label>Адрес доставки:</label>
             <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
-            <label>Phone Number:</label>
+            <label>Номер телефона:</label>
             <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <label>Payment Method:</label>
+            <label>Способ оплаты:</label>
             <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
-            <label>Comments:</label>
+            <label>Комментарии:</label>
             <textarea value={comments} onChange={(e) => setComments(e.target.value)} />
 
             <button onClick={handleSubmit}>Place Order</button>

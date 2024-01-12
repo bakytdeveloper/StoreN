@@ -202,7 +202,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         <div className="cart">
             <h2>Корзина</h2>
             {cartItems.length === 0 ? (
-                <p>Your cart is empty</p>
+                <p>Ваша корзина пуста</p>
             ) : (
                 <div>
                     {cartItems.map((item) => (
@@ -230,7 +230,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                     <div> Сумма: </div>
                                     <span>{(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
-                                <button onClick={() => handleRemoveItem(item.productId)}>Remove</button>
+                                <button onClick={() => handleRemoveItem(item.productId)}>Удалить</button>
                             </div>
                         </div>
                     ))}
@@ -239,9 +239,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             <span>Общая сумма: </span>
                             <span>{totalPrice.toFixed(2)}</span>
                         </div>
-                        <button onClick={handleCheckout}>Order</button>
-                        <button onClick={() => setCartItems([])}>Clear Cart</button>
-                        <button onClick={handleBackToShopping}>Back to Shopping</button>
+                        <button onClick={handleCheckout}>Оформить заказ</button>
+                        <button onClick={() => setCartItems([])}>Очистить корзину</button>
+                        <button onClick={handleBackToShopping}>Вернуться к покупкам</button>
                     </div>
                 </div>
             )}
