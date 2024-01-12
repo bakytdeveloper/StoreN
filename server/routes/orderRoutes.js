@@ -56,22 +56,25 @@ const router = express.Router();
 const Order = require('../models/Order');
 const User = require("../models/User");
 
+
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
-    const { user, guestInfo, products, totalAmount } = req.body;
+    const { user, guestInfo, products, totalAmount, paymentMethod, comments } = req.body;
 
     // Если пользователь гость, проверим наличие необходимых данных
     if (!user && (!req.user || req.user.role === 'guest')) {
-        if (!guestInfo || !guestInfo.name || !guestInfo.email) {
+        if (!guestInfo || !guestInfo.name || !guestInfo.email || !guestInfo.address || !guestInfo.phoneNumber) {
             return res.status(400).json({ message: 'Guest information is incomplete' });
         }
     }
 
     const order = new Order({
         user,
-        guestInfo: user ? undefined : guestInfo, // Используем информацию о госте, если пользователь не зарегистрирован
+        guestInfo: user ? undefined : guestInfo,
         products,
         totalAmount,
+        paymentMethod,
+        comments,
     });
 
     try {
@@ -87,6 +90,7 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
 
 
 
