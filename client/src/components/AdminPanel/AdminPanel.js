@@ -65,11 +65,17 @@
 import React, { useState, useEffect } from 'react';
 import ProductForm from './ProductForm';
 import './AdminPanel.css';
+import {useHistory} from "react-router-dom";
 
 const AdminPanel = () => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const history = useHistory();
+
+    const handleViewOrders = () => {
+        history.push('/orders/orders');
+    };
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -162,7 +168,8 @@ const AdminPanel = () => {
 
     return (
         <div className="admin-panel">
-            <h2>Admin Panel</h2>
+            <h2>Админ панель</h2>
+            <button onClick={handleViewOrders}>Просмотреть заказы</button>
             <div className="admin-product-list">
                 {products.map((product) => (
                     <div key={product._id} className="admin-product-item">

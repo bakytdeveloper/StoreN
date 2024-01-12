@@ -59,7 +59,7 @@ const User = require("../models/User");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
-    const { user, guestInfo, products, totalAmount, paymentMethod, comments } = req.body;
+    const { user, guestInfo, products, totalAmount, firstName, lastName, address, phoneNumber, paymentMethod, comments } = req.body;
 
     // Если пользователь гость, проверим наличие необходимых данных
     if (!user && (!req.user || req.user.role === 'guest')) {
@@ -68,11 +68,17 @@ router.post('/', async (req, res) => {
         }
     }
 
+
     const order = new Order({
         user,
         guestInfo: user ? undefined : guestInfo,
+        cart: [],
         products,
         totalAmount,
+        firstName,
+        lastName,
+        address,
+        phoneNumber,
         paymentMethod,
         comments,
     });
@@ -162,6 +168,20 @@ router.get('/my-orders', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// Получение списка всех заказов для администратора
+router.get('/orders', async (req, res) => {
+    try {
+        const orders = await Order.find().populate('user').populate('cart.product');
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
 
 module.exports = router;
 

@@ -139,6 +139,7 @@ import LoginRegister from './components/LoginRegister/LoginRegister';
 import Profile from './components/Profile/Profile';
 import Cart from './components/Cart/Cart';
 import AdminPanel from "./components/AdminPanel/AdminPanel";
+import OrderList from "./components/AdminPanel/OrderList";
 
 const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -179,9 +180,9 @@ const App = () => {
                             />
                         </Route>
 
-                        {/*<Route path="/orders">*/}
-                        {/*    <Orders />*/}
-                        {/*</Route>*/}
+                        <Route path="/orders/orders">
+                            <OrderList />
+                        </Route>
 
                         <Route path="/admin">
                             <AdminPanel /> {/* Добавлен маршрут для администраторской панели */}
