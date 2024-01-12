@@ -121,10 +121,10 @@ const OrderList = () => {
                         <td>{order.guestInfo ? order.guestInfo.email : '-'}</td>
                         <td>{order.guestInfo ? order.guestInfo.address : '-'}</td>
                         <td>{order.guestInfo ? order.guestInfo.phoneNumber : '-'}</td>
-                        <td>{order.guestInfo ? order.guestInfo.paymentMethod : '-'}</td>
-                        <td>{order.guestInfo ? order.guestInfo.comments : '-'}</td>
+                        <td>{order.guestInfo ? order.paymentMethod : '-'}</td>
+                        <td>{order.guestInfo ? order.comments : '-'}</td>
                         <td>
-                            {order.cart.map((item) => (
+                            {order.products.map((item) => (
                                 <p key={item.product._id}>
                                     {item.product.name} (Количество: {item.quantity})
                                 </p>
