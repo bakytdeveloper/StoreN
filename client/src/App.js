@@ -158,7 +158,11 @@ const App = () => {
                     {showSidebar && <Sidebar setProducts={setProducts} />}
                     <Switch>
                         <Route path="/products/:productId">
-                            <ProductDetails  setShowSidebar={setShowSidebar} />
+                            <ProductDetails
+                                // setShowSidebar={setShowSidebar}
+                                             setShowSidebar={() => {}} // Передаем заглушку для setShowSidebar
+                                             cartItems={cartItems}
+                                             setCartItems={setCartItems}/>
                         </Route>
                         <Route path="/login">
                             <LoginRegister />
