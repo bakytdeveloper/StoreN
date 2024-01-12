@@ -179,6 +179,10 @@ const App = () => {
                             />
                         </Route>
 
+                        {/*<Route path="/orders">*/}
+                        {/*    <Orders />*/}
+                        {/*</Route>*/}
+
                         <Route path="/admin">
                             <AdminPanel /> {/* Добавлен маршрут для администраторской панели */}
                         </Route>

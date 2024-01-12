@@ -112,21 +112,21 @@ import React, { useState, useEffect } from 'react';
 import './Cart.css';
 import { useHistory } from 'react-router-dom';
 
+import CheckoutForm from '../Checkout/CheckoutForm';
+
 const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [totalPrice, setTotalPrice] = useState(0);
+    const [showCheckout, setShowCheckout] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
         setShowSidebar(false);
-        // Очищаем флаг при размонтировании компонента
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
-    // Функция для изменения количества товара в корзине
     const handleQuantityChange = (productId, newQuantity) => {
         const updatedCart = cartItems.map((item) => {
             if (item.productId === productId) {
-                // Проверка на уменьшение значения ниже нуля
                 const validQuantity = Math.max(newQuantity, 0);
                 return { ...item, quantity: validQuantity };
             }
@@ -135,27 +135,68 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         setCartItems(updatedCart);
     };
 
-    // Функция для удаления товара из корзины
     const handleRemoveItem = (productId) => {
         const updatedCart = cartItems.filter((item) => item.productId !== productId);
         setCartItems(updatedCart);
         if (updatedCart.length === 0) {
-            history.push('/products'); // Замените на нужный URL вашей страницы с товарами
+            history.push('/products');
         }
     };
 
-    // Функция для расчета общей стоимости товаров в корзине
+    const handleBackToShopping = () => {
+        history.push('/products');
+    };
+
+    const handleCheckout = () => {
+        setShowCheckout(true);
+    };
+
+    const handlePlaceOrder = async (userData) => {
+        try {
+            const response = await fetch('http://localhost:5500/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: null, // Здесь вы можете добавить логику для передачи пользователя, если он зарегистрирован
+                    guestInfo: {
+                        name: `${userData.firstName} ${userData.lastName}`,
+                        email: userData.email,
+                        address: userData.address,
+                        phoneNumber: userData.phoneNumber,
+                    },
+                    products: cartItems.map((item) => ({ product: item.productId, quantity: item.quantity })),
+                    totalAmount: totalPrice,
+                    paymentMethod: userData.paymentMethod,
+                    comments: userData.comments,
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Order placed successfully:', data);
+
+                // Очистите корзину после успешного заказа
+                setCartItems([]);
+                history.push('/products');
+            } else {
+                console.error('Failed to place order');
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+        }
+    };
+
+
     useEffect(() => {
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         setTotalPrice(total);
         if (cartItems.length === 0) {
-            history.push('/products'); // Замените на нужный URL вашей страницы с товарами
+            history.push('/products');
         }
     }, [cartItems, history]);
 
-    const handleBackToShopping = () => {
-        history.push('/products'); // Замените на нужный URL вашей страницы с товарами
-    };
 
     return (
         <div className="cart">
@@ -198,11 +239,15 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             <span>Общая сумма: </span>
                             <span>{totalPrice.toFixed(2)}</span>
                         </div>
-                        <button>Order</button>
+                        <button onClick={handleCheckout}>Order</button>
                         <button onClick={() => setCartItems([])}>Clear Cart</button>
                         <button onClick={handleBackToShopping}>Back to Shopping</button>
                     </div>
                 </div>
+            )}
+
+            {showCheckout && (
+                <CheckoutForm onSubmit={handlePlaceOrder} />
             )}
         </div>
     );

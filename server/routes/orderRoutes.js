@@ -58,18 +58,18 @@ const User = require("../models/User");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
-    const { user, products, totalAmount } = req.body;
+    const { user, guestInfo, products, totalAmount } = req.body;
 
     // Если пользователь гость, проверим наличие необходимых данных
     if (!user && (!req.user || req.user.role === 'guest')) {
-        if (!req.body.guestInfo || !req.body.guestInfo.name || !req.body.guestInfo.email) {
+        if (!guestInfo || !guestInfo.name || !guestInfo.email) {
             return res.status(400).json({ message: 'Guest information is incomplete' });
         }
     }
 
     const order = new Order({
         user,
-        guestInfo: user ? undefined : req.body.guestInfo, // Используем информацию о госте, если пользователь не зарегистрирован
+        guestInfo: user ? undefined : guestInfo, // Используем информацию о госте, если пользователь не зарегистрирован
         products,
         totalAmount,
     });
@@ -87,6 +87,8 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
+
 
 // Добавление товара в корзину (для гостей и зарегистрированных пользователей)
 router.post('/add-to-cart', async (req, res) => {
