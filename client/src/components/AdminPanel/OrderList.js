@@ -122,7 +122,7 @@ const OrderList = () => {
                         <td>{order.guestInfo ? order.guestInfo.address : '-'}</td>
                         <td>{order.guestInfo ? order.guestInfo.phoneNumber : '-'}</td>
                         <td>{order.guestInfo ? order.paymentMethod : '-'}</td>
-                        <td>{order.guestInfo ? order.comments : '-'}</td>
+                        <td><textarea>{order.guestInfo ? order.comments : '-'}</textarea></td>
                         <td>
                             {order.products.map((item) => (
                                 <p key={item.product._id}>
