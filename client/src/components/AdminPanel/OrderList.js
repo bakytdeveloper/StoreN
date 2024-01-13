@@ -126,7 +126,7 @@ const OrderList = () => {
                         <td>
                             {order.products.map((item) => (
                                 <p key={item.product._id}>
-                                    {item.product.name} (Количество: {item.quantity})
+                                    {item.product.type} (Количество: {item.quantity})
                                 </p>
                             ))}
                         </td>

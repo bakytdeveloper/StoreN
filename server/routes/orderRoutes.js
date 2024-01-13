@@ -140,7 +140,11 @@ router.post('/add-to-cart', async (req, res) => {
             order.cart[existingCartItemIndex].quantity += quantity;
         } else {
             // Если товара еще нет в корзине, добавим его
+            // order.products.push({ product, quantity });
+
             order.cart.push({ product, quantity });
+            order.products.push({ product, quantity });
+
         }
 
         // Подсчитаем общую стоимость корзины
@@ -172,7 +176,8 @@ router.get('/my-orders', async (req, res) => {
 // Получение списка всех заказов для администратора
 router.get('/orders', async (req, res) => {
     try {
-        const orders = await Order.find().populate('user').populate('cart.product');
+        const orders = await Order.find().populate('user').populate('products.product');
+        // const orders = await Order.find().populate('user').populate('cart.product');
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
