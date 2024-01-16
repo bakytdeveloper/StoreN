@@ -100,7 +100,7 @@ const orderSchema = new mongoose.Schema({
     guestInfo: {
         name: { type: String },
         email: { type: String },
-        lastName: { type: String }, // Добавлено поле для фамилии
+        // lastName: { type: String }, // Добавлено поле для фамилии
         address: { type: String }, // Добавлено поле для адреса доставки
         phoneNumber: { type: String }, // Добавлено поле для номера телефона
     },

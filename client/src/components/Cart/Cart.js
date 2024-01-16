@@ -119,6 +119,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [showCheckout, setShowCheckout] = useState(false);
     const history = useHistory();
 
+
     useEffect(() => {
         setShowSidebar(false);
         return () => setShowSidebar(true);

@@ -59,7 +59,7 @@ const User = require("../models/User");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
-    const { user, guestInfo, products, totalAmount, firstName, lastName, address, phoneNumber, paymentMethod, comments } = req.body;
+    const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
 
     // Если пользователь гость, проверим наличие необходимых данных
     if (!user && (!req.user || req.user.role === 'guest')) {
@@ -76,7 +76,7 @@ router.post('/', async (req, res) => {
         products,
         totalAmount,
         firstName,
-        lastName,
+        // lastName,
         address,
         phoneNumber,
         paymentMethod,

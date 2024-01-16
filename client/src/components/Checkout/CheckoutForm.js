@@ -20,7 +20,6 @@ const CheckoutForm = ({ onSubmit }) => {
         // Вызовите функцию onSubmit с введенными данными
         onSubmit({
             firstName,
-            lastName,
             email,
             address,
             phoneNumber,
@@ -34,8 +33,8 @@ const CheckoutForm = ({ onSubmit }) => {
             <h2>Оформите заказ</h2>
             <label>Имя:</label>
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            <label>Фамилия:</label>
-            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            {/*<label>Фамилия:</label>*/}
+            {/*<input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />*/}
             <label>Email:</label>
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
             <label>Адрес доставки:</label>
