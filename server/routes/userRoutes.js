@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Order = require('../models/Order');
+const authenticateToken = require("../middleware/authenticateToken");
 
 
 // // Регистрация нового пользователя
@@ -80,6 +81,8 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        /** @type {Object} */
+
         const user = await User.findOne({ email });
 
         if (!user) {
@@ -101,7 +104,7 @@ router.post('/login', async (req, res) => {
 
         // Создаем токен для пользователя
         const token = jwt.sign({ userId: user._id, email: user.email, role }, process.env.SECRET_KEY);
-
+        console.log(token, role)
         res.json({ user, token, success: true });
     } catch (error) {
         res.status(500).json({ message: error.message, success: false });
@@ -138,20 +141,44 @@ router.post('/login', async (req, res) => {
 // });
 
 
-// Получение информации о текущем пользователе
-router.get('/profile', async (req, res) => {
-    try {
-        // Проверка наличия аутентифицированного пользователя
-        if (!req.user) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
+// // Получение информации о текущем пользователе
+// router.get('/profile', async (req, res) => {
+//     try {
+//         // Проверка наличия аутентифицированного пользователя
+//         if (!req.user) {
+//             return res.status(401).json({ message: 'Unauthorized' });
+//         }
+//
+//         const user = await User.findById(req.user._id).select('-password');
+//         res.json(user);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
-        const user = await User.findById(req.user._id).select('-password');
+
+
+// Получение информации о текущем пользователе
+// Получение информации о текущем пользователе
+router.get('/profile', authenticateToken, async (req, res) => {
+    try {
+        // Теперь req.user должен быть установлен после прохождения middleware
+        const user = await User.findById(req.user.userId).select('-password');
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
 
 // Обновление информации о текущем пользователе
 router.patch('/profile', async (req, res) => {
