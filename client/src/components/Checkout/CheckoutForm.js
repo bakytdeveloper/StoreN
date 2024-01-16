@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const CheckoutForm = ({ onSubmit }) => {
     const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    // const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -12,7 +12,7 @@ const CheckoutForm = ({ onSubmit }) => {
 
     const handleSubmit = () => {
         // Проверьте, что введены все необходимые данные
-        if (!firstName || !lastName || !email || !address || !phoneNumber || !paymentMethod) {
+        if (!firstName || !email || !address || !phoneNumber || !paymentMethod) {
             alert('Пожалуйста, введите всю необходимую информацию');
             return;
         }

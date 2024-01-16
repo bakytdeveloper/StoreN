@@ -162,7 +162,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 body: JSON.stringify({
                     user: null, // Здесь вы можете добавить логику для передачи пользователя, если он зарегистрирован
                     guestInfo: {
-                        name: `${userData.firstName} ${userData.lastName}`,
+                        name: `${userData.firstName}`,
                         email: userData.email,
                         address: userData.address,
                         phoneNumber: userData.phoneNumber,
