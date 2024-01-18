@@ -56,27 +56,91 @@ const router = express.Router();
 const Order = require('../models/Order');
 const User = require("../models/User");
 
+//
+// // Создание нового заказа (для гостей и зарегистрированных пользователей)
+// router.post('/', async (req, res) => {
+//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
+//
+//     // Если пользователь гость, проверим наличие необходимых данных
+//     if (!user && (!req.user || req.user.role === 'guest')) {
+//         if (!guestInfo || !guestInfo.name || !guestInfo.email || !guestInfo.address || !guestInfo.phoneNumber) {
+//             return res.status(400).json({ message: 'Guest information is incomplete' });
+//         }
+//     }
+//
+//
+//     const order = new Order({
+//         user,
+//         guestInfo: user ? undefined : guestInfo,
+//         cart: [],
+//         products,
+//         totalAmount,
+//         firstName,
+//         // lastName,
+//         address,
+//         phoneNumber,
+//         paymentMethod,
+//         comments,
+//     });
+//
+//     try {
+//         const newOrder = await order.save();
+//
+//         // Если пользователь - зарегистрированный клиент, добавим заказ в его историю
+//         if (user && user.role === 'customer') {
+//             await User.findByIdAndUpdate(user, { $push: { orders: newOrder._id } });
+//         }
+//
+//         res.status(201).json(newOrder);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+
+
+
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
+    console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
 
-    // Если пользователь гость, проверим наличие необходимых данных
-    if (!user && (!req.user || req.user.role === 'guest')) {
-        if (!guestInfo || !guestInfo.name || !guestInfo.email || !guestInfo.address || !guestInfo.phoneNumber) {
-            return res.status(400).json({ message: 'Guest information is incomplete' });
+    let userId;
+
+    if (user) {
+        let existingUser;
+        try {
+            existingUser = await User.findOne({ email: user.email });
+        } catch (error) {
+            console.error('Error finding user:', error);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+
+        if (existingUser) {
+            userId = existingUser._id;
+        } else {
+            const newUser = new User({
+                name: user.firstName,
+                email: user.email,
+            });
+
+            try {
+                const savedUser = await newUser.save();
+                userId = savedUser._id;
+            } catch (error) {
+                console.error('Error creating new user:', error);
+                return res.status(500).json({ message: 'Internal Server Error' });
+            }
         }
     }
 
-
     const order = new Order({
-        user,
-        guestInfo: user ? undefined : guestInfo,
+        user: userId || null, // Если нет зарегистрированного пользователя, используем null
+        guestInfo: userId ? undefined : guestInfo, // Если есть зарегистрированный пользователь, не используем guestInfo
         cart: [],
         products,
         totalAmount,
         firstName,
-        // lastName,
         address,
         phoneNumber,
         paymentMethod,
@@ -85,14 +149,12 @@ router.post('/', async (req, res) => {
 
     try {
         const newOrder = await order.save();
-
-        // Если пользователь - зарегистрированный клиент, добавим заказ в его историю
-        if (user && user.role === 'customer') {
-            await User.findByIdAndUpdate(user, { $push: { orders: newOrder._id } });
+        if (userId) {
+            await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
         }
-
         res.status(201).json(newOrder);
     } catch (error) {
+        console.error('Error placing order:', error);
         res.status(400).json({ message: error.message });
     }
 });
@@ -100,8 +162,16 @@ router.post('/', async (req, res) => {
 
 
 
+
+
+
+
+
+
 // Добавление товара в корзину (для гостей и зарегистрированных пользователей)
 router.post('/add-to-cart', async (req, res) => {
+    console.log('Received add-to-cart request:', req.body); // Добавим лог для отслеживания запроса
+
     const { user, guestInfo, product, quantity } = req.body;
 
     // Если пользователь гость, проверим наличие необходимых данных
@@ -161,6 +231,8 @@ router.post('/add-to-cart', async (req, res) => {
 
 // Получение списка заказов для зарегистрированных пользователей
 router.get('/my-orders', async (req, res) => {
+    console.log('Received my-orders request'); // Добавим лог для отслеживания запроса
+
     if (req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
     }

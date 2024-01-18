@@ -192,17 +192,17 @@ const LoginRegister = () => {
     const [name, setName] = useState('');
     const [isRegisterMode, setRegisterMode] = useState(false);
 
-    const history = useHistory();
+    const history = useHistory()
 
-    useEffect(() => {
-        // Проверяем, является ли введенный email и password учетными данными администратора
-        if (email === 'admin@gmail.com' && password === 'admin') {
-            // Автоматический вход для администратора
-            localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
-            toast.success('Successfully logged in as admin');
-            history.push('/admin'); // Перейти на страницу администратора
-        }
-    }, [email, password, history]);
+    // useEffect(() => {
+    //     // Проверяем, является ли введенный email и password учетными данными администратора
+    //     if (email === 'admin@gmail.com' && password === 'admin') {
+    //         // Автоматический вход для администратора
+    //         localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
+    //         toast.success('Successfully logged in as admin');
+    //         history.push('/admin'); // Перейти на страницу администратора
+    //     }
+    // }, [email, password, history]);
 
 
     const handleLoginRegister = async () => {

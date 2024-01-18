@@ -152,20 +152,62 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         setShowCheckout(true);
     };
 
+    // const handlePlaceOrder = async (userData) => {
+    //     try {
+    //         const response = await fetch('http://localhost:5500/api/orders', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 user: null, // Здесь вы можете добавить логику для передачи пользователя, если он зарегистрирован
+    //                 guestInfo: {
+    //                     name: `${userData.firstName}`,
+    //                     email: userData.email,
+    //                     address: userData.address,
+    //                     phoneNumber: userData.phoneNumber,
+    //                 },
+    //                 products: cartItems.map((item) => ({ product: item.productId, quantity: item.quantity })),
+    //                 totalAmount: totalPrice,
+    //                 paymentMethod: userData.paymentMethod,
+    //                 comments: userData.comments,
+    //             }),
+    //         });
+    //
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             console.log('Order placed successfully:', data);
+    //
+    //             // Очистите корзину после успешного заказа
+    //             setCartItems([]);
+    //             history.push('/products');
+    //         } else {
+    //             console.error('Failed to place order');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error placing order:', error);
+    //     }
+    // };
+
+
+
     const handlePlaceOrder = async (userData) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:5500/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    user: null, // Здесь вы можете добавить логику для передачи пользователя, если он зарегистрирован
-                    guestInfo: {
-                        name: `${userData.firstName}`,
+                    user: token ? userData : null,
+                    guestInfo: token ? undefined : {
+                        name: userData.firstName,
                         email: userData.email,
                         address: userData.address,
                         phoneNumber: userData.phoneNumber,
+                        password: userData.password,  // Добавьте пароль для гостя
                     },
                     products: cartItems.map((item) => ({ product: item.productId, quantity: item.quantity })),
                     totalAmount: totalPrice,
@@ -173,7 +215,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     comments: userData.comments,
                 }),
             });
-
             if (response.ok) {
                 const data = await response.json();
                 console.log('Order placed successfully:', data);
@@ -188,6 +229,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             console.error('Error placing order:', error);
         }
     };
+
+
+
+
 
 
     useEffect(() => {

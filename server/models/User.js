@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     profile: {
         name: { type: String },
         address: { type: String },
+        phoneNumber: { type: String },
         // Дополнительные поля профиля
     },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
