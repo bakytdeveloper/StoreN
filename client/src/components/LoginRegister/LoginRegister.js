@@ -208,6 +208,17 @@ const LoginRegister = () => {
     const handleLoginRegister = async () => {
         const url = isRegisterMode ? 'http://localhost:5500/api/users/register' : 'http://localhost:5500/api/users/login';
 
+
+            // Проверяем, является ли введенный email и password учетными данными администратора
+            if (email === 'admin@gmail.com' && password === 'admin') {
+                // Автоматический вход для администратора
+                localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
+                toast.success('Successfully logged in as admin');
+                history.push('/admin'); // Перейти на страницу администратора
+            }
+
+
+
         try {
             const response = await fetch(url, {
                 method: 'POST',

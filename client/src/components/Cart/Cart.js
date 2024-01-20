@@ -205,10 +205,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     guestInfo: token ? undefined : {
                         name: userData.firstName,
                         email: userData.email,
-                        address: userData.address,
-                        phoneNumber: userData.phoneNumber,
+                        // address: userData.address,
+                        // phoneNumber: userData.phoneNumber,
                         password: userData.password,  // Добавьте пароль для гостя
                     },
+                    address: userData.address,
+                    phoneNumber: userData.phoneNumber,
                     products: cartItems.map((item) => ({ product: item.productId, quantity: item.quantity })),
                     totalAmount: totalPrice,
                     paymentMethod: userData.paymentMethod,
