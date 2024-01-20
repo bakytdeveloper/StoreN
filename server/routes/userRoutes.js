@@ -75,86 +75,84 @@ router.post('/register', async (req, res) => {
 
 
 
+//
+// // Аутентификация пользователя
+// router.post('/login', async (req, res) => {
+//     const { email, password } = req.body;
+//
+//     try {
+//         /** @type {Object} */
+//
+//         const user = await User.findOne({ email });
+//
+//         if (!user) {
+//             return res.status(401).json({ message: 'Неверно указанны учетные данные' });
+//         }
+//
+//         const isPasswordValid = await bcrypt.compare(password, user.password);
+//
+//         if (!isPasswordValid) {
+//             return res.status(401).json({ message: 'Неверно указанны учетные данные' });
+//         }
+//
+//         let role = user.role;
+//
+//         // Добавим проверку для администратора
+//         if (email === 'admin@gmail.com' && password === 'admin') {
+//             name = "Admin";
+//             role = 'admin';
+//         }
+//
+//         // Создаем токен для пользователя
+//         const token = jwt.sign({ userId: user._id, email: user.email, role }, process.env.SECRET_KEY);
+//         console.log(token, role)
+//         res.json({ user, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
+
+
+
 
 // Аутентификация пользователя
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        /** @type {Object} */
-
-        const user = await User.findOne({ email });
-
-        if (!user) {
-            return res.status(401).json({ message: 'Неверно указанны учетные данные' });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Неверно указанны учетные данные' });
-        }
-
-        let role = user.role;
+        let user;
 
         // Добавим проверку для администратора
         if (email === 'admin@gmail.com' && password === 'admin') {
-            role = 'admin';
+            // Если введенные данные администратора
+            const adminRole = 'admin';
+            const adminToken = jwt.sign({ email, role: adminRole }, process.env.SECRET_KEY);
+
+            return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
+        } else {
+            // Поиск пользователя
+            user = await User.findOne({ email });
+
+            if (!user) {
+                return res.status(401).json({ message: 'Неверно указанны учетные данные' });
+            }
+
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: 'Неверно указанны учетные данные' });
+            }
         }
 
         // Создаем токен для пользователя
-        const token = jwt.sign({ userId: user._id, email: user.email, role }, process.env.SECRET_KEY);
-        console.log(token, role)
+        const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, process.env.SECRET_KEY);
+        console.log(token, user.role);
         res.json({ user, token, success: true });
     } catch (error) {
         res.status(500).json({ message: error.message, success: false });
     }
 });
 
-
-
-
-// // Аутентификация пользователя
-// router.post('/login', async (req, res) => {
-//     const { email, password } = req.body;
-//
-//     try {
-//         const user = await User.findOne({ email });
-//
-//         if (!user) {
-//             return res.status(401).json({ message: 'Invalid credentials' });
-//         }
-//
-//         const isPasswordValid = await bcrypt.compare(password, user.password);
-//
-//         if (!isPasswordValid) {
-//             return res.status(401).json({ message: 'Invalid credentials' });
-//         }
-//
-//         // Создаем токен для пользователя
-//         const token = jwt.sign({ user }, process.env.SECRET_KEY);
-//
-//         res.json({ user, token });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-// // Получение информации о текущем пользователе
-// router.get('/profile', async (req, res) => {
-//     try {
-//         // Проверка наличия аутентифицированного пользователя
-//         if (!req.user) {
-//             return res.status(401).json({ message: 'Unauthorized' });
-//         }
-//
-//         const user = await User.findById(req.user._id).select('-password');
-//         res.json(user);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 
 
