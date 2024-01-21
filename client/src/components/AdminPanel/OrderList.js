@@ -122,7 +122,9 @@ const OrderList = () => {
                         <td>{order.address ? order.address : '-'}</td>
                         <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
                         <td>{order.user ? order.paymentMethod : '-'}</td>
-                        <td><textarea>{order.comments ? order.comments : '-'}</textarea></td>
+                        <td><textarea defaultValue={order.comments ? order.comments : '-'}></textarea></td>
+
+                        {/*<td><textarea>{order.comments ? order.comments : '-'}</textarea></td>*/}
                         <td>
                             {order.products.map((item) => (
                                 <p key={item.product._id}>

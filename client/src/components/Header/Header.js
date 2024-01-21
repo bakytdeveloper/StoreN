@@ -14,7 +14,7 @@ import trol from './trolley.png'
 const Header = ({ onSearch, cartItems }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-    // const history = useHistory();
+    const history = useHistory();
 
 
     const handleSearchChange = (e) => {
@@ -27,13 +27,10 @@ const Header = ({ onSearch, cartItems }) => {
         // Проверка наличия товаров в корзине
         if (totalItems > 0) {
             // Перейти на страницу корзины
-            // Можете изменить "/cart" на ваш путь к корзине
-            // В данном примере я использовал "/"
-            window.location.href = "/cart";
+            history.push("/cart");
         } else {
             // Перейти на главную страницу, если корзина пуста
-            // Можете изменить "/" на ваш путь к главной странице
-            window.location.href = "/";
+            history.push("/");
         }
     };
 
@@ -62,7 +59,7 @@ const Header = ({ onSearch, cartItems }) => {
             </div>
             <div className="auth-buttons">
                 <Link to="/login" className="auth-button">Login/Register</Link>
-                <Link to="/profile" className="auth-button btn">
+                <Link to="/profile" className="auth-button btns">
                     <img src={profileIcon} alt="profileIcon"/>
                 </Link>
                 {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>*/}

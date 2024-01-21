@@ -162,6 +162,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
     try {
         // Теперь req.user должен быть установлен после прохождения middleware
         const user = await User.findById(req.user.userId).select('-password');
+        console.log(...user)
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
