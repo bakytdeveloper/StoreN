@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react';
 import './Header.css';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import ins from "./instagram.png";
 import tel from "./telegram.png";
@@ -14,12 +14,27 @@ import trol from './trolley.png'
 const Header = ({ onSearch, cartItems }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const history = useHistory();
 
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
         onSearch(value);
+    };
+
+    const handleCartClick = () => {
+        // Проверка наличия товаров в корзине
+        if (totalItems > 0) {
+            // Перейти на страницу корзины
+            // Можете изменить "/cart" на ваш путь к корзине
+            // В данном примере я использовал "/"
+            window.location.href = "/cart";
+        } else {
+            // Перейти на главную страницу, если корзина пуста
+            // Можете изменить "/" на ваш путь к главной странице
+            window.location.href = "/";
+        }
     };
 
     return (
@@ -41,7 +56,6 @@ const Header = ({ onSearch, cartItems }) => {
                         <img className="icon" src={ins} alt="Instagram Icon" />
                     </a>
                     <a className="icon"  href="https://web.telegram.org/">
-                    {/*<a className="icon"  href="https://web.telegram.org/" target="_blank">*/}
                         <img src={tel} alt="Instagram Icon" />
                     </a>
                 </div>
@@ -51,7 +65,8 @@ const Header = ({ onSearch, cartItems }) => {
                 <Link to="/profile" className="auth-button">Profile</Link>
                 {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>*/}
             </div>
-            <Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>
+            <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
+            {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>*/}
 
             <div className="search">
                 <input type="text"

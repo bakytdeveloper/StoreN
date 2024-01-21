@@ -156,8 +156,14 @@ const App = () => {
             <div className="app">
                 <Header onSearch={handleSearch} cartItems={cartItems} />
                 <div className="main-content">
-                    {showSidebar && <Sidebar setProducts={setProducts} />}
+                    {/*{showSidebar && <Sidebar setProducts={setProducts} />}*/}
+
+                    <Route exact path="/">
+                        {showSidebar && <Sidebar setProducts={setProducts} />}
+                    </Route>
+
                     <Switch>
+
                         <Route path="/products/:productId">
                             <ProductDetails
                                 // setShowSidebar={setShowSidebar}
