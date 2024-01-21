@@ -65,6 +65,7 @@ const Header = ({ onSearch, cartItems }) => {
                 <Link to="/profile" className="auth-button">Profile</Link>
                 {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>*/}
             </div>
+            
             <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
             {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>*/}
 
