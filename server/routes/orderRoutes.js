@@ -55,6 +55,7 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
 const User = require("../models/User");
+const authenticateToken = require("../middleware/authenticateToken");
 
 //
 // // Создание нового заказа (для гостей и зарегистрированных пользователей)
@@ -122,6 +123,7 @@ router.post('/', async (req, res) => {
             const newUser = new User({
                 name: user.firstName,
                 email: user.email,
+                address: user.address
             });
 
             try {
@@ -151,6 +153,7 @@ router.post('/', async (req, res) => {
         const newOrder = await order.save();
         if (userId) {
             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
+            // console.log('U S E R', user )
         }
         res.status(201).json(newOrder);
     } catch (error) {
@@ -230,10 +233,10 @@ router.post('/add-to-cart', async (req, res) => {
 });
 
 // Получение списка заказов для зарегистрированных пользователей
-router.get('/my-orders', async (req, res) => {
+router.get('/my-orders', authenticateToken, async (req, res) => {
     console.log('Received my-orders request'); // Добавим лог для отслеживания запроса
 
-    if (req.user.role === 'guest') {
+    if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
     }
 

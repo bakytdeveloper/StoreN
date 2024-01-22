@@ -399,8 +399,8 @@ const LoginRegister = () => {
             </button>
             <p onClick={() => setRegisterMode(!isRegisterMode)}>
                 {isRegisterMode
-                    ? 'Already have an account? Login here.'
-                    : "Don't have an account? Register here."}
+                    ? 'У вас уже есть аккаунт? Войдите здесь.'
+                    : "У вас нет учетной записи? Зарегистрируйтесь здесь."}
             </p>
             <ToastContainer />
         </form>

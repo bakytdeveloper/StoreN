@@ -41,7 +41,7 @@ const authenticateToken = require("../middleware/authenticateToken");
 
 // Регистрация нового пользователя
 router.post('/register', async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, profile } = req.body;
 
     try {
         const existingUser = await User.findOne({ email });
@@ -56,6 +56,7 @@ router.post('/register', async (req, res) => {
             name,
             email,
             password: hashedPassword,
+            profile,
             role: role || 'customer', // Если не указана роль, по умолчанию 'guest'
         });
 
@@ -145,7 +146,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Создаем токен для пользователя
-        const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, process.env.SECRET_KEY);
+        const token = jwt.sign({ userId: user._id, address: user.profile, email: user.email, role: user.role }, process.env.SECRET_KEY);
         console.log(token, user.role);
         res.json({ user, token, success: true });
     } catch (error) {
@@ -162,7 +163,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
     try {
         // Теперь req.user должен быть установлен после прохождения middleware
         const user = await User.findById(req.user.userId).select('-password');
-        console.log(...user)
+
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
