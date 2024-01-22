@@ -59,7 +59,7 @@ const Header = ({ onSearch, cartItems }) => {
             </div>
             <div className="auth-buttons">
                 <Link to="/login" className="auth-button">Login/Register</Link>
-                <Link to="/profile" className="auth-button btns">
+                <Link to="/profile" className="auth-button btn">
                     <img src={profileIcon} alt="profileIcon"/>
                 </Link>
                 {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>*/}
