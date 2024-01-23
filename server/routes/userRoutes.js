@@ -76,44 +76,6 @@ router.post('/register', async (req, res) => {
 
 
 
-//
-// // Аутентификация пользователя
-// router.post('/login', async (req, res) => {
-//     const { email, password } = req.body;
-//
-//     try {
-//         /** @type {Object} */
-//
-//         const user = await User.findOne({ email });
-//
-//         if (!user) {
-//             return res.status(401).json({ message: 'Неверно указанны учетные данные' });
-//         }
-//
-//         const isPasswordValid = await bcrypt.compare(password, user.password);
-//
-//         if (!isPasswordValid) {
-//             return res.status(401).json({ message: 'Неверно указанны учетные данные' });
-//         }
-//
-//         let role = user.role;
-//
-//         // Добавим проверку для администратора
-//         if (email === 'admin@gmail.com' && password === 'admin') {
-//             name = "Admin";
-//             role = 'admin';
-//         }
-//
-//         // Создаем токен для пользователя
-//         const token = jwt.sign({ userId: user._id, email: user.email, role }, process.env.SECRET_KEY);
-//         console.log(token, role)
-//         res.json({ user, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
-
 
 
 // Аутентификация пользователя
@@ -181,14 +143,75 @@ router.get('/profile', authenticateToken, async (req, res) => {
 
 
 // Обновление информации о текущем пользователе
-router.patch('/profile', async (req, res) => {
+router.put('/update-profile', authenticateToken, async (req, res) => {
     try {
-        const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, { new: true }).select('-password');
+        console.log('Update profile endpoint reached');
+        console.log('Request body:', req.body);
+
+        const { userId, profile } = req.body;
+
+        if (!userId || !profile || (!profile.address && !profile.phoneNumber)) {
+            return res.status(400).json({ message: 'Invalid request. User ID and profile data are required.' });
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $set: { profile } },
+            { new: true }
+        ).select('-password');
+
+        console.log('Updated user:', updatedUser);
         res.json(updatedUser);
     } catch (error) {
+        console.error('Error updating profile:', error);
         res.status(400).json({ message: error.message });
     }
 });
+
+
+
+
+
+router.put('/update-profile/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const { address, phoneNumber } = req.body;
+
+    try {
+        // Находим пользователя
+        const existingUser = await User.findById(userId);
+
+        if (!existingUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Обновляем данные профиля
+        existingUser.orders.address = address;
+        existingUser.orders.phoneNumber = phoneNumber;
+
+        // Сохраняем обновленного пользователя в базе данных
+        const updatedUser = await existingUser.save();
+
+        // Теперь найдем последний заказ пользователя и обновим в нем данные
+        const latestOrder = await Order.findOne({ user: userId }).sort({ date: -1 });
+
+        if (latestOrder) {
+            latestOrder.address = address;
+            latestOrder.phoneNumber = phoneNumber;
+            await latestOrder.save();
+        }
+
+        res.json({ message: 'Profile updated successfully', user: updatedUser });
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+// 0703 524643
+
+
+
+
+
 
 // Получение истории заказов текущего пользователя
 router.get('/orders', async (req, res) => {
