@@ -7,36 +7,6 @@ const Order = require('../models/Order');
 const authenticateToken = require("../middleware/authenticateToken");
 
 
-// // Регистрация нового пользователя
-// router.post('/register', async (req, res) => {
-//     const { name, email, password } = req.body;
-//
-//     try {
-//         const existingUser = await User.findOne({ email });
-//
-//         if (existingUser) {
-//             return res.status(400).json({ message: 'User already exists' });
-//         }
-//
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//
-//         const newUser = new User({
-//             name,
-//             email,
-//             password: hashedPassword,
-//         });
-//
-//         await newUser.save();
-//
-//         // Создаем токен для нового пользователя
-//         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
-//
-//         res.status(201).json({ user: newUser, token });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 
 
 // Регистрация нового пользователя
@@ -120,7 +90,6 @@ router.post('/login', async (req, res) => {
 
 
 // Получение информации о текущем пользователе
-// Получение информации о текущем пользователе
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
         // Теперь req.user должен быть установлен после прохождения middleware
@@ -131,14 +100,6 @@ router.get('/profile', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-
-
-
-
-
 
 
 
@@ -207,10 +168,6 @@ router.put('/update-profile/:userId', async (req, res) => {
     }
 });
 // 0703 524643
-
-
-
-
 
 
 // Получение истории заказов текущего пользователя

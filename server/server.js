@@ -15,13 +15,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5050;
-//
-// // Подключение к базе данных
-// mongoose.connect(process.env.MONGODB_URI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-// });
+
+
 // Подключение к базе данных
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('И БАЗА ДАННЫХ MONGODB ПОДКЛЮЧЕННА!!!'));

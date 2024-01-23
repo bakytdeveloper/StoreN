@@ -1,13 +1,9 @@
 
-
-
-
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
 const User = require("../models/User");
 const authenticateToken = require("../middleware/authenticateToken");
-
 
 
 
@@ -72,14 +68,6 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
-
-
-
-
-
-
-
 
 
 // Добавление товара в корзину (для гостей и зарегистрированных пользователей)
