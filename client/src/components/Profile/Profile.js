@@ -1,9 +1,9 @@
 
 
-
 //
 // // src/components/Profile/Profile.js
 // import React, { useEffect, useState } from 'react';
+// import { Link, useHistory } from 'react-router-dom';
 // import './Profile.css'; // Подключаем файл стилей
 //
 // const Profile = () => {
@@ -16,6 +16,7 @@
 //     const [confirmPassword, setConfirmPassword] = useState('');
 //     const [editedAddress, setEditedAddress] = useState('');
 //     const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
+//     const history = useHistory();
 //
 //     useEffect(() => {
 //         const fetchProfile = async () => {
@@ -42,7 +43,6 @@
 //                 console.error('Error:', error);
 //             }
 //         };
-//
 //         const fetchUserOrders = async () => {
 //             try {
 //                 const token = localStorage.getItem('token');
@@ -70,10 +70,6 @@
 //     const ordersCopy = orders.slice();
 //     ordersCopy.reverse();
 //     const latestOrder = ordersCopy.find(order => order.user._id === user?._id);
-//
-//     console.log( "ЭТО ПОСЛЕДНИЙ ЭЛЕМЕНТ" , latestOrder)
-//     // let {_id} = {...latestOrder};
-//     // console.log( "ЭТО ID ЭЛЕМЕНТ" , _id)
 //
 //     const handleEditProfile = async () => {
 //         try {
@@ -103,7 +99,6 @@
 //         }
 //     };
 //
-//
 //     const handleEditPassword = () => {
 //         setEditPassword(true);
 //     };
@@ -113,6 +108,12 @@
 //         setCurrentPassword('');
 //         setNewPassword('');
 //         setConfirmPassword('');
+//     };
+//
+//     const handleCancelEditProfile = () => {
+//         setEditedAddress(latestOrder?.address || '');
+//         setEditedPhoneNumber(latestOrder?.phoneNumber || '');
+//         setEditPassword(false);
 //     };
 //
 //     const handleSavePassword = async () => {
@@ -146,9 +147,16 @@
 //         }
 //     };
 //
+//     const handleLogout = () => {
+//         // Реализуйте функциональность выхода
+//         // Например, очистка localStorage и перенаправление на главную страницу
+//         localStorage.removeItem('token');
+//         setUser(null);
+//         history.push('/');
+//     };
+//
 //     return (
 //         <div className="profile-container">
-//             <h2>Profile</h2>
 //             {/* Сайтбар */}
 //             <div className="sidebar">
 //                 <div
@@ -171,10 +179,7 @@
 //                 </div>
 //                 <div
 //                     className="sidebar-item logout"
-//                     onClick={() => {
-//                         // Реализуйте функциональность выхода
-//                         console.log('Logout clicked');
-//                     }}
+//                     onClick={handleLogout}
 //                 >
 //                     Выход
 //                 </div>
@@ -182,7 +187,7 @@
 //             {/* Содержимое профиля */}
 //             <div className="profile-content">
 //                 <h2>Profile</h2>
-//                 {user && (
+//                 {user ? (
 //                     <div>
 //                         {activeTab === 'editProfile' && (
 //                             <>
@@ -201,7 +206,8 @@
 //                                             {editPassword ? (
 //                                                 <input
 //                                                     type="text"
-//                                                     value={editedAddress}
+//                                                     value={editedAddress || latestOrder.address}
+//                                                     // value={editedAddress || latestOrder.address}
 //                                                     onChange={(e) => setEditedAddress(e.target.value)}
 //                                                 />
 //                                             ) : (
@@ -217,7 +223,7 @@
 //                                             {editPassword ? (
 //                                                 <input
 //                                                     type="text"
-//                                                     value={editedPhoneNumber}
+//                                                     value={editedPhoneNumber || latestOrder.phoneNumber}
 //                                                     onChange={(e) => setEditedPhoneNumber(e.target.value)}
 //                                                 />
 //                                             ) : (
@@ -234,7 +240,7 @@
 //                                     {editPassword ? (
 //                                         <>
 //                                             <button onClick={handleEditProfile}>Сохранить</button>
-//                                             <button onClick={() => console.log('Cancel clicked')}>Отмена</button>
+//                                             <button onClick={handleCancelEditProfile}>Отмена</button>
 //                                         </>
 //                                     ) : (
 //                                         <button onClick={() => setEditPassword(true)}>Редактировать</button>
@@ -278,6 +284,14 @@
 //                             <p>Coming soon...</p>
 //                         )}
 //                     </div>
+//                 ) : (
+//                     // Если пользователь не аутентифицирован
+//                     <div className="registration-notification">
+//                         <p>
+//                             Вы не зарегистрировались.{' '}
+//                             <Link to="/login">Для получения личного профиля зарегистрируйтесь здесь</Link>.
+//                         </p>
+//                     </div>
 //                 )}
 //             </div>
 //         </div>
@@ -292,10 +306,9 @@
 
 
 
-
-
 // src/components/Profile/Profile.js
 import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import './Profile.css'; // Подключаем файл стилей
 
 const Profile = () => {
@@ -308,6 +321,7 @@ const Profile = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [editedAddress, setEditedAddress] = useState('');
     const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -334,7 +348,6 @@ const Profile = () => {
                 console.error('Error:', error);
             }
         };
-
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -354,7 +367,6 @@ const Profile = () => {
                 console.error('Error fetching user orders:', error);
             }
         };
-
         fetchProfile();
         fetchUserOrders();
     }, []);
@@ -362,8 +374,6 @@ const Profile = () => {
     const ordersCopy = orders.slice();
     ordersCopy.reverse();
     const latestOrder = ordersCopy.find(order => order.user._id === user?._id);
-
-    console.log("ЭТО ПОСЛЕДНИЙ ЭЛЕМЕНТ", latestOrder);
 
     const handleEditProfile = async () => {
         try {
@@ -375,8 +385,8 @@ const Profile = () => {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    address: editedAddress,
-                    phoneNumber: editedPhoneNumber,
+                    address: editedAddress || latestOrder.address,
+                    phoneNumber: editedPhoneNumber || latestOrder.phoneNumber,
                 }),
             });
 
@@ -402,6 +412,12 @@ const Profile = () => {
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
+    };
+
+    const handleCancelEditProfile = () => {
+        setEditedAddress(user.profile?.address || "");
+        setEditedPhoneNumber(user.profile?.phoneNumber || "");
+        setEditPassword(false);
     };
 
     const handleSavePassword = async () => {
@@ -435,6 +451,14 @@ const Profile = () => {
         }
     };
 
+    const handleLogout = () => {
+        // Реализуйте функциональность выхода
+        // Например, очистка localStorage и перенаправление на главную страницу
+        localStorage.removeItem('token');
+        setUser(null);
+        history.push('/');
+    };
+
     return (
         <div className="profile-container">
             {/* Сайтбар */}
@@ -459,10 +483,7 @@ const Profile = () => {
                 </div>
                 <div
                     className="sidebar-item logout"
-                    onClick={() => {
-                        // Реализуйте функциональность выхода
-                        console.log('Logout clicked');
-                    }}
+                    onClick={handleLogout}
                 >
                     Выход
                 </div>
@@ -470,7 +491,7 @@ const Profile = () => {
             {/* Содержимое профиля */}
             <div className="profile-content">
                 <h2>Profile</h2>
-                {user && (
+                {user ? (
                     <div>
                         {activeTab === 'editProfile' && (
                             <>
@@ -489,7 +510,7 @@ const Profile = () => {
                                             {editPassword ? (
                                                 <input
                                                     type="text"
-                                                    value={editedAddress}
+                                                    value={editedAddress || latestOrder.address}
                                                     onChange={(e) => setEditedAddress(e.target.value)}
                                                 />
                                             ) : (
@@ -505,7 +526,7 @@ const Profile = () => {
                                             {editPassword ? (
                                                 <input
                                                     type="text"
-                                                    value={editedPhoneNumber}
+                                                    value={editedPhoneNumber || latestOrder.phoneNumber}
                                                     onChange={(e) => setEditedPhoneNumber(e.target.value)}
                                                 />
                                             ) : (
@@ -522,7 +543,7 @@ const Profile = () => {
                                     {editPassword ? (
                                         <>
                                             <button onClick={handleEditProfile}>Сохранить</button>
-                                            <button onClick={() => console.log('Cancel clicked')}>Отмена</button>
+                                            <button onClick={handleCancelEditProfile}>Отмена</button>
                                         </>
                                     ) : (
                                         <button onClick={() => setEditPassword(true)}>Редактировать</button>
@@ -566,6 +587,14 @@ const Profile = () => {
                             <p>Coming soon...</p>
                         )}
                     </div>
+                ) : (
+                    // Если пользователь не аутентифицирован
+                    <div className="registration-notification">
+                        <p>
+                            Вы не зарегистрировались.{' '}
+                            <Link to="/login">Для получения личного профиля зарегистрируйтесь здесь</Link>.
+                        </p>
+                    </div>
                 )}
             </div>
         </div>
@@ -573,4 +602,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
