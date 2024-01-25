@@ -170,6 +170,26 @@ router.put('/update-profile/:userId', async (req, res) => {
 // 0703 524643
 
 
+
+// // Получение списка заказов для зарегистрированных пользователей
+// router.get('/my-orders', authenticateToken, async (req, res) => {
+//     console.log('Received my-orders request'); // Добавим лог для отслеживания запроса
+//
+//     if (!req.user || req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     try {
+//         const orders = await Order.find({ $or: [{ user: req.user._id }, { 'guestInfo.email': req.user.email }] });
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+
 // Получение истории заказов текущего пользователя
 router.get('/orders', async (req, res) => {
     try {

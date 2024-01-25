@@ -131,21 +131,49 @@ router.post('/add-to-cart', async (req, res) => {
     }
 });
 
+
+
+// // Получение списка заказов для зарегистрированных пользователей
+// router.get('/my-orders', authenticateToken, async (req, res) => {
+//     console.log('Received my-orders request'); // Добавим лог для отслеживания запроса
+//
+//     if (!req.user || req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     try {
+//         const orders = await Order.find({ $or: [{ user: req.user._id }, { 'guestInfo.email': req.user.email }] });
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+
 // Получение списка заказов для зарегистрированных пользователей
 router.get('/my-orders', authenticateToken, async (req, res) => {
-    console.log('Received my-orders request'); // Добавим лог для отслеживания запроса
-
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
     }
 
     try {
-        const orders = await Order.find({ $or: [{ user: req.user._id }, { 'guestInfo.email': req.user.email }] });
+        const user = await User.findById(req.user.userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const orders = await Order.find({ user: user._id }).populate('products.product', 'name price');
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+
 
 // Получение списка всех заказов для администратора
 router.get('/orders', async (req, res) => {

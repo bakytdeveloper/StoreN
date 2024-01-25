@@ -1,6 +1,4 @@
 
-
-//
 // // src/components/Profile/Profile.js
 // import React, { useEffect, useState } from 'react';
 // import { Link, useHistory } from 'react-router-dom';
@@ -16,6 +14,8 @@
 //     const [confirmPassword, setConfirmPassword] = useState('');
 //     const [editedAddress, setEditedAddress] = useState('');
 //     const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
+//     const [userOrders, setUserOrders] = useState([]);
+//
 //     const history = useHistory();
 //
 //     useEffect(() => {
@@ -43,10 +43,11 @@
 //                 console.error('Error:', error);
 //             }
 //         };
+//
 //         const fetchUserOrders = async () => {
 //             try {
 //                 const token = localStorage.getItem('token');
-//                 const response = await fetch('http://localhost:5500/api/orders/orders', {
+//                 const response = await fetch('http://localhost:5500/api/orders/my-orders', {
 //                     method: 'GET',
 //                     headers: {
 //                         'Authorization': `Bearer ${token}`,
@@ -54,7 +55,7 @@
 //                 });
 //                 const data = await response.json();
 //                 if (response.ok) {
-//                     setOrders(data);
+//                     setUserOrders(data);
 //                 } else {
 //                     console.error(data.message);
 //                 }
@@ -67,10 +68,6 @@
 //         fetchUserOrders();
 //     }, []);
 //
-//     const ordersCopy = orders.slice();
-//     ordersCopy.reverse();
-//     const latestOrder = ordersCopy.find(order => order.user._id === user?._id);
-//
 //     const handleEditProfile = async () => {
 //         try {
 //             const token = localStorage.getItem('token');
@@ -81,8 +78,8 @@
 //                     'Authorization': `Bearer ${token}`,
 //                 },
 //                 body: JSON.stringify({
-//                     address: editedAddress,
-//                     phoneNumber: editedPhoneNumber,
+//                     address: editedAddress || user.profile?.address,
+//                     phoneNumber: editedPhoneNumber || user.profile?.phoneNumber,
 //                 }),
 //             });
 //
@@ -91,7 +88,7 @@
 //                 setUser(data.user);
 //                 console.log('Profile updated successfully');
 //             } else {
-//                 const errorMessage = await response.text(); // Получаем текст ответа
+//                 const errorMessage = await response.text();
 //                 console.error('Error updating profile:', errorMessage);
 //             }
 //         } catch (error) {
@@ -111,8 +108,8 @@
 //     };
 //
 //     const handleCancelEditProfile = () => {
-//         setEditedAddress(latestOrder?.address || '');
-//         setEditedPhoneNumber(latestOrder?.phoneNumber || '');
+//         setEditedAddress(user.profile?.address || "");
+//         setEditedPhoneNumber(user.profile?.phoneNumber || "");
 //         setEditPassword(false);
 //     };
 //
@@ -148,8 +145,6 @@
 //     };
 //
 //     const handleLogout = () => {
-//         // Реализуйте функциональность выхода
-//         // Например, очистка localStorage и перенаправление на главную страницу
 //         localStorage.removeItem('token');
 //         setUser(null);
 //         history.push('/');
@@ -199,43 +194,38 @@
 //                                     <label>Email:</label>
 //                                     <input type="text" value={user.email} readOnly />
 //                                 </div>
-//                                 {latestOrder && (
-//                                     <>
-//                                         <div className="profile-input">
-//                                             <label>Address:</label>
-//                                             {editPassword ? (
-//                                                 <input
-//                                                     type="text"
-//                                                     value={editedAddress || latestOrder.address}
-//                                                     // value={editedAddress || latestOrder.address}
-//                                                     onChange={(e) => setEditedAddress(e.target.value)}
-//                                                 />
-//                                             ) : (
-//                                                 <input
-//                                                     type="text"
-//                                                     value={latestOrder.address || ''}
-//                                                     readOnly
-//                                                 />
-//                                             )}
-//                                         </div>
-//                                         <div className="profile-input">
-//                                             <label>Phone Number:</label>
-//                                             {editPassword ? (
-//                                                 <input
-//                                                     type="text"
-//                                                     value={editedPhoneNumber || latestOrder.phoneNumber}
-//                                                     onChange={(e) => setEditedPhoneNumber(e.target.value)}
-//                                                 />
-//                                             ) : (
-//                                                 <input
-//                                                     type="text"
-//                                                     value={latestOrder.phoneNumber || ''}
-//                                                     readOnly
-//                                                 />
-//                                             )}
-//                                         </div>
-//                                     </>
-//                                 )}
+//                                 <div className="profile-input">
+//                                     <label>Address:</label>
+//                                     {editPassword ? (
+//                                         <input
+//                                             type="text"
+//                                             value={editedAddress || user.profile?.address}
+//                                             onChange={(e) => setEditedAddress(e.target.value)}
+//                                         />
+//                                     ) : (
+//                                         <input
+//                                             type="text"
+//                                             value={user.profile?.address || ''}
+//                                             readOnly
+//                                         />
+//                                     )}
+//                                 </div>
+//                                 <div className="profile-input">
+//                                     <label>Phone Number:</label>
+//                                     {editPassword ? (
+//                                         <input
+//                                             type="text"
+//                                             value={editedPhoneNumber || user.profile?.phoneNumber}
+//                                             onChange={(e) => setEditedPhoneNumber(e.target.value)}
+//                                         />
+//                                     ) : (
+//                                         <input
+//                                             type="text"
+//                                             value={user.profile?.phoneNumber || ''}
+//                                             readOnly
+//                                         />
+//                                     )}
+//                                 </div>
 //                                 <div className="profile-buttons">
 //                                     {editPassword ? (
 //                                         <>
@@ -281,7 +271,26 @@
 //                             </>
 //                         )}
 //                         {activeTab === 'purchaseHistory' && (
-//                             <p>Coming soon...</p>
+//                             <>
+//                                 <h3>История покупок</h3>
+//                                 {userOrders.map((order) => (
+//                                     <div key={order._id} className="order-item">
+//                                         <p>Дата: {new Date(order.date).toLocaleDateString()}</p>
+//                                         <p>Статус: {order.status}</p>
+//                                         <p>Сумма заказа: {order.totalAmount}</p>
+//                                         <p>Товары:</p>
+//                                         <ul>
+//                                             {order.products.map((product) => (
+//                                                 <li key={product.product._id}>
+//                                                     {product.product.name} - {product.quantity} шт. по {product.product.price} руб.
+//                                                 </li>
+//                                             ))}
+//                                         </ul>
+//                                         <p>Адрес доставки: {order.address}</p>
+//                                         <p>Номер телефона: {order.phoneNumber}</p>
+//                                     </div>
+//                                 ))}
+//                             </>
 //                         )}
 //                     </div>
 //                 ) : (
@@ -306,6 +315,8 @@
 
 
 
+
+
 // src/components/Profile/Profile.js
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -314,6 +325,7 @@ import './Profile.css'; // Подключаем файл стилей
 const Profile = () => {
     const [user, setUser] = useState(null);
     const [orders, setOrders] = useState([]);
+    const [userOrders, setUserOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('editProfile');
     const [editPassword, setEditPassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
@@ -367,8 +379,29 @@ const Profile = () => {
                 console.error('Error fetching user orders:', error);
             }
         };
+        const fetchPurchaseHistory = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:5500/api/orders/my-orders', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    setUserOrders(data);
+                } else {
+                    console.error(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching purchase history:', error);
+            }
+        };
+
         fetchProfile();
         fetchUserOrders();
+        fetchPurchaseHistory();
     }, []);
 
     const ordersCopy = orders.slice();
@@ -584,7 +617,26 @@ const Profile = () => {
                             </>
                         )}
                         {activeTab === 'purchaseHistory' && (
-                            <p>Coming soon...</p>
+                            <>
+                                <h3>История покупок</h3>
+                                {userOrders.map((order) => (
+                                    <div key={order._id} className="order-item">
+                                        <p>Дата: {new Date(order.date).toLocaleDateString()}</p>
+                                        <p>Статус: {order.status}</p>
+                                        <p>Сумма заказа: {order.totalAmount}</p>
+                                        <p>Товары:</p>
+                                        <ul>
+                                            {order.products.map((product) => (
+                                                <li key={product.product._id}>
+                                                    {product.product.name} - {product.quantity} шт. по {product.product.price} руб.
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <p>Адрес доставки: {order.address}</p>
+                                        <p>Номер телефона: {order.phoneNumber}</p>
+                                    </div>
+                                ))}
+                            </>
                         )}
                     </div>
                 ) : (
@@ -602,3 +654,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
