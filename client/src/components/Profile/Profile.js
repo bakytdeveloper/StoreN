@@ -370,6 +370,10 @@ const Profile = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
+                if (!token) {
+                    // Пользователь не аутентифицирован, показываем сообщение для гостей
+                    return;
+                }
                 if (token) {
                     const response = await fetch('http://localhost:5500/api/users/profile', {
                         method: 'GET',
@@ -394,6 +398,10 @@ const Profile = () => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
+                if (!token) {
+                    // Пользователь не аутентифицирован, показываем сообщение для гостей
+                    return;
+                }
                 const response = await fetch('http://localhost:5500/api/orders/orders', {
                     method: 'GET',
                     headers: {
@@ -413,6 +421,10 @@ const Profile = () => {
         const fetchPurchaseHistory = async () => {
             try {
                 const token = localStorage.getItem('token');
+                if (!token) {
+                    // Пользователь не аутентифицирован, показываем сообщение для гостей
+                    return;
+                }
                 const response = await fetch('http://localhost:5500/api/orders/my-orders', {
                     method: 'GET',
                     headers: {
@@ -437,7 +449,7 @@ const Profile = () => {
 
     const ordersCopy = orders.slice();
     ordersCopy.reverse();
-    const latestOrder = ordersCopy.find(order => order.user._id === user?._id);
+    const latestOrder = ordersCopy.find(order => order.user?._id === user?._id);
 
     const handleEditProfile = async () => {
         try {
