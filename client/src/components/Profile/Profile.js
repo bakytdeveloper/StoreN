@@ -1,4 +1,5 @@
 
+
 // // src/components/Profile/Profile.js
 // import React, { useEffect, useState } from 'react';
 // import { Link, useHistory } from 'react-router-dom';
@@ -7,6 +8,7 @@
 // const Profile = () => {
 //     const [user, setUser] = useState(null);
 //     const [orders, setOrders] = useState([]);
+//     const [userOrders, setUserOrders] = useState([]);
 //     const [activeTab, setActiveTab] = useState('editProfile');
 //     const [editPassword, setEditPassword] = useState(false);
 //     const [currentPassword, setCurrentPassword] = useState('');
@@ -14,8 +16,6 @@
 //     const [confirmPassword, setConfirmPassword] = useState('');
 //     const [editedAddress, setEditedAddress] = useState('');
 //     const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
-//     const [userOrders, setUserOrders] = useState([]);
-//
 //     const history = useHistory();
 //
 //     useEffect(() => {
@@ -43,8 +43,26 @@
 //                 console.error('Error:', error);
 //             }
 //         };
-//
 //         const fetchUserOrders = async () => {
+//             try {
+//                 const token = localStorage.getItem('token');
+//                 const response = await fetch('http://localhost:5500/api/orders/orders', {
+//                     method: 'GET',
+//                     headers: {
+//                         'Authorization': `Bearer ${token}`,
+//                     },
+//                 });
+//                 const data = await response.json();
+//                 if (response.ok) {
+//                     setOrders(data);
+//                 } else {
+//                     console.error(data.message);
+//                 }
+//             } catch (error) {
+//                 console.error('Error fetching user orders:', error);
+//             }
+//         };
+//         const fetchPurchaseHistory = async () => {
 //             try {
 //                 const token = localStorage.getItem('token');
 //                 const response = await fetch('http://localhost:5500/api/orders/my-orders', {
@@ -60,13 +78,18 @@
 //                     console.error(data.message);
 //                 }
 //             } catch (error) {
-//                 console.error('Error fetching user orders:', error);
+//                 console.error('Error fetching purchase history:', error);
 //             }
 //         };
 //
 //         fetchProfile();
 //         fetchUserOrders();
+//         fetchPurchaseHistory();
 //     }, []);
+//
+//     const ordersCopy = orders.slice();
+//     ordersCopy.reverse();
+//     const latestOrder = ordersCopy.find(order => order.user._id === user?._id);
 //
 //     const handleEditProfile = async () => {
 //         try {
@@ -78,8 +101,8 @@
 //                     'Authorization': `Bearer ${token}`,
 //                 },
 //                 body: JSON.stringify({
-//                     address: editedAddress || user.profile?.address,
-//                     phoneNumber: editedPhoneNumber || user.profile?.phoneNumber,
+//                     address: editedAddress || latestOrder.address,
+//                     phoneNumber: editedPhoneNumber || latestOrder.phoneNumber,
 //                 }),
 //             });
 //
@@ -88,7 +111,7 @@
 //                 setUser(data.user);
 //                 console.log('Profile updated successfully');
 //             } else {
-//                 const errorMessage = await response.text();
+//                 const errorMessage = await response.text(); // Получаем текст ответа
 //                 console.error('Error updating profile:', errorMessage);
 //             }
 //         } catch (error) {
@@ -145,6 +168,8 @@
 //     };
 //
 //     const handleLogout = () => {
+//         // Реализуйте функциональность выхода
+//         // Например, очистка localStorage и перенаправление на главную страницу
 //         localStorage.removeItem('token');
 //         setUser(null);
 //         history.push('/');
@@ -194,38 +219,42 @@
 //                                     <label>Email:</label>
 //                                     <input type="text" value={user.email} readOnly />
 //                                 </div>
-//                                 <div className="profile-input">
-//                                     <label>Address:</label>
-//                                     {editPassword ? (
-//                                         <input
-//                                             type="text"
-//                                             value={editedAddress || user.profile?.address}
-//                                             onChange={(e) => setEditedAddress(e.target.value)}
-//                                         />
-//                                     ) : (
-//                                         <input
-//                                             type="text"
-//                                             value={user.profile?.address || ''}
-//                                             readOnly
-//                                         />
-//                                     )}
-//                                 </div>
-//                                 <div className="profile-input">
-//                                     <label>Phone Number:</label>
-//                                     {editPassword ? (
-//                                         <input
-//                                             type="text"
-//                                             value={editedPhoneNumber || user.profile?.phoneNumber}
-//                                             onChange={(e) => setEditedPhoneNumber(e.target.value)}
-//                                         />
-//                                     ) : (
-//                                         <input
-//                                             type="text"
-//                                             value={user.profile?.phoneNumber || ''}
-//                                             readOnly
-//                                         />
-//                                     )}
-//                                 </div>
+//                                 {latestOrder && (
+//                                     <>
+//                                         <div className="profile-input">
+//                                             <label>Address:</label>
+//                                             {editPassword ? (
+//                                                 <input
+//                                                     type="text"
+//                                                     value={editedAddress || latestOrder.address}
+//                                                     onChange={(e) => setEditedAddress(e.target.value)}
+//                                                 />
+//                                             ) : (
+//                                                 <input
+//                                                     type="text"
+//                                                     value={latestOrder.address || ''}
+//                                                     readOnly
+//                                                 />
+//                                             )}
+//                                         </div>
+//                                         <div className="profile-input">
+//                                             <label>Phone Number:</label>
+//                                             {editPassword ? (
+//                                                 <input
+//                                                     type="text"
+//                                                     value={editedPhoneNumber || latestOrder.phoneNumber}
+//                                                     onChange={(e) => setEditedPhoneNumber(e.target.value)}
+//                                                 />
+//                                             ) : (
+//                                                 <input
+//                                                     type="text"
+//                                                     value={latestOrder.phoneNumber || ''}
+//                                                     readOnly
+//                                                 />
+//                                             )}
+//                                         </div>
+//                                     </>
+//                                 )}
 //                                 <div className="profile-buttons">
 //                                     {editPassword ? (
 //                                         <>
@@ -321,6 +350,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './Profile.css'; // Подключаем файл стилей
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Импортируем иконки
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -333,6 +363,7 @@ const Profile = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [editedAddress, setEditedAddress] = useState('');
     const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // Состояние для отображения/скрытия пароля
     const history = useHistory();
 
     useEffect(() => {
@@ -588,27 +619,42 @@ const Profile = () => {
                             <>
                                 <div className="profile-input">
                                     <label>Current Password:</label>
-                                    <input
-                                        type="password"
-                                        value={currentPassword}
-                                        onChange={(e) => setCurrentPassword(e.target.value)}
-                                    />
+                                    <div className="password-input-container">
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            value={currentPassword}
+                                            onChange={(e) => setCurrentPassword(e.target.value)}
+                                        />
+                                        <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="profile-input">
                                     <label>New Password:</label>
-                                    <input
-                                        type="password"
-                                        value={newPassword}
-                                        onChange={(e) => setNewPassword(e.target.value)}
-                                    />
+                                    <div className="password-input-container">
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)}
+                                        />
+                                        <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="profile-input">
                                     <label>Confirm Password:</label>
-                                    <input
-                                        type="password"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                    />
+                                    <div className="password-input-container">
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                        />
+                                        <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="profile-buttons">
                                     <button onClick={handleSavePassword}>Сохранить</button>
@@ -654,5 +700,6 @@ const Profile = () => {
 };
 
 export default Profile;
+
 
 
