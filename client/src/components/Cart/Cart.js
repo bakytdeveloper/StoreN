@@ -117,6 +117,8 @@ import CheckoutForm from '../Checkout/CheckoutForm';
 const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false);
+    const [user, setUser] = useState(null);
+
     const history = useHistory();
 
 
@@ -246,6 +248,35 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     }, [cartItems, history]);
 
 
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (token) {
+                    const response = await fetch('http://localhost:5500/api/users/profile', {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        setUser(data);
+                    } else {
+                        console.error(data.message);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+
+
     return (
         <div className="cart">
             <h2>Корзина</h2>
@@ -295,7 +326,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             )}
 
             {showCheckout && (
-                <CheckoutForm onSubmit={handlePlaceOrder} />
+                <CheckoutForm onSubmit={handlePlaceOrder}  user={user}  />
             )}
         </div>
     );
