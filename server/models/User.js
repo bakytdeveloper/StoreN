@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }, // Добавлено обязательное поле password
+    password: { type: String }, // Добавлено обязательное поле password
     role: { type: String, enum: ['guest', 'customer', 'admin'], default: 'guest' },
     cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
     // profile: {

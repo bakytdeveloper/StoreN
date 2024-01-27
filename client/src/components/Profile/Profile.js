@@ -371,6 +371,7 @@ const Profile = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
+                    setUser(null)
                     // Пользователь не аутентифицирован, показываем сообщение для гостей
                     return;
                 }
@@ -399,6 +400,7 @@ const Profile = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
+                    setUser(null)
                     // Пользователь не аутентифицирован, показываем сообщение для гостей
                     return;
                 }
@@ -421,7 +423,9 @@ const Profile = () => {
         const fetchPurchaseHistory = async () => {
             try {
                 const token = localStorage.getItem('token');
+
                 if (!token) {
+                    setUser(null)
                     // Пользователь не аутентифицирован, показываем сообщение для гостей
                     return;
                 }

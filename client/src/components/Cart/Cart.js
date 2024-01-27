@@ -196,6 +196,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const handlePlaceOrder = async (userData) => {
         try {
             const token = localStorage.getItem('token');
+
             const response = await fetch('http://localhost:5500/api/orders', {
                 method: 'POST',
                 headers: {
@@ -209,7 +210,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         email: userData.email,
                         // address: userData.address,
                         // phoneNumber: userData.phoneNumber,
-                        password: userData.password,  // Добавьте пароль для гостя
+                        // password: userData.password,  // Добавьте пароль для гостя
                     },
                     address: userData.address,
                     phoneNumber: userData.phoneNumber,
@@ -225,7 +226,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
                 // Очистите корзину после успешного заказа
                 setCartItems([]);
-                history.push('/products');
+                history.push('/');
             } else {
                 console.error('Failed to place order');
             }
