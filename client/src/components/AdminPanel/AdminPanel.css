@@ -173,3 +173,7 @@ h2 {
 .admin-btn:hover {
     background-color: #45a049;
 }
+
+.selectBtn {
+    background: #007bff;
+}

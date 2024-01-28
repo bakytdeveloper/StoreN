@@ -156,9 +156,9 @@ const OrderList = () => {
                         {/*<td><textarea>{order.comments ? order.comments : '-'}</textarea></td>*/}
                         <td>
                             {order.products.map((item) => (
-                                <p key={item.product._id}>
-                                    {item.product.type} (Количество: {item.quantity})
-                                </p>
+                                <span key={item.product._id}>
+                                    {item.product.type}: {item.quantity}шт; <br/>
+                                </span>
                             ))}
                         </td>
                         <td>{order.totalAmount.toFixed(2)} KGS</td>

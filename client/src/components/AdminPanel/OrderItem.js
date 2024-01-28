@@ -11,7 +11,6 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
     return (
         <tr key={order._id}>
-            {/* ... (ваш уже существующий код) */}
             <td>
                 <select
                     value={selectedStatus}
@@ -21,9 +20,12 @@ const OrderItem = ({ order, onUpdateStatus }) => {
                     <option value="Completed">Completed</option>
                     <option value="Cancelled">Cancelled</option>
                 </select>
-                <button onClick={handleStatusChange}>Изменить</button>
+                <button className="selectBtn" onClick={handleStatusChange}
+                        style={{padding: "2px"}}>
+                    &#10004;</button>
+                {/*<button onClick={handleStatusChange}>Изменить</button>*/}
             </td>
-            {/* ... (ваш уже существующий код) */}
+
         </tr>
     );
 };
