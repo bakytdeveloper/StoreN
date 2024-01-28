@@ -503,14 +503,13 @@ const Profile = () => {
     const handleSavePassword = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5500/api/users/update-password', {
+            const response = await fetch(`http://localhost:5500/api/users/update-password/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    userId: user._id,
                     currentPassword,
                     newPassword,
                 }),
@@ -518,8 +517,11 @@ const Profile = () => {
             const data = await response.json();
             if (response.ok) {
                 console.log('Password updated successfully');
+                // Добавим код для обработки успешного обновления пароля, например, вывод уведомления
+                // или перенаправление на другую страницу
             } else {
                 console.error(data.message);
+                // Добавим код для обработки ошибки при обновлении пароля
             }
         } catch (error) {
             console.error('Error updating password:', error);
@@ -530,6 +532,7 @@ const Profile = () => {
             setConfirmPassword('');
         }
     };
+
 
     const handleLogout = () => {
         // Реализуйте функциональность выхода
