@@ -22,7 +22,8 @@ const orderSchema = new mongoose.Schema({
         },
     ],
     totalAmount: { type: Number, required: true },
-    status: { type: String, enum: ['pending', 'completed'], default: 'pending' },
+    status: { type: String, enum: ['Pending', 'Completed', 'Cancelled'], default: 'pending' },
+    // «ожидает», «завершено», «отменено»
     date: { type: Date, default: Date.now },
 
     // Дополнительные поля от заказчика

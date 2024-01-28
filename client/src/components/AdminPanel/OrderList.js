@@ -68,7 +68,8 @@
 
 // src/components/Admin/OrderList.js
 import React, { useState, useEffect } from 'react';
-import './OrderList.css'; // Подключение стилей
+import './OrderList.css';
+import OrderItem from "./OrderItem"; // Подключение стилей
 
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
@@ -89,6 +90,34 @@ const OrderList = () => {
         // Вызываем функцию для получения списка заказов
         fetchOrders();
     }, []);
+
+
+    const updateStatus = async (orderId, newStatus) => {
+        try {
+            const response = await fetch(`http://localhost:5500/api/orders/update-status/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    status: newStatus,
+                }),
+            });
+
+            if (response.ok) {
+                // Обновляем локальный список заказов после успешного обновления на сервере
+                const updatedOrders = orders.map((order) =>
+                    order._id === orderId ? { ...order, status: newStatus } : order
+                );
+                setOrders(updatedOrders);
+            } else {
+                console.error('Error updating status:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+
 
     return (
         <div className="order">
@@ -133,7 +162,9 @@ const OrderList = () => {
                             ))}
                         </td>
                         <td>{order.totalAmount.toFixed(2)} KGS</td>
-                        <td>{order.status}</td>
+                        <td>
+                            <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
+                        </td>
                         <td>{new Date(order.date).toLocaleString()}</td>
                     </tr>
                 ))}
