@@ -399,11 +399,11 @@ const Profile = () => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
-                if (!token) {
-                    setUser(null)
-                    // Пользователь не аутентифицирован, показываем сообщение для гостей
-                    return;
-                }
+                // if (!token) {
+                //     setUser(null)
+                //     // Пользователь не аутентифицирован, показываем сообщение для гостей
+                //     return;
+                // }
                 const response = await fetch('http://localhost:5500/api/orders/orders', {
                     method: 'GET',
                     headers: {
@@ -573,12 +573,15 @@ const Profile = () => {
             </div>
             {/* Содержимое профиля */}
             <div className="profile-content">
-                <h2>Profile</h2>
+                {/*<h2>Profile</h2>*/}
                 {user ? (
                     <div>
+                        <h2>Здравствуйте, {user.name} 👋 😁 ! </h2>
+                        <h3>Я приготовил ваш профиль 🗂️ 😊.</h3>
+
                         {activeTab === 'editProfile' && (
                             <>
-                                <div className="profile-input">
+                                 <div className="profile-input">
                                     <label>Name:</label>
                                     <input type="text" value={user.name} readOnly />
                                 </div>
@@ -707,10 +710,10 @@ const Profile = () => {
                 ) : (
                     // Если пользователь не аутентифицирован
                     <div className="registration-notification">
-                        <p>
+                        <span>
                             Вы не зарегистрировались.{' '}
-                            <Link to="/login">Для получения личного профиля зарегистрируйтесь здесь</Link>.
-                        </p>
+                            <Link to="/login"><p>Для получения личного профиля зарегистрируйтесь здесь</p></Link>.
+                        </span>
                     </div>
                 )}
             </div>
