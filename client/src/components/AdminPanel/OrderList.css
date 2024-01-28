@@ -19,6 +19,7 @@ thead th, tbody td {
     border: 1px solid #ddd;
     padding: 3px;
     text-align: left;
+    font-size: 12px;
 }
 
 thead th {

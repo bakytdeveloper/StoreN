@@ -126,15 +126,15 @@ const OrderList = () => {
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Пользователь</th>
-                    <th>Имя Фамилия</th>
+                    <th>Клиент</th>
+                    <th>Имя</th>
                     {/*<th>Фамилия Фамилия</th>*/}
                     <th>Email</th>
-                    <th>Адрес доставки</th>
-                    <th>Номер телефона</th>
-                    <th>Способ оплаты</th>
+                    <th>Адрес</th>
+                    <th>№ Тел</th>
+                    <th>Способ опл</th>
                     <th>Комментарии</th>
-                    <th>Продукты</th>
+                    <th>Товары</th>
                     <th>Сумма</th>
                     <th>Статус</th>
                     <th>Дата</th>
@@ -152,7 +152,8 @@ const OrderList = () => {
                         <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
                         <td>{order.user ? order.paymentMethod : '-'}</td>
                         <td>
-                            <textarea style={{boxSizing: "border-box"}} defaultValue={order.comments ? order.comments : '-'}>
+                            <textarea style={{boxSizing: "border-box", fontSize: "12px"}}
+                                      defaultValue={order.comments ? order.comments : '-'}>
 
                             </textarea>
                         </td>
