@@ -151,7 +151,11 @@ const OrderList = () => {
                         <td>{order.address ? order.address : '-'}</td>
                         <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
                         <td>{order.user ? order.paymentMethod : '-'}</td>
-                        <td><textarea defaultValue={order.comments ? order.comments : '-'}></textarea></td>
+                        <td>
+                            <textarea style={{boxSizing: "border-box"}} defaultValue={order.comments ? order.comments : '-'}>
+
+                            </textarea>
+                        </td>
 
                         {/*<td><textarea>{order.comments ? order.comments : '-'}</textarea></td>*/}
                         <td>
