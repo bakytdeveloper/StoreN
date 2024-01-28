@@ -71,126 +71,9 @@ import React, { useState, useEffect } from 'react';
 import './OrderList.css';
 import OrderItem from "./OrderItem"; // Подключение стилей
 
-const OrderList = () => {
-    const [orders, setOrders] = useState([]);
-
-
-    useEffect(() => {
-        // Функция для получения списка заказов с бэкенда
-        const fetchOrders = async () => {
-            try {
-                const response = await fetch('http://localhost:5500/api/orders/orders');
-                const data = await response.json();
-                setOrders(data);
-            } catch (error) {
-                console.error('Fetch error:', error);
-            }
-        };
-
-        // Вызываем функцию для получения списка заказов
-        fetchOrders();
-    }, []);
-
-
-    const updateStatus = async (orderId, newStatus) => {
-        try {
-            const response = await fetch(`http://localhost:5500/api/orders/update-status/${orderId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    status: newStatus,
-                }),
-            });
-
-            if (response.ok) {
-                // Обновляем локальный список заказов после успешного обновления на сервере
-                const updatedOrders = orders.map((order) =>
-                    order._id === orderId ? { ...order, status: newStatus } : order
-                );
-                setOrders(updatedOrders);
-            } else {
-                console.error('Error updating status:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error updating status:', error);
-        }
-    };
-
-
-    return (
-        <div className="order">
-            <h2>Список заказов</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Клиент</th>
-                    <th>Имя</th>
-                    {/*<th>Фамилия Фамилия</th>*/}
-                    <th>Email</th>
-                    <th>Адрес</th>
-                    <th>№ Тел</th>
-                    <th>Способ опл</th>
-                    <th>Комментарии</th>
-                    <th>Товары</th>
-                    <th>Сумма</th>
-                    <th>Статус</th>
-                    <th>Дата</th>
-                </tr>
-                </thead>
-                <tbody>
-                {orders.map((order) => (
-                    <tr key={order._id}>
-                        <td>{order._id}</td>
-                        <td>{order.user ? order.user.role : 'Гость'}</td>
-                        <td>{order.user ? order.user.name : '-'}</td>
-                        {/*<td>{order.guestInfo ? order.guestInfo.lastName : '-'}</td>*/}
-                        <td>{order.user ? order.user.email : '-'}</td>
-                        <td>{order.address ? order.address : '-'}</td>
-                        <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-                        <td>{order.user ? order.paymentMethod : '-'}</td>
-                        <td>
-                            <textarea style={{boxSizing: "border-box", fontSize: "12px"}}
-                                      defaultValue={order.comments ? order.comments : '-'}>
-
-                            </textarea>
-                        </td>
-
-                        {/*<td><textarea>{order.comments ? order.comments : '-'}</textarea></td>*/}
-                        <td>
-                            {order.products.map((item) => (
-                                <span key={item.product._id}>
-                                    {item.product.type}: {item.quantity}шт; <br/>
-                                </span>
-                            ))}
-                        </td>
-                        <td>{order.totalAmount.toFixed(2)} KGS</td>
-                        <td>
-                            <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
-                        </td>
-                        <td>{new Date(order.date).toLocaleString()}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-        </div>
-    );
-};
-
-export default OrderList;
-
-
-
-
-//
-// // src/components/Admin/OrderList.js
-// import React, { useState, useEffect } from 'react';
-// import './OrderList.css'; // Подключение стилей
-//
 // const OrderList = () => {
 //     const [orders, setOrders] = useState([]);
+//
 //
 //     useEffect(() => {
 //         // Функция для получения списка заказов с бэкенда
@@ -208,6 +91,34 @@ export default OrderList;
 //         fetchOrders();
 //     }, []);
 //
+//
+//     const updateStatus = async (orderId, newStatus) => {
+//         try {
+//             const response = await fetch(`http://localhost:5500/api/orders/update-status/${orderId}`, {
+//                 method: 'PUT',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     status: newStatus,
+//                 }),
+//             });
+//
+//             if (response.ok) {
+//                 // Обновляем локальный список заказов после успешного обновления на сервере
+//                 const updatedOrders = orders.map((order) =>
+//                     order._id === orderId ? { ...order, status: newStatus } : order
+//                 );
+//                 setOrders(updatedOrders);
+//             } else {
+//                 console.error('Error updating status:', response.statusText);
+//             }
+//         } catch (error) {
+//             console.error('Error updating status:', error);
+//         }
+//     };
+//
+//
 //     return (
 //         <div className="order">
 //             <h2>Список заказов</h2>
@@ -215,45 +126,50 @@ export default OrderList;
 //                 <thead>
 //                 <tr>
 //                     <th>ID</th>
-//                     <th>Пользователь</th>
-//                     <th>Имя Фамилия</th>
+//                     <th>Клиент</th>
+//                     <th>Имя</th>
 //                     {/*<th>Фамилия Фамилия</th>*/}
 //                     <th>Email</th>
-//                     <th>Адрес доставки</th>
-//                     <th>Номер телефона</th>
-//                     <th>Способ оплаты</th>
+//                     <th>Адрес</th>
+//                     <th>№ Тел</th>
+//                     <th>Способ опл</th>
 //                     <th>Комментарии</th>
-//                     <th>Продукты</th>
+//                     <th>Товары</th>
 //                     <th>Сумма</th>
 //                     <th>Статус</th>
 //                     <th>Дата</th>
 //                 </tr>
 //                 </thead>
-//
 //                 <tbody>
 //                 {orders.map((order) => (
 //                     <tr key={order._id}>
 //                         <td>{order._id}</td>
-//                         <td>{order.user ? order.user.name : 'Гость'}</td>
-//                         <td>{order.guestInfo ? order.guestInfo.name : '-'}</td>
+//                         <td>{order.user ? order.user.role : 'Гость'}</td>
+//                         <td>{order.user ? order.user.name : '-'}</td>
 //                         {/*<td>{order.guestInfo ? order.guestInfo.lastName : '-'}</td>*/}
-//                         <td>{order.guestInfo ? order.guestInfo.email : '-'}</td>
-//                         <td>{order.guestInfo ? order.guestInfo.address : '-'}</td>
-//                         <td>{order.guestInfo ? order.guestInfo.phoneNumber : '-'}</td>
-//                         <td>{order.guestInfo ? order.paymentMethod : '-'}</td>
+//                         <td>{order.user ? order.user.email : '-'}</td>
+//                         <td>{order.address ? order.address : '-'}</td>
+//                         <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
+//                         <td>{order.user ? order.paymentMethod : '-'}</td>
 //                         <td>
-//                             {/* Используйте defaultValue, чтобы устранить предупреждение */}
-//                             <textarea defaultValue={order.guestInfo ? order.comments : '-'} readOnly />
+//                             <textarea style={{boxSizing: "border-box", fontSize: "12px"}}
+//                                       defaultValue={order.comments ? order.comments : '-'}>
+//
+//                             </textarea>
 //                         </td>
+//
+//                         {/*<td><textarea>{order.comments ? order.comments : '-'}</textarea></td>*/}
 //                         <td>
 //                             {order.products.map((item) => (
-//                                 <p key={item.product._id}>
-//                                     {item.product.type} (Количество: {item.quantity})
-//                                 </p>
+//                                 <span key={item.product._id}>
+//                                     {item.product.type}: {item.quantity}шт; <br/>
+//                                 </span>
 //                             ))}
 //                         </td>
 //                         <td>{order.totalAmount.toFixed(2)} KGS</td>
-//                         <td>{order.status}</td>
+//                         <td>
+//                             <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
+//                         </td>
 //                         <td>{new Date(order.date).toLocaleString()}</td>
 //                     </tr>
 //                 ))}
@@ -265,3 +181,120 @@ export default OrderList;
 //
 // export default OrderList;
 
+
+
+
+
+const OrderList = () => {
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        // Функция для получения списка заказов с бэкенда
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch('http://localhost:5500/api/orders/orders');
+                const data = await response.json();
+                setOrders(data);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        };
+
+        // Вызываем функцию для получения списка заказов
+        fetchOrders();
+    }, []);
+
+    const updateStatus = async (orderId, newStatus) => {
+        try {
+            const response = await fetch(`http://localhost:5500/api/orders/update-status/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    status: newStatus,
+                    time: new Date().toISOString(), // Добавляем текущее время
+                }),
+            });
+
+            if (response.ok) {
+                // Обновляем локальный список заказов после успешного обновления на сервере
+                const updatedOrders = orders.map((order) =>
+                    order._id === orderId
+                        ? {
+                            ...order,
+                            status: newStatus,
+                            statusChangeTime: new Date().toISOString(), // Обновляем время изменения статуса
+                        }
+                        : order
+                );
+                setOrders(updatedOrders);
+            } else {
+                console.error('Error updating status:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+
+    return (
+        <div className="order">
+            <h2>Список заказов</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Клиент</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Адрес</th>
+                    <th>№ Тел</th>
+                    <th>Способ опл</th>
+                    <th>Комментарии</th>
+                    <th>Товары</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Дата изменения статуса</th>
+                    <th>Дата создания заказа</th>
+                </tr>
+                </thead>
+                <tbody>
+                {orders.map((order) => (
+                    <tr key={order._id}>
+                        <td>{order._id}</td>
+                        <td>{order.user ? order.user.role : 'Гость'}</td>
+                        <td>{order.user ? order.user.name : '-'}</td>
+                        <td>{order.user ? order.user.email : '-'}</td>
+                        <td>{order.address ? order.address : '-'}</td>
+                        <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
+                        <td>{order.user ? order.paymentMethod : '-'}</td>
+                        <td>
+                                <textarea
+                                    style={{ boxSizing: "border-box", fontSize: "12px" }}
+                                    defaultValue={order.comments ? order.comments : '-'}
+                                ></textarea>
+                        </td>
+                        <td>
+                            {order.products.map((item) => (
+                                <span key={item.product._id}>
+                                        {item.product.type}: {item.quantity}шт; <br />
+                                    </span>
+                            ))}
+                        </td>
+                        <td>{order.totalAmount.toFixed(2)} KGS</td>
+                        <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
+                        <td>
+                            {order.statusChangeTime
+                                ? new Date(order.statusChangeTime).toLocaleString()
+                                : '-'}
+                        </td>
+                        <td>{new Date(order.date).toLocaleString()}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+export default OrderList;
