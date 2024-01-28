@@ -244,7 +244,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         setTotalPrice(total);
         if (cartItems.length === 0) {
-            history.push('/products');
+            history.push('/');
         }
     }, [cartItems, history]);
 
