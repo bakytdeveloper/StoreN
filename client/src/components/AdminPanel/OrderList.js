@@ -188,6 +188,7 @@ import OrderItem from "./OrderItem"; // Подключение стилей
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
 
+
     useEffect(() => {
         // Функция для получения списка заказов с бэкенда
         const fetchOrders = async () => {
@@ -211,31 +212,29 @@ const OrderList = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    status: newStatus,
-                    time: new Date().toISOString(), // Добавляем текущее время
-                }),
+                body: JSON.stringify({ status: newStatus }),
             });
 
             if (response.ok) {
-                // Обновляем локальный список заказов после успешного обновления на сервере
-                const updatedOrders = orders.map((order) =>
-                    order._id === orderId
-                        ? {
-                            ...order,
-                            status: newStatus,
-                            statusChangeTime: new Date().toISOString(), // Обновляем время изменения статуса
-                        }
-                        : order
-                );
+                // Обновление статуса на клиенте
+                const updatedOrders = orders.map((order) => {
+                    if (order._id === orderId) {
+                        return { ...order, status: newStatus, statusHistory: [...order.statusHistory, { status: newStatus, time: Date.now() }] };
+                    }
+                    return order;
+                });
+
                 setOrders(updatedOrders);
             } else {
-                console.error('Error updating status:', response.statusText);
+                console.error('Failed to update status');
             }
         } catch (error) {
             console.error('Error updating status:', error);
         }
     };
+
+
+
 
     return (
         <div className="order">
@@ -284,8 +283,8 @@ const OrderList = () => {
                         <td>{order.totalAmount.toFixed(2)} KGS</td>
                         <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
                         <td>
-                            {order.statusChangeTime
-                                ? new Date(order.statusChangeTime).toLocaleString()
+                            {order.statusHistory && order.statusHistory.length > 0
+                                ? new Date(order.statusHistory[order.statusHistory.length - 1].time).toLocaleString()
                                 : '-'}
                         </td>
                         <td>{new Date(order.date).toLocaleString()}</td>

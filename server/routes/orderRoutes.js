@@ -269,7 +269,10 @@ router.put('/update-status/:orderId', async (req, res) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             orderId,
-            { $set: { status } },
+            {
+                $set: { status },
+                $push: { statusHistory: { status, time: Date.now() } },
+            },
             { new: true }
         );
 
@@ -282,6 +285,8 @@ router.put('/update-status/:orderId', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 
 module.exports = router;
