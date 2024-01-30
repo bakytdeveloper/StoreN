@@ -307,10 +307,11 @@ const OrderList = () => {
                     <th>Способ опл</th>
                     <th>Комментарии</th>
                     <th>Товары</th>
-                    <th>Сумма</th>
+                    <th>Дата заказа</th>
+
                     <th>Статус</th>
-                    <th>Дата изменения статуса</th>
-                    <th>Дата создания заказа</th>
+                    <th>Время изменения статуса</th>
+                    <th>Сумма</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -336,7 +337,7 @@ const OrderList = () => {
                                     </span>
                             ))}
                         </td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.totalAmount.toFixed(2)} KGS</td>
+                        <td>{new Date(order.date).toLocaleString()}</td>
                        <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
 
                         <td>
@@ -344,7 +345,9 @@ const OrderList = () => {
                                 ? new Date(order.statusHistory[order.statusHistory.length - 1].time).toLocaleString()
                                 : '-'}
                         </td>
-                        <td>{new Date(order.date).toLocaleString()}</td>
+
+                        <td  onClick={() => handleOrderClick(order)}>{order.totalAmount.toFixed(2)} KGS</td>
+
                     </tr>
                 ))}
                 </tbody>

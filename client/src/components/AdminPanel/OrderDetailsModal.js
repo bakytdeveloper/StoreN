@@ -2,6 +2,7 @@ import React from 'react';
 import './OrderDetailsModal.css';
 
 const OrderDetailsModal = ({ order, onClose }) => {
+    console.log( "O R D E R:", order)
     return (
         <div className="order-details-modal">
             <div className="modal-content">
