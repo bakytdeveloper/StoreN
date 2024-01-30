@@ -64,7 +64,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -82,6 +82,22 @@ const App = () => {
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
     const [showSidebar, setShowSidebar] = useState(true);
+
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            // Очистка localStorage
+            localStorage.clear();
+        };
+
+        // Добавление обработчика события перед выходом со страницы
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Удаление обработчика события при размонтировании компонента
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
 
     const handleSearch = (keyword) => {
         setSearchKeyword(keyword);

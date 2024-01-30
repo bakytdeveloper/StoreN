@@ -127,6 +127,7 @@ const LoginRegister = () => {
     const [isRegisterMode, setRegisterMode] = useState(false);
     const history = useHistory();
 
+
     const handleLoginRegister = async () => {
         const url = isRegisterMode
             ? 'http://localhost:5500/api/users/register'
