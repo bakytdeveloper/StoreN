@@ -188,9 +188,7 @@ import OrderItem from "./OrderItem"; // Подключение стилей
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
 
-
     useEffect(() => {
-        // Функция для получения списка заказов с бэкенда
         const fetchOrders = async () => {
             try {
                 const response = await fetch('http://localhost:5500/api/orders/orders');
@@ -201,7 +199,6 @@ const OrderList = () => {
             }
         };
 
-        // Вызываем функцию для получения списка заказов
         fetchOrders();
     }, []);
 
@@ -216,7 +213,6 @@ const OrderList = () => {
             });
 
             if (response.ok) {
-                // Обновление статуса на клиенте
                 const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
                         return { ...order, status: newStatus, statusHistory: [...order.statusHistory, { status: newStatus, time: Date.now() }] };
@@ -233,16 +229,13 @@ const OrderList = () => {
         }
     };
 
-
-
-
     return (
         <div className="order">
             <h2>Список заказов</h2>
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Номер заказа</th>
                     <th>Клиент</th>
                     <th>Имя</th>
                     <th>Email</th>
@@ -258,9 +251,9 @@ const OrderList = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {orders.map((order) => (
+                {orders.map((order, index) => (
                     <tr key={order._id}>
-                        <td>{order._id}</td>
+                        <td>{index + 1}</td>
                         <td>{order.user ? order.user.role : 'Гость'}</td>
                         <td>{order.user ? order.user.name : '-'}</td>
                         <td>{order.user ? order.user.email : '-'}</td>
