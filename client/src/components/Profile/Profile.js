@@ -537,8 +537,8 @@ const Profile = () => {
     const handleLogout = () => {
         // Реализуйте функциональность выхода
         // Например, очистка localStorage и перенаправление на главную страницу
-        localStorage.removeItem('token');
-        setUser(null);
+        // localStorage.removeItem('token');
+        // setUser(null);
         history.push('/');
     };
 
