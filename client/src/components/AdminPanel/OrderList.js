@@ -315,14 +315,14 @@ const OrderList = () => {
                 </thead>
                 <tbody>
                 {orders.map((order, index) => (
-                    <tr key={order._id} onClick={() => handleOrderClick(order)}>
-                        <td>{index + 1}</td>
-                        <td>{order.user ? order.user.role : 'Гость'}</td>
-                        <td>{order.user ? order.user.name : '-'}</td>
-                        <td>{order.user ? order.user.email : '-'}</td>
-                        <td>{order.address ? order.address : '-'}</td>
-                        <td>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-                        <td>{order.user ? order.paymentMethod : '-'}</td>
+                    <tr key={order._id} >
+                        <td  onClick={() => handleOrderClick(order)}>{index + 1}</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.role : 'Гость'}</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.name : '-'}</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.email : '-'}</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.address ? order.address : '-'}</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.paymentMethod : '-'}</td>
                         <td>
                                 <textarea
                                     style={{ boxSizing: "border-box", fontSize: "12px" }}
@@ -336,7 +336,7 @@ const OrderList = () => {
                                     </span>
                             ))}
                         </td>
-                        <td>{order.totalAmount.toFixed(2)} KGS</td>
+                        <td  onClick={() => handleOrderClick(order)}>{order.totalAmount.toFixed(2)} KGS</td>
                        <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
 
                         <td>
