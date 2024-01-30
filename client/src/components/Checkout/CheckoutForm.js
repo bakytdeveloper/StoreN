@@ -104,15 +104,16 @@ const CheckoutForm = ({ onSubmit, user }) => {
     return (
         <div>
             <h2>Оформите заказ</h2>
-            <label>Имя:</label>
+            <div style={{fontSize: "10px", fontWeight: "bold"}}>Обязательные поля для заполнениня- "<span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span>"</div>
+            <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span> Имя:</label>
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-            <label>Email:</label>
+            <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span> Email:</label>
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <label>Адрес доставки:</label>
+            <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span>  Адрес доставки:</label>
             <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
-            <label>Номер телефона:</label>
+            <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span> Номер телефона:</label>
             <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <label>Способ оплаты:</label>
+            <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span> Способ оплаты:</label>
             <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
             <label>Комментарии:</label>
             <textarea value={comments} onChange={(e) => setComments(e.target.value)} />

@@ -197,7 +197,7 @@ const LoginRegister = () => {
     };
 
     return (
-        <form>
+        <form style={{marginTop: "130px"}}>
             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
             {isRegisterMode && (
                 <input

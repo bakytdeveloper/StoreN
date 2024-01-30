@@ -55,6 +55,8 @@
 /* src/components/Sidebar/Sidebar.css */
 
 .sidebar {
+    margin-top: 130px;
+    position: fixed;
     width: 100%;
     max-width: 200px;
     padding: 20px;

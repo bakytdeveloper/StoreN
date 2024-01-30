@@ -8,6 +8,8 @@
     width: 200px;
     background-color: #f0f0f0;
     padding: 20px;
+    z-index: 1;
+
 }
 
 .sidebar-item {
@@ -35,6 +37,8 @@
 
 .profile-content {
     padding: 20px;
+    background: #c3f3e8;
+    margin: 130px 0 0 270px;
 }
 
 .profile-input {

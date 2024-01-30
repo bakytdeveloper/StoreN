@@ -109,6 +109,21 @@
     width: 90% !important;
     margin: auto;
     box-sizing: border-box;
+    margin-top: 170px;
+}
+
+.title {
+    font-size: 35px;
+    font-family: Phosphate;
+}
+.title span {
+    color: #b13902;
+    font-family: "Playfair Display";
+    border: 3px solid #007bff;
+    border-radius: 45%;
+    background: #f3f3c6;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .cart h2 {

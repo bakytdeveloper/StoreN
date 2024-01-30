@@ -686,8 +686,9 @@ const Profile = () => {
                         )}
                         {activeTab === 'purchaseHistory' && (
                             <>
-                                <h3>История покупок</h3>
+                                <h3>Это ваша история заказов</h3>
                                 {userOrders.map((order) => (
+
                                     <div key={order._id} className="order-item">
                                         <p>Дата: {new Date(order.date).toLocaleDateString()}</p>
                                         <p>Статус: {order.status}</p>
@@ -709,7 +710,7 @@ const Profile = () => {
                     </div>
                 ) : (
                     // Если пользователь не аутентифицирован
-                    <div className="registration-notification">
+                    <div className="registration-notification" style={{marginTop: "130px", marginLeft: "300px"}}>
                         <span>
                             Вы не зарегистрировались.{' '}
                             <Link to="/login"><p>Для получения личного профиля зарегистрируйтесь здесь</p></Link>.
