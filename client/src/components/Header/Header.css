@@ -56,22 +56,34 @@
     padding: 3px 30px;
     z-index: 1;
     background-color: #f0f0f0;
-    background-image: url("./header.png");
+    background-image: url("./header2.jpg");
     background-size: cover;
     background-position: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.9); /* Добавим небольшую тень для выделения шапки */
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.9); /* Добавим небольшую тень для выделения шапки */
 }
 
-.title {
-    font-size: 54px;
-    font-weight: bold;
+.titleH {
+    font-size: 44px!important;
+    font-weight: bold!important;
     text-decoration: none; /* Уберем стандартное подчеркивание ссылки */
-    color: #120398; /* Черный цвет текста */
-    font-family: Luminari;
+    color: #0314ae; /* Черный цвет текста */
+    font-family: "American Typewriter"!important;
+    padding: 0 10px;
+    background: #8db8b7;
+    border-radius: 0 8px 0 8px;
+    box-shadow: 4px 8px 7px #98a0a0;
 }
 
 .title:hover {
-    color: #555; /* Изменяем цвет при наведении для акцента */
+    color: #1c1ff3; /* Изменяем цвет при наведении для акцента */
+}
+
+.titleN {
+    color: #a73b04 !important;
+    font-family: Luminari!important;
+    font-weight: bold!important;
+    border: none!important;
+    background: none!important;
 }
 
 .contact {
@@ -169,6 +181,7 @@
         width: 100%;
         flex-direction: column;
         text-align: center;
+
     }
     .brand {
         font-size: 24px;

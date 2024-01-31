@@ -62,9 +62,9 @@ const OrderItem = ({ order, onUpdateStatus }) => {
                     value={selectedStatus}
                     onChange={handleChange}
                 >
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Cancelled">Cancelled</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
                 </select>
             </td>
         </tr>

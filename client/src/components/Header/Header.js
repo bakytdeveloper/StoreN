@@ -36,8 +36,8 @@ const Header = ({ onSearch, cartItems }) => {
 
     return (
         <div className="header">
-            <Link to="/" className="title">
-                <h1 className="title"> Store <span className="sp">N</span></h1>
+            <Link to="/" className="title" >
+                <h1 className="titleH"> Store <span className="titleN">№</span></h1>
             </Link>
             <div className="contact">
                 <div className="phone">XXX-XX-XX-XX</div>

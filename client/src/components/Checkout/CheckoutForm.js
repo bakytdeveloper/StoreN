@@ -86,7 +86,7 @@ const CheckoutForm = ({ onSubmit, user }) => {
     const handleSubmit = () => {
         // Проверьте, что введены все необходимые данные
         if (!firstName || !email || !address || !phoneNumber || !paymentMethod) {
-            alert('Пожалуйста, введите всю необходимую информацию');
+            alert('Пожалуйста, заполните Обязательные поля для заполнениня');
             return;
         }
 

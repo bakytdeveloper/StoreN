@@ -196,6 +196,12 @@ const LoginRegister = () => {
         }
     };
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleLoginRegister();
+        }
+    };
+
     return (
         <form style={{marginTop: "130px"}}>
             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
@@ -205,6 +211,7 @@ const LoginRegister = () => {
                     placeholder="Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    onKeyPress={handleKeyPress}
                 />
             )}
             <input
@@ -212,12 +219,15 @@ const LoginRegister = () => {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onKeyPress={handleKeyPress}
             />
             <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={handleKeyPress}
+
             />
             <button type="button" onClick={handleLoginRegister}>
                 {isRegisterMode ? 'Register' : 'Login'}

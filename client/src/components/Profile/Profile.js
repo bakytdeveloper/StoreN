@@ -710,7 +710,7 @@ const Profile = () => {
                     </div>
                 ) : (
                     // Если пользователь не аутентифицирован
-                    <div className="registration-notification" style={{marginTop: "130px", marginLeft: "300px"}}>
+                    <div className="registration-notification" style={{marginTop: "130px", textAlign: "center"}}>
                         <span>
                             Вы не зарегистрировались.{' '}
                             <Link to="/login"><p>Для получения личного профиля зарегистрируйтесь здесь</p></Link>.

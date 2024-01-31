@@ -5,7 +5,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin-top: 100px;
+    margin-top: 130px;
     margin-left: 230px;
 }
 
@@ -17,7 +17,7 @@
     transition: transform 0.3s;
     cursor: pointer;
     text-align: center;
-    padding-top: 3px;
+    padding-top: 10px;
 }
 
 .product-card:hover {
@@ -51,12 +51,14 @@
     font-size: 16px;
     font-weight: bold;
     color: #024875;
+
 }
 
 .price {
     font-size: 16px;
     font-weight: bold;
     color: #2980b9;
+    background: #a7fcf8;
 }
 
 .actions {
@@ -101,7 +103,7 @@
 
 
 .cart-button:hover {
-    background-color: #e2f8b5;
+    background-color: #f1fa0e;
     /*color: #fff;*/
     /*padding: 5px 10px;*/
     border: none;
@@ -113,3 +115,4 @@
 /*    width: 45px;*/
 /*    height: 45px;*/
 /*}*/
+
