@@ -287,7 +287,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 <div>
                     {cartItems.map((item) => (
                         <div className="cart-item" key={item.productId}>
-                            <div className="item-info">
+                            <div className="item-info" >
                                 <img src={item.image} alt={item.name} />
                                 <div className="item-details">
                                     <div style={{ fontWeight: 'bold' }}>{item.type}</div>

@@ -2,11 +2,14 @@
 
 .product-list {
     display: grid;
+    position: relative;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
     margin-top: 130px;
     margin-left: 230px;
+    margin-bottom: 150px!important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
+
 }
 
 .product-card {
@@ -111,8 +114,106 @@
     cursor: pointer;
 }
 
-/*.cart-button img {*/
-/*    width: 45px;*/
-/*    height: 45px;*/
+
+/*.pagination {*/
+/*    display: inline-flex;*/
+/*    margin: 0 0 0 420px;*/
+/*    text-align: center;*/
+/*    width: 300px;*/
+/*    height: 60px;*/
 /*}*/
 
+
+/*.arrowL {*/
+/*    font-size: 30px;*/
+/*    !*box-shadow: 4px 6px 6px dimgray;*!*/
+/*    background: white;*/
+/*    box-sizing: content-box;*/
+/*}*/
+/*.arrowL:hover {*/
+/*    font-size: 28px;*/
+/*    background: white;*/
+/*    box-sizing: content-box;*/
+/*}*/
+
+
+/*.arrowR {*/
+/*    font-size: 30px;*/
+/*    background: white;*/
+/*    box-sizing: content-box;*/
+/*}*/
+/*.arrowR:hover {*/
+/*    font-size: 28px;*/
+/*    background: white;*/
+/*    box-sizing: content-box;*/
+/*}*/
+/*.pagination button {*/
+/*    background: red;*/
+
+/*}*/
+
+/*.pagination button:hover {*/
+/*    background: none;*/
+
+/*}*/
+
+/*.numStr {*/
+/*    margin-top: 15px;*/
+/*}*/
+
+
+
+
+
+.pagination {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px; /* Желаемая максимальная ширина пагинации */
+    margin: 0 auto;
+    bottom: -70px;
+}
+
+.pagination button {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100px;
+}
+
+.pagination button:disabled {
+    background: #ddd;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.numStr {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.arrowL {
+    font-size: 50px;
+}
+
+.arrowR {
+    font-size: 50px;
+
+}
+
+
+@media only screen and (max-width: 768px) {
+    .product-list {
+        margin-left: 1px;
+        margin: 360px 1px 1px 1px;
+    }
+
+}

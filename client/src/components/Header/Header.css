@@ -56,7 +56,7 @@
     padding: 3px 30px;
     z-index: 1;
     background-color: #f0f0f0;
-    background-image: url("./header2.jpg");
+    background-image: url("./header.png");
     background-size: cover;
     background-position: center;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.9); /* Добавим небольшую тень для выделения шапки */

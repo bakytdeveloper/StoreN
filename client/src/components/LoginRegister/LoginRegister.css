@@ -45,3 +45,13 @@ p {
 p:hover {
     text-decoration: underline;
 }
+
+
+
+@media only screen and (max-width: 768px) {
+    form {
+
+        margin: 360px 1px 1px 1px!important;
+    }
+
+}
