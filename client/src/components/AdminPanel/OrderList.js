@@ -315,7 +315,7 @@ const OrderList = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {orders.map((order, index) => (
+                {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id} >
                         <td  onClick={() => handleOrderClick(order)}>{index + 1}</td>
                         <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.role : 'Гость'}</td>

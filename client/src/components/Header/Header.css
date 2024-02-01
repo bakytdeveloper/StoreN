@@ -69,13 +69,15 @@
     color: #0314ae; /* Черный цвет текста */
     font-family: "American Typewriter"!important;
     padding: 0 10px;
-    background: #8db8b7;
+    background: #5ca1de;
     border-radius: 0 8px 0 8px;
     box-shadow: 4px 8px 7px #98a0a0;
 }
 
-.title:hover {
+.titleH:hover {
     color: #1c1ff3; /* Изменяем цвет при наведении для акцента */
+    box-shadow: 4px 4px 3px #a4acac;
+
 }
 
 .titleN {
@@ -113,13 +115,19 @@
     transform: scale(1.2); /* Увеличим размер иконки при наведении */
 }
 
+.auth-buttons {
+    display: inline-flex;
+}
+
 .auth-button {
-    margin-right: 10px;
-    padding: 8px 15px;
-    font-size: 14px;
+    margin-right: 60px;
+    margin-top: 10px;
+    padding: 6px 10px 0 10px;
+    height: 35px;
+    font-size: 19px;
     cursor: pointer;
     background-color: #3498db; /* Цвет фона кнопок */
-    color: #fff; /* Белый цвет текста */
+    color: #030358; /* Белый цвет текста */
     border: none;
     border-radius: 3px;
     transition: background-color 0.3s ease; /* Добавим анимацию при наведении */
@@ -128,6 +136,7 @@
 .auth-button:hover {
     background-color: #2980b9; /* Изменяем цвет кнопки при наведении */
 }
+
 
 .btn {
     text-align: center;
@@ -151,12 +160,12 @@
 }
 
 
-
 .auth-button img {
     width: 35px;
     height: auto;
     text-align: center;
     background: none;
+    margin-right: 30px;
 }
 
 .auth-button img:hover {
@@ -169,11 +178,42 @@
 }
 
 .search input {
-    padding: 8px;
-    width: 200px;
+    margin-top: 10px;
+    padding: 3px;
+    font-size: 17px;
+    height: 35px;
+    width: 220px;
     border: 1px solid #ddd; /* Добавим рамку вокруг поля поиска */
     border-radius: 3px;
 }
+
+
+
+
+.profileIcon img {
+    width: 35px;
+    height: auto;
+    text-align: center;
+    background: #87cdd9;
+    margin-right: 50px;
+    padding: 6px;
+    border-radius: 50%;
+    box-shadow: 4px 7px 7px;
+    box-sizing: content-box;
+}
+
+.profileIcon img:hover {
+    box-sizing: content-box;
+    width: 35px;
+    height: auto;
+    text-align: center;
+    background: #87cdd9;
+    margin-right: 50px;
+    padding: 6px;
+    border-radius: 50%;
+    box-shadow: 2px 4px 4px;
+}
+
 
 /* Добавим стили для мобильных устройств (адаптивность) */
 @media only screen and (max-width: 768px) {

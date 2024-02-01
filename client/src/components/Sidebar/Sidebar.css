@@ -113,7 +113,7 @@
     max-width: 200px;
     padding: 20px;
     background-color: #272727; /* Цвет фона - темный серый */
-    color: #ffffff; /* Цвет текста - белый */
+    color: #052081; /* Цвет текста - белый */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */

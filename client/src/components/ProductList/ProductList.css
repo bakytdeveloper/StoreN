@@ -24,7 +24,7 @@
 }
 
 .product-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .product-card img {
@@ -38,7 +38,7 @@
     /*margin-right: 25px;*/
     /*flex: 1;*/
     text-decoration: none;
-    padding: 10px;
+    padding: 11px;
 }
 .brand {
     font-weight: bold;
@@ -68,7 +68,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 6px;
     background-color: #f0f0f0;
 }
 
@@ -167,7 +167,7 @@
 
 .pagination {
     position: absolute;
-    bottom: 100px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -180,17 +180,21 @@
 }
 
 .pagination button {
-    background: #4caf50;
+    background: #91f595;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 1px;
     cursor: pointer;
     font-size: 16px;
     width: 100px;
+    border-radius: 7px;
+}
+.pagination button:hover {
+    background: #93eedc;
 }
 
 .pagination button:disabled {
-    background: #ddd;
+    background: #b5b4b4;
     color: #666;
     cursor: not-allowed;
 }
@@ -201,11 +205,11 @@
 }
 
 .arrowL {
-    font-size: 50px;
+    font-size: 35px;
 }
 
 .arrowR {
-    font-size: 50px;
+    font-size: 35px;
 
 }
 

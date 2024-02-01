@@ -85,7 +85,7 @@ const CheckoutForm = ({ onSubmit, user }) => {
 
     const handleSubmit = () => {
         // Проверьте, что введены все необходимые данные
-        if (!firstName || !email || !address || !phoneNumber || !paymentMethod) {
+        if (!firstName || !email || !address || !phoneNumber) {
             alert('Пожалуйста, заполните Обязательные поля для заполнениня');
             return;
         }
@@ -113,7 +113,7 @@ const CheckoutForm = ({ onSubmit, user }) => {
             <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
             <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span> Номер телефона:</label>
             <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <label><span style={{fontWeight: "bold", color: "red", fontSize: "20px"}}>*</span> Способ оплаты:</label>
+            <label> Способ оплаты:</label>
             <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
             <label>Комментарии:</label>
             <textarea value={comments} onChange={(e) => setComments(e.target.value)} />

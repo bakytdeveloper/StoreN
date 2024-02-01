@@ -57,24 +57,35 @@ const Header = ({ onSearch, cartItems }) => {
                     </a>
                 </div>
             </div>
+
+            <div className="search">
+                <input type="text"
+                       placeholder="Поиск..."
+                       value={searchTerm}
+                       onChange={handleSearchChange} />
+            </div>
+            <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
+
             <div className="auth-buttons">
-                <Link to="/login" className="auth-button">Login/Register</Link>
-                <Link to="/profile" className="auth-button btn">
+                <Link to="/login" className="auth-button btns">
+                    Login/Register
+                </Link>
+                <Link to="/profile" className="profileIcon">
                     <img src={profileIcon} alt="profileIcon"/>
                 </Link>
                 {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Instagram Icon" /> ({totalItems})</Link>*/}
             </div>
             
-            <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
+            {/*<Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>*/}
             {/*<Link to="/cart" className="auth-button btn"> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>*/}
 
-            <div className="search">
-                <input type="text"
-                    style={{marginRight: "40px"}}
-                    placeholder="Поиск..."
-                    value={searchTerm}
-                    onChange={handleSearchChange} />
-            </div>
+            {/*<div className="search">*/}
+            {/*    <input type="text"*/}
+            {/*        style={{marginRight: "40px"}}*/}
+            {/*        placeholder="Поиск..."*/}
+            {/*        value={searchTerm}*/}
+            {/*        onChange={handleSearchChange} />*/}
+            {/*</div>*/}
         </div>
     );
 };
