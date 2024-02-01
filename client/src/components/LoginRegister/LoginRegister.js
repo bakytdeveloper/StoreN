@@ -184,7 +184,7 @@ const LoginRegister = () => {
                 console.error('Data error:', data);
 
                 // Оповещение об ошибке
-                toast.error(data.message || 'An error occurred');
+                toast.error(data.message || 'Произошла ошибка');
 
                 // Другие действия при неудачной аутентификации
             }

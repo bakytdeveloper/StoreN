@@ -1,9 +1,7 @@
 // src/components/Header/Header.js
-
 import React, {useState} from 'react';
 import './Header.css';
 import {Link, useHistory} from 'react-router-dom';
-
 import ins from "./instagram.png";
 import tel from "./telegram.png";
 import what from "./whatsapp.png";
