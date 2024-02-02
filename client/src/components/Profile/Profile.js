@@ -350,7 +350,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './Profile.css'; // Подключаем файл стилей
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Импортируем иконки
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { toast } from 'react-toastify';  // Импортируем библиотеку react-toastify
+import 'react-toastify/dist/ReactToastify.css';  // Подключаем стили для react-toastify
 
 const Profile = () => {
     const [user, setUser] = useState(null);
@@ -473,15 +475,21 @@ const Profile = () => {
             if (response.ok) {
                 const data = await response.json();
                 setUser(data.user);
-                console.log('Profile updated successfully');
+                toast.success('Профиль успешно обновлен', { position: toast.POSITION.BOTTOM_RIGHT });
             } else {
-                const errorMessage = await response.text(); // Получаем текст ответа
+                const errorMessage = await response.text();
                 console.error('Error updating profile:', errorMessage);
+                toast.error('Ошибка при обновлении профиля', { position: toast.POSITION.BOTTOM_RIGHT });
             }
         } catch (error) {
             console.error('Error updating profile:', error);
+            toast.error('Ошибка при обновлении профиля', { position: toast.POSITION.BOTTOM_RIGHT });
         }
     };
+
+
+
+
 
     const handleEditPassword = () => {
         setEditPassword(true);
@@ -516,15 +524,14 @@ const Profile = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                console.log('Password updated successfully');
-                // Добавим код для обработки успешного обновления пароля, например, вывод уведомления
-                // или перенаправление на другую страницу
+                toast.success('Пароль успешно обновлен', { position: toast.POSITION.BOTTOM_RIGHT });
             } else {
                 console.error(data.message);
-                // Добавим код для обработки ошибки при обновлении пароля
+                toast.error('Ошибка при обновлении пароля', { position: toast.POSITION.BOTTOM_RIGHT });
             }
         } catch (error) {
             console.error('Error updating password:', error);
+            toast.error('Ошибка при обновлении пароля', { position: toast.POSITION.BOTTOM_RIGHT });
         } finally {
             setEditPassword(false);
             setCurrentPassword('');
@@ -532,6 +539,9 @@ const Profile = () => {
             setConfirmPassword('');
         }
     };
+
+
+
 
 
     const handleLogout = () => {

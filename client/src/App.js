@@ -76,6 +76,8 @@ import Profile from './components/Profile/Profile';
 import Cart from './components/Cart/Cart';
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import OrderList from "./components/AdminPanel/OrderList";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -161,8 +163,10 @@ const App = () => {
                     </Switch>
                 </div>
             </div>
+            <ToastContainer />
+
         </Router>
-    );
+);
 };
 
 export default App;

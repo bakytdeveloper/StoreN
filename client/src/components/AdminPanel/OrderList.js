@@ -381,7 +381,7 @@ const OrderList = () => {
                         <td>
                                 <textarea
                                     style={{ boxSizing: "border-box", fontSize: "12px" }}
-                                    defaultValue={order.commentsAdmin ? order.commentsAdmin : '-'}
+                                    defaultValue={order.commentsAdmin ? order.commentsAdmin : ''}
                                     onBlur={(e) => updateCommentsAdmin(order._id, e.target.value)}
                                 ></textarea>
                         </td>
