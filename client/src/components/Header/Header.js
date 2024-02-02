@@ -107,7 +107,6 @@
 
 
 
-
 // src/components/Header/Header.js
 import React, { useState } from 'react';
 import './Header.css';
@@ -121,7 +120,7 @@ import trol from './trolley.png';
 
 const Header = ({ onSearch, cartItems }) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Добавлено состояние для отслеживания статуса аутентификации
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Добавлен стейт для отслеживания статуса аутентификации
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const history = useHistory();
 
@@ -132,38 +131,45 @@ const Header = ({ onSearch, cartItems }) => {
     };
 
     const handleCartClick = () => {
+        // Проверка наличия товаров в корзине
         if (totalItems > 0) {
+            // Перейти на страницу корзины
             history.push("/cart");
         } else {
+            // Перейти на главную страницу, если корзина пуста
             history.push("/");
         }
     };
 
     const handleLogout = () => {
-        // Добавлено действие для выхода и перезагрузки страницы
-        localStorage.removeItem('token'); // Очищаем токен
+        // Дополнительные действия при выходе, если необходимо
+        // ...
+
+        // Сброс статуса аутентификации
         setIsLoggedIn(false);
-        window.location.reload(); // Перезагружаем страницу
+
+        // Перезагрузка страницы
+        window.location.reload();
     };
 
     return (
         <div className="header">
-            <Link to="/" className="title">
+            <Link to="/" className="title" >
                 <h1 className="titleH"> Store <span className="titleN">№</span></h1>
             </Link>
             <div className="contact">
                 <div className="phone">XXX-XX-XX-XX</div>
                 <div className="social-icons">
-                    <a className="icon" href="https://www.tiktok.com/">
+                    <a className="icon"  href="https://www.tiktok.com/" >
                         <img src={tik} alt="Instagram Icon" />
                     </a>
                     <a href="https://web.whatsapp.com/">
                         <img className="icon" src={what} alt="Instagram Icon" />
                     </a>
-                    <a href="https://www.instagram.com/">
+                    <a   href="https://www.instagram.com/">
                         <img className="icon" src={ins} alt="Instagram Icon" />
                     </a>
-                    <a className="icon" href="https://web.telegram.org/">
+                    <a className="icon"  href="https://web.telegram.org/">
                         <img src={tel} alt="Instagram Icon" />
                     </a>
                 </div>
@@ -174,23 +180,21 @@ const Header = ({ onSearch, cartItems }) => {
                        value={searchTerm}
                        onChange={handleSearchChange} />
             </div>
-            {isLoggedIn ? (
-                // Если пользователь вошел в систему, отображаем "Logout"
-                <Link to="/" className="auth-button btns" onClick={handleLogout}>
-                    Logout
-                </Link>
-            ) : (
-                // Если пользователь не вошел в систему, отображаем "Login/Register"
-                <Link to="/login" className="auth-button btns">
-                    Login/Register
-                </Link>
-            )}
-            <Link to="/cart" className="auth-button btn" onClick={handleCartClick}>
-                <img src={trol} alt="Cart Icon" /> ({totalItems})
-            </Link>
+            <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
             <div className="auth-buttons">
+                {isLoggedIn ? (
+                    // Если пользователь аутентифицирован, показываем кнопку Logout
+                    <button className="auth-button btns" onClick={handleLogout}>
+                        Logout
+                    </button>
+                ) : (
+                    // Если пользователь не аутентифицирован, показываем кнопку Login/Register
+                    <Link to="/login" className="auth-button btns" onClick={() => setIsLoggedIn(true)}>
+                        Login/Register
+                    </Link>
+                )}
                 <Link to="/profile" className="profileIcon">
-                    <img src={profileIcon} alt="profileIcon" />
+                    <img src={profileIcon} alt="profileIcon"/>
                 </Link>
             </div>
         </div>
