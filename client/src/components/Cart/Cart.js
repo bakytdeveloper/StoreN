@@ -142,12 +142,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         const updatedCart = cartItems.filter((item) => item.productId !== productId);
         setCartItems(updatedCart);
         if (updatedCart.length === 0) {
-            history.push('/products');
+            history.push('/');
         }
     };
 
     const handleBackToShopping = () => {
-        history.push('/products');
+        history.push('/');
     };
 
     const handleCheckout = () => {
