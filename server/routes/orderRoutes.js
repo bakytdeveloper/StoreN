@@ -289,6 +289,35 @@ router.put('/update-status/:orderId', async (req, res) => {
 
 
 
+// Обновление комментариев админа
+router.put('/update-comments-admin/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    const { commentsAdmin } = req.body;
+
+    try {
+        const updatedOrder = await Order.findByIdAndUpdate(
+            orderId,
+            {
+                $set: { commentsAdmin },
+            },
+            { new: true }
+        );
+        if (updatedOrder) {
+            res.json(updatedOrder);
+        } else {
+            res.status(404).json({ message: 'Order not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
+
+
+
 module.exports = router;
 
 

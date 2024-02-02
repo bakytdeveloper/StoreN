@@ -284,6 +284,33 @@ const OrderList = () => {
         }
     };
 
+    const updateCommentsAdmin = async (orderId, commentsAdmin) => {
+        try {
+            const response = await fetch(`http://localhost:5500/api/orders/update-comments-admin/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ commentsAdmin }),
+            });
+
+            if (response.ok) {
+                const updatedOrders = orders.map((order) => {
+                    if (order._id === orderId) {
+                        return { ...order, commentsAdmin };
+                    }
+                    return order;
+                });
+
+                setOrders(updatedOrders);
+            } else {
+                console.error('Failed to update comments admin');
+            }
+        } catch (error) {
+            console.error('Error updating comments admin:', error);
+        }
+    };
+
     const handleOrderClick = (order) => {
         setSelectedOrder(order);
     };
@@ -291,6 +318,7 @@ const OrderList = () => {
     const handleCloseModal = () => {
         setSelectedOrder(null);
     };
+
 
     return (
         <div className="order">
@@ -312,6 +340,7 @@ const OrderList = () => {
                     <th>Статус</th>
                     <th>Время изменения статуса</th>
                     <th>Сумма</th>
+                    <th>Комент админа</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -347,6 +376,15 @@ const OrderList = () => {
                         </td>
 
                         <td  onClick={() => handleOrderClick(order)}>{order.totalAmount.toFixed(2)} KGS</td>
+
+
+                        <td>
+                                <textarea
+                                    style={{ boxSizing: "border-box", fontSize: "12px" }}
+                                    defaultValue={order.commentsAdmin ? order.commentsAdmin : '-'}
+                                    onBlur={(e) => updateCommentsAdmin(order._id, e.target.value)}
+                                ></textarea>
+                        </td>
 
                     </tr>
                 ))}
