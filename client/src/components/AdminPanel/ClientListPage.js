@@ -1,9 +1,14 @@
+
+
+
+
 // src/components/AdminPanel/ClientListPage.js
 import React, { useState, useEffect } from 'react';
-// import './ClientListPage.css';
+import { useHistory } from 'react-router-dom';
 
-const ClientListPage = ({ onClose }) => {
+const ClientListPage = () => {
     const [clients, setClients] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchClients = async () => {
@@ -18,9 +23,16 @@ const ClientListPage = ({ onClose }) => {
         fetchClients();
     }, []);
 
+    const handleGoBack = () => {
+        history.goBack(); // Переход на предыдущую страницу
+    };
+
     return (
-        <div className="client-list-page">
-            <h2>Список клиентов</h2>
+        <div className="client-list-page" style={{ marginTop: "220px" }}>
+            {/*<div className="header">*/}
+                <h2>Список клиентов</h2>
+                <button onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
+            {/*</div>*/}
             <table>
                 <thead>
                 <tr>
@@ -39,7 +51,6 @@ const ClientListPage = ({ onClose }) => {
                 ))}
                 </tbody>
             </table>
-            <button onClick={onClose}>Закрыть</button>
         </div>
     );
 };

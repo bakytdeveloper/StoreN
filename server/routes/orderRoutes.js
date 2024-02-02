@@ -8,69 +8,6 @@ const authenticateToken = require("../middleware/authenticateToken");
 
 
 
-// // Создание нового заказа (для гостей и зарегистрированных пользователей)
-// router.post('/', async (req, res) => {
-//     console.log('Received order creation request:', req.body);
-//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
-//
-//     let userId;
-//
-//     if (user) {
-//         let existingUser;
-//         try {
-//             existingUser = await User.findOne({ email: user.email });
-//         } catch (error) {
-//             console.error('Error finding user:', error);
-//             return res.status(500).json({ message: 'Internal Server Error' });
-//         }
-//
-//         if (existingUser) {
-//             userId = existingUser._id;
-//         } else {
-//             const newUser = new User({
-//                 name: user.firstName,
-//                 email: user.email,
-//                 address: user.address
-//             });
-//
-//             try {
-//                 const savedUser = await newUser.save();
-//                 userId = savedUser._id;
-//             } catch (error) {
-//                 console.error('Error creating new user:', error);
-//                 return res.status(500).json({ message: 'Internal Server Error' });
-//             }
-//         }
-//     }
-//
-//     const order = new Order({
-//         user: userId || null, // Если нет зарегистрированного пользователя, используем null
-//         guestInfo: userId ? undefined : guestInfo, // Если есть зарегистрированный пользователь, не используем guestInfo
-//         cart: [],
-//         products,
-//         totalAmount,
-//         firstName,
-//         address,
-//         phoneNumber,
-//         paymentMethod,
-//         comments,
-//     });
-//
-//     try {
-//         const newOrder = await order.save();
-//         if (userId) {
-//             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
-//             // console.log('U S E R', user )
-//         }
-//         res.status(201).json(newOrder);
-//     } catch (error) {
-//         console.error('Error placing order:', error);
-//         res.status(400).json({ message: error.message });
-//     }
-// });
-
-
-
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
@@ -205,22 +142,6 @@ router.post('/add-to-cart', async (req, res) => {
 });
 
 
-
-// // Получение списка заказов для зарегистрированных пользователей
-// router.get('/my-orders', authenticateToken, async (req, res) => {
-//     console.log('Received my-orders request'); // Добавим лог для отслеживания запроса
-//
-//     if (!req.user || req.user.role === 'guest') {
-//         return res.status(403).json({ message: 'Permission denied' });
-//     }
-//
-//     try {
-//         const orders = await Order.find({ $or: [{ user: req.user._id }, { 'guestInfo.email': req.user.email }] });
-//         res.json(orders);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 
 

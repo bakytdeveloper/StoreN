@@ -66,14 +66,12 @@ import React, { useState, useEffect } from 'react';
 import ProductForm from './ProductForm';
 import './AdminPanel.css';
 import {useHistory} from "react-router-dom";
-import ClientListPage from './ClientListPage'; // Импортируем новый компонент
 
 
 const AdminPanel = () => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showForm, setShowForm] = useState(false);
-    const [showClientList, setShowClientList] = useState(false); // Добавлено состояние для отображения списка клиентов
 
     const history = useHistory();
 
@@ -82,7 +80,7 @@ const AdminPanel = () => {
     };
 
     const handleViewClients = () => {
-        setShowClientList(true);
+        history.push('/users/clients'); // Изменим путь для перехода к списку клиентов
     };
 
 
@@ -96,9 +94,10 @@ const AdminPanel = () => {
                 console.error('Error fetching products:', error);
             }
         };
-
         fetchProducts();
     }, []);
+
+
 
     const handleCreateProduct = () => {
         setSelectedProduct(null);
@@ -200,9 +199,6 @@ const AdminPanel = () => {
                 />
             )}
 
-            {showClientList && (
-                <ClientListPage onClose={() => setShowClientList(false)} />
-            )}
 
         </div>
     );
