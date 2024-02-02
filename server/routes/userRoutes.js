@@ -276,4 +276,19 @@ router.put('/update-password/:userId', async (req, res) => {
 });
 
 
+// Добавление роута для получения списка клиентов
+router.get('/clients', async (req, res) => {
+    try {
+        const clients = await User.find({ role: 'customer' }).select('name email');
+        res.json(clients);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+module.exports = router;
+
+
+
+
 module.exports = router;

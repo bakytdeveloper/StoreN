@@ -66,16 +66,25 @@ import React, { useState, useEffect } from 'react';
 import ProductForm from './ProductForm';
 import './AdminPanel.css';
 import {useHistory} from "react-router-dom";
+import ClientListPage from './ClientListPage'; // Импортируем новый компонент
+
 
 const AdminPanel = () => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const [showClientList, setShowClientList] = useState(false); // Добавлено состояние для отображения списка клиентов
+
     const history = useHistory();
 
     const handleViewOrders = () => {
         history.push('/orders/orders');
     };
+
+    const handleViewClients = () => {
+        setShowClientList(true);
+    };
+
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -170,6 +179,8 @@ const AdminPanel = () => {
         <div className="admin-panel">
             <h2>Админ панель</h2>
             <button onClick={handleViewOrders}>Просмотреть заказы</button>
+            <button onClick={handleViewClients}>Список клиентов</button>
+
             <div className="admin-product-list">
                 {products.map((product) => (
                     <div key={product._id} className="admin-product-item">
@@ -188,6 +199,11 @@ const AdminPanel = () => {
                     onCancel={handleFormCancel}
                 />
             )}
+
+            {showClientList && (
+                <ClientListPage onClose={() => setShowClientList(false)} />
+            )}
+
         </div>
     );
 };
