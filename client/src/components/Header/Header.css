@@ -47,6 +47,10 @@
 
 /* src/components/Header/Header.css */
 
+* {
+    box-sizing: border-box;
+}
+
 .header {
     display: flex;
     position: fixed;
@@ -242,12 +246,25 @@
 
 /* Добавим стили для мобильных устройств (адаптивность) */
 @media only screen and (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+    }
+
     .header {
         width: 100%;
         flex-direction: column;
         text-align: center;
+        margin: 0;
+        padding-top: 0;
+
 
     }
+
+    .auth-button {
+        margin-left: 50px;
+        margin-right: 10px;
+    }
+
     .brand {
         font-size: 24px;
     }
@@ -259,5 +276,6 @@
     .search input {
         width: 100%;
     }
-}
+   
+    }
 

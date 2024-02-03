@@ -180,8 +180,10 @@ const Header = ({ onSearch, cartItems }) => {
                        value={searchTerm}
                        onChange={handleSearchChange} />
             </div>
-            <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
+            {/*<Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>*/}
             <div className="auth-buttons">
+                <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
+
                 {isLoggedIn ? (
                     // Если пользователь аутентифицирован, показываем кнопку Logout
                     <button className="auth-btn" onClick={handleLogout}>
