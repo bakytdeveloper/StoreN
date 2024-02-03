@@ -234,12 +234,18 @@ const OrderList = () => {
                 {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id} >
                         <td  onClick={() => handleOrderClick(order)}>{index + 1}</td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.role : 'Гость'}</td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.name : '-'}</td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.user.email : '-'}</td>
+                        <td onClick={() => handleOrderClick(order)}>{order.user ? order.user.role : 'Гость'}</td>
+                        <td onClick={() => handleOrderClick(order)}>
+                            {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
+                        </td>
+                        <td onClick={() => handleOrderClick(order)}>
+                            {order.user ? order.user.email : (order.guestInfo ? order.guestInfo.email : '-')}
+                        </td>
                         <td  onClick={() => handleOrderClick(order)}>{order.address ? order.address : '-'}</td>
                         <td  onClick={() => handleOrderClick(order)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.user ? order.paymentMethod : '-'}</td>
+                        <td onClick={() => handleOrderClick(order)}> order.paymentMethod
+                            {/*{order.user ? order.paymentMethod : (order.paymentMethod ? order.paymentMethod : order.paymentMethod)}*/}
+                        </td>
                         <td>
                                 <textarea
                                     style={{ boxSizing: "border-box", fontSize: "12px" }}
