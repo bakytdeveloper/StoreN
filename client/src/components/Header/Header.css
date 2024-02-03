@@ -83,6 +83,10 @@
     box-shadow: 4px 4px 3px #a4acac;
 
 }
+ .burger {
+    background: none!important;
+    border: none!important;
+}
 
 .titleN {
     color: #a73b04 !important;
@@ -100,6 +104,12 @@
 .phone {
     margin-right: 20px;
     font-weight: bold;
+}
+
+.burger {
+    /*width: 25px;*/
+    /*height: 25px;*/
+    display: none;
 }
 
 .social-icons a {
@@ -250,6 +260,15 @@
         box-sizing: border-box;
     }
 
+    .title {
+        display: inline-flex;
+    }
+
+    .titleH {
+        display: inline-flex;
+        margin-right: 88px;
+    }
+
     .header {
         width: 100%;
         flex-direction: column;
@@ -259,6 +278,15 @@
 
 
     }
+
+    .burger {
+        display: inline-block;
+        width: 33px;
+        height: 33px;
+        margin-right: 60px;
+        margin-top: 10px;
+    }
+
 
     .auth-button {
         margin-left: 50px;

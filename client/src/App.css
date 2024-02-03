@@ -87,3 +87,9 @@ a .auth-buttons button {
 .auth-buttons button:hover {
   background-color: #2980b9; /* Изменяем цвет кнопки при наведении */
 }
+
+
+span {
+  background: none!important;
+  border: none!important;
+}
