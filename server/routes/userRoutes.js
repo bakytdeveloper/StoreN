@@ -131,9 +131,53 @@ router.put('/update-profile', authenticateToken, async (req, res) => {
 
 
 
-router.put('/update-profile/:userId', authenticateToken ,async (req, res) => {
+// router.put('/update-profile/:userId', authenticateToken ,async (req, res) => {
+//     const userId = req.params.userId;
+//     const { address, phoneNumber } = req.body;
+//
+//     try {
+//         // Находим пользователя
+//         const existingUser = await User.findById(userId);
+//
+//         if (!existingUser) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//
+//         // Обновляем данные профиля
+//         existingUser.orders.address = address;
+//         existingUser.orders.phoneNumber = phoneNumber;
+//
+//         // Сохраняем обновленного пользователя в базе данных
+//         const updatedUser = await existingUser.save();
+//
+//         // Теперь найдем последний заказ пользователя и обновим в нем данные
+//         const latestOrder = await Order.findOne({ user: userId }).sort({ date: -1 });
+//
+//         if (latestOrder) {
+//             latestOrder.address = address;
+//             latestOrder.phoneNumber = phoneNumber;
+//             await latestOrder.save();
+//         }
+//
+//         // Возвращаем успешный ответ
+//         res.json({ message: 'Profile updated successfully', user: updatedUser });
+//     } catch (error) {
+//         console.error('Error updating profile:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+router.put('/update-profile/:userId', authenticateToken, async (req, res) => {
     const userId = req.params.userId;
-    const { address, phoneNumber } = req.body;
+    const { address, phoneNumber, name, email } = req.body;
 
     try {
         // Находим пользователя
@@ -146,6 +190,8 @@ router.put('/update-profile/:userId', authenticateToken ,async (req, res) => {
         // Обновляем данные профиля
         existingUser.orders.address = address;
         existingUser.orders.phoneNumber = phoneNumber;
+        existingUser.name = name; // Добавлено для обновления имени
+        existingUser.email = email; // Добавлено для обновления email
 
         // Сохраняем обновленного пользователя в базе данных
         const updatedUser = await existingUser.save();
@@ -166,6 +212,7 @@ router.put('/update-profile/:userId', authenticateToken ,async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
 
 
 
