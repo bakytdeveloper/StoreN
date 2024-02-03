@@ -118,8 +118,8 @@
 }
 
 .social-icons img {
-    width: 25px;
-    height: 25px;
+    width: 31px;
+    height: 31px;
     margin-right: 10px;
     cursor: pointer;
     transition: transform 0.3s ease; /* Добавим анимацию при наведении */
@@ -166,6 +166,7 @@
     box-shadow: 6px 8px 8px;
     border: none;
     border-radius: 3px;
+    transition: box-shadow 0.3s ease; /* Добавим анимацию при наведении */
     transition: background-color 0.3s ease; /* Добавим анимацию при наведении */
 }
 
@@ -239,6 +240,8 @@
     box-shadow: 1px 6px 5px 4px;
     /*box-shadow: 4px 7px 7px;*/
     box-sizing: content-box;
+    transition: box-shadow 0.3s ease; /* Добавим анимацию при наведении */
+
 }
 
 .profileIcon img:hover {
