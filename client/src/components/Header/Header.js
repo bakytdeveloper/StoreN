@@ -184,12 +184,12 @@ const Header = ({ onSearch, cartItems }) => {
             <div className="auth-buttons">
                 {isLoggedIn ? (
                     // Если пользователь аутентифицирован, показываем кнопку Logout
-                    <button className="auth-button btns" onClick={handleLogout}>
+                    <button className="auth-btn" onClick={handleLogout}>
                         Logout
                     </button>
                 ) : (
                     // Если пользователь не аутентифицирован, показываем кнопку Login/Register
-                    <Link to="/login" className="auth-button btns" onClick={() => setIsLoggedIn(true)}>
+                    <Link to="/login" className="auth-btn" onClick={() => setIsLoggedIn(true)}>
                         Login/Register
                     </Link>
                 )}
