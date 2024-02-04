@@ -119,6 +119,16 @@
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
 }
 
+.sidebar {
+    /* ... (остальной код) */
+    transform: translateX(-105%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
 h2 {
     font-size: 22px;
     margin-bottom: 15px;
@@ -159,13 +169,13 @@ li:hover {
 /*    }*/
 /*}*/
 
-/* Адаптивность */
-@media screen and (max-width: 768px) {
-    .sidebar {
-   display: none;
-       }
+/*!* Адаптивность *!*/
+/*@media screen and (max-width: 768px) {*/
+/*    .sidebar {*/
+/*   display: none;*/
+/*       }*/
 
-    /*h2 {*/
-    /*    font-size: 18px; !* Уменьшенный размер шрифта для адаптивности *!*/
-    /*}*/
-}
+/*    !*h2 {*!*/
+/*    !*    font-size: 18px; !* Уменьшенный размер шрифта для адаптивности *!*!*/
+/*    !*}*!*/
+/*}*/

@@ -243,7 +243,7 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 
-const Sidebar = ({ setProducts }) => {
+const Sidebar = ({ setProducts, showSidebar }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -292,7 +292,7 @@ const Sidebar = ({ setProducts }) => {
 
 
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
             <h2>Товары</h2>
             <ul>
                 {selectedCategory ? (

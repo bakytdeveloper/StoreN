@@ -47,20 +47,25 @@ const App = () => {
     return (
         <Router>
             <div className="app">
-                <Header onSearch={handleSearch} cartItems={cartItems} />
-                <div className="main-content">
-                    {/*{showSidebar && <Sidebar setProducts={setProducts} />}*/}
-
-                    <Route exact path="/">
-                        {showSidebar && <Sidebar setProducts={setProducts} />}
-                    </Route>
+                <Header
+                    onSearch={handleSearch}
+                    cartItems={cartItems}
+                    setShowSidebar={setShowSidebar}
+                    showSidebar={showSidebar}
+                />
+                {/*<div className="main-content">*/}
+                    <Sidebar setProducts={setProducts} showSidebar={showSidebar} />
+                {/*{showSidebar && <Sidebar setProducts={setProducts}  showSidebar={showSidebar} />}*/}
+                    {/*<Route exact path="/">*/}
+                    {/*    {showSidebar && <Sidebar setProducts={setProducts} />}*/}
+                    {/*</Route>*/}
 
                     <Switch>
 
                         <Route path="/products/:productId">
                             <ProductDetails
-                                // setShowSidebar={setShowSidebar}
-                                             setShowSidebar={() => {}} // Передаем заглушку для setShowSidebar
+                                             setShowSidebar={setShowSidebar}
+                                //              setShowSidebar={() => {}} // Передаем заглушку для setShowSidebar
                                              cartItems={cartItems}
                                              setCartItems={setCartItems}/>
                         </Route>
@@ -104,7 +109,7 @@ const App = () => {
                             />
                         </Route>
                     </Switch>
-                </div>
+                {/*</div>*/}
             </div>
             <ToastContainer />
 

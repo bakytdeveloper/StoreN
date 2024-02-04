@@ -119,11 +119,19 @@ import profileIcon from "./profileIcon.png";
 import trol from './trolley.png';
 import burger from './burger.png';
 
-const Header = ({ onSearch, cartItems }) => {
+const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false); // Добавлен стейт для отслеживания статуса аутентификации
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const history = useHistory();
+
+    const [showBurgerMenu, setShowBurgerMenu] = useState(false);
+
+    const toggleBurgerMenu = () => {
+        setShowBurgerMenu(!showBurgerMenu);
+        setShowSidebar(!showSidebar);
+    };
+
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
@@ -156,7 +164,9 @@ const Header = ({ onSearch, cartItems }) => {
     return (
         <div className="header">
             <Link to="/" className="title" >
-                <span className="bur"> <img className="burger" src={burger} /> </span>
+                 <span className="bur" onClick={toggleBurgerMenu}>
+                      <img className="burger" src={burger} />
+                 </span>
                 <h1 className="titleH"> Store <span className="titleN">№</span></h1>
             </Link>
             <div className="contact">
