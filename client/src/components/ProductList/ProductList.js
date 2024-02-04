@@ -237,8 +237,10 @@ import React, { useState, useEffect } from 'react';
 import './ProductList.css';
 import bas from './basket.png';
 import { Link, useHistory } from 'react-router-dom';
+import Sidebar from "../Sidebar/Sidebar";
 
-const ProductList = ({ searchKeyword, cartItems, setCartItems, products }) => {
+const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
+                         setProducts, showSidebar, setShowSidebar  }) => {
     const [selectedType, setSelectedType] = useState(null);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -321,6 +323,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products }) => {
 
     return (
         <div className="product-list">
+            {/*{showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} />}*/}
+
             {displayedProducts.map((product) => (
                 <div className="product-card" key={product._id}>
                     <Link to={`/products/${product._id}`}>

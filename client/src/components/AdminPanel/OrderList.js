@@ -126,7 +126,7 @@ import OrderItem from "./OrderItem"; // Подключение стилей
 import OrderDetailsModal from './OrderDetailsModal'; // Создайте компонент для отображения деталей заказа
 import './OrderList.css';
 
-const OrderList = () => {
+const OrderList = ({ setShowSidebar }) => {
     const [orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -205,6 +205,15 @@ const OrderList = () => {
     const handleCloseModal = () => {
         setSelectedOrder(null);
     };
+
+    // Обновление состояния showSidebar на странице логина и регистрации
+    useEffect(() => {
+        setShowSidebar(false);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
 
 
     return (

@@ -5,13 +5,13 @@
 
 
 // src/components/LoginRegister/LoginRegister.js
-import React, {  useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './LoginRegister.css';
 
-const LoginRegister = () => {
+const LoginRegister = ({ showSidebar, setShowSidebar }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -92,6 +92,17 @@ const LoginRegister = () => {
             handleLoginRegister();
         }
     };
+
+
+    // Обновление состояния showSidebar на странице логина и регистрации
+    useEffect(() => {
+        setShowSidebar(false);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
+
 
     return (
         <form style={{marginTop: "130px"}}>

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const ClientListPage = () => {
+const ClientListPage = ({setShowSidebar}) => {
     const [clients, setClients] = useState([]);
     const history = useHistory();
 
@@ -26,6 +26,15 @@ const ClientListPage = () => {
     const handleGoBack = () => {
         history.goBack(); // Переход на предыдущую страницу
     };
+
+    // Обновление состояния showSidebar на странице логина и регистрации
+    useEffect(() => {
+        setShowSidebar(false);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
 
     return (
         <div className="client-list-page" style={{ marginTop: "220px" }}>

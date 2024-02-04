@@ -93,3 +93,16 @@ span {
   background: none!important;
   border: none!important;
 }
+
+
+@media only screen and (max-width: 768px) {
+
+.header {
+  width: 100%;
+  flex-direction: column;
+  text-align: center;
+  margin: 0;
+  padding-top: 0;
+}
+
+}

@@ -408,7 +408,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Profile = () => {
+const Profile = ({setShowSidebar}) => {
     const [user, setUser] = useState(null);
     const [orders, setOrders] = useState([]);
     const [userOrders, setUserOrders] = useState([]);
@@ -597,6 +597,16 @@ const Profile = () => {
         // setUser(null);
         history.push('/');
     };
+
+
+    // Обновление состояния showSidebar на странице логина и регистрации  !!!!!
+    useEffect(() => {
+        setShowSidebar(false);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
 
     return (
         <div className="profile-container">

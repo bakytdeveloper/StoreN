@@ -101,6 +101,15 @@ const CheckoutForm = ({ onSubmit, user }) => {
         });
     };
 
+    // // Обновление состояния showSidebar на странице логина и регистрации  !!!!!
+    // useEffect(() => {
+    //     setShowSidebar(false);
+    //     // Возвращаем функцию для очистки (аналог componentWillUnmount)
+    //     return () => {
+    //         setShowSidebar(true); // Восстановим значение при размонтировании компонента
+    //     };
+    // }, [setShowSidebar]);
+
     return (
         <div>
             <h2>Оформите заказ</h2>

@@ -306,13 +306,17 @@ const Sidebar = ({ setProducts, showSidebar }) => {
                             </li>
                         ))}
                     </>
+
                 ) : (
                     categories.map((category) => (
                         <li key={category} onClick={() => handleCategoryClick(category)}>
                             {category}
                         </li>
+
                     ))
+
                 )}
+
             </ul>
         </div>
     );

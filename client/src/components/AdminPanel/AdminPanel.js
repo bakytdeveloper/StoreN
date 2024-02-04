@@ -68,12 +68,14 @@ import './AdminPanel.css';
 import {useHistory} from "react-router-dom";
 
 
-const AdminPanel = () => {
+const AdminPanel = ({setShowSidebar}) => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
     const history = useHistory();
+
+
 
     const handleViewOrders = () => {
         history.push('/orders/orders');
@@ -173,6 +175,16 @@ const AdminPanel = () => {
         setShowForm(false);
         setSelectedProduct(null);
     };
+
+
+    // Обновление состояния showSidebar на странице логина и регистрации
+    useEffect(() => {
+        setShowSidebar(false);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
 
     return (
         <div className="admin-panel">

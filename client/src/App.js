@@ -3,7 +3,7 @@
 
 
 import React, {useEffect, useState} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import ProductList from './components/ProductList/ProductList';
@@ -23,6 +23,9 @@ const App = () => {
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
     const [showSidebar, setShowSidebar] = useState(true);
+
+    // const location = useLocation();
+    // const isProductListPage = location.pathname === '/';
 
 
     useEffect(() => {
@@ -70,10 +73,16 @@ const App = () => {
                                              setCartItems={setCartItems}/>
                         </Route>
                         <Route path="/login">
-                            <LoginRegister />
+                            <LoginRegister
+                                showSidebar={showSidebar}
+                                setShowSidebar={setShowSidebar}
+                            />
                         </Route>
                         <Route path="/profile">
-                            <Profile />
+                            <Profile
+                                showSidebar={showSidebar}
+                                setShowSidebar={setShowSidebar}
+                            />
                         </Route>
                         <Route path="/cart">
                             {/* При переходе на страницу корзины скрываем сайтбар */}
@@ -85,15 +94,23 @@ const App = () => {
                         </Route>
 
                         <Route path="/orders/orders">
-                            <OrderList />
+                            <OrderList
+                                showSidebar={showSidebar}
+                                setShowSidebar={setShowSidebar}
+                            />
                         </Route>
 
                         <Route path="/admin">
-                            <AdminPanel /> {/* Добавлен маршрут для администраторской панели */}
+                            <AdminPanel
+                                showSidebar={showSidebar}
+                                setShowSidebar={setShowSidebar}
+                            /> {/* Добавлен маршрут для администраторской панели */}
                         </Route>
 
                         <Route path="/users/clients"> {/* Добавлен новый маршрут */}
-                            <ClientListPage />
+                            <ClientListPage
+                                showSidebar={showSidebar}
+                                setShowSidebar={setShowSidebar}                            />
                         </Route>
 
                         <Route path="/">

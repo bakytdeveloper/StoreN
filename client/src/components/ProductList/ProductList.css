@@ -180,7 +180,7 @@
 }
 
 .pagination button {
-    background: #91f595;
+    background: #61e9cd;
     color: white;
     border: none;
     padding: 1px;
@@ -217,7 +217,7 @@
 @media only screen and (max-width: 768px) {
     .product-list {
         margin-left: 1px;
-        margin: 360px 1px 1px 1px;
+        margin: 310px 1px 1px 1px;
     }
 
 }

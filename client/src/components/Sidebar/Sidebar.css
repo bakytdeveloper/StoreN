@@ -156,6 +156,17 @@ li:hover {
     background-color: #1abc9c; /* Изменено на зеленый цвет при наведении */
 }
 
+@media screen and (max-width: 768px) {
+     .show {
+        margin-top: 340px;
+
+    }
+    li {
+        font-size: 18px;
+    }
+
+}
+
 /*!* Адаптивность *!*/
 /*@media screen and (max-width: 768px) {*/
 /*    .sidebar {*/

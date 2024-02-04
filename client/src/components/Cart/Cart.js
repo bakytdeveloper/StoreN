@@ -239,7 +239,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
 
 
-
     useEffect(() => {
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         setTotalPrice(total);
