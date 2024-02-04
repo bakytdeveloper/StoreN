@@ -266,13 +266,13 @@ strong {
     }
 
     .close-button {
-        margin: 100px -75px 0 0;
+        margin: 10px 2px 0 0!important;
     }
 
     .thumbnail-gallery {
         display: inline-flex;
         justify-content: flex-start;
-        margin-top: 260px;
+        margin-top: 280px;
         z-index: 0;
     }
 

@@ -211,9 +211,27 @@
     margin-bottom: 5px;
 }
 
-@media (min-width: 576px) {
-    .cart-item {
+@media screen and (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    .cart {
+        margin-top: 330px;
+        display: inline-block;
+    }
+
+    .item-info {
         flex-direction: row;
+    }
+
+    .item-details {
+        flex-direction: row;
+
+    }
+
+    .item-details div {
+        margin-right: 8px;
     }
 
     .cart-item img {
