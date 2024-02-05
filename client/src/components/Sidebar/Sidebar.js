@@ -243,10 +243,11 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 
-const Sidebar = ({ setProducts, showSidebar }) => {
+const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -259,7 +260,22 @@ const Sidebar = ({ setProducts, showSidebar }) => {
             }
         };
         fetchCategories();
+
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
+
+    const handleCloseClick = () => {
+        setShowSidebar(false);
+    };
+
 
     const handleCategoryClick = async (category) => {
         try {
@@ -293,6 +309,11 @@ const Sidebar = ({ setProducts, showSidebar }) => {
 
     return (
         <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
+            {isSmallScreen && (
+                <div className="closeBtn" onClick={handleCloseClick}>
+                    &#10006; {/* Это символ крестика (✖) */}
+                </div>
+            )}
             <h2>Товары</h2>
             <ul>
                 {selectedCategory ? (

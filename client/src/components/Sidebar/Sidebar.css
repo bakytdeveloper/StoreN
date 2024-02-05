@@ -129,6 +129,13 @@
     transform: translateX(0);
 }
 
+.closeBtn {
+    margin-left: 135px;
+    font-size: 25px;
+    margin-bottom: -30px;
+    z-index: 1;
+}
+
 h2 {
     font-size: 22px;
     margin-bottom: 15px;
@@ -159,6 +166,8 @@ li:hover {
 @media screen and (max-width: 768px) {
      .show {
         margin-top: 340px;
+         z-index: 1;
+         background: white;
 
     }
     li {

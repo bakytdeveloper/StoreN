@@ -57,11 +57,14 @@ const App = () => {
                     showSidebar={showSidebar}
                 />
                 {/*<div className="main-content">*/}
-                    <Sidebar setProducts={setProducts} showSidebar={showSidebar} />
+                    <Sidebar setProducts={setProducts}
+                             showSidebar={showSidebar}
+                             setShowSidebar={setShowSidebar}/>
                 {/*{showSidebar && <Sidebar setProducts={setProducts}  showSidebar={showSidebar} />}*/}
                     {/*<Route exact path="/">*/}
                     {/*    {showSidebar && <Sidebar setProducts={setProducts} />}*/}
                     {/*</Route>*/}
+
 
                     <Switch>
 

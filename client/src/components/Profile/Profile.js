@@ -640,8 +640,8 @@ const Profile = ({setShowSidebar}) => {
             <div className="profile-content">
                 {user ? (
                     <div>
-                        <h2>Здравствуйте, {user.name} 👋 😁 ! </h2>
-                        <h3>Я приготовил ваш профиль 🗂️ 😊.</h3>
+                        <h3 style={{textAlign: "center"}}>Здравствуйте, {user.name} 👋 😁 ! </h3>
+                        <h4 style={{textAlign: "center"}}>Я приготовил ваш профиль 🗂️ 😊.</h4>
 
                         {activeTab === 'editProfile' && (
                             <>
@@ -774,24 +774,41 @@ const Profile = ({setShowSidebar}) => {
                         )}
                         {activeTab === 'purchaseHistory' && (
                             <>
-                                <h3>Это ваша история заказов</h3>
-                                {userOrders.map((order) => (
-                                    <div key={order._id} className="order-item">
-                                        <p>Дата: {new Date(order.date).toLocaleDateString()}</p>
-                                        <p>Статус: {order.status}</p>
-                                        <p>Сумма заказа: {order.totalAmount}</p>
-                                        <p>Товары:</p>
-                                        <ul>
-                                            {order.products.map((product) => (
-                                                <li key={product.product._id}>
-                                                    {product.product.name} - {product.quantity} шт. по {product.product.price} руб.
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <p>Адрес доставки: {order.address}</p>
-                                        <p>Номер телефона: {order.phoneNumber}</p>
-                                    </div>
-                                ))}
+                                <h4 style={{textAlign: "center"}}>Это ваша история заказов</h4>
+                                <table className="order-history-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Статус</th>
+                                        <th>Сумма заказа</th>
+                                        <th>Товары</th>
+                                        <th>Адрес доставки</th>
+                                        <th>Номер телефона</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userOrders.map((order) => (
+                                        <tr key={order._id}>
+                                            <td>{new Date(order.date).toLocaleDateString()}</td>
+                                            <td>{order.status}</td>
+                                            <td>{order.totalAmount}</td>
+                                            <td>
+                                                <ul>
+                                                    {order.products.map((product) => (
+                                                        <span key={product.product._id}>
+                                                            {product.product.name} - {product.quantity} шт. по {product.product.price} руб.
+                                                      <hr />
+                                                        </span>
+
+                                                    ))}
+                                                </ul>
+                                            </td>
+                                            <td>{order.address}</td>
+                                            <td>{order.phoneNumber}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
                             </>
                         )}
                     </div>

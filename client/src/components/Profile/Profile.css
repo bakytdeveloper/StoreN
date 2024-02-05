@@ -1,4 +1,7 @@
 /* src/components/Profile/Profile.css */
+* {
+    box-sizing: border-box;
+}
 
 .profile-container {
     display: flex;
