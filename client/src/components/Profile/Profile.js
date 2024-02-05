@@ -610,7 +610,7 @@ const Profile = ({setShowSidebar}) => {
 
     return (
         <div className="profile-container">
-            <div className="sidebar">
+            <div className="side">
                 <div
                     className={`sidebar-item ${activeTab === 'editProfile' ? 'active' : ''}`}
                     onClick={() => setActiveTab('editProfile')}

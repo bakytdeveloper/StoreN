@@ -2,13 +2,21 @@
 
 .profile-container {
     display: flex;
+    margin-top: 10px;
 }
 
-.sidebar {
-    width: 200px;
-    background-color: #f0f0f0;
+.side {
+    margin-top: 150px;
+    position: fixed;
+    width: 100%;
+    max-width: 200px;
     padding: 20px;
-    z-index: 1;
+    /*background-color: #272727; !* Цвет фона - темный серый *!*/
+    color: #052081; /* Цвет текста - белый */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
+
 
 }
 
@@ -48,4 +56,12 @@
 label {
     display: block;
     margin-bottom: 5px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .profile-container {
+        margin-top: 160px;
+
+    }
 }
