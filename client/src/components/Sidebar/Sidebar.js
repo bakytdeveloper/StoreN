@@ -273,7 +273,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
     }, []);
 
     const handleCloseClick = () => {
-        setShowSidebar(false);
+        setShowSidebar(true);
     };
 
 
@@ -308,7 +308,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
 
     return (
-        <div className={`sidebar ${!showSidebar ? 'show' : ''}`}>
+        <div className={`sidebar ${showSidebar ? '' : 'show' }`}>
             {isSmallScreen && (
                 <div className="closeBtn" onClick={handleCloseClick}>
                     &#10006; {/* Это символ крестика (✖) */}

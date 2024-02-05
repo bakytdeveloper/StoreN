@@ -18,7 +18,7 @@ import ClientListPage from './components/AdminPanel/ClientListPage'; // Доба
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const App = () => {
+const App = ( ) => {
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);

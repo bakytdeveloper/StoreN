@@ -601,10 +601,10 @@ const Profile = ({setShowSidebar}) => {
 
     // Обновление состояния showSidebar на странице логина и регистрации  !!!!!
     useEffect(() => {
-        setShowSidebar(false);
+        setShowSidebar(true);
         // Возвращаем функцию для очистки (аналог componentWillUnmount)
         return () => {
-            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+            setShowSidebar(false); // Восстановим значение при размонтировании компонента
         };
     }, [setShowSidebar]);
 

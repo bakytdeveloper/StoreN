@@ -494,9 +494,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const history = useHistory();
 
     useEffect(() => {
-        setShowSidebar(false);
+        setShowSidebar(true);
         // Очищаем флаг при размонтировании компонента
-        return () => setShowSidebar(true);
+        return () => setShowSidebar(false);
     }, [setShowSidebar]);
 
     useEffect(() => {
