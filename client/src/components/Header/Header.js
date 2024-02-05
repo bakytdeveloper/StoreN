@@ -116,7 +116,7 @@ import tel from "./telegram.png";
 import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
 import profileIcon from "./profileIcon.png";
-import trol from './trolley.png';
+import cart from './trolley.png';
 import burger from './burger.png';
 
 const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
@@ -194,7 +194,12 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
             </div>
             {/*<Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>*/}
             <div className="auth-buttons">
-                <Link to="/cart" className="auth-button btn" onClick={handleCartClick}> <img src={trol} alt="Cart Icon" /> ({totalItems})</Link>
+                <Link to="/cart" style={{display: "inline-flex"}} className="auth-button btn" onClick={handleCartClick}>
+                    <img src={cart} alt="Cart Icon" />
+                    <span style={{marginTop: "17px", marginLeft: "-25px"}}>
+                        ({totalItems})
+                    </span>
+                </Link>
 
                 {isLoggedIn ? (
                     // Если пользователь аутентифицирован, показываем кнопку Logout

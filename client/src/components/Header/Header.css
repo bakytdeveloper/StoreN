@@ -181,21 +181,25 @@
     text-align: center;
     /*margin-top: 2px;*/
     background: none;
-    color: #245809;
+    color: #09588d;
     font-weight: bold;
     margin-top: 5px;
     width: 66px;
     height: auto;
     padding-left: 0;
+    transition: transform 0.3s ease; /* Добавим анимацию при наведении */
 
 }
+
 
 .btn:hover {
     text-align: center;
     /*margin-top: 2px;*/
     background: none;
-    color: #245809;
+    color: #098696;
     font-weight: bold;
+    transform: scale(1.1); /* Увеличим размер иконки при наведении */
+
 }
 
 
@@ -207,14 +211,14 @@
     margin-right: 30px;
 }
 
-.auth-button img:hover {
-    height: auto;
-    text-align: center;
-    margin-top: 2px;
-    background: none;
-    color: red;
+/*.auth-button img:hover {*/
+/*    height: auto;*/
+/*    text-align: center;*/
+/*    !*margin-top: 2px;*!*/
+/*    background: none;*/
+/*    !*color: red;*!*/
 
-}
+/*}*/
 
 .search input {
     margin-top: 10px;
@@ -308,6 +312,19 @@
 
     .search input {
         width: 100%;
+    }
+
+    .auth-button  {
+        box-sizing: border-box;
+        margin-left: 70px!important;
+        margin-right: 40px;
+    }
+    .auth-buttons {
+        margin-right: 27px;
+    }
+
+    .profileIcon {
+        /*margin-left: 30px;*/
     }
    
     }
