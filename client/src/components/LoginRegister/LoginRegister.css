@@ -1,4 +1,10 @@
 /* LoginRegister.css */
+
+* {
+    box-sizing: border-box;
+}
+
+
 form {
     max-width: 400px;
     margin: 0 auto;
@@ -49,6 +55,11 @@ p:hover {
 
 
 @media only screen and (max-width: 768px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
     form {
 
         margin: 360px 1px 1px 1px!important;

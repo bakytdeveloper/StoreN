@@ -1,5 +1,10 @@
 /* OrderDetailsModal.css */
 
+* {
+    box-sizing: border-box;
+}
+
+
 body.modal-open {
     overflow: hidden;
 }

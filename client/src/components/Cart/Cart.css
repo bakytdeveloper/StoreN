@@ -101,6 +101,12 @@
 
 /* src/components/Cart/Cart.css */
 
+
+* {
+    box-sizing: border-box;
+}
+
+
 .cart {
     padding: 10px;
     background-color: #f9f9f9;

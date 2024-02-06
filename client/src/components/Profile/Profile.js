@@ -782,8 +782,8 @@ const Profile = ({setShowSidebar}) => {
                                         <th>Статус</th>
                                         <th>Сумма заказа</th>
                                         <th>Товары</th>
-                                        <th>Адрес доставки</th>
-                                        <th>Номер телефона</th>
+                                        {/*<th>Адрес доставки</th>*/}
+                                        {/*<th>Номер телефона</th>*/}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -803,8 +803,8 @@ const Profile = ({setShowSidebar}) => {
                                                     ))}
                                                 </ul>
                                             </td>
-                                            <td>{order.address}</td>
-                                            <td>{order.phoneNumber}</td>
+                                            {/*<td>{order.address}</td>*/}
+                                            {/*<td>{order.phoneNumber}</td>*/}
                                         </tr>
                                     ))}
                                     </tbody>

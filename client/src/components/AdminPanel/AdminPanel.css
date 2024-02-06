@@ -128,7 +128,11 @@
 
 /* src/components/AdminPanel/AdminPanel.css */
 .admin-panel {
-    margin-top: 120px;
+/*<<<<<<< HEAD   ??? */
+/*    margin-top: 120px;*/
+/*=======   ???*/
+    margin-top: 130px;
+/*>>>>>>> 9f1586a7104c74bfba85fd5ed33b8e046dfefd6f   ???*/
     padding: 20px;
     width: 80%;
 }

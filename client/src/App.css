@@ -38,6 +38,11 @@
 /*}*/
 
 
+* {
+  box-sizing: border-box;
+}
+
+
 
 .app {
   display: flex;
@@ -96,6 +101,7 @@ span {
 
 
 @media only screen and (max-width: 768px) {
+
 
 .header {
   width: 100%;

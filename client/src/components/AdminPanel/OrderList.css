@@ -1,5 +1,11 @@
 /* OrderList.css */
 
+
+* {
+    box-sizing: border-box;
+}
+
+
 .order {
     margin-top: 120px;
     padding: 20px;

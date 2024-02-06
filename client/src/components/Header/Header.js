@@ -1,3 +1,6 @@
+// <<<<<<< HEAD   ???
+
+
 // // src/components/Header/Header.js
 //
 // import React, {useState} from 'react';
@@ -108,9 +111,19 @@
 
 
 // src/components/Header/Header.js
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+// import './Header.css';
+// import { Link, useHistory } from 'react-router-dom';
+
+// =======   ???
+
+// src/components/Header/Header.js
+import React, {useState} from 'react';
 import './Header.css';
-import { Link, useHistory } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+
+// >>>>>>> 9f1586a7104c74bfba85fd5ed33b8e046dfefd6f   ???
+
 import ins from "./instagram.png";
 import tel from "./telegram.png";
 import what from "./whatsapp.png";
