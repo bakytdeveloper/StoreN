@@ -105,7 +105,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
 
 
     return (
-        <form style={{marginTop: "130px"}}>
+        <form className="form">
             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
             {isRegisterMode && (
                 <input

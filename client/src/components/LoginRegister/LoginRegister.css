@@ -5,9 +5,10 @@
 }
 
 
-form {
+.form {
     max-width: 400px;
     margin: 0 auto;
+    margin-top: 130px;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
@@ -60,9 +61,9 @@ p:hover {
         box-sizing: border-box;
     }
 
-    form {
+    .form {
 
-        margin: 360px 1px 1px 1px!important;
+        margin: 360px 1px 1px 4px;
     }
 
 }
