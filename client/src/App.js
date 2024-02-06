@@ -24,9 +24,6 @@ const App = ( ) => {
     const [products, setProducts] = useState([]);
     const [showSidebar, setShowSidebar] = useState(true);
 
-    // const location = useLocation();
-    // const isProductListPage = location.pathname === '/';
-
 
     useEffect(() => {
         const handleBeforeUnload = () => {
@@ -60,10 +57,6 @@ const App = ( ) => {
                     <Sidebar setProducts={setProducts}
                              showSidebar={showSidebar}
                              setShowSidebar={setShowSidebar}/>
-                {/*{showSidebar && <Sidebar setProducts={setProducts}  showSidebar={showSidebar} />}*/}
-                    {/*<Route exact path="/">*/}
-                    {/*    {showSidebar && <Sidebar setProducts={setProducts} />}*/}
-                    {/*</Route>*/}
 
 
                     <Switch>
@@ -132,10 +125,8 @@ const App = ( ) => {
                 {/*</div>*/}
             </div>
             <ToastContainer />
-
         </Router>
-);
-};
+ )};
 
 export default App;
 

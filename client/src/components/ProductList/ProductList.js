@@ -238,6 +238,8 @@ import './ProductList.css';
 import bas from './basket.png';
 import { Link, useHistory } from 'react-router-dom';
 import Sidebar from "../Sidebar/Sidebar";
+import left from "./arrowsL.png";
+import right from "./arrowsR.png";
 
 const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
                          setProducts, showSidebar, setShowSidebar  }) => {
@@ -362,11 +364,15 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
             ))}
             <div className="pagination">
                 <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                    <span className="arrowL"> ⏪️️</span>
+                    <span className="arrowL">
+                        <img style={{ width: '26px', height: '26px' }} src={left}  alt="Cart" />
+                    ️️</span>
                 </button>
                 <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
                 <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-                     <span className="arrowR">⏩️</span>
+                     <span className="arrowR">
+                         <img style={{ width: '26px', height: '26px' }} src={right}  alt="Cart" />
+                     </span>
                 </button>
             </div>
         </div>

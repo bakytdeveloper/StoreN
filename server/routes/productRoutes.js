@@ -48,8 +48,6 @@ router.get('/:id', async (req, res) => {
 });
 
 
-
-
 // Создание нового продукта (только для администратора)
 router.post('/', async (req, res) => {
     if (req.user.role !== 'admin') {
@@ -164,7 +162,5 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
 
 module.exports = router;

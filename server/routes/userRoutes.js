@@ -7,8 +7,6 @@ const Order = require('../models/Order');
 const authenticateToken = require("../middleware/authenticateToken");
 
 
-
-
 // Регистрация нового пользователя
 router.post('/register', async (req, res) => {
     const { name, email, password, role, profile } = req.body;
@@ -43,7 +41,6 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: error.message, success: false });
     }
 });
-
 
 
 
@@ -131,50 +128,6 @@ router.put('/update-profile', authenticateToken, async (req, res) => {
 
 
 
-// router.put('/update-profile/:userId', authenticateToken ,async (req, res) => {
-//     const userId = req.params.userId;
-//     const { address, phoneNumber } = req.body;
-//
-//     try {
-//         // Находим пользователя
-//         const existingUser = await User.findById(userId);
-//
-//         if (!existingUser) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-//
-//         // Обновляем данные профиля
-//         existingUser.orders.address = address;
-//         existingUser.orders.phoneNumber = phoneNumber;
-//
-//         // Сохраняем обновленного пользователя в базе данных
-//         const updatedUser = await existingUser.save();
-//
-//         // Теперь найдем последний заказ пользователя и обновим в нем данные
-//         const latestOrder = await Order.findOne({ user: userId }).sort({ date: -1 });
-//
-//         if (latestOrder) {
-//             latestOrder.address = address;
-//             latestOrder.phoneNumber = phoneNumber;
-//             await latestOrder.save();
-//         }
-//
-//         // Возвращаем успешный ответ
-//         res.json({ message: 'Profile updated successfully', user: updatedUser });
-//     } catch (error) {
-//         console.error('Error updating profile:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
-
-
-
-
-
-
-
-
 router.put('/update-profile/:userId', authenticateToken, async (req, res) => {
     const userId = req.params.userId;
     const { address, phoneNumber, name, email } = req.body;
@@ -212,10 +165,6 @@ router.put('/update-profile/:userId', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-
-
-
-
 
 
 
@@ -270,10 +219,5 @@ router.get('/clients', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-module.exports = router;
-
-
-
 
 module.exports = router;

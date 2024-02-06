@@ -5,9 +5,6 @@ const Order = require('../models/Order');
 const User = require("../models/User");
 const authenticateToken = require("../middleware/authenticateToken");
 
-
-
-
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
@@ -76,10 +73,6 @@ router.post('/', async (req, res) => {
 });
 
 
-
-
-
-
 // Добавление товара в корзину (для гостей и зарегистрированных пользователей)
 router.post('/add-to-cart', async (req, res) => {
     console.log('Received add-to-cart request:', req.body); // Добавим лог для отслеживания запроса
@@ -140,9 +133,6 @@ router.post('/add-to-cart', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
 
 
 
@@ -232,12 +222,6 @@ router.put('/update-comments-admin/:orderId', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-
-
-
 
 module.exports = router;
 
