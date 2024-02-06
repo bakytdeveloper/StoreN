@@ -194,7 +194,7 @@
 }
 
 .pagination button:disabled {
-    background: #b5b4b4;
+    background: #d4d0d0;
     color: #666;
     cursor: not-allowed;
 }
@@ -218,6 +218,16 @@
     .product-list {
         margin-left: 1px;
         margin: 310px 1px 1px 1px;
+    }
+
+
+    .arrowL {
+        font-size: 35px;
+    }
+
+    .pagination button {
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
 }
