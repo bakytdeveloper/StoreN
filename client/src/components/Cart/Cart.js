@@ -156,7 +156,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
     // const handlePlaceOrder = async (userData) => {
     //     try {
-    //         const response = await fetch('http://localhost:5500/api/orders', {
+    //         const response = await fetch('http://localhost:5501/api/orders', {
     //             method: 'POST',
     //             headers: {
     //                 'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch('http://localhost:5500/api/orders', {
+            const response = await fetch('http://localhost:5501/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -254,7 +254,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const response = await fetch('http://localhost:5500/api/users/profile', {
+                    const response = await fetch('http://localhost:5501/api/users/profile', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -275,6 +275,15 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         fetchUser();
     }, []);
 
+
+    // Обновление состояния showSidebar на странице логина и регистрации
+    useEffect(() => {
+        setShowSidebar(true);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(false); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
 
 
     return (

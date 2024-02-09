@@ -20,7 +20,7 @@
 //
 //     const fetchProducts = async () => {
 //         try {
-//             const response = await fetch('http://localhost:5500/api/products');
+//             const response = await fetch('http://localhost:5501/api/products');
 //             const data = await response.json();
 //             setFilteredProducts(filterProducts(data || []));
 //         } catch (error) {
@@ -132,7 +132,7 @@
 //
 //     const fetchProducts = async () => {
 //         try {
-//             const response = await fetch('http://localhost:5500/api/products');
+//             const response = await fetch('http://localhost:5501/api/products');
 //             const data = await response.json();
 //             setFilteredProducts(filterProducts(data || []));
 //         } catch (error) {
@@ -259,7 +259,7 @@
 //
 //     const fetchProducts = async () => {
 //         try {
-//             const response = await fetch('http://localhost:5500/api/products');
+//             const response = await fetch('http://localhost:5501/api/products');
 //             const data = await response.json();
 //             setFilteredProducts(filterProducts(data || []));
 //         } catch (error) {
@@ -418,7 +418,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('http://localhost:5500/api/products');
+            const response = await fetch('http://localhost:5501/api/products');
             const data = await response.json();
             setFilteredProducts(filterProducts(data || []));
         } catch (error) {
