@@ -180,7 +180,7 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
                  <span className="bur" onClick={toggleBurgerMenu}>
                       <img className="burger" src={burger} />
                  </span>
-                <h1 className="titleH"> Store <span className="titleN">№</span></h1>
+                <h1 className="titleH"> kiosk<span className="titleN">.kg</span></h1>
             </Link>
             <div className="contact">
                 <div className="phone">XXX-XX-XX-XX</div>
@@ -188,6 +188,7 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
                     <a className="icon"  href="https://www.tiktok.com/" >
                         <img src={tik} alt="Instagram Icon" />
                     </a>
+
                     <a href="https://web.whatsapp.com/">
                         <img className="icon" src={what} alt="Instagram Icon" />
                     </a>

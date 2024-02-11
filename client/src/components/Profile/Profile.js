@@ -235,7 +235,7 @@ const Profile = ({setShowSidebar}) => {
                 </div>
             </div>
 
-            <div className="profile-content">
+            <div className="profile-content" >
                 {user ? (
                     <div>
                         <h3 style={{textAlign: "center"}}>Здравствуйте, {user.name} 👋 😁 ! </h3>
@@ -374,12 +374,13 @@ const Profile = ({setShowSidebar}) => {
                             <>
                                 <h4 style={{textAlign: "center"}}>Это ваша история заказов</h4>
                                 <table className="order-history-table">
-                                    <thead>
+                                    <thead >
                                     <tr>
                                         <th>Дата</th>
                                         <th>Статус</th>
-                                        <th>Сумма заказа</th>
                                         <th>Товары</th>
+                                        <th>Сумма</th>
+                                        {/*<th>Товары</th>*/}
                                         {/*<th>Адрес доставки</th>*/}
                                         {/*<th>Номер телефона</th>*/}
                                     </tr>
@@ -389,7 +390,7 @@ const Profile = ({setShowSidebar}) => {
                                         <tr key={order._id}>
                                             <td>{new Date(order.date).toLocaleDateString()}</td>
                                             <td>{order.status}</td>
-                                            <td>{order.totalAmount}</td>
+                                            {/*<td>{order.totalAmount}</td>*/}
                                             <td>
                                                 <ul>
                                                     {order.products.map((product) => (
@@ -401,6 +402,7 @@ const Profile = ({setShowSidebar}) => {
                                                     ))}
                                                 </ul>
                                             </td>
+                                            <td style={{fontWeight:"bold"}}>{order.totalAmount}</td>
                                             {/*<td>{order.address}</td>*/}
                                             {/*<td>{order.phoneNumber}</td>*/}
                                         </tr>

@@ -70,17 +70,18 @@
     font-size: 44px!important;
     font-weight: bold!important;
     text-decoration: none; /* Уберем стандартное подчеркивание ссылки */
-    color: #0314ae; /* Черный цвет текста */
+    color: #041291; /* Черный цвет текста */
     font-family: "American Typewriter"!important;
-    padding: 0 10px;
-    background: #5ca1de;
+    padding: 10px;
+    background: linear-gradient(to top, #5195de, #e3e6fa);;
     border-radius: 0 20px 0 20px;
     box-shadow: 4px 8px 7px #98a0a0;
 }
 
 .titleH:hover {
-    color: #1c1ff3; /* Изменяем цвет при наведении для акцента */
+    color: #161aef; /* Изменяем цвет при наведении для акцента */
     box-shadow: 4px 4px 3px #a4acac;
+    background: linear-gradient(to top, #6975ec, #d6dbf5);;
 
 }
  .burger {
@@ -314,6 +315,7 @@
     }
     .search input {
         width: 100%;
+        font-size: 25px;
 
     }
 

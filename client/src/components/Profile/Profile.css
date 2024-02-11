@@ -48,8 +48,9 @@
 
 .profile-content {
     padding: 20px;
-    background: #c3f3e8;
+    background: #e4e9ef;
     margin: 130px 0 0 270px;
+    width: 75% !important;
 }
 
 .profile-input {
@@ -121,5 +122,6 @@ label {
 
     .profile-content {
         margin: 20px 0 0 0;
+        width: 98% !important;
     }
 }
