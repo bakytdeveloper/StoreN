@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const compression = require('compression');
 
 
@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Middleware
 app.use(cors());
-app.use(helmet());
+// app.use(helmet());
 app.use(bodyParser.json());
 app.use(express.json());
 
