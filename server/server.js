@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const helmet = require('helmet');
+const compression = require('compression');
 
 
 // Роуты
@@ -23,6 +25,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Middleware
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(express.json());
 
@@ -32,6 +35,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes); // Добавлен новый маршрут для администратора
 
+app.use(compression());
 
 // Запуск сервера
 app.listen(PORT, () => {

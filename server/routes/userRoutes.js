@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
         let user;
 
         // Добавим проверку для администратора
-        if (email === 'admin@gmail.com' && password === 'admin') {
+        if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
             // Если введенные данные администратора
             const adminRole = 'admin';
             const adminToken = jwt.sign({ email, role: adminRole }, process.env.SECRET_KEY);
