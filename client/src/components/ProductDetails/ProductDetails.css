@@ -201,8 +201,9 @@
 
 
 .character:hover {
-    color: black;
+    color: #2980b9;
     cursor: auto;
+    background: none;
 }
 
 strong {
