@@ -103,9 +103,19 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
+    const handleClose = () => {
+        // Добавьте здесь код для закрытия страницы логина и регистрации
+        // Например, перенаправление на другую страницу
+        history.push('/');
+    };
 
     return (
         <form className="form">
+
+            <span className="formClose" type="button" onClick={handleClose}>
+                &#10006; {/* Это символ крестика (✖) */}
+            </span>
+
             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
             {isRegisterMode && (
                 <input
@@ -134,6 +144,11 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
             <button type="button" onClick={handleLoginRegister}>
                 {isRegisterMode ? 'Register' : 'Login'}
             </button>
+
+            {/*<button type="button" onClick={handleClose}>*/}
+            {/*    Close*/}
+            {/*</button>*/}
+
             <p onClick={() => setRegisterMode(!isRegisterMode)}>
                 {isRegisterMode
                     ? 'У вас уже есть аккаунт? Войдите здесь.'

@@ -15,6 +15,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.formClose {
+    margin-left: 340px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
 h2 {
     text-align: center;
     color: #343a40;
@@ -59,6 +65,13 @@ p:hover {
 
     * {
         box-sizing: border-box;
+    }
+
+
+    .formClose {
+        margin-left: 330px;
+        margin-top: 10px;
+        cursor: pointer;
     }
 
     .form {

@@ -33,6 +33,16 @@
     z-index: 1;
 }
 
+
+.closeBtn:hover {
+    margin-left: 135px;
+    font-size: 25px;
+    margin-bottom: -30px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+
 h2 {
     font-size: 22px;
     margin-bottom: 15px;
@@ -61,6 +71,11 @@ li:hover {
 }
 
 @media screen and (max-width: 768px) {
+
+    .sidebar {
+        width: 80% !important;
+    }
+
      .show {
         top: 150px;
          z-index: 1;
