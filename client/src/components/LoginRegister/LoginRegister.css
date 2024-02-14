@@ -20,6 +20,12 @@
     font-size: 22px;
     cursor: pointer;
 }
+.formClose:hover {
+    margin-left: 340px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #0355a7;
+}
 
 h2 {
     text-align: center;

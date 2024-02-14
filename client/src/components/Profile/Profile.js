@@ -416,7 +416,7 @@ const Profile = ({setShowSidebar}) => {
                     <div className="registration-notification" style={{ marginTop: "130px", textAlign: "center" }}>
                         <span>
                             Вы не зарегистрировались.{' '}
-                            <Link to="/login"><p>Для получения личного профиля зарегистрируйтесь здесь</p></Link>.
+                            <Link to="/login"><p>Для получения личного профиля зарегистрируйтесь "Здесь"</p></Link>.
                         </span>
                     </div>
                 )}
