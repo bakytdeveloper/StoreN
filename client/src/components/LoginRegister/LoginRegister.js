@@ -30,7 +30,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
                 // Автоматический вход для администратора
                 localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
                 toast.success('Successfully logged in as admin');
-                history.push('/nurlan_admin'); // Перейти на страницу администратора
+                history.push('/admin'); // Перейти на страницу администратора
             }
 
 
@@ -65,7 +65,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
                     // Если введенные данные администратора
                     localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
                     toast.success('Successfully logged in as admin');
-                    history.push('/nurlan_admin'); // Перейти на страницу администратора
+                    history.push('/admin'); // Перейти на страницу администратора
                 } else {
                     // Перейти на страницу профиля или другую нужную
                     history.push('/');
