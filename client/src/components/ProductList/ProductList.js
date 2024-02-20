@@ -20,7 +20,7 @@
 //
 //     const fetchProducts = async () => {
 //         try {
-//             const response = await fetch('http://localhost:5501/api/products');
+//             const response = await fetch('http://localhost:5502/api/products');
 //             const data = await response.json();
 //             setFilteredProducts(filterProducts(data || []));
 //         } catch (error) {
@@ -132,7 +132,7 @@
 //
 //     const fetchProducts = async () => {
 //         try {
-//             const response = await fetch('http://localhost:5501/api/products');
+//             const response = await fetch('http://localhost:5502/api/products');
 //             const data = await response.json();
 //             setFilteredProducts(filterProducts(data || []));
 //         } catch (error) {
@@ -259,7 +259,7 @@
 //
 //     const fetchProducts = async () => {
 //         try {
-//             const response = await fetch('http://localhost:5501/api/products');
+//             const response = await fetch('http://localhost:5502/api/products');
 //             const data = await response.json();
 //             setFilteredProducts(filterProducts(data || []));
 //         } catch (error) {
@@ -418,7 +418,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('http://localhost:5501/api/products');
+            const response = await fetch('http://localhost:5502/api/products');
             const data = await response.json();
             setFilteredProducts(filterProducts(data || []));
         } catch (error) {
@@ -522,16 +522,16 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
                 </div>
             ))}
             <div className="pagination">
-                <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                    <span className="arrowL">
-                        <img style={{ width: '26px', height: '26px' }} src={left}  alt="Cart" />
-                    ️️</span>
+                <button className="arrowL"  onClick={handlePrevPage} disabled={currentPage === 1}>
+                    {/*<span className="arrowL" >*/}
+                        <img className="arrowLImg" src={left}  alt="Cart" />
+                    {/*️️</span>*/}
                 </button>
                 <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
-                <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-                     <span className="arrowR">
-                         <img style={{ width: '26px', height: '26px' }} src={right}  alt="Cart" />
-                     </span>
+                <button  className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                     {/*<span className="arrowR">*/}
+                         <img  className="arrowRImg" src={right}  alt="Cart" />
+                     {/*</span>*/}
                 </button>
             </div>
         </div>

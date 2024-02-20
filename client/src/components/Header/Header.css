@@ -70,10 +70,10 @@
     font-size: 44px!important;
     font-weight: bold!important;
     text-decoration: none; /* Уберем стандартное подчеркивание ссылки */
-    color: #041291; /* Черный цвет текста */
+    color: #061179; /* Черный цвет текста */
     font-family: "American Typewriter"!important;
     padding: 10px;
-    background: linear-gradient(to top, #5195de, #e3e6fa);;
+    background: linear-gradient(to top, #65abd9, #edeefa);;
     border-radius: 0 20px 0 20px;
     box-shadow: 4px 8px 7px #98a0a0;
 }
@@ -90,7 +90,7 @@
 }
 
 .titleN {
-    color: #a73b04 !important;
+    color: #ca4806 !important;
     font-family: Luminari!important;
     font-weight: bold!important;
     border: none!important;
@@ -261,6 +261,8 @@
     border-radius: 50%;
     box-shadow: 2px 4px 4px;
 }
+
+
 
 
 /* Добавим стили для мобильных устройств (адаптивность) */

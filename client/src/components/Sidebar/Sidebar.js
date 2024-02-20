@@ -13,7 +13,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:5501/api/products/categories');
+                const response = await fetch('http://localhost:5502/api/products/categories');
                 const data = await response.json();
                 setCategories(data.categories);
             } catch (error) {
@@ -40,7 +40,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
     const handleCategoryClick = async (category) => {
         try {
-            const response = await fetch(`http://localhost:5501/api/products/types/${category}`);
+            const response = await fetch(`http://localhost:5502/api/products/types/${category}`);
             const data = await response.json();
             setTypes(data.types);
             setSelectedCategory(category);
@@ -58,7 +58,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
     const handleTypeClick = async (type) => {
         try {
-            const response = await fetch(`http://localhost:5501/api/products/types/${selectedCategory}?type=${type}`);
+            const response = await fetch(`http://localhost:5502/api/products/types/${selectedCategory}?type=${type}`);
             const data = await response.json();
             setProducts(data.products);
         } catch (error) {
@@ -75,15 +75,15 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
                     &#10006; {/* Это символ крестика (✖) */}
                 </div>
             )}
-            <h2>Товары</h2>
+            <h2 className="sbTitle">Товары</h2>
             <ul>
                 {selectedCategory ? (
                     <>
-                        <li key="back" onClick={handleBackClick}>
+                        <li  className="sbLi"  key="back" onClick={handleBackClick}>
                             Назад
                         </li>
                         {types.map((type) => (
-                            <li key={type} onClick={() => handleTypeClick(type)}>
+                            <li className="sbLi" key={type} onClick={() => handleTypeClick(type)}>
                                 {type}
                             </li>
                         ))}
@@ -91,8 +91,9 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
                 ) : (
                     categories.map((category) => (
-                        <li key={category} onClick={() => handleCategoryClick(category)}>
+                        <li  className="sbLi"  key={category} onClick={() => handleCategoryClick(category)}>
                             {category}
+
                         </li>
 
                     ))

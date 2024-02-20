@@ -135,3 +135,4 @@ export default App;
 
 
 
+// sudo nginx -t

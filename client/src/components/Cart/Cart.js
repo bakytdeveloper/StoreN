@@ -156,7 +156,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
     // const handlePlaceOrder = async (userData) => {
     //     try {
-    //         const response = await fetch('http://localhost:5501/api/orders', {
+    //         const response = await fetch('http://localhost:5502/api/orders', {
     //             method: 'POST',
     //             headers: {
     //                 'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch('http://localhost:5501/api/orders', {
+            const response = await fetch('http://localhost:5502/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -254,7 +254,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const response = await fetch('http://localhost:5501/api/users/profile', {
+                    const response = await fetch('http://localhost:5502/api/users/profile', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -288,6 +288,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
     return (
         <div className="cart">
+            <span className="closeCart"  onClick={handleBackToShopping}>
+                &#10006; {/* Это символ крестика (✖) */}
+            </span>
             <h2>Корзина</h2>
             {cartItems.length === 0 ? (
                 <p>Ваша корзина пуста</p>
@@ -296,7 +299,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     {cartItems.map((item) => (
                         <div className="cart-item" key={item.productId}>
                             <div className="item-info" >
-                                <img src={item.image} alt={item.name} />
+                                <img className="cartImg" src={item.image} alt={item.name} />
                                 <div className="item-details">
                                     <div style={{ fontWeight: 'bold' }}>{item.type}</div>
                                     <div style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</div>
@@ -307,18 +310,22 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                 </div>
                             </div>
                             <div className="item-quantity">
-                                <button onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>-</button>
+                                <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>-</button>
                                 <input
                                     type="number"
+                                    style={{marginTop:"8px"}}
                                     value={item.quantity}
                                     onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
                                 />
-                                <button onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>
-                                <div>
-                                    <div> Сумма: </div>
+                                <button  className="btnPlus"  onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>
+                                <div className="allSum">
+                                    <div style={{fontWeight:"bold"}}> Сумма: </div>
                                     <span>{(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
-                                <button onClick={() => handleRemoveItem(item.productId)}>Удалить</button>
+                                {/*<button style={{background:"orangered"}} onClick={() => handleRemoveItem(item.productId)}>Удалить</button>*/}
+                                <button className="deleteOne"  onClick={() => handleRemoveItem(item.productId)}>
+                                    &#10006;
+                                </button>
                             </div>
                         </div>
                     ))}
@@ -327,9 +334,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             <span>Общая сумма: </span>
                             <span>{totalPrice.toFixed(2)}</span>
                         </div>
-                        <button onClick={handleCheckout}>Оформить заказ</button>
-                        <button onClick={() => setCartItems([])}>Очистить корзину</button>
-                        <button onClick={handleBackToShopping}>Вернуться к покупкам</button>
+                       <div style={{display: "flex"}}>
+                           <button className="checkCart" onClick={handleCheckout}>Оформить заказ</button>
+                           <button className="clearCart" onClick={() => setCartItems([])}>Очистить корзину</button>
+                           {/*<button onClick={handleBackToShopping}>Вернуться к покупкам</button>*/}
+                       </div>
                     </div>
                 </div>
             )}

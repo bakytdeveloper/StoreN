@@ -28,7 +28,7 @@ const AdminPanel = ({setShowSidebar}) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:5501/api/products');
+                const response = await fetch('http://localhost:5502/api/products');
                 const data = await response.json();
                 setProducts(data);
             } catch (error) {
@@ -52,7 +52,7 @@ const AdminPanel = ({setShowSidebar}) => {
 
     const handleDeleteProduct = async (productId) => {
         try {
-            const response = await fetch(`http://localhost:5501/api/admin/products/${productId}`, {
+            const response = await fetch(`http://localhost:5502/api/admin/products/${productId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const AdminPanel = ({setShowSidebar}) => {
             let response;
 
             if (selectedProduct) {
-                response = await fetch(`http://localhost:5501/api/admin/products/${selectedProduct._id}`, {
+                response = await fetch(`http://localhost:5502/api/admin/products/${selectedProduct._id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const AdminPanel = ({setShowSidebar}) => {
                     body: JSON.stringify(formData),
                 });
             } else {
-                response = await fetch('http://localhost:5501/api/admin/products', {
+                response = await fetch('http://localhost:5502/api/admin/products', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -156,3 +156,5 @@ const AdminPanel = ({setShowSidebar}) => {
 };
 
 export default AdminPanel;
+
+

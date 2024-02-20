@@ -220,6 +220,41 @@ strong {
     color: #055486;
 }
 
+.actions {
+    display: flex;
+    /*box-sizing: border-box;*/
+    background: #ded9d9;
+    border-radius: 0 0 3px 3px;
+
+}
+
+.buy-now {
+    background: #2886ec;
+    font-size: 20px;
+    margin-right: 6px;
+    border-radius: 0 0 0 9px;
+    box-shadow: 3px 6px 6px #676565;
+}
+
+.buy-now:hover {
+    background: #1869c1;
+    box-shadow: 1px 3px 3px grey;
+}
+
+.add-to-cart {
+    background: #28c605;
+    font-size: 20px;
+    margin-left: 6px;
+    border-radius: 0 0 9px 0;
+    box-shadow: 3px 6px 6px #6d6b6b;
+
+}
+
+.add-to-cart:hover {
+    background: #1f9d03;
+    box-shadow: 1px 3px 3px grey;
+}
+
 /* Media queries */
 @media screen and (max-width: 768px) {
     .header {
@@ -229,6 +264,12 @@ strong {
         z-index: 11;
         position: fixed!important;
     }
+
+    /*.add-to-cart {*/
+    /*    font-size: 15px;*/
+    /*    padding: 11px 2px;*/
+    /*}*/
+
     .main-content {
         width: 100%;
         margin-left: 15px;

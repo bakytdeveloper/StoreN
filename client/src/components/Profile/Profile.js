@@ -31,7 +31,7 @@ const Profile = ({setShowSidebar}) => {
                     return;
                 }
                 if (token) {
-                    const response = await fetch('http://localhost:5501/api/users/profile', {
+                    const response = await fetch('http://localhost:5502/api/users/profile', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -56,7 +56,7 @@ const Profile = ({setShowSidebar}) => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5501/api/orders/orders', {
+                const response = await fetch('http://localhost:5502/api/orders/orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ const Profile = ({setShowSidebar}) => {
                     setUser(null);
                     return;
                 }
-                const response = await fetch('http://localhost:5501/api/orders/my-orders', {
+                const response = await fetch('http://localhost:5502/api/orders/my-orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -109,7 +109,7 @@ const Profile = ({setShowSidebar}) => {
     const handleEditProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5501/api/users/update-profile/${user._id}`, {
+            const response = await fetch(`http://localhost:5502/api/users/update-profile/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ const Profile = ({setShowSidebar}) => {
     const handleSavePassword = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5501/api/users/update-password/${user._id}`, {
+            const response = await fetch(`http://localhost:5502/api/users/update-password/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -209,25 +209,29 @@ const Profile = ({setShowSidebar}) => {
     return (
         <div className="profile-container">
             <div className="side">
-                <div
+                <div style={{fontWeight:"bold"}}
                     className={`sidebar-item ${activeTab === 'editProfile' ? 'active' : ''}`}
                     onClick={() => setActiveTab('editProfile')}
                 >
                     Редактировать профиль
                 </div>
                 <div
+                    style={{fontWeight:"bold"}}
                     className={`sidebar-item ${activeTab === 'editPassword' ? 'active' : ''}`}
                     onClick={() => setActiveTab('editPassword')}
                 >
                     Редактировать пароль
                 </div>
                 <div
+                    style={{fontWeight:"bold"}}
                     className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`}
                     onClick={() => setActiveTab('purchaseHistory')}
                 >
-                    История покупок
+                    История <br/>покупок
                 </div>
                 <div
+
+                    style={{fontWeight:"bold"}}
                     className="sidebar-item logout"
                     onClick={handleLogout}
                 >
@@ -238,7 +242,7 @@ const Profile = ({setShowSidebar}) => {
             <div className="profile-content" >
                 {user ? (
                     <div>
-                        <h3 style={{textAlign: "center"}}>Здравствуйте, {user.name} 👋 😁 ! </h3>
+                        <h3 style={{textAlign: "center"}}>Здравствуйте, {user.name} 👋 ! </h3>
                         <h4 style={{textAlign: "center"}}>Я приготовил ваш профиль 🗂️ 😊.</h4>
 
                         {activeTab === 'editProfile' && (
@@ -314,11 +318,14 @@ const Profile = ({setShowSidebar}) => {
                                 <div className="profile-buttons">
                                     {editPassword ? (
                                         <>
-                                            <button onClick={handleEditProfile}>Сохранить</button>
-                                            <button onClick={handleCancelEditProfile}>Отмена</button>
+                                            <button className="addProfile" onClick={handleEditProfile}>&#128396;</button>
+                                            <button className="noAdd" onClick={handleCancelEditProfile}>&#128465;</button>
+                                            {/*<button className="addProfile" onClick={handleEditProfile}>Сохранить</button>*/}
+                                            {/*<button className="noAdd" onClick={handleCancelEditProfile}>Отмена</button>*/}
                                         </>
                                     ) : (
-                                        <button onClick={() => setEditPassword(true)}>Редактировать</button>
+                                        <button className="updateProfile" onClick={() => setEditPassword(true)}>&#128736;</button>
+                                        // <button onClick={() => setEditPassword(true)}>Редактировать</button>
                                     )}
                                 </div>
                             </>
@@ -365,8 +372,10 @@ const Profile = ({setShowSidebar}) => {
                                     </div>
                                 </div>
                                 <div className="profile-buttons">
-                                    <button onClick={handleSavePassword}>Сохранить</button>
-                                    <button onClick={handleCancelEditPassword}>Отмена</button>
+                                    <button className="addProfile" onClick={handleSavePassword} >&#128396;</button>
+                                    <button className="noAdd" onClick={handleCancelEditPassword}>&#128465;</button>
+                                    {/*<button onClick={handleSavePassword}>Сохранить</button>*/}
+                                    {/*<button onClick={handleCancelEditPassword}>Отмена</button>*/}
                                 </div>
                             </>
                         )}

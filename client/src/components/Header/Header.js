@@ -202,7 +202,7 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
             </div>
             <div className="search">
                 <input type="text"
-                       placeholder="Поиск..."
+                       placeholder="Поиск...&#128269;"
                        value={searchTerm}
                        onChange={handleSearchChange} />
             </div>
@@ -210,7 +210,7 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
             <div className="auth-buttons">
                 <Link to="/cart" style={{display: "inline-flex"}} className="auth-button btn" onClick={handleCartClick}>
                     <img src={cart} alt="Cart Icon" />
-                    <span style={{marginTop: "17px", marginLeft: "-25px"}}>
+                    <span style={{color: "darkslateblue" , marginTop: "17px", marginLeft: "-25px"}}>
                         ({totalItems})
                     </span>
                 </Link>

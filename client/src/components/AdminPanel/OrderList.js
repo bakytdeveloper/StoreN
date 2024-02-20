@@ -18,7 +18,7 @@ const OrderList = ({ setShowSidebar }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch('http://localhost:5501/api/orders/orders');
+                const response = await fetch('http://localhost:5502/api/orders/orders');
                 const data = await response.json();
                 setOrders(data);
             } catch (error) {
@@ -31,7 +31,7 @@ const OrderList = ({ setShowSidebar }) => {
 
     const updateStatus = async (orderId, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:5501/api/orders/update-status/${orderId}`, {
+            const response = await fetch(`http://localhost:5502/api/orders/update-status/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const OrderList = ({ setShowSidebar }) => {
 
     const updateCommentsAdmin = async (orderId, commentsAdmin) => {
         try {
-            const response = await fetch(`http://localhost:5501/api/orders/update-comments-admin/${orderId}`, {
+            const response = await fetch(`http://localhost:5502/api/orders/update-comments-admin/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -148,10 +148,17 @@ const OrderList = ({ setShowSidebar }) => {
                         </td>
                         <td>
                             {order.products.map((item) => (
-                                <span key={item.product._id}>
-                                        {item.product.type}: {item.quantity}шт; <br />
-                                    </span>
+                                <span key={item.product?._id}>
+                                    {item.product?.type}: {item.quantity}шт; <br />
+                                </span>
                             ))}
+
+
+                            {/*{order.products.map((item) => (*/}
+                            {/*    <span key={item.product._id}>*/}
+                            {/*            {item.product.type}: {item.quantity}шт; <br />*/}
+                            {/*        </span>*/}
+                            {/*))}*/}
                         </td>
                         <td>{new Date(order.date).toLocaleString()}</td>
                        <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
