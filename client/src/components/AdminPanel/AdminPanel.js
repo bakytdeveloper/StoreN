@@ -128,19 +128,28 @@ const AdminPanel = ({setShowSidebar}) => {
     return (
         <div className="admin-panel">
             <h2>Админ панель</h2>
-            <button onClick={handleViewOrders}>Просмотреть заказы</button>
-            <button onClick={handleViewClients}>Список клиентов</button>
+            <div className="customerOrders">
+                <button className="customerOrdersBtnOne" onClick={handleViewOrders}>Список заказов</button>
+                <button className="customerOrdersBtnTwo" onClick={handleViewClients}>Список клиентов</button>
+            </div>
+
 
             <div className="admin-product-list">
-                {products.map((product) => (
+                {products.map((product, index) => (
                     <div key={product._id} className="admin-product-item">
-                        <span>{product.name}</span>
-                        <button className="admin-btn" onClick={() => handleEditProduct(product)}>Edit</button>
-                        <button className="admin-btn" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
+                        <span>
+                            <span style={{color:"darkolivegreen", fontSize:"15px", marginRight:"9px"}}>{index} )</span>
+                            {product.type} - {product.name}
+                        </span>
+
+                        <button className="admin-btn" onClick={() => handleEditProduct(product)}>&#128736;</button>
+                        {/*<button className="admin-btn" onClick={() => handleEditProduct(product)}>Edit</button>*/}
+                        <button className="admin-btn" onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+                        {/*<button className="admin-btn" onClick={() => handleDeleteProduct(product._id)}>Delete</button>*/}
                     </div>
                 ))}
             </div>
-            <button onClick={handleCreateProduct}>Create Product</button>
+            <button className="newProduct" onClick={handleCreateProduct}>&#9997; Создать продукт</button>
 
             {showForm && (
                 <ProductForm

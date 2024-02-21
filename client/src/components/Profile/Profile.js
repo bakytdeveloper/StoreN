@@ -395,7 +395,9 @@ const Profile = ({setShowSidebar}) => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {userOrders.map((order) => (
+
+                                    {userOrders.slice().reverse().map((order) => (
+                                        // {userOrders.map((order) => (
                                         <tr key={order._id}>
                                             <td>{new Date(order.date).toLocaleDateString()}</td>
                                             <td>{order.status}</td>

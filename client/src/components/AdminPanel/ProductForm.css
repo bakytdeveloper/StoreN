@@ -64,21 +64,72 @@ textarea {
     width: 100%;
 }
 
-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
+/*button {*/
+/*    background-color: #4caf50;*/
+/*    color: white;*/
+/*    padding: 10px;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    margin-top: 10px;*/
+/*}*/
+
+/*button[type="button"] {*/
+/*    background-color: #808080;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #45a049;*/
+/*}*/
+
+
+.newProductAdd {
+    background: #3c32d9;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 1px;
+    box-shadow: 4px 6px 6px dimgray;
 }
 
-button[type="button"] {
-    background-color: #808080;
+
+.newProductAdd:hover {
+    background: #574eea;
+    box-shadow: 2px 3px 3px grey;
+
 }
 
-button:hover {
-    background-color: #45a049;
+.submitBtn {
+    display: flex;
+    margin-top: 7px;
 }
+
+.submit {
+    background: limegreen;
+    border-radius: 6px 0 0 6px;
+    box-shadow: 4px 6px 6px dimgray;
+    font-size: 20px;
+}
+.submit:hover {
+    background: #389806;
+    box-shadow: 2px 3px 3px grey;
+
+}
+
+.cancel {
+    background: #c60331;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 4px 6px 6px dimgray;
+    font-size: 20px;
+}
+
+.cancel:hover {
+    background: #880322;
+    box-shadow: 2px 3px 3px grey;
+
+}
+
+
+
+
+
 
 /* Add more styles as needed */

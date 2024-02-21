@@ -6,14 +6,14 @@
     margin-top: 20px;
     position: fixed;
     width: 100%;
-    max-width: 200px;
-    padding: 20px;
+    max-width: 215px;
+    padding: 15px 5px;
     /*background-color: #272727; !* Цвет фона - темный серый *!*/
     color: #0732d0; /* Цвет текста - белый */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
     /*text-align: center;*/
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
-
+    margin-left: 10px;
 }
 
 .sidebar {
@@ -51,10 +51,10 @@ h2 {
     font-weight: bold;
 }
 .sbTitle {
-    color: #034e88;
+    color: #021170;
     /*font-weight: bold;*/
     font-family: Futura;
-    text-shadow: 2px 3px 2px #06a5ba;
+    text-shadow: 2px 2px 2px #37cee2;
 }
 
 ul {
@@ -68,11 +68,18 @@ ul {
     font-size: 17px;
     transition: color 0.3s, background-color 0.3s;
     padding: 4px;
-    color: #023e48;
-    text-shadow: 2px 2px 2px #99c4ef;
+    color: #012b32;
+    text-shadow: 1px 3px 2px #93c3f1;
     font-family: Luminari;
     border-radius: 3px;
     font-weight: bold;
+    display: inline-flex;
+    width: 100%;
+}
+.sbLi::before {
+    content: "•";
+    float: left;
+    padding: 0 0.5em 0 0;
 }
 
 li:hover {

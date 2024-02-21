@@ -114,7 +114,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                 <div className="price">{product.price} KGS</div>
                 <div className="actions">
                     <button className="buy-now" onClick={() => handleAddToCart(true)}>
-                        Купить сейчас
+                        Купить
                     </button>
                     <button className="add-to-cart" onClick={() => handleAddToCart()}>
                         В корзину

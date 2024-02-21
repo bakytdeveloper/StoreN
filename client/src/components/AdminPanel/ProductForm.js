@@ -44,23 +44,23 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     return (
         <form onSubmit={handleSubmit}>
 
-            <label>Category:</label>
+            <label>Категория:</label>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
 
-            <label>Type:</label>
+            <label>Тип:</label>
             <input type="text" name="type" value={formData.type} onChange={handleChange} required />
 
-            <label>Brand:</label>
+            <label>Бренд:</label>
             <input type="text" name="brand" value={formData.brand} onChange={handleChange} required />
 
 
-            <label>Name:</label>
+            <label>Название:</label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} required />
 
-            <label>Description:</label>
+            <label>Описание:</label>
             <textarea name="description" value={formData.description} onChange={handleChange} required />
 
-            <label>Price:</label>
+            <label>Цена:</label>
             <input type="number" name="price" value={formData.price} onChange={handleChange} required />
 
             {/*<label>Category:</label>*/}
@@ -72,46 +72,48 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             {/*<label>Brand:</label>*/}
             {/*<input type="text" name="brand" value={formData.brand} onChange={handleChange} required />*/}
 
-            <label>Characteristics:</label>
+            <label>Характеристики:</label>
             {formData.characteristics.map((char, index) => (
                 <div key={index}>
                     <input
                         type="text"
                         value={char.name}
                         onChange={(e) => handleCharacteristicChange(index, 'name', e.target.value)}
-                        placeholder="Characteristic Name"
+                        placeholder="Название характеристики"
                     />
                     <input
                         type="text"
                         value={char.value}
                         onChange={(e) => handleCharacteristicChange(index, 'value', e.target.value)}
-                        placeholder="Characteristic Value"
+                        placeholder="Значение характеристики"
                     />
                 </div>
             ))}
-            <button type="button" onClick={() => setFormData({ ...formData, characteristics: [...formData.characteristics, { name: '', value: '' }] })}>
-                Add Characteristic
+            <button  className="newProductAdd"  type="button" onClick={() => setFormData({ ...formData, characteristics: [...formData.characteristics, { name: '', value: '' }] })}>
+                Добавить характеристику
             </button>
 
-            <label>Images:</label>
+            <label>URL картинки:</label>
             {formData.images.map((image, index) => (
                 <div key={index}>
                     <input
                         type="text"
                         value={image}
                         onChange={(e) => handleImageChange(index, e.target.value)}
-                        placeholder="Image URL"
+                        placeholder="URL картинки"
                     />
                 </div>
             ))}
-            <button type="button" onClick={() => setFormData({ ...formData, images: [...formData.images, ''] })}>
-                Add Image
+            <button  className="newProductAdd"  type="button" onClick={() => setFormData({ ...formData, images: [...formData.images, ''] })}>
+                Добавить изображение
             </button>
+        <div className="submitBtn">
+            <button className="submit" type="submit">&#10004; Создать продукт</button>
+            <button className="cancel" type="button" onClick={onCancel}>
+                &#10006;  Отмена
+            </button>
+        </div>
 
-            <button type="submit">Submit</button>
-            <button type="button" onClick={onCancel}>
-                Cancel
-            </button>
         </form>
     );
 };

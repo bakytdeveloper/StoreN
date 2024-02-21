@@ -46,31 +46,70 @@ const OrderDetailsModal = ({ order, onClose }) => {
                     </div>
                     <div>
                         <strong>Товары:</strong>
+
                         <ul>
                             {order.products.map((item) => (
                                 <li key={item.product._id}>
-                                    <div>
-                                        <strong>Тип товара:</strong> {item.product.type}
-                                    </div>
-                                    <div>
-                                        <strong>Бренд:</strong> {item.product.brand}
-                                    </div>
-                                    <div>
-                                        <strong>Название товара:</strong> {item.product.name}
-                                    </div>
-                                    <div>
-                                        <strong>Описание:</strong> {item.product.description}
-                                    </div>
+                                    {item.product && (
+                                        <div>
+                                            <strong>Тип товара:</strong> {item.product.type}
+                                        </div>
+                                    )}
+                                    {item.product && (
+                                        <div>
+                                            <strong>Бренд:</strong> {item.product.brand}
+                                        </div>
+                                    )}
+                                    {item.product && (
+                                        <div>
+                                            <strong>Название товара:</strong> {item.product.name}
+                                        </div>
+                                    )}
+                                    {item.product && (
+                                        <div>
+                                            <strong>Описание:</strong> {item.product.description}
+                                        </div>
+                                    )}
                                     <div>
                                         <strong>Количество:</strong> {item.quantity}
                                     </div>
-                                    <div>
-                                        <strong>Цена за единицу:</strong> {item.product.price} KGS
-                                    </div>
+                                    {item.product && (
+                                        <div>
+                                            <strong>Цена за единицу:</strong> {item.product.price} KGS
+                                        </div>
+                                    )}
                                     <hr/>
                                 </li>
                             ))}
                         </ul>
+
+
+
+                        {/*<ul>*/}
+                        {/*    {order.products.map((item) => (*/}
+                        {/*        <li key={item.product._id}>*/}
+                        {/*            <div>*/}
+                        {/*                <strong>Тип товара:</strong> {item.product.type}*/}
+                        {/*            </div>*/}
+                        {/*            <div>*/}
+                        {/*                <strong>Бренд:</strong> {item.product.brand}*/}
+                        {/*            </div>*/}
+                        {/*            <div>*/}
+                        {/*                <strong>Название товара:</strong> {item.product.name}*/}
+                        {/*            </div>*/}
+                        {/*            <div>*/}
+                        {/*                <strong>Описание:</strong> {item.product.description}*/}
+                        {/*            </div>*/}
+                        {/*            <div>*/}
+                        {/*                <strong>Количество:</strong> {item.quantity}*/}
+                        {/*            </div>*/}
+                        {/*            <div>*/}
+                        {/*                <strong>Цена за единицу:</strong> {item.product.price} KGS*/}
+                        {/*            </div>*/}
+                        {/*            <hr/>*/}
+                        {/*        </li>*/}
+                        {/*    ))}*/}
+                        {/*</ul>*/}
                     </div>
                     <div>
 
