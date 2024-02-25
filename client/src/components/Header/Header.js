@@ -66,7 +66,7 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
             <div className="contact">
 
                 <div className="phone">
-                    <a href="tel:+996703524643">+0(123) 777 777</a>
+                    <a style={{color:"white"}} href="tel:+996703524643">+0(123) 777 777</a>
                 </div>
                 <div className="social-icons">
                     <a href="https://www.tiktok.com/" >
