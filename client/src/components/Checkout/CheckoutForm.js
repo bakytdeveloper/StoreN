@@ -12,8 +12,6 @@ const CheckoutForm = ({ onSubmit, user }) => {
     const [comments, setComments] = useState('');
 
 
-    // console.log("U S E R :", user)
-
     // Используем useEffect, чтобы обновить значения полей при изменении пользователя
     useEffect(() => {
         if (user) {

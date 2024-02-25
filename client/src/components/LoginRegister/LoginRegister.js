@@ -1,9 +1,4 @@
 
-
-
-
-
-
 // src/components/LoginRegister/LoginRegister.js
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
@@ -21,8 +16,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
 
     const handleLoginRegister = async () => {
         const url = isRegisterMode
-            ? 'http://localhost:5502/api/users/register'
-            : 'http://localhost:5502/api/users/login';
+            ? 'http://localhost:3000/api/users/register'
+            : 'http://localhost:3000/api/users/login';
 
 
             // Проверяем, является ли введенный email и password учетными данными администратора

@@ -1,9 +1,6 @@
 
 
 
-
-
-
 // src/components/Admin/OrderList.js
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
@@ -18,7 +15,7 @@ const OrderList = ({ setShowSidebar }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch('http://localhost:5502/api/orders/orders');
+                const response = await fetch('http://localhost:3000/api/orders/orders');
                 const data = await response.json();
                 setOrders(data);
             } catch (error) {
@@ -31,7 +28,7 @@ const OrderList = ({ setShowSidebar }) => {
 
     const updateStatus = async (orderId, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:5502/api/orders/update-status/${orderId}`, {
+            const response = await fetch(`http://localhost:3000/api/orders/update-status/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +55,7 @@ const OrderList = ({ setShowSidebar }) => {
 
     const updateCommentsAdmin = async (orderId, commentsAdmin) => {
         try {
-            const response = await fetch(`http://localhost:5502/api/orders/update-comments-admin/${orderId}`, {
+            const response = await fetch(`http://localhost:3000/api/orders/update-comments-admin/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

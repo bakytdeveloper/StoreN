@@ -11,7 +11,7 @@ const ClientListPage = ({setShowSidebar}) => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await fetch('http://localhost:5502/api/users/clients');
+                const response = await fetch('http://localhost:3000/api/users/clients');
                 const data = await response.json();
                 setClients(data);
             } catch (error) {
@@ -38,7 +38,7 @@ const ClientListPage = ({setShowSidebar}) => {
         <div className="client-list-page" style={{ marginTop: "220px" }}>
             {/*<div className="header">*/}
                 <h2>Список клиентов</h2>
-                <button onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
+                <button style={{fontSize:"25px", fontWeight:"bold", padding:"0"}} onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
             {/*</div>*/}
             <table>
                 <thead>

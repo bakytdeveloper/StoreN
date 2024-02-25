@@ -31,7 +31,7 @@ const Profile = ({setShowSidebar}) => {
                     return;
                 }
                 if (token) {
-                    const response = await fetch('http://localhost:5502/api/users/profile', {
+                    const response = await fetch('http://localhost:3000/api/users/profile', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -56,7 +56,7 @@ const Profile = ({setShowSidebar}) => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5502/api/orders/orders', {
+                const response = await fetch('http://localhost:3000/api/orders/orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ const Profile = ({setShowSidebar}) => {
                     setUser(null);
                     return;
                 }
-                const response = await fetch('http://localhost:5502/api/orders/my-orders', {
+                const response = await fetch('http://localhost:3000/api/orders/my-orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -109,7 +109,7 @@ const Profile = ({setShowSidebar}) => {
     const handleEditProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5502/api/users/update-profile/${user._id}`, {
+            const response = await fetch(`http://localhost:3000/api/users/update-profile/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ const Profile = ({setShowSidebar}) => {
     const handleSavePassword = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5502/api/users/update-password/${user._id}`, {
+            const response = await fetch(`http://localhost:3000/api/users/update-password/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -389,9 +389,7 @@ const Profile = ({setShowSidebar}) => {
                                         <th>Статус</th>
                                         <th>Товары</th>
                                         <th>Сумма</th>
-                                        {/*<th>Товары</th>*/}
-                                        {/*<th>Адрес доставки</th>*/}
-                                        {/*<th>Номер телефона</th>*/}
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -414,8 +412,7 @@ const Profile = ({setShowSidebar}) => {
                                                 </ul>
                                             </td>
                                             <td style={{fontWeight:"bold"}}>{order.totalAmount}</td>
-                                            {/*<td>{order.address}</td>*/}
-                                            {/*<td>{order.phoneNumber}</td>*/}
+
                                         </tr>
                                     ))}
                                     </tbody>
