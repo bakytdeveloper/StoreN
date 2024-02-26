@@ -124,3 +124,18 @@ export default Header;
 
 
 // sudo tail -f /var/log/nginx/error.log
+
+
+// server {
+//     listen 80;
+//     listen [::]:80;
+//
+//     root /var/www/kiosk.kg/html;
+//     index index.html index.htm index.nginx-debian.html;
+//
+//     server_name kiosk.kg;
+//
+//     location / {
+//         try_files $uri $uri/ =404;
+// }
+// }
