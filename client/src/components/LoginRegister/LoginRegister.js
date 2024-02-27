@@ -16,8 +16,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar }) => {
 
     const handleLoginRegister = async () => {
         const url = isRegisterMode
-            ? 'http://localhost:3000/api/users/register'
-            : 'http://localhost:3000/api/users/login';
+            ? 'http://localhost:5005/api/users/register'
+            : 'http://localhost:5005/api/users/login';
 
 
             // Проверяем, является ли введенный email и password учетными данными администратора

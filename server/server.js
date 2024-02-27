@@ -18,7 +18,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 5051;
 
 
 // Подключение к базе данных
