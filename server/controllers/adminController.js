@@ -117,13 +117,14 @@ module.exports = {
 //     # Корневая директория для фронтенда
 //     root /var/www/kiosk.kg/html;
 //     index index.html;
-//     # Настройка обслуживания статических файлов  location / {
+//     # Настройка обслуживания статических файлов
+//     location / {
 //         try_files $uri $uri/ /index.html;
 // }
 //
 //     # Проксирование запросов на бэкенд
 //     location /api {
-//         proxy_pass http://localhost:5001;
+//         proxy_pass http://localhost:5505;
 //             proxy_http_version 1.1;
 //         proxy_set_header Upgrade $http_upgrade;
 //         proxy_set_header Connection 'upgrade';
@@ -131,3 +132,29 @@ module.exports = {
 //         proxy_cache_bypass $http_upgrade;
 //     }
 // }
+
+
+//
+// server {
+//     listen 80;
+//     server_name kiosk.kg;
+//
+//     location / {
+//         proxy_pass http://localhost:3000; # Порт, на котором запущен клиент
+//     proxy_http_version 1.1;
+//     proxy_set_header Upgrade $http_upgrade;
+//     proxy_set_header Connection 'upgrade';
+//     proxy_set_header Host $host;
+//     proxy_cache_bypass $http_upgrade;
+// }
+//
+//     location /api/ {
+//         proxy_pass http://localhost:5001; # Порт, на котором запущен сервер
+//     proxy_http_version 1.1;
+//     proxy_set_header Upgrade $http_upgrade;
+//     proxy_set_header Connection 'upgrade';
+//     proxy_set_header Host $host;
+//     proxy_cache_bypass $http_upgrade;
+// }
+// }
+//

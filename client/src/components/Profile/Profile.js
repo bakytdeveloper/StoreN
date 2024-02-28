@@ -31,7 +31,7 @@ const Profile = ({setShowSidebar}) => {
                     return;
                 }
                 if (token) {
-                    const response = await fetch('http://localhost:5001/api/users/profile', {
+                    const response = await fetch('http://localhost:5505/api/users/profile', {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -56,7 +56,7 @@ const Profile = ({setShowSidebar}) => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5001/api/orders/orders', {
+                const response = await fetch('http://localhost:5505/api/orders/orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ const Profile = ({setShowSidebar}) => {
                     setUser(null);
                     return;
                 }
-                const response = await fetch('http://localhost:5001/api/orders/my-orders', {
+                const response = await fetch('http://localhost:5505/api/orders/my-orders', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -109,7 +109,7 @@ const Profile = ({setShowSidebar}) => {
     const handleEditProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5001/api/users/update-profile/${user._id}`, {
+            const response = await fetch(`http://localhost:5505/api/users/update-profile/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ const Profile = ({setShowSidebar}) => {
     const handleSavePassword = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5001/api/users/update-password/${user._id}`, {
+            const response = await fetch(`http://localhost:5505/api/users/update-password/${user._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

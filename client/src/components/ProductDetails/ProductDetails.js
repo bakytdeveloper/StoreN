@@ -23,7 +23,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
         // В реальном проекте замените на реальные запросы к вашему бэкенду
         const fetchProductDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:5001/api/products/${productId}`);
+                const response = await fetch(`http://localhost:5505/api/products/${productId}`);
                 const data = await response.json();
                 setProduct(data.product);
                 setSelectedImage(data.product.images[0]); // Устанавливаем первую картинку как главную

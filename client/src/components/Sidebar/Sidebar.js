@@ -40,7 +40,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
     const handleCategoryClick = async (category) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/products/types/${category}`);
+            const response = await fetch(`http://localhost:5505/api/products/types/${category}`);
             const data = await response.json();
             setTypes(data.types);
             setSelectedCategory(category);
@@ -58,7 +58,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
     const handleTypeClick = async (type) => {
         try {
-            const response = await fetch(`http://localhost:5001/api/products/types/${selectedCategory}?type=${type}`);
+            const response = await fetch(`http://localhost:5505/api/products/types/${selectedCategory}?type=${type}`);
             const data = await response.json();
             setProducts(data.products);
         } catch (error) {
