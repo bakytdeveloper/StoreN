@@ -10,16 +10,20 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
 
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await fetch('http://localhost:5505/api/products/categories');
+                // const response = await fetch('http://localhost:5505/api/products/categories');
                 const data = await response.json();
                 setCategories(data.categories);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
         };
+
+
         fetchCategories();
 
         const handleResize = () => {

@@ -47,3 +47,5 @@ app.listen(PORT, () => {
 
 
 // "start": "nodemon server.js",
+
+// "nodemon": "^3.0.2"
