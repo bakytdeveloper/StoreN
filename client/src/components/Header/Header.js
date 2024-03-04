@@ -10,7 +10,7 @@ import tel from "./telegram.png";
 import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
 import profileIcon from "./profileIcon.png";
-import cart from './trolley.png';
+import cart from './trolley1.png';
 import burger from './menu.png';
 
 const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {

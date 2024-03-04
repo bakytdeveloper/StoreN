@@ -10,6 +10,10 @@
   flex-direction: column;
   /* Добавьте остальные стили для .app по вашему усмотрению */
 }
+.app .header {
+  top: 0!important;
+  margin: 0;
+}
 
 .main-content {
   display: flex;
@@ -68,8 +72,9 @@ span {
   width: 100%;
   flex-direction: column;
   text-align: center;
-  margin: 0;
-  padding-top: 0;
+  margin-top: 0!important;
+  padding: 0;
+  top: 0!important;
 }
 
 }

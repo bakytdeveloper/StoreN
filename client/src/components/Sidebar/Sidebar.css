@@ -91,10 +91,11 @@ li:hover {
 
     .sidebar {
         width: 80% !important;
+
     }
 
      .show {
-        top: 150px;
+        top: 200px;
          z-index: 1;
          background: white;
 

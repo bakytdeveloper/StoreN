@@ -15,12 +15,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.formClose {
+.formCloseLogin {
     margin-left: 340px;
     font-size: 22px;
     cursor: pointer;
+
 }
-.formClose:hover {
+.formCloseLogin:hover {
     margin-left: 340px;
     font-size: 22px;
     cursor: pointer;
@@ -72,17 +73,32 @@ p:hover {
     * {
         box-sizing: border-box;
     }
+    h2 {
+        font-size: 22px!important;
+        margin-top: -20px;
+    }
 
-
-    .formClose {
-        margin-left: 330px;
+    .formCloseLogin {
+        /*margin-right: 80px!important;*/
         margin-top: 10px;
         cursor: pointer;
+        z-index: 1111;
+        /*width: 150px;*/
+        height: 30px;
+        background: none;
+        text-align: center;
+        color: #0355a7;
+        font-size: 22px;
+
     }
 
     .form {
 
-        margin: 360px 1px 1px 4px;
+        margin: 60px 0 1px 17px;
+        width: 90%;
+    }
+    .formInput {
+        font-size: 17px;
     }
 
 }

@@ -63,15 +63,6 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             <label>Цена:</label>
             <input type="number" name="price" value={formData.price} onChange={handleChange} required />
 
-            {/*<label>Category:</label>*/}
-            {/*<input type="text" name="category" value={formData.category} onChange={handleChange} required />*/}
-
-            {/*<label>Type:</label>*/}
-            {/*<input type="text" name="type" value={formData.type} onChange={handleChange} required />*/}
-
-            {/*<label>Brand:</label>*/}
-            {/*<input type="text" name="brand" value={formData.brand} onChange={handleChange} required />*/}
-
             <label>Характеристики:</label>
             {formData.characteristics.map((char, index) => (
                 <div key={index}>
