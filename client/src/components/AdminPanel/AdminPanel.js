@@ -294,7 +294,7 @@ const AdminPanel = ({ setShowSidebar }) => {
                 {products.map((product, index) => (
                     <div key={product._id} className="admin-product-item">
                         <span>
-                            <span style={{ color: "darkolivegreen", fontSize: "15px", marginRight: "9px" }}>{index} )</span>
+                            <span style={{color: "darkolivegreen", fontSize: "15px", marginRight: "9px" }}>{index} )</span>
                             {product.type} - {product.name}
                         </span>
 

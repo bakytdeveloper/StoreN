@@ -248,7 +248,7 @@
     padding: 6px;
     border-radius: 50%;
     /*box-shadow: 1px 6px 5px 4px;*/
-    box-shadow: 2px 2px 3px #a3ccea;
+    box-shadow: 2px 3px 3px #a3ccea;
     box-sizing: content-box;
     transition: box-shadow 0.3s ease; /* Добавим анимацию при наведении */
     margin-top: 10px;
@@ -256,15 +256,15 @@
 
 .profileIcon img:hover {
     box-sizing: content-box;
-    width: 35px;
+    width: 32px;
     height: auto;
     text-align: center;
-    background: #8ed4e0;
+    background: #4b96e7;
     margin-right: 50px;
     padding: 6px;
     border-radius: 50%;
 
-    box-shadow: 2px 4px 4px;
+    box-shadow: 1px 2px 2px #669ac1;
 }
 
 .btn img {

@@ -169,6 +169,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     };
 
     const handleClose = () => {
+        // history.push('/');
         history.goBack(); // Go back to the previous page
     };
 
@@ -224,10 +225,10 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                 <div className="brand">{product.brand}</div>
                 <div className="name">{product.name}</div>
                 <div className="description">
-                    <strong>Description:</strong> {product.description}
+                    <strong>Описание:</strong> {product.description}
                 </div>
                 <div className="characteristics">
-                    <h3>Characteristics:</h3>
+                    <h3>Характеристики:</h3>
                     <ul>
                         {product.characteristics.map((char) => (
                             <li className="character" key={char.name}>
@@ -239,10 +240,10 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                 <div className="price">{product.price} KGS</div>
                 <div className="actions">
                     <button className="buy-now" onClick={() => handleAddToCart(true)}>
-                        Buy Now
+                        Купить сейчас
                     </button>
                     <button className="add-to-cart" onClick={() => handleAddToCart()}>
-                        Add to Cart
+                        Добавить в корзину
                     </button>
                 </div>
             </div>

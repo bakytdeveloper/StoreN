@@ -47,6 +47,7 @@ body.modal-open {
 
 .order-info {
     margin-top: 20px;
+    font-size: 13px;
 }
 
 .order-info div {
@@ -61,10 +62,12 @@ body.modal-open {
 
 @media (max-width: 600px) {
     .modal-content {
-        max-width: 100%;
+        width: 100%;
+
     }
     .modal-content h2 {
-        font-size: 50px;
+        font-size: 40px;
+        margin-left: 100px!important;
     }
 
     .close-button {
@@ -81,11 +84,12 @@ body.modal-open {
 
     .order-info {
         /*padding-left: 70px;*/
-        margin-left: 44px;
+        margin-left: 30px;
+        width: 365px;
     }
 
     .order-info div {
-        font-size: 50px;
+        font-size: 15px;
     }
 
     .order-info hr {
