@@ -355,26 +355,46 @@
     .social-icons img {
         margin-top: 0;
     }
-   
     }
 
 @media only screen and (width: 1024px) {
-    .search input {
-        width: 150px;
+    .title {
+        padding: 5px;
+    }
+    .titleH {
+        font-size: 40px!important;
     }
 
     .contact {
+        width: 190px;
         display: inline-block;
-    }
-    .phone {
-        margin-top: 5px;
-        font-size: 22px;
-        margin-left: 3px;
+        margin-right: 10px;
+        margin-left: 50px;
     }
 
-    .icon {
-        margin-right: 15px;
-        margin-top: 5px;
+    .phone {
+        font-size: 20px;
+    }
+
+
+
+    .search input {
+        width: 130px;
+        margin-left: 25px;
+    }
+
+    .btn img {
+        margin-left: 20px;
+    }
+
+    .auth-btn {
+        margin-top: 10px;
+        margin-left: 3px;
+        margin-right: 25px;
+    }
+
+    .social-icons img {
+        margin-top: 0;
 
     }
 
@@ -390,5 +410,6 @@
     .auth-btn {
         margin-right: 20px;
     }
+
 
 }
