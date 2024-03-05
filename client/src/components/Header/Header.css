@@ -16,7 +16,7 @@
     padding: 1px 30px;
     z-index: 1000;
     /*background-color: #d62f2f;*/
-    background-image: url("./header2.jpeg");
+    background-image: url("./header8.jpg");
     background-size: cover;
     background-position: center;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.9); /* Добавим небольшую тень для выделения шапки */
@@ -63,6 +63,7 @@
     font-weight: bold;
     cursor: pointer;
     font-size: 18px;
+    color: #1f1c1c;
 }
 
 .burger {
@@ -174,7 +175,7 @@
 }
 /*style={{color: "white" , marginTop: "17px", marginLeft: "-25px"}}*/
 .totalItems {
-    color: #f1f1f5;
+    color: #064372;
     margin-top: 17px;
     margin-left: -25px;
 }
@@ -197,12 +198,12 @@
     width: 32px;
     height: auto;
     text-align: center;
-    background: #8ce1ef;
+    background: #67d0e2;
     margin-right: 50px;
     padding: 6px;
     border-radius: 50%;
     /*box-shadow: 1px 6px 5px 4px;*/
-    box-shadow: 2px 3px 3px #a3ccea;
+    box-shadow: 2px 4px 4px #383a3b;
     box-sizing: content-box;
     transition: box-shadow 0.3s ease; /* Добавим анимацию при наведении */
     margin-top: 10px;
@@ -213,7 +214,7 @@
     width: 32px;
     height: auto;
     text-align: center;
-    background: #4b96e7;
+    background: #5aa3f1;
     margin-right: 50px;
     padding: 6px;
     border-radius: 50%;

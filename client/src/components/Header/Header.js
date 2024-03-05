@@ -10,7 +10,7 @@ import tel from "./telegram.png";
 import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
 import profileIcon from "./profileIcon.png";
-import cart from './trolley1.png';
+import cart from './trolley.png';
 import burger from './menu.png';
 
 const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
@@ -66,7 +66,7 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
             <div className="contact">
 
                 <div className="phone">
-                    <a style={{color:"white"}} href="tel:+996703524643">+0(123) 777 777</a>
+                    <a href="tel:+996703524643">+0(123) 777 777</a>
                 </div>
                 <div className="social-icons">
                     <a href="https://www.tiktok.com/" >
