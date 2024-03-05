@@ -12,7 +12,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
                 <h2>Детали заказа</h2>
                 <div className="order-info">
                     <div>
-                        <strong>Номер заказа:</strong> {order._id}
+                        <strong>ID заказа:</strong> {order._id}
                     </div>
                     <div>
                         <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
@@ -83,33 +83,6 @@ const OrderDetailsModal = ({ order, onClose }) => {
                             ))}
                         </ul>
 
-
-
-                        {/*<ul>*/}
-                        {/*    {order.products.map((item) => (*/}
-                        {/*        <li key={item.product._id}>*/}
-                        {/*            <div>*/}
-                        {/*                <strong>Тип товара:</strong> {item.product.type}*/}
-                        {/*            </div>*/}
-                        {/*            <div>*/}
-                        {/*                <strong>Бренд:</strong> {item.product.brand}*/}
-                        {/*            </div>*/}
-                        {/*            <div>*/}
-                        {/*                <strong>Название товара:</strong> {item.product.name}*/}
-                        {/*            </div>*/}
-                        {/*            <div>*/}
-                        {/*                <strong>Описание:</strong> {item.product.description}*/}
-                        {/*            </div>*/}
-                        {/*            <div>*/}
-                        {/*                <strong>Количество:</strong> {item.quantity}*/}
-                        {/*            </div>*/}
-                        {/*            <div>*/}
-                        {/*                <strong>Цена за единицу:</strong> {item.product.price} KGS*/}
-                        {/*            </div>*/}
-                        {/*            <hr/>*/}
-                        {/*        </li>*/}
-                        {/*    ))}*/}
-                        {/*</ul>*/}
                     </div>
                     <div>
 

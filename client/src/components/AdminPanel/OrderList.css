@@ -42,3 +42,12 @@ tbody td p {
 }
 
 /* Add more styles as needed */
+
+@media only screen and (max-width: 768px) {
+
+    .order {
+        margin-top: 260px;
+        padding: 2px 10px;
+    }
+
+}

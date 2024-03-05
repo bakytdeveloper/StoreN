@@ -60,7 +60,7 @@ body.modal-open {
 
 /* Адаптация под разные устройства */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .modal-content {
         width: 100%;
 
@@ -98,3 +98,4 @@ body.modal-open {
         background: black;
     }
 }
+
