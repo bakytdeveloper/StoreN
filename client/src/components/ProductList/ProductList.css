@@ -251,3 +251,15 @@
     }
 
 }
+
+
+@media only screen and (max-width: 1024px) {
+        .pagination {
+            display: inline-flex;
+            /*margin-right: 200px!important;*/
+        }
+    .arrowR {
+        margin-right: 200px!important;
+    }
+
+}
