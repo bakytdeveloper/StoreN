@@ -46,13 +46,13 @@ const OrderDetailsModal = ({ order, onClose }) => {
                     </div>
                     <div>
                         <strong>Товары:</strong>
-
+        <hr/>
                         <ul>
-                            {order.products.map((item) => (
+                            {order.products.map((item, index) => (
                                 <li key={item.product._id}>
                                     {item.product && (
                                         <div>
-                                            <strong>Тип товара:</strong> {item.product.type}
+                                            <strong> <span>{index + 1})</span> Тип товара:</strong> {item.product.type}
                                         </div>
                                     )}
                                     {item.product && (
