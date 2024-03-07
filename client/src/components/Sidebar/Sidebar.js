@@ -76,12 +76,16 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
 
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show' }`}>
+            <div className="titleShow">
             {isSmallScreen && (
-                <div style={{marginLeft:"170px"}} className="closeBtn" onClick={handleCloseClick}>
-                    &#10006; {/* Это символ крестика (✖) */}
+
+                <div className="closeBtn" onClick={handleCloseClick}>
+                    &#215; {/* Это символ крестика (✖) */}
+                    {/*&#10006; /!* Это символ крестика (✖) *!/*/}
                 </div>
             )}
             <h2 className="sbTitle">Товары</h2>
+            </div>
             <ul>
                 {selectedCategory ? (
                     <>
