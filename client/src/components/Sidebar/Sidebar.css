@@ -18,7 +18,7 @@
 
 .sidebar {
     /* ... (остальной код) */
-    transform: translateX(-105%);
+    transform: translateX(-115%);
     transition: transform 0.3s ease;
 }
 

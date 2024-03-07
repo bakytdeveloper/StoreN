@@ -116,61 +116,10 @@
 
 }
 
-
-/*.pagination {*/
-/*    display: inline-flex;*/
-/*    margin: 0 0 0 420px;*/
-/*    text-align: center;*/
-/*    width: 300px;*/
-/*    height: 60px;*/
-/*}*/
-
-
-/*.arrowL {*/
-/*    font-size: 30px;*/
-/*    !*box-shadow: 4px 6px 6px dimgray;*!*/
-/*    background: white;*/
-/*    box-sizing: content-box;*/
-/*}*/
-/*.arrowL:hover {*/
-/*    font-size: 28px;*/
-/*    background: white;*/
-/*    box-sizing: content-box;*/
-/*}*/
-
-
-/*.arrowR {*/
-/*    font-size: 30px;*/
-/*    background: white;*/
-/*    box-sizing: content-box;*/
-/*}*/
-/*.arrowR:hover {*/
-/*    font-size: 28px;*/
-/*    background: white;*/
-/*    box-sizing: content-box;*/
-/*}*/
-/*.pagination button {*/
-/*    background: red;*/
-
-/*}*/
-
-/*.pagination button:hover {*/
-/*    background: none;*/
-
-/*}*/
-
-/*.numStr {*/
-/*    margin-top: 15px;*/
-/*}*/
-
-
-
-
-
 .pagination {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 40% !important;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -179,6 +128,11 @@
     max-width: 600px; /* Желаемая максимальная ширина пагинации */
     margin: 0 auto;
     bottom: -70px;
+}
+
+.pagination span {
+    margin-left: 27px;
+    margin-right: 27px;
 }
 
 .pagination button {
@@ -234,20 +188,42 @@
 
 @media only screen and (max-width: 768px) {
     .product-list {
-        margin-left: 1px;
-        margin: 240px 8px 0 1px;
+        margin: 240px 4px 0 1px;
         padding-bottom: 50px!important;
     }
 
 
     .arrowL {
         font-size: 35px;
+        padding: 4px 7px!important;
     }
+
+    .arrowR {
+        font-size: 35px;
+        padding: 4px 7px!important;
+    }
+
 
     .pagination button {
         margin-left: 15px;
         margin-right: 15px;
         width: 80px;
+    }
+
+    .pagination {
+        text-align: center;
+        right: 17% !important;
+        width: auto;
+    }
+
+    .pagination span {
+        margin-left: 16px;
+        margin-right: 16px;
+
+    }
+
+    .numStr {
+        text-align: center;
     }
 
 }

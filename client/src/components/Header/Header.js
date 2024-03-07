@@ -11,7 +11,7 @@ import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
 import profileIcon from "./profileIcon.png";
 import cart from './trolley.png';
-import burger from './menu.png';
+import burger from './burger.png';
 
 const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar }) => {
     const [searchTerm, setSearchTerm] = useState('');
