@@ -114,20 +114,20 @@ li:hover {
         padding-top: 10px;
     }
 
-    .titleShow {
-
+    .sbTitle {
         width: 100%;
-        margin-top: 20px;
+        margin-top: 0;
         background: #076986;
-        padding-bottom: 5px;
+        padding: 5px 0 10px 0;
         margin-bottom: 0;
+        z-index: 1;
     }
 
     .closeBtn {
         position: absolute;
         left: 82%;
         top: -11px;
-        color: #020003;
+        color: #63bbe7;
         font-size: 45px;
         z-index: 20;
         cursor: pointer;

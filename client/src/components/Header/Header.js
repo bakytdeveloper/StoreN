@@ -138,8 +138,10 @@ const Header = ({ onSearch, cartItems, setShowSidebar, showSidebar, resetFilter 
     const [showBurgerMenu, setShowBurgerMenu] = useState(false);
 
     const toggleBurgerMenu = () => {
-        setShowBurgerMenu(!showBurgerMenu);
+
         setShowSidebar(!showSidebar);
+        // setShowSidebar(prevState => !prevState);
+        setShowBurgerMenu(!showBurgerMenu);
     };
 
     const handleSearchChange = (e) => {
