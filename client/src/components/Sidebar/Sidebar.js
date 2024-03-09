@@ -148,23 +148,50 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
         };
     }, []);
 
+
+
+    // useEffect(() => {
+    //     const handleBodyScroll = (event) => {
+    //         if (!showSidebar) {
+    //             event.preventDefault();
+    //             event.stopPropagation();
+    //         }
+    //     };
+    //
+    //     document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
+    //     document.body.style.position = showSidebar ? 'static' : 'fixed';
+    //     document.body.style.width = '100%';
+    //     document.body.addEventListener('scroll', handleBodyScroll, {passive: false});
+    //
+    //     return () => {
+    //         document.body.removeEventListener('scroll', handleBodyScroll);
+    //     };
+    // }, [showSidebar]);
+
+
+
     useEffect(() => {
         const handleBodyScroll = (event) => {
-            if (!showSidebar) {
+            if (!showSidebar && isSmallScreen) {
                 event.preventDefault();
                 event.stopPropagation();
             }
         };
 
-        document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
-        document.body.style.position = showSidebar ? 'static' : 'fixed';
-        document.body.style.width = '100%';
-        document.body.addEventListener('scroll', handleBodyScroll, {passive: false});
+        if (isSmallScreen) {
+            document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
+            document.body.style.position = showSidebar ? 'static' : 'fixed';
+            document.body.style.width = '100%';
+            document.body.addEventListener('scroll', handleBodyScroll, {passive: false});
 
-        return () => {
-            document.body.removeEventListener('scroll', handleBodyScroll);
-        };
-    }, [showSidebar]);
+            return () => {
+                document.body.removeEventListener('scroll', handleBodyScroll);
+            };
+        }
+    }, [showSidebar, isSmallScreen]);
+
+
+
 
     const handleCloseClick = () => {
         setShowSidebar(true);
@@ -215,7 +242,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
             <ul>
                 {selectedCategory ? (
                     <>
-                        <li className="sbLi" style={{fontSize: "20px", color: "goldenrod", fontFamily: "monospace"}}
+                        <li className="sbLi" style={{fontSize: "20px", color: "#d04b07", fontFamily: "monospace"}}
                             key="back" onClick={handleBackClick}>
                             Назад
                         </li>
