@@ -42,6 +42,12 @@ const App = () => {
         setSearchKeyword(keyword);
     };
 
+    const resetFilter = () => {
+        setSearchKeyword(''); // Сброс ключевого слова для поиска
+        setProducts([]); // Очистка списка продуктов
+        // Можно добавить другие действия по сбросу фильтров, если необходимо
+    };
+
     return (
         <Router>
             <div className="app">
@@ -51,6 +57,8 @@ const App = () => {
                         cartItems={cartItems}
                         setShowSidebar={setShowSidebar}
                         showSidebar={showSidebar}
+                        resetFilter={resetFilter} // Передача функции для сброса фильтров
+
                     />
                 )}
                 <Sidebar
