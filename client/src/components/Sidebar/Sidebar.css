@@ -1,7 +1,6 @@
 
 
 /* src/components/Sidebar/Sidebar.css */
-
 .sidebar {
     margin-top: 20px;
     position: fixed;
@@ -30,19 +29,6 @@
 
 }
 
-/*.closeBtn {*/
-/*    margin-left: 25px!important;*/
-/*    cursor: pointer;*/
-/*    font-size: 25px;*/
-/*    margin-bottom: -30px;*/
-/*    z-index: 1;*/
-/*}*/
-
-
-/*.closeBtn:hover {*/
-/*   color: #007bff;*/
-/*}*/
-
 
 h2 {
     font-size: 22px;
@@ -61,6 +47,7 @@ ul {
     list-style-type: none;
     padding: 0;
 }
+
 
 .sbLi {
     margin-bottom: 1px;
@@ -87,46 +74,82 @@ li:hover {
     background-color: #2fb7bc; /* Изменено на зеленый цвет при наведении */
 }
 
+/* Добавляем стиль для затемнения фона */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный цвет */
+    z-index: 100; /* Поднимаем над боковым меню */
+    display: none; /* По умолчанию скрыт */
+}
+
+/* Показываем затемнение фона при открытом боковом меню */
+.sidebar.show + .overlay {
+    display: block;
+}
+
 @media screen and (max-width: 768px) {
 
     .sidebar {
-        width: 80% !important;
+        width: 60% !important;
         padding: 0;
 
     }
+
 
     .sbTitle {
         color: white;
         text-shadow: 2px 3px 3px #c3c1c1;
         font-size: 30px!important;
+        padding-top: 10px;
     }
 
     .titleShow {
-        margin-top: -32px;
+
+        width: 100%;
+        margin-top: 20px;
         background: #076986;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         margin-bottom: 0;
     }
 
     .closeBtn {
-        display: inline;
+        position: absolute;
+        left: 82%;
+        top: -11px;
         color: #020003;
-        font-size: 65px;
-        z-index: 111;
-
+        font-size: 45px;
+        z-index: 20;
+        cursor: pointer;
         margin-right: 130px!important;
 
     }
 
-     .show {
+    .show {
         top: 200px;
-         z-index: 1;
-         background: white;
-         font-size: 26px;
+        z-index: 1;
+        background: white;
+        font-size: 26px;
 
+        overflow: hidden;
     }
     li {
         font-size: 18px;
     }
 
+    /* Добавляем стиль для затемнения фона */
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Затемненный цвет */
+        z-index: 10; /* Должен быть выше, чем у бокового меню */
+    }
+
 }
+
