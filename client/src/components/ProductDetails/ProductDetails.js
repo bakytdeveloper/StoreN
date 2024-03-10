@@ -264,7 +264,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     useEffect(() => {
         setShowSidebar(true);
         // Clear the flag when the component is unmounted
-        return () => setShowSidebar(false);
+        return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
     useEffect(() => {

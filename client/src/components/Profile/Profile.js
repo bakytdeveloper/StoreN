@@ -646,7 +646,7 @@ const Profile = ({ setShowSidebar }) => {
         setShowSidebar(true);
         // Возвращаем функцию для очистки (аналог componentWillUnmount)
         return () => {
-            setShowSidebar(false); // Восстановим значение при размонтировании компонента
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
         };
     }, [setShowSidebar]);
 

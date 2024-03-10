@@ -278,7 +278,7 @@ const AdminPanel = ({ setShowSidebar }) => {
     useEffect(() => {
         setShowSidebar(true);
         return () => {
-            setShowSidebar(false);
+            setShowSidebar(true);
         };
     }, [setShowSidebar]);
 

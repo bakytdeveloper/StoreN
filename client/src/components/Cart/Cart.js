@@ -231,12 +231,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
     const history = useHistory();
 
-
-    useEffect(() => {
-        setShowSidebar(false);
-        return () => setShowSidebar(true);
-    }, [setShowSidebar]);
-
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
 
 
@@ -359,7 +353,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         setShowSidebar(true);
         // Возвращаем функцию для очистки (аналог componentWillUnmount)
         return () => {
-            setShowSidebar(false); // Восстановим значение при размонтировании компонента
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
         };
     }, [setShowSidebar]);
 
