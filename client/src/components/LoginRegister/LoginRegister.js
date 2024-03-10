@@ -48,7 +48,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, showHeader, setShowHeader 
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email,
+                    email: email.toLowerCase(),
                     password,
                     name,
                 }),
@@ -60,11 +60,11 @@ const LoginRegister = ({ showSidebar, setShowSidebar, showHeader, setShowHeader 
                 // Успешная регистрация или вход
                 // Сохранить токен в localStorage или cookies
                 localStorage.setItem('token', data.token);
-                toast.success('Successfully logged in or registered');
+                toast.success('Успешный вход или регистрация');
 
                 if (isRegisterMode) {
                     // Присвоение роли 'customer' после регистрации
-                    data.user.role = 'customer';
+                    data.user.role = 'Клиент';
                 }
 
                 if (email === 'admin@gmail.com' && password === 'nurlan_admin') {

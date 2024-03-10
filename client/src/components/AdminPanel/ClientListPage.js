@@ -12,7 +12,8 @@ const ClientListPage = ({setShowSidebar}) => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await fetch('http://localhost:5505/api/users/clients');
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/clients`);
+
                 const data = await response.json();
                 setClients(data);
             } catch (error) {
