@@ -6,13 +6,10 @@
 
 /* src/components/AdminPanel/AdminPanel.css */
 .admin-panel {
-/*<<<<<<< HEAD   ??? */
-/*    margin-top: 120px;*/
-/*=======   ???*/
-    margin-top: 130px;
-/*>>>>>>> 9f1586a7104c74bfba85fd5ed33b8e046dfefd6f   ???*/
+    margin-top: 100px;
     padding: 20px;
     width: 90%;
+    margin-bottom: 140px;
 }
 
 h2 {
@@ -120,6 +117,15 @@ h2 {
     background: #574eea;
     box-shadow: 2px 3px 3px grey;
 
+}
+.deleteYN {
+    display: inline-flex;
+    text-align: center;
+
+    margin-left: 47%;
+}
+.deleteY {
+    margin-right: 25px;
 }
 
 @media screen and (max-width: 768px) {

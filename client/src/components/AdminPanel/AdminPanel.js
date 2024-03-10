@@ -316,9 +316,9 @@ const AdminPanel = ({ setShowSidebar }) => {
             {showConfirmation && (
                 <div className="confirmation-modal">
                     <p>Вы уверены, что хотите удалить продукт?</p>
-                    <div>
-                        <button onClick={handleConfirmDelete}>Да</button>
-                        <button onClick={() => setShowConfirmation(false)}>Отмена</button>
+                    <div className="deleteYN">
+                        <button className="deleteY" onClick={handleConfirmDelete}>Да</button>
+                        <button className="deleteN" onClick={() => setShowConfirmation(false)}>Отмена</button>
                     </div>
                 </div>
             )}
