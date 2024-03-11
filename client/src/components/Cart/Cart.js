@@ -383,7 +383,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         ))}
                     </div>
                 )}
-                {showCheckout && <CheckoutForm onSubmit={handlePlaceOrder} user={user} />}
+                {showCheckout && <CheckoutForm
+                    onSubmit={handlePlaceOrder}
+                    user={user}
+                    onClose={() => setShowCheckout(false)} />}
             </div>
             <div className="cart-summary">
                 <CartSummary
