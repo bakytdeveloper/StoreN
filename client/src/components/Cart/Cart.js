@@ -345,25 +345,37 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     &#10006;
                 </span>
                 <h2>Корзина</h2>
+                <hr />
                 {cartItems.length === 0 ? (
                     <p>Ваша корзина пуста</p>
                 ) : (
-                    <div>
+                    <div className="AllCartInfo">
                         {cartItems.map((item) => (
                             <div className="cart-item" key={item.productId}>
                                 <div className="item-info" >
                                     <img className="cartImg" src={item.image} alt={item.name} />
                                     <div className="item-details">
-                                        <div style={{ fontWeight: 'bold' }}>{item.type}</div>
-                                        <div style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</div>
-                                        <div>{item.name}</div>
-                                        <div>
+                                        <span className="itemName" style={{ fontWeight: 'bold'}}>{item.type}</span>
+                                        <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</span>
+                                        <span>{item.name}</span>
+                                        <div className="sumKg">
                                             <span>KGS</span> {item.price}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="item-quantity">
-                                    <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>-</button>
+                                    {/*<button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>-</button>*/}
+
+                                    {/*<button className="btnPlus" onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>*/}
+                                    <div className="allSum">
+                                        <div className="sumOne" style={{ fontWeight: "bold" }}> Сумма:
+                                            <span>{(item.price * item.quantity).toFixed(2)}</span>
+                                        </div>
+
+                                    </div>
+
+                                    <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>
+                                        -</button>
                                     <input
                                         type="number"
                                         style={{ marginTop: "8px" }}
@@ -371,18 +383,22 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                         onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
                                     />
                                     <button className="btnPlus" onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>+</button>
-                                    <div className="allSum">
-                                        <div style={{ fontWeight: "bold" }}> Сумма: </div>
-                                        <span>{(item.price * item.quantity).toFixed(2)}</span>
-                                    </div>
+
+
+
                                     <button className="deleteOne" onClick={() => handleRemoveItem(item.productId)}>
                                         &#10006;
                                     </button>
                                 </div>
+
                             </div>
+
                         ))}
+
                     </div>
-                )}
+
+                ) }
+
                 {showCheckout && <CheckoutForm
                     onSubmit={handlePlaceOrder}
                     user={user}
