@@ -78,13 +78,14 @@
     .cart-summary {
         margin:  0!important;
         position: fixed;
-        width: 91%;
+        width: 100%;
         background: white;
         bottom: 6px;
+        margin-left: -11px!important;
+
     }
 
 }
-
 
 /*@media (max-width: 576px) {*/
 /*    .cart-summary {*/

@@ -192,7 +192,7 @@
 @media only screen and (max-width: 768px) {
     .product-list {
         margin: 240px 4px 0 1px;
-        padding-bottom: 50px!important;
+        padding-bottom: 0!important;
     }
 
 
