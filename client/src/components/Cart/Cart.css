@@ -361,6 +361,11 @@ h2 {
     .btnMinus {
         margin-left: 40px!important;
     }
+
+    .item-quantity {
+        margin-left: 31px;
+        padding-left: 11px;
+    }
 }
 
 @media (max-width: 576px) {
