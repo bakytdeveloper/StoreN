@@ -327,7 +327,8 @@ h2 {
         flex-direction: column;
         text-align: center;
         border: none;
-        margin-left: 9px;
+        /*margin-left: 9px;*/
+        margin: 0 auto;
     }
 
     .cart-item {
