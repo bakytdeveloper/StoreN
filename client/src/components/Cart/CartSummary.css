@@ -61,3 +61,13 @@
     font-weight: bold;
     font-size: 20px;
 }
+
+@media (max-width: 768px) {
+    .cart-summary {
+        margin: 657px 0 0 0!important;
+        position: fixed;
+        width: 91%;
+        background: white;
+    }
+
+}

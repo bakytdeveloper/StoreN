@@ -317,7 +317,31 @@ h2 {
     .cart {
         max-width: 100%;
         margin-right: 0;
-        margin-bottom: 20px;
+        margin-top: 155px;
+        flex-direction: column;
+
+
+    }
+    .item-info {
+        flex-direction: column;
+        text-align: center;
+        border: none;
+        margin-left: 20px;
+    }
+    .cart-item {
+        flex-direction: column;
+    }
+
+    .cartImg {
+        margin-left: 50px;
+    }
+
+    .sumOne {
+        margin-left: -40px!important;
+    }
+
+    .checkForm {
+        margin-top: 77px;
     }
 }
 

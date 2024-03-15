@@ -118,7 +118,7 @@ const CheckoutForm = ({ onSubmit, user, onClose }) => {
     };
 
     return (
-        <div>
+        <div className="checkForm">
             <h2>Оформите заказ</h2>
             <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
             <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Имя:</label>

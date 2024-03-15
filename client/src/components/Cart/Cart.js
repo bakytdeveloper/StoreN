@@ -389,16 +389,19 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                     <button className="deleteOne" onClick={() => handleRemoveItem(item.productId)}>
                                         &#10006;
                                     </button>
+
                                 </div>
+                                <hr style={{width:"95%", height:"2px"}}/>
 
                             </div>
 
                         ))}
 
+
                     </div>
 
                 ) }
-
+{/*<hr style={{borderBottomColor: "red"}}/>*/}
                 {showCheckout && <CheckoutForm
                     onSubmit={handlePlaceOrder}
                     user={user}

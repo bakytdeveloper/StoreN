@@ -15,7 +15,8 @@ const OrderDetailsModal = ({ order, onClose }) => {
                         <strong>ID заказа:</strong> {order._id}
                     </div>
                     <div>
-                        <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
+                        <strong>Клиент:</strong> {order.user ? order.user.name : order.user.firstName}
+                        {/*<strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}*/}
                     </div>
                     <div>
                         <strong>Email:</strong> {order.user ? order.user.email : '-'}
