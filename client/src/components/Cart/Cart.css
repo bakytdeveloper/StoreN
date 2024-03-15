@@ -312,28 +312,31 @@ h2 {
 @media (max-width: 768px) {
     .cartAll {
         flex-direction: column;
+        width: 100%;
+
     }
 
     .cart {
         max-width: 100%;
-        margin-right: 0;
+        margin-left: 0;
         margin-top: 155px;
         flex-direction: column;
-
     }
+
     .item-info {
         flex-direction: column;
         text-align: center;
         border: none;
-        margin-left: 10px;
+        margin-left: 15px;
     }
 
     .cart-item {
         flex-direction: column;
+        margin-left: 7px;
     }
 
     .cartImg {
-        margin-left: 20px;
+        margin-left: 33px;
     }
 
     .sumOne {
@@ -348,6 +351,15 @@ h2 {
     .item-quantity input {
         font-size: 17px;
     }
+
+    .allSum {
+        justify-content: space-between;
+
+    }
+
+    .btnMinus {
+        margin-left: 40px!important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -359,4 +371,10 @@ h2 {
     .item-details {
         font-size: 14px;
     }
+
+    .allSum {
+        justify-content: space-between;
+
+    }
+
 }
