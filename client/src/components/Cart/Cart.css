@@ -325,7 +325,7 @@ h2 {
         flex-direction: column;
         text-align: center;
         border: none;
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
     .cart-item {
@@ -333,15 +333,20 @@ h2 {
     }
 
     .cartImg {
-        margin-left: 50px;
+        margin-left: 20px;
     }
 
     .sumOne {
         margin-left: -40px!important;
+        margin-right: -40px;
     }
 
     .checkForm {
         margin-top: 77px;
+    }
+
+    .item-quantity input {
+        font-size: 17px;
     }
 }
 
