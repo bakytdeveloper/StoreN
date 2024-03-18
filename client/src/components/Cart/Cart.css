@@ -146,10 +146,11 @@
     max-width: 60%;
     margin-right: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 500px;
+    /*height: 500px;*/
+    height: auto;
     overflow-y: auto;
 }
 
@@ -305,6 +306,19 @@ h2 {
    background: none;
     color: #3ce317;
 
+}
+
+.section-indicator {
+    background: white;
+    width: 100%;
+    font-weight: bold;
+    color: #012b32;
+    height: 100px!important;
+    z-index: 1!important;
+    margin-top: 500px;
+    text-align: center;
+    display: inline-flex;
+    position: fixed;
 }
 
 

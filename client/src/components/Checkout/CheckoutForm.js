@@ -119,6 +119,7 @@ const CheckoutForm = ({ onSubmit, user, onClose }) => {
 
     return (
         <div className="checkForm">
+        {/*<div className="checkForm">*/}
             <h2>Оформите заказ</h2>
             <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
             <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Имя:</label>
@@ -133,10 +134,7 @@ const CheckoutForm = ({ onSubmit, user, onClose }) => {
             <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
             <label>Комментарии:</label>
             <textarea value={comments} onChange={(e) => setComments(e.target.value)} />
-            <div>
-                <button onClick={handleSubmit}>Подтвердить заказ</button>
-                <button onClick={handleCancel}>Отмена</button>
-            </div>
+
         </div>
     );
 };
