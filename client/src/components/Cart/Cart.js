@@ -2566,11 +2566,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 </div>
             </div>
 
-            <button className="buy_next"
-                    onClick={section === 3 ? handlePlaceOrder : handleContinue}
-                    style={{ width: "100px", marginTop: "440px" }}>
-                {section === 3 ? 'Купить' : 'Продолжить'}
-            </button>
+            {/*<button className="buy_next"*/}
+            {/*        onClick={section === 3 ? handlePlaceOrder : handleContinue}*/}
+            {/*        style={{ width: "100px", marginTop: "440px" }}>*/}
+            {/*    {section === 3 ? 'Купить' : 'Продолжить'}*/}
+            {/*</button>*/}
 
             <div className="section-indicator">
                 {[1, '*', 2, '*', 3].map((item, index) => (
@@ -2582,6 +2582,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         {/*{section2Filled && item === 2 && ' \u2714'}*/}
                     </span>
                 ))}
+
+                <button className="buy_next"
+                        onClick={section === 3 ? handlePlaceOrder : handleContinue}
+                        style={{ width: "100px" }}>
+                    {section === 3 ? 'Купить' : 'Продолжить'}
+                </button>
             </div>
 
             <div className="cart-summary">

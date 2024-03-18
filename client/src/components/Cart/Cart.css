@@ -309,18 +309,38 @@ h2 {
 }
 
 .section-indicator {
+    /*display: inline-flex;*/
     background: white;
     width: 100%;
     font-weight: bold;
-    color: #012b32;
+    color: #046a7a;
     height: 100px!important;
     z-index: 1!important;
     margin-top: 500px;
     text-align: center;
-    display: inline-flex;
+    display: inline-block;
     position: fixed;
+    border-top-color: #dddddd;
 }
 
+.section-indicator span {
+    margin: 22px;
+    width: 55px;
+}
+
+.section-indicator .active {
+    color: #2bc3f1;
+    border: 1px solid  darkslategrey!important;
+    border-radius: 50%;
+    padding: 4px 8px;
+    background: #564d4d;
+}
+
+.buy_next {
+    height: 33px;
+    margin-top: 11px;
+    background: #5d5c5c;
+}
 
 /* Media Queries */
 @media (max-width: 768px) {
