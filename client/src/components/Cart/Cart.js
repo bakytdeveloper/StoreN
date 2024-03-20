@@ -831,7 +831,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 </span>
                 <h2>Корзина</h2>
                 <hr />
-                <div>
+
+                <div className="allSection">
+
+                <div className="sectionOne" >
                     <h3>Подтвердите заказ</h3>
                     {section === 1 && (
                         <>
@@ -886,29 +889,33 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     <hr />
                 </div>
 
-                <div>
+                <div  className="sectionTwo">
                     <h3>Оформите заказ</h3>
                     {section === 2 && (
                         <>
                             <div className="checkForm">
-                                <h2>Оформите заказ</h2>
+                                {/*<h2>Оформите заказ</h2>*/}
                                 <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
                                 <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Имя:</label>
                                 <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                                 <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Email:</label>
                                 <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                                 <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>  Адрес доставки:</label>
-                                <div>
-                                    <input type="radio" id="delivery" name="deliveryType" checked={deliveryType === 'delivery'} onChange={() => handleDeliveryTypeChange('delivery')} />
-                                    <label htmlFor="delivery">Доставка</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="pickup" name="deliveryType" checked={deliveryType === 'pickup'} onChange={() => handleDeliveryTypeChange('pickup')} />
-                                    <label htmlFor="pickup">Самовывоз</label>
-                                </div>
+                               <div className="radioButtons">
+                                   <div className="btnOne">
+                                       <input type="radio" id="delivery" name="deliveryType" checked={deliveryType === 'delivery'} onChange={() => handleDeliveryTypeChange('delivery')} />
+                                       <label htmlFor="delivery">Доставка
+                                       <span>(по г.Бишкек - 250сом)</span>
+                                       </label>
+                                   </div>
+                                   <div  className="btnTwo">
+                                       <input type="radio" id="pickup" name="deliveryType" checked={deliveryType === 'pickup'} onChange={() => handleDeliveryTypeChange('pickup')} />
+                                       <label htmlFor="pickup">Самовывоз</label>
+                                   </div>
+                               </div>
                                 <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
                                 <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Номер телефона:</label>
-                                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                <input className="cartPhoneNumber" type="number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                                 <label> Способ оплаты:</label>
                                 <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
                                 <label>Комментарии:</label>
@@ -923,7 +930,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
                 </div>
 
-                <div>
+                <div className="sectionThree">
                     <h3>Оплатите заказ</h3>
                     {section === 3 && (
                         <>
@@ -932,6 +939,18 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     )}
                     <hr />
                 </div>
+
+                </div>
+
+            </div>
+
+            <div className="cart-summary">
+                <CartSummary
+                    totalPrice={totalPrice}
+                    handleCheckout={handleCheckout}
+                    handleClearCart={() => setCartItems([])}
+                />
+                {/*<hr />*/}
             </div>
 
             <div className="section-indicator">
@@ -950,14 +969,14 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 </button>
             </div>
 
-            <div className="cart-summary">
-                <CartSummary
-                    totalPrice={totalPrice}
-                    handleCheckout={handleCheckout}
-                    handleClearCart={() => setCartItems([])}
-                />
-                <hr />
-            </div>
+            {/*<div className="cart-summary">*/}
+            {/*    <CartSummary*/}
+            {/*        totalPrice={totalPrice}*/}
+            {/*        handleCheckout={handleCheckout}*/}
+            {/*        handleClearCart={() => setCartItems([])}*/}
+            {/*    />*/}
+            {/*    /!*<hr />*!/*/}
+            {/*</div>*/}
         </div>
     );
 };

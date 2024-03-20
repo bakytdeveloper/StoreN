@@ -81,8 +81,8 @@
         width: 100%;
         background: white;
         bottom: 6px;
-        margin-left: -11px!important;
-        margin-bottom: -4px!important;
+        margin-left: 0!important;
+        /*margin-bottom: -4px!important;*/
 
     }
 
