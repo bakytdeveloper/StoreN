@@ -41,8 +41,8 @@ router.post('/', async (req, res) => {
     }
 
     const order = new Order({
-        user: userId || null, // Если нет зарегистрированного пользователя, используем null
-        guestInfo: userId ? undefined : guestInfo, // Если есть зарегистрированный пользователь, не используем guestInfo
+        user: userId || null,
+        guestInfo: userId ? undefined : guestInfo,
         cart: [],
         products,
         totalAmount,
@@ -57,20 +57,17 @@ router.post('/', async (req, res) => {
         const newOrder = await order.save();
         if (userId) {
             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
-            // console.log('U S E R', user )
         }
         res.status(201).json(newOrder);
     } catch (error) {
         console.error('Error placing order:', error);
-
-        // Обработка ошибки валидации пользователя (поле password)
         if (error.name === 'ValidationError' && error.errors && error.errors.password) {
             return res.status(400).json({ message: 'Password is required for registered users' });
         }
-
         res.status(400).json({ message: error.message });
     }
 });
+
 
 
 // Добавление товара в корзину (для гостей и зарегистрированных пользователей)
