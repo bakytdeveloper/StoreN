@@ -877,10 +877,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                     &#10006;
                                                 </button>
                                             </div>
+                                            <hr style={{width:"100%", height:"2px", background:"blanchedalmond"}}/>
                                         </div>
                                     ))}
                                 </div>
+
                             )}
+
                         </>
                     )}
                     {section !== 1 && (
