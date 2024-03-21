@@ -657,6 +657,8 @@ import CartSummary from './CartSummary';
 
 const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [totalPrice, setTotalPrice] = useState(0);
+    const [totalItems, setTotalItems] = useState(0); // Состояние для хранения общего количества товара в корзине
+
     const [showPayment, setShowPayment] = useState(false);
     const [user, setUser] = useState(null);
     const [showCheckout, setShowCheckout] = useState(false);
@@ -972,14 +974,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 </button>
             </div>
 
-            {/*<div className="cart-summary">*/}
-            {/*    <CartSummary*/}
-            {/*        totalPrice={totalPrice}*/}
-            {/*        handleCheckout={handleCheckout}*/}
-            {/*        handleClearCart={() => setCartItems([])}*/}
-            {/*    />*/}
-            {/*    /!*<hr />*!/*/}
-            {/*</div>*/}
         </div>
     );
 };
