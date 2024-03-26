@@ -408,11 +408,16 @@
 
     .mobile-buttons {
         display: inline-flex;
-        background: #fdb575;
+        background: #085777;
         width: 100%;
         font-size: 18px;
         font-weight: bold;
 
+
+    }
+
+    .btn {
+        color: white!important;
     }
 
     /*.btn1:hover {*/
