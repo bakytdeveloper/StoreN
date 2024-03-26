@@ -262,6 +262,7 @@
 
     .header {
         height: auto;
+
     }
 
     .title {
@@ -459,7 +460,9 @@
 
 
 }
-
+.profileIcon {
+    margin-left: -8px;
+}
 
 
 
