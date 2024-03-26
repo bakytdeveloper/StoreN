@@ -302,6 +302,7 @@ import right from "./arrowsR.png";
 //
 // export default ProductList;
 
+import { HiChevronDoubleRight } from "react-icons/hi";
 
 
 
@@ -445,6 +446,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
                 <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
                 <button  className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
                     <img  className="arrowRImg" src={right}  alt="Cart" />
+
                 </button>
             </div>
         </div>

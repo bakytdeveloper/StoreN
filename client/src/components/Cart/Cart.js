@@ -961,7 +961,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             <div className="section-indicator">
                 {[1, '*', 2, '*', 3].map((item, index) => (
                     <span key={index} className={typeof item === 'number' && section === item ? 'active' : ''}>
-                        {typeof item === 'number' ? item : ' * * * * * '}
+                        {typeof item === 'number' ? item : '* * * * *'}
                         {section1Filled && item === 1 }
                         {section2Filled && item === 2 }
                     </span>

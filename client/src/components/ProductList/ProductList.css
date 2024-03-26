@@ -136,7 +136,7 @@
 }
 
 .pagination button {
-    background: #61e973;
+    background: none;
     color: white;
     border: none;
     padding: 1px;
@@ -146,7 +146,7 @@
     border-radius: 7px;
 }
 .pagination button:hover {
-    background: #93eedc;
+    background: #e0f5f1;
 }
 
 .pagination button:disabled {
@@ -198,7 +198,7 @@
 
     .pagination {
         display: inline-flex;
-        margin-left: 5%!important;
+        margin-left: 2%!important;
         width: auto;
     }
     .pagination span {
