@@ -22,6 +22,7 @@ const App = () => {
     const [products, setProducts] = useState([]);
     const [showSidebar, setShowSidebar] = useState(true);
     const [showHeader, setShowHeader] = useState(true); // Добавлено состояние для отображения или скрытия шапки
+    const [selectedOption, setSelectedOption] = useState(null);
 
     useEffect(() => {
         const handleBeforeUnload = () => {
@@ -59,13 +60,14 @@ const App = () => {
                         setShowSidebar={setShowSidebar}
                         showSidebar={showSidebar}
                         resetFilter={resetFilter} // Передача функции для сброса фильтров
-
+                        setSelectedOption={setSelectedOption}
                     />
                 )}
                 <Sidebar
                     setProducts={setProducts}
                     showSidebar={showSidebar}
                     setShowSidebar={setShowSidebar}
+                    selectedOption={selectedOption}
                 />
                 <Switch>
                     <Route path="/products/:productId">
@@ -121,6 +123,7 @@ const App = () => {
                             products={products}
                             showSidebar={showSidebar}
                             setProducts={setProducts}
+                            setShowSidebar={setShowSidebar}
                         />
                     </Route>
                 </Switch>

@@ -246,26 +246,13 @@ import cart from './trolley2.png';
 import burger from './burger.png';
 import ContactInfo from './ContactInfo';
 
-const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, resetFilter }) => {
+const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter }) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [showContactInfo, setShowContactInfo] = useState(false);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const history = useHistory();
 
-    const [showBurgerMenu, setShowBurgerMenu] = useState(false);
+    // const [selectedOption, setSelectedOption] = useState(null);
 
-    const toggleBurgerMenu = () => {
-        setShowSidebar(!showSidebar);
-        setShowBurgerMenu(!showBurgerMenu);
-    };
-
-    const toggleContactInfo = () => {
-        setShowContactInfo(!showContactInfo);
-    };
-
-    const hideContactInfo = () => {
-        setShowContactInfo(false);
-    };
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
@@ -286,12 +273,22 @@ const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, resetFilter 
         history.push("/");
     };
 
+
+    const handleContactClick = () => {
+        setSelectedOption('contact');
+        setShowSidebar(!showSidebar);
+    };
+
+    const handleCatalogClick = () => {
+        setSelectedOption('catalog');
+        setShowSidebar(!showSidebar);
+    };
+
+
     return (
         <div className="header">
             <Link to="/" className="title" onClick={handleTitleClick}>
-                {/*<span className="burger" onClick={toggleBurgerMenu}>*/}
-                {/*    <img className="burger" src={burger} alt="burger" />*/}
-                {/*</span>*/}
+
                 <h1 className="titleH"> kiosk<span className="titleN">.kg</span></h1>
             </Link>
             {/* Показывать контактную информацию только на больших экранах */}
@@ -315,25 +312,15 @@ const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, resetFilter 
                     <img src={profileIcon} alt="profileIcon" />
                 </Link>
             </div>
-            <div className="mobile-buttons"> {/* Новый блок для мобильных кнопок */}
-
-            <div className="btn1">
-                <Link to="/catalog" className="btn" onClick={() => setShowSidebar(!showSidebar)}>Каталог товаров</Link>
-            </div>
-
-            <div  className="btn2">
-                <Link to="/contact" className="btn" onClick={toggleContactInfo}>Связаться с нами</Link>
-            </div>
-
-                {/*<Link to="/catalog" className="btn1" onClick={() => setShowSidebar(!showSidebar)}>Каталог товаров</Link>*/}
-                {/*<Link to="/contact" className="btn2" onClick={toggleContactInfo}>Связаться с нами</Link>*/}
-            </div>
-            {/* Показывать контактную информацию только на маленьких экранах и только после клика на "Связаться с нами" */}
-            {showContactInfo && (
-                <div className="mobile-contact-info">
-                    <ContactInfo />
+            <div className="mobile-buttons">
+                <div className="btn1">
+                    <Link to="/catalog" className="btn" onClick={() => { setShowSidebar(!showSidebar); setSelectedOption('catalog'); }}>Каталог товаров</Link>
                 </div>
-            )}
+                <div className="btn2">
+                    <Link to="/contact" className="btn" onClick={() => { setShowSidebar(!showSidebar); setSelectedOption('contact'); }}>Связаться с нами</Link>
+                </div>
+            </div>
+
         </div>
     );
 };

@@ -4,11 +4,12 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 
-const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
+const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+    // const [selectedOption, setSelectedOption] = useState(null); // Добавляем состояние для отслеживания выбранной опции
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -32,27 +33,6 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
-
-
-    // useEffect(() => {
-    //     const handleBodyScroll = (event) => {
-    //         if (!showSidebar) {
-    //             event.preventDefault();
-    //             event.stopPropagation();
-    //         }
-    //     };
-    //
-    //     document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
-    //     document.body.style.position = showSidebar ? 'static' : 'fixed';
-    //     document.body.style.width = '100%';
-    //     document.body.addEventListener('scroll', handleBodyScroll, {passive: false});
-    //
-    //     return () => {
-    //         document.body.removeEventListener('scroll', handleBodyScroll);
-    //     };
-    // }, [showSidebar]);
-
 
 
     useEffect(() => {
@@ -117,37 +97,51 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar }) => {
         <div className={`sidebar ${showSidebar ? '' : 'show'}`}>
             <div className="titleShow">
                 {isSmallScreen && (
-
                     <div className="closeBtn" onClick={handleCloseClick}>
                         &#215;
                     </div>
                 )}
-                <h2 className="sbTitle">Товары</h2>
+                <h2 className="sbTitle">{selectedOption === 'contact' ? 'Контакты' : 'Товары'}</h2>
             </div>
             <ul>
-                {selectedCategory ? (
-                    <>
-                        <li className="sbLi" style={{fontSize: "20px", color: "#d04b07", fontFamily: "monospace"}}
-                            key="back" onClick={handleBackClick}>
-                            Назад
-                        </li>
-                        {types.map((type) => (
-                            <li className="sbLi" key={type} onClick={() => handleTypeClick(type)}>
-                                {type}
-                            </li>
-                        ))}
-                    </>
-
+                {selectedOption === 'contact' ? (
+                    <div className="contact-info">
+                        <div className="phone">
+                            <a href="tel:+996508100777">0(508) 100 777</a>
+                        </div>
+                        <div className="social-icons">
+                            {/* Ваши социальные иконки */}
+                        </div>
+                        <div className="workingTime">с ПН по ВС - с 10:00 до 21:00</div>
+                    </div>
                 ) : (
-                    categories.map((category) => (
-                        <li className="sbLi" key={category} onClick={() => handleCategoryClick(category)}>
-                            {category}
-                        </li>
-                    ))
+                    <>
+                        {selectedCategory ? (
+                            <>
+                                <li className="sbLi" style={{fontSize: "20px", color: "#d04b07", fontFamily: "monospace"}}
+                                    key="back" onClick={handleBackClick}>
+                                    Назад
+                                </li>
+                                {types.map((type) => (
+                                    <li className="sbLi" key={type} onClick={() => handleTypeClick(type)}>
+                                        {type}
+                                    </li>
+                                ))}
+                            </>
+                        ) : (
+                            categories.map((category) => (
+                                <li className="sbLi" key={category} onClick={() => handleCategoryClick(category)}>
+                                    {category}
+                                </li>
+                            ))
+                        )}
+                    </>
                 )}
             </ul>
         </div>
     );
+
+
 }
 
 export default Sidebar;
