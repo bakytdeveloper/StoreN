@@ -3,6 +3,12 @@
 
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
+import tik from "../Header/tik-tok.png";
+import what from "../Header/whatsapp.png";
+import ins from "../Header/instagram.png";
+import tel from "../Header/telegram.png";
+
+import { FaPhone } from 'react-icons/fa';
 
 const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
     const [categories, setCategories] = useState([]);
@@ -101,18 +107,40 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                         &#215;
                     </div>
                 )}
-                <h2 className="sbTitle">{selectedOption === 'contact' ? 'Контакты' : 'Товары'}</h2>
+                <h2 className="sbTitle">{selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}</h2>
             </div>
             <ul>
                 {selectedOption === 'contact' ? (
-                    <div className="contact-info">
-                        <div className="phone">
-                            <a href="tel:+996508100777">0(508) 100 777</a>
+                    <div className="contacts-info">
+                        <div className="phones">
+                            <FaPhone />
+                            <a style={{marginLeft:"25px"}} href="tel:+996508100777">0(508) 100 777</a>
+
                         </div>
-                        <div className="social-icons">
-                            {/* Ваши социальные иконки */}
+                        <div className="phones">
+                            <a href="https://api.whatsapp.com/send?phone=996508100777">
+                                <img className="icon" src={what} alt="WhatsApp Icon" />
+                                <span style={{marginLeft:"10px"}}>0(508) 100 777</span>
+                            </a>
+
                         </div>
-                        <div className="workingTime">с ПН по ВС - с 10:00 до 21:00</div>
+                        <div className="socials-icons">
+                            <h3>Соц. сети</h3>
+                            <a style={{marginLeft:"22px"}} href="https://www.tiktok.com/">
+                                <img className="icons" src={tik} alt="Instagram Icon" />
+                            </a>
+
+                            <a style={{marginLeft:"22px", marginRight:"22px"}} href="https://www.instagram.com/">
+                                <img className="icons ins" src={ins} alt="Instagram Icon" />
+                            </a>
+                            <a href="https://t.me/kanatasa?phone=+996508100777">
+                                <img className="icons" src={tel} alt="Telegram Icon" />
+                            </a>
+                        </div>
+                        <div>
+                            <h4>График работы</h4>
+                        <div className="workingTime" style={{fontSize:"20px", marginTop:"-24px"}}>с ПН по ВС - с 10:00 до 21:00</div>
+                        </div>
                     </div>
                 ) : (
                     <>

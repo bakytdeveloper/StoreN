@@ -313,11 +313,11 @@ const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, selectedOpti
                 </Link>
             </div>
             <div className="mobile-buttons">
-                <div className="btn1">
-                    <Link to="/catalog" className="btn" onClick={() => { setShowSidebar(!showSidebar); setSelectedOption('catalog'); }}>Каталог товаров</Link>
+                <div className="btn1"  onClick={() => { setShowSidebar(!showSidebar); setSelectedOption('catalog'); }}>
+                    <Link to="/catalog" className="btn">Каталог товаров</Link>
                 </div>
-                <div className="btn2">
-                    <Link to="/contact" className="btn" onClick={() => { setShowSidebar(!showSidebar); setSelectedOption('contact'); }}>Связаться с нами</Link>
+                <div className="btn2" onClick={() => { setShowSidebar(!showSidebar); setSelectedOption('contact'); }}>
+                    <Link to="/contact" className="btn" >Связаться с нами</Link>
                 </div>
             </div>
 

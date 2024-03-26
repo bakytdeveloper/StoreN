@@ -99,6 +99,19 @@ li:hover {
     display: block;
 }
 
+.contacts-info {
+    flex-direction: column;
+}
+
+.phones {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.socials-icons {
+    margin-top: 21px;
+}
+
 @media screen and (max-width: 768px) {
 
     .sidebar {
@@ -106,6 +119,12 @@ li:hover {
         padding: 0;
 
     }
+.icons {
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+}
+
 
 
     .sbTitle {
@@ -125,11 +144,16 @@ li:hover {
         z-index: 1;
     }
 
+    .contactTitle {
+        font-size: 27px;
+        margin-left: -11px;
+    }
+
     .closeBtn {
         position: absolute;
-        left: 82%;
-        top: -11px;
-        color: #63bbe7;
+        left: 88%;
+        top: -9px;
+        color: #f0f3f5;
         font-size: 45px;
         z-index: 20;
         cursor: pointer;
