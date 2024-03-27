@@ -166,7 +166,7 @@ label {
 
 @media screen and (max-width: 768px) {
     .profile-container {
-        margin-top: 190px;
+        margin-top: 80px;
         flex-direction: column;
         align-items: stretch;
     }

@@ -56,6 +56,15 @@ ul {
     padding: 0 0 0 12px;
 }
 
+.sbLiBack {
+    list-style-type: none;
+    font-size: 20px;
+    color: #d04b07;
+    font-family: Luminari;
+    text-shadow: 1px 2px 2px rgb(236, 171, 225);
+    cursor: pointer;
+}
+
 
 .sbLi {
     margin-bottom: 1px;
@@ -110,6 +119,18 @@ li:hover {
 
 .socials-icons {
     margin-top: 21px;
+}
+
+.sbLi {
+    position: relative; /* Установка позиции элемента */
+}
+
+.chevronRight {
+    position: absolute; /* Установка позиции элемента */
+    top: 62%; /* Размещение вертикально по центру */
+    right: 7px; /* Отступ от правого края */
+    transform: translateY(-50%); /* Центрирование относительно вертикали */
+    font-weight: bold;
 }
 
 @media screen and (max-width: 768px) {

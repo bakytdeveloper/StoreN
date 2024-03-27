@@ -24,8 +24,6 @@ const LoginRegister = ({ showSidebar, setShowSidebar, showHeader, setShowHeader 
 
     const handleLoginRegister = async () => {
         const url = isRegisterMode
-            // ? 'http://localhost:5505/api/users/register'
-            // : 'http://localhost:5505/api/users/login';
 
             ? `${process.env.REACT_APP_API_URL}/api/users/register` // Use process.env.REACT_APP_API_URL
             : `${process.env.REACT_APP_API_URL}/api/users/login`; // Use process.env.REACT_APP_API_URL

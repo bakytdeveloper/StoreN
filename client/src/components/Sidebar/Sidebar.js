@@ -9,13 +9,15 @@ import ins from "../Header/instagram.png";
 import tel from "../Header/telegram.png";
 
 import { FaPhone } from 'react-icons/fa';
+import { SlArrowRight } from "react-icons/sl";
+import { SlArrowLeft } from "react-icons/sl";
+
 
 const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-    // const [selectedOption, setSelectedOption] = useState(null); // Добавляем состояние для отслеживания выбранной опции
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -143,23 +145,29 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                         </div>
                     </div>
                 ) : (
+
                     <>
                         {selectedCategory ? (
                             <>
-                                <li className="sbLi" style={{fontSize: "20px", color: "#d04b07", fontFamily: "monospace"}}
+
+                                <li className="sbLiBack"
                                     key="back" onClick={handleBackClick}>
-                                    Назад
+                                   <SlArrowLeft style={{fontSize:"15px"}} />  Назад
                                 </li>
+
+
                                 {types.map((type) => (
                                     <li className="sbLi" key={type} onClick={() => handleTypeClick(type)}>
-                                        {type}
+                                        {/*{type}*/}
+                                        {type} <span className="chevronRight"><SlArrowRight /></span>
                                     </li>
                                 ))}
                             </>
                         ) : (
                             categories.map((category) => (
                                 <li className="sbLi" key={category} onClick={() => handleCategoryClick(category)}>
-                                    {category}
+                                    {category} <span className="chevronRight"><SlArrowRight /></span>
+                                    {/*{category} <span className="chevronRight"><GoChevronRight /></span>*/}
                                 </li>
                             ))
                         )}
