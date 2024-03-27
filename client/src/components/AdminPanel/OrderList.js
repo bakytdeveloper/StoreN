@@ -136,6 +136,7 @@ const OrderList = ({ setShowSidebar }) => {
                         <td  onClick={() => handleOrderClick(order)}>{order.address ? order.address : '-'}</td>
                         <td  onClick={() => handleOrderClick(order)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
                         <td onClick={() => handleOrderClick(order)}>
+                            {/*order.paymentMethod*/}
                             {order.user ? order.paymentMethod : (order.paymentMethod ? order.paymentMethod : order.paymentMethod)}
                         </td>
                         <td>
