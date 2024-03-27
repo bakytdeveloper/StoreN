@@ -243,8 +243,8 @@ const Profile = ({ setShowSidebar }) => {
             <div className="profile-content" >
                 {user ? (
                     <div>
-                        <h3 style={{textAlign: "center"}}>Здравствуйте, {user.name} 👋 ! </h3>
-                        <h4 style={{textAlign: "center"}}>Я приготовил ваш профиль 🗂️ 😊.</h4>
+                        <h3 style={{textAlign: "center"}}>Здравствуйте, {user.name} 👋 😊 ! </h3>
+                        {/*<h4 style={{textAlign: "center"}}>Я приготовил ваш профиль 🗂️ </h4>*/}
 
                         {activeTab === 'editProfile' && (
                             <>

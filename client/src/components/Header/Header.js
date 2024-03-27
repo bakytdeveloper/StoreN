@@ -137,6 +137,8 @@ const Header = ({ onSearch, cartItems, showSidebar,
     const [searchTerm, setSearchTerm] = useState('');
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
     const history = useHistory();
+    const [isProfileOpen, setIsProfileOpen] = useState(false); // Добавляем состояние для открытой страницы профиля
+
 
     const isAuthenticated = localStorage.getItem('token'); // Проверка аутентификации
 
@@ -171,10 +173,24 @@ const Header = ({ onSearch, cartItems, showSidebar,
         setShowSidebar(!showSidebar);
     };
 
-    // Функция для перехода на страницу профиля или страницу логина
+    // // Функция для перехода на страницу профиля или страницу логина
+    // const handleProfileClick = () => {
+    //     if (isAuthenticated) {
+    //         history.push("/profile");
+    //     } else {
+    //         history.push("/login");
+    //     }
+    // };
+
+    // Функция для перехода на страницу профиля или страницу логина и открытия/закрытия
     const handleProfileClick = () => {
         if (isAuthenticated) {
-            history.push("/profile");
+            if (!isProfileOpen) {
+                history.push("/profile");
+            } else {
+                history.push("/");
+            }
+            setIsProfileOpen(!isProfileOpen);
         } else {
             history.push("/login");
         }

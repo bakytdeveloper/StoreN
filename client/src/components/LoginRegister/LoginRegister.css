@@ -79,7 +79,7 @@ p:hover {
     }
 
     .formCloseLogin {
-        /*margin-right: 80px!important;*/
+        margin-left: 285px!important;
         /*margin-top: 10px;*/
         cursor: pointer;
         z-index: 1111;
