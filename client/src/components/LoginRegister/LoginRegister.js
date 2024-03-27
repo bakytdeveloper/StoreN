@@ -60,6 +60,10 @@ const LoginRegister = ({ showSidebar, setShowSidebar, showHeader, setShowHeader 
                 localStorage.setItem('token', data.token);
                 toast.success('Успешный вход или регистрация');
 
+                if (!isRegisterMode) {
+                    history.push('/profile'); // Перейти на страницу профиля
+                }
+
                 if (isRegisterMode) {
                     // Присвоение роли 'customer' после регистрации
                     data.user.role = 'Клиент';

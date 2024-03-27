@@ -37,7 +37,7 @@
 
 .close-button:hover {
     background: none;
-    color: #04f177 !important;
+    color: #049ef1 !important;
 }
 
 .image-gallery {
@@ -186,15 +186,15 @@ strong {
     }
 
     .main-image {
-        width: 90%;
+        width: 95%;
         margin-bottom: 20px;
-        /*margin-right: 70px!important;*/
-        margin-left: -60px!important;
+        margin-left: -80px!important;
         justify-content: flex-start;
+
     }
 
     .close-button {
-        margin: 10px 2px 0 0!important;
+        margin: 0!important;
     }
 
     .thumbnail-gallery {

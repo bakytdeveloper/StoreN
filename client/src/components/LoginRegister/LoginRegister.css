@@ -80,7 +80,7 @@ p:hover {
 
     .formCloseLogin {
         /*margin-right: 80px!important;*/
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         cursor: pointer;
         z-index: 1111;
         /*width: 150px;*/
@@ -88,8 +88,8 @@ p:hover {
         background: none;
         text-align: center;
         color: #0355a7;
-        font-size: 22px;
-        margin-left: 87%;
+        /*font-size: 22px;*/
+        /*margin-left: 87%;*/
 
     }
 
