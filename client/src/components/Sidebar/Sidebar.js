@@ -115,13 +115,13 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                 {selectedOption === 'contact' ? (
                     <div className="contacts-info">
                         <div className="phones">
-                            <FaPhone />
+                            <FaPhone style={{marginTop:"0"}} />
                             <a style={{marginLeft:"25px"}} href="tel:+996508100777">0(508) 100 777</a>
 
                         </div>
                         <div className="phones">
                             <a href="https://api.whatsapp.com/send?phone=996508100777">
-                                <img className="icon" src={what} alt="WhatsApp Icon" />
+                                <img className="icon" style={{marginTop: "3px"}} src={what} alt="WhatsApp Icon" />
                                 <span style={{marginLeft:"10px"}}>0(508) 100 777</span>
                             </a>
 
