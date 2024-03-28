@@ -464,6 +464,230 @@
     margin-left: -8px;
 }
 
+@media only screen and (width: 280px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    .header {
+        height: auto;
+
+    }
+
+    .title {
+        display: inline-flex;
+        margin-top: 0!important;
+        margin-right: 55px;
+        margin-bottom: 0;
+        font-weight: bold;
+
+    }
+
+    .titleH {
+        display: inline-flex;
+        margin-right: 88px;
+        font-size: 22px!important;
+        padding-right: 20px;
+        padding-left: 20px;
+        font-family: Luminari!important;
+
+    }
+    .titleN {
+        font-size: 22px!important;
+        font-family: Luminari!important;
+
+    }
+
+    .header {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+        margin: 0;
+        padding: 5px;
+        top: 0;
+
+
+    }
+
+    /*.burger {*/
+    /*    display: inline-block;*/
+    /*    width: 37px;*/
+    /*    margin-right: 65px;*/
+    /*    margin-top: 10px;*/
+    /*    color: #e9e2e2 !important;*/
+    /*    !*font-size: 33px;*!*/
+    /*    cursor: pointer;*/
+    /*    z-index: 1;*/
+
+    /*}*/
+
+
+    .auth-button {
+        margin-left: 50px;
+        margin-right: 10px;
+    }
+
+    .brand {
+        font-size: 24px;
+    }
+
+    .brand, .contact, .auth-buttons, .search {
+        margin-bottom: 4px;
+    }
+
+    .totalItems {
+        color: #025858;
+
+    }
+
+    .phone {
+        font-size: 17px;
+    }
+
+    .search {
+        margin-bottom: 1px;
+        margin-right: 0;
+        width: 88%;
+    }
+    .search input {
+        width: 100%;
+        font-size: 14px;
+        padding: 4px;
+        height: auto;
+        margin-top: 6px;
+        margin-left: 0;
+        margin-right: 0;
+
+    }
+
+    .auth-button  {
+        box-sizing: border-box;
+        margin-left: 50%!important;
+        margin-right: 25px;
+        font-size: 15px;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+    .auth-buttons {
+        margin-left: 62px;
+        margin-bottom: 55px;
+        margin-top: -86px;
+
+    }
+
+    .btn img {
+        /*margin-top: 0;*/
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        margin-top: -5px;
+        z-index: 1;
+    }
+
+    .btn span {
+        width: 8px;
+        height: 8px;
+        margin-top: 11px;
+    }
+
+    .profileIcon img {
+        margin-top: 1px;
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .btn {
+        color: white!important;
+    }
+
+    .btn1 {
+        text-align: center;
+        border: 1px solid black;
+        width: 50%;
+        padding: 3px 0;
+        font-size: 13px;
+
+
+    }
+    .btn1:active {
+        text-align: center;
+        border: 1px solid black;
+        background: #13d0d7;
+        width: 50%;
+
+    }
+
+    .btn2 {
+        text-align: center;
+        border: 1px solid black;
+        width: 50%;
+        padding: 3px 0;
+        font-size: 13px;
+
+
+    }
+
+    .btn2:active {
+        text-align: center;
+        border: 1px solid black;
+        background: #13d0d7;
+        width: 50%;
+
+    }
+
+
+}
+
+
+@media only screen and (width: 820px) {
+    .titleH {
+        font-size: 30px!important;
+    }
+
+    .contact-info {
+        margin-right: -22px;
+    }
+    .phone {
+        display: inline-flex!important;
+        font-size: 18px;
+    }
+
+
+
+    .search input {
+        width: 130px;
+        margin-left: 25px;
+        /*font-size: 13px;*/
+    }
+
+    .btn img {
+        margin-left: 20px;
+        width: 35px;
+        height: 35px;
+    }
+
+
+   .profileIcon {
+       margin-right: -50px;
+       margin-left: -26px;
+   }
+   .icon {
+       width: 25px;
+       height: 25px;
+       margin-right: 7px;
+   }
+   .workingTime {
+       /*width: 120px;*/
+       /*font-size: 12px;*/
+       /*margin-right: -17px;*/
+       /*margin-left: 0;*/
+       display: none;
+
+   }
+
+}
 
 
 @media only screen and (width: 1024px) {
@@ -471,7 +695,7 @@
         padding: 5px;
     }
     .titleH {
-        font-size: 40px!important;
+        font-size: 35px!important;
     }
 
     .contact {
@@ -482,7 +706,8 @@
     }
 
     .phone {
-        font-size: 20px;
+        display: inline-flex!important;
+        font-size: 15px;
     }
 
 
@@ -504,6 +729,8 @@
 
     .social-icons img {
         margin-top: 0;
+        width: 22px;
+        height: 22px;
 
     }
 
@@ -518,6 +745,10 @@
     }
     .auth-btn {
         margin-right: 20px;
+    }
+
+    .workingTime {
+        font-size: 13px;
     }
 
 
