@@ -689,6 +689,73 @@
 
 }
 
+@media only screen and (width: 912px) {
+    .titleH {
+        font-size: 35px!important;
+    }
+
+    .contact {
+        width: 190px;
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 50px;
+    }
+
+    .phone {
+        display: inline-flex!important;
+        font-size: 15px;
+    }
+
+
+
+    .search input {
+        width: 130px;
+        margin-left: 25px;
+    }
+
+    .btn img {
+        margin-left: 20px;
+    }
+
+    .auth-btn {
+        margin-top: 10px;
+        margin-left: 3px;
+        margin-right: 25px;
+    }
+
+    .social-icons img {
+        margin-top: 5px;
+        width: 22px;
+        height: 22px;
+
+
+    }
+
+    .profileIcon {
+        margin-right: -37px;
+        margin-left: 10px;
+    }
+
+    .btn {
+        margin-right: 27px;
+        margin-left: -16px;
+    }
+    .auth-btn {
+        margin-right: 20px;
+    }
+
+    .workingTime {
+        font-size: 13px;
+        width: 110px;
+        margin-right: -21px;
+        padding: 2px;
+        margin-top: 0;
+        margin-left: 5px;
+    }
+
+
+}
+
 
 @media only screen and (width: 1024px) {
     .title {
