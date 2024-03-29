@@ -202,7 +202,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
         if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
             // Автоматический вход для администратора
             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
-            toast.success('Successfully logged in as admin');
+            // toast.success('Successfully logged in as admin');
             history.push('/admin'); // Перейти на страницу администратора
         }
 
@@ -241,7 +241,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
                     // Если введенные данные администратора
                     localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
-                    toast.success('Successfully logged in as admin');
+                    // toast.success('Successfully logged in as admin');
                     history.push('/admin'); // Перейти на страницу администратора
                 } else {
                     // Перейти на страницу профиля или другую нужную
