@@ -296,7 +296,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 &#10006;
             </span>
 
-            <h2>{isRegisterMode ? 'Register' : 'Logon'}</h2>
+            <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
             {isRegisterMode && (
                 <input
                     className="formInput"

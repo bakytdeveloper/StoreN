@@ -200,7 +200,7 @@ const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, selectedOpti
     return (
         <div className="header">
             <Link to="/" className="title" onClick={handleTitleClick}>
-                <h1 className="titleH"> kiosk<span className="titleN">.kz</span></h1>
+                <h1 className="titleH"> kiosk<span className="titleN">.kg</span></h1>
             </Link>
             {/* Показывать контактную информацию только на больших экранах */}
             <div className="desktop-contact-info">
