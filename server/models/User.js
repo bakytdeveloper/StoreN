@@ -7,12 +7,6 @@ const userSchema = new mongoose.Schema({
     password: { type: String }, // Добавлено обязательное поле password
     role: { type: String, enum: ['guest', 'customer', 'admin'], default: 'guest' },
     cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-    // profile: {
-    //     fullName: { type: String },
-    //     address: { type: String },
-    //     phoneNumber: { type: String },
-    //     // Дополнительные поля профиля
-    // },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
 
 });
