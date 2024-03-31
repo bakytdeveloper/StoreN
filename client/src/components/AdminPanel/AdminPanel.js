@@ -171,6 +171,15 @@ const AdminPanel = ({ setShowSidebar }) => {
 
     const history = useHistory();
 
+    // Проверка, аутентифицирован ли пользователь
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            history.push('/login'); // Перенаправление на страницу входа, если нет токена
+        }
+    }, [history]);
+
+
     const handleViewOrders = () => {
         history.push('/orders/orders');
     };
