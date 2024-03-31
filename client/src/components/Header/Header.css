@@ -241,6 +241,7 @@
     /*background: #a49f9f;*/
 }
 
+
 .mobile-buttons {
     display: none;
 }
@@ -263,14 +264,26 @@
     border: 1px solid #ccc;
     border-radius: 2px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 8px;
+    /*padding: 8px;*/
     z-index: 1;
+    padding: 8px 15px;
 
 }
 
 .dropdown-menu button {
     background: none;
     color: #151414;
+    padding: 7px 20px;
+    font-size: 18px;
+
+}
+
+.dropdown-menu button:hover {
+    background: #a9a8a7 !important;
+    color: #151414;
+    border-radius: 1px;
+
+
 }
 
 .profileIcon {
