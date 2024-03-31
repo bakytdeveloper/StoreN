@@ -586,6 +586,7 @@ const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, selectedOpti
                 <h1 className="titleH"> kiosk<span className="titleN">.kg</span></h1>
             </Link>
             <div className="desktop-contact-info">
+                <ContactInfo />
                 {/* Контактная информация */}
             </div>
             <div className="search">
