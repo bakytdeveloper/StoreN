@@ -971,6 +971,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         onClick={section === 3 ? handlePlaceOrder : handleContinue}
                         style={{ width: "100px" }}>
                     {section === 3 ? 'Закрыть' : 'Продолжить'}
+                    {/*{section === 3 ? 'Купить' : 'Продолжить'}*/}
                 </button>
             </div>
 
