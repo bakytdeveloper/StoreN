@@ -936,7 +936,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 </div>
 
                 <div className="sectionThree">
-                    <h3>Оплатите заказ</h3>
+                    {/*<h3>Оплатите заказ</h3>*/}
                     {section === 3 && (
                         <>
                             <PaymentForm />
@@ -970,7 +970,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 <button className="buy_next"
                         onClick={section === 3 ? handlePlaceOrder : handleContinue}
                         style={{ width: "100px" }}>
-                    {section === 3 ? 'Купить' : 'Продолжить'}
+                    {section === 3 ? 'Закрыть' : 'Продолжить'}
                 </button>
             </div>
 
