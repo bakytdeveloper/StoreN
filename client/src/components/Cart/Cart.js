@@ -920,7 +920,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                </div>
                                 <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
                                 <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Номер телефона:</label>
-                                <input className="cartPhoneNumber" type="number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                <input className="cartPhoneNumber" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                                 <label> Способ оплаты:</label>
                                 <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
                                 <label>Комментарии:</label>

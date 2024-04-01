@@ -601,7 +601,8 @@ const Header = ({ onSearch, cartItems, showSidebar, setShowSidebar, selectedOpti
                     <img src={profileIcon} alt="profileIcon" onClick={handleProfileClick} />
                     {isProfileOpen && (
                         <div className="dropdown-menu">
-                            <button onClick={handleLoginClick}>{isAuthenticated ? "Войти" : "Логин"}</button>
+                            <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                            {/*<button onClick={handleLoginClick}>{isAuthenticated ? "Войти" : "Логин"}</button>*/}
                             <button onClick={handlePartnerClick}>Партнёр</button>
                             {isAuthenticated && <button onClick={handleLogoutClick}>Выход</button>}
                             {/*<button onClick={handlePartnerClick}>Партнёр</button>*/}
