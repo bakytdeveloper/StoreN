@@ -174,7 +174,7 @@ const AdminPanel = ({ setShowSidebar }) => {
     // Проверка, аутентифицирован ли пользователь
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (!token) {
+        if (!token || token !== "adminToken") {
             history.push('/login'); // Перенаправление на страницу входа, если нет токена
         }
     }, [history]);
