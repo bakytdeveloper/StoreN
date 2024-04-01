@@ -153,7 +153,8 @@ import left from "./arrowsL.png";
 import right from "./arrowsR.png";
 
 
-//
+
+
 // const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 //                          setProducts, showSidebar, setShowSidebar  }) => {
 //     const [selectedType, setSelectedType] = useState(null);
@@ -163,6 +164,20 @@ import right from "./arrowsR.png";
 //     const productsPerPage = 10;
 //
 //     useEffect(() => {
+//         window.scrollTo(0, 0); // Scroll to the top of the page when currentPage changes
+//     }, [currentPage]);
+//
+//     const fetchProducts = async () => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}`); // Добавляем параметр запроса для поиска
+//             const data = await response.json();
+//             setFilteredProducts(filterProducts(data || []));
+//         } catch (error) {
+//             console.error('Error fetching products:', error);
+//         }
+//     };
+//
+//     useEffect(() => {
 //         if (products && products.length > 0) {
 //             setFilteredProducts(filterProducts(products));
 //         } else {
@@ -170,19 +185,6 @@ import right from "./arrowsR.png";
 //         }
 //     }, [searchKeyword, selectedType, products, currentPage]);
 //
-//     useEffect(() => {
-//         window.scrollTo(0, 0); // Scroll to the top of the page when currentPage changes
-//     }, [currentPage]);
-//
-//     const fetchProducts = async () => {
-//         try {
-//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`); // Use process.env.REACT_APP_API_URL
-//             const data = await response.json();
-//             setFilteredProducts(filterProducts(data || []));
-//         } catch (error) {
-//             console.error('Error fetching products:', error);
-//         }
-//     };
 //
 //     const filterProducts = (productsToFilter) => {
 //         return productsToFilter
@@ -294,6 +296,7 @@ import right from "./arrowsR.png";
 //                 <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
 //                 <button  className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
 //                     <img  className="arrowRImg" src={right}  alt="Cart" />
+//
 //                 </button>
 //             </div>
 //         </div>
@@ -302,7 +305,6 @@ import right from "./arrowsR.png";
 //
 // export default ProductList;
 
-import { HiChevronDoubleRight } from "react-icons/hi";
 
 
 
@@ -314,6 +316,25 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 
     const productsPerPage = 10;
 
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page when currentPage changes
+    }, [currentPage]);
+
+    useEffect(() => {
+        setCurrentPage(1); // Reset currentPage to 1 when searchKeyword changes
+    }, [searchKeyword]);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}`); // Добавляем параметр запроса для поиска
+            const data = await response.json();
+            setFilteredProducts(filterProducts(data || []));
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
     useEffect(() => {
         if (products && products.length > 0) {
             setFilteredProducts(filterProducts(products));
@@ -322,19 +343,6 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
         }
     }, [searchKeyword, selectedType, products, currentPage]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0); // Scroll to the top of the page when currentPage changes
-    }, [currentPage]);
-
-    const fetchProducts = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`); // Use process.env.REACT_APP_API_URL
-            const data = await response.json();
-            setFilteredProducts(filterProducts(data || []));
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
 
     const filterProducts = (productsToFilter) => {
         return productsToFilter
@@ -454,8 +462,5 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 };
 
 export default ProductList;
-
-
-
 
 

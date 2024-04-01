@@ -23,6 +23,7 @@ const App = () => {
     const [showSidebar, setShowSidebar] = useState(true);
     const [showHeader, setShowHeader] = useState(true); // Добавлено состояние для отображения или скрытия шапки
     const [selectedOption, setSelectedOption] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1); // добавляем состояние currentPage и функцию setCurrentPage
 
     useEffect(() => {
         const handleBeforeUnload = () => {
@@ -61,6 +62,8 @@ const App = () => {
                         showSidebar={showSidebar}
                         resetFilter={resetFilter} // Передача функции для сброса фильтров
                         setSelectedOption={setSelectedOption}
+                        setCurrentPage={setCurrentPage} // передаем setCurrentPage в Header
+
                     />
                 )}
                 <Sidebar
