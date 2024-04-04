@@ -12,6 +12,7 @@ const adminRoutes = require('./routes/adminRoutes'); // Добавлен имп�
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const sellerRoutes = require('./routes/sellerRoutes'); // Добавлен импорт sellerRoutes
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes); // Добавлен новый маршрут для администратора
+app.use('/api/sellers', sellerRoutes); // Добавлен новый маршрут для продавцов
 
 app.use(compression());
 

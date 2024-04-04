@@ -1,6 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const authenticateToken = require("../middleware/authenticateToken");
+
+
+
+router.post('/add', authenticateToken, async (req, res) => {
+    const { name, price, description, seller } = req.body;
+
+    try {
+        const newProduct = new Product({
+            name,
+            price,
+            description,
+            seller
+        });
+
+        await newProduct.save();
+
+        res.status(201).json({ product: newProduct, success: true });
+    } catch (error) {
+        res.status(500).json({ message: error.message, success: false });
+    }
+});
 
 // Получение списка всех продуктов
 router.get('/', async (req, res) => {
