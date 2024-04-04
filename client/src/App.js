@@ -15,6 +15,11 @@ import OrderList from "./components/AdminPanel/OrderList";
 import ClientListPage from './components/AdminPanel/ClientListPage'; // Добавляем новый компонент
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as PropTypes from "prop-types";
+import SellerRegistrationForm from "./components/Header/SellerRegistrationForm";
+import SellerListPage from "./components/AdminPanel/SellerListPage";
+
+
 
 const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
@@ -66,6 +71,8 @@ const App = () => {
 
                     />
                 )}
+
+
                 <Sidebar
                     setProducts={setProducts}
                     showSidebar={showSidebar}
@@ -73,6 +80,15 @@ const App = () => {
                     selectedOption={selectedOption}
                 />
                 <Switch>
+
+                    <Route path="/sellers/register">
+                        <SellerRegistrationForm />
+                    </Route>
+                    <Route path="/sellers">
+                        <SellerListPage />
+                    </Route>
+
+
                     <Route path="/products/:productId">
                         <ProductDetails
                             setShowSidebar={setShowSidebar}

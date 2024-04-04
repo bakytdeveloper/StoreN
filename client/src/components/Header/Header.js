@@ -12,6 +12,7 @@ import profileIcon from "./profileIcon.png";
 import cart from './trolley2.png';
 import burger from './burger.png';
 import ContactInfo from './ContactInfo';
+import SellerRegistrationForm from "./SellerRegistrationForm";
 
 
 
@@ -159,6 +160,8 @@ const Header = ({ onSearch, cartItems, showSidebar,
     const isAuthenticated = localStorage.getItem('token');
     const history = useHistory();
     const profileRef = useRef(null);
+    const [showSellerRegistration, setShowSellerRegistration] = useState(false); // Добавляем состояние для отображения формы регистрации продавца
+
 
     useEffect(() => {
         if (showSidebar) {
@@ -235,11 +238,17 @@ const Header = ({ onSearch, cartItems, showSidebar,
 
     const handlePartnerClick = () => {
         setIsProfileOpen(false);
+        history.push("/sellers/register");
+        // setShowSellerRegistration(true); // Показать форму регистрации продавца при клике на "Партнёр"
     };
+
 
     const handleCloseSidebar = () => {
         setShowSidebar(false);
     };
+
+
+
 
     return (
         <div className="header">
@@ -271,6 +280,9 @@ const Header = ({ onSearch, cartItems, showSidebar,
                         </div>
                     )}
                 </div>
+                {showSellerRegistration && (
+                    <SellerRegistrationForm /> // Отображаем форму регистрации продавца
+                )}
             </div>
             <div className="mobile-buttons">
                 <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
