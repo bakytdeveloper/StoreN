@@ -110,6 +110,8 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import SellerRegistrationForm from "../Header/SellerRegistrationForm";
 
 const SellerListPage = () => {
     const [sellers, setSellers] = useState([]); // Состояние для хранения данных о продавцах
@@ -129,6 +131,8 @@ const SellerListPage = () => {
 
     };
     fetchSellersFromDatabase();
+
+
 
     return (
         <div>
@@ -159,7 +163,8 @@ const SellerListPage = () => {
                 ))}
                 </tbody>
             </table>
-            {/*<Link to="/sellers/register">Добавить нового продавца</Link>*/}
+
+
         </div>
     );
 };

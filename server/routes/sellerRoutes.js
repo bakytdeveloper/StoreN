@@ -6,9 +6,43 @@ const Seller = require('../models/Seller');
 const authenticateToken = require("../middleware/authenticateToken");
 
 // Создание нового продавца
+// // Создание нового продавца
+// router.post('/register', async (req, res) => {
+//     const { firstName, lastName, email, password, phone, companyName, companyDescription } = req.body;
+//
+//     try {
+//         const existingSeller = await Seller.findOne({ email });
+//
+//         if (existingSeller) {
+//             return res.status(400).json({ message: 'Seller already exists' });
+//         }
+//
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//
+//         const newSeller = new Seller({
+//             firstName,
+//             lastName,
+//             email,
+//             password: hashedPassword,
+//             phone,
+//             companyName,
+//             companyDescription
+//         });
+//
+//         await newSeller.save();
+//
+//         const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
+//
+//         res.status(201).json({ seller: newSeller, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
+
+
 // Создание нового продавца
 router.post('/register', async (req, res) => {
-    const { firstName, lastName, email, password, phone, companyName, companyDescription } = req.body;
+    const { firstName, lastName, email, password, phone, companyName, companyDescription, address } = req.body;
 
     try {
         const existingSeller = await Seller.findOne({ email });
@@ -20,11 +54,11 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newSeller = new Seller({
-            firstName,
-            lastName,
+            name: `${firstName} ${lastName}`,
             email,
             password: hashedPassword,
-            phone,
+            address,
+            phoneNumber: phone,
             companyName,
             companyDescription
         });
@@ -38,6 +72,7 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: error.message, success: false });
     }
 });
+
 
 
 
