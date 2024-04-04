@@ -180,6 +180,10 @@ const AdminPanel = ({ setShowSidebar }) => {
     }, [history]);
 
 
+    const handleViewSellers = () => {
+        history.push('/sellers');
+    };
+
     const handleViewOrders = () => {
         history.push('/orders/orders');
     };
@@ -297,6 +301,7 @@ const AdminPanel = ({ setShowSidebar }) => {
             <div className="customerOrders">
                 <button className="customerOrdersBtnOne" onClick={handleViewOrders}>Список заказов</button>
                 <button className="customerOrdersBtnTwo" onClick={handleViewClients}>Список клиентов</button>
+                <button className="customerOrdersBtnThree" onClick={handleViewSellers}>Список клиентов</button>
             </div>
 
             <div className="admin-product-list">

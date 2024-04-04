@@ -57,10 +57,13 @@ router.post('/register', async (req, res) => {
             name: `${firstName} ${lastName}`,
             email,
             password: hashedPassword,
-            address,
+            address: '', // Вы можете добавить свойство address в форму и обработать его здесь
             phoneNumber: phone,
             companyName,
-            companyDescription
+            companyDescription,
+            status: 'pending', // Установка значения по умолчанию для поля status
+            role: 'seller', // Установка значения по умолчанию для поля role
+            products: [] // Установка пустого массива для продуктов
         });
 
         await newSeller.save();

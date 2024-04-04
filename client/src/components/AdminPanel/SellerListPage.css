@@ -1,0 +1,26 @@
+
+.sellersListPage {
+    margin-top: 7%;
+}
+
+.sellerTitle {
+    margin-bottom: -15px;
+}
+
+.sellersListClose {
+    display: inline-flex;
+    margin-left: 94%;
+    color: #054462;
+    margin-top: 0!important;
+    margin-bottom: 22px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.sellersListClose:hover {
+    color: #0f77d2;
+}
+
+table {
+    margin-top: -12px;
+}

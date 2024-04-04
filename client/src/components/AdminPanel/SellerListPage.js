@@ -108,18 +108,82 @@
 
 
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from "axios";
-import SellerRegistrationForm from "../Header/SellerRegistrationForm";
+// import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import axios from "axios";
+// import SellerRegistrationForm from "../Header/SellerRegistrationForm";
+//
+// const SellerListPage = () => {
+//     const [sellers, setSellers] = useState([]); // Состояние для хранения данных о продавцах
+//     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+//     // Функция для загрузки данных о продавцах из базы данных
+//     const fetchSellersFromDatabase = async () => {
+//         try {
+//             const response = await fetch(`${apiUrl}/sellers`);
+//             if (!response.ok) {
+//                 throw new Error('Failed to fetch sellers');
+//             }
+//             const data = await response.json();
+//             setSellers(data);
+//         } catch (error) {
+//             console.error('Error fetching sellers:', error);
+//         }
+//
+//     };
+//     fetchSellersFromDatabase();
+//
+//
+//
+//     return (
+//         <div>
+//             <h2 style={{ marginTop: "311px", color: "red" }}>Список продавцов</h2>
+//             <table>
+//                 <thead>
+//                 <tr>
+//                     <th>Имя</th>
+//                     <th>Фамилия</th>
+//                     <th>Email</th>
+//                     <th>Телефон</th>
+//                     <th>Название компании</th>
+//                     <th>Описание компании</th>
+//                     <th>Пароль</th>
+//                 </tr>
+//                 </thead>
+//                 <tbody>
+//                 {sellers.map((seller, index) => (
+//                     <tr key={index}>
+//                         <td>{seller.firstName}</td>
+//                         <td>{seller.lastName}</td>
+//                         <td>{seller.email}</td>
+//                         <td>{seller.phone}</td>
+//                         <td>{seller.companyName}</td>
+//                         <td>{seller.companyDescription}</td>
+//                         <td>{seller.password}</td>
+//                     </tr>
+//                 ))}
+//                 </tbody>
+//             </table>
+//
+//
+//         </div>
+//     );
+// };
+//
+// export default SellerListPage;
+
+
+import React, { useState, useEffect } from 'react';
+import {useHistory} from "react-router-dom";
+import './SellerListPage.css';
 
 const SellerListPage = () => {
     const [sellers, setSellers] = useState([]); // Состояние для хранения данных о продавцах
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+    const history = useHistory();
     // Функция для загрузки данных о продавцах из базы данных
     const fetchSellersFromDatabase = async () => {
         try {
-            const response = await fetch(`${apiUrl}/sellers`);
+            const response = await fetch(`${apiUrl}/api/sellers`);
             if (!response.ok) {
                 throw new Error('Failed to fetch sellers');
             }
@@ -128,43 +192,53 @@ const SellerListPage = () => {
         } catch (error) {
             console.error('Error fetching sellers:', error);
         }
-
     };
-    fetchSellersFromDatabase();
 
+    useEffect(() => {
+        fetchSellersFromDatabase();
+    }, []); // Вызываем fetchSellersFromDatabase только при монтировании компонента
+
+
+    const handleClose = () => {
+        history.push('/');
+    };
 
 
     return (
-        <div>
-            <h2 style={{ marginTop: "311px", color: "red" }}>Список продавцов</h2>
+        <div className="sellersListPage">
+            <h2 className="sellerTitle">Список продавцов</h2>
+            <span className="sellersListClose" type="button" onClick={handleClose}>
+                    &#10006;
+                </span>
             <table>
                 <thead>
                 <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
+                    <th>Название компании</th>
+                    <th>Имя Фам.</th>
+                    {/*<th>Фамилия</th>*/}
                     <th>Email</th>
                     <th>Телефон</th>
-                    <th>Название компании</th>
-                    <th>Описание компании</th>
-                    <th>Пароль</th>
+                    {/*<th>Название компании</th>*/}
+                    <th>Чем занимается компания</th>
+                    {/*<th>Пароль</th>*/}
                 </tr>
                 </thead>
                 <tbody>
                 {sellers.map((seller, index) => (
                     <tr key={index}>
-                        <td>{seller.firstName}</td>
-                        <td>{seller.lastName}</td>
-                        <td>{seller.email}</td>
-                        <td>{seller.phone}</td>
                         <td>{seller.companyName}</td>
+                        <td>{seller.name}</td>
+                        {/*<td>{seller.firstName}</td>*/}
+                        {/*<td>{seller.lastName}</td>*/}
+                        <td>{seller.email}</td>
+                        <td>{seller.phoneNumber}</td>
+                        {/*<td>{seller.companyName}</td>*/}
                         <td>{seller.companyDescription}</td>
-                        <td>{seller.password}</td>
+                        {/*<td>{seller.password}</td>*/}
                     </tr>
                 ))}
                 </tbody>
             </table>
-
-
         </div>
     );
 };
