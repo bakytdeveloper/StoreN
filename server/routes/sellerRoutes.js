@@ -6,8 +6,9 @@ const Seller = require('../models/Seller');
 const authenticateToken = require("../middleware/authenticateToken");
 
 // Создание нового продавца
+// Создание нового продавца
 router.post('/register', async (req, res) => {
-    const { name, email, password, address, phoneNumber } = req.body;
+    const { firstName, lastName, email, password, phone, companyName, companyDescription } = req.body;
 
     try {
         const existingSeller = await Seller.findOne({ email });
@@ -19,11 +20,13 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newSeller = new Seller({
-            name,
+            firstName,
+            lastName,
             email,
             password: hashedPassword,
-            address,
-            phoneNumber
+            phone,
+            companyName,
+            companyDescription
         });
 
         await newSeller.save();
@@ -35,6 +38,7 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: error.message, success: false });
     }
 });
+
 
 
 // Аутентификация продавца
@@ -63,13 +67,19 @@ router.post('/login', async (req, res) => {
 });
 
 
+
+
 // Получение списка всех продавцов
 router.get('/', async (req, res) => {
     try {
         const sellers = await Seller.find();
+        if (!sellers) {
+            return res.status(404).json({ message: 'Sellers not found' });
+        }
         res.json(sellers);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error fetching sellers:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 

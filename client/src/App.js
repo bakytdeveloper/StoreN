@@ -82,7 +82,7 @@ const App = () => {
                 <Switch>
 
                     <Route path="/sellers/register">
-                        <SellerRegistrationForm />
+                        <SellerRegistrationForm  />
                     </Route>
                     <Route path="/sellers">
                         <SellerListPage />

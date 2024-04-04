@@ -27,6 +27,8 @@ const SellerRegistrationForm = ({ onSubmit }) => {
         history.push('/');
     };
 
+    
+
     return (
         <div style={{ marginTop: "181px" }}>
             <h2>Станьте продавцом</h2>
