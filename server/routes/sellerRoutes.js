@@ -40,6 +40,45 @@ const authenticateToken = require("../middleware/authenticateToken");
 // });
 
 
+// // Создание нового продавца
+// router.post('/register', async (req, res) => {
+//     const { firstName, lastName, email, password, phone, companyName, companyDescription, address } = req.body;
+//
+//     try {
+//         const existingSeller = await Seller.findOne({ email });
+//
+//         if (existingSeller) {
+//             return res.status(400).json({ message: 'Seller already exists' });
+//         }
+//
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//
+//         const newSeller = new Seller({
+//             name: `${firstName} ${lastName}`,
+//             email,
+//             password: hashedPassword,
+//             address, // Вы можете добавить свойство address в форму и обработать его здесь
+//             phoneNumber: phone,
+//             companyName,
+//             companyDescription,
+//             createdAt: { type: Date, default: Date.now }, // Новое поле для даты и времени создания
+//
+//             status: 'pending', // Установка значения по умолчанию для поля status
+//             role: 'seller', // Установка значения по умолчанию для поля role
+//             products: [] // Установка пустого массива для продуктов
+//         });
+//
+//         await newSeller.save();
+//
+//         const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
+//
+//         res.status(201).json({ seller: newSeller, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
+
+
 // Создание нового продавца
 router.post('/register', async (req, res) => {
     const { firstName, lastName, email, password, phone, companyName, companyDescription, address } = req.body;
@@ -52,6 +91,7 @@ router.post('/register', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+        const createdAt = new Date(); // Устанавливаем текущую дату и время
 
         const newSeller = new Seller({
             name: `${firstName} ${lastName}`,
@@ -61,6 +101,7 @@ router.post('/register', async (req, res) => {
             phoneNumber: phone,
             companyName,
             companyDescription,
+            createdAt, // Устанавливаем дату и время создания
             status: 'pending', // Установка значения по умолчанию для поля status
             role: 'seller', // Установка значения по умолчанию для поля role
             products: [] // Установка пустого массива для продуктов
@@ -75,6 +116,9 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: error.message, success: false });
     }
 });
+
+
+
 
 
 

@@ -59,7 +59,9 @@ const sellerSchema = new mongoose.Schema({
     companyDescription: { type: String }, // Описание компании
     status: { type: String, enum: ['pending', 'approved'], default: 'pending' },
     role: { type: String, enum: ['seller'], default: 'seller' },
-    products: [productSchema]
+    products: [productSchema],
+    createdAt: { type: Date, default: Date.now },
+
 });
 
 const Seller = mongoose.model('Seller', sellerSchema);

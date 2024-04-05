@@ -176,11 +176,82 @@ import React, { useState, useEffect } from 'react';
 import {useHistory} from "react-router-dom";
 import './SellerListPage.css';
 
+// const SellerListPage = () => {
+//     const [sellers, setSellers] = useState([]); // Состояние для хранения данных о продавцах
+//     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+//     const history = useHistory();
+//     // Функция для загрузки данных о продавцах из базы данных
+//     const fetchSellersFromDatabase = async () => {
+//         try {
+//             const response = await fetch(`${apiUrl}/api/sellers`);
+//             if (!response.ok) {
+//                 throw new Error('Failed to fetch sellers');
+//             }
+//             const data = await response.json();
+//             setSellers(data);
+//         } catch (error) {
+//             console.error('Error fetching sellers:', error);
+//         }
+//     };
+//
+//     useEffect(() => {
+//         fetchSellersFromDatabase();
+//     }, []); // Вызываем fetchSellersFromDatabase только при монтировании компонента
+//
+//
+//     const handleClose = () => {
+//         history.push('/');
+//     };
+//
+//
+//     return (
+//         <div className="sellersListPage">
+//             <h2 className="sellerTitle">Список продавцов</h2>
+//             <span className="sellersListClose" type="button" onClick={handleClose}>
+//                     &#10006;
+//                 </span>
+//             <table>
+//                 <thead>
+//                 <tr>
+//                     <th>Название компании</th>
+//                     <th>Имя Фам.</th>
+//                     {/*<th>Фамилия</th>*/}
+//                     <th>Email</th>
+//                     <th>Телефон</th>
+//                     {/*<th>Название компании</th>*/}
+//                     <th>Чем занимается компания</th>
+//                     <th>Время</th>
+//                 </tr>
+//                 </thead>
+//                 <tbody>
+//                 {sellers.map((seller, index) => (
+//                     <tr key={index}>
+//                         <td>{seller.companyName}</td>
+//                         <td>{seller.name}</td>
+//                         {/*<td>{seller.firstName}</td>*/}
+//                         {/*<td>{seller.lastName}</td>*/}
+//                         <td>{seller.email}</td>
+//                         <td>{seller.phoneNumber}</td>
+//                         {/*<td>{seller.companyName}</td>*/}
+//                         <td>{seller.companyDescription}</td>
+//                         <td>{new Date(seller.createdAt).toLocaleString()}</td> {/* Отображение даты и времени создания */}
+//                     </tr>
+//                 ))}
+//                 </tbody>
+//             </table>
+//         </div>
+//     );
+// };
+//
+// export default SellerListPage;
+
+
+
 const SellerListPage = () => {
-    const [sellers, setSellers] = useState([]); // Состояние для хранения данных о продавцах
+    const [sellers, setSellers] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const history = useHistory();
-    // Функция для загрузки данных о продавцах из базы данных
+
     const fetchSellersFromDatabase = async () => {
         try {
             const response = await fetch(`${apiUrl}/api/sellers`);
@@ -196,31 +267,27 @@ const SellerListPage = () => {
 
     useEffect(() => {
         fetchSellersFromDatabase();
-    }, []); // Вызываем fetchSellersFromDatabase только при монтировании компонента
-
+    }, []);
 
     const handleClose = () => {
         history.push('/');
     };
 
-
     return (
         <div className="sellersListPage">
             <h2 className="sellerTitle">Список продавцов</h2>
             <span className="sellersListClose" type="button" onClick={handleClose}>
-                    &#10006;
-                </span>
+                &#10006;
+            </span>
             <table>
                 <thead>
                 <tr>
                     <th>Название компании</th>
                     <th>Имя Фам.</th>
-                    {/*<th>Фамилия</th>*/}
                     <th>Email</th>
                     <th>Телефон</th>
-                    {/*<th>Название компании</th>*/}
                     <th>Чем занимается компания</th>
-                    {/*<th>Пароль</th>*/}
+                    <th>Время</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -228,13 +295,10 @@ const SellerListPage = () => {
                     <tr key={index}>
                         <td>{seller.companyName}</td>
                         <td>{seller.name}</td>
-                        {/*<td>{seller.firstName}</td>*/}
-                        {/*<td>{seller.lastName}</td>*/}
                         <td>{seller.email}</td>
                         <td>{seller.phoneNumber}</td>
-                        {/*<td>{seller.companyName}</td>*/}
                         <td>{seller.companyDescription}</td>
-                        {/*<td>{seller.password}</td>*/}
+                        <td>{new Date(seller.createdAt).toLocaleString()}</td>
                     </tr>
                 ))}
                 </tbody>
