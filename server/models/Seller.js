@@ -36,6 +36,12 @@ const characteristicSchema = new mongoose.Schema({
     value: { type: String, required: true },
 });
 
+
+const statusHistorySchema = new mongoose.Schema({
+    status: { type: String, enum: ['pending', 'approved'], required: true },
+    time: { type: Date, default: Date.now },
+});
+
 const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -61,6 +67,7 @@ const sellerSchema = new mongoose.Schema({
     role: { type: String, enum: ['seller'], default: 'seller' },
     products: [productSchema],
     createdAt: { type: Date, default: Date.now },
+    statusHistory: [statusHistorySchema], // Добавлено поле для хранения истории статусов
 
 });
 

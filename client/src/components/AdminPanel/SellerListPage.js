@@ -175,6 +175,7 @@
 import React, { useState, useEffect } from 'react';
 import {useHistory} from "react-router-dom";
 import './SellerListPage.css';
+import SellerItem from "./SellerItem";
 
 // const SellerListPage = () => {
 //     const [sellers, setSellers] = useState([]); // Состояние для хранения данных о продавцах
@@ -273,6 +274,34 @@ const SellerListPage = () => {
         history.push('/');
     };
 
+
+    const updateStatusSeller = async (sellerId, newStatus) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/update-status/${sellerId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: newStatus }),
+            });
+
+            if (response.ok) {
+                const updatedSellers = sellers.map((seller) => {
+                    if (seller._id === sellerId) {
+                        return { ...seller, status: newStatus, statusHistory: [...seller.statusHistory, { status: newStatus, time: Date.now() }] };
+                    }
+                    return seller;
+                });
+
+                setSellers(updatedSellers);
+            } else {
+                console.error('Failed to update status');
+            }
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+
     return (
         <div className="sellersListPage">
             <h2 className="sellerTitle">Список продавцов</h2>
@@ -288,6 +317,9 @@ const SellerListPage = () => {
                     <th>Телефон</th>
                     <th>Чем занимается компания</th>
                     <th>Время</th>
+                    <th>Статус</th>
+                    <th>Время изменения статуса</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -299,6 +331,14 @@ const SellerListPage = () => {
                         <td>{seller.phoneNumber}</td>
                         <td>{seller.companyDescription}</td>
                         <td>{new Date(seller.createdAt).toLocaleString()}</td>
+                        <SellerItem key={seller._id} seller={seller} onUpdateStatus={updateStatusSeller} />
+
+                        <td>
+                            {seller.statusHistory && seller.statusHistory.length > 0
+                                ? new Date(seller.statusHistory[seller.statusHistory.length - 1].time).toLocaleString()
+                                : '-'}
+                        </td>
+
                     </tr>
                 ))}
                 </tbody>

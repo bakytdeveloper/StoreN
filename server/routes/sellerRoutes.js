@@ -166,35 +166,32 @@ router.get('/', async (req, res) => {
 });
 
 // Обновление информации о продавце
-// Обновление информации о текущем продавце
-router.put('/update-profile/:sellerId', authenticateToken, async (req, res) => {
-    const sellerId = req.params.sellerId;
-    const {  name, email , address, phoneNumber} = req.body;
+
+// Обновление статуса заказа
+router.put('/update-status/:sellerId', async (req, res) => {
+    const { sellerId } = req.params;
+    const { status } = req.body;
 
     try {
-        // Находим продавца
-        const existingSeller = await Seller.findById(sellerId);
+        const updatedSeller = await Seller.findByIdAndUpdate(
+            sellerId,
+            {
+                $set: { status },
+                $push: { statusHistory: { status, time: Date.now() } },
+            },
+            { new: true }
+        );
 
-        if (!existingSeller) {
-            return res.status(404).json({ message: 'Seller not found' });
+        if (updatedSeller) {
+            res.json(updatedSeller);
+        } else {
+            res.status(404).json({ message: 'Seller not found' });
         }
-
-        // Обновляем данные профиля
-        existingSeller.name = name; // Добавлено для обновления имени
-        existingSeller.email = email; // Добавлено для обновления email
-        existingSeller.address = address;
-        existingSeller.phoneNumber = phoneNumber;
-
-        // Сохраняем обновленного продавца в базе данных
-        const updatedSeller = await existingSeller.save();
-
-        // Возвращаем успешный ответ
-        res.json({ message: 'Profile updated successfully', seller: updatedSeller });
     } catch (error) {
-        console.error('Error updating seller profile:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: error.message });
     }
 });
+
 
 
 module.exports = router;
