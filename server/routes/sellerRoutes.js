@@ -57,7 +57,7 @@ router.post('/register', async (req, res) => {
             name: `${firstName} ${lastName}`,
             email,
             password: hashedPassword,
-            address: '', // Вы можете добавить свойство address в форму и обработать его здесь
+            address, // Вы можете добавить свойство address в форму и обработать его здесь
             phoneNumber: phone,
             companyName,
             companyDescription,
