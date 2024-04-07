@@ -18,12 +18,24 @@ const OrderItem = ({ order, onUpdateStatus }) => {
         onUpdateStatus(order._id, e.target.value);
     };
 
+    let statusColor;
+    if (selectedStatus === 'pending') {
+        statusColor = '#06abd4';
+    } else if (selectedStatus === 'completed') {
+        statusColor = 'greenyellow';
+    } else if (selectedStatus === "cancelled") {
+        statusColor = '#fab45d';
+    }
+
+
     return (
         <tr key={order._id}>
             <td>
                 <select
                     value={selectedStatus}
                     onChange={handleChange}
+                    style={{ background: statusColor }}
+
                 >
                     <option value="pending">Pending</option>
                     <option value="completed">Completed</option>

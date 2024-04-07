@@ -17,15 +17,23 @@ const SellerItem = ({ seller, onUpdateStatus }) => {
         onUpdateStatus(seller._id, e.target.value);
     };
 
+    let statusColor;
+    if (selectedStatus === 'pending') {
+        statusColor = '#06abd4';
+    } else if (selectedStatus === 'approved') {
+        statusColor = 'greenyellow';
+    }
+
     return (
         <tr key={seller._id}>
             <td>
                 <select
                     value={selectedStatus}
                     onChange={handleChange}
+                    style={{ background: statusColor }}
                 >
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
+                    <option value="pending">Ожидает</option>
+                    <option value="approved">Одобрен</option>
 
                 </select>
             </td>

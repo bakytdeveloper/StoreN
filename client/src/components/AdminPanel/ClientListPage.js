@@ -39,7 +39,7 @@ const ClientListPage = ({setShowSidebar}) => {
             <h2>Список клиентов</h2>
             <button style={{fontSize:"25px", fontWeight:"bold", padding:"0"}} onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
             {/*</div>*/}
-            <table>
+            <table style={{height:"auto"}}>
                 <thead>
                 <tr>
                     <th>Порядковый номер</th>

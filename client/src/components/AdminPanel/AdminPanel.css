@@ -49,11 +49,31 @@ h2 {
 
 }
 
+
 .customerOrdersBtnTwo:hover {
     background: #447ab5;
     border: 2px solid #2ae509;
     box-shadow: 1px 3px 3px #5b5b5b;
 }
+
+
+.customerOrdersBtnThree {
+    background: #3c32d9;
+    border: 2px solid #c6e739;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 4px 6px 6px dimgray;
+    font-weight: bold;
+    font-size: 17px;
+
+}
+
+
+.customerOrdersBtnThree:hover {
+    background: #447ab5;
+    border: 2px solid #2ae509;
+    box-shadow: 1px 3px 3px #5b5b5b;
+}
+
 
 .admin-product-item {
     width: 100%;

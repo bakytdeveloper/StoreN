@@ -262,6 +262,46 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             // Оповещение об ошибке
             toast.error('An error occurred');
         }
+
+
+        // Если аутентификация для пользователей и администраторов не удалась, продолжаем с проверкой продавцов
+        const sellerUrl = `${process.env.REACT_APP_API_URL}/api/sellers/login`;
+        try {
+            const sellerResponse = await fetch(sellerUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email.toLowerCase(),
+                    password,
+                    name,
+                }),
+            });
+
+            const sellerData = await sellerResponse.json();
+
+            if (sellerResponse.ok) {
+                // Успешная аутентификация продавца
+                if (sellerData.seller.status === 'approved') {
+                    // Если статус "approved", перенаправляем на страницу профиля продавца
+                    localStorage.setItem('token', sellerData.token);
+                    toast.success('Успешный вход как продавец');
+                    history.push('/sellerProfile');
+                } else {
+                    // Если статус не "approved", сообщаем об этом
+                    toast.error('Ваш аккаунт еще не подтвержден');
+                }
+            } else {
+                // Если аутентификация продавца не удалась
+                console.error('Seller response error:', sellerResponse);
+                console.error('Seller data error:', sellerData);
+                toast.error(sellerData.message || 'Произошла ошибка');
+            }
+        } catch (error) {
+            console.error('Seller fetch error:', error);
+            toast.error('Произошла ошибка');
+        }
     };
 
 

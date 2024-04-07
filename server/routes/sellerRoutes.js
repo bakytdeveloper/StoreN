@@ -5,79 +5,6 @@ const jwt = require('jsonwebtoken');
 const Seller = require('../models/Seller');
 const authenticateToken = require("../middleware/authenticateToken");
 
-// Создание нового продавца
-// // Создание нового продавца
-// router.post('/register', async (req, res) => {
-//     const { firstName, lastName, email, password, phone, companyName, companyDescription } = req.body;
-//
-//     try {
-//         const existingSeller = await Seller.findOne({ email });
-//
-//         if (existingSeller) {
-//             return res.status(400).json({ message: 'Seller already exists' });
-//         }
-//
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//
-//         const newSeller = new Seller({
-//             firstName,
-//             lastName,
-//             email,
-//             password: hashedPassword,
-//             phone,
-//             companyName,
-//             companyDescription
-//         });
-//
-//         await newSeller.save();
-//
-//         const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
-//
-//         res.status(201).json({ seller: newSeller, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
-
-// // Создание нового продавца
-// router.post('/register', async (req, res) => {
-//     const { firstName, lastName, email, password, phone, companyName, companyDescription, address } = req.body;
-//
-//     try {
-//         const existingSeller = await Seller.findOne({ email });
-//
-//         if (existingSeller) {
-//             return res.status(400).json({ message: 'Seller already exists' });
-//         }
-//
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//
-//         const newSeller = new Seller({
-//             name: `${firstName} ${lastName}`,
-//             email,
-//             password: hashedPassword,
-//             address, // Вы можете добавить свойство address в форму и обработать его здесь
-//             phoneNumber: phone,
-//             companyName,
-//             companyDescription,
-//             createdAt: { type: Date, default: Date.now }, // Новое поле для даты и времени создания
-//
-//             status: 'pending', // Установка значения по умолчанию для поля status
-//             role: 'seller', // Установка значения по умолчанию для поля role
-//             products: [] // Установка пустого массива для продуктов
-//         });
-//
-//         await newSeller.save();
-//
-//         const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
-//
-//         res.status(201).json({ seller: newSeller, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
 
 // Создание нового продавца
 router.post('/register', async (req, res) => {
@@ -124,6 +51,7 @@ router.post('/register', async (req, res) => {
 
 
 // Аутентификация продавца
+// Аутентификация продавца
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -138,6 +66,10 @@ router.post('/login', async (req, res) => {
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        if (seller.status !== 'approved') {
+            return res.status(401).json({ message: 'Seller is not approved yet' });
         }
 
         const token = jwt.sign({ sellerId: seller._id, email: seller.email }, process.env.SECRET_KEY);

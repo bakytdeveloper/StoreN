@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as PropTypes from "prop-types";
 import SellerRegistrationForm from "./components/Header/SellerRegistrationForm";
 import SellerListPage from "./components/AdminPanel/SellerListPage";
+import SellerProfile from "./components/SellerProfile/SellerProfile";
 
 
 
@@ -86,6 +87,11 @@ const App = () => {
                     </Route>
                     <Route path="/sellers">
                         <SellerListPage />
+                    </Route>
+
+
+                    <Route path="/sellerProfile">
+                        <SellerProfile />
                     </Route>
 
 
