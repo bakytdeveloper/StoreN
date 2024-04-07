@@ -323,7 +323,7 @@ const SellerListPage = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {sellers.map((seller, index) => (
+                {sellers.slice().reverse().map((seller, index) => (
                     <tr key={index}>
                         <td>{seller.companyName}</td>
                         <td>{seller.name}</td>
