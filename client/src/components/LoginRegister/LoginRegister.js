@@ -192,24 +192,18 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
 
     const handleLoginRegister = async () => {
-        const url = isRegisterMode
-
-            ? `${process.env.REACT_APP_API_URL}/api/users/register` // Use process.env.REACT_APP_API_URL
-            : `${process.env.REACT_APP_API_URL}/api/users/login`; // Use process.env.REACT_APP_API_URL
-
-
         // Проверяем, является ли введенный email и password учетными данными администратора
         if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
             // Автоматический вход для администратора
             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
             // toast.success('Successfully logged in as admin');
             history.push('/admin'); // Перейти на страницу администратора
+            return;
         }
 
-
-
+        const userAdminUrl = `${process.env.REACT_APP_API_URL}/api/users/login`;
         try {
-            const response = await fetch(url, {
+            const userAdminResponse = await fetch(userAdminUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -221,48 +215,26 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 }),
             });
 
-            const data = await response.json();
+            const userData = await userAdminResponse.json();
 
-            if (response.ok) {
-                // Успешная регистрация или вход
-                // Сохранить токен в localStorage или cookies
-                localStorage.setItem('token', data.token);
-                toast.success('Успешный вход или регистрация');
+            if (userAdminResponse.ok) {
+                // Успешная аутентификация пользователя или администратора
+                localStorage.setItem('token', userData.token);
+                toast.success('Успешный вход');
 
-                if (!isRegisterMode) {
-                    history.push('/profile'); // Перейти на страницу профиля
-                }
-
-                if (isRegisterMode) {
-                    // Присвоение роли 'customer' после регистрации
-                    data.user.role = 'Клиент';
-                }
-
-                if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
-                    // Если введенные данные администратора
-                    localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
-                    // toast.success('Successfully logged in as admin');
-                    history.push('/admin'); // Перейти на страницу администратора
-                } else {
-                    // Перейти на страницу профиля или другую нужную
+                // Перенаправляем на нужную страницу в зависимости от роли
+                if (userData.user.role === 'customer') {
                     history.push('/');
+                } else if (userData.user.role === 'admin') {
+                    history.push('/admin');
                 }
-            } else {
-                console.error('Response error:', response);
-                console.error('Data error:', data);
 
-                // Оповещение об ошибке
-                toast.error(data.message || 'Произошла ошибка');
-
-                // Другие действия при неудачной аутентификации
+                return;
             }
         } catch (error) {
-            console.error('Fetch error:', error);
-
-            // Оповещение об ошибке
-            toast.error('An error occurred');
+            console.error('User/Admin fetch error:', error);
+            toast.error('Произошла ошибка');
         }
-
 
         // Если аутентификация для пользователей и администраторов не удалась, продолжаем с проверкой продавцов
         const sellerUrl = `${process.env.REACT_APP_API_URL}/api/sellers/login`;
@@ -288,21 +260,21 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     localStorage.setItem('token', sellerData.token);
                     toast.success('Успешный вход как продавец');
                     history.push('/sellerProfile');
+                    return;
                 } else {
                     // Если статус не "approved", сообщаем об этом
                     toast.error('Ваш аккаунт еще не подтвержден');
                 }
-            } else {
-                // Если аутентификация продавца не удалась
-                console.error('Seller response error:', sellerResponse);
-                console.error('Seller data error:', sellerData);
-                toast.error(sellerData.message || 'Произошла ошибка');
             }
         } catch (error) {
             console.error('Seller fetch error:', error);
             toast.error('Произошла ошибка');
         }
+
+        // Если ни одна из аутентификаций не удалась, показываем сообщение об ошибке
+        toast.error('Неверный email или пароль');
     };
+
 
 
     const handleKeyPress = (event) => {
