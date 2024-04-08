@@ -91,7 +91,9 @@ const App = () => {
 
 
                     <Route path="/sellerProfile">
-                        <SellerProfile />
+                        <SellerProfile
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
 
 

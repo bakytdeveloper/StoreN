@@ -139,7 +139,7 @@ router.put('/update-profile', authenticateToken, async (req, res) => {
 });
 
 // Смена пароля продавца
-router.put('/change-password', authenticateToken, async (req, res) => {
+router.put('/update-password', authenticateToken, async (req, res) => {
     try {
         const { newPassword } = req.body;
         const hashedPassword = await bcrypt.hash(newPassword, 10);
