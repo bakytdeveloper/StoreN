@@ -125,5 +125,53 @@ router.put('/update-status/:sellerId', async (req, res) => {
 });
 
 
+// Обновление информации о продавце
+router.put('/update-profile', authenticateToken, async (req, res) => {
+    try {
+        const { name, email, address, phoneNumber, companyName, companyDescription } = req.body;
+        const updatedData = { name, email, address, phoneNumber, companyName, companyDescription };
+        const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, updatedData, { new: true });
+
+        res.json(updatedSeller);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Смена пароля продавца
+router.put('/change-password', authenticateToken, async (req, res) => {
+    try {
+        const { newPassword } = req.body;
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await Seller.findByIdAndUpdate(req.user.sellerId, { password: hashedPassword });
+
+        res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Получение информации о текущем продавце
+router.get('/profile', authenticateToken, async (req, res) => {
+    try {
+        const seller = await Seller.findById(req.user.sellerId).select('-password');
+        res.json(seller);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Создание нового товара
+router.post('/products', authenticateToken, async (req, res) => {
+    try {
+        const { name, description, price, category, type, brand, characteristics, images, quantity } = req.body;
+        const newProduct = { name, description, price, category, type, brand, characteristics, images, quantity };
+        const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $push: { products: newProduct } }, { new: true });
+
+        res.json(updatedSeller.products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 module.exports = router;
