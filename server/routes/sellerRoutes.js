@@ -174,4 +174,17 @@ router.post('/products', authenticateToken, async (req, res) => {
     }
 });
 
+// Удаление товара
+router.delete('/products/:productId', authenticateToken, async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $pull: { products: { _id: productId } } }, { new: true });
+
+        res.json(updatedSeller.products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 module.exports = router;
