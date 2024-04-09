@@ -130,8 +130,8 @@ const SellerProfile = ({ setShowSidebar }) => {
     const handleLogout = () => {
         // Реализуйте функциональность выхода
         // Например, очистка localStorage и перенаправление на главную страницу
-        // localStorage.removeItem('token');
-        // setSeller(null);
+        localStorage.removeItem('token');
+        setSeller(null);
         history.push('/');
     };
 
