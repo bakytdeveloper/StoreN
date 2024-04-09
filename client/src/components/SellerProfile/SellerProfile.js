@@ -194,17 +194,23 @@ const SellerProfile = ({ setShowSidebar }) => {
                                 <div>
                                     <label>Текущий пароль:</label>
                                     <input type={showPassword ? 'text' : 'password'} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
-                                    <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />
+                                    <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </div>
                                 </div>
                                 <div>
                                     <label>Новый пароль:</label>
                                     <input type={showPassword ? 'text' : 'password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                                    <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />
+                                    <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </div>
                                 </div>
                                 <div>
                                     <label>Подтвердите новый пароль:</label>
                                     <input type={showPassword ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                                    <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />
+                                    <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </div>
                                 </div>
                                 <div>
                                     <button onClick={handleSavePassword}>Сохранить</button>
