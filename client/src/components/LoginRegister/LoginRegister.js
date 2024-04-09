@@ -181,18 +181,237 @@ import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 
 
+//
+// const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
+//     const [email, setEmail] = useState('');
+//     const [password, setPassword] = useState('');
+//     const [name, setName] = useState('');
+//     const [isRegisterMode, setRegisterMode] = useState(false);
+//     const [showPassword, setShowPassword] = useState(false); // Добавляем состояние для отображения пароля
+//     const history = useHistory();
+//
+//
+//     const handleLoginRegister = async () => {
+//         // Проверяем, является ли введенный email и password учетными данными администратора
+//         if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
+//             // Автоматический вход для администратора
+//             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
+//             // toast.success('Successfully logged in as admin');
+//             history.push('/admin'); // Перейти на страницу администратора
+//             return;
+//         }
+//
+//         const userAdminUrl = `${process.env.REACT_APP_API_URL}/api/users/login`;
+//         try {
+//             const userAdminResponse = await fetch(userAdminUrl, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     email: email.toLowerCase(),
+//                     password,
+//                     name,
+//                 }),
+//             });
+//
+//             const userData = await userAdminResponse.json();
+//
+//             if (userAdminResponse.ok) {
+//                 // Успешная аутентификация пользователя или администратора
+//                 localStorage.setItem('token', userData.token);
+//                 toast.success('Успешный вход');
+//
+//                 // Перенаправляем на нужную страницу в зависимости от роли
+//                 if (userData.user.role === 'customer') {
+//                     history.push('/');
+//                 } else if (userData.user.role === 'admin') {
+//                     history.push('/admin');
+//                 }
+//
+//                 return;
+//             }
+//         } catch (error) {
+//             console.error('User/Admin fetch error:', error);
+//             toast.error('Произошла ошибка');
+//         }
+//
+//         // Если аутентификация для пользователей и администраторов не удалась, продолжаем с проверкой продавцов
+//         const sellerUrl = `${process.env.REACT_APP_API_URL}/api/sellers/login`;
+//         try {
+//             const sellerResponse = await fetch(sellerUrl, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({
+//                     email: email.toLowerCase(),
+//                     password,
+//                     name,
+//                 }),
+//             });
+//
+//             const sellerData = await sellerResponse.json();
+//
+//             if (sellerResponse.ok) {
+//                 // Успешная аутентификация продавца
+//                 if (sellerData.seller.status === 'approved') {
+//                     // Если статус "approved", перенаправляем на страницу профиля продавца
+//                     localStorage.setItem('token', sellerData.token);
+//                     toast.success('Успешный вход как продавец');
+//                     history.push('/sellerProfile');
+//                     return;
+//                 } else {
+//                     // Если статус не "approved", сообщаем об этом
+//                     toast.error('Ваш аккаунт еще не подтвержден');
+//                 }
+//             }
+//         } catch (error) {
+//             console.error('Seller fetch error:', error);
+//             toast.error('Произошла ошибка');
+//         }
+//
+//         // Если ни одна из аутентификаций не удалась, показываем сообщение об ошибке
+//         toast.error('Неверный email или пароль');
+//     };
+//
+//
+//
+//     const handleKeyPress = (event) => {
+//         if (event.key === 'Enter') {
+//             handleLoginRegister();
+//         }
+//     };
+//
+//     useEffect(() => {
+//         setShowHeader(false); // Скрываем шапку при монтировании компонента LoginRegister
+//         return () => {
+//             setShowHeader(true); // Показываем шапку при размонтировании компонента LoginRegister
+//         };
+//     }, [setShowHeader]);
+//
+//     useEffect(() => {
+//         setShowSidebar(true);
+//         return () => {
+//             setShowSidebar(true);
+//         };
+//     }, [setShowSidebar]);
+//
+//     const handleClose = () => {
+//         history.push('/');
+//     };
+//
+//     return (
+//         <form className="form">
+//
+//             <span className="formCloseLogin" type="button" onClick={handleClose}>
+//                 &#10006;
+//             </span>
+//
+//             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
+//             {isRegisterMode && (
+//                 <input
+//                     className="formInput"
+//                     type="text"
+//                     placeholder="Name"
+//                     value={name}
+//                     onChange={(e) => setName(e.target.value)}
+//                     onKeyPress={handleKeyPress}
+//                 />
+//             )}
+//             <input
+//                 className="formInput"
+//                 type="text"
+//                 placeholder="Email"
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//                 onKeyPress={handleKeyPress}
+//             />
+//             <div style={{ position: 'relative' }}>
+//                 <input
+//                     className="formInput"
+//                     type={showPassword ? "text" : "password"}
+//                     placeholder="Password"
+//                     value={password}
+//                     onChange={(e) => setPassword(e.target.value)}
+//                     onKeyPress={handleKeyPress}
+//                 />
+//                 <span
+//                     style={{ position: 'absolute', right: '10px', top: '10px', cursor: 'pointer' }}
+//                     onClick={() => setShowPassword(!showPassword)}
+//                 >
+//                     {showPassword ?  <FaEyeSlash /> : <FaEye />}
+//
+//                     {/*{showPassword ? 'Hide' : 'Show'}*/}
+//                 </span>
+//             </div>
+//             <button type="button" onClick={handleLoginRegister}>
+//                 {isRegisterMode ? 'Register' : 'Login'}
+//             </button>
+//
+//             <p onClick={() => setRegisterMode(!isRegisterMode)}>
+//                 {isRegisterMode
+//                     ? 'У вас уже есть аккаунт? Войдите здесь.'
+//                     : "У вас нет учетной записи? Зарегистрируйтесь здесь."}
+//             </p>
+//             <ToastContainer />
+//         </form>
+//     );
+// };
+//
+// export default LoginRegister;
+//
+
+
+
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [isRegisterMode, setRegisterMode] = useState(false);
-    const [showPassword, setShowPassword] = useState(false); // Добавляем состояние для отображения пароля
+    const [showPassword, setShowPassword] = useState(false);
     const history = useHistory();
 
-
     const handleLoginRegister = async () => {
-        // Проверяем, является ли введенный email и password учетными данными администратора
+        if (isRegisterMode) {
+            // Регистрация нового клиента
+            const registerUrl = `${process.env.REACT_APP_API_URL}/api/users/register`;
+            try {
+                const registerResponse = await fetch(registerUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email.toLowerCase(),
+                        password,
+                        name,
+                    }),
+                });
+
+                const responseData = await registerResponse.json();
+
+                if (registerResponse.ok) {
+                    localStorage.setItem('token', responseData.token);
+                    toast.success('Успешная регистрация и вход');
+                    history.push('/');
+                    return;
+                } else {
+                    // Если регистрация не удалась
+                    toast.error(responseData.message || 'Произошла ошибка при регистрации');
+                    return;
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                toast.error('Произошла ошибка при регистрации');
+                return;
+            }
+        }
+
         if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
             // Автоматический вход для администратора
             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
@@ -273,9 +492,9 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
         // Если ни одна из аутентификаций не удалась, показываем сообщение об ошибке
         toast.error('Неверный email или пароль');
+
+
     };
-
-
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -284,9 +503,9 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     };
 
     useEffect(() => {
-        setShowHeader(false); // Скрываем шапку при монтировании компонента LoginRegister
+        setShowHeader(false);
         return () => {
-            setShowHeader(true); // Показываем шапку при размонтировании компонента LoginRegister
+            setShowHeader(true);
         };
     }, [setShowHeader]);
 
@@ -303,11 +522,9 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
     return (
         <form className="form">
-
             <span className="formCloseLogin" type="button" onClick={handleClose}>
                 &#10006;
             </span>
-
             <h2>{isRegisterMode ? 'Register' : 'Login'}</h2>
             {isRegisterMode && (
                 <input
@@ -341,14 +558,11 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     onClick={() => setShowPassword(!showPassword)}
                 >
                     {showPassword ?  <FaEyeSlash /> : <FaEye />}
-
-                    {/*{showPassword ? 'Hide' : 'Show'}*/}
                 </span>
             </div>
             <button type="button" onClick={handleLoginRegister}>
                 {isRegisterMode ? 'Register' : 'Login'}
             </button>
-
             <p onClick={() => setRegisterMode(!isRegisterMode)}>
                 {isRegisterMode
                     ? 'У вас уже есть аккаунт? Войдите здесь.'
