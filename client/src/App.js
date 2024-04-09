@@ -19,6 +19,7 @@ import * as PropTypes from "prop-types";
 import SellerRegistrationForm from "./components/Header/SellerRegistrationForm";
 import SellerListPage from "./components/AdminPanel/SellerListPage";
 import SellerProfile from "./components/SellerProfile/SellerProfile";
+import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPage";
 
 
 
@@ -89,6 +90,9 @@ const App = () => {
                         <SellerListPage />
                     </Route>
 
+                    <Route path="/seller/products">
+                        <SellerProductsPage />
+                    </Route>
 
                     <Route path="/sellerProfile">
                         <SellerProfile

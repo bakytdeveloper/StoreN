@@ -143,6 +143,12 @@ const SellerProfile = ({ setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
+    const handleSellerProducts = () => {
+        // Перенаправляем пользователя на страницу с товарами продавца
+        history.push('/seller/products');
+    };
+
+
     return (
         <div className="profile-container">
             <div className="side">
@@ -152,8 +158,11 @@ const SellerProfile = ({ setShowSidebar }) => {
                 <div className={`sidebar-item ${activeTab === 'editPassword' ? 'active' : ''}`} onClick={() => setActiveTab('editPassword')}>
                     Редактировать пароль
                 </div>
+                <div className={`sidebar-item ${activeTab === 'sellerProducts' ? 'active' : ''}`} onClick={handleSellerProducts} >
+                    Витрина/Мой товар
+                </div>
                 <div className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`} onClick={() => setActiveTab('purchaseHistory')}>
-                    История покупок
+                    История продаж
                 </div>
                 <div className="sidebar-item logout" onClick={handleLogout}>
                     Выход
