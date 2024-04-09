@@ -187,4 +187,24 @@ router.delete('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
+
+
+
+// Получение списка всех товаров продавца
+router.get('/products', authenticateToken, async (req, res) => {
+    try {
+        const seller = await Seller.findById(req.user.sellerId);
+        if (!seller) {
+            return res.status(404).json({ message: 'Seller not found' });
+        }
+        res.json(seller.products);
+    } catch (error) {
+        console.error('Error fetching seller products:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+
+
 module.exports = router;
