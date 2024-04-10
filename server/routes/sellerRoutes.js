@@ -187,9 +187,6 @@ router.delete('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
-
-
-
 // Получение списка всех товаров продавца
 router.get('/products', authenticateToken, async (req, res) => {
     try {
@@ -200,6 +197,26 @@ router.get('/products', authenticateToken, async (req, res) => {
         res.json(seller.products);
     } catch (error) {
         console.error('Error fetching seller products:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+// Получение информации о конкретном товаре продавца
+router.get('/products/:productId', authenticateToken, async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const seller = await Seller.findById(req.user.sellerId);
+        if (!seller) {
+            return res.status(404).json({ message: 'Seller not found' });
+        }
+        const product = seller.products.find(prod => prod._id.toString() === productId);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        console.error('Error fetching seller product details:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
