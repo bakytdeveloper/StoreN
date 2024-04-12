@@ -1,12 +1,16 @@
 /* src/components/ProductList/ProductList.css */
 
+.seller-panel {
+    margin-top: 110px;
+}
+
 .product-list {
     display: grid;
     position: relative;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     padding: 20px;
-    margin-top: 77px;
+    margin-top: 17px;
     margin-left: 230px;
     margin-bottom: 150px!important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
 

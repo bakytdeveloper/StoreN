@@ -42,18 +42,18 @@ const statusHistorySchema = new mongoose.Schema({
     time: { type: Date, default: Date.now },
 });
 
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    price: { type: Number, required: true },
-    category: { type: String, required: true },
-    type: { type: String, required: true },
-    brand: { type: String, required: true },
-    characteristics: [characteristicSchema],
-    images: [{ type: String }], // Добавлено поле для картинок
-    quantity: { type: Number, required: true },
-    // Другие поля для товара, если необходимо
-});
+// const productSchema = new mongoose.Schema({
+//     name: { type: String, required: true },
+//     description: { type: String, required: true },
+//     price: { type: Number, required: true },
+//     category: { type: String, required: true },
+//     type: { type: String, required: true },
+//     brand: { type: String, required: true },
+//     characteristics: [characteristicSchema],
+//     images: [{ type: String }], // Добавлено поле для картинок
+//     quantity: { type: Number, required: true },
+//     // Другие поля для товара, если необходимо
+// });
 
 const sellerSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -65,7 +65,7 @@ const sellerSchema = new mongoose.Schema({
     companyDescription: { type: String }, // Описание компании
     status: { type: String, enum: ['pending', 'approved'], default: 'pending' },
     role: { type: String, enum: ['seller'], default: 'seller' },
-    products: [productSchema],
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
     createdAt: { type: Date, default: Date.now },
     statusHistory: [statusHistorySchema], // Добавлено поле для хранения истории статусов
 

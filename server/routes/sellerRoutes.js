@@ -164,7 +164,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
 // Создание нового товара
 router.post('/products', authenticateToken, async (req, res) => {
     try {
-        const { name, description, price, category, type, brand, characteristics, images, quantity } = req.body;
+        const { name, description, price, category, type, brand, characteristics, images, quantity = 10 } = req.body;
         const newProduct = { name, description, price, category, type, brand, characteristics, images, quantity };
         const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $push: { products: newProduct } }, { new: true });
 
