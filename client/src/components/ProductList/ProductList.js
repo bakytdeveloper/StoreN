@@ -327,7 +327,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 
     useEffect(() => {
         setCurrentPage(1); // Сброс currentPage до 1 при изменении searchKeyword
-    }, [searchKeyword]);
+    }, [searchKeyword, products]);
 
     // Асинхронная функция для получения продуктов с сервера с учетом параметров поиска
     const fetchProducts = async () => {
@@ -419,6 +419,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
         <div className="product-list">
             {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} />}
 
+            {/* Display products based on selected filters */}
             {displayedProducts.map((product) => (
                 <div className="product-card" key={product._id}>
                     <Link to={`/products/${product._id}`}>
@@ -455,18 +456,20 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
                 </div>
             ))}
 
+            {/* Pagination */}
             <div className="pagination">
-                <hr style={{color:"black"}} />
-                <button className="arrowL"  onClick={handlePrevPage} disabled={currentPage === 1}>
-                    <img className="arrowLImg" src={left}  alt="Cart" />
+                <hr style={{ color: "black" }} />
+                <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+                    <img className="arrowLImg" src={left} alt="Cart" />
                 </button>
                 <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
-                <button  className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
-                    <img  className="arrowRImg" src={right}  alt="Cart" />
+                <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                    <img className="arrowRImg" src={right} alt="Cart" />
                 </button>
             </div>
         </div>
     );
+
 };
 
 export default ProductList;

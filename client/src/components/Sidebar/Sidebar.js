@@ -18,6 +18,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+    const [selectedType, setSelectedType] = useState(null);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -76,6 +77,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             const data = await response.json();
             setTypes(data.types);
             setSelectedCategory(category);
+            setSelectedType(null); // Reset selectedType when a new category is selected
             setProducts(data.products);
         } catch (error) {
             console.error('Error fetching types by category:', error);
@@ -92,6 +94,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${selectedCategory}?type=${type}`);
             const data = await response.json();
+            setSelectedType(type);
             setProducts(data.products);
             if (isSmallScreen) {
                 setShowSidebar(true);
@@ -117,21 +120,18 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                         <div className="phones">
                             <FaPhone style={{marginTop:"0"}} />
                             <a style={{marginLeft:"25px"}} href="tel:+996508100777">0(508) 100 777</a>
-
                         </div>
                         <div className="phones">
                             <a href="https://api.whatsapp.com/send?phone=996508100777">
                                 <img className="icon" style={{marginTop: "3px"}} src={what} alt="WhatsApp Icon" />
                                 <span style={{marginLeft:"10px"}}>0(508) 100 777</span>
                             </a>
-
                         </div>
                         <div className="socials-icons">
                             <h3>Соц. сети</h3>
                             <a style={{marginLeft:"22px"}} href="https://www.tiktok.com/">
                                 <img className="icons" src={tik} alt="Instagram Icon" />
                             </a>
-
                             <a style={{marginLeft:"22px", marginRight:"22px"}} href="https://www.instagram.com/">
                                 <img className="icons ins" src={ins} alt="Instagram Icon" />
                             </a>
@@ -141,21 +141,16 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                         </div>
                         <div>
                             <h4>График работы</h4>
-                        <div className="workingTime" style={{fontSize:"20px", marginTop:"-24px"}}>с ПН по ВС - с 10:00 до 21:00</div>
+                            <div className="workingTime" style={{fontSize:"20px", marginTop:"-24px"}}>с ПН по ВС - с 10:00 до 21:00</div>
                         </div>
                     </div>
                 ) : (
-
                     <>
                         {selectedCategory ? (
                             <>
-
-                                <li className="sbLiBack"
-                                    key="back" onClick={handleBackClick}>
-                                   <SlArrowLeft style={{fontSize:"15px"}} />  Назад
+                                <li className="sbLiBack" key="back" onClick={handleBackClick}>
+                                    <SlArrowLeft style={{fontSize:"15px"}} />  Назад
                                 </li>
-
-
                                 {types.map((type) => (
                                     <li className="sbLi" key={type} onClick={() => handleTypeClick(type)}>
                                         {/*{type}*/}
@@ -176,6 +171,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             </ul>
         </div>
     );
+
 
 
 }

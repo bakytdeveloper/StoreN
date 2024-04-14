@@ -110,7 +110,17 @@ const SellerProductsPage = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false); // Состояние для отслеживания видимости подтверждения удаления
-
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        price: '',
+        category: '',
+        type: '',
+        brand: '',
+        characteristics: [],
+        images: [],
+        quantity: 10
+    });
     const history = useHistory();
 
     // Проверка, аутентифицирован ли пользователь
@@ -201,6 +211,56 @@ const SellerProductsPage = () => {
     };
 
 
+
+    // const handleFormSubmit = async (formData) => {
+    //     try {
+    //         let response;
+    //
+    //         // Получение токена доступа из localStorage
+    //         const token = localStorage.getItem('token');
+    //
+    //         // Проверяем, существует ли выбранный продукт (для обновления) или нет (для создания нового)
+    //         if (selectedProduct) {
+    //             // Если выбран существующий продукт, отправляем PUT-запрос для обновления его данных
+    //             response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`, {
+    //                 method: 'PUT',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${token}` // Включение токена доступа в заголовке запроса
+    //                 },
+    //                 body: JSON.stringify(formData),
+    //             });
+    //         } else {
+    //             // Если продукт не выбран (новый продукт), отправляем POST-запрос для создания нового продукта
+    //             response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${token}` // Включение токена доступа в заголовке запроса
+    //                 },
+    //                 body: JSON.stringify(formData),
+    //             });
+    //         }
+    //         if (response.ok) {
+    //             // Если ответ успешен, очищаем значения полей формы
+    //             clearFormFields();
+    //
+    //             // Получаем данные о продукте из ответа
+    //             const data = await response.json();
+    //
+    //             // Обновляем состояние списка продуктов, чтобы отобразить новый продукт
+    //             setProducts((prevProducts) => [...prevProducts, data]);
+    //         } else {
+    //             // Если ответ сервера не успешен, выводим сообщение об ошибке в консоль
+    //             console.error('Failed to save product');
+    //         }
+    //     } catch (error) {
+    //         // Если произошла ошибка при выполнении запроса или парсинге данных, выводим сообщение об ошибке в консоль
+    //         console.error('Error saving product:', error);
+    //     }
+    // };
+
+
     const handleFormSubmit = async (formData) => {
         try {
             let response;
@@ -230,11 +290,45 @@ const SellerProductsPage = () => {
                     body: JSON.stringify(formData),
                 });
             }
+            // Проверяем успешность ответа от сервера
+            if (response.ok) {
+                // Если ответ успешен, очищаем значения полей формы
+                clearFormFields();
 
-            // Оставшаяся часть вашего кода...
+                // Получаем обновленный список продуктов после создания/обновления
+                const updatedProducts = await response.json();
+
+                // Обновляем состояние списка продуктов на основе ответа от сервера
+                setProducts(updatedProducts);
+
+                // Скрываем форму после успешного сохранения или обновления продукта
+                setShowForm(false);
+                setSelectedProduct(null); // Сбрасываем выбранный продукт в null
+            } else {
+                // Если ответ сервера не успешен, выводим сообщение об ошибке в консоль
+                console.error('Failed to save product');
+            }
         } catch (error) {
+            // Если произошла ошибка при выполнении запроса или парсинге данных, выводим сообщение об ошибке в консоль
             console.error('Error saving product:', error);
         }
+    };
+
+
+
+    // Функция для очистки значений полей формы
+    const clearFormFields = () => {
+        setFormData({
+            name: '',
+            description: '',
+            price: '',
+            category: '',
+            type: '',
+            brand: '',
+            characteristics: [],
+            images: [],
+            quantity: 10
+        });
     };
 
 
