@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Seller = require('../models/Seller');
 const authenticateToken = require("../middleware/authenticateToken");
+const Product = require("../models/Product");
 
 
 // Создание нового продавца
@@ -162,17 +163,52 @@ router.get('/profile', authenticateToken, async (req, res) => {
 });
 
 // Создание нового товара
+// router.post('/products', authenticateToken, async (req, res) => {
+//     try {
+//         const { name, description, price, category, type, brand, characteristics, images, quantity = 10 } = req.body;
+//         const newProduct = { name, description, price, category, type, brand, characteristics, images, quantity };
+//         const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $push: { products: newProduct } }, { new: true });
+//
+//         res.json(updatedSeller.products);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+// Создание нового товара
 router.post('/products', authenticateToken, async (req, res) => {
     try {
         const { name, description, price, category, type, brand, characteristics, images, quantity = 10 } = req.body;
-        const newProduct = { name, description, price, category, type, brand, characteristics, images, quantity };
-        const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $push: { products: newProduct } }, { new: true });
+
+        // Создание нового продукта с использованием модели Product
+        const newProduct = new Product({
+            name,
+            description,
+            price,
+            category,
+            type,
+            brand,
+            characteristics,
+            images,
+            quantity
+        });
+
+        // Сохранение нового продукта
+        await newProduct.save();
+
+        // Добавление ID нового продукта к массиву продуктов продавца
+        const updatedSeller = await Seller.findByIdAndUpdate(
+            req.user.sellerId,
+            { $push: { products: newProduct._id } }, // Добавление только ID продукта
+            { new: true }
+        );
 
         res.json(updatedSeller.products);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 // Удаление товара
 router.delete('/products/:productId', authenticateToken, async (req, res) => {
@@ -187,19 +223,55 @@ router.delete('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
+// // Получение списка всех товаров продавца
+// router.get('/products', authenticateToken, async (req, res) => {
+//     try {
+//         const seller = await Seller.findById(req.user.sellerId);
+//         if (!seller) {
+//             return res.status(404).json({ message: 'Seller not found' });
+//         }
+//         res.json(seller.products);
+//     } catch (error) {
+//         console.error('Error fetching seller products:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
 // Получение списка всех товаров продавца
+// Получение списка всех товаров продавца
+// // Получение списка всех товаров продавца
+// router.get('/products', authenticateToken, async (req, res) => {
+//     try {
+//         const seller = await Seller.findById(req.user.sellerId);
+//         if (!seller) {
+//             return res.status(404).json({ message: 'Продавец не найден' });
+//         }
+//         res.json(seller.products);
+//     } catch (error) {
+//         console.error('Ошибка при получении товаров продавца:', error);
+//         res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+//     }
+// });
+
+
 router.get('/products', authenticateToken, async (req, res) => {
     try {
-        const seller = await Seller.findById(req.user.sellerId);
+        const seller = await Seller.findById(req.user.sellerId).populate('products'); // Используем метод populate для получения информации о продуктах
         if (!seller) {
-            return res.status(404).json({ message: 'Seller not found' });
+            return res.status(404).json({ message: 'Продавец не найден' });
         }
-        res.json(seller.products);
+        res.json(seller.products); // Возвращаем массив продуктов, содержащий информацию о каждом продукте
     } catch (error) {
-        console.error('Error fetching seller products:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        console.error('Ошибка при получении товаров продавца:', error);
+        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
     }
 });
+
+
+
+
+
 
 
 // Получение информации о конкретном товаре продавца
