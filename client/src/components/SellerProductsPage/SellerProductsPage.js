@@ -205,6 +205,9 @@ const SellerProductsPage = () => {
         try {
             let response;
 
+            // Получение токена доступа из localStorage
+            const token = localStorage.getItem('token');
+
             // Проверяем, существует ли выбранный продукт (для обновления) или нет (для создания нового)
             if (selectedProduct) {
                 // Если выбран существующий продукт, отправляем PUT-запрос для обновления его данных
@@ -212,6 +215,7 @@ const SellerProductsPage = () => {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Включение токена доступа в заголовке запроса
                     },
                     body: JSON.stringify(formData),
                 });
@@ -221,37 +225,18 @@ const SellerProductsPage = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Включение токена доступа в заголовке запроса
                     },
                     body: JSON.stringify(formData),
                 });
             }
 
-            // Проверяем успешность ответа от сервера
-            if (response.ok) {
-                // Если ответ успешен, получаем данные о продукте из ответа
-                const data = await response.json();
-
-                // Обновляем состояние списка продуктов на основе ответа от сервера
-                if (selectedProduct) {
-                    // Если выбран существующий продукт, обновляем его данные в списке продуктов
-                    setProducts((prevProducts) => prevProducts.map((product) => (product._id === data._id ? data : product)));
-                } else {
-                    // Если создан новый продукт, добавляем его в конец списка продуктов
-                    setProducts((prevProducts) => [...prevProducts, data]);
-                }
-
-                // Скрываем форму после успешного сохранения или обновления продукта
-                setShowForm(false);
-                setSelectedProduct(null); // Сбрасываем выбранный продукт в null
-            } else {
-                // Если ответ сервера не успешен, выводим сообщение об ошибке в консоль
-                console.error('Failed to save product');
-            }
+            // Оставшаяся часть вашего кода...
         } catch (error) {
-            // Если произошла ошибка при выполнении запроса или парсинге данных, выводим сообщение об ошибке в консоль
             console.error('Error saving product:', error);
         }
     };
+
 
     const handleFormCancel = () => {
         setShowForm(false);
