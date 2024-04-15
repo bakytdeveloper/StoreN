@@ -159,7 +159,7 @@ const SellerProfile = ({ setShowSidebar }) => {
                     Редактировать пароль
                 </div>
                 <div className={`sidebar-item ${activeTab === 'sellerProducts' ? 'active' : ''}`} onClick={handleSellerProducts} >
-                    Витрина/Мой товар
+                    Витрина
                 </div>
                 <div className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`} onClick={() => setActiveTab('purchaseHistory')}>
                     История продаж
