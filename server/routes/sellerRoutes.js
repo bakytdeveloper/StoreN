@@ -294,6 +294,17 @@ router.get('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
+// Изменение информации о товаре
+router.put('/products/:productId', authenticateToken, async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 
 module.exports = router;

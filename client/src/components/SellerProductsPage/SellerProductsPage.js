@@ -178,10 +178,30 @@ const SellerProductsPage = () => {
         setShowForm(true);
     };
 
-    const handleDeleteProduct = (productId) => {
-        setShowConfirmation(true); // Открыть сообщение о подтверждении удаления
-        setSelectedProduct(productId); // Сохранить id продукта для удаления
+    const handleDeleteProduct = async (productId) => {
+        setShowConfirmation(true);
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+            } else {
+                console.error('Failed to delete product');
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        } finally {
+            setShowConfirmation(false);
+        }
     };
+
 
     const handleConfirmDelete = async () => {
         try {
@@ -298,18 +318,11 @@ const SellerProductsPage = () => {
             }
             // Проверяем успешность ответа от сервера
             if (response.ok) {
-                // Если ответ успешен, очищаем значения полей формы
                 clearFormFields();
-
-                // Получаем обновленный список продуктов после создания/обновления
-                const updatedProducts = await response.json();
-
-                // Обновляем состояние списка продуктов на основе ответа от сервера
-                setProducts(updatedProducts);
-
-                // Скрываем форму после успешного сохранения или обновления продукта
+                const updatedProduct = await response.json();
+                setProducts((prevProducts) => prevProducts.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
                 setShowForm(false);
-                setSelectedProduct(null); // Сбрасываем выбранный продукт в null
+                setSelectedProduct(null);
             } else {
                 // Если ответ сервера не успешен, выводим сообщение об ошибке в консоль
                 console.error('Failed to save product');
