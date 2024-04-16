@@ -211,16 +211,29 @@ router.post('/products', authenticateToken, async (req, res) => {
 
 
 // Удаление товара
+// Удаление товара
 router.delete('/products/:productId', authenticateToken, async (req, res) => {
     try {
         const { productId } = req.params;
-        const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $pull: { products: { _id: productId } } }, { new: true });
-
+        // Удаляем товар из базы данных по _id
+        await Product.findByIdAndDelete(productId);
+        // Удаляем ссылку на товар из массива products у продавца
+        const updatedSeller = await Seller.findByIdAndUpdate(
+            req.user.sellerId,
+            { $pull: { products: productId } },
+            { new: true }
+        );
+        // Возвращаем обновленный список продуктов продавца
         res.json(updatedSeller.products);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+
+
+
 
 
 // // Получение списка всех товаров продавца
