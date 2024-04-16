@@ -185,10 +185,16 @@ const SellerProductsPage = () => {
 
     const handleConfirmDelete = async () => {
         try {
+
+            // Получение токена доступа из localStorage
+            const token = localStorage.getItem('token');
+
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Включение токена доступа в заголовке запроса
+
                 },
             });
 
@@ -372,13 +378,16 @@ const SellerProductsPage = () => {
                     <div  className="product-list">
 
 
-                        <div>
+                        {/*<div>*/}
                         {/*<div className="product-list">*/}
 
 
                             {/* Здесь отображаем информацию о товарах */}
                             {products.map((product) => (
                                 <div className="product-card" key={product._id}>
+                                    <button className="admin-btn" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
+                                    <button className="admin-btn" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+
                                     <Link to={`/products/${product._id}`}>
                                         <img
                                             src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
@@ -421,7 +430,7 @@ const SellerProductsPage = () => {
 
                         {/*<button className="admin-btn" onClick={() => handleEditProduct(product)}>&#128736;</button>*/}
                         {/*<button className="admin-btn" onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>*/}
-                    </div>
+                    {/*</div>*/}
             {/*    ))}*/}
             {/*</div>*/}
             {/*<button className="newProduct" onClick={handleCreateProduct}>&#9997; Создать продукт</button>*/}
