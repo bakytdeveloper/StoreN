@@ -6,7 +6,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        price: 0,
+        price: "",
         category: '',
         type: '',
         brand: '',
@@ -61,7 +61,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             <textarea name="description" value={formData.description} onChange={handleChange} required />
 
             <label>Цена:</label>
-            <input type="number" name="price" value={formData.price} onChange={handleChange} required />
+            <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required />
 
             <label>Характеристики:</label>
             {formData.characteristics.map((char, index) => (
