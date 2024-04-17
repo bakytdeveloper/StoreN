@@ -121,8 +121,11 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './Header.css';
 import { toast } from 'react-toastify'; // Импортируем библиотеку react-toastify
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const SellerRegistrationForm = ({ onSubmit }) => {
+    const [showPassword, setShowPassword] = useState(false);
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -170,7 +173,24 @@ const SellerRegistrationForm = ({ onSubmit }) => {
                 <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} required />
                 <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
                 <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Пароль" value={formData.password} onChange={handleChange} required /> {/* Поле пароля */}
+                <div className="password-input-container">
+                {/*<input  type={showPassword ? 'text' : 'password'}*/}
+                {/*        name="password" placeholder="Пароль"*/}
+                {/*        value={formData.password} onChange={handleChange} required /> /!* Поле пароля *!/*/}
+                {/*<div className="password-icon" onClick={() => setShowPassword(!showPassword)}>*/}
+                {/*    {showPassword ? <FaEyeSlash /> : <FaEye />}*/}
+                {/*</div>*/}
+
+                  <span className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>  <input  type={showPassword ? 'text' : 'password'}
+                            name="password" placeholder="Пароль"
+                            value={formData.password} onChange={handleChange} required /> {/* Поле пароля */}
+                    {/*<div className="password-icon" onClick={() => setShowPassword(!showPassword)}>*/}
+                    {/*    {showPassword ? <FaEyeSlash /> : <FaEye />}*/}
+                    {/*</div>*/}
+
+                </div>
                 <input type="tel" name="phone" placeholder="Телефон" value={formData.phone} onChange={handleChange} required />
                 <input type="text" name="address" placeholder="Адрес" value={formData.address} onChange={handleChange} required /> {/* Поле адреса */}
                 <textarea name="companyDescription" placeholder="Описание компании" value={formData.companyDescription} onChange={handleChange} required />
