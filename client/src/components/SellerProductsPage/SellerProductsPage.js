@@ -708,16 +708,19 @@ const SellerProductsPage = () => {
             let response;
             const token = localStorage.getItem('token');
 
-            // Проверяем, есть ли уже товар с таким же названием и брендом
-            const existingProduct = products.find(
-                (product) =>
-                    product.name === formData.name && product.brand === formData.brand
-            );
+            // Проверяем, создается ли новый товар
+            if (!selectedProduct) {
+                // Проверяем, есть ли уже товар с таким же названием и брендом
+                const existingProduct = products.find(
+                    (product) =>
+                        product.name === formData.name && product.brand === formData.brand
+                );
 
-            if (existingProduct) {
-                // Если товар уже существует, показываем оповещение и выходим из функции
-                toast.error('Такой товар уже существует');
-                return;
+                if (existingProduct) {
+                    // Если товар уже существует, показываем оповещение и выходим из функции
+                    toast.error('Такой товар уже существует');
+                    return;
+                }
             }
 
             if (selectedProduct) {
@@ -769,6 +772,7 @@ const SellerProductsPage = () => {
             console.error('Error saving product:', error);
         }
     };
+
 
 
 
