@@ -5,6 +5,12 @@
 
 
 
+body.modal-open {
+  overflow: hidden;
+}
+
+
+
 .app {
   display: flex;
   flex-direction: column;
