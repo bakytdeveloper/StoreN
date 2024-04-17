@@ -294,6 +294,16 @@
     cursor: pointer;
 }
 
+.SellerRegistration {
+    margin-top: 7%;
+}
+
+.SellerRegistrationClose {
+    margin-top: -40px;
+    margin-left: 95%;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
 
 
 /* Добавим стили для мобильных устройств (адаптивность) */

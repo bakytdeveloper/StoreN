@@ -119,6 +119,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import './Header.css';
+import { toast } from 'react-toastify'; // Импортируем библиотеку react-toastify
 
 const SellerRegistrationForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({
@@ -144,6 +146,8 @@ const SellerRegistrationForm = ({ onSubmit }) => {
         e.preventDefault();
         try {
             await axios.post(`${apiUrl}/api/sellers/register`, formData); // Отправляем данные формы на сервер
+            // Показываем оповещение об успешной отправке запроса
+            toast.success('Ваш запрос на роль продавца принят!');
             history.push('/'); // Перенаправляем пользователя на главную страницу после успешной регистрации
         } catch (error) {
             console.error('Error registering seller:', error);
@@ -156,10 +160,10 @@ const SellerRegistrationForm = ({ onSubmit }) => {
     };
 
     return (
-        <div style={{ marginTop: "181px" }}>
+        <div className="SellerRegistration">
             <h2>Станьте продавцом</h2>
             <form onSubmit={handleSubmit}>
-                <span className="formCloseLogin" type="button" onClick={handleClose}>
+                <span className="SellerRegistrationClose" type="button" onClick={handleClose}>
                     &#10006;
                 </span>
                 <input type="text" name="companyName" placeholder="Название компании" value={formData.companyName} onChange={handleChange} required />
