@@ -707,29 +707,52 @@ const SellerProductsPage = () => {
         try {
             let response;
             const token = localStorage.getItem('token');
+
+            // Проверяем, есть ли уже товар с таким же названием и брендом
+            const existingProduct = products.find(
+                (product) =>
+                    product.name === formData.name && product.brand === formData.brand
+            );
+
+            if (existingProduct) {
+                // Если товар уже существует, показываем оповещение и выходим из функции
+                toast.error('Такой товар уже существует');
+                return;
+            }
+
             if (selectedProduct) {
-                response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(formData),
-                });
+                response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(formData),
+                    }
+                );
             } else {
-                response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(formData),
-                });
+                response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/sellers/products`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(formData),
+                    }
+                );
             }
             if (response.ok) {
                 clearFormFields();
                 const updatedProduct = await response.json();
-                setProducts((prevProducts) => prevProducts.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
+                setProducts((prevProducts) =>
+                    prevProducts.map((product) =>
+                        product._id === updatedProduct._id ? updatedProduct : product
+                    )
+                );
                 setShowForm(false);
                 setSelectedProduct(null);
 
@@ -746,6 +769,7 @@ const SellerProductsPage = () => {
             console.error('Error saving product:', error);
         }
     };
+
 
 
     const handleFormCancel = () => {
