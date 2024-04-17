@@ -173,7 +173,7 @@ const SellerRegistrationForm = ({ onSubmit }) => {
                 <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} required />
                 <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
                 <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-                <div className="password-input-container">
+                <div className="password-input-container" style={{ position: 'relative' }}>
                 {/*<input  type={showPassword ? 'text' : 'password'}*/}
                 {/*        name="password" placeholder="Пароль"*/}
                 {/*        value={formData.password} onChange={handleChange} required /> /!* Поле пароля *!/*/}
@@ -181,13 +181,20 @@ const SellerRegistrationForm = ({ onSubmit }) => {
                 {/*    {showPassword ? <FaEyeSlash /> : <FaEye />}*/}
                 {/*</div>*/}
 
-                  <span className="password-icon" onClick={() => setShowPassword(!showPassword)}>
-                      {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>  <input  type={showPassword ? 'text' : 'password'}
-                            name="password" placeholder="Пароль"
-                            value={formData.password} onChange={handleChange} required /> {/* Поле пароля */}
-                    {/*<div className="password-icon" onClick={() => setShowPassword(!showPassword)}>*/}
-                    {/*    {showPassword ? <FaEyeSlash /> : <FaEye />}*/}
+                    {/*<div style={{ position: 'relative' }}>*/}
+                        <input
+                            name="password"
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange} required
+                        />
+                        <span
+                            style={{ position: 'absolute', right: '10px', top: '10px', cursor: 'pointer' }}
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                    {showPassword ?  <FaEyeSlash /> : <FaEye />}
+                </span>
                     {/*</div>*/}
 
                 </div>
