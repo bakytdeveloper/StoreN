@@ -5,11 +5,6 @@
 
 
 
-body.modal-open {
-  overflow: hidden;
-}
-
-
 
 .app {
   display: flex;

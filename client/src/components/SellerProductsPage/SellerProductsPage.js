@@ -382,6 +382,236 @@ import './SellerProductsPage.css'
 
 
 
+// const SellerProductsPage = () => {
+//     const [products, setProducts] = useState([]);
+//     const [selectedProduct, setSelectedProduct] = useState(null);
+//     const [showForm, setShowForm] = useState(false);
+//     const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Состояние для отслеживания видимости модального окна подтверждения удаления
+//     const [formData, setFormData] = useState({
+//         name: '',
+//         description: '',
+//         price: '',
+//         category: '',
+//         type: '',
+//         brand: '',
+//         characteristics: [],
+//         images: [],
+//         quantity: 10
+//     });
+//     const history = useHistory();
+//
+//     // Проверка, аутентифицирован ли пользователь
+//     useEffect(() => {
+//         const token = localStorage.getItem('token');
+//         if (!token) {
+//             history.push('/login'); // Перенаправление на страницу входа, если нет токена
+//         }
+//     }, [history]);
+//
+//     useEffect(() => {
+//         const fetchSellerProducts = async () => {
+//             try {
+//                 const token = localStorage.getItem('token');
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products`, {
+//                     method: 'GET',
+//                     headers: {
+//                         'Authorization': `Bearer ${token}`,
+//                     },
+//                 });
+//                 if (response.ok) {
+//                     const data = await response.json();
+//                     setProducts(data);
+//                 } else {
+//                     console.error('Error fetching seller products:', response.statusText);
+//                 }
+//             } catch (error) {
+//                 console.error('Error fetching seller products:', error);
+//             }
+//         };
+//
+//         fetchSellerProducts();
+//     }, []);
+//
+//     const handleCreateProduct = () => {
+//         setSelectedProduct(null);
+//         setShowForm(true);
+//     };
+//
+//     const handleEditProduct = (product) => {
+//         setSelectedProduct(product);
+//         setShowForm(true);
+//     };
+//
+//     const handleDeleteProduct = (productId) => {
+//         setSelectedProduct(productId); // Сохраняем id продукта для удаления
+//         setShowConfirmationModal(true); // Показываем модальное окно подтверждения удаления
+//         document.body.classList.add('modal_open'); // Добавляем класс для блокировки скролла
+//     };
+//
+//     const handleConfirmDelete = async () => {
+//         try {
+//             const token = localStorage.getItem('token');
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct}`, {
+//                 method: 'DELETE',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'Authorization': `Bearer ${token}`,
+//                 },
+//             });
+//
+//             if (response.ok) {
+//                 setProducts((prevProducts) => prevProducts.filter((product) => product._id !== selectedProduct));
+//             } else {
+//                 console.error('Failed to delete product');
+//             }
+//         } catch (error) {
+//             console.error('Error deleting product:', error);
+//         } finally {
+//             setShowConfirmationModal(false); // Закрыть модальное окно подтверждения удаления
+//             setSelectedProduct(null); // Сбросить id продукта для удаления
+//             document.body.classList.remove('modal_open'); // Убираем класс для разблокировки скролла
+//         }
+//     };
+//
+//     const handleFormSubmit = async (formData) => {
+//         try {
+//             let response;
+//             const token = localStorage.getItem('token');
+//             if (selectedProduct) {
+//                 response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`, {
+//                     method: 'PUT',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                         'Authorization': `Bearer ${token}`
+//                     },
+//                     body: JSON.stringify(formData),
+//                 });
+//             } else {
+//                 response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products`, {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                         'Authorization': `Bearer ${token}`
+//                     },
+//                     body: JSON.stringify(formData),
+//                 });
+//             }
+//             if (response.ok) {
+//                 clearFormFields();
+//                 const updatedProduct = await response.json();
+//                 setProducts((prevProducts) => prevProducts.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
+//                 setShowForm(false);
+//                 setSelectedProduct(null);
+//             } else {
+//                 console.error('Failed to save product');
+//             }
+//         } catch (error) {
+//             console.error('Error saving product:', error);
+//         }
+//     };
+//
+//     const handleFormCancel = () => {
+//         setShowForm(false);
+//         setSelectedProduct(null);
+//     };
+//
+//     const clearFormFields = () => {
+//         setFormData({
+//             name: '',
+//             description: '',
+//             price: '',
+//             category: '',
+//             type: '',
+//             brand: '',
+//             characteristics: [],
+//             images: [],
+//             quantity: 10
+//         });
+//     };
+//
+//     const fixImagePath = (imagePath) => {
+//         return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
+//     };
+//
+//     const handleGoBack = () => {
+//         history.goBack();
+//     };
+//
+//     return (
+//         <div className="seller-panel">
+//             <button className="newProduct" onClick={handleCreateProduct}>&#9997; Создать продукт</button>
+//             <h1>Мои товары</h1>
+//             <button style={{fontSize:"25px", fontWeight:"bold", padding:"0"}} onClick={handleGoBack}>
+//                 Назад к профилю
+//             </button>
+//
+//             <div className="product-list">
+//                 {products.map((product) => (
+//                     <div className="product-card" key={product._id}>
+//                         <button className="admin-btn" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
+//                         <button className="admin-btn" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+//
+//                         <Link to={`/products/${product._id}`}>
+//                             <img
+//                                 src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
+//                                 alt={product.name}
+//                             />
+//                             <div className="details">
+//                                 <div className="type">{product.type}</div>
+//                                 <div className="brand">{product.brand}</div>
+//                                 <div className="name">{product.name}</div>
+//                                 <div className="price">
+//                                     <span>KGS</span> {product.price}
+//                                 </div>
+//                             </div>
+//                         </Link>
+//                         <div className="actions">
+//                             <button
+//                                 className="cart-button"
+//                                 title="Add to Cart"
+//                             >
+//                                 <strong>+</strong>
+//                                 <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+//                             </button>
+//                             <button
+//                                 className="buy-button"
+//                                 title="Buy Now"
+//                             >
+//                                 Заказать
+//                             </button>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </div>
+//
+//             {showForm && (
+//                 <ProductForm
+//                     product={selectedProduct}
+//                     onSubmit={handleFormSubmit}
+//                     onCancel={handleFormCancel}
+//                 />
+//             )}
+//
+//             {showConfirmationModal && (
+//                 <div className="modal-background">
+//                     <div className="confirmation-modal">
+//                         <p>Вы уверены, что хотите удалить продукт?</p>
+//                         <div className="deleteYN">
+//                             <button className="deleteY" onClick={handleConfirmDelete}>Да</button>
+//                             <button className="deleteN" onClick={() => setShowConfirmationModal(false)}>Отмена</button>
+//                         </div>
+//                     </div>
+//                 </div>
+//             )}
+//         </div>
+//     );
+// };
+//
+// export default SellerProductsPage;
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const SellerProductsPage = () => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -445,6 +675,7 @@ const SellerProductsPage = () => {
     const handleDeleteProduct = (productId) => {
         setSelectedProduct(productId); // Сохраняем id продукта для удаления
         setShowConfirmationModal(true); // Показываем модальное окно подтверждения удаления
+        document.body.classList.add('modal_open'); // Добавляем класс для блокировки скролла
     };
 
     const handleConfirmDelete = async () => {
@@ -468,6 +699,7 @@ const SellerProductsPage = () => {
         } finally {
             setShowConfirmationModal(false); // Закрыть модальное окно подтверждения удаления
             setSelectedProduct(null); // Сбросить id продукта для удаления
+            document.body.classList.remove('modal_open'); // Убираем класс для разблокировки скролла
         }
     };
 
@@ -500,6 +732,13 @@ const SellerProductsPage = () => {
                 setProducts((prevProducts) => prevProducts.map((product) => (product._id === updatedProduct._id ? updatedProduct : product)));
                 setShowForm(false);
                 setSelectedProduct(null);
+
+                // Проверка на успешное создание товара и показ оповещения
+                if (selectedProduct) {
+                    toast.success('Товар успешно обновлен!');
+                } else {
+                    toast.success('Товар успешно создан!');
+                }
             } else {
                 console.error('Failed to save product');
             }
@@ -507,6 +746,7 @@ const SellerProductsPage = () => {
             console.error('Error saving product:', error);
         }
     };
+
 
     const handleFormCancel = () => {
         setShowForm(false);
@@ -542,6 +782,11 @@ const SellerProductsPage = () => {
             <button style={{fontSize:"25px", fontWeight:"bold", padding:"0"}} onClick={handleGoBack}>
                 Назад к профилю
             </button>
+
+            <div className="seller-panel">
+                <ToastContainer /> {/* Добавляем контейнер для оповещений */}
+                {/* Остальной код компонента */}
+            </div>
 
             <div className="product-list">
                 {products.map((product) => (
