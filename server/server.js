@@ -7,13 +7,7 @@ const dotenv = require('dotenv');
 const compression = require('compression');
 
 
-// Роуты
-const adminRoutes = require('./routes/adminRoutes'); // Добавлен импорт adminRoutes
-const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const sellerRoutes = require('./routes/sellerRoutes'); // Добавлен импорт sellerRoutes
-
+const apiRoutes = require('./routes/index');
 dotenv.config();
 
 const app = express();
@@ -32,12 +26,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use(bodyParser.json());
 app.use(express.json());
 
-
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/admin', adminRoutes); // Добавлен новый маршрут для администратора
-app.use('/api/sellers', sellerRoutes); // Добавлен новый маршрут для продавцов
+app.use('/api', apiRoutes);
 
 app.use(compression());
 
