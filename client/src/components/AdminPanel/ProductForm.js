@@ -64,7 +64,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required />
 
             <label>Характеристики:</label>
-            {formData.characteristics.map((char, index) => (
+            {formData.characteristics && formData.characteristics.map((char, index) => (
                 <div key={index}>
                     <input
                         type="text"
