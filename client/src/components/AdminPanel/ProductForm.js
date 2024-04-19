@@ -160,6 +160,36 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             let response;
             const token = localStorage.getItem('token');
 
+            // Получаем список товаров этого продавца
+            const sellerProductsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!sellerProductsResponse.ok) {
+                console.error('Error fetching seller products:', sellerProductsResponse.statusText);
+                return;
+            }
+
+            const sellerProducts = await sellerProductsResponse.json();
+
+            // Проверяем, создается ли новый товар
+            if (!productId) {
+                // Проверяем, есть ли уже товар с таким же названием и брендом
+                const existingProduct = sellerProducts.find(
+                    (product) =>
+                        product.name === formData.name && product.brand === formData.brand
+                );
+
+                if (existingProduct) {
+                    // Если товар уже существует, показываем оповещение и выходим из функции
+                    toast.error('Такой товар уже существует');
+                    return;
+                }
+            }
+
             if (productId) {
                 // Если есть productId, отправляем запрос на обновление существующего товара
                 response = await fetch(
@@ -205,6 +235,8 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             console.error('Error saving product:', error);
         }
     };
+
+
 
 
 
