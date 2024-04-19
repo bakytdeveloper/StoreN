@@ -20,6 +20,7 @@ import SellerRegistrationForm from "./components/Header/SellerRegistrationForm";
 import SellerListPage from "./components/AdminPanel/SellerListPage";
 import SellerProfile from "./components/SellerProfile/SellerProfile";
 import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPage";
+import ProductForm from "./components/AdminPanel/ProductForm";
 
 
 
@@ -93,6 +94,12 @@ const App = () => {
                     <Route path="/seller/products">
                         <SellerProductsPage />
                     </Route>
+
+                    <Route path="/sellers-products">
+                        <ProductForm />
+                    </Route>
+
+
 
                     <Route path="/sellerProfile">
                         <SellerProfile

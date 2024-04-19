@@ -626,7 +626,7 @@ const SellerProductsPage = () => {
         brand: '',
         characteristics: [],
         images: [],
-        quantity: 10
+        // quantity: 10
     });
     const history = useHistory();
 
@@ -663,13 +663,13 @@ const SellerProductsPage = () => {
     }, []);
 
     const handleCreateProduct = () => {
-        setSelectedProduct(null);
-        setShowForm(true);
+        history.push('/sellers-products');
     };
 
     const handleEditProduct = (product) => {
         setSelectedProduct(product);
-        setShowForm(true);
+
+        // setShowForm(true);
     };
 
     const handleDeleteProduct = (productId) => {
@@ -703,75 +703,75 @@ const SellerProductsPage = () => {
         }
     };
 
-    const handleFormSubmit = async (formData) => {
-        try {
-            let response;
-            const token = localStorage.getItem('token');
-
-            // Проверяем, создается ли новый товар
-            if (!selectedProduct) {
-                // Проверяем, есть ли уже товар с таким же названием и брендом
-                const existingProduct = products.find(
-                    (product) =>
-                        product.name === formData.name && product.brand === formData.brand
-                );
-
-                if (existingProduct) {
-                    // Если товар уже существует, показываем оповещение и выходим из функции
-                    toast.error('Такой товар уже существует');
-                    return;
-                }
-            }
-
-            if (selectedProduct) {
-                response = await fetch(
-                    `${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: JSON.stringify(formData),
-                    }
-                );
-            } else {
-                response = await fetch(
-                    `${process.env.REACT_APP_API_URL}/api/sellers/products`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: JSON.stringify(formData),
-                    }
-                );
-            }
-            if (response.ok) {
-                clearFormFields();
-                const updatedProduct = await response.json();
-                setProducts((prevProducts) =>
-                    prevProducts.map((product) =>
-                        product._id === updatedProduct._id ? updatedProduct : product
-                    )
-                );
-                setShowForm(false);
-                setSelectedProduct(null);
-
-                // Проверка на успешное создание товара и показ оповещения
-                if (selectedProduct) {
-                    toast.success('Товар успешно обновлен!');
-                } else {
-                    toast.success('Товар успешно создан!');
-                }
-            } else {
-                console.error('Failed to save product');
-            }
-        } catch (error) {
-            console.error('Error saving product:', error);
-        }
-    };
+    // const handleFormSubmit = async (formData) => {
+    //     try {
+    //         let response;
+    //         const token = localStorage.getItem('token');
+    //
+    //         // Проверяем, создается ли новый товар
+    //         if (!selectedProduct) {
+    //             // Проверяем, есть ли уже товар с таким же названием и брендом
+    //             const existingProduct = products.find(
+    //                 (product) =>
+    //                     product.name === formData.name && product.brand === formData.brand
+    //             );
+    //
+    //             if (existingProduct) {
+    //                 // Если товар уже существует, показываем оповещение и выходим из функции
+    //                 toast.error('Такой товар уже существует');
+    //                 return;
+    //             }
+    //         }
+    //
+    //         if (selectedProduct) {
+    //             response = await fetch(
+    //                 `${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`,
+    //                 {
+    //                     method: 'PUT',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         Authorization: `Bearer ${token}`,
+    //                     },
+    //                     body: JSON.stringify(formData),
+    //                 }
+    //             );
+    //         } else {
+    //             response = await fetch(
+    //                 `${process.env.REACT_APP_API_URL}/api/sellers/products`,
+    //                 {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         Authorization: `Bearer ${token}`,
+    //                     },
+    //                     body: JSON.stringify(formData),
+    //                 }
+    //             );
+    //         }
+    //         if (response.ok) {
+    //             clearFormFields();
+    //             const updatedProduct = await response.json();
+    //             setProducts((prevProducts) =>
+    //                 prevProducts.map((product) =>
+    //                     product._id === updatedProduct._id ? updatedProduct : product
+    //                 )
+    //             );
+    //             setShowForm(false);
+    //             setSelectedProduct(null);
+    //
+    //             // Проверка на успешное создание товара и показ оповещения
+    //             if (selectedProduct) {
+    //                 toast.success('Товар успешно обновлен!');
+    //             } else {
+    //                 toast.success('Товар успешно создан!');
+    //             }
+    //         } else {
+    //             console.error('Failed to save product');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error saving product:', error);
+    //     }
+    // };
 
 
 
@@ -781,19 +781,19 @@ const SellerProductsPage = () => {
         setSelectedProduct(null);
     };
 
-    const clearFormFields = () => {
-        setFormData({
-            name: '',
-            description: '',
-            price: '',
-            category: '',
-            type: '',
-            brand: '',
-            characteristics: [],
-            images: [],
-            quantity: 10
-        });
-    };
+    // const clearFormFields = () => {
+    //     setFormData({
+    //         name: '',
+    //         description: '',
+    //         price: '',
+    //         category: '',
+    //         type: '',
+    //         brand: '',
+    //         characteristics: [],
+    //         images: [],
+    //         quantity: 10
+    //     });
+    // };
 
     const fixImagePath = (imagePath) => {
         return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
@@ -855,13 +855,13 @@ const SellerProductsPage = () => {
                 ))}
             </div>
 
-            {showForm && (
-                <ProductForm
-                    product={selectedProduct}
-                    onSubmit={handleFormSubmit}
-                    onCancel={handleFormCancel}
-                />
-            )}
+            {/*{showForm && (*/}
+            {/*    <ProductForm*/}
+            {/*        product={selectedProduct}*/}
+            {/*        onSubmit={handleFormSubmit}*/}
+            {/*        onCancel={handleFormCancel}*/}
+            {/*    />*/}
+            {/*)}*/}
 
             {showConfirmationModal && (
                 <div className="modal-background">
