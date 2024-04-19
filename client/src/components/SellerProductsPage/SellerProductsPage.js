@@ -668,8 +668,7 @@ const SellerProductsPage = () => {
 
     const handleEditProduct = (product) => {
         setSelectedProduct(product);
-
-        // setShowForm(true);
+        history.push(`/product-form/${product._id}`, { product });
     };
 
     const handleDeleteProduct = (productId) => {

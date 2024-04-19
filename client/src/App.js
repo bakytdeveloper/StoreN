@@ -100,6 +100,10 @@ const App = () => {
                     </Route>
 
 
+                    <Route path="/product-form/:productId">
+                        <ProductForm/>
+                    </Route>
+
 
                     <Route path="/sellerProfile">
                         <SellerProfile

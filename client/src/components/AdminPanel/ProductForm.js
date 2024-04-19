@@ -2,10 +2,29 @@
 import React, { useState, useEffect } from 'react';
 import './ProductForm.css';
 import {toast} from "react-toastify";
+import {useLocation, useParams} from "react-router-dom";
 
-const ProductForm = ({ product, onSubmit, onCancel }) => {
+const ProductForm = ({ onSubmit, onCancel }) => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
+    const { productId } = useParams();
+    const [productData, setProductData] = useState(null);
+
+    const location = useLocation();
+    const { product } = location.state || {};
+
+    // const [formData, setFormData] = useState({
+    //     name: product ? product.name : '',
+    //     description: product ? product.description : '',
+    //     price: product ? product.price : '',
+    //     category: product ? product.category : '',
+    //     type: product ? product.type : '',
+    //     brand: product ? product.brand : '',
+    //     characteristics: product ? product.characteristics : [],
+    //     images: product ? product.images : [],
+    //     // Остальные поля формы...
+    // });
+
 
     const [formData, setFormData] = useState({
         name: '',
@@ -17,6 +36,29 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
         characteristics: [],
         images: [],
     });
+
+
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setProductData(data);
+                } else {
+                    console.error('Failed to fetch product data');
+                }
+            } catch (error) {
+                console.error('Error fetching product data:', error);
+            }
+        };
+
+        fetchProduct();
+    }, [productId]);
+
+
+
 
     useEffect(() => {
         if (product) {
@@ -42,29 +84,86 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
 
 
+    // const handleFormSubmit = async (formData) => {
+    //     try {
+    //         let response;
+    //         const token = localStorage.getItem('token');
+    //
+    //         // Проверяем, создается ли новый товар
+    //         if (!selectedProduct) {
+    //             // Проверяем, есть ли уже товар с таким же названием и брендом
+    //             const existingProduct = products.find(
+    //                 (product) =>
+    //                     product.name === formData.name && product.brand === formData.brand
+    //             );
+    //
+    //             if (existingProduct) {
+    //                 // Если товар уже существует, показываем оповещение и выходим из функции
+    //                 toast.error('Такой товар уже существует');
+    //                 return;
+    //             }
+    //         }
+    //
+    //         if (selectedProduct) {
+    //             response = await fetch(
+    //                 `${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`,
+    //                 {
+    //                     method: 'PUT',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         Authorization: `Bearer ${token}`,
+    //                     },
+    //                     body: JSON.stringify(formData),
+    //                 }
+    //             );
+    //         } else {
+    //             response = await fetch(
+    //                 `${process.env.REACT_APP_API_URL}/api/sellers/products`,
+    //                 {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         Authorization: `Bearer ${token}`,
+    //                     },
+    //                     body: JSON.stringify(formData),
+    //                 }
+    //             );
+    //         }
+    //         if (response.ok) {
+    //             clearFormFields();
+    //             const updatedProduct = await response.json();
+    //             setProducts((prevProducts) =>
+    //                 prevProducts.map((product) =>
+    //                     product._id === updatedProduct._id ? updatedProduct : product
+    //                 )
+    //             );
+    //             // setShowForm(false);
+    //             setSelectedProduct(null);
+    //
+    //             // Проверка на успешное создание товара и показ оповещения
+    //             if (selectedProduct) {
+    //                 toast.success('Товар успешно обновлен!');
+    //             } else {
+    //                 toast.success('Товар успешно создан!');
+    //             }
+    //         } else {
+    //             console.error('Failed to save product');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error saving product:', error);
+    //     }
+    // };
+
+
     const handleFormSubmit = async (formData) => {
         try {
             let response;
             const token = localStorage.getItem('token');
 
-            // Проверяем, создается ли новый товар
-            if (!selectedProduct) {
-                // Проверяем, есть ли уже товар с таким же названием и брендом
-                const existingProduct = products.find(
-                    (product) =>
-                        product.name === formData.name && product.brand === formData.brand
-                );
-
-                if (existingProduct) {
-                    // Если товар уже существует, показываем оповещение и выходим из функции
-                    toast.error('Такой товар уже существует');
-                    return;
-                }
-            }
-
-            if (selectedProduct) {
+            if (productId) {
+                // Если есть productId, отправляем запрос на обновление существующего товара
                 response = await fetch(
-                    `${process.env.REACT_APP_API_URL}/api/sellers/products/${selectedProduct._id}`,
+                    `${process.env.REACT_APP_API_URL}/api/sellers/products/${productId}`,
                     {
                         method: 'PUT',
                         headers: {
@@ -75,6 +174,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                     }
                 );
             } else {
+                // Если нет productId, отправляем запрос на создание нового товара
                 response = await fetch(
                     `${process.env.REACT_APP_API_URL}/api/sellers/products`,
                     {
@@ -87,6 +187,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                     }
                 );
             }
+
             if (response.ok) {
                 clearFormFields();
                 const updatedProduct = await response.json();
@@ -95,15 +196,8 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                         product._id === updatedProduct._id ? updatedProduct : product
                     )
                 );
-                // setShowForm(false);
                 setSelectedProduct(null);
-
-                // Проверка на успешное создание товара и показ оповещения
-                if (selectedProduct) {
-                    toast.success('Товар успешно обновлен!');
-                } else {
-                    toast.success('Товар успешно создан!');
-                }
+                toast.success(productId ? 'Товар успешно обновлен!' : 'Товар успешно создан!');
             } else {
                 console.error('Failed to save product');
             }
@@ -111,6 +205,11 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             console.error('Error saving product:', error);
         }
     };
+
+
+
+
+
 
     const clearFormFields = () => {
         setFormData({
