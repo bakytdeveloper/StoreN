@@ -68,6 +68,7 @@ const SellerListPage = () => {
             <table>
                 <thead>
                 <tr>
+                    <th>№</th>
                     <th>Название компании</th>
                     <th>Имя Фам.</th>
                     <th>Email</th>
@@ -82,6 +83,7 @@ const SellerListPage = () => {
                 <tbody>
                 {sellers.slice().reverse().map((seller, index) => (
                     <tr key={index}>
+                        <td>{index + 1}</td>
                         <td>{seller.companyName}</td>
                         <td>{seller.name}</td>
                         <td>{seller.email}</td>
