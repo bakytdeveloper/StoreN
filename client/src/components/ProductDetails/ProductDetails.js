@@ -81,7 +81,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
     return (
         <div className="product-details">
-            <button className="close-button" onClick={handleClose}>
+            <button className="closeButton" onClick={handleClose}>
                 &#10006;
             </button>
             <div className="image-gallery">

@@ -163,7 +163,7 @@ const SellerRegistrationForm = ({ onSubmit }) => {
     };
 
     return (
-        <div className="SellerRegistration">
+        <div className="sellerRegistration">
             <h2>Станьте продавцом</h2>
             <form onSubmit={handleSubmit}>
                 <span className="SellerRegistrationClose" type="button" onClick={handleClose}>
@@ -201,7 +201,7 @@ const SellerRegistrationForm = ({ onSubmit }) => {
                 <input type="tel" name="phone" placeholder="Телефон" value={formData.phone} onChange={handleChange} required />
                 <input type="text" name="address" placeholder="Адрес" value={formData.address} onChange={handleChange} required /> {/* Поле адреса */}
                 <textarea name="companyDescription" placeholder="Описание компании" value={formData.companyDescription} onChange={handleChange} required />
-                <button type="submit">Отправить</button>
+                <button className="sellerForm" type="submit">Отправить</button>
             </form>
         </div>
     );

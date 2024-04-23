@@ -20,9 +20,9 @@
 /*    background: none;*/
 /*    cursor: pointer;*/
 /*}*/
-.close-button {
+.closeButton {
     position: absolute;
-    align-self: flex-start;
+    /*align-self: flex-end;*/
     /*margin-right: auto;*/
     width: 23px;
     font-size: 35px!important;
@@ -30,9 +30,10 @@
     background: none;
     cursor: pointer;
     position: absolute;
-    margin-top: 20px;
-    margin-right: 55px!important;
+    margin-top: 10px;
+    /*margin-right: 55px!important;*/
     color: #024783 !important;
+    margin-left: 90%!important;
 }
 
 .close-button:hover {
@@ -193,8 +194,9 @@ strong {
 
     }
 
-    .close-button {
+    .closeButton {
         margin: 0!important;
+        margin-left: 75% !important;
     }
 
     .thumbnail-gallery {
@@ -216,6 +218,25 @@ strong {
         margin-right: 5px;
         width: 44px;
         height: 44px;
+    }
+
+
+    .actions {
+
+    }
+
+    .buy-now {
+        background: #dddddd;
+        color: #2b2828;
+        font-weight: bold;
+        padding: 2px 5px;
+    }
+
+    .add-to-cart {
+        background: #dddddd;
+        color: #2b2828;
+        font-weight: bold;
+        padding: 2px 5px;
     }
 }
 

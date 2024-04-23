@@ -236,7 +236,7 @@ const Profile = ({ setShowSidebar }) => {
                     className="sidebar-item logout"
                     onClick={handleLogout}
                 >
-                    Выход
+                    На главную
                 </div>
             </div>
 

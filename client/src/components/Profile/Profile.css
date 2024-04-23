@@ -182,11 +182,41 @@ label {
         /*margin-top: 0;*/
     }
     input {
-        font-size: 25px;
+        font-size: 18px;
     }
 
     .profile-content {
         margin: 20px 0 0 0;
         width: 98% !important;
     }
+
+    .sidebar-item {
+        box-shadow: none;
+        border: 1px solid #cbcaca;
+        border-radius: 0;
+    }
+
+    .sidebar-item.active {
+        background-color: #dddddd;
+        color: black;
+    }
+
+    .sidebar-item.logout {
+        margin-top: 20px;
+        background-color: #4dff7a;
+        color: #0a0a0a;
+        box-shadow: 4px 7px 7px #c2c4b2;
+    }
+
+
+    .updateProfile {
+        font-size: 26px;
+        padding: 5px 7px;
+        width: 120px;
+        background: #e0dfdf;
+        box-shadow: none;
+        border: 1px solid #acaaaa;
+
+    }
+
 }

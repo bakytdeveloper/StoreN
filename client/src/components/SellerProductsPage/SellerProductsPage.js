@@ -804,22 +804,27 @@ const SellerProductsPage = () => {
 
     return (
         <div className="seller-panel">
-            <button className="newProduct" onClick={handleCreateProduct}>&#9997; Создать продукт</button>
             <h1>Мои товары</h1>
-            <button style={{fontSize:"25px", fontWeight:"bold", padding:"0"}} onClick={handleGoBack}>
-                Назад к профилю
-            </button>
+            <div className='sellerButtons'>
+                <button className="openProfile"  onClick={handleGoBack}>
+                    Назад к профилю
+                </button>
+                <button className="newProduct" onClick={handleCreateProduct}> Создать продукт</button>
+                {/*<button className="newProduct" onClick={handleCreateProduct}>&#9997; Создать продукт</button>*/}
 
-            <div className="seller-panel">
+            </div>
+
+
+            <div>
                 <ToastContainer /> {/* Добавляем контейнер для оповещений */}
                 {/* Остальной код компонента */}
             </div>
 
-            <div className="product-list">
+            <div className="products-list">
                 {products.map((product) => (
-                    <div className="product-card" key={product._id}>
-                        <button className="admin-btn" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
-                        <button className="admin-btn" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+                    <div className="product-cards" key={product._id}>
+                        <button className="admin-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
+                        <button className="admin-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
 
                         <Link to={`/products/${product._id}`}>
                             <img

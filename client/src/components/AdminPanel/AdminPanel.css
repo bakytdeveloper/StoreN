@@ -119,20 +119,20 @@ h2 {
     background: #007bff;
 }
 
-.newProduct {
-    background: #3c32d9;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 1px;
-    box-shadow: 4px 6px 6px dimgray;
-}
+/*.newProduct {*/
+/*    background: #3c32d9;*/
+/*    font-weight: bold;*/
+/*    font-size: 20px;*/
+/*    padding: 1px;*/
+/*    box-shadow: 4px 6px 6px dimgray;*/
+/*}*/
 
 
-.newProduct:hover {
-    background: #574eea;
-    box-shadow: 2px 3px 3px grey;
+/*.newProduct:hover {*/
+/*    background: #574eea;*/
+/*    box-shadow: 2px 3px 3px grey;*/
 
-}
+/*}*/
 .deleteYN {
     display: inline-flex;
     text-align: center;

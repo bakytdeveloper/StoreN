@@ -294,7 +294,7 @@
     cursor: pointer;
 }
 
-.SellerRegistration {
+.sellerRegistration {
     margin-top: 7%;
 }
 
@@ -351,6 +351,23 @@
         top: 0;
 
 
+    }
+
+    .sellerRegistration {
+        margin-top: 141px;
+    }
+    .sellerRegistration h2 {
+        margin-top: 80px!important;
+    }
+
+    .SellerRegistrationClose {
+        margin-top: -50px;
+    }
+
+    .sellerForm {
+        background: #dddddd;
+        color: #343333;
+        font-weight: bold;
     }
 
     /*.burger {*/

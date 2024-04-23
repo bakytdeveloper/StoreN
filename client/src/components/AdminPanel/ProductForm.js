@@ -263,8 +263,8 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{marginTop: "111px"}}>
-
+        <form className="sellerFormAdd" onSubmit={handleSubmit} >
+            <h2>Добавить товар</h2>
             <label>Категория:</label>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
 

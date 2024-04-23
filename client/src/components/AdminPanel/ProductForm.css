@@ -7,11 +7,12 @@
 
 
 /* src/components/AdminPanel/ProductForm.css */
-form {
+.sellerFormAdd {
     display: flex;
     flex-direction: column;
-    max-width: 85%;
+    width: 70%;
     margin: 0 auto;
+    margin-top: 111px;
 }
 
 label {
@@ -91,6 +92,39 @@ textarea {
 
 
 
+@media screen and (max-width: 768px) {
 
+    .submitBtn {
+        margin-top: 20px;
+    }
+
+    .submit {
+        background: #adb1ad;
+        border-radius: 6px 0 0 6px;
+        box-shadow: 4px 6px 6px dimgray;
+        font-size: 17px;
+        font-weight: bold;
+        color: #1c1b1b;
+    }
+
+
+    .cancel {
+        background: #adb1ad;
+        border-radius: 0 6px 6px 0;
+        box-shadow: 4px 6px 6px dimgray;
+        font-size: 20px;
+        font-weight: bold;
+        color: #1c1b1b;
+    }
+
+    .sellerFormAdd {
+        display: flex;
+        flex-direction: column;
+        width: 88%;
+        margin: 0 auto;
+        margin-top: 209px;
+    }
+
+}
 
 /* Add more styles as needed */
