@@ -32,11 +32,11 @@ table {
 .sellersListPage {
     margin: 0 auto;
 
-    margin-top: 210px;
+    margin-top: 230px;
 }
     .sellersListClose {
         width: 100% !important;
-        background: #8a8aef !important;
+        background: #c7c7c8 !important;
         margin: 0 auto;
         margin-top: 22px!important;
     }
@@ -45,7 +45,9 @@ table {
     }
 
     table {
-        margin-top: 20px;
+        margin-top: 30px!important;
     }
+
+
 
 }
