@@ -555,6 +555,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
     useEffect(() => {
         fetchActiveSellers(); // Загрузка активных продавцов с сервера
     }, []);
+    
 
 
 
