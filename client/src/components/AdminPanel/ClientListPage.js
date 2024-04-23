@@ -1,6 +1,7 @@
 // src/components/AdminPanel/ClientListPage.js
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import './ClientListPage.css';
 
 const ClientListPage = ({setShowSidebar}) => {
     const [clients, setClients] = useState([]);
@@ -34,12 +35,12 @@ const ClientListPage = ({setShowSidebar}) => {
     }, [setShowSidebar]);
 
     return (
-        <div className="client-list-page" style={{ marginTop: "220px" }}>
+        <div className="client-list-page">
             {/*<div className="header">*/}
             <h2>Список клиентов</h2>
-            <button style={{fontSize:"25px", fontWeight:"bold", padding:"0"}} onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
+            <button onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
             {/*</div>*/}
-            <table style={{height:"auto"}}>
+            <table>
                 <thead>
                 <tr>
                     <th>Порядковый номер</th>

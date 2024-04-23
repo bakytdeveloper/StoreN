@@ -521,7 +521,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                             <div className="item-quantity">
                                                 <div className="allSum">
                                                     <div className="sumOne" style={{ fontWeight: "bold" }}> Сумма:
-                                                        <span>{(item.price * item.quantity).toFixed(2)}</span>
+                                                        <span>{(item.price * item.quantity).toFixed(2)}сом</span>
                                                     </div>
                                                 </div>
                                                 <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>

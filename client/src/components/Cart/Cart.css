@@ -365,7 +365,7 @@ h2 {
         margin: 0 auto;
         margin-top: 109px;
         flex-direction: column;
-        padding-top: 50px;
+        padding-top: 30px;
         padding-bottom: 155px;
         /*height: 555px !important;*/
         height: 100% !important;
@@ -379,11 +379,12 @@ h2 {
     }
 
     .item-info {
-        flex-direction: column;
+        /*flex-direction: column;*/
         text-align: center;
         border: none;
         /*margin-left: 9px;*/
         margin: 0 auto;
+
     }
 
     .cart-item {
@@ -392,12 +393,12 @@ h2 {
     }
 
     .cartImg {
-        margin-left: 33px;
+        margin-left: 0;
     }
 
     .sumOne {
-        margin-left: -40px!important;
-        margin-right: -40px;
+        margin-left: -50px!important;
+        margin-right: -50px;
     }
 
     .checkForm {

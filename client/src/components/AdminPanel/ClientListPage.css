@@ -1,0 +1,19 @@
+
+.client-list-page {
+    margin-top: 75px;
+}
+
+.client-list-page button {
+    font-size: 22px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .client-list-page {
+        margin-top: 220px;
+    }
+
+}
