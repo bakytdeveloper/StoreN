@@ -97,7 +97,7 @@ const sellerSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true },
     companyName: { type: String, required: true }, // Название компании покупателя
     companyDescription: { type: String }, // Описание компании
-    status: { type: String, enum: ['pending', 'approved'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'approved', 'suspend'], default: 'pending' },
     role: { type: String, enum: ['seller'], default: 'seller' },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }], // Ссылка на продукты продавца
     createdAt: { type: Date, default: Date.now },
