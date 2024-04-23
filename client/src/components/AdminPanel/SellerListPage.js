@@ -61,9 +61,9 @@ const SellerListPage = () => {
 
     return (
         <div className="sellersListPage">
-            <h2 className="sellerTitle">Список продавцов</h2>
+            <h2  className="sellerTitle">Список продавцов</h2>
             <span className="sellersListClose" type="button" onClick={handleClose}>
-                &#10006;
+               <span> &#10006;</span>
             </span>
             <table>
                 <thead>
