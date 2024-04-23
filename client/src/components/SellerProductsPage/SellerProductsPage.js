@@ -823,8 +823,11 @@ const SellerProductsPage = () => {
             <div className="products-list">
                 {products.map((product) => (
                     <div className="product-cards" key={product._id}>
-                        <button className="admin-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
-                        <button className="admin-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+                        <div className="sellerEditDelete">
+                            <button className="admin-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
+                            <button className="admin-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+
+                        </div>
 
                         <Link to={`/products/${product._id}`}>
                             <img
