@@ -170,7 +170,7 @@ import right from "./arrowsR.png";
 
 
 
-
+//
 // const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 //                          setProducts, showSidebar, setShowSidebar  }) => {
 //     const [selectedType, setSelectedType] = useState(null); // Состояние для отслеживания выбранного типа продукта
@@ -490,6 +490,7 @@ import right from "./arrowsR.png";
 // export default ProductList;
 
 
+
 const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
                          setProducts, showSidebar, setShowSidebar  }) => {
     const [selectedType, setSelectedType] = useState(null); // Состояние для отслеживания выбранного типа продукта
@@ -507,6 +508,17 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
         setCurrentPage(1); // Сброс currentPage до 1 при изменении searchKeyword
     }, [searchKeyword, products]);
 
+    // Асинхронная функция для получения продуктов с сервера с учетом параметров поиска
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}`);
+            const data = await response.json();
+            setFilteredProducts(filterProducts(data || [])); // Фильтрация полученных продуктов
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
     // Асинхронная функция для загрузки продуктов с сервера с учетом параметров поиска и активных продавцов
     const fetchData = async () => {
         try {
@@ -515,7 +527,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
             const activeSellersData = sellersData.filter(seller => seller.status !== 'suspend');
             setActiveSellers(activeSellersData);
 
-            const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
+            const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}`);
             const productsData = await productsResponse.json();
             const filteredProductsData = filterProducts(productsData || [], activeSellersData);
             setFilteredProducts(filteredProductsData);
@@ -524,33 +536,62 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
         }
     };
 
+
     useEffect(() => {
         fetchData(); // Загрузка продуктов и активных продавцов
+    }, [searchKeyword]);
+
+    // Эффект для загрузки продуктов при изменении searchKeyword, selectedType, products, currentPage
+    // Эффект для загрузки продуктов при изменении searchKeyword, selectedType, products, currentPage
+    useEffect(() => {
+        if (products && products.length > 0 && activeSellers.length > 0) { // Убедимся, что activeSellers загружены
+            setFilteredProducts(filterProducts(products, activeSellers)); // Передаем activeSellers в filterProducts
+        } else {
+            fetchProducts(); // Иначе, загрузка продуктов с сервера
+        }
+    }, [searchKeyword, selectedType, products, currentPage, activeSellers]);
+
+    // Эффект для загрузки активных продавцов
+    useEffect(() => {
+        fetchActiveSellers(); // Загрузка активных продавцов с сервера
     }, []);
 
-    // Функция фильтрации продуктов по активным продавцам
-    const filterProducts = (productsToFilter, activeSellersData) => {
-        return productsToFilter.filter(product => {
-            const seller = activeSellersData.find(seller => seller.products.includes(product._id));
-            return seller ? true : false;
-        });
+
+
+// Функция для загрузки активных продавцов
+    const fetchActiveSellers = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`);
+            const data = await response.json();
+            const activeSellersData = data.filter(seller => seller.status !== 'suspend');
+            setActiveSellers(activeSellersData);
+        } catch (error) {
+            console.error('Error fetching active sellers:', error);
+        }
     };
 
-    useEffect(() => {
-        const filtered = products.filter(product =>
-            product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            product.type.toLowerCase().includes(searchKeyword.toLowerCase())
-        );
 
-        if (selectedType) {
-            const filteredByType = filtered.filter(product => product.type === selectedType);
-            setFilteredProducts(filteredByType);
-        } else {
-            setFilteredProducts(filtered);
-        }
-    }, [searchKeyword, selectedType, products]);
+    // Функция фильтрации продуктов
+    // Функция фильтрации продуктов
+    const filterProducts = (productsToFilter, activeSellersData) => {
+        return productsToFilter
+            .filter((product) => !selectedType || product.type === selectedType) // Фильтрация по типу продукта
+            .filter(
+                (product) =>
+                    searchKeyword
+                        ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                        product.type.toLowerCase().includes(searchKeyword.toLowerCase()) // Фильтрация по ключевому слову поиска
+                        : true
+            ).filter(product => {
+                const seller = activeSellersData.find(seller => seller.products.includes(product._id));
+                return seller ? true : false;
+            });
+    };
+
+
+
 
     const history = useHistory();
 
@@ -661,6 +702,13 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products,
 };
 
 export default ProductList;
+
+
+
+
+
+
+
 
 
 
