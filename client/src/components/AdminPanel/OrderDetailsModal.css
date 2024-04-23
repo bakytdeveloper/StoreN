@@ -67,13 +67,14 @@ body.modal-open {
     }
     .modal-content h2 {
         font-size: 40px;
-        margin-left: 100px!important;
+        margin-left: -520px!important;
     }
 
     .close-button {
         position: absolute;
         top: 10px;
-        right: 50px;
+        left: 50px;
+        /*right: 50px;*/
         cursor: pointer;
         font-size: 70px;
         font-weight: bold;
@@ -84,8 +85,9 @@ body.modal-open {
 
     .order-info {
         /*padding-left: 70px;*/
-        margin-left: 30px;
+        margin-left: 11px;
         width: 365px;
+        margin-top: 60px;
     }
 
     .order-info div {

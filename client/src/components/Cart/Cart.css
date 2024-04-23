@@ -397,13 +397,14 @@ h2 {
     }
 
     .sumOne {
-        margin-left: -50px!important;
-        margin-right: -50px;
+        margin-left: -40px!important;
+        margin-right: -40px;
     }
 
     .checkForm {
         margin-top: 17px;
         padding-bottom: 3%;
+
     }
 
     .item-quantity input {
@@ -417,7 +418,7 @@ h2 {
     }
 
     .btnMinus {
-        margin-left: 33px!important;
+        margin-left: 66px!important;
     }
 
     .item-quantity {
