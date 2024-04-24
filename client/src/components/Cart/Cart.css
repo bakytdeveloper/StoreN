@@ -341,9 +341,14 @@ h2 {
     margin-left: 10px;
 }
 
+.emptyCartEls {
+    text-align: center;
+}
+
 .emptyCart {
-    margin-left: 40%;
-    margin-right: 50%;
+    /*margin-left: 38%;*/
+    /*margin-right: 50%;*/
+    margin: 0 auto;
     width: 150px;
     height: auto;
     cursor: pointer;
@@ -351,7 +356,7 @@ h2 {
 }
 
 .emptyCart:hover {
-    width: 149.3px;
+    width: 149px;
     height: auto;
 }
 

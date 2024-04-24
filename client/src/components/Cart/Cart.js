@@ -523,7 +523,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 <hr />
 
                 {cartItems.length === 0 ? (
-                    <img className="emptyCart" src={emptyCart} onClick={handleBackToShopping}></img>
+            <div className="emptyCartEls" onClick={handleBackToShopping}>
+                <img className="emptyCart" src={emptyCart} ></img>
+                <p className="emptyCart">Корзина пуста</p>
+            </div>
                 ) : (
                     <div className="allSection">
                         <div className="sectionOne">
