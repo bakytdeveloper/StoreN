@@ -378,6 +378,23 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
     const handleLoginRegister = async () => {
         if (isRegisterMode) {
+            // Проверка уникальности email перед регистрацией клиента
+            const checkEmailUrl = `${process.env.REACT_APP_API_URL}/api/users/checkEmail?email=${email.toLowerCase()}`;
+            const emailResponse = await fetch(checkEmailUrl);
+            const emailData = await emailResponse.json();
+
+            if (!emailResponse.ok) {
+                // Если запрос не удался, показываем сообщение об ошибке
+                toast.error(emailData.message || 'Произошла ошибка при проверке email');
+                return;
+            }
+
+            if (!emailData.unique) {
+                // Если email уже существует, показываем сообщение "Такой email занят"
+                toast.error('Такой email занят');
+                return;
+            }
+
             // Регистрация нового клиента
             const registerUrl = `${process.env.REACT_APP_API_URL}/api/users/register`;
             try {
@@ -410,9 +427,10 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 toast.error('Произошла ошибка при регистрации');
                 return;
             }
-        }
+    };
 
-        if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
+
+    if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
             // Автоматический вход для администратора
             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
             // toast.success('Successfully logged in as admin');

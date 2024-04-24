@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Order = require('../models/Order');
 const authenticateToken = require("../middleware/authenticateToken");
+const Seller = require("../models/Seller");
 
 
 // Регистрация нового пользователя
@@ -39,6 +40,23 @@ router.post('/register', async (req, res) => {
         res.status(201).json({ user: newUser, token, success: true  });
     } catch (error) {
         res.status(500).json({ message: error.message, success: false });
+    }
+});
+
+
+// Роутер для проверки уникальности email
+router.get('/checkEmail', async (req, res) => {
+    const { email } = req.query;
+    try {
+        const existingUser = await User.findOne({ email });
+        const existingSeller = await Seller.findOne({ email });
+
+        // Проверяем, существует ли пользователь или продавец с таким email
+        const unique = !existingUser && !existingSeller;
+
+        res.json({ unique });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 
