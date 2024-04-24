@@ -188,6 +188,11 @@
     text-align: center;
 }
 
+/*.no-products {*/
+/*    display: inline-flex;*/
+/*    width: 300px;*/
+/*}*/
+
 
 @media only screen and (max-width: 768px) {
     .product-list {
