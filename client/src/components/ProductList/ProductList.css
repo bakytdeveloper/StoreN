@@ -188,10 +188,11 @@
     text-align: center;
 }
 
-/*.no-products {*/
-/*    display: inline-flex;*/
-/*    width: 300px;*/
-/*}*/
+.no-products {
+/*    display: initial;*/
+/*position: relative;*/
+/*    width: 100% !important;*/
+}
 
 
 @media only screen and (max-width: 768px) {
