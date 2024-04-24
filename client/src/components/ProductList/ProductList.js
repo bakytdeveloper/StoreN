@@ -585,7 +585,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                     </div>
                 ))
             ) : (
-                <h2 className="no-products">Товары временно отсутствуют...</h2>
+                <h2 className="no-products">Empty placeholder...</h2>
             )}
 
             {displayedProducts.length > 0 && (
