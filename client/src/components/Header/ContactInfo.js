@@ -15,13 +15,13 @@ const ContactInfo = () => {
                 <a href="https://www.tiktok.com/" target="_blank">
                     <img className="icon" src={tik} alt="TikTok Icon" />
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=996508100777"  target="_blank">
+                <a href="https://api.whatsapp.com/send?phone=996508100777" target="_blank">
                     <img className="icon" src={what} alt="WhatsApp Icon" />
                 </a>
                 <a href="https://www.instagram.com/"  target="_blank" >
                     <img className="icon ins" src={ins} alt="Instagram Icon" />
                 </a>
-                <a href="https://t.me/kanatasa?phone=+996508100777"  target="_blank">
+                <a href="https://t.me/kanatasa?phone=+996508100777" target="_blank">
                     <img className="icon" src={tel} alt="Telegram Icon" />
                 </a>
             </div>

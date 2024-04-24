@@ -295,14 +295,29 @@
 }
 
 .sellerRegistration {
-    margin-top: 7%;
+    margin-top: 10%;
 }
 
 .SellerRegistrationClose {
-    margin-top: -40px;
-    margin-left: 95%;
-    margin-bottom: 20px;
+    margin-top: -50px!important;
+    margin-left: 74%;
+    margin-bottom: 31px!important;
     font-size: 22px;
+    padding: 0;
+    color: #5d5c5c;
+}
+
+.sellerAddForm {
+    padding: 0 10%;
+}
+
+.sellerForm {
+    background: #9d9b9b;
+}
+
+.sellerForm:hover {
+    background: #d9d5d5;
+    color: black;
 }
 
 
@@ -535,6 +550,11 @@
         font-size: 22px;
 
 
+    }
+
+    .SellerRegistrationClose {
+        margin-top: -62px!important;
+        margin-bottom: 50px!important;
     }
 
 

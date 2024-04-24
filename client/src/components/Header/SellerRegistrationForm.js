@@ -165,10 +165,11 @@ const SellerRegistrationForm = ({ onSubmit }) => {
     return (
         <div className="sellerRegistration">
             <h2>Станьте продавцом</h2>
-            <form onSubmit={handleSubmit}>
-                <span className="SellerRegistrationClose" type="button" onClick={handleClose}>
-                    &#10006;
-                </span>
+            <p className="SellerRegistrationClose" type="button" onClick={handleClose}>
+                &#10006;
+            </p>
+            <form className="sellerAddForm" onSubmit={handleSubmit}>
+
                 <input type="text" name="companyName" placeholder="Название компании" value={formData.companyName} onChange={handleChange} required />
                 <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} required />
                 <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
