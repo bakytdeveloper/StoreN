@@ -9,19 +9,19 @@ const ContactInfo = () => {
     return (
         <div className="contact-info">
             <div className="phone">
-                <a href="tel:+996508100777">0(508) 100 777</a>
+                <a href="tel:+996508100777"  target="_blank">0(508) 100 777</a>
             </div>
             <div className="social-icons">
-                <a href="https://www.tiktok.com/">
-                    <img className="icon" src={tik} alt="Instagram Icon" />
+                <a href="https://www.tiktok.com/" target="_blank">
+                    <img className="icon" src={tik} alt="TikTok Icon" />
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=996508100777">
+                <a href="https://api.whatsapp.com/send?phone=996508100777"  target="_blank">
                     <img className="icon" src={what} alt="WhatsApp Icon" />
                 </a>
-                <a href="https://www.instagram.com/">
+                <a href="https://www.instagram.com/"  target="_blank" >
                     <img className="icon ins" src={ins} alt="Instagram Icon" />
                 </a>
-                <a href="https://t.me/kanatasa?phone=+996508100777">
+                <a href="https://t.me/kanatasa?phone=+996508100777"  target="_blank">
                     <img className="icon" src={tel} alt="Telegram Icon" />
                 </a>
             </div>
