@@ -1,10 +1,10 @@
 
 /* src/components/AdminPanel/AdminPanel.css */
 .admin-panel {
-    margin-top: 100px;
-    padding: 20px;
+    margin-top: 55px;
+    padding: 20px 10%;
     width: 90%;
-    margin-bottom: 140px;
+    margin-bottom: 120px;
 }
 
 h2 {

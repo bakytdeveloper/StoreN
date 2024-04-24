@@ -19,20 +19,20 @@ router.post('/register', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const createdAt = new Date(); // Устанавливаем текущую дату и время
+        const createdAt = new Date();
 
         const newSeller = new Seller({
             name: `${firstName} ${lastName}`,
             email,
             password: hashedPassword,
-            address, // Вы можете добавить свойство address в форму и обработать его здесь
+            address,
             phoneNumber: phone,
             companyName,
             companyDescription,
-            createdAt, // Устанавливаем дату и время создания
-            status: 'pending', // Установка значения по умолчанию для поля status
-            role: 'seller', // Установка значения по умолчанию для поля role
-            products: [] // Установка пустого массива для продуктов
+            createdAt,
+            status: 'pending',
+            role: 'seller',
+            products: []
         });
 
         await newSeller.save();
@@ -45,13 +45,22 @@ router.post('/register', async (req, res) => {
     }
 });
 
+// Проверка уникальности email
+router.get('/checkEmail', async (req, res) => {
+    const { email } = req.query;
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            res.json({ unique: false });
+        } else {
+            res.json({ unique: true });
+        }
+    } catch (error) {
+        console.error('Error checking email uniqueness:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
-
-
-
-
-
-// Аутентификация продавца
 // Аутентификация продавца
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -80,6 +89,7 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
 
 
 
@@ -162,18 +172,6 @@ router.get('/profile', authenticateToken, async (req, res) => {
     }
 });
 
-// Создание нового товара
-// router.post('/products', authenticateToken, async (req, res) => {
-//     try {
-//         const { name, description, price, category, type, brand, characteristics, images, quantity = 10 } = req.body;
-//         const newProduct = { name, description, price, category, type, brand, characteristics, images, quantity };
-//         const updatedSeller = await Seller.findByIdAndUpdate(req.user.sellerId, { $push: { products: newProduct } }, { new: true });
-//
-//         res.json(updatedSeller.products);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 // Создание нового товара
 router.post('/products', authenticateToken, async (req, res) => {
@@ -232,40 +230,6 @@ router.delete('/products/:productId', authenticateToken, async (req, res) => {
 
 
 
-
-
-
-
-// // Получение списка всех товаров продавца
-// router.get('/products', authenticateToken, async (req, res) => {
-//     try {
-//         const seller = await Seller.findById(req.user.sellerId);
-//         if (!seller) {
-//             return res.status(404).json({ message: 'Seller not found' });
-//         }
-//         res.json(seller.products);
-//     } catch (error) {
-//         console.error('Error fetching seller products:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
-
-// Получение списка всех товаров продавца
-// Получение списка всех товаров продавца
-// // Получение списка всех товаров продавца
-// router.get('/products', authenticateToken, async (req, res) => {
-//     try {
-//         const seller = await Seller.findById(req.user.sellerId);
-//         if (!seller) {
-//             return res.status(404).json({ message: 'Продавец не найден' });
-//         }
-//         res.json(seller.products);
-//     } catch (error) {
-//         console.error('Ошибка при получении товаров продавца:', error);
-//         res.status(500).json({ message: 'Внутренняя ошибка сервера' });
-//     }
-// });
 
 
 router.get('/products', authenticateToken, async (req, res) => {
