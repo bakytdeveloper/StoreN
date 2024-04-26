@@ -294,6 +294,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     history.push('/');
                 } else if (userData.user.role === 'admin') {
                     history.push('/admin');
+                } else if (userData.user.role === 'seller') {
+                    history.push('/sellerProfile');
                 }
 
                 return;
