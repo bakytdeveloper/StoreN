@@ -219,7 +219,11 @@ const Header = ({ onSearch, cartItems, showSidebar,
 
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
+        if (isAuthenticated) {
+            history.push("/sellerProfile"); // Перенаправляем на страницу профиля продавца при клике на профиль, если пользователь аутентифицирован
+        }
     };
+
 
     const handleLoginClick = () => {
         if (isAuthenticated) {
