@@ -1,9 +1,10 @@
 
 // src/components/Admin/OrderItem.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 const SellerItem = ({ seller, onUpdateStatus }) => {
     const [selectedStatus, setSelectedStatus] = useState(seller.status);
+
 
     const handleChange = (e) => {
         // Обновляем локальное состояние при изменении значения в select

@@ -10,6 +10,15 @@ const SellerListPage = () => {
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const history = useHistory();
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        if (!token || role !== 'seller') {
+            // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
+            history.push('/login');
+        }
+    }, [history]);
+
     const fetchSellersFromDatabase = async () => {
         try {
             const response = await fetch(`${apiUrl}/api/sellers`);

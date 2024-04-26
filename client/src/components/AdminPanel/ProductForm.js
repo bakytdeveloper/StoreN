@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductForm.css';
 import {toast} from "react-toastify";
-import {useLocation, useParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 
 // const ProductForm = ({ onSubmit, onCancel }) => {
 //     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -266,6 +266,16 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     });
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
+    const history = useHistory();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        if (!token || role !== 'seller') {
+            // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
+            history.push('/login');
+        }
+    }, [history]);
 
     useEffect(() => {
         const fetchProduct = async () => {

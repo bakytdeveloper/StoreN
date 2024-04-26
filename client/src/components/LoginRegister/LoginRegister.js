@@ -327,6 +327,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 if (sellerData.seller.status === 'approved') {
                     // Если статус "approved", перенаправляем на страницу профиля продавца
                     localStorage.setItem('token', sellerData.token);
+                    localStorage.setItem('role', 'seller'); // Сохраняем роль продавца в localStorage
                     toast.success('Успешный вход как продавец');
                     history.push('/sellerProfile');
                     return;
@@ -335,6 +336,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     toast.error('Ваш аккаунт еще не подтвержден');
                 }
             }
+
         } catch (error) {
             console.error('Seller fetch error:', error);
             toast.error('Произошла ошибка');

@@ -633,10 +633,13 @@ const SellerProductsPage = () => {
     // Проверка, аутентифицирован ли пользователь
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (!token) {
-            history.push('/login'); // Перенаправление на страницу входа, если нет токена
+        const role = localStorage.getItem('role');
+        if (!token || role !== 'seller') {
+            // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
+            history.push('/login');
         }
     }, [history]);
+
 
     useEffect(() => {
         const fetchSellerProducts = async () => {
