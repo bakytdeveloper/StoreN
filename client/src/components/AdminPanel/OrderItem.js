@@ -20,11 +20,13 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
     let statusColor;
     if (selectedStatus === 'pending') {
-        statusColor = '#06abd4';
-    } else if (selectedStatus === 'completed') {
-        statusColor = 'greenyellow';
+        statusColor = '#f81a60';
+    } else if (selectedStatus === 'inProgress') {
+        statusColor = '#3291f8';
+    }  else if (selectedStatus === 'completed') {
+        statusColor = '#d7d5d5';
     } else if (selectedStatus === "cancelled") {
-        statusColor = '#fab45d';
+        statusColor = '#5f5b5c';
     }
 
 
@@ -38,6 +40,7 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
                 >
                     <option value="pending">Pending</option>
+                    <option value="inProgress">in Progress</option>
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
