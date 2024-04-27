@@ -86,8 +86,13 @@ const Header = ({ onSearch, cartItems, showSidebar,
 
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
+        const role = localStorage.getItem('role'); // Получаем роль пользователя или администратора
         if (isAuthenticated) {
-            history.push("/sellerProfile"); // Перенаправляем на страницу профиля продавца при клике на профиль, если пользователь аутентифицирован
+            if (role === 'customer') {
+                history.push("/profile"); // Перенаправляем на страницу профиля клиента при клике на профиль, если пользователь аутентифицирован
+            } else if (role === 'seller') {
+                history.push("/sellerProfile"); // Перенаправляем на страницу профиля продавца при клике на профиль, если пользователь аутентифицирован как продавец
+            }
         }
     };
 

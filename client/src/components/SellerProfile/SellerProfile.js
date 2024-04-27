@@ -139,8 +139,8 @@ const SellerProfile = ({ setShowSidebar }) => {
     const handleLogout = () => {
         // Реализуйте функциональность выхода
         // Например, очистка localStorage и перенаправление на главную страницу
-        localStorage.removeItem('token');
-        setSeller(null);
+        // localStorage.removeItem('token');
+        // setSeller(null);
         history.push('/');
     };
 
@@ -174,7 +174,7 @@ const SellerProfile = ({ setShowSidebar }) => {
                     История продаж
                 </div>
                 <div className="sidebar-item logout" onClick={handleLogout}>
-                    Выход
+                    На главную
                 </div>
             </div>
 

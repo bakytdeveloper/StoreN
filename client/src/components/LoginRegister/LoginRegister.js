@@ -284,9 +284,11 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
             const userData = await userAdminResponse.json();
 
+
             if (userAdminResponse.ok) {
                 // Успешная аутентификация пользователя или администратора
                 localStorage.setItem('token', userData.token);
+                localStorage.setItem('role', userData.user.role); // Сохраняем роль пользователя или администратора
                 toast.success('Успешный вход');
 
                 // Перенаправляем на нужную страницу в зависимости от роли
