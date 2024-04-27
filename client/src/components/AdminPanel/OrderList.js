@@ -7,10 +7,12 @@ import './OrderList.css';
 import OrderItem from "./OrderItem"; // Подключение стилей
 import OrderDetailsModal from './OrderDetailsModal'; // Создайте компонент для отображения деталей заказа
 import './OrderList.css';
+import {useHistory} from "react-router-dom";
 
 const OrderList = ({ setShowSidebar }) => {
     const [orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -98,10 +100,19 @@ const OrderList = ({ setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
+    const handleClose = () => {
+        // history.push('/');
+        history.goBack(); // Переход на предыдущую страницу
+    };
+
+
 
     return (
         <div className="order">
             <h2>Список заказов</h2>
+            <span className="sellersListClose" type="button" onClick={handleClose}>
+               <span> &#10006;</span>
+            </span>
             <table>
                 <thead>
                 <tr>

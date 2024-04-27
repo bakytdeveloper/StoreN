@@ -4,20 +4,23 @@ import React, { useState, useEffect } from 'react';
 import {useHistory} from "react-router-dom";
 import './SellerListPage.css';
 import SellerItem from "./SellerItem";
+import {toast} from "react-toastify";
 
 const SellerListPage = () => {
     const [sellers, setSellers] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const history = useHistory();
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     const role = localStorage.getItem('role');
-    //     if (!token || role !== 'seller') {
-    //         // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
-    //         history.push('/login');
-    //     }
-    // }, [history]);
+    // Проверка, аутентифицирован ли пользователь
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        if (!token || (role === 'admin' && role !== 'seller')) {
+            toast.error('Ваш аккаунт еще не подтвержден');
+
+            history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не является администратором или продавцом
+        }
+    }, [history]);
 
     const fetchSellersFromDatabase = async () => {
         try {
@@ -37,7 +40,8 @@ const SellerListPage = () => {
     }, []);
 
     const handleClose = () => {
-        history.push('/');
+        // history.push('/');
+        history.goBack(); // Переход на предыдущую страницу
     };
 
 
