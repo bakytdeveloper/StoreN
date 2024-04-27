@@ -693,7 +693,7 @@ const SellerProductsPage = () => {
             });
 
             if (response.ok) {
-                setProducts((prevProducts) => prevProducts.filter((product) => product._id !== selectedProduct));
+                setProducts(prevProducts => prevProducts.filter(product => product._id !== selectedProduct));
             } else {
                 console.error('Failed to delete product');
             }

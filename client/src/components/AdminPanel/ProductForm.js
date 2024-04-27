@@ -278,9 +278,35 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         }
     }, [history]);
 
+    // useEffect(() => {
+    //     const fetchProduct = async () => {
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setProductData(data);
+    //             } else {
+    //                 // console.error('Failed to fetch product data');
+    //                 setTimeout(() => {
+    //                     console.error('Failed to fetch product data')
+    //                 }, 100)
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching product data:', error);
+    //         }
+    //     };
+    //     fetchProduct();
+    // }, [productId]);
+
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
+                // Проверяем, определен ли productId
+                if (!productId) {
+                    return;
+                }
+
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
                 if (response.ok) {
                     const data = await response.json();
@@ -294,6 +320,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         };
         fetchProduct();
     }, [productId]);
+
 
     useEffect(() => {
         if (product) {
