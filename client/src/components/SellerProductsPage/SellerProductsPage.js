@@ -635,6 +635,7 @@ const SellerProductsPage = () => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
         if (!token || role !== 'seller') {
+            toast.error('Ваш аккаунт еще не подтвержден');
             // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
             history.push('/login');
         }

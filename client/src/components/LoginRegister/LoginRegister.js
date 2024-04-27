@@ -289,7 +289,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 // Успешная аутентификация пользователя или администратора
                 localStorage.setItem('token', userData.token);
                 localStorage.setItem('role', userData.user.role); // Сохраняем роль пользователя или администратора
-                toast.success('Успешный вход');
+                const userName = userData.user.name; // Получаем имя пользователя
+                toast.success(`Приветствую вас, ${userName}!`); // Вставляем имя пользователя в приветствие
 
                 // Перенаправляем на нужную страницу в зависимости от роли
                 if (userData.user.role === 'customer') {
