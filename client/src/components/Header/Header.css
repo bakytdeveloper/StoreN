@@ -63,10 +63,14 @@
 .phone {
     margin-right: 20px;
     font-weight: bold;
-    cursor: pointer;
     font-size: 18px;
     color: #1f1c1c;
     margin-top: 7px;
+}
+
+.phone-link {
+    pointer-events: none; /* отключаем кликабельность на больших экранах */
+    cursor: default; /* меняем курсор на обычный */
 }
 
 .workingTime {
@@ -1078,4 +1082,9 @@
 
 
 
-
+@media (min-width: 768px) {
+    .phone-link {
+        pointer-events: none; /* отключаем кликабельность на больших экранах */
+        cursor: default; /* меняем курсор на обычный */
+    }
+}

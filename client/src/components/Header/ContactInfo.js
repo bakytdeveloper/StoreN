@@ -9,7 +9,7 @@ const ContactInfo = () => {
     return (
         <div className="contact-info">
             <div className="phone">
-                <a href="tel:+996508100777"  target="_blank">0(508) 100 777</a>
+                <a className="phone-link" href="tel:+996508100777"  target="_blank">0(508) 100 777</a>
             </div>
             <div className="social-icons">
                 <a href="https://www.tiktok.com/" target="_blank">
