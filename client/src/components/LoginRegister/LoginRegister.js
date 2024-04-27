@@ -331,7 +331,10 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     // Если статус "approved", перенаправляем на страницу профиля продавца
                     localStorage.setItem('token', sellerData.token);
                     localStorage.setItem('role', 'seller'); // Сохраняем роль продавца в localStorage
-                    toast.success('Успешный вход как продавец');
+
+                    const userName = sellerData.seller.name; // Получаем имя пользователя
+                    toast.success(`Приветствую вас, ${userName}!`); // Вставляем имя пользователя в приветствие
+                    // toast.success('Успешный вход как продавец');
                     history.push('/sellerProfile');
                     return;
                 } else {

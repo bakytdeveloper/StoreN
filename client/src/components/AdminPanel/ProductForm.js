@@ -451,9 +451,18 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         handleFormSubmit(formData);
     };
 
+    const handleClose = () => {
+        // history.push('/');
+        history.goBack(); // Переход на предыдущую страницу
+    };
+
+
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Добавить товар</h2>
+            <span className="sellersListClose" type="button" onClick={handleClose}>
+               <span> &#10006;</span>
+            </span>
             <label>Категория:</label>
             <select name="category" value={formData.category} onChange={handleChange} required>
                 <option value="">Выберите категорию</option>
@@ -514,7 +523,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 Добавить изображение
             </button>
             <div className="submitBtn">
-                <button className="submit" onClick={() => handleFormSubmit(formData)}>&#10004; Создать продукт</button>
+                <button className="submit" type="submit">&#10004; Создать продукт</button>
                 <button className="cancel" type="button" onClick={onCancel}>&#10006; Отмена</button>
             </div>
         </form>
