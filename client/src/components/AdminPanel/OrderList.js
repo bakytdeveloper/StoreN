@@ -156,7 +156,7 @@ const OrderList = ({ setShowSidebar }) => {
                                     defaultValue={order.comments ? order.comments : '-'}
                                 ></textarea>
                         </td>
-                        <td onClick={() => handleOrderClick(order)}>
+                        <td className="orderDetailOneClient" onClick={() => handleOrderClick(order)}>
                             {order.products.map((item) => (
                                 <span key={item.product?._id}>
                                     {item.product?.type}: {item.quantity}шт; <br />

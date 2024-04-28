@@ -29,6 +29,10 @@ thead th, tbody td {
     font-size: 12px;
 }
 
+.orderDetailOneClient {
+    cursor: pointer;
+}
+
 thead th {
     background-color: #f2f2f2;
 }
