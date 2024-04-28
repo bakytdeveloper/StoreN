@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const Seller = require('../models/Seller');
 const authenticateToken = require("../middleware/authenticateToken");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 
 
 // Создание нового продавца
@@ -161,6 +162,7 @@ router.put('/update-password', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 // Получение информации о текущем продавце
 router.get('/profile', authenticateToken, async (req, res) => {

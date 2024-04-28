@@ -4,6 +4,7 @@ const router = express.Router();
 const Order = require('../models/Order');
 const User = require("../models/User");
 const authenticateToken = require("../middleware/authenticateToken");
+const Seller = require("../models/Seller");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
@@ -215,6 +216,30 @@ router.put('/update-comments-admin/:orderId', async (req, res) => {
         } else {
             res.status(404).json({ message: 'Order not found' });
         }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
+// Получение истории продаж товаров текущего продавца
+router.get('/sales-history', authenticateToken, async (req, res) => {
+    try {
+        // Находим продавца
+        const seller = await Seller.findById(req.user.sellerId);
+        if (!seller) {
+            return res.status(404).json({ message: 'Продавец не найден' });
+        }
+
+        // Находим все продукты, принадлежащие данному продавцу
+        const products = seller.products;
+
+        // Находим все заказы, содержащие эти продукты
+        const orders = await Order.find({ 'products.product': { $in: products } }).populate('user', 'name email');
+
+        res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
