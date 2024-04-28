@@ -21,6 +21,7 @@ import SellerListPage from "./components/AdminPanel/SellerListPage";
 import SellerProfile from "./components/SellerProfile/SellerProfile";
 import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPage";
 import ProductForm from "./components/AdminPanel/ProductForm";
+import SalesHistory from "./components/SalesHistory/SalesHistory";
 
 
 
@@ -111,6 +112,9 @@ const App = () => {
                         />
                     </Route>
 
+                    <Route path="/seller/sales-history">
+                        <SalesHistory  />
+                    </Route>
 
                     <Route path="/products/:productId">
                         <ProductDetails

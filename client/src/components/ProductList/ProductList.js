@@ -15,7 +15,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeSellers, setActiveSellers] = useState([]);
-    const productsPerPage = 10;
+    const productsPerPage = 12;
 
     useEffect(() => {
         window.scrollTo(0, 0);

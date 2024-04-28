@@ -223,28 +223,6 @@ router.put('/update-comments-admin/:orderId', async (req, res) => {
 
 
 
-
-// Получение истории продаж товаров текущего продавца
-router.get('/sales-history', authenticateToken, async (req, res) => {
-    try {
-        // Находим продавца
-        const seller = await Seller.findById(req.user.sellerId);
-        if (!seller) {
-            return res.status(404).json({ message: 'Продавец не найден' });
-        }
-
-        // Находим все продукты, принадлежащие данному продавцу
-        const products = seller.products;
-
-        // Находим все заказы, содержащие эти продукты
-        const orders = await Order.find({ 'products.product': { $in: products } }).populate('user', 'name email');
-
-        res.json(orders);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
 module.exports = router;
 
 
