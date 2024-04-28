@@ -24,9 +24,9 @@ const OrderItem = ({ order, onUpdateStatus }) => {
     } else if (selectedStatus === 'inProgress') {
         statusColor = '#3291f8';
     }  else if (selectedStatus === 'completed') {
-        statusColor = '#d7d5d5';
+        statusColor = '#e0dcdc';
     } else if (selectedStatus === "cancelled") {
-        statusColor = '#5f5b5c';
+        statusColor = '#9f9d9d';
     }
 
 
