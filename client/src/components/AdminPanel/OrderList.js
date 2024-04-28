@@ -136,7 +136,7 @@ const OrderList = ({ setShowSidebar }) => {
                 <tbody>
                 {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id} >
-                        <td  onClick={() => handleOrderClick(order)}>{index + 1}</td>
+                        <td>{index + 1}</td>
                         <td onClick={() => handleOrderClick(order)}>{order.user ? order.user.role : 'Гость'}</td>
                         <td onClick={() => handleOrderClick(order)}>
                             {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
@@ -156,7 +156,7 @@ const OrderList = ({ setShowSidebar }) => {
                                     defaultValue={order.comments ? order.comments : '-'}
                                 ></textarea>
                         </td>
-                        <td>
+                        <td onClick={() => handleOrderClick(order)}>
                             {order.products.map((item) => (
                                 <span key={item.product?._id}>
                                     {item.product?.type}: {item.quantity}шт; <br />
@@ -164,7 +164,7 @@ const OrderList = ({ setShowSidebar }) => {
                             ))}
 
                         </td>
-                        <td>{new Date(order.date).toLocaleString()}</td>
+                        <td onClick={() => handleOrderClick(order)}>{new Date(order.date).toLocaleString()}</td>
                        <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
 
                         <td>
