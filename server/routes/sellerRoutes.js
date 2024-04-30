@@ -93,8 +93,6 @@ router.post('/login', async (req, res) => {
 
 
 
-
-
 // Получение списка всех продавцов
 router.get('/', async (req, res) => {
     try {
