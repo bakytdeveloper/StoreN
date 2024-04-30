@@ -43,7 +43,6 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         };
     }, []);
 
-
     useEffect(() => {
         const handleBodyScroll = (event) => {
             if (!showSidebar && isSmallScreen) {
