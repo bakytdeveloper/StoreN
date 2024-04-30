@@ -105,7 +105,7 @@ const SellerProfile = ({ setShowSidebar }) => {
         setConfirmPassword('');
     };
 
-    
+
     const handleSavePassword = async () => {
         try {
             const token = localStorage.getItem('token');
