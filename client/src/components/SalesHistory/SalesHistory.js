@@ -1,95 +1,8 @@
-// import React, { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import './SalesHistory.css';
-//
-// const SalesHistory = () => {
-//     const [orders, setOrders] = useState([]);
-//     const history = useHistory();
-//
-//     useEffect(() => {
-//         const fetchSalesHistory = async () => {
-//             try {
-//                 const token = localStorage.getItem('token');
-//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/sales-history`, {
-//                     method: 'GET',
-//                     headers: {
-//                         'Authorization': `Bearer ${token}`,
-//                     },
-//                 });
-//                 if (response.ok) {
-//                     const data = await response.json();
-//
-//                     console.log("DATA:", data);
-//
-//                     setOrders(data);
-//                 } else {
-//                     console.error('Error fetching sales history:', response.statusText);
-//                 }
-//             } catch (error) {
-//                 console.error('Error fetching sales history:', error);
-//             }
-//         };
-//
-//         fetchSalesHistory();
-//     }, []);
-//
-//     const formatDate = (date) => {
-//         return new Date(date).toLocaleDateString();
-//     };
-//
-//
-//
-//     const handleGoBack = () => {
-//         history.goBack();
-//     };
-//
-//     return (
-//         <div className="order">
-//             <h2>История продаж</h2>
-//             <span className="sellersListClose" type="button" onClick={handleGoBack}>
-//                <span> &#10006;</span>
-//             </span>
-//             <table>
-//                 <thead>
-//                 <tr>
-//                     <th>Номер заказа</th>
-//                     <th>Дата</th>
-//                     <th>Статус</th>
-//                     <th>Товары</th>
-//                     <th>Сумма</th>
-//                 </tr>
-//                 </thead>
-//                 <tbody>
-//                 {orders.slice().reverse().map((order, index) => (
-//                     <tr key={order._id}>
-//                         <td>{index + 1}</td>
-//                         <td>{formatDate(order.date)}</td>
-//                         <td>{order.status}</td>
-//                         <td>
-//                             <ul>
-//                                 {order.products.map((product) => (
-//                                     <li key={product._id}>{product.name}</li>
-//                                 ))}
-//                             </ul>
-//                         </td>
-//                         <td>{order.totalAmount}</td>
-//                     </tr>
-//                 ))}
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// };
-//
-// export default SalesHistory;
-
-
-
 
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-// const SalesHistory = () => {
+// const SalesHistory = ({ sellerId }) => {
 //     const [orders, setOrders] = useState([]);
 //     const history = useHistory();
 //
@@ -105,7 +18,14 @@ import { useHistory } from 'react-router-dom';
 //                 });
 //                 if (response.ok) {
 //                     const data = await response.json();
-//                     setOrders(data);
+//                     const filteredOrders = data.map(order => {
+//                         // Фильтруем товары в заказе, оставляем только те, которые принадлежат текущему продавцу
+//                         const filteredProducts = order.products.filter(product => {
+//                             return product.product && product.product.seller === sellerId;
+//                         });
+//                         return { ...order, products: filteredProducts };
+//                     });
+//                     setOrders(filteredOrders);
 //                 } else {
 //                     console.error('Error fetching sales history:', response.statusText);
 //                 }
@@ -115,7 +35,7 @@ import { useHistory } from 'react-router-dom';
 //         };
 //
 //         fetchSalesHistory();
-//     }, []);
+//     }, [sellerId]);
 //
 //     const formatDate = (date) => {
 //         return new Date(date).toLocaleDateString();
@@ -153,13 +73,14 @@ import { useHistory } from 'react-router-dom';
 //                         <td>
 //                             {order.products.map((item, index) => (
 //                                 <span key={item.product?._id}>
-//                                         {item.product?.type}: {item.quantity}шт; <br />
-//                                     </span>
+//                                     {item.product?.type} {item.product?.name}: {item.quantity}шт; <br />
+//                                 </span>
 //                             ))}
 //                         </td>
 //                         <td>{order.totalAmount}</td>
 //                         <td>
 //                             {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
+//                             {/*{order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}*/}
 //                         </td>
 //                         <td>{order.address}</td>
 //                         <td>{order.phoneNumber}</td>
@@ -198,7 +119,11 @@ const SalesHistory = ({ sellerId }) => {
                         const filteredProducts = order.products.filter(product => {
                             return product.product && product.product.seller === sellerId;
                         });
-                        return { ...order, products: filteredProducts };
+                        // Вычисляем сумму только для товаров текущего продавца
+                        const totalAmount = filteredProducts.reduce((total, item) => {
+                            return total + (item.product.price * item.quantity);
+                        }, 0);
+                        return { ...order, products: filteredProducts, totalAmount };
                     });
                     setOrders(filteredOrders);
                 } else {
@@ -232,6 +157,7 @@ const SalesHistory = ({ sellerId }) => {
                     <th>Дата</th>
                     <th>Статус</th>
                     <th>Товары</th>
+                    <th>Цена</th>
                     <th>Сумма</th>
                     <th>Покупатель</th>
                     <th>Адрес доставки</th>
@@ -249,6 +175,13 @@ const SalesHistory = ({ sellerId }) => {
                             {order.products.map((item, index) => (
                                 <span key={item.product?._id}>
                                     {item.product?.type} {item.product?.name}: {item.quantity}шт; <br />
+                                </span>
+                            ))}
+                        </td>
+                        <td>
+                            {order.products.map((item, index) => (
+                                <span key={item.product?._id}>
+                                    {item.product?.price} KGS <br />
                                 </span>
                             ))}
                         </td>
@@ -270,3 +203,7 @@ const SalesHistory = ({ sellerId }) => {
 };
 
 export default SalesHistory;
+
+
+
+
