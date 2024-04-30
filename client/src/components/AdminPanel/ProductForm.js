@@ -491,15 +491,16 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                <span> &#10006;</span>
             </span>
             <label>Категория:</label>
-            <select name="category" value={formData.category} onChange={handleChange} required>
+            <select name="category" value={formData.category} onChange={handleChange} >
                 <option value="">Выберите категорию</option>
                 {categories.map((category, index) => (
                     <option key={index} value={category}>{category}</option>
                 ))}
             </select>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
+
             <label>Тип:</label>
-            <select name="type" value={formData.type} onChange={handleChange} required>
+            <select name="type" value={formData.type} onChange={handleChange} >
                 <option value="">Выберите тип</option>
                 {types.map((type, index) => (
                     <option key={index} value={type}>{type}</option>
