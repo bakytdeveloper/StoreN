@@ -1,11 +1,11 @@
 
-import React, {useState, useEffect, useCallback} from 'react';
-import './ProductList.css';
-import bas from './basket.png';
-import { Link, useHistory } from 'react-router-dom';
-import Sidebar from "../Sidebar/Sidebar";
-import left from "./arrowsL.png";
-import right from "./arrowsR.png";
+// import React, {useState, useEffect, useCallback} from 'react';
+// import './ProductList.css';
+// import bas from './basket.png';
+// import { Link, useHistory } from 'react-router-dom';
+// import Sidebar from "../Sidebar/Sidebar";
+// import left from "./arrowsL.png";
+// import right from "./arrowsR.png";
 
 
 
@@ -194,6 +194,13 @@ import right from "./arrowsR.png";
 //
 // export default ProductList;
 
+import React, {useState, useEffect, useCallback} from 'react';
+import './ProductList.css';
+import bas from './basket.png';
+import { Link, useHistory } from 'react-router-dom';
+import Sidebar from "../Sidebar/Sidebar";
+import left from "./arrowsL.png";
+import right from "./arrowsR.png";
 
 
 
@@ -205,6 +212,11 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     const [productsPerPage, setProductsPerPage] = useState(12); // Изменено количество карточек на странице
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [resizeTimer, setResizeTimer] = useState(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // При изменении текущей страницы скроллируем наверх
+    }, [currentPage]);
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -330,6 +342,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     useEffect(() => {
         if (windowWidth >= 1400) {
             setProductsPerPage(15);
+        }if (windowWidth < 450) {
+            setProductsPerPage(10);
         } else {
             setProductsPerPage(12);
         }

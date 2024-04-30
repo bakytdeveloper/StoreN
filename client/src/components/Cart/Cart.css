@@ -117,7 +117,7 @@ h2 {
 .sumKg span {
     margin-top: 10px;
     font-weight: bold;
-    color: #007bff;
+    color: #899199;
 }
 
 /*.item-quantity {*/
@@ -290,17 +290,17 @@ h2 {
 }
 
 .section-indicator .active {
-    color: #6cd0ee;
+    color: #0e5eff;
     border: 1px solid #1d3030 !important;
     border-radius: 50%;
     padding: 4px 11px;
-    background: #989292 !important;
+    background: #eeecec !important;
 }
 
 .buy_next {
     height: 33px;
     margin-top: 11px;
-    background: #5d5c5c;
+    background: #929292;
 }
 
 .radioButtons {
