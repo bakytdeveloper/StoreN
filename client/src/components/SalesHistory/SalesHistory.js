@@ -104,7 +104,6 @@ const SalesHistory = ({ sellerId }) => {
     const [orders, setOrders] = useState([]);
     const history = useHistory();
 
-
     useEffect(() => {
         const fetchSalesHistory = async () => {
             try {
