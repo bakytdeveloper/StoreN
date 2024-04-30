@@ -22,13 +22,16 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
                 const data = await response.json();
-                setProduct(data.product);
-                // Remove unwanted parts from image URLs
-                const images = data.product.images.map(image => image.replace("images/W/MEDIAX_792452-T2/", ""));
-                setProduct(prevProduct => ({
-                    ...prevProduct,
+                if (!data.product) {
+                    console.error('Product data is undefined or null');
+                    return;
+                }
+                const productData = data.product;
+                const images = productData.images ? productData.images.map(image => image.replace("images/W/MEDIAX_792452-T2/", "")) : [];
+                setProduct({
+                    ...productData,
                     images: images
-                }));
+                });
                 setSelectedImage(images[0]); // Set the first image as the main one
             } catch (error) {
                 console.error('Error fetching product details:', error);
@@ -41,6 +44,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     if (!product) {
         return <div>Loading...</div>;
     }
+
+
+
 
     const handleImageClick = (image) => {
         setSelectedImage(image);
