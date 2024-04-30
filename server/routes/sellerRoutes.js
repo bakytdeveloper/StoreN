@@ -287,7 +287,73 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 
 
 // Получение истории продаж товаров текущего продавца
-// Получение истории продаж товаров текущего продавца
+// // Получение истории продаж товаров текущего продавца
+// router.get('/sales-history', authenticateToken, async (req, res) => {
+//     try {
+//         // Находим продавца
+//         const seller = await Seller.findById(req.user.sellerId);
+//         if (!seller) {
+//             return res.status(404).json({ message: 'Продавец не найден' });
+//         }
+//
+//         // Находим все продукты, принадлежащие данному продавцу
+//         const products = seller.products;
+//
+//         // Агрегация для поиска заказов с товарами текущего продавца
+//         const orders = await Order.aggregate([
+//             {
+//                 $match: {
+//                     'products.product': { $in: products }
+//                 }
+//             },
+//             {
+//                 $addFields: {
+//                     products: {
+//                         $filter: {
+//                             input: '$products',
+//                             as: 'product',
+//                             cond: { $in: ['$$product.product', products] }
+//                         }
+//                     }
+//                 }
+//             },
+//             {
+//                 $lookup: {
+//                     from: 'users',
+//                     localField: 'user',
+//                     foreignField: '_id',
+//                     as: 'user'
+//                 }
+//             },
+//             {
+//                 $addFields: {
+//                     user: { $arrayElemAt: ['$user', 0] }
+//                 }
+//             },
+//             {
+//                 $project: {
+//                     guestInfo: 1,
+//                     cart: 1,
+//                     products: 1,
+//                     totalAmount: 1,
+//                     status: 1,
+//                     date: 1,
+//                     address: 1,
+//                     phoneNumber: 1,
+//                     paymentMethod: 1,
+//                     comments: 1,
+//                     user: { name: 1, email: 1 }
+//                 }
+//             }
+//         ]);
+//
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 router.get('/sales-history', authenticateToken, async (req, res) => {
     try {
         // Находим продавца
@@ -331,6 +397,37 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                 }
             },
             {
+                $lookup: {
+                    from: 'products',
+                    localField: 'products.product',
+                    foreignField: '_id',
+                    as: 'productDetails'
+                }
+            },
+            {
+                $addFields: {
+                    products: {
+                        $map: {
+                            input: '$products',
+                            as: 'product',
+                            in: {
+                                $mergeObjects: [
+                                    '$$product',
+                                    {
+                                        product: {
+                                            $arrayElemAt: [
+                                                { $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } },
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            {
                 $project: {
                     guestInfo: 1,
                     cart: 1,
@@ -352,6 +449,7 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 

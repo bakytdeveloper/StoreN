@@ -177,7 +177,7 @@ import { useHistory } from 'react-router-dom';
 
 
 
-const SalesHistory = () => {
+const SalesHistory = ({ sellerId }) => {
     const [orders, setOrders] = useState([]);
     const history = useHistory();
 
@@ -193,7 +193,14 @@ const SalesHistory = () => {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setOrders(data);
+                    const filteredOrders = data.map(order => {
+                        // Фильтруем товары в заказе, оставляем только те, которые принадлежат текущему продавцу
+                        const filteredProducts = order.products.filter(product => {
+                            return product.product && product.product.seller === sellerId;
+                        });
+                        return { ...order, products: filteredProducts };
+                    });
+                    setOrders(filteredOrders);
                 } else {
                     console.error('Error fetching sales history:', response.statusText);
                 }
@@ -203,7 +210,7 @@ const SalesHistory = () => {
         };
 
         fetchSalesHistory();
-    }, []);
+    }, [sellerId]);
 
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString();
@@ -241,18 +248,14 @@ const SalesHistory = () => {
                         <td>
                             {order.products.map((item, index) => (
                                 <span key={item.product?._id}>
-                                    {/* Проверяем, принадлежит ли товар текущему продавцу */}
-                                    {item.product?.seller === sellerId && (
-                                        <>
-                                            {item.product?.type}: {item.quantity}шт; <br />
-                                        </>
-                                    )}
+                                    {item.product?.type} {item.product?.name}: {item.quantity}шт; <br />
                                 </span>
                             ))}
                         </td>
                         <td>{order.totalAmount}</td>
                         <td>
                             {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
+                            {/*{order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}*/}
                         </td>
                         <td>{order.address}</td>
                         <td>{order.phoneNumber}</td>
