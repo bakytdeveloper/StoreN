@@ -1,6 +1,6 @@
-
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+//
+// import React, { useState, useEffect } from 'react';
+// import { useHistory } from 'react-router-dom';
 
 // const SalesHistory = ({ sellerId }) => {
 //     const [orders, setOrders] = useState([]);
@@ -97,6 +97,8 @@ import { useHistory } from 'react-router-dom';
 // export default SalesHistory;
 
 
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const SalesHistory = ({ sellerId }) => {
     const [orders, setOrders] = useState([]);
