@@ -141,7 +141,10 @@ const Header = ({ onSearch, cartItems, showSidebar,
             <div className="auth-buttons">
                 <Link to="/cart" style={{ display: "inline-flex" }} className="auth-button btn" onClick={handleCartClick}>
                     <img src={cart} alt="Cart Icon" />
-                    <span className="totalItems">({cartItems.length})</span>
+                    <span className="totalItems">
+                        ({cartItems.reduce((total, item) => total + item.quantity, 0)})
+                    </span>
+
                 </Link>
                 <div className="profileIcon" ref={profileRef}>
                     <img src={profileIcon} alt="profileIcon" onClick={handleProfileClick} />

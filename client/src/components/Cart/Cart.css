@@ -377,10 +377,8 @@ h2 {
 
     .cart {
         width: 99% !important;
-        /*width: 96% !important;*/
-        /*margin-left: 0;*/
         margin: 0 auto;
-        margin-top: 109px;
+        margin-top: 160px!important;
         flex-direction: column;
         padding-top: 30px;
         padding-bottom: 155px;

@@ -390,7 +390,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                     </div>
                 ))
             ) : (
-                <h2 className="no-products">Что-то пошло не так, мы работаем над этой проблемой...</h2>
+                <h2 className="no-products">Идёт загрузка...</h2>
             )}
 
             {displayedProducts.length > 0 && (
