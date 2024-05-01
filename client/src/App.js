@@ -143,7 +143,7 @@ const App = () => {
                             setShowSidebar={setShowSidebar}
                         />
                     </Route>
-                    <Route path="/orders/orders">
+                    <Route path="/orders/">
                         <OrderList
                             showSidebar={showSidebar}
                             setShowSidebar={setShowSidebar}

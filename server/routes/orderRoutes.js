@@ -158,7 +158,7 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
 
 
 // Получение списка всех заказов для администратора
-router.get('/orders', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const orders = await Order.find().populate('user').populate('products.product');
         // const orders = await Order.find().populate('user').populate('cart.product');

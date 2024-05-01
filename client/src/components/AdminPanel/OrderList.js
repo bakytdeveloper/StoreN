@@ -17,7 +17,7 @@ const OrderList = ({ setShowSidebar }) => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/orders`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`);
                 const data = await response.json();
                 setOrders(data);
             } catch (error) {

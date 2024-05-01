@@ -185,7 +185,7 @@ const AdminPanel = ({ setShowSidebar }) => {
     };
 
     const handleViewOrders = () => {
-        history.push('/orders/orders');
+        history.push('/orders/');
     };
 
     const handleViewClients = () => {
