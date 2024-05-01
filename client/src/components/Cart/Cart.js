@@ -643,8 +643,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
                 <button className="buy_next"
                         onClick={section === 3 ? handlePlaceOrder : handleContinue}
-                        style={{ width: "100px" }}>
-                    {section === 3 ? 'Заказать' : 'Продолжить'}
+                        style={{ width: "100px" }} >
+                    {section === 3 ? 'Закрыть' : 'Продолжить'}
+                    {/*{section === 3 ? 'Заказать' : 'Продолжить'}*/}
                 </button>
             </div>
         </div>

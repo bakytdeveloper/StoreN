@@ -32,7 +32,7 @@
     background-color: white;
     border-right: 1px solid #ccc;
     margin-top: 7%;
-    margin-bottom: 7%;
+    margin-bottom: 17%;
 }
 
 .allSection {
@@ -307,11 +307,13 @@ h2 {
 .radioButtons {
     display: inline-flex;
     margin-top: 6px;
+    cursor: pointer;
 
 }
 
 .btnOne {
     display: inline-flex;
+    cursor: pointer;
 
 }
 
@@ -323,12 +325,13 @@ h2 {
 .btnOne label {
     margin-top: 0;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .btnTwo {
     display: inline-flex;
     margin-left: 22px;
-
+    cursor: pointer;
 }
 
 .btnTwo input {
@@ -340,6 +343,7 @@ h2 {
 .btnTwo label {
     margin-top: 0;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .emptyCartEls {
@@ -383,9 +387,11 @@ h2 {
         padding-top: 30px;
         padding-bottom: 155px;
         /*height: 555px !important;*/
-        height: 100% !important;
-        bottom: 0!important;
-        margin-bottom: -27px!important;
+        height: 80% !important;
+        /*bottom: 0!important;*/
+        /*margin-bottom: -27px!important;*/
+        /*margin-bottom: 17%;*/
+        bottom: 10% !important;
     }
 
     .allSection {
