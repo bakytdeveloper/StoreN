@@ -223,6 +223,63 @@ router.put('/update-comments-admin/:orderId', async (req, res) => {
 
 
 
+
+
+
+
+// Обновление количества товара в заказе
+router.put('/update-quantity/:orderId/:productId', async (req, res) => {
+    const { orderId, productId } = req.params;
+    const { quantity } = req.body;
+    try {
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        // Найдите товар в корзине заказа
+        const productIndex = order.products.findIndex(item => item.product.toString() === productId);
+        if (productIndex === -1) {
+            return res.status(404).json({ message: 'Product not found in order' });
+        }
+        // Обновите количество товара
+        order.products[productIndex].quantity = quantity;
+        // Пересчитайте общую стоимость заказа
+        order.totalAmount = order.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
+        // Сохранять изменения здесь не нужно
+        await Order.findByIdAndUpdate(orderId, order); // Используйте метод findByIdAndUpdate
+        res.json(order);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.delete('/delete-item/:orderId/:productId', async (req, res) => {
+    const { orderId, productId } = req.params;
+    try {
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+        // Удалите товар из списка продуктов заказа
+        order.products = order.products.filter(item => item.product.toString() !== productId);
+        // Пересчитайте общую стоимость заказа
+        order.totalAmount = order.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
+        // Сохранять изменения здесь не нужно
+        await Order.findByIdAndUpdate(orderId, order); // Используйте метод findByIdAndUpdate
+        res.json(order);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
+
+
+
+
+
 module.exports = router;
 
 

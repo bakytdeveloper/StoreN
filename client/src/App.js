@@ -77,6 +77,74 @@ const App = () => {
         fetchOrders();
     }, []);
 
+
+    const onUpdateQuantity = async (orderId, productId, newQuantity) => {
+        // Отправить запрос на обновление количества товара в заказе
+        console.log("onUpdate_orderId:",orderId)
+        console.log("onUpdate_productId:",productId)
+        console.log("onUpdate_newQuantity:",newQuantity)
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ quantity: newQuantity }),
+            });
+            if (response.ok) {
+                // Обновить список заказов
+                const updatedOrders = orders.map((order) => {
+                    if (order._id === orderId) {
+                        const updatedProducts = order.products.map((item) => {
+                            if (item.product._id === productId) {
+                                return { ...item, quantity: newQuantity };
+                            }
+                            return item;
+                        });
+                        return { ...order, products: updatedProducts };
+                    }
+                    return order;
+                });
+                setOrders(updatedOrders);
+            } else {
+                console.error('Failed to update quantity');
+            }
+        } catch (error) {
+            console.error('Error updating quantity:', error);
+        }
+    };
+
+    const onDeleteItem = async (orderId, productId) => {
+        // Отправить запрос на удаление товара из заказа
+        console.log("orderId:",orderId)
+        console.log("productId:",productId)
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                // Обновить список заказов
+                const updatedOrders = orders.map((order) => {
+                    if (order._id === orderId) {
+                        const updatedProducts = order.products.filter((item) => item.product._id !== productId);
+                        return { ...order, products: updatedProducts };
+                    }
+                    return order;
+                });
+                setOrders(updatedOrders);
+            } else {
+                console.error('Failed to delete item');
+            }
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
+    };
+
+
+
+
+
+
     return (
         <Router>
             <div className="app">
@@ -168,7 +236,10 @@ const App = () => {
                     </Route>
 
                     <Route path="/order/:orderId">
-                        <OrderDetailsPage orders={orders} />
+                        <OrderDetailsPage
+                            onUpdateQuantity={onUpdateQuantity}
+                            onDeleteItem={onDeleteItem}
+                            orders={orders} />
                     </Route>
 
                     <Route path="/admin">
