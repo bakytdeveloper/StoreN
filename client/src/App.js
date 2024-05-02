@@ -22,6 +22,7 @@ import SellerProfile from "./components/SellerProfile/SellerProfile";
 import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPage";
 import ProductForm from "./components/AdminPanel/ProductForm";
 import SalesHistory from "./components/SalesHistory/SalesHistory";
+import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
 
 
 
@@ -59,6 +60,22 @@ const App = () => {
         // Можно добавить другие действия по сбросу фильтров, если необходимо
         // setShowSidebar(true); // Сбрасываем состояние сайтбара
     };
+
+
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`);
+                const data = await response.json();
+                setOrders(data);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        };
+        fetchOrders();
+    }, []);
 
     return (
         <Router>
@@ -149,6 +166,11 @@ const App = () => {
                             setShowSidebar={setShowSidebar}
                         />
                     </Route>
+
+                    <Route path="/order/:orderId">
+                        <OrderDetailsPage orders={orders} />
+                    </Route>
+
                     <Route path="/admin">
                         <AdminPanel
                             showSidebar={showSidebar}

@@ -48,8 +48,9 @@ body.modal-open {
     border: none;
     background: none;
     margin-bottom: 11px;
-    margin-right: 95%;
+    /*margin-right: 15%;*/
     width: auto;
+    left: 93%;
 }
 
 .close-button:hover {
@@ -79,16 +80,17 @@ body.modal-open {
     }
     .modal-content h2 {
         font-size: 40px;
-        margin-left: -520px!important;
+        /*margin-left: -520px!important;*/
+        text-align: center;
     }
 
     .close-button {
         position: absolute;
         top: 10px;
-        left: 50px;
+        left: 85%;
         /*right: 50px;*/
         cursor: pointer;
-        font-size: 70px;
+        font-size: 27px;
         font-weight: bold;
         color: #555;
         border: none;
@@ -97,7 +99,7 @@ body.modal-open {
 
     .order-info {
         /*padding-left: 70px;*/
-        margin-left: 11px;
+        margin-left: 1px;
         width: 365px;
         margin-top: 60px;
     }

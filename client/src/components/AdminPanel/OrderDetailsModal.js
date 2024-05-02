@@ -1,8 +1,17 @@
 import React from 'react';
 import './OrderDetailsModal.css';
+import {useHistory} from "react-router-dom";
 
-const OrderDetailsModal = ({ order, onClose }) => {
+const OrderDetailsModal = ({ order }) => {
     console.log( "O R D E R:", order)
+    const history = useHistory();
+
+
+    const onClose = () => {
+        // history.push('/');
+        history.goBack(); // Переход на предыдущую страницу
+    };
+
     return (
         <div className="order-details-modal">
             <div className="modal-content">

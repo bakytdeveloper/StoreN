@@ -83,9 +83,12 @@ const OrderList = ({ setShowSidebar }) => {
         }
     };
 
-    const handleOrderClick = (order) => {
-        setSelectedOrder(order);
+    const handleOrderClick = (orderId) => {
+        history.push(`/order/${orderId}`);
     };
+
+
+
 
     const handleCloseModal = () => {
         setSelectedOrder(null);
@@ -137,16 +140,16 @@ const OrderList = ({ setShowSidebar }) => {
                 {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id} >
                         <td>{index + 1}</td>
-                        <td onClick={() => handleOrderClick(order)}>{order.user ? order.user.role : 'Гость'}</td>
-                        <td onClick={() => handleOrderClick(order)}>
+                        <td onClick={() => handleOrderClick(order._id)}>{order.user ? order.user.role : 'Гость'}</td>
+                        <td onClick={() => handleOrderClick(order._id)}>
                             {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
                         </td>
-                        <td onClick={() => handleOrderClick(order)}>
+                        <td onClick={() => handleOrderClick(order._id)}>
                             {order.user ? order.user.email : (order.guestInfo ? order.guestInfo.email : '-')}
                         </td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.address ? order.address : '-'}</td>
-                        <td  onClick={() => handleOrderClick(order)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-                        <td onClick={() => handleOrderClick(order)}>
+                        <td  onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
+                        <td  onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
+                        <td onClick={() => handleOrderClick(order._id)}>
                             {/*order.paymentMethod*/}
                             {order.user ? order.paymentMethod : (order.paymentMethod ? order.paymentMethod : order.paymentMethod)}
                         </td>
@@ -156,7 +159,7 @@ const OrderList = ({ setShowSidebar }) => {
                                     defaultValue={order.comments ? order.comments : '-'}
                                 ></textarea>
                         </td>
-                        <td className="orderDetailOneClient" onClick={() => handleOrderClick(order)}>
+                        <td className="orderDetailOneClient" onClick={() => handleOrderClick(order._id)}>
                             {order.products.map((item) => (
                                 <span key={item.product?._id}>
                                     {item.product?.type}: {item.quantity}шт; <br />
@@ -164,7 +167,7 @@ const OrderList = ({ setShowSidebar }) => {
                             ))}
 
                         </td>
-                        <td onClick={() => handleOrderClick(order)}>{new Date(order.date).toLocaleString()}</td>
+                        <td onClick={() => handleOrderClick(order._id)}>{new Date(order.date).toLocaleString()}</td>
                        <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
 
                         <td>
@@ -173,7 +176,7 @@ const OrderList = ({ setShowSidebar }) => {
                                 : '-'}
                         </td>
 
-                        <td  onClick={() => handleOrderClick(order)}>{order.totalAmount.toFixed(2)} KGS</td>
+                        <td  onClick={() => handleOrderClick(order._id)}>{order.totalAmount.toFixed(2)} KGS</td>
 
 
                         <td>
@@ -196,3 +199,4 @@ const OrderList = ({ setShowSidebar }) => {
 };
 
 export default OrderList;
+
