@@ -6,6 +6,7 @@ const Seller = require('../models/Seller');
 const authenticateToken = require("../middleware/authenticateToken");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const User = require("../models/User");
 
 
 // Создание нового продавца
@@ -286,23 +287,26 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 
 router.get('/sales-history', authenticateToken, async (req, res) => {
     try {
-        // Находим продавца
+        // Находим продавца по его ID
         const seller = await Seller.findById(req.user.sellerId);
+        // Если продавец не найден, возвращаем ошибку 404
         if (!seller) {
             return res.status(404).json({ message: 'Продавец не найден' });
         }
 
-        // Находим все продукты, принадлежащие данному продавцу
+        // Получаем список всех продуктов, принадлежащих данному продавцу
         const products = seller.products;
 
-        // Агрегация для поиска заказов с товарами текущего продавца
+        // Выполняем агрегацию для поиска заказов, содержащих продукты текущего продавца
         const orders = await Order.aggregate([
             {
+                // Находим заказы, в которых содержатся продукты текущего продавца
                 $match: {
                     'products.product': { $in: products }
                 }
             },
             {
+                // Фильтруем продукты заказа, оставляя только те, которые принадлежат текущему продавцу
                 $addFields: {
                     products: {
                         $filter: {
@@ -314,6 +318,7 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                 }
             },
             {
+                // Добавляем информацию о пользователе, сделавшем заказ
                 $lookup: {
                     from: 'users',
                     localField: 'user',
@@ -322,11 +327,13 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                 }
             },
             {
+                // Выбираем первого найденного пользователя
                 $addFields: {
                     user: { $arrayElemAt: ['$user', 0] }
                 }
             },
             {
+                // Добавляем подробную информацию о продуктах заказа, подключая коллекцию "products"
                 $lookup: {
                     from: 'products',
                     localField: 'products.product',
@@ -335,6 +342,7 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                 }
             },
             {
+                // Добавляем подробную информацию о каждом продукте в заказе
                 $addFields: {
                     products: {
                         $map: {
@@ -346,6 +354,7 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                                     {
                                         product: {
                                             $arrayElemAt: [
+                                                // Фильтруем детали продукта, чтобы соответствовать продукту в заказе
                                                 { $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } },
                                                 0
                                             ]
@@ -358,6 +367,7 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                 }
             },
             {
+                // Выбираем только необходимые поля для вывода
                 $project: {
                     guestInfo: 1,
                     cart: 1,
@@ -374,11 +384,14 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
             }
         ]);
 
+        // Отправляем список заказов в формате JSON
         res.json(orders);
     } catch (error) {
+        // Если произошла ошибка, отправляем статус ошибки 500 и сообщение об ошибке
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 

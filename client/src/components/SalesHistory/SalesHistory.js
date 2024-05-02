@@ -161,11 +161,11 @@ const SalesHistory = ({ sellerId }) => {
                     <th>Товары</th>
                     <th>Цена</th>
                     <th>Сумма</th>
-                    <th>Покупатель</th>
-                    <th>Адрес доставки</th>
-                    <th>Номер телефона</th>
-                    <th>Метод оплаты</th>
-                    <th>Комментарии</th>
+                    {/*<th>Покупатель</th>*/}
+                    {/*<th>Адрес доставки</th>*/}
+                    {/*<th>Номер телефона</th>*/}
+                    {/*<th>Метод оплаты</th>*/}
+                    {/*<th>Комментарии</th>*/}
                 </tr>
                 </thead>
                 <tbody>
@@ -188,14 +188,14 @@ const SalesHistory = ({ sellerId }) => {
                             ))}
                         </td>
                         <td>{order.totalAmount}</td>
-                        <td>
-                            {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
-                            {/*{order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}*/}
-                        </td>
-                        <td>{order.address}</td>
-                        <td>{order.phoneNumber}</td>
-                        <td>{order.paymentMethod}</td>
-                        <td>{order.comments}</td>
+                        {/*<td>*/}
+                        {/*    {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}*/}
+                        {/*    /!*{order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}*!/*/}
+                        {/*</td>*/}
+                        {/*<td>{order.address}</td>*/}
+                        {/*<td>{order.phoneNumber}</td>*/}
+                        {/*<td>{order.paymentMethod}</td>*/}
+                        {/*<td>{order.comments}</td>*/}
                     </tr>
                 ))}
                 </tbody>
