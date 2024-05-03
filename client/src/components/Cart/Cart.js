@@ -349,6 +349,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [userName, setUserName] = useState(''); // Состояние для хранения имени пользователя или гостя
     const [deliveryType, setDeliveryType] = useState('delivery'); // Состояние для отслеживания выбора типа доставки
     // const [showSidebar, setShowSidebar] = useState(true);
+    const [orderPlaced, setOrderPlaced] = useState(false); // Новое состояние для отслеживания совершенного заказа
 
     const history = useHistory();
 
@@ -430,6 +431,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     };
 
     const handleContinue = () => {
+        // Отключаем кнопку "Купить", если заказ уже совершен
+        if (orderPlaced) {
+            return;
+        }
         if (section === 1) {
             setSection1Filled(true);
             setSection(2);
@@ -446,6 +451,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
     const handlePlaceOrder = async () => {
         try {
+            if (orderPlaced) {
+                return;
+            }
+            // Отключаем кнопку "Купить" и помечаем заказ как совершенный
+            setOrderPlaced(true);
+
             if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
                 toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
                 return;
@@ -635,17 +646,18 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             <div className="section-indicator" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
                 {[1, '*', 2, '*', 3].map((item, index) => (
                     <span key={index} className={typeof item === 'number' && section === item ? 'active' : ''}>
-            {typeof item === 'number' ? item : '* * * * *'}
+                        {typeof item === 'number' ? item : '* * * * *'}
                         {section1Filled && item === 1}
                         {section2Filled && item === 2}
-        </span>
+                    </span>
                 ))}
-
-                <button className="buy_next"
-                        onClick={section === 3 ? handlePlaceOrder : handleContinue}
-                        style={{ width: "100px" }} >
+                <button
+                    className="buy_next"
+                    onClick={section === 3 ? handlePlaceOrder : handleContinue}
+                    style={{ width: '100px' }}
+                    disabled={orderPlaced} // Отключаем кнопку "Купить", если заказ уже совершен
+                >
                     {section === 3 ? 'Закрыть' : 'Продолжить'}
-                    {/*{section === 3 ? 'Заказать' : 'Продолжить'}*/}
                 </button>
             </div>
         </div>
