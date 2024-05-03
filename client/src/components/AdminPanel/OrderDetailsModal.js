@@ -197,11 +197,13 @@ const OrderDetailsModal = ({ order, onUpdateQuantity, onDeleteItem }) => {
                                             <strong>Описание:</strong> {item.product.description}
                                         </div>
                                     )}
-                                    <div>
+                                    <div className="quantityItem">
                                         <strong>Количество:</strong> {item.quantity}
-                                        <button onClick={() => onUpdateQuantity(order._id, item.product._id, item.quantity - 1)}>-</button>
-                                        <button onClick={() => onUpdateQuantity(order._id, item.product._id, item.quantity + 1)}>+</button>
-                                        <button onClick={() => onDeleteItem(order._id, item.product._id)}>Удалить</button>
+                                        <div className="quantityButtons">
+                                            <button className="minusQuantityButton" onClick={() => onUpdateQuantity(order._id, item.product._id, item.quantity - 1)}>-</button>
+                                            <button className="plusQuantityButton"  onClick={() => onUpdateQuantity(order._id, item.product._id, item.quantity + 1)}>+</button>
+                                        </div>
+                                          <button className="deleteOneItemOrder" onClick={() => onDeleteItem(order._id, item.product._id)}>Удалить</button>
                                     </div>
                                     {item.product && (
                                         <div>

@@ -58,7 +58,7 @@ const Profile = ({ setShowSidebar }) => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/orders`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
