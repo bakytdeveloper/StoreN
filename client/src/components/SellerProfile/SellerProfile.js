@@ -30,13 +30,17 @@ const SellerProfile = ({ setShowSidebar }) => {
     }, [history]);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+        // Проверяем наличие токена и роль пользователя
+        if (!token || role !== 'seller') {
+            toast.error('Ваш аккаунт еще не подтвержден');
+            history.push('/login'); // Перенаправляем на страницу входа
+            return;
+        }
+        // Получаем данные профиля продавца
         const fetchProfile = async () => {
             try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    setSeller(null);
-                    return;
-                }
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/profile`, {
                     method: 'GET',
                     headers: {
@@ -58,11 +62,11 @@ const SellerProfile = ({ setShowSidebar }) => {
                 console.error('Error fetching seller profile:', error);
             }
         };
-
         fetchProfile();
-    }, []);
+    }, [history]);
 
     const handleEditProfile = async () => {
+        // Обновляем профиль продавца
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/update-profile`, {
