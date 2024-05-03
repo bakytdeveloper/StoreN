@@ -5,6 +5,7 @@ const Order = require('../models/Order');
 const User = require("../models/User");
 const authenticateToken = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
+const Product = require("../models/Product");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
@@ -224,10 +225,19 @@ router.put('/update-comments-admin/:orderId', async (req, res) => {
 
 
 
+// Функция для пересчета общей суммы заказа
+async function calculateTotalAmount(products) {
+    let sum = 0;
+    for (const item of products) {
+        const product = await Product.findById(item.product); // Найдите объект товара по его ID
+        if (product) {
+            sum += product.price * item.quantity;
+        }
+    }
+    console.log("sum:", sum);
+    return sum;
+}
 
-
-
-// Обновление количества товара в заказе
 router.put('/update-quantity/:orderId/:productId', async (req, res) => {
     const { orderId, productId } = req.params;
     const { quantity } = req.body;
@@ -243,10 +253,10 @@ router.put('/update-quantity/:orderId/:productId', async (req, res) => {
         }
         // Обновите количество товара
         order.products[productIndex].quantity = quantity;
-        // Пересчитайте общую стоимость заказа
-        order.totalAmount = order.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
-        // Сохранять изменения здесь не нужно
-        await Order.findByIdAndUpdate(orderId, order); // Используйте метод findByIdAndUpdate
+        // Пересчитайте общую сумму заказа и перезапишите свойство totalAmount
+        order.totalAmount = await calculateTotalAmount(order.products); // Используйте функцию для пересчета и дождитесь ее выполнения
+        // Сохраните изменения
+        await order.save(); // Используйте метод save для сохранения изменений
         res.json(order);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -262,15 +272,72 @@ router.delete('/delete-item/:orderId/:productId', async (req, res) => {
         }
         // Удалите товар из списка продуктов заказа
         order.products = order.products.filter(item => item.product.toString() !== productId);
-        // Пересчитайте общую стоимость заказа
-        order.totalAmount = order.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
-        // Сохранять изменения здесь не нужно
-        await Order.findByIdAndUpdate(orderId, order); // Используйте метод findByIdAndUpdate
+        // Пересчитайте общую сумму заказа и перезапишите свойство totalAmount
+        order.totalAmount = await calculateTotalAmount(order.products); // Используйте функцию для пересчета и дождитесь ее выполнения
+        // Сохраните изменения
+        await order.save(); // Используйте метод save для сохранения изменений
         res.json(order);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+// router.put('/update-quantity/:orderId/:productId', async (req, res) => {
+//     const { orderId, productId } = req.params;
+//     const { quantity } = req.body;
+//     try {
+//         const order = await Order.findById(orderId);
+//         if (!order) {
+//             return res.status(404).json({ message: 'Order not found' });
+//         }
+//         // Найдите товар в корзине заказа
+//         const productIndex = order.products.findIndex(item => item.product.toString() === productId);
+//         if (productIndex === -1) {
+//             return res.status(404).json({ message: 'Product not found in order' });
+//         }
+//         // Обновите количество товара
+//         order.products[productIndex].quantity = quantity;
+//         // Пересчитайте общую стоимость заказа
+//         order.totalAmount = calculateTotalAmount(order.products); // Используйте функцию для пересчета
+//         // Сохраните изменения
+//         await Order.findByIdAndUpdate(orderId, order);
+//         res.json(order);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+//
+// router.delete('/delete-item/:orderId/:productId', async (req, res) => {
+//     const { orderId, productId } = req.params;
+//     try {
+//         const order = await Order.findById(orderId);
+//         if (!order) {
+//             return res.status(404).json({ message: 'Order not found' });
+//         }
+//         // Удалите товар из списка продуктов заказа
+//         order.products = order.products.filter(item => item.product.toString() !== productId);
+//         // Пересчитайте общую стоимость заказа
+//         order.totalAmount = calculateTotalAmount(order.products); // Используйте функцию для пересчета
+//         // Сохраните изменения
+//         await Order.findByIdAndUpdate(orderId, order);
+//         res.json(order);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
 
 
 

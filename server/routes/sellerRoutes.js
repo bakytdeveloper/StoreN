@@ -394,6 +394,57 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
 
 
 
+// router.get('/sales-history', authenticateToken, async (req, res) => {
+//     try {
+//         // Находим продавца по его ID
+//         const seller = await Seller.findById(req.user.sellerId);
+//         // Если продавец не найден, возвращаем ошибку 404
+//         if (!seller) {
+//             return res.status(404).json({ message: 'Продавец не найден' });
+//         }
+//
+//         // Получаем список всех продуктов, принадлежащих данному продавцу
+//         const productIds = seller.products.map(product => product.toString());
+//         console.log("productIds:", productIds)
+//         // Находим все заказы, содержащие продукты текущего продавца
+//         const orders = await Order.find({'products.product': { $in: productIds }});
+//         console.log("orders:", orders)
+//
+//         // Для каждого заказа заменяем ссылки на продукты полными данными о продуктах
+//         const ordersWithProducts = await Promise.all(orders.map(async order => {
+//             const products = await Promise.all(order.products.map(async item => {
+//                 const productDetails = await Product.findById(item.product);
+//                 if (productDetails && productIds.includes(item.product.toString())) {
+//                     return { product: productDetails, quantity: item.quantity };
+//                 }
+//             }));
+//             return {
+//                 guestInfo: order.guestInfo,
+//                 cart: order.cart,
+//                 products: products.filter(Boolean), // Убираем возможные undefined значения
+//                 totalAmount: order.totalAmount,
+//                 status: order.status,
+//                 date: order.date,
+//                 address: order.address,
+//                 phoneNumber: order.phoneNumber,
+//                 paymentMethod: order.paymentMethod,
+//                 comments: order.comments,
+//                 user: { name: order.user.name, email: order.user.email }
+//             };
+//         }));
+//
+//         // Отправляем список заказов в формате JSON
+//         res.json(ordersWithProducts);
+//     } catch (error) {
+//         // Если произошла ошибка, отправляем статус ошибки 500 и сообщение об ошибке
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+
+
 
 
 
