@@ -77,12 +77,16 @@ const App = () => {
         fetchOrders();
     }, []);
 
+    const calculateTotalAmountLocally = (products) => {
+        let sum = 0;
+        for (const item of products) {
+            sum += item.product.price * item.quantity;
+        }
+        return sum;
+    };
 
     const onUpdateQuantity = async (orderId, productId, newQuantity) => {
         // Отправить запрос на обновление количества товара в заказе
-        console.log("onUpdate_orderId:",orderId)
-        console.log("onUpdate_productId:",productId)
-        console.log("onUpdate_newQuantity:",newQuantity)
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
                 method: 'PUT',
@@ -92,7 +96,7 @@ const App = () => {
                 body: JSON.stringify({ quantity: newQuantity }),
             });
             if (response.ok) {
-                // Обновить список заказов
+                // Обновить список заказов локально
                 const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
                         const updatedProducts = order.products.map((item) => {
@@ -101,7 +105,9 @@ const App = () => {
                             }
                             return item;
                         });
-                        return { ...order, products: updatedProducts };
+                        const updatedOrder = { ...order, products: updatedProducts };
+                        updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts); // Обновляем общую сумму
+                        return updatedOrder;
                     }
                     return order;
                 });
@@ -114,20 +120,23 @@ const App = () => {
         }
     };
 
+
+
+
     const onDeleteItem = async (orderId, productId) => {
         // Отправить запрос на удаление товара из заказа
-        console.log("orderId:",orderId)
-        console.log("productId:",productId)
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
-                // Обновить список заказов
+                // Обновить список заказов локально
                 const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
                         const updatedProducts = order.products.filter((item) => item.product._id !== productId);
-                        return { ...order, products: updatedProducts };
+                        const updatedOrder = { ...order, products: updatedProducts };
+                        updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts); // Обновляем общую сумму
+                        return updatedOrder;
                     }
                     return order;
                 });
@@ -139,6 +148,8 @@ const App = () => {
             console.error('Error deleting item:', error);
         }
     };
+
+
 
 
 
