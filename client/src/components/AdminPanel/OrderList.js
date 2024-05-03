@@ -1,6 +1,4 @@
 
-// require('dotenv').config(); // Import and configure dotenv to load .env file
-
 // src/components/Admin/OrderList.js
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
@@ -88,8 +86,6 @@ const OrderList = ({ setShowSidebar }) => {
     };
 
 
-
-
     const handleCloseModal = () => {
         setSelectedOrder(null);
     };
@@ -107,146 +103,6 @@ const OrderList = ({ setShowSidebar }) => {
         // history.push('/');
         history.goBack(); // Переход на предыдущую страницу
     };
-
-
-    // const onUpdateQuantity = async (productId, newQuantity) => {
-    //     // Отправить запрос на обновление количества товара в заказе
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${productId}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ quantity: newQuantity }),
-    //         });
-    //         if (response.ok) {
-    //             // Обновить список заказов
-    //             const updatedOrders = orders.map((order) => {
-    //                 const updatedProducts = order.products.map((item) => {
-    //                     if (item.product._id === productId) {
-    //                         return { ...item, quantity: newQuantity };
-    //                     }
-    //                     return item;
-    //                 });
-    //                 return { ...order, products: updatedProducts };
-    //             });
-    //             setOrders(updatedOrders);
-    //         } else {
-    //             console.error('Failed to update quantity');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error updating quantity:', error);
-    //     }
-    // };
-    //
-    // const onDeleteItem = async (productId) => {
-    //     // Отправить запрос на удаление товара из заказа
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${productId}`, {
-    //             method: 'DELETE',
-    //         });
-    //         if (response.ok) {
-    //             // Обновить список заказов
-    //             const updatedOrders = orders.map((order) => {
-    //                 const updatedProducts = order.products.filter((item) => item.product._id !== productId);
-    //                 return { ...order, products: updatedProducts };
-    //             });
-    //             setOrders(updatedOrders);
-    //         } else {
-    //             console.error('Failed to delete item');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error deleting item:', error);
-    //     }
-    // };
-
-
-    // return (
-    //     <div className="order">
-    //         <h2>Список заказов</h2>
-    //         <span className="sellersListClose" type="button" onClick={handleClose}>
-    //            <span> &#10006;</span>
-    //         </span>
-    //         <table>
-    //             <thead>
-    //             <tr>
-    //                 <th>Номер заказа</th>
-    //                 <th>Клиент</th>
-    //                 <th>Имя</th>
-    //                 <th>Email</th>
-    //                 <th>Адрес</th>
-    //                 <th>№ Тел</th>
-    //                 <th>Способ опл</th>
-    //                 <th>Комментарии</th>
-    //                 <th>Товары</th>
-    //                 <th>Дата заказа</th>
-    //
-    //                 <th>Статус</th>
-    //                 <th>Время изменения статуса</th>
-    //                 <th>Сумма</th>
-    //                 <th>Комент админа</th>
-    //             </tr>
-    //             </thead>
-    //             <tbody>
-    //             {orders.slice().reverse().map((order, index) => (
-    //                 <tr key={order._id} >
-    //                     <td>{index + 1}</td>
-    //                     <td onClick={() => handleOrderClick(order._id)}>{order.user ? order.user.role : 'Гость'}</td>
-    //                     <td onClick={() => handleOrderClick(order._id)}>
-    //                         {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
-    //                     </td>
-    //                     <td onClick={() => handleOrderClick(order._id)}>
-    //                         {order.user ? order.user.email : (order.guestInfo ? order.guestInfo.email : '-')}
-    //                     </td>
-    //                     <td  onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
-    //                     <td  onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-    //                     <td onClick={() => handleOrderClick(order._id)}>
-    //                         {/*order.paymentMethod*/}
-    //                         {order.user ? order.paymentMethod : (order.paymentMethod ? order.paymentMethod : order.paymentMethod)}
-    //                     </td>
-    //                     <td>
-    //                             <textarea
-    //                                 style={{ boxSizing: "border-box", fontSize: "12px" }}
-    //                                 defaultValue={order.comments ? order.comments : '-'}
-    //                             ></textarea>
-    //                     </td>
-    //                     <td className="orderDetailOneClient" onClick={() => handleOrderClick(order._id)}>
-    //                         {order.products.map((item) => (
-    //                             <span key={item.product?._id}>
-    //                                 {item.product?.type}: {item.quantity}шт; <br />
-    //                             </span>
-    //                         ))}
-    //
-    //                     </td>
-    //                     <td onClick={() => handleOrderClick(order._id)}>{new Date(order.date).toLocaleString()}</td>
-    //                    <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
-    //
-    //                     <td>
-    //                         {order.statusHistory && order.statusHistory.length > 0
-    //                             ? new Date(order.statusHistory[order.statusHistory.length - 1].time).toLocaleString()
-    //                             : '-'}
-    //                     </td>
-    //
-    //                     <td  onClick={() => handleOrderClick(order._id)}>{order.totalAmount.toFixed(2)} KGS</td>
-    //
-    //
-    //                     <td>
-    //                             <textarea
-    //                                 style={{ boxSizing: "border-box", fontSize: "12px" }}
-    //                                 defaultValue={order.commentsAdmin ? order.commentsAdmin : ''}
-    //                                 onBlur={(e) => updateCommentsAdmin(order._id, e.target.value)}
-    //                             ></textarea>
-    //                     </td>
-    //
-    //                 </tr>
-    //             ))}
-    //             </tbody>
-    //         </table>
-    //         {selectedOrder && (
-    //             <OrderDetailsModal order={selectedOrder} onClose={handleCloseModal} />
-    //         )}
-    //     </div>
-    // );
 
 
     return (

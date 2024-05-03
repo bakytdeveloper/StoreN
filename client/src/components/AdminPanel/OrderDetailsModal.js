@@ -214,7 +214,8 @@ const OrderDetailsModal = ({ order, onUpdateQuantity, onDeleteItem }) => {
                         </ul>
                     </div>
                     <div>
-                        <strong>Общая сумма заказа:</strong> {totalAmount.toFixed(2)} KGS
+                        <strong>Общая сумма заказа:</strong> {totalAmount} KGS
+                        {/*<strong>Общая сумма заказа:</strong> {totalAmount.toFixed(2)} KGS*/}
                     </div>
                 </div>
             </div>

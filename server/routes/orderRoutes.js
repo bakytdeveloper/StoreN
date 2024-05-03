@@ -234,7 +234,7 @@ async function calculateTotalAmount(products) {
             sum += product.price * item.quantity;
         }
     }
-    console.log("sum:", sum);
+    // console.log("sum:", sum);
     return sum;
 }
 
@@ -281,69 +281,6 @@ router.delete('/delete-item/:orderId/:productId', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-// router.put('/update-quantity/:orderId/:productId', async (req, res) => {
-//     const { orderId, productId } = req.params;
-//     const { quantity } = req.body;
-//     try {
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-//         // Найдите товар в корзине заказа
-//         const productIndex = order.products.findIndex(item => item.product.toString() === productId);
-//         if (productIndex === -1) {
-//             return res.status(404).json({ message: 'Product not found in order' });
-//         }
-//         // Обновите количество товара
-//         order.products[productIndex].quantity = quantity;
-//         // Пересчитайте общую стоимость заказа
-//         order.totalAmount = calculateTotalAmount(order.products); // Используйте функцию для пересчета
-//         // Сохраните изменения
-//         await Order.findByIdAndUpdate(orderId, order);
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-//
-// router.delete('/delete-item/:orderId/:productId', async (req, res) => {
-//     const { orderId, productId } = req.params;
-//     try {
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-//         // Удалите товар из списка продуктов заказа
-//         order.products = order.products.filter(item => item.product.toString() !== productId);
-//         // Пересчитайте общую стоимость заказа
-//         order.totalAmount = calculateTotalAmount(order.products); // Используйте функцию для пересчета
-//         // Сохраните изменения
-//         await Order.findByIdAndUpdate(orderId, order);
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-
-
-
-
-
-
-
 
 
 
