@@ -302,14 +302,15 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                         onChange={(e) => handleCharacteristicChange(index, 'value', e.target.value)}
                         placeholder="Значение характеристики"
                     />
-                    <button
+                    <button className="deleteField"
                         type="button"
                         onClick={() => setFormData({
                             ...formData,
                             characteristics: formData.characteristics.filter((_, i) => i !== index)
                         })}
                     >
-                        Удалить
+                        {/*Удалить*/}
+                        &#10006;
                     </button>
                 </div>
             ))}
@@ -327,13 +328,15 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                         placeholder="URL картинки"
                     />
                     <button
+                        className="deleteField"
                         type="button"
                         onClick={() => setFormData({
                             ...formData,
                             images: formData.images.filter((_, i) => i !== index)
                         })}
                     >
-                        Удалить
+                        {/*Удалить*/}
+                        &#10006;
                     </button>
                 </div>
             ))}
