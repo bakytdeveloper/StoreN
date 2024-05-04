@@ -288,22 +288,29 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             <label>Цена:</label>
             <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required />
             <label>Характеристики:</label>
-            {formData.characteristics && formData.characteristics.map((char, index) => (
+            {formData.characteristics.map((char, index) => (
                 <div key={index}>
                     <input
                         type="text"
                         value={char.name}
                         onChange={(e) => handleCharacteristicChange(index, 'name', e.target.value)}
                         placeholder="Название характеристики"
-                        required
                     />
                     <input
                         type="text"
                         value={char.value}
                         onChange={(e) => handleCharacteristicChange(index, 'value', e.target.value)}
                         placeholder="Значение характеристики"
-                        required
                     />
+                    <button
+                        type="button"
+                        onClick={() => setFormData({
+                            ...formData,
+                            characteristics: formData.characteristics.filter((_, i) => i !== index)
+                        })}
+                    >
+                        Удалить
+                    </button>
                 </div>
             ))}
             <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, characteristics: [...formData.characteristics, { name: '', value: '' }] })}>
@@ -318,8 +325,16 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                         value={image}
                         onChange={(e) => handleImageChange(index, e.target.value)}
                         placeholder="URL картинки"
-                        required
                     />
+                    <button
+                        type="button"
+                        onClick={() => setFormData({
+                            ...formData,
+                            images: formData.images.filter((_, i) => i !== index)
+                        })}
+                    >
+                        Удалить
+                    </button>
                 </div>
             ))}
             <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, images: [...formData.images, ''] })}>
