@@ -36,6 +36,21 @@ const App = () => {
     const [currentPage, setCurrentPage] = useState(1); // добавляем состояние currentPage и функцию setCurrentPage
     const [orders, setOrders] = useState([]);
 
+
+    // Проверяем, есть ли токен в localStorage при загрузке приложения
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если токен найден, устанавливаем его в состояние
+            setToken(token);
+        }
+    }, []);
+
+    // Функция для установки токена и сохранения его в localStorage
+    const setToken = (token) => {
+        localStorage.setItem('token', token);
+    };
+
     useEffect(() => {
         const fetchOrders = async () => {
             try {
