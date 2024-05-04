@@ -34,34 +34,6 @@ const App = () => {
     const [showHeader, setShowHeader] = useState(true); // Добавлено состояние для отображения или скрытия шапки
     const [selectedOption, setSelectedOption] = useState(null);
     const [currentPage, setCurrentPage] = useState(1); // добавляем состояние currentPage и функцию setCurrentPage
-
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            // Очистка localStorage
-            localStorage.clear();
-        };
-
-        // Добавление обработчика события перед выходом со страницы
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Удаление обработчика события при размонтировании компонента
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
-
-    const handleSearch = (keyword) => {
-        setSearchKeyword(keyword);
-    };
-
-    const resetFilter = () => {
-        setSearchKeyword(''); // Сброс ключевого слова для поиска
-        setProducts([]); // Очистка списка продуктов
-        // Можно добавить другие действия по сбросу фильтров, если необходимо
-        // setShowSidebar(true); // Сбрасываем состояние сайтбара
-    };
-
-
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -77,83 +49,14 @@ const App = () => {
         fetchOrders();
     }, []);
 
-    const calculateTotalAmountLocally = (products) => {
-        let sum = 0;
-        for (const item of products) {
-            sum += item.product.price * item.quantity;
-        }
-        return sum;
+    const handleSearch = (keyword) => {
+        setSearchKeyword(keyword);
     };
 
-    const onUpdateQuantity = async (orderId, productId, newQuantity) => {
-        // Отправить запрос на обновление количества товара в заказе
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ quantity: newQuantity }),
-            });
-            if (response.ok) {
-                // Обновить список заказов локально
-                const updatedOrders = orders.map((order) => {
-                    if (order._id === orderId) {
-                        const updatedProducts = order.products.map((item) => {
-                            if (item.product._id === productId) {
-                                return { ...item, quantity: newQuantity };
-                            }
-                            return item;
-                        });
-                        const updatedOrder = { ...order, products: updatedProducts };
-                        updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts); // Обновляем общую сумму
-                        return updatedOrder;
-                    }
-                    return order;
-                });
-                setOrders(updatedOrders);
-            } else {
-                console.error('Failed to update quantity');
-            }
-        } catch (error) {
-            console.error('Error updating quantity:', error);
-        }
+    const resetFilter = () => {
+        setSearchKeyword('');
+        setProducts([]);
     };
-
-
-
-
-    const onDeleteItem = async (orderId, productId) => {
-        // Отправить запрос на удаление товара из заказа
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                // Обновить список заказов локально
-                const updatedOrders = orders.map((order) => {
-                    if (order._id === orderId) {
-                        const updatedProducts = order.products.filter((item) => item.product._id !== productId);
-                        const updatedOrder = { ...order, products: updatedProducts };
-                        updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts); // Обновляем общую сумму
-                        return updatedOrder;
-                    }
-                    return order;
-                });
-                setOrders(updatedOrders);
-            } else {
-                console.error('Failed to delete item');
-            }
-        } catch (error) {
-            console.error('Error deleting item:', error);
-        }
-    };
-
-
-
-
-
-
 
 
     return (
@@ -248,9 +151,13 @@ const App = () => {
 
                     <Route path="/order/:orderId">
                         <OrderDetailsPage
-                            onUpdateQuantity={onUpdateQuantity}
-                            onDeleteItem={onDeleteItem}
-                            orders={orders} />
+                            orders={orders}
+                            setOrders={setOrders}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                            showSidebar={showSidebar}
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
 
                     <Route path="/admin">
