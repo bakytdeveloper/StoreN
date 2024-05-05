@@ -364,7 +364,10 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                             <div className="details">
                                 <div className="type">{product.type}</div>
                                 <div className="brand">{product.brand}</div>
-                                <div className="name">{product.name}</div>
+                                {/*<div className="name">{product.name}</div>*/}
+                                {/* Ограничиваем длину названия товара до 10 символов */}
+                                <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>
+
                                 <div className="price">
                                     <span>KGS</span> {product.price}
                                 </div>
