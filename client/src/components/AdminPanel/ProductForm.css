@@ -106,7 +106,7 @@ textarea {
     }
 
     .submit {
-        background: #adb1ad;
+        background: limegreen;
         border-radius: 6px 0 0 6px;
         box-shadow: 4px 6px 6px dimgray;
         font-size: 17px;
@@ -116,7 +116,7 @@ textarea {
 
 
     .cancel {
-        background: #adb1ad;
+        background: #c60331;
         border-radius: 0 6px 6px 0;
         box-shadow: 4px 6px 6px dimgray;
         font-size: 20px;

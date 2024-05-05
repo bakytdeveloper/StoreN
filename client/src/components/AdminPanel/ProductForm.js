@@ -37,26 +37,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         }
     }, [history]);
 
-    // useEffect(() => {
-    //     const fetchProduct = async () => {
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setProductData(data);
-    //             } else {
-    //                 // console.error('Failed to fetch product data');
-    //                 setTimeout(() => {
-    //                     console.error('Failed to fetch product data')
-    //                 }, 100)
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching product data:', error);
-    //         }
-    //     };
-    //     fetchProduct();
-    // }, [productId]);
-
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -121,9 +101,37 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         fetchTypes();
     }, []);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const handleChange = async (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+
+        if (name === 'category') {
+            try {
+                // Получаем все товары из базы данных
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
+                if (!response.ok) {
+                    console.error('Failed to fetch products');
+                    return;
+                }
+                const data = await response.json();
+
+                // Фильтруем товары по выбранной категории
+                const filteredProducts = data.filter(product => product.category === value);
+
+                // Извлекаем уникальные типы из отфильтрованных товаров
+                const uniqueTypes = [...new Set(filteredProducts.map(product => product.type))];
+
+                // Устанавливаем список уникальных типов в состояние types
+                setTypes(uniqueTypes);
+            } catch (error) {
+                console.error('Error handling category change:', error);
+            }
+        }
     };
+
+
+
 
     const handleCharacteristicChange = (index, field, value) => {
         const updatedCharacteristics = [...formData.characteristics];
