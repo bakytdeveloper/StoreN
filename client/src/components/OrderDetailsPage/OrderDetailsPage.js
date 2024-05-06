@@ -46,6 +46,12 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
     };
 
     const updateQuantity = async (productId, newQuantity) => {
+        // Проверяем, что новое количество не меньше 0
+        if (newQuantity < 0) {
+            console.error('Нельзя установить отрицательное количество товара');
+            return;
+        }
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
                 method: 'PUT',
