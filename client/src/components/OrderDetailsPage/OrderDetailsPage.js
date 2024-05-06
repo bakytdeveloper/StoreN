@@ -115,6 +115,30 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
         return sum;
     };
 
+    const [sellers, setSellers] = useState([]);
+
+    useEffect(() => {
+        fetchSellers();
+    }, []);
+
+    const fetchSellers = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`);
+            const data = await response.json();
+            setSellers(data);
+        } catch (error) {
+            console.error('Error fetching sellers:', error);
+        }
+    };
+
+
+    const getSellerInfo = (product) => {
+        const seller = sellers.find((seller) => seller.products.includes(product._id));
+        return seller
+            ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
+            : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+    };
+
 
     return (
         <div className="order-details-page">
@@ -165,11 +189,25 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
                                 <ul>
                                     {order.products.map((item, index) => (
                                         <li key={item.product._id}>
+
+                                           <h3> <span>{index + 1})</span> Инф. о продавце заказа</h3>
+
+                                            {/* Другие детали товара */}
+                                            <div>
+                                                <strong>Продавец:</strong> {getSellerInfo(item.product).name}
+                                            </div>
+                                            <div>
+                                                <strong>Email продавца:</strong> {getSellerInfo(item.product).email}
+                                            </div>
+                                            <div>
+                                                <strong>Номер телефона продавца:</strong> {getSellerInfo(item.product).phoneNumber}
+                                            </div>
+                                            <hr />
                                             {item.product && (
+
                                                 <div>
                                                     <strong>
-                                                        {' '}
-                                                        <span>{index + 1})</span> Тип товара:
+                                                        Тип товара:
                                                     </strong>{' '}
                                                     {item.product.type}
                                                 </div>
