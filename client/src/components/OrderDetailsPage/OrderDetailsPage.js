@@ -73,6 +73,7 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
                 updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
                 setOrder(updatedOrder);
 
+
                 const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
                         return updatedOrder;
@@ -85,6 +86,14 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
                 if (updatedOrder.products.length === 0) {
                     // Если нет, то удаляем заказ из базы данных
                     await deleteOrder(orderId);
+                }
+
+                // Проверяем, остались ли еще товары в заказе
+                if (updatedOrder.products.length === 0) {
+                    // Если нет, то удаляем заказ из базы данных
+                    await deleteOrder(orderId);
+                    // Переходим на предыдущую страницу
+                    history.goBack();
                 }
             } else {
                 console.error('Failed to delete item');
