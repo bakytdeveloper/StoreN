@@ -8,7 +8,11 @@ const cartItemSchema = new mongoose.Schema({
 });
 
 const statusHistorySchema = new mongoose.Schema({
-    status: { type: String, enum: ['pending', 'completed', 'cancelled', 'inProgress'], required: true },
+    status: {
+        type: String,
+        enum: ['pending', 'completed', 'cancelled', 'inProgress'],
+        default: 'pending',
+        required: true },
     time: { type: Date, default: Date.now },
 });
 
