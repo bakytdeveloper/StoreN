@@ -8,7 +8,7 @@ const cartItemSchema = new mongoose.Schema({
 });
 
 const statusHistorySchema = new mongoose.Schema({
-    status: { type: String, enum: ['pending', 'completed', 'cancelled'], required: true },
+    status: { type: String, enum: ['pending', 'completed', 'cancelled', 'inProgress'], required: true },
     time: { type: Date, default: Date.now },
 });
 
@@ -27,7 +27,7 @@ const orderSchema = new mongoose.Schema({
     ],
     totalAmount: { type: Number, required: true },
 
-    status: { type: String, enum: ['pending', 'completed', 'cancelled'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'completed', 'cancelled', 'inProgress'], default: 'pending' },
 
     date: { type: Date, default: Date.now },
     firstName: { type: String },
