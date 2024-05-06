@@ -1,28 +1,3 @@
-//
-//
-// import React from 'react';
-// import { useParams } from 'react-router-dom';
-// import OrderDetailsModal from '../AdminPanel/OrderDetailsModal';
-//
-// const OrderDetailsPage = ({ orders, onUpdateQuantity, onDeleteItem }) => {
-//     const { orderId } = useParams();
-//     const order = orders.find(order => order._id === orderId);
-//
-//     return (
-//         <div className="order-details-page">
-//             {order && (
-//                 <OrderDetailsModal
-//                     order={order}
-//                     onUpdateQuantity={onUpdateQuantity}
-//                     onDeleteItem={onDeleteItem}
-//                 />
-//             )}
-//         </div>
-//     );
-// };
-//
-// export default OrderDetailsPage;
-//
 
 
 import React, { useState, useEffect } from 'react';
@@ -105,6 +80,12 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
                     return order;
                 });
                 setOrders(updatedOrders);
+
+                // Проверяем, остались ли еще товары в заказе
+                if (updatedOrder.products.length === 0) {
+                    // Если нет, то удаляем заказ из базы данных
+                    await deleteOrder(orderId);
+                }
             } else {
                 console.error('Failed to delete item');
             }
@@ -112,6 +93,23 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
             console.error('Error deleting item:', error);
         }
     };
+
+    const deleteOrder = async (orderId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                // Успешно удалено
+                console.log('Order deleted successfully');
+            } else {
+                console.error('Failed to delete order');
+            }
+        } catch (error) {
+            console.error('Error deleting order:', error);
+        }
+    };
+
 
     const calculateTotalAmountLocally = (products) => {
         let sum = 0;
