@@ -31,21 +31,21 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
 
     return (
-        <tr key={order._id}>
-            <td>
+        // <tr key={order._id}>
+        //     <td>
                 <select
                     value={selectedStatus}
                     onChange={handleChange}
                     style={{ background: statusColor }}
-
+                    key={order._id}
                 >
                     <option value="pending">Pending</option>
                     <option value="inProgress">in Progress</option>
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
-            </td>
-        </tr>
+        //     </td>
+        // </tr>
     );
 };
 
