@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductDetails.css';
 import { useParams, useHistory } from 'react-router-dom';
+import RelatedSellerProducts from "./RelatedSellerProducts";
 
 const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const { productId } = useParams();
@@ -131,6 +132,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     </button>
                 </div>
             </div>
+            <RelatedSellerProducts productId={productId} />
         </div>
     );
 };

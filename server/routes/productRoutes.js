@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const authenticateToken = require("../middleware/authenticateToken");
+const Seller = require("../models/Seller");
 
 
 
@@ -182,6 +183,26 @@ router.delete('/:id', async (req, res) => {
         res.json({ message: 'Product deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+// // Получение всех товаров текущего продавца
+// Получение всех товаров данного продавца на основе ID продукта
+router.get('/:productId/seller/products', async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        const sellerId = product.seller; // Получаем ID продавца из продукта
+        const sellerProducts = await Product.find({ seller: sellerId });
+        res.json(sellerProducts);
+    } catch (error) {
+        console.error('Error fetching related seller products:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 

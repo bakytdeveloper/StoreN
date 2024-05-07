@@ -17,6 +17,8 @@ const productSchema = new mongoose.Schema({
     brand: { type: String, required: true },
     characteristics: [characteristicSchema],
     images: [{ type: String }], // Добавлено поле для картинок
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' } // Ссылка на продавца
+
 });
 
 const Product = mongoose.model('Product', productSchema);

@@ -445,6 +445,45 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
 
 
 
+// // Получение всех товаров продавца на основе ID продукта
+// router.get('/products/:productId/seller/products', async (req, res) => {
+//     try {
+//         const { productId } = req.params;
+//         const product = await Product.findById(productId);
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+//         const sellerId = product.seller; // Получаем ID продавца из продукта
+//         const sellerProducts = await Product.find({ seller: sellerId }).populate('seller');
+//         res.json(sellerProducts);
+//     } catch (error) {
+//         console.error('Error fetching related seller products:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
+//
+// // Получение всех товаров текущего продавца
+// router.get('/:productId/seller/products', async (req, res) => {
+//     try {
+//         const { productId } = req.params;
+//         const product = await Product.findById(productId);
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+//         const sellerId = product.seller; // Получаем ID продавца из продукта
+//         const seller = await Seller.findById(sellerId);
+//         if (!seller) {
+//             return res.status(404).json({ message: 'Seller not found' });
+//         }
+//         const sellerProducts = await Product.find({ seller: sellerId });
+//         res.json(sellerProducts);
+//     } catch (error) {
+//         console.error('Error fetching related seller products:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 
 
 
