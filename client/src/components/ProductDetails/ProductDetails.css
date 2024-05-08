@@ -260,6 +260,11 @@ strong {
 }
 
 
+.slider-controls {
+    display: flex;
+}
+
+
 /* Обновленные стили */
 .product-cards {
     flex: 1; /* Равномерное распределение карточек */

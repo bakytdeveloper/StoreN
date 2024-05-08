@@ -83,8 +83,15 @@ const RelatedSellerProducts = ({ productId }) => {
                 ))}
             </div>
             <div className="slider-controls">
-                <button className="slider-control-one-left" onClick={handlePrevClick} disabled={currentIndex === 0}>Prev</button>
-                <button onClick={handleNextClick} disabled={currentIndex + cardCount >= sellerProducts.length}>Next</button>
+                <button className="slider-control-one-left"
+                        onClick={handlePrevClick} disabled={currentIndex === 0}>
+                    &#8592; Назад
+                </button>
+                <button className="slider-control-one-right"
+                        onClick={handleNextClick}
+                        disabled={currentIndex + cardCount >= sellerProducts.length}>
+                    Вперёд &#8594;
+                </button>
             </div>
         </div>
     );
