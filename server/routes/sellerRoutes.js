@@ -179,6 +179,9 @@ router.post('/products', authenticateToken, async (req, res) => {
     try {
         const { name, description, price, category, type, brand, characteristics, images, quantity = 10 } = req.body;
 
+        // Получаем ID текущего продавца из аутентификационного токена
+        const sellerId = req.user.sellerId;
+
         // Создание нового продукта с использованием модели Product
         const newProduct = new Product({
             name,
@@ -189,7 +192,8 @@ router.post('/products', authenticateToken, async (req, res) => {
             brand,
             characteristics,
             images,
-            quantity
+            quantity,
+            seller: sellerId // Устанавливаем продавца для нового товара
         });
 
         // Сохранение нового продукта
@@ -197,7 +201,7 @@ router.post('/products', authenticateToken, async (req, res) => {
 
         // Добавление ID нового продукта к массиву продуктов продавца
         const updatedSeller = await Seller.findByIdAndUpdate(
-            req.user.sellerId,
+            sellerId,
             { $push: { products: newProduct._id } }, // Добавление только ID продукта
             { new: true }
         );
@@ -207,6 +211,7 @@ router.post('/products', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 // Удаление товара
@@ -233,18 +238,35 @@ router.delete('/products/:productId', authenticateToken, async (req, res) => {
 
 
 
+// router.get('/products', authenticateToken, async (req, res) => {
+//     try {
+//         const seller = await Seller.findById(req.user.sellerId).populate('products'); // Используем метод populate для получения информации о продуктах
+//         if (!seller) {
+//             return res.status(404).json({ message: 'Продавец не найден' });
+//         }
+//         res.json(seller.products); // Возвращаем массив продуктов, содержащий информацию о каждом продукте
+//     } catch (error) {
+//         console.error('Ошибка при получении товаров продавца:', error);
+//         res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+//     }
+// });
+
+
 router.get('/products', authenticateToken, async (req, res) => {
     try {
-        const seller = await Seller.findById(req.user.sellerId).populate('products'); // Используем метод populate для получения информации о продуктах
-        if (!seller) {
-            return res.status(404).json({ message: 'Продавец не найден' });
-        }
-        res.json(seller.products); // Возвращаем массив продуктов, содержащий информацию о каждом продукте
+        // Получаем ID текущего продавца из аутентификационного токена
+        const sellerId = req.user.sellerId;
+
+        // Получаем все товары текущего продавца
+        const sellerProducts = await Product.find({ seller: sellerId });
+
+        res.json(sellerProducts);
     } catch (error) {
         console.error('Ошибка при получении товаров продавца:', error);
         res.status(500).json({ message: 'Внутренняя ошибка сервера' });
     }
 });
+
 
 
 
@@ -287,34 +309,18 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 
 router.get('/sales-history', authenticateToken, async (req, res) => {
     try {
-        // Находим продавца по его ID
-        const seller = await Seller.findById(req.user.sellerId);
-        // Если продавец не найден, возвращаем ошибку 404
-        if (!seller) {
-            return res.status(404).json({ message: 'Продавец не найден' });
-        }
+        // Получаем ID текущего продавца из аутентификационного токена
+        const sellerId = req.user.sellerId;
 
-        // Получаем список всех продуктов, принадлежащих данному продавцу
-        const products = seller.products;
+        // Получаем все продукты текущего продавца
+        const sellerProducts = await Product.find({ seller: sellerId });
 
         // Выполняем агрегацию для поиска заказов, содержащих продукты текущего продавца
         const orders = await Order.aggregate([
             {
                 // Находим заказы, в которых содержатся продукты текущего продавца
                 $match: {
-                    'products.product': { $in: products }
-                }
-            },
-            {
-                // Фильтруем продукты заказа, оставляя только те, которые принадлежат текущему продавцу
-                $addFields: {
-                    products: {
-                        $filter: {
-                            input: '$products',
-                            as: 'product',
-                            cond: { $in: ['$$product.product', products] }
-                        }
-                    }
+                    'products.product': { $in: sellerProducts.map(product => product._id) }
                 }
             },
             {
@@ -342,7 +348,21 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                 }
             },
             {
-                // Добавляем подробную информацию о каждом продукте в заказе
+                // Фильтруем продукты в заказе, оставляем только те, которые принадлежат текущему продавцу
+                $addFields: {
+                    products: {
+                        $filter: {
+                            input: '$products',
+                            as: 'product',
+                            cond: {
+                                $in: ['$$product.product', sellerProducts.map(product => product._id)]
+                            }
+                        }
+                    }
+                }
+            },
+            // Добавляем информацию о типе и названии каждого товара
+            {
                 $addFields: {
                     products: {
                         $map: {
@@ -354,7 +374,6 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                                     {
                                         product: {
                                             $arrayElemAt: [
-                                                // Фильтруем детали продукта, чтобы соответствовать продукту в заказе
                                                 { $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } },
                                                 0
                                             ]
@@ -366,8 +385,22 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
                     }
                 }
             },
+            // Фильтруем товары в заказе, оставляем только товары текущего продавца, и вычисляем сумму для каждого заказа
             {
-                // Выбираем только необходимые поля для вывода
+                $addFields: {
+                    totalAmount: {
+                        $reduce: {
+                            input: '$products',
+                            initialValue: 0,
+                            in: {
+                                $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }]
+                            }
+                        }
+                    }
+                }
+            },
+            // Оставляем только необходимые поля для вывода
+            {
                 $project: {
                     guestInfo: 1,
                     cart: 1,
@@ -391,100 +424,6 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-// router.get('/sales-history', authenticateToken, async (req, res) => {
-//     try {
-//         // Находим продавца по его ID
-//         const seller = await Seller.findById(req.user.sellerId);
-//         // Если продавец не найден, возвращаем ошибку 404
-//         if (!seller) {
-//             return res.status(404).json({ message: 'Продавец не найден' });
-//         }
-//
-//         // Получаем список всех продуктов, принадлежащих данному продавцу
-//         const productIds = seller.products.map(product => product.toString());
-//         console.log("productIds:", productIds)
-//         // Находим все заказы, содержащие продукты текущего продавца
-//         const orders = await Order.find({'products.product': { $in: productIds }});
-//         console.log("orders:", orders)
-//
-//         // Для каждого заказа заменяем ссылки на продукты полными данными о продуктах
-//         const ordersWithProducts = await Promise.all(orders.map(async order => {
-//             const products = await Promise.all(order.products.map(async item => {
-//                 const productDetails = await Product.findById(item.product);
-//                 if (productDetails && productIds.includes(item.product.toString())) {
-//                     return { product: productDetails, quantity: item.quantity };
-//                 }
-//             }));
-//             return {
-//                 guestInfo: order.guestInfo,
-//                 cart: order.cart,
-//                 products: products.filter(Boolean), // Убираем возможные undefined значения
-//                 totalAmount: order.totalAmount,
-//                 status: order.status,
-//                 date: order.date,
-//                 address: order.address,
-//                 phoneNumber: order.phoneNumber,
-//                 paymentMethod: order.paymentMethod,
-//                 comments: order.comments,
-//                 user: { name: order.user.name, email: order.user.email }
-//             };
-//         }));
-//
-//         // Отправляем список заказов в формате JSON
-//         res.json(ordersWithProducts);
-//     } catch (error) {
-//         // Если произошла ошибка, отправляем статус ошибки 500 и сообщение об ошибке
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-
-
-
-// // Получение всех товаров продавца на основе ID продукта
-// router.get('/products/:productId/seller/products', async (req, res) => {
-//     try {
-//         const { productId } = req.params;
-//         const product = await Product.findById(productId);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         const sellerId = product.seller; // Получаем ID продавца из продукта
-//         const sellerProducts = await Product.find({ seller: sellerId }).populate('seller');
-//         res.json(sellerProducts);
-//     } catch (error) {
-//         console.error('Error fetching related seller products:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
-
-//
-// // Получение всех товаров текущего продавца
-// router.get('/:productId/seller/products', async (req, res) => {
-//     try {
-//         const { productId } = req.params;
-//         const product = await Product.findById(productId);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         const sellerId = product.seller; // Получаем ID продавца из продукта
-//         const seller = await Seller.findById(sellerId);
-//         if (!seller) {
-//             return res.status(404).json({ message: 'Seller not found' });
-//         }
-//         const sellerProducts = await Product.find({ seller: sellerId });
-//         res.json(sellerProducts);
-//     } catch (error) {
-//         console.error('Error fetching related seller products:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
 
 
 
