@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import './ProductDetails.css';
 import { useParams, useHistory } from 'react-router-dom';
 import RelatedSellerProducts from "./RelatedSellerProducts";
+import RelatedProducts from "./RelatedProducts";
 
 const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const { productId } = useParams();
@@ -135,6 +136,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                 </div>
             </div>
             <RelatedSellerProducts productId={productId} />
+            <RelatedProducts productId={productId} />
+            {/* Вставляем компонент */}
+
         </div>
     );
 };
