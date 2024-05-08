@@ -87,49 +87,51 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     };
 
     return (
-        <div className="product-details">
-            <button className="closeButton" onClick={handleClose}>
-                &#10006;
-            </button>
-            <div className="image-gallery">
-                <div className="thumbnail-gallery">
-                    {product.images.map((image) => (
-                        <img
-                            key={image}
-                            src={image}
-                            alt={product.name}
-                            className={selectedImage === image ? 'thumbnail active' : 'thumbnail'}
-                            onClick={() => handleImageClick(image)}
-                        />
-                    ))}
-                </div>
-                <img src={selectedImage} alt={product.name} className="main-image" />
-            </div>
-            <div className="details">
-                <div className="type">{product.type}</div>
-                <div className="brand">{product.brand}</div>
-                <div className="name">{product.name}</div>
-                <div className="description">
-                    <strong>Описание:</strong> {product.description}
-                </div>
-                <div className="characteristics">
-                    <h3>Характеристики:</h3>
-                    <ul>
-                        {product.characteristics.map((char) => (
-                            <li className="character" key={char.name}>
-                                <strong>{char.name}:</strong> {char.value}
-                            </li>
+        <div className="product-details-container">
+            <div className="product-details">
+                <button className="closeButton" onClick={handleClose}>
+                    &#10006;
+                </button>
+                <div className="image-gallery">
+                    <div className="thumbnail-gallery">
+                        {product.images.map((image) => (
+                            <img
+                                key={image}
+                                src={image}
+                                alt={product.name}
+                                className={selectedImage === image ? 'thumbnail active' : 'thumbnail'}
+                                onClick={() => handleImageClick(image)}
+                            />
                         ))}
-                    </ul>
+                    </div>
+                    <img src={selectedImage} alt={product.name} className="main-image" />
                 </div>
-                <div className="price">{product.price} KGS</div>
-                <div className="actions">
-                    <button className="buy-now" onClick={() => handleAddToCart(true)}>
-                        Купить сейчас
-                    </button>
-                    <button className="add-to-cart" onClick={() => handleAddToCart()}>
-                        Добавить в корзину
-                    </button>
+                <div className="details">
+                    <div className="type">{product.type}</div>
+                    <div className="brand">{product.brand}</div>
+                    <div className="name">{product.name}</div>
+                    <div className="description">
+                        <strong>Описание:</strong> {product.description}
+                    </div>
+                    <div className="characteristics">
+                        <h3>Характеристики:</h3>
+                        <ul>
+                            {product.characteristics.map((char) => (
+                                <li className="character" key={char.name}>
+                                    <strong>{char.name}:</strong> {char.value}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="price">{product.price} KGS</div>
+                    <div className="actions">
+                        <button className="buy-now" onClick={() => handleAddToCart(true)}>
+                            Купить сейчас
+                        </button>
+                        <button className="add-to-cart" onClick={() => handleAddToCart()}>
+                            Добавить в корзину
+                        </button>
+                    </div>
                 </div>
             </div>
             <RelatedSellerProducts productId={productId} />
