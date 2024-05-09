@@ -162,8 +162,13 @@ const RelatedSellerProducts = ({ productId }) => {
         setCurrentIndex(prevIndex => Math.min(sellerProducts.length - cardCount, prevIndex + cardCount));
     };
 
+    // const handleCardClick = () => {
+    //     // window.scrollTo({ top: 0 }); // Прокрутка к верху страницы с плавным эффектом
+    //     window.scrollTo({ top: 0, behavior: 'smooth' }); // Прокрутка к верху страницы с плавным эффектом
+    // };
+
     const handleCardClick = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Прокрутка к верху страницы с плавным эффектом
+        document.documentElement.scrollTop = 0;
     };
 
     return (

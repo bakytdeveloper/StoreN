@@ -220,8 +220,12 @@ const RelatedProducts = ({ productId }) => {
         setCurrentIndex(prevIndex => Math.min(relatedProducts.length - cardCount, prevIndex + cardCount));
     };
 
+    // const handleCardClick = () => {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' }); // Прокрутка к верху страницы с плавным эффектом
+    // };
+
     const handleCardClick = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Прокрутка к верху страницы с плавным эффектом
+        document.documentElement.scrollTop = 0;
     };
 
     const fixImagePath = (imagePath) => {
