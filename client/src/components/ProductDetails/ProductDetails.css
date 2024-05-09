@@ -150,10 +150,6 @@ strong {
 
     }
 
-    /*.add-to-cart {*/
-    /*    font-size: 15px;*/
-    /*    padding: 11px 2px;*/
-    /*}*/
 
     .main-content {
         width: 100%;
@@ -165,7 +161,7 @@ strong {
     .product-details {
         flex-direction: column;
         margin-top: 200px;
-        margin-right: 8px;
+        margin-right: 16px;
     }
 
     .details {
@@ -236,6 +232,15 @@ strong {
         color: #2b2828;
         font-weight: bold;
         padding: 2px 5px;
+    }
+    .related-seller-products {
+        margin-top: 25px;
+        margin-right: 2px;
+    }
+    .related-products {
+        margin-top: 30px;
+        margin-right: 2px;
+        margin-bottom: 40px;
     }
 }
 
