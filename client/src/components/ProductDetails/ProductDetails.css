@@ -161,7 +161,7 @@ strong {
     .product-details {
         flex-direction: column;
         margin-top: 200px;
-        margin-right: 16px;
+        margin-right: 10px;
     }
 
     .details {

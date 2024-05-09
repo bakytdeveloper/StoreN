@@ -116,6 +116,12 @@ const RelatedProducts = ({ productId }) => {
         setCurrentIndex(prevIndex => Math.min(relatedProducts.length - cardCount, prevIndex + cardCount));
     };
 
+
+    const fixImagePath = (imagePath) => {
+        return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
+    };
+
+
     return (
         <div className="related-products">
             <h2>Похожие товары</h2>
@@ -124,7 +130,8 @@ const RelatedProducts = ({ productId }) => {
                     <div className="product-cards" key={product._id}>
                         <Link to={`/products/${product._id}`}>
                             <img
-                                src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'}
+                                src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
+                                // src={product.images && product.images.length > 0 ? product.images[0] : 'placeholder.jpg'}
                                 alt={product.name}
                             />
                             <div className="details">
