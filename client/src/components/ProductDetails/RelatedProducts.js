@@ -131,17 +131,22 @@ const RelatedProducts = ({ productId }) => {
                                 <div className="type">{product.type}</div>
                                 <div className="brand">{product.brand}</div>
                                 <div className="name">{product.name}</div>
-                                <div className="price">
-                                    <span>KGS</span> {product.price}
-                                </div>
+                                {/*<div className="price">*/}
+                                {/*    <span>KGS</span> {product.price}*/}
+                                {/*</div>*/}
                             </div>
                         </Link>
                     </div>
                 ))}
             </div>
             <div className="slider-controls">
-                <button onClick={handlePrevClick} disabled={currentIndex === 0}>Prev</button>
-                <button onClick={handleNextClick} disabled={currentIndex + cardCount >= relatedProducts.length}>Next</button>
+                <button onClick={handlePrevClick} disabled={currentIndex === 0}>
+                    &#8592; Назад
+                </button>
+                <button onClick={handleNextClick}
+                        disabled={currentIndex + cardCount >= relatedProducts.length}>
+                    Вперёд &#8594;
+                </button>
             </div>
         </div>
     );
