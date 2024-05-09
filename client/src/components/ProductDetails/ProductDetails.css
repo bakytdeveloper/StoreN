@@ -82,26 +82,24 @@
     border-radius: 4px;
 }
 
- h1.type {
-    text-align: center;
+.typeDetails {
     font-size: 22px;
-     font-family: Sana;
+     font-family: inherit;
 }
 
- h2.brand {
-    text-align: center;
+ .brandDetails {
     font-size: 22px;
      font-family: "American Typewriter";
      color: #020000;
      align-items: center;
      letter-spacing: 2px; /* Увеличивает расстояние между буквами на 2 пикселя */
      -webkit-text-stroke-width: 1px; /* Ширина обводки */
-     -webkit-text-stroke-color: #0479a7; /* Цвет обводки */
+     -webkit-text-stroke-color: #02415a; /* Цвет обводки */
 
  }
- h2.name {
-    text-align: center;
-    /*font-size: 22px;*/
+ .nameDetails {
+
+    font-size: 19px;
      font-family: "American Typewriter";
 
 }
@@ -117,10 +115,10 @@ strong {
     color: #1f1c1c;
 }
 
-.type {
-    font-size: 22px;
-    font-weight: bold;
-}
+/*.typeDetails {*/
+/*    font-size: 22px;*/
+/*    font-weight: bold;*/
+/*}*/
 
 .price {
     text-align: center;
@@ -187,13 +185,16 @@ strong {
         margin-right: 10px;
     }
 
-    h1.type {
+    .typeDetails {
         margin-top: 0;
         margin-bottom: 20px;
+
+
     }
 
-    h2.brand {
+    .brandDetails {
         margin-bottom: 20px;
+
     }
 
     .details {

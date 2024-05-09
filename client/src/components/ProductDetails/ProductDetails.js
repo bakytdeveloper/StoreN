@@ -251,9 +251,10 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <img src={selectedImage} alt={product.name} className="main-image" />
                 </div>
                 <div className="details">
-                    <h1 className="type">{product.type}</h1>
-                    <h2 className="brand">{product.brand}</h2>
-                    <h2 className="name">{product.name}</h2>
+                    <div className="typeDetails">{product.type}</div>
+                    <div className="brandDetails">{product.brand}</div>
+                    <div className="nameDetails">{product.name}</div>
+                    <hr />
                     <div className="description">
                         <strong>Описание:</strong> {product.description}
                     </div>
