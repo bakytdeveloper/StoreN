@@ -82,6 +82,29 @@
     border-radius: 4px;
 }
 
+ h1.type {
+    text-align: center;
+    font-size: 22px;
+     font-family: Sana;
+}
+
+ h2.brand {
+    text-align: center;
+    font-size: 22px;
+     font-family: "American Typewriter";
+     color: #020000;
+     align-items: center;
+     letter-spacing: 2px; /* Увеличивает расстояние между буквами на 2 пикселя */
+     -webkit-text-stroke-width: 1px; /* Ширина обводки */
+     -webkit-text-stroke-color: #0479a7; /* Цвет обводки */
+
+ }
+ h2.name {
+    text-align: center;
+    /*font-size: 22px;*/
+     font-family: "American Typewriter";
+
+}
 
 
 .character:hover {
@@ -162,6 +185,15 @@ strong {
         flex-direction: column;
         margin-top: 200px;
         margin-right: 10px;
+    }
+
+    h1.type {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    h2.brand {
+        margin-bottom: 20px;
     }
 
     .details {
