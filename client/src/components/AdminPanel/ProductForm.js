@@ -877,7 +877,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
                 // Фильтруем типы товаров в зависимости от выбранной категории
                 let filteredTypes = [];
-                if (value === 'Аксессуары') {
+                if (value === 'Аксессуары и часы') {
                     filteredTypes = ["Часы", 'Для гаджетов', 'Для спорта', 'Для стиля', 'Для орг. техники'];
                     // Делаем поле ввода типа неактивным
                     document.getElementById("typeInput").disabled = true;
@@ -1056,12 +1056,25 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                <span> &#10006;</span>
             </span>
             <label>Категория:</label>
+            {/*<select name="category" value={formData.category} onChange={handleChange} >*/}
+            {/*    <option value="">Выберите категорию</option>*/}
+            {/*    {categories.map((category, index) => (*/}
+            {/*        <option key={index} value={category}>{category}</option>*/}
+            {/*    ))}*/}
+            {/*    /!* Обновляем опцию "Аксессуары" *!/*/}
+            {/*    <option value="Аксессуары и часы">Аксессуары и часы</option>*/}
+            {/*</select>*/}
+
             <select name="category" value={formData.category} onChange={handleChange} >
                 <option value="">Выберите категорию</option>
-                {categories.map((category, index) => (
+                {categories.filter(category => category !== 'Аксессуары').map((category, index) => (
                     <option key={index} value={category}>{category}</option>
                 ))}
+                {/* Добавляем категорию "Аксессуары" */}
+                <option value="Аксессуары и часы">Аксессуары и часы</option>
             </select>
+
+
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
 
             <label>Тип:</label>
