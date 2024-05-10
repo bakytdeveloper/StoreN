@@ -856,8 +856,15 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
     const handleChange = async (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
 
+        if (name === 'category') {
+            // Если меняется категория, очищаем значение поля типа
+            setFormData({ ...formData, [name]: value, type: '' });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
+
+        // Оставшийся код обработчика не изменяется
         if (name === 'category') {
             try {
                 // Получаем все товары из базы данных
@@ -892,6 +899,8 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             }
         }
     };
+
+
 
 
 
