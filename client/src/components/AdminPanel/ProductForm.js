@@ -1056,14 +1056,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                <span> &#10006;</span>
             </span>
             <label>Категория:</label>
-            {/*<select name="category" value={formData.category} onChange={handleChange} >*/}
-            {/*    <option value="">Выберите категорию</option>*/}
-            {/*    {categories.map((category, index) => (*/}
-            {/*        <option key={index} value={category}>{category}</option>*/}
-            {/*    ))}*/}
-            {/*    /!* Обновляем опцию "Аксессуары" *!/*/}
-            {/*    <option value="Аксессуары и часы">Аксессуары и часы</option>*/}
-            {/*</select>*/}
 
             <select name="category" value={formData.category} onChange={handleChange} >
                 <option value="">Выберите категорию</option>
