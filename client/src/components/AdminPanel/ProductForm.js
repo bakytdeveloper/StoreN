@@ -778,6 +778,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const [types, setTypes] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false); // Состояние для отслеживания отправки формы
     const [direction, setDirection] = useState('');
+    const [allTypes, setAllTypes] = useState([]);
 
     const history = useHistory();
 
@@ -1035,6 +1036,23 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
+    useEffect(() => {
+        const fetchAllTypes = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setAllTypes(data.types);
+                } else {
+                    console.error('Failed to fetch types');
+                }
+            } catch (error) {
+                console.error('Error fetching types:', error);
+            }
+        };
+        fetchAllTypes();
+    }, []);
+
 
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
@@ -1064,14 +1082,13 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                         disabled={!formData.category || formData.category !== 'Аксессуары'}
                     >
                         <option value="">Выберите направление</option>
-                        <option value="Для гаджетов">Для гаджетов</option>
-                        <option value="Для спорта">Для спорта</option>
-                        <option value="Для стиля">Для стиля</option>
-                        <option value="Для орг. техники">Для орг. техники</option>
-                        <option value="Для обуви">Для обуви</option>
+                        {allTypes.map((type, index) => (
+                            <option key={index} value={type}>{type}</option>
+                        ))}
                     </select>
                 </div>
             )}
+
 
 
 
