@@ -778,7 +778,8 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const [types, setTypes] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false); // Состояние для отслеживания отправки формы
     const [direction, setDirection] = useState('');
-    const [allTypes, setAllTypes] = useState([]);
+    // const [allTypes, setAllTypes] = useState([]);
+    const [allCategories, setAllCategories] = useState([]);
 
     const history = useHistory();
 
@@ -1036,13 +1037,32 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
+    // useEffect(() => {
+    //     const fetchAllTypes = async () => {
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setAllTypes(data.types);
+    //             } else {
+    //                 console.error('Failed to fetch types');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching types:', error);
+    //         }
+    //     };
+    //     fetchAllTypes();
+    // }, []);
+    //
+
+    // const [allCategories, setAllCategories] = useState([]);
     useEffect(() => {
-        const fetchAllTypes = async () => {
+        const fetchAllCategories = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
                 if (response.ok) {
                     const data = await response.json();
-                    setAllTypes(data.types);
+                    setAllCategories(data.types);
                 } else {
                     console.error('Failed to fetch types');
                 }
@@ -1050,7 +1070,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 console.error('Error fetching types:', error);
             }
         };
-        fetchAllTypes();
+        fetchAllCategories();
     }, []);
 
 
@@ -1072,6 +1092,24 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
 
 
+            {/*{formData.category === 'Аксессуары' && (*/}
+            {/*    <div>*/}
+            {/*        <label>Направление:</label>*/}
+            {/*        <select*/}
+            {/*            name="direction"*/}
+            {/*            value={direction}*/}
+            {/*            onChange={(e) => setDirection(e.target.value)}*/}
+            {/*            disabled={!formData.category || formData.category !== 'Аксессуары'}*/}
+            {/*        >*/}
+            {/*            <option value="">Выберите направление</option>*/}
+            {/*            {allTypes.map((type, index) => (*/}
+            {/*                <option key={index} value={type}>{type}</option>*/}
+            {/*            ))}*/}
+            {/*        </select>*/}
+            {/*    </div>*/}
+            {/*)}*/}
+
+
             {formData.category === 'Аксессуары' && (
                 <div>
                     <label>Направление:</label>
@@ -1082,14 +1120,12 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                         disabled={!formData.category || formData.category !== 'Аксессуары'}
                     >
                         <option value="">Выберите направление</option>
-                        {allTypes.map((type, index) => (
-                            <option key={index} value={type}>{type}</option>
+                        {categories.map((category, index) => (
+                            <option key={index} value={category}>{category}</option>
                         ))}
                     </select>
                 </div>
             )}
-
-
 
 
             <label>Тип:</label>
