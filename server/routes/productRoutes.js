@@ -82,6 +82,7 @@ router.post('/', async (req, res) => {
         description,
         price,
         category,
+        direction,
         type,
         brand,
         characteristics,
@@ -93,6 +94,7 @@ router.post('/', async (req, res) => {
         description,
         price,
         category,
+        direction,
         type,
         brand,
         characteristics,
@@ -138,7 +140,7 @@ router.put('/:id', async (req, res) => {
         return res.status(403).json({ message: 'Permission denied' });
     }
 
-    const { name, description, price, category, type, brand, characteristics, images } = req.body;
+    const { name, description, price, category, direction, type, brand, characteristics, images } = req.body;
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
@@ -148,6 +150,7 @@ router.put('/:id', async (req, res) => {
                 description,
                 price,
                 category,
+                direction,
                 type,
                 brand,
                 characteristics,

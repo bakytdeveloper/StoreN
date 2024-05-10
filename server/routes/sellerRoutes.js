@@ -177,7 +177,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
 // Создание нового товара
 router.post('/products', authenticateToken, async (req, res) => {
     try {
-        const { name, description, price, category, type, brand, characteristics, images, quantity = 10 } = req.body;
+        const { name, description, price, category, direction, type, brand, characteristics, images, quantity = 10 } = req.body;
 
         // Получаем ID текущего продавца из аутентификационного токена
         const sellerId = req.user.sellerId;
@@ -188,6 +188,7 @@ router.post('/products', authenticateToken, async (req, res) => {
             description,
             price,
             category,
+            direction,
             type,
             brand,
             characteristics,

@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     category: { type: String, required: true },
     type: { type: String, required: true },
+    direction: { type: String },
     brand: { type: String, required: true },
     characteristics: [characteristicSchema],
     images: [{ type: String }], // Добавлено поле для картинок
