@@ -1061,8 +1061,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 {categories.map((category, index) => (
                     <option key={index} value={category}>{category}</option>
                 ))}
-                {/* Добавляем категорию "Аксессуары" */}
-                <option value="Аксессуары">Аксессуары</option>
             </select>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
 
