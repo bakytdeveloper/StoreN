@@ -63,6 +63,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './RelatedAccessories.css';
 
 const RelatedAccessories = ({ direction }) => {
     const [accessories, setAccessories] = useState([]);
@@ -129,19 +130,19 @@ const RelatedAccessories = ({ direction }) => {
     return (
         <div className="related-accessories">
             <h2>Аксессуары</h2>
-            <div className="products-lists">
+            <div className="productsListsRelatedAccessories">
                 {accessories.slice(currentIndex, currentIndex + cardCount).map((accessory) => (
-                    <div className="product-cards" key={accessory._id}>
+                    <div className="productCardsRelatedAccessories" key={accessory._id}>
                         <Link to={`/products/${accessory._id}`} onClick={handleCardClick}>
                         {/*<Link to={`/accessories/${accessory._id}`} onClick={handleCardClick}>*/}
                             <img
                                 src={accessory.images && accessory.images.length > 0 ? fixImagePath(accessory.images[0]) : 'placeholder.jpg'}
                                 alt={accessory.name}
                             />
-                            <div className="details">
-                                <div className="type">{accessory.type}</div>
-                                <div className="brand">{accessory.brand}</div>
-                                <div className="name">{accessory.name}</div>
+                            <div className="detailsRelatedAccessories">
+                                <div className="typeRelatedAccessories">{accessory.type}</div>
+                                <div className="brandRelatedAccessories">{accessory.brand}</div>
+                                <div className="nameRelatedAccessories">{accessory.name}</div>
                                 {/*<div className="price">*/}
                                 {/*    <span>KGS</span> {accessory.price}*/}
                                 {/*</div>*/}
@@ -150,7 +151,7 @@ const RelatedAccessories = ({ direction }) => {
                     </div>
                 ))}
             </div>
-            <div className="slider-controls">
+            <div className="sliderControlsRelatedAccessories">
                 <button onClick={handlePrevClick} disabled={currentIndex === 0}>
                     &#8592; Назад
                 </button>
