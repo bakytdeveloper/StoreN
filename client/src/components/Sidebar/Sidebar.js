@@ -11,6 +11,7 @@ import tel from "../Header/telegram.png";
 import { FaPhone } from 'react-icons/fa';
 import { SlArrowRight } from "react-icons/sl";
 import { SlArrowLeft } from "react-icons/sl";
+import {useHistory} from "react-router-dom";
 
 
 const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
@@ -19,6 +20,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
     const [selectedType, setSelectedType] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -89,6 +91,8 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         setProducts([]);
     };
 
+
+
     const handleTypeClick = async (type) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${selectedCategory}?type=${type}`);
@@ -111,7 +115,9 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                         &#215;
                     </div>
                 )}
-                <h2 className="sbTitle">{selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}</h2>
+                <h2 className="sbTitle">{selectedOption === 'contact'
+                    ? <span className="contactTitle">Наши контакты</span>
+                    : 'Товары'}</h2>
             </div>
             <ul>
                 {selectedOption === 'contact' ? (

@@ -209,7 +209,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeSellers, setActiveSellers] = useState([]);
-    const [productsPerPage, setProductsPerPage] = useState(12); // Изменено количество карточек на странице
+    const [productsPerPage, setProductsPerPage] = useState(15); // Изменено количество карточек на странице
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [resizeTimer, setResizeTimer] = useState(null);
 
@@ -342,12 +342,13 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     useEffect(() => {
         if (windowWidth >= 1200) {
             setProductsPerPage(15);
-        }if (windowWidth < 450) {
+        } else if (windowWidth < 450) {
             setProductsPerPage(10);
         } else {
             setProductsPerPage(12);
         }
     }, [windowWidth]);
+
 
     return (
         <div className="product-list">
@@ -406,8 +407,10 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                     <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
                         <img className="arrowRImg" src={right} alt="Cart" />
                     </button>
+                    <div className="product-list-plinth"></div>
                 </div>
             )}
+
         </div>
     );
 };

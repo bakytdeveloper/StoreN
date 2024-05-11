@@ -433,7 +433,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
             {product.category && !product.direction && <RelatedAccessories direction={product.category} />}
 
             {/* Вставляем компонент */}
-
+        <div className="plinth"></div>
         </div>
     );
 };
