@@ -103,6 +103,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './RelatedSellerProducts.css';
 
 const RelatedSellerProducts = ({ productId }) => {
     const [sellerProducts, setSellerProducts] = useState([]);
@@ -174,18 +175,20 @@ const RelatedSellerProducts = ({ productId }) => {
     return (
         <div className="related-seller-products">
             <h2>Другие товары продавца</h2>
-            <div className="products-lists">
+            <div className="productListRelatedSellerProducts">
+            {/*<div className="products-lists">*/}
                 {sellerProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
-                    <div className="product-cards" key={product._id}>
+                    <div className="productCardsRelatedSellerProducts" key={product._id}>
+                    {/*<div className="product-cards" key={product._id}>*/}
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
                                 src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
-                            <div className="details">
-                                <div className="type">{product.type}</div>
-                                <div className="brand">{product.brand}</div>
-                                <div className="name">{product.name}</div>
+                            <div className="detailsRelatedSellerProducts">
+                                <div className="typeRelatedSellerProducts">{product.type}</div>
+                                <div className="brandRelatedSellerProducts">{product.brand}</div>
+                                <div className="nameRelatedSellerProducts">{product.name}</div>
                                 {/*<div className="price">*/}
                                 {/*    <span>KGS</span> {product.price}*/}
                                 {/*</div>*/}
@@ -194,7 +197,7 @@ const RelatedSellerProducts = ({ productId }) => {
                     </div>
                 ))}
             </div>
-            <div className="slider-controls">
+            <div className="sliderControlsRelatedSellerProducts">
                 <button className="slider-control-one-left"
                         onClick={handlePrevClick} disabled={currentIndex === 0}>
                     &#8592; Назад
