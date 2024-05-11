@@ -163,13 +163,16 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
+import './RelatedProducts.css';
 
 const RelatedProducts = ({ productId }) => {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardCount, setCardCount] = useState(5); // Количество карточек по умолчанию
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const containerRef = useRef(null);
 
     useEffect(() => {
         const fetchRelatedProducts = async () => {
@@ -197,20 +200,34 @@ const RelatedProducts = ({ productId }) => {
             if (screenWidth <= 1100) {
                 count = 4; // Изменить количество карточек для экранов <= 1100px
             }
-
-            if (screenWidth <= 768) {
-                count = 3; // Изменить количество карточек для экранов <= 768px
+            if (screenWidth <= 960) {
+                count = 3; // Изменить количество карточек для экранов <= 960px
             }
-
+            if (screenWidth <= 768) {
+                count = relatedProducts.length; // Показать все карточки на маленьких экранах
+            }
             setCardCount(count);
         };
 
+        // Вызываем обработчик при инициализации компонента
+        handleResizes();
+
+        // Добавляем обработчик события изменения размера окна
         window.addEventListener('resize', handleResizes);
 
+        // Удаляем обработчик при размонтировании компонента
         return () => {
             window.removeEventListener('resize', handleResizes);
         };
-    }, []);
+    }, [relatedProducts]); // Добавляем sellerProducts в зависимости, чтобы обновить cardCount при изменении данных
+
+
+    const handleScroll = () => {
+        if (containerRef.current) {
+            setScrollPosition(containerRef.current.scrollLeft);
+        }
+    };
+
 
     const handlePrevClick = () => {
         setCurrentIndex(prevIndex => Math.max(0, prevIndex - cardCount));
@@ -235,18 +252,19 @@ const RelatedProducts = ({ productId }) => {
     return (
         <div className="related-products">
             <h2>Похожие товары</h2>
-            <div className="products-lists">
+            <div className="productListRelatedProducts"
+                 ref={containerRef} onScroll={handleScroll}>
                 {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product) => (
-                    <div className="product-cards" key={product._id}>
+                    <div className="productCardsRelatedProducts" key={product._id}>
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
                                 src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
-                            <div className="details">
-                                <div className="type">{product.type}</div>
-                                <div className="brand">{product.brand}</div>
-                                <div className="name">{product.name}</div>
+                            <div className="detailsRelatedProducts">
+                                <div className="typeRelatedProducts">{product.type}</div>
+                                <div className="brandRelatedProducts">{product.brand}</div>
+                                <div className="nameRelatedProducts">{product.name}</div>
                                 {/*<div className="price">*/}
                                 {/*    <span>KGS</span> {product.price}*/}
                                 {/*</div>*/}
@@ -255,7 +273,7 @@ const RelatedProducts = ({ productId }) => {
                     </div>
                 ))}
             </div>
-            <div className="slider-controls">
+            <div className="sliderControlsRelatedProducts">
                 <button onClick={handlePrevClick} disabled={currentIndex === 0}>
                     &#8592; Назад
                 </button>
