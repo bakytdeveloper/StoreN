@@ -86,7 +86,7 @@
 //     }, [productId]);
 //
 //     useEffect(() => {
-//         const handleResize = () => {
+//         const handleResizes = () => {
 //             const screenWidth = window.innerWidth;
 //             let count = 5; // Количество карточек по умолчанию
 //
@@ -101,10 +101,10 @@
 //             setCardCount(count);
 //         };
 //
-//         window.addEventListener('resize', handleResize);
+//         window.addEventListener('resize', handleResizes);
 //
 //         return () => {
-//             window.removeEventListener('resize', handleResize);
+//             window.removeEventListener('resize', handleResizes);
 //         };
 //     }, []);
 //
@@ -190,7 +190,7 @@ const RelatedProducts = ({ productId }) => {
     }, [productId]);
 
     useEffect(() => {
-        const handleResize = () => {
+        const handleResizes = () => {
             const screenWidth = window.innerWidth;
             let count = 5; // Количество карточек по умолчанию
 
@@ -205,10 +205,10 @@ const RelatedProducts = ({ productId }) => {
             setCardCount(count);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResizes);
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResizes);
         };
     }, []);
 

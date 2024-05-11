@@ -128,7 +128,7 @@ const RelatedSellerProducts = ({ productId }) => {
     }, [productId]);
 
     useEffect(() => {
-        const handleResize = () => {
+        const handleResizes = () => {
             const screenWidth = window.innerWidth;
             let count = 5; // Количество карточек по умолчанию
 
@@ -143,10 +143,10 @@ const RelatedSellerProducts = ({ productId }) => {
             setCardCount(count);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResizes);
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResizes);
         };
     }, []);
 
