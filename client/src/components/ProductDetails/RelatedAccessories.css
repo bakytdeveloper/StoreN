@@ -3,7 +3,7 @@
 
 /* src/components/ProductDetails/ProductDetails.css */
 
-.productsListsRelatedAccessories {
+.products-list-related-accessories {
     display: inline-flex;
     flex-wrap: nowrap; /* Запрещаем перенос элементов на новую строку */
     overflow-x: auto; /* Добавляем горизонтальную прокрутку, если контейнер переполнен */
@@ -12,7 +12,7 @@
 
 
 
-.productCardsRelatedAccessories {
+.product-card-related-accessories {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -37,7 +37,7 @@
 /*    padding-top: 10px;*/
 /*}*/
 
-.productCardsRelatedAccessories {
+.product-card-related-accessories {
     display: flex;
     flex-direction: column;
     align-items: center; /* Выравнивание по центру по горизонтали */
@@ -54,24 +54,24 @@
 
 
 
-.sliderControlsRelatedAccessories button:disabled {
+.slider-controls-related-accessories button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 
-.sliderControlsRelatedAccessories {
+.slider-controls-related-accessories {
     display: flex;
 }
-.brandRelatedAccessories {
+.brand-related-accessories {
     font-weight: bold;
 }
 
 
 
-.typeRelatedAccessories,
-.brandRelatedAccessories,
-.nameRelatedAccessories {
+.type-related-accessories,
+.brand-related-accessories,
+.name-related-accessories {
     font-size: 14px;
     margin-bottom: 5px;
     text-align: center;
@@ -79,7 +79,7 @@
 }
 
 
-.productCardsRelatedAccessories img {
+.product-card-related-accessories img {
     width: 100%;
     height: 150px;
     object-fit: contain;
@@ -87,12 +87,12 @@
 
 
 
-.detailsRelatedAccessories {
+.details-related-accessories {
     margin-top: 10px; /* Поднимаем немного блок с деталями */
 }
 
 /* Поднятие кнопок слайдера */
-.sliderControlsRelatedAccessories {
+.slider-controls-related-accessories {
     margin-top: 10px;
 }
 
@@ -106,20 +106,21 @@
 
 
 /* Обновленные стили */
-.productCardsRelatedAccessories {
+.product-card-related-accessories {
     flex: 1; /* Равномерное распределение карточек */
     max-width: calc(33% - 20px); /* Уменьшение карточек не более чем на 33% */
     margin: 10px; /* Добавляем отступ между карточками */
 }
 
+
 @media screen and (max-width: 1100px) {
-    .productCardsRelatedAccessories {
+    .product-card-related-accessories {
         max-width: calc(50% - 20px); /* Уменьшение карточек до 50% при ширине экрана <= 1100px */
     }
 }
 
 @media screen and (max-width: 960px) {
-    .productCardsRelatedAccessories {
+    .product-card-related-accessories {
         max-width: calc(100% - 20px); /* Уменьшение карточек до 100% при ширине экрана <= 960px */
     }
 }
@@ -128,12 +129,12 @@
 
 /* Media queries */
 @media screen and (max-width: 768px) {
-    .productListRelatedAccessories {
+    .products-list-related-accessories {
         display: flex;
         overflow-x: auto;
     }
 
-    .productCardsRelatedAccessories {
+    .product-card-related-accessories {
         flex-direction: column;
         margin-top: 20px;
         /*margin-right: 10px;*/
@@ -143,7 +144,7 @@
 
     }
 
-    .detailsRelatedAccessories {
+    .details-related-accessories {
         margin-top: 20px;
         margin-left: 0;
         margin-right: 0;
@@ -151,31 +152,32 @@
         text-decoration: none;
         padding: 1px;
     }
-    .brandRelatedAccessories {
+    .brand-related-accessories {
         font-weight: bold;
 
     }
 
-    .typeRelatedAccessories,
-    .brandRelatedAccessories,
-    .nameRelatedAccessories {
+    .type-related-accessories,
+    .brand-related-accessories,
+    .name-related-accessories {
         font-size: 14px;
         margin-bottom: 5px;
         text-align: center;
 
     }
 
-    .sliderControlsRelatedAccessories {
+    .slider-controls-related-accessories {
+    margin-top: 50% !important;
         display: none;
     }
 
-    .productListRelatedAccessories {
+    .products-list-related-accessories {
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
     }
 
-    .productCardsRelatedAccessories {
+    .product-card-related-accessories {
         scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
         flex: 0 0 auto;
         width: 33%; /* Или любая другая ширина, в зависимости от вашего дизайна */
@@ -183,6 +185,5 @@
     }
 
 }
-
 
 

@@ -130,37 +130,34 @@ const RelatedAccessories = ({ direction }) => {
     return (
         <div className="related-accessories">
             <h2>Аксессуары</h2>
-            <div className="productsListsRelatedAccessories">
-                {accessories.slice(currentIndex, currentIndex + cardCount).map((accessory) => (
-                    <div className="productCardsRelatedAccessories" key={accessory._id}>
+            <div className="products-list-related-accessories">
+                {accessories.slice(currentIndex, currentIndex + cardCount).map((accessory, index) => (
+                    <div className="product-card-related-accessories" key={accessory._id}>
                         <Link to={`/products/${accessory._id}`} onClick={handleCardClick}>
-                        {/*<Link to={`/accessories/${accessory._id}`} onClick={handleCardClick}>*/}
                             <img
                                 src={accessory.images && accessory.images.length > 0 ? fixImagePath(accessory.images[0]) : 'placeholder.jpg'}
                                 alt={accessory.name}
                             />
-                            <div className="detailsRelatedAccessories">
-                                <div className="typeRelatedAccessories">{accessory.type}</div>
-                                <div className="brandRelatedAccessories">{accessory.brand}</div>
-                                <div className="nameRelatedAccessories">{accessory.name}</div>
-                                {/*<div className="price">*/}
-                                {/*    <span>KGS</span> {accessory.price}*/}
-                                {/*</div>*/}
+                            <div className="details-related-accessories">
+                                <div className="type-related-accessories">{accessory.type}</div>
+                                <div className="brand-related-accessories">{accessory.brand}</div>
+                                <div className="name-related-accessories">{accessory.name}</div>
                             </div>
                         </Link>
                     </div>
                 ))}
             </div>
-            <div className="sliderControlsRelatedAccessories">
-                <button onClick={handlePrevClick} disabled={currentIndex === 0}>
+            <div className="slider-controls-related-accessories">
+                <button className="prev-button" onClick={handlePrevClick} disabled={currentIndex === 0}>
                     &#8592; Назад
                 </button>
-                <button onClick={handleNextClick} disabled={currentIndex + cardCount >= accessories.length}>
+                <button className="next-button" onClick={handleNextClick} disabled={currentIndex + cardCount >= accessories.length}>
                     Вперёд &#8594;
                 </button>
             </div>
         </div>
     );
+
 };
 
 export default RelatedAccessories;
