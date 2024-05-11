@@ -123,11 +123,12 @@
     transform: translateX(-50%);
     display: flex;
     align-items: center;
+    /*justify-content: center;*/
     justify-content: space-between;
     width: 100%;
-    max-width: 600px; /* Желаемая максимальная ширина пагинации */
+    /*max-width: 600px; !* Желаемая максимальная ширина пагинации *!*/
     margin: 0 auto;
-    bottom: -70px;
+    /*bottom: -70px;*/
 }
 
 .pagination span {
@@ -194,6 +195,14 @@
     margin-bottom: 30px;
 
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* или любой другой нужный вам отступ */
+}
+
 
 @media only screen and (max-width: 768px) {
     .product-list {
