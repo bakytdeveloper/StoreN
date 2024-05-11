@@ -6,6 +6,7 @@ import './ProductDetails.css';
 import { useParams, useHistory } from 'react-router-dom';
 import RelatedSellerProducts from "./RelatedSellerProducts";
 import RelatedProducts from "./RelatedProducts";
+import RelatedAccessories from "./RelatedAccessories";
 
 // const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 //     const { productId } = useParams();
@@ -281,6 +282,8 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
             </div>
             <RelatedSellerProducts productId={productId} />
             <RelatedProducts productId={productId} />
+            <RelatedAccessories direction={product.category} /> {/* Передаем направление текущего товара */}
+
             {/* Вставляем компонент */}
 
         </div>

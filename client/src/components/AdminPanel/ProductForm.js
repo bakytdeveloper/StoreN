@@ -753,7 +753,11 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //
 // export default ProductForm;
 //
-//
+//   {/*<option value="">Выберите направление</option>*/}
+//                         {/*<option value="Для гаджетов">Для гаджетов</option>*/}
+//                         {/*<option value="Для спорта">Для спорта</option>*/}
+//                         {/*<option value="Для стиля">Для стиля</option>*/}
+//                         {/*<option value="Для орг. техники">Для орг.
 
 
 

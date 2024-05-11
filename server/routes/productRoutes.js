@@ -229,6 +229,17 @@ router.get('/related/:productId', async (req, res) => {
 });
 
 
+// Добавляем новый роут для получения аксессуаров по направлению (direction)
+router.get('/accessories/:direction', async (req, res) => {
+    try {
+        const { direction } = req.params;
+        const accessories = await Product.find({ direction });
+        res.json(accessories);
+    } catch (error) {
+        console.error('Error fetching accessories by direction:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 
 

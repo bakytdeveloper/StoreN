@@ -340,7 +340,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     };
 
     useEffect(() => {
-        if (windowWidth >= 1400) {
+        if (windowWidth >= 1200) {
             setProductsPerPage(15);
         }if (windowWidth < 450) {
             setProductsPerPage(10);
