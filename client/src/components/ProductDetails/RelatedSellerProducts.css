@@ -120,6 +120,18 @@
         display: none;
     }
 
+    .productListRelatedSellerProducts {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
+    }
+
+    .productCardsRelatedSellerProducts {
+        scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
+        flex: 0 0 auto;
+        width: 33%; /* Или любая другая ширина, в зависимости от вашего дизайна */
+        margin-right: 10px; /* Добавляем небольшой отступ между карточками */
+    }
 
 }
 

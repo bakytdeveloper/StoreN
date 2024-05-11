@@ -101,7 +101,7 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import './RelatedSellerProducts.css';
 
@@ -109,6 +109,9 @@ const RelatedSellerProducts = ({ productId }) => {
     const [sellerProducts, setSellerProducts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardCount, setCardCount] = useState(5); // Количество карточек по умолчанию
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const containerRef = useRef(null);
 
     useEffect(() => {
         const fetchRelatedSellerProducts = async () => {
@@ -127,6 +130,14 @@ const RelatedSellerProducts = ({ productId }) => {
 
         fetchRelatedSellerProducts();
     }, [productId]);
+
+
+    const handleScroll = () => {
+        if (containerRef.current) {
+            setScrollPosition(containerRef.current.scrollLeft);
+        }
+    };
+
 
     useEffect(() => {
         const handleResizes = () => {
@@ -175,7 +186,7 @@ const RelatedSellerProducts = ({ productId }) => {
     return (
         <div className="related-seller-products">
             <h2>Другие товары продавца</h2>
-            <div className="productListRelatedSellerProducts">
+            <div className="productListRelatedSellerProducts"  ref={containerRef} onScroll={handleScroll}>
             {/*<div className="products-lists">*/}
                 {sellerProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="productCardsRelatedSellerProducts" key={product._id}>
