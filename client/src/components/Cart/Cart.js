@@ -366,6 +366,36 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         try {
+    //             const token = localStorage.getItem('token');
+    //             if (token) {
+    //                 const response = await fetch(`${apiUrl}/api/users/profile`, {
+    //                     method: 'GET',
+    //                     headers: {
+    //                         'Authorization': `Bearer ${token}`,
+    //                     },
+    //                 });
+    //                 const data = await response.json();
+    //                 if (response.ok) {
+    //                     setUser(data);
+    //                     // Автоматическое заполнение полей имени и email, если пользователь зарегистрирован и залогинен
+    //                     setFirstName(data.name);
+    //                     setEmail(data.email);
+    //                 } else {
+    //                     console.error(data.message);
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching user:', error);
+    //         }
+    //     };
+    //
+    //     fetchUser();
+    // }, [apiUrl]);
+
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -378,12 +408,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         },
                     });
                     const data = await response.json();
-                    if (response.ok) {
+                    if (response.ok && data) { // Добавлена проверка на существование data
                         setUser(data);
                         // Автоматическое заполнение полей имени и email, если пользователь зарегистрирован и залогинен
                         setFirstName(data.name);
                         setEmail(data.email);
-                    } else {
+                    } else if (!response.ok && data) { // Добавлена проверка на существование data
                         console.error(data.message);
                     }
                 }
@@ -394,6 +424,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
 
         fetchUser();
     }, [apiUrl]);
+
 
     const handleCheckout = () => {
         setShowCheckout(true);
