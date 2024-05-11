@@ -299,6 +299,7 @@ import RelatedAccessories from "./RelatedAccessories";
 import { Link } from 'react-router-dom';
 
 
+
 const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
@@ -429,8 +430,10 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
             </div>
             <RelatedSellerProducts productId={productId} />
             <RelatedProducts productId={productId} />
-            {/* Проверяем направление товара, если есть, то это аксессуар, и не отображаем компонент */}
-            {!product.direction && <RelatedAccessories direction={product.category} />}
+            {product.category && !product.direction && <RelatedAccessories direction={product.category} />}
+
+            {/* Вставляем компонент */}
+
         </div>
     );
 };

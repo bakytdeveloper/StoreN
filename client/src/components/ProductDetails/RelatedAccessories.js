@@ -132,7 +132,8 @@ const RelatedAccessories = ({ direction }) => {
             <div className="products-lists">
                 {accessories.slice(currentIndex, currentIndex + cardCount).map((accessory) => (
                     <div className="product-cards" key={accessory._id}>
-                        <Link to={`/accessories/${accessory._id}`} onClick={handleCardClick}>
+                        <Link to={`/products/${accessory._id}`} onClick={handleCardClick}>
+                        {/*<Link to={`/accessories/${accessory._id}`} onClick={handleCardClick}>*/}
                             <img
                                 src={accessory.images && accessory.images.length > 0 ? fixImagePath(accessory.images[0]) : 'placeholder.jpg'}
                                 alt={accessory.name}
