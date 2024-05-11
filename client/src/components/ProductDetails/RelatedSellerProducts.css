@@ -40,7 +40,20 @@
 .sliderControlsRelatedSellerProducts {
     display: flex;
 }
+.brandRelatedSellerProducts {
+    font-weight: bold;
+}
 
+
+
+.typeRelatedSellerProducts,
+.brandRelatedSellerProducts,
+.nameRelatedSellerProducts {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: center;
+
+}
 
 
 .productCardsRelatedSellerProducts img {
@@ -91,7 +104,8 @@
         /*margin-right: 10px;*/
         width: 111px;
         padding: 2px;
-        text-align: center;
+        text-align: center!important;
+
     }
 
     .detailsRelatedSellerProducts {

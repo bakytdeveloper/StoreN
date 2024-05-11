@@ -180,6 +180,7 @@ strong {
     }
 
     .product-details {
+        width: 100%;
         flex-direction: column;
         margin-top: 200px;
         margin-right: 10px;
