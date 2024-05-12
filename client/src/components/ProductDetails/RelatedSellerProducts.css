@@ -8,7 +8,7 @@
 }
 
 .product-cards-related-seller-products {
-    position: absolute;
+    /*position: absolute;*/
     /*position: relative;*/
     display: flex;
     /*flex-direction: row;*/

@@ -159,7 +159,7 @@ const RelatedSellerProducts = ({ productId }) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [sellerProducts]); // Добавляем sellerProducts в зависимости, чтобы обновить cardCount при изменении данных
+    }, [sellerProducts.length]); // Заменили [sellerProducts] на [sellerProducts.length]
 
 
 

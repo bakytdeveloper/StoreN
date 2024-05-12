@@ -13,7 +13,7 @@
 
 
 .product-card-related-accessories {
-    position: absolute;
+    /*position: absolute;*/
     /*position: relative;*/
     display: flex;
     flex-direction: row;
