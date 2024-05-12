@@ -380,9 +380,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     };
 
     return (
-        <div className="product-details-container">
+        <div className="product-details-container mobile-view">
             <div className="product-details">
-                <button className="closeButton" onClick={handleClose}>
+                <button className="close-button" onClick={handleClose}>
                     &#10006;
                 </button>
                 <div className="image-gallery">
@@ -400,9 +400,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <img src={selectedImage} alt={product.name} className="main-image" />
                 </div>
                 <div className="details">
-                    <div className="typeDetails">{product.type}</div>
-                    <div className="brandDetails">{product.brand}</div>
-                    <div className="nameDetails">{product.name}</div>
+                    <div className="type-details">{product.type}</div>
+                    <div className="brand-details">{product.brand}</div>
+                    <div className="name-details">{product.name}</div>
                     <hr />
                     <div className="description">
                         <strong>Описание:</strong> {product.description}

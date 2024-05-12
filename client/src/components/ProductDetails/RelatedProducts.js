@@ -252,19 +252,19 @@ const RelatedProducts = ({ productId }) => {
     return (
         <div className="related-products">
             <h2>Похожие товары</h2>
-            <div className="productListRelatedProducts"
+            <div className="product-list-related-products"
                  ref={containerRef} onScroll={handleScroll}>
                 {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product) => (
-                    <div className="productCardsRelatedProducts" key={product._id}>
+                    <div className="product-cards-related-products" key={product._id}>
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
                                 src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
-                            <div className="detailsRelatedProducts">
-                                <div className="typeRelatedProducts">{product.type}</div>
-                                <div className="brandRelatedProducts">{product.brand}</div>
-                                <div className="nameRelatedProducts">{product.name}</div>
+                            <div className="details-related-products">
+                                <div className="type-related-products">{product.type}</div>
+                                <div className="brand-related-products">{product.brand}</div>
+                                <div className="name-related-products">{product.name}</div>
                                 {/*<div className="price">*/}
                                 {/*    <span>KGS</span> {product.price}*/}
                                 {/*</div>*/}
@@ -273,7 +273,7 @@ const RelatedProducts = ({ productId }) => {
                     </div>
                 ))}
             </div>
-            <div className="sliderControlsRelatedProducts">
+            <div className="slider-controls-related-products">
                 <button onClick={handlePrevClick} disabled={currentIndex === 0}>
                     &#8592; Назад
                 </button>

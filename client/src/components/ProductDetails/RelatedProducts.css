@@ -1,16 +1,13 @@
 /*//   RelatedProducts*/
 
-
-/* src/components/ProductDetails/ProductDetails.css */
-
-.productListRelatedProducts {
+.product-list-related-products {
      display: inline-flex;
     flex-wrap: nowrap; /* Запрещаем перенос элементов на новую строку */
     overflow-x: auto; /* Добавляем горизонтальную прокрутку, если контейнер переполнен */
 
 }
 
-.productCardsRelatedProducts {
+.product-cards-related-products {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -21,29 +18,10 @@
     border: 5px solid #ddd;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/*.productCardsRelatedSellerProducts {*/
-/*    border: 1px solid #ddd;*/
-/*    border-radius: 3px;*/
-/*    overflow: hidden;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*    transition: transform 0.3s;*/
-/*    cursor: pointer;*/
-/*    text-align: center;*/
-/*    padding-top: 10px;*/
-/*}*/
-
-.productCardsRelatedProducts {
-    display: flex;
     flex-direction: column;
     align-items: center; /* Выравнивание по центру по горизонтали */
     justify-content: center; /* Выравнивание по центру по вертикали */
-    border: 5px solid #ddd;
-    border-radius: 3px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     cursor: pointer;
     text-align: center;
@@ -52,24 +30,24 @@
 
 
 
-.sliderControlsRelatedProducts button:disabled {
+.slider-controls-related-products button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 
-.sliderControlsRelatedProducts {
+.slider-controls-related-products {
     display: flex;
 }
-.brandRelatedProducts {
+.brand-related-products {
     font-weight: bold;
 }
 
 
 
-.typeRelatedProducts,
-.brandRelatedProducts,
-.nameRelatedProducts {
+.type-related-products,
+.brand-related-products,
+.name-related-products {
     font-size: 14px;
     margin-bottom: 5px;
     text-align: center;
@@ -77,7 +55,7 @@
 }
 
 
-.productCardsRelatedProducts img {
+.product-cards-related-products img {
     width: 100%;
     height: 150px;
     object-fit: contain;
@@ -85,39 +63,30 @@
 
 
 
-.detailsRelatedProducts {
+.details-related-products {
     margin-top: 10px; /* Поднимаем немного блок с деталями */
 }
 
 /* Поднятие кнопок слайдера */
-.sliderControlsRelatedProducts {
+.slider-controls-related-products {
     margin-top: 10px;
 }
 
-
-
-/*.price {*/
-/*    text-align: center;*/
-/*    color: #055486;*/
-/*}*/
-
-
-
 /* Обновленные стили */
-.productCardsRelatedProducts {
+.product-cards-related-products {
     flex: 1; /* Равномерное распределение карточек */
     /*max-width: calc(33% - 20px); !* Уменьшение карточек не более чем на 33% *!*/
     margin: 10px; /* Добавляем отступ между карточками */
 }
 
 @media screen and (max-width: 1100px) {
-    .productCardsRelatedProducts {
+    .product-cards-related-products {
         max-width: calc(50% - 20px); /* Уменьшение карточек до 50% при ширине экрана <= 1100px */
     }
 }
 
 @media screen and (max-width: 960px) {
-    .productCardsRelatedProducts {
+    .product-cards-related-products {
         max-width: calc(100% - 20px); /* Уменьшение карточек до 100% при ширине экрана <= 960px */
     }
 }
@@ -126,22 +95,27 @@
 
 /* Media queries */
 @media screen and (max-width: 768px) {
-    .productListRelatedProducts {
+    .product-list-related-products {
         display: flex;
         overflow-x: auto;
+        scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
     }
 
-    .productCardsRelatedProducts {
+    .product-cards-related-products {
         flex-direction: column;
         margin-top: 20px;
         /*margin-right: 10px;*/
         width: 111px;
         padding: 2px;
         text-align: center!important;
-
+        scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
+        flex: 0 0 auto;
+        width: 33%; /* Или любая другая ширина, в зависимости от вашего дизайна */
+        margin-right: 10px; /* Добавляем небольшой отступ между карточками */
     }
 
-    .detailsRelatedProducts {
+
+    .details-related-products {
         margin-top: 20px;
         margin-left: 0;
         margin-right: 0;
@@ -149,35 +123,22 @@
         text-decoration: none;
         padding: 1px;
     }
-    .brandRelatedProducts {
+    .brand-related-products {
         font-weight: bold;
 
     }
 
-    .typeRelatedProducts,
-    .brandRelatedProducts,
-    .nameRelatedProducts {
+    .type-related-products,
+    .brand-related-products,
+    .name-related-products {
         font-size: 14px;
         margin-bottom: 5px;
         text-align: center;
 
     }
 
-    .sliderControlsRelatedProducts {
+    .slider-controls-related-products {
         display: none;
-    }
-
-    .productListRelatedProducts {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
-    }
-
-    .productCardsRelatedProducts {
-        scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
-        flex: 0 0 auto;
-        width: 33%; /* Или любая другая ширина, в зависимости от вашего дизайна */
-        margin-right: 10px; /* Добавляем небольшой отступ между карточками */
     }
 
 }

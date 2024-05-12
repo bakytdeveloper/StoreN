@@ -11,15 +11,8 @@
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-/*.close-button {*/
-/*    align-self: self-start;*/
-/*    margin-right: auto;*/
-/*    font-size: 27px;*/
-/*    border: none;*/
-/*    background: none;*/
-/*    cursor: pointer;*/
-/*}*/
-.closeButton {
+
+.close-button {
     position: absolute;
     /*align-self: flex-end;*/
     /*margin-right: auto;*/
@@ -35,7 +28,7 @@
     margin-left: 90%!important;
 }
 
-.closeButton:hover {
+.close-button:hover {
     background: none;
     color: #049ef1 !important;
 }
@@ -62,8 +55,6 @@
     margin-right: 25px;
     flex: 1;
     width: 66px;
-    /*border: 3px solid lightblue;*/
-    /*border: 3px solid #d3ecf5;*/
     border-radius: 3px;
 }
 
@@ -82,12 +73,12 @@
     border-radius: 4px;
 }
 
-.typeDetails {
+.type-details {
     font-size: 22px;
      font-family: inherit;
 }
 
- .brandDetails {
+ .brand-details {
     font-size: 22px;
      font-family: "American Typewriter";
      color: #020000;
@@ -97,7 +88,7 @@
      -webkit-text-stroke-color: #02415a; /* Цвет обводки */
 
  }
- .nameDetails {
+ .name-details {
 
     font-size: 19px;
      font-family: "American Typewriter";
@@ -114,11 +105,6 @@
 strong {
     color: #1f1c1c;
 }
-
-/*.typeDetails {*/
-/*    font-size: 22px;*/
-/*    font-weight: bold;*/
-/*}*/
 
 .price {
     text-align: center;
@@ -162,12 +148,15 @@ strong {
 
 /* Media queries */
 @media screen and (max-width: 768px) {
+
+
+
     .header {
         /*display: inline-flex;*/
-        margin: 0 0 0 0!important;
-        padding: 0!important;
+        margin: 0 0 0 0 !important;
+        padding: 0 !important;
         z-index: 11;
-        position: fixed!important;
+        position: fixed !important;
 
     }
 
@@ -186,29 +175,24 @@ strong {
         margin-right: 10px;
     }
 
-    .typeDetails {
+    .type-details {
         margin-top: 0;
         margin-bottom: 20px;
 
 
     }
 
-    .brandDetails {
+    .brand-details {
         margin-bottom: 20px;
 
     }
 
-    .details {
+   .mobile-view .details {
         margin-top: 20px;
         margin-left: 0;
         margin-right: 0;
         border: none;
     }
-
-    /*.close-button {*/
-    /*    margin-right: 360px;*/
-    /*    margin-top: 350px;*/
-    /*}*/
 
     .image-gallery {
         width: 90%;
@@ -218,13 +202,13 @@ strong {
     .main-image {
         width: 95%;
         margin-bottom: 20px;
-        margin-left: -80px!important;
+        margin-left: -80px !important;
         justify-content: flex-start;
 
     }
 
-    .closeButton {
-        margin: 0!important;
+    .close-button {
+        margin: 0 !important;
         margin-left: 75% !important;
     }
 
@@ -267,16 +251,20 @@ strong {
         font-weight: bold;
         padding: 2px 5px;
     }
+
     .related-seller-products {
         margin-top: 25px;
         margin-right: 2px;
     }
+
     .related-products {
         margin-top: 30px;
         margin-right: 2px;
         margin-bottom: 40px;
     }
+
 }
+
 
 
 
