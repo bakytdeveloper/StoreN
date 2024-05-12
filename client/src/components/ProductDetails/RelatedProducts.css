@@ -8,7 +8,8 @@
 }
 
 .product-cards-related-products {
-    position: relative;
+    position: absolute;
+    /*position: relative;*/
     display: flex;
     flex-direction: row;
     max-width: 96%;
