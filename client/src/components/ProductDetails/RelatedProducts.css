@@ -18,7 +18,7 @@
     margin: 10px auto;
     margin-top: 130px;
     padding: 20px;
-    border: 1px solid #e9e8e8;
+    border: 5px solid #ddd;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -106,7 +106,7 @@
 /* Обновленные стили */
 .productCardsRelatedProducts {
     flex: 1; /* Равномерное распределение карточек */
-    max-width: calc(33% - 20px); /* Уменьшение карточек не более чем на 33% */
+    /*max-width: calc(33% - 20px); !* Уменьшение карточек не более чем на 33% *!*/
     margin: 10px; /* Добавляем отступ между карточками */
 }
 
