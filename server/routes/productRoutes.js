@@ -234,7 +234,9 @@ router.get('/accessories/:direction', async (req, res) => {
     try {
         const { direction } = req.params;
         const accessories = await Product.find({ direction });
+        console.log("accessories", accessories)
         res.json(accessories);
+
     } catch (error) {
         console.error('Error fetching accessories by direction:', error);
         res.status(500).json({ message: 'Internal Server Error' });
