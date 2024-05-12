@@ -379,6 +379,8 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
         }
     };
 
+// &#10006;
+
     return (
         <div className="product-details-container mobile-view">
             <div className="product-details">
@@ -386,6 +388,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     &#10006;
                 </button>
                 <div className="image-gallery">
+
                     <div className="thumbnail-gallery">
                         {product.images.map((image) => (
                             <img
@@ -403,6 +406,11 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <div className="type-details">{product.type}</div>
                     <div className="brand-details">{product.brand}</div>
                     <div className="name-details">{product.name}</div>
+
+                    {/*<button style={{marginLeft:"22px"}} className="close-button" onClick={handleClose}>*/}
+                    {/*    ⟻*/}
+                    {/*</button>*/}
+
                     <hr />
                     <div className="description">
                         <strong>Описание:</strong> {product.description}

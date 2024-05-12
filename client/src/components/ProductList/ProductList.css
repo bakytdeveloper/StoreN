@@ -8,7 +8,7 @@
     padding: 20px;
     margin-top: 77px!important;
     margin-left: 230px;
-    margin-bottom: 150px!important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
+    margin-bottom: 90px!important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
 
 }
 
@@ -124,11 +124,11 @@
     display: flex;
     align-items: center;
     /*justify-content: center;*/
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     width: 100%;
     /*max-width: 600px; !* Желаемая максимальная ширина пагинации *!*/
     margin: 0 auto;
-    /*bottom: -70px;*/
+    margin-bottom: 30px!important;
 }
 
 .pagination span {
@@ -190,9 +190,10 @@
 }
 
 .product-list-plinth {
-    width: 100%;
-    height: 20px;
-    margin-bottom: 30px;
+    /*width: 100%;*/
+    /*height: 20px;*/
+    /*margin-bottom: 40px;*/
+    /*background-color: #1f1c1c;*/
 
 }
 
@@ -200,20 +201,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; /* или любой другой нужный вам отступ */
+    margin-top: 0; /* или любой другой нужный вам отступ */
+    margin-bottom: 11px;
 }
 
 
 @media only screen and (max-width: 768px) {
     .product-list {
-        margin: 170px 4px 0 1px!important;
+        margin: 170px 4px 90px 1px!important;
         padding-bottom: 0!important;
     }
 
 
     .pagination {
         display: inline-flex;
-        /*margin-left: 2%!important;*/
+        margin-left: 1%!important;
         width: auto;
 
     }

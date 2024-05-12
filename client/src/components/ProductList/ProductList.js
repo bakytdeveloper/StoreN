@@ -472,8 +472,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                         <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
                             <img className="arrowRImg" src={right} alt="Cart" />
                         </button>
+                        <div className="product-list-plinth"></div>
                     </div>
-                    <div className="product-list-plinth"></div>
                 </div>
             )}
 
