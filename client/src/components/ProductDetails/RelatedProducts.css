@@ -1,5 +1,12 @@
 /*//   RelatedProducts*/
 
+.related-products {
+    max-width: 100%; /* Выберите подходящее значение ширины */
+    border: 1px solid black;
+    overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
+
+}
+
 .product-list-related-products {
      display: inline-flex;
     flex-wrap: nowrap; /* Запрещаем перенос элементов на новую строку */
@@ -96,6 +103,11 @@
 
 /* Media queries */
 @media screen and (max-width: 768px) {
+
+    .related-products h2 {
+        margin-top: 11px;
+        margin-bottom: 0;
+    }
     .product-list-related-products {
         display: flex;
         overflow-x: auto;

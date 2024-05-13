@@ -2,6 +2,12 @@
 
 
 /* src/components/ProductDetails/ProductDetails.css */
+.related-accessories {
+    max-width: 100%; /* Выберите подходящее значение ширины */
+    border: 1px solid black;
+    overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
+
+}
 
 .products-list-related-accessories {
     display: inline-flex;
@@ -133,6 +139,12 @@
     .products-list-related-accessories {
         display: flex;
         overflow-x: auto;
+    }
+
+
+    .related-accessories h2 {
+        margin-top: 11px;
+        margin-bottom: 0;
     }
 
     .product-card-related-accessories {

@@ -1,5 +1,19 @@
 /* src/components/ProductDetails/ProductDetails.css */
 
+.related-seller-products {
+    max-width: 100%; /* Выберите подходящее значение ширины */
+    border: 1px solid black;
+    overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
+
+
+}
+
+
+.related-seller-products h2 {
+    margin-top: 11px;
+    margin-bottom: 0;
+}
+
 .product-list-related-seller-products {
     display: flex;
     flex-wrap: nowrap; /* Запрещаем перенос элементов на новую строку */
