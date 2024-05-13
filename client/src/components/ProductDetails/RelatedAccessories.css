@@ -155,18 +155,9 @@
         display: none;
     }
 
-    /*.products-list-related-accessories {*/
-    /*    display: flex;*/
-    /*    overflow-x: auto;*/
-    /*    scroll-snap-type: x mandatory; !* Для обеспечения прокрутки по горизонтали *!*/
-    /*}*/
-
-    /*.product-card-related-accessories {*/
-    /*    scroll-snap-align: start; !* Для прокрутки к началу каждой карточки *!*/
-    /*    flex: 0 0 auto;*/
-    /*    width: 33%; !* Или любая другая ширина, в зависимости от вашего дизайна *!*/
-    /*    margin-right: 10px; !* Добавляем небольшой отступ между карточками *!*/
-    /*}*/
+    .products-list-related-accessories button {
+        display: none;
+    }
 
 }
 
@@ -185,5 +176,52 @@
 }
 
 
+
+.related-accessories {
+    position: relative;
+}
+
+.slider-control-one-left,
+.slider-control-one-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px; /* Размер кнопки */
+    height: 60px; /* Размер кнопки */
+    background-color: rgba(0, 0, 0, 0.5); /* Цвет кнопки */
+    color: white; /* Цвет текста */
+    border: none;
+    border-radius: 20%; /* Для круглой формы */
+    cursor: pointer;
+    z-index: 1; /* Позволяет кнопкам быть поверх карточек */
+}
+
+.slider-control-one-left {
+    left: 10px; /* Расположение кнопки "Назад" */
+}
+
+.slider-control-one-right {
+    right: 10px; /* Расположение кнопки "Вперёд" */
+}
+
+.products-list-related-accessories {
+    position: relative; /* Необходимо для корректного позиционирования кнопок */
+}
+
+.product-card-related-accessories {
+    position: relative; /* Необходимо для корректного позиционирования кнопок */
+    z-index: 0; /* Позволяет карточкам быть под кнопками */
+}
+
+.slider-control-one-left.disabled,
+.slider-control-one-right.disabled {
+    opacity: 0.5; /* Понижаем прозрачность */
+    cursor: not-allowed; /* Делаем курсор не кликабельным */
+}
+
+.slider-control-one-left.disabled:hover,
+.slider-control-one-right.disabled:hover {
+    background-color: rgba(0, 0, 0, 0.3); /* Изменяем цвет фона при наведении */
+}
 
 

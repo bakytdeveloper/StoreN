@@ -443,7 +443,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
             {product.category && !product.direction && <RelatedAccessories direction={product.category} />}
 
             {/* Вставляем компонент */}
-        <div className="plinth"></div>
+        <div className="plinth">
+            {/*<span style={{textAlign:"center", color:"black"}}>https://kiosk.kg</span>*/}
+        </div>
         </div>
     );
 };

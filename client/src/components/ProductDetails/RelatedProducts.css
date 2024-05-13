@@ -155,7 +155,58 @@
         display: none;
     }
 
+    .product-list-related-products button {
+        display: none;
+    }
+
 }
 
 
 
+
+.related-seller-products {
+    position: relative;
+}
+
+.slider-control-one-left,
+.slider-control-one-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px; /* Размер кнопки */
+    height: 60px; /* Размер кнопки */
+    background-color: rgba(0, 0, 0, 0.5); /* Цвет кнопки */
+    color: white; /* Цвет текста */
+    border: none;
+    border-radius: 20%; /* Для круглой формы */
+    cursor: pointer;
+    z-index: 1; /* Позволяет кнопкам быть поверх карточек */
+}
+
+.slider-control-one-left {
+    left: 10px; /* Расположение кнопки "Назад" */
+}
+
+.slider-control-one-right {
+    right: 10px; /* Расположение кнопки "Вперёд" */
+}
+
+.product-list-related-products {
+    position: relative; /* Необходимо для корректного позиционирования кнопок */
+}
+
+.product-cards-related-products {
+    position: relative; /* Необходимо для корректного позиционирования кнопок */
+    z-index: 0; /* Позволяет карточкам быть под кнопками */
+}
+
+.slider-control-one-left.disabled,
+.slider-control-one-right.disabled {
+    opacity: 0.5; /* Понижаем прозрачность */
+    cursor: not-allowed; /* Делаем курсор не кликабельным */
+}
+
+.slider-control-one-left.disabled:hover,
+.slider-control-one-right.disabled:hover {
+    background-color: rgba(0, 0, 0, 0.3); /* Изменяем цвет фона при наведении */
+}

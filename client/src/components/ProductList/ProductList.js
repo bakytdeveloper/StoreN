@@ -209,7 +209,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeSellers, setActiveSellers] = useState([]);
-    const [productsPerPage, setProductsPerPage] = useState(15); // Изменено количество карточек на странице
+    const [productsPerPage, setProductsPerPage] = useState(12); // Изменено количество карточек на странице
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [resizeTimer, setResizeTimer] = useState(null);
 

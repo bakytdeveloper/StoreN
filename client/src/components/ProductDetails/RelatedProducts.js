@@ -167,6 +167,9 @@ import React, {useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import './RelatedProducts.css';
 
+import sliderLeft from './sliderLeft.png';
+import sliderRight from './sliderRight.png';
+
 const RelatedProducts = ({ productId }) => {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -249,12 +252,52 @@ const RelatedProducts = ({ productId }) => {
         return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
     };
 
+    // return (
+    //     <div className="related-products">
+    //         <h2>Похожие товары</h2>
+    //         <div className="product-list-related-products"
+    //              ref={containerRef} onScroll={handleScroll}>
+    //             {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product) => (
+    //                 <div className="product-cards-related-products" key={product._id}>
+    //                     <Link to={`/products/${product._id}`} onClick={handleCardClick}>
+    //                         <img
+    //                             src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
+    //                             alt={product.name}
+    //                         />
+    //                         <div className="details-related-products">
+    //                             <div className="type-related-products">{product.type}</div>
+    //                             <div className="brand-related-products">{product.brand}</div>
+    //                             <div className="name-related-products">{product.name}</div>
+    //                             {/*<div className="price">*/}
+    //                             {/*    <span>KGS</span> {product.price}*/}
+    //                             {/*</div>*/}
+    //                         </div>
+    //                     </Link>
+    //                 </div>
+    //             ))}
+    //         </div>
+    //         <div className="slider-controls-related-products">
+    //             <button onClick={handlePrevClick} disabled={currentIndex === 0}>
+    //                 &#8592; Назад
+    //             </button>
+    //             <button onClick={handleNextClick} disabled={currentIndex + cardCount >= relatedProducts.length}>
+    //                 Вперёд &#8594;
+    //             </button>
+    //         </div>
+    //     </div>
+    // );
+
+
     return (
         <div className="related-products">
-            <h2>Похожие товары</h2>
-            <div className="product-list-related-products"
-                 ref={containerRef} onScroll={handleScroll}>
-                {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product) => (
+            <h2>Другие товары продавца</h2>
+            <div className="product-list-related-products"  ref={containerRef} onScroll={handleScroll}>
+                <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
+                        onClick={handlePrevClick} disabled={currentIndex === 0}>
+                    {/*&#8592; Назад*/}
+                    <img src={sliderLeft}/>
+                </button>
+                {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="product-cards-related-products" key={product._id}>
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
@@ -265,20 +308,16 @@ const RelatedProducts = ({ productId }) => {
                                 <div className="type-related-products">{product.type}</div>
                                 <div className="brand-related-products">{product.brand}</div>
                                 <div className="name-related-products">{product.name}</div>
-                                {/*<div className="price">*/}
-                                {/*    <span>KGS</span> {product.price}*/}
-                                {/*</div>*/}
                             </div>
                         </Link>
                     </div>
                 ))}
-            </div>
-            <div className="slider-controls-related-products">
-                <button onClick={handlePrevClick} disabled={currentIndex === 0}>
-                    &#8592; Назад
-                </button>
-                <button onClick={handleNextClick} disabled={currentIndex + cardCount >= relatedProducts.length}>
-                    Вперёд &#8594;
+                <button className={`slider-control-one-right ${currentIndex + cardCount >= relatedProducts.length ? 'disabled' : ''}`}
+                        onClick={handleNextClick}
+                        disabled={currentIndex + cardCount >= relatedProducts.length}>
+                    {/*Вперёд &#8594;*/}
+                    <img src={sliderRight}/>
+
                 </button>
             </div>
         </div>
