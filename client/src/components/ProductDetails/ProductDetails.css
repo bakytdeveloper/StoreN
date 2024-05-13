@@ -1,10 +1,16 @@
 /* src/components/ProductDetails/ProductDetails.css */
+
+/*.product-details-container {*/
+/*    max-width: 100%; !* Выберите подходящее значение ширины *!*/
+/*    border: 1px solid #efeeee;*/
+/*}*/
+
 .product-details {
     position: relative;
     display: flex;
     flex-direction: row;
-    max-width: 96%;
-    margin: 10px auto;
+    max-width: 100%;
+    /*margin: 10px auto;*/
     margin-top: 130px;
     padding: 20px;
     border: 1px solid #e9e8e8;
@@ -12,31 +18,51 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.close-button {
+.block-product-details-close-button {
+    /*display: inline-block;*/
+    margin-top: 0;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    z-index: 1; /* Убедитесь, что кнопка находится над другими элементами */
+}
+
+.product-details-close-button {
+    display: inline-flex;
     position: absolute;
     /*align-self: flex-end;*/
     /*margin-right: auto;*/
     width: 23px;
-    font-size: 35px!important;
+    font-size: 35px;
     border: none;
     background: none;
     cursor: pointer;
-    position: absolute;
-    margin-top: 10px;
+    margin-top: 0;
     /*margin-right: 55px!important;*/
-    color: #024783 !important;
-    margin-left: 90%!important;
+    color: #6d6e6e;
+    margin-left: 2%;
+    /*margin-bottom: 20px;*/
+
+    text-align: center;
+    align-items: center;
+    /*justify-content: center;*/
 }
 
-.close-button:hover {
+.product-details-close-button:hover {
     background: none;
     color: #049ef1 !important;
+}
+
+.span-product-details-close-button {
+    font-size: 20px;
+    margin-top: 5px;
 }
 
 .image-gallery {
     display: flex;
     /*flex-direction: column;*/
     align-items: flex-start;
+    margin-top: 35px;
 }
 .main-image {
     width: 350px;
@@ -63,14 +89,17 @@
     height: 60px;
     object-fit: contain;
 }
+
 .active {
     border: 2px solid #2980b9;
     border-radius: 3px;
 }
 
+
 .product-details .details {
     border: 4px solid #75bdef;
     border-radius: 4px;
+    width: 100% !important;
 }
 
 .type-details {
@@ -97,7 +126,7 @@
 
 
 .character:hover {
-    color: #2980b9;
+    color: #0c0c0c;
     cursor: auto;
     background: none;
 }
@@ -149,8 +178,6 @@ strong {
 /* Media queries */
 @media screen and (max-width: 768px) {
 
-
-
     .header {
         /*display: inline-flex;*/
         margin: 0 0 0 0 !important;
@@ -175,6 +202,14 @@ strong {
         margin-right: 10px;
     }
 
+
+    .block-product-details-close-button {
+        /*display: inline-block;*/
+        /*margin-top: 0;*/
+        position: absolute;
+        top: 5px;
+    }
+
     .type-details {
         margin-top: 0;
         margin-bottom: 20px;
@@ -197,6 +232,7 @@ strong {
     .image-gallery {
         width: 90%;
         align-items: center;
+        margin-top: -10px;
     }
 
     .main-image {
@@ -207,10 +243,10 @@ strong {
 
     }
 
-    .close-button {
-        margin: 0 !important;
-        margin-left: 75% !important;
-    }
+    /*.close-button {*/
+    /*    margin: 0 !important;*/
+    /*    margin-left: 75% !important;*/
+    /*}*/
 
     .thumbnail-gallery {
         display: inline-flex;
