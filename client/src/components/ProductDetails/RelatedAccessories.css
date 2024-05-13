@@ -10,7 +10,7 @@
 }
 
 .products-list-related-accessories {
-    display: inline-flex;
+    display: flex;
     flex-wrap: nowrap; /* Запрещаем перенос элементов на новую строку */
     overflow-x: auto; /* Добавляем горизонтальную прокрутку, если контейнер переполнен */
 
@@ -22,41 +22,48 @@
     /*position: absolute;*/
     /*position: relative;*/
     display: flex;
-    flex-direction: row;
-    max-width: 96%;
+    /*flex-direction: row;*/
+    /*max-width: 96%;*/
     margin: 10px auto;
     margin-top: 130px;
     padding: 20px;
-    border: 1px solid #e9e8e8;
-    border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/*.productCardsRelatedSellerProducts {*/
-/*    border: 1px solid #ddd;*/
-/*    border-radius: 3px;*/
-/*    overflow: hidden;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*    transition: transform 0.3s;*/
-/*    cursor: pointer;*/
-/*    text-align: center;*/
-/*    padding-top: 10px;*/
-/*}*/
-
-.product-card-related-accessories {
-    display: flex;
     flex-direction: column;
     align-items: center; /* Выравнивание по центру по горизонтали */
     justify-content: center; /* Выравнивание по центру по вертикали */
     border: 5px solid #ddd;
     border-radius: 3px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     cursor: pointer;
     text-align: center;
     padding-top: 10px;
+}
+
+
+
+.details-related-accessories {
+    margin-top: 10px; /* Поднимаем немного блок с деталями */
+}
+
+.brand-related-accessories {
+    font-weight: bold;
+}
+
+
+.type-related-accessories,
+.brand-related-accessories,
+.name-related-accessories {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+
+.product-card-related-accessories img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
 }
 
 
@@ -69,37 +76,6 @@
 
 .slider-controls-related-accessories {
     display: flex;
-}
-.brand-related-accessories {
-    font-weight: bold;
-}
-
-
-
-.type-related-accessories,
-.brand-related-accessories,
-.name-related-accessories {
-    font-size: 14px;
-    margin-bottom: 5px;
-    text-align: center;
-
-}
-
-
-.product-card-related-accessories img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-}
-
-
-
-.details-related-accessories {
-    margin-top: 10px; /* Поднимаем немного блок с деталями */
-}
-
-/* Поднятие кнопок слайдера */
-.slider-controls-related-accessories {
     margin-top: 10px;
 }
 
@@ -120,25 +96,15 @@
 }
 
 
-@media screen and (max-width: 1100px) {
-    .product-card-related-accessories {
-        max-width: calc(50% - 20px); /* Уменьшение карточек до 50% при ширине экрана <= 1100px */
-    }
-}
-
-@media screen and (max-width: 960px) {
-    .product-card-related-accessories {
-        max-width: calc(100% - 20px); /* Уменьшение карточек до 100% при ширине экрана <= 960px */
-    }
-}
-
-
-
 /* Media queries */
 @media screen and (max-width: 768px) {
     .products-list-related-accessories {
+        box-sizing: content-box;
+
         display: flex;
         overflow-x: auto;
+        scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
+
     }
 
 
@@ -154,6 +120,11 @@
         width: 111px;
         padding: 2px;
         text-align: center!important;
+        scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
+        flex: 0 0 auto;
+        width: 33%; /* Или любая другая ширина, в зависимости от вашего дизайна */
+        margin-right: 10px; /* Добавляем небольшой отступ между карточками */
+
 
     }
 
@@ -180,23 +151,39 @@
     }
 
     .slider-controls-related-accessories {
-    margin-top: 50% !important;
+        /*margin-top: 50% !important;*/
         display: none;
     }
 
-    .products-list-related-accessories {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
-    }
+    /*.products-list-related-accessories {*/
+    /*    display: flex;*/
+    /*    overflow-x: auto;*/
+    /*    scroll-snap-type: x mandatory; !* Для обеспечения прокрутки по горизонтали *!*/
+    /*}*/
 
-    .product-card-related-accessories {
-        scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
-        flex: 0 0 auto;
-        width: 33%; /* Или любая другая ширина, в зависимости от вашего дизайна */
-        margin-right: 10px; /* Добавляем небольшой отступ между карточками */
-    }
+    /*.product-card-related-accessories {*/
+    /*    scroll-snap-align: start; !* Для прокрутки к началу каждой карточки *!*/
+    /*    flex: 0 0 auto;*/
+    /*    width: 33%; !* Или любая другая ширина, в зависимости от вашего дизайна *!*/
+    /*    margin-right: 10px; !* Добавляем небольшой отступ между карточками *!*/
+    /*}*/
 
 }
+
+
+@media screen and (max-width: 960px) {
+    .product-card-related-accessories {
+        max-width: calc(100% - 20px); /* Уменьшение карточек до 100% при ширине экрана <= 960px */
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+    .product-card-related-accessories {
+        max-width: calc(50% - 20px); /* Уменьшение карточек до 50% при ширине экрана <= 1100px */
+    }
+}
+
+
 
 
