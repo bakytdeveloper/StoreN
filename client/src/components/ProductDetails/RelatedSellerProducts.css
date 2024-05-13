@@ -2,7 +2,7 @@
 
 .related-seller-products {
     max-width: 100%; /* Выберите подходящее значение ширины */
-    border: 1px solid black;
+    border: 1px solid #efeeee;
     overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
 
 
@@ -34,7 +34,7 @@
     flex-direction: column;
     align-items: center; /* Выравнивание по центру по горизонтали */
     justify-content: center; /* Выравнивание по центру по вертикали */
-    border: 5px solid #ddd;
+    border: 5px solid #efeeee;
     border-radius: 3px;
     overflow: hidden;
     transition: transform 0.3s;

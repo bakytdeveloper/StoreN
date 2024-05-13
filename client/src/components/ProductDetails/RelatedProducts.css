@@ -2,7 +2,7 @@
 
 .related-products {
     max-width: 100%; /* Выберите подходящее значение ширины */
-    border: 1px solid black;
+    border: 1px solid #efeeee;
     overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
 
 }
@@ -24,7 +24,7 @@
     margin: 10px auto;
     margin-top: 130px;
     padding: 20px;
-    border: 5px solid #ddd;
+    border: 5px solid #efeeee;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex-direction: column;
