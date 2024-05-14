@@ -172,10 +172,18 @@ const AdminPanel = ({ setShowSidebar }) => {
     const history = useHistory();
 
     // Проверка, аутентифицирован ли пользователь
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     if (!token || token !== "adminToken") {
+    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена
+    //     }
+    // }, [history]);
+
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (!token || token !== "adminToken") {
-            history.push('/login'); // Перенаправление на страницу входа, если нет токена
+        const isAdmin = localStorage.getItem('role') === 'admin';
+        if (!token || token !== "adminToken" || !isAdmin) {
+            history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
         }
     }, [history]);
 

@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 const OrderItem = ({ order, onUpdateStatus }) => {
     const [selectedStatus, setSelectedStatus] = useState(order.status);
 
+
     const handleStatusChange = () => {
         // Выполняем обновление статуса на сервере и в локальном состоянии
         onUpdateStatus(order._id, selectedStatus);
