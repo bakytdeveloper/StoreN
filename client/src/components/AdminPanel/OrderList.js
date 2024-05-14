@@ -200,6 +200,14 @@ const OrderList = ({ setShowSidebar }) => {
     const history = useHistory();
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const isAdmin = localStorage.getItem('role') === 'admin';
+        if (!token || token !== "adminToken" || !isAdmin) {
+            history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
+        }
+    }, [history]);
+
+    useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`);

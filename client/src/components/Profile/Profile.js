@@ -546,8 +546,8 @@ const Profile = ({ setShowSidebar }) => {
                 body: JSON.stringify({
                     name: editedName || user.name,
                     email: editedEmail || user.email,
-                    address: editedAddress || latestOrder.address,
-                    phoneNumber: editedPhoneNumber || latestOrder.phoneNumber,
+                    address: editedAddress || user.profile?.address || '', // Используем адрес из профиля, если есть
+                    phoneNumber: editedPhoneNumber || user.profile?.phoneNumber || '', // Используем номер телефона из профиля, если есть
                 }),
             });
             if (response.ok) {
@@ -564,6 +564,7 @@ const Profile = ({ setShowSidebar }) => {
             toast.error('Ошибка при обновлении профиля', { position: toast.POSITION.BOTTOM_RIGHT });
         }
     };
+
 
     const handleEditPassword = () => {
         setEditPassword(true);
@@ -719,7 +720,7 @@ const Profile = ({ setShowSidebar }) => {
                                             {editPassword ? (
                                                 <input
                                                     type="text"
-                                                    value={editedAddress || latestOrder.address}
+                                                    value={editedAddress || latestOrder.address || ''}
                                                     onChange={(e) => setEditedAddress(e.target.value)}
                                                 />
                                             ) : (
@@ -735,7 +736,7 @@ const Profile = ({ setShowSidebar }) => {
                                             {editPassword ? (
                                                 <input
                                                     type="text"
-                                                    value={editedPhoneNumber || latestOrder.phoneNumber}
+                                                    value={editedPhoneNumber || latestOrder.phoneNumber || ''}
                                                     onChange={(e) => setEditedPhoneNumber(e.target.value)}
                                                 />
                                             ) : (
