@@ -270,6 +270,8 @@ const OrderList = ({ setShowSidebar }) => {
 
     const handleOrderClick = (orderId) => {
         history.push(`/order/${orderId}`);
+        window.location.reload(); // Перезагрузка страницы
+
     };
 
 
