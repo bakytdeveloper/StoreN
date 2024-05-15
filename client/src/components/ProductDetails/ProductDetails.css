@@ -103,23 +103,31 @@
 .size {
     display: inline-flex;
     margin-right: 10px;
-    border: 1px solid grey;
+    border: 1px solid #c1bebe;
     padding: 7px;
-    background-color: #dddddd;
+    background-color: #f1f1f1;
+    cursor: pointer;
 
 }
 
 .color-name-product {
     display: inline-block;
-   border: 2px solid black;
+    border: 1px solid #c1bebe;
+    margin-right: 10px;
+    padding: 3px;
+    margin-bottom: 11px;
+    cursor: pointer;
 }
 
 .color-box {
     width: 33px;
     height: 20px;
+    /*margin-left: 30%;*/
+    margin: 0 auto;
 }
 .color-name {
-    margin-left: 10px;
+    /*padding: 3px;*/
+    margin: 0 auto;
 }
 
 
