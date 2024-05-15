@@ -1,6 +1,5 @@
 
 
-
 const mongoose = require('mongoose');
 
 const characteristicSchema = new mongoose.Schema({
@@ -17,9 +16,13 @@ const productSchema = new mongoose.Schema({
     direction: { type: String },
     brand: { type: String, required: true },
     characteristics: [characteristicSchema],
+    sizes: [{ type: String }], // Добавляем поле для размеров
+    colors: [{
+        name: { type: String, required: true }, // Название цвета
+        value: { type: String, required: true }, // Значение цвета
+    }], // Добавляем поле для цветов
     images: [{ type: String }], // Добавлено поле для картинок
     seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' } // Ссылка на продавца
-
 });
 
 const Product = mongoose.model('Product', productSchema);

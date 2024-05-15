@@ -410,7 +410,10 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         brand: '',
         characteristics: [],
         images: [],
+        sizes: [], // Добавляем поле для размеров
+        colors: [], // Добавляем поле для цветов
     });
+
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false); // Состояние для отслеживания отправки формы
@@ -494,6 +497,8 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
     const handleChange = async (e) => {
         const { name, value } = e.target;
+        // console.log('Name:', name);
+        // console.log('Value:', value);
         setFormData({ ...formData, [name]: value });
 
         if (name === 'category') {
@@ -674,25 +679,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
-    // useEffect(() => {
-    //     const fetchAllTypes = async () => {
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setAllTypes(data.types);
-    //             } else {
-    //                 console.error('Failed to fetch types');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching types:', error);
-    //         }
-    //     };
-    //     fetchAllTypes();
-    // }, []);
-    //
-
-    // const [allCategories, setAllCategories] = useState([]);
     useEffect(() => {
         const fetchAllCategories = async () => {
             try {
@@ -711,6 +697,21 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     }, []);
 
 
+
+// Добавляем функцию handleColorChange для обновления данных о цветах
+    const handleColorChange = (index, field, value) => {
+        const updatedColors = [...formData.colors];
+        updatedColors[index][field] = value;
+        setFormData({ ...formData, colors: updatedColors });
+    };
+
+
+    const handleSizesChange = (e) => {
+        const sizes = e.target.value.split(',').map(size => size.trim()); // Разделяем строку по запятым и удаляем лишние пробелы
+        setFormData({ ...formData, sizes: sizes });
+    };
+
+
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Добавить товар</h2>
@@ -727,25 +728,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 <option value="Аксессуары">Аксессуары</option>
             </select>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
-
-
-            {/*{formData.category === 'Аксессуары' && (*/}
-            {/*    <div>*/}
-            {/*        <label>Направление:</label>*/}
-            {/*        <select*/}
-            {/*            name="direction"*/}
-            {/*            value={direction}*/}
-            {/*            onChange={(e) => setDirection(e.target.value)}*/}
-            {/*            disabled={!formData.category || formData.category !== 'Аксессуары'}*/}
-            {/*        >*/}
-            {/*            <option value="">Выберите направление</option>*/}
-            {/*            {allTypes.map((type, index) => (*/}
-            {/*                <option key={index} value={type}>{type}</option>*/}
-            {/*            ))}*/}
-            {/*        </select>*/}
-            {/*    </div>*/}
-            {/*)}*/}
-
 
             {formData.category === 'Аксессуары' && (
                 <div>
@@ -781,6 +763,46 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             <textarea name="description" value={formData.description} onChange={handleChange} required />
             <label>Цена:</label>
             <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required />
+
+            <label>Размеры:</label>
+            <input
+                type="text"
+                name="sizes"
+                value={Array.isArray(formData.sizes) ? formData.sizes.join(',') : ''}
+                onChange={handleSizesChange}
+            />
+            <label>Цвета:</label>
+            {formData.colors && formData.colors.map((color, index) => (
+                <div key={index}>
+                    <input
+                        type="text"
+                        value={color.name}
+                        onChange={(e) => handleColorChange(index, 'name', e.target.value)}
+                        placeholder="Название цвета"
+                    />
+                    <input
+                        type="color"
+                        value={color.value}
+                        onChange={(e) => handleColorChange(index, 'value', e.target.value)}
+                    />
+                    <button
+                        className="deleteField"
+                        type="button"
+                        onClick={() => setFormData({
+                            ...formData,
+                            colors: formData.colors.filter((_, i) => i !== index)
+                        })}
+                    >
+                        &#10006;
+                    </button>
+                </div>
+            ))}
+
+            <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, colors: [...formData.colors, { name: '', value: '#000000' }] })}>
+                Добавить цвет
+            </button>
+
+
             <label>Характеристики:</label>
             {formData.characteristics.map((char, index) => (
                 <div key={index}>
