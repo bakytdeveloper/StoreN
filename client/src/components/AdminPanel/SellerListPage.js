@@ -12,13 +12,21 @@ const SellerListPage = () => {
     const history = useHistory();
 
     // Проверка, аутентифицирован ли пользователь
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     const role = localStorage.getItem('role');
+    //     if (!token || (role === 'admin' && role !== 'seller')) {
+    //         toast.error('Ваш аккаунт еще не подтвержден');
+    //
+    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не является администратором или продавцом
+    //     }
+    // }, [history]);
+
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-        if (!token || (role === 'admin' && role !== 'seller')) {
-            toast.error('Ваш аккаунт еще не подтвержден');
-
-            history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не является администратором или продавцом
+        const isAdmin = localStorage.getItem('role') === 'admin';
+        if (!token || token !== "adminToken" || !isAdmin) {
+            history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
         }
     }, [history]);
 
