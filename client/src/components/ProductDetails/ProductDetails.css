@@ -95,6 +95,34 @@
     border-radius: 3px;
 }
 
+.size-list {
+    /*display: inline-flex;*/
+
+}
+
+.size {
+    display: inline-flex;
+    margin-right: 10px;
+    border: 1px solid grey;
+    padding: 7px;
+    background-color: #dddddd;
+
+}
+
+.color-name-product {
+    display: inline-block;
+   border: 2px solid black;
+}
+
+.color-box {
+    width: 33px;
+    height: 20px;
+}
+.color-name {
+    margin-left: 10px;
+}
+
+
 
 .product-details .details {
     border: 4px solid #75bdef;

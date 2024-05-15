@@ -600,6 +600,31 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                             ))}
                         </ul>
                     </div>
+                    {/* Добавляем раздел для отображения размеров товаров */}
+                    <div className="product-sizes">
+                        <h3>Размеры:</h3>
+                        <div className="size-list">
+                            {/* Мапим массив размеров и выводим их */}
+                            {product.sizes.map((size, index) => (
+                                <div key={index} className="size" onClick={() => console.log(size)}>
+                                    <div className="size-icon">{size}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    {/* Добавляем раздел для отображения цветов товаров */}
+                    <div className="product-colors">
+                        <h3>Цвета:</h3>
+                        <div className="color-list">
+                            {/* Мапим массив цветов и выводим их */}
+                            {product.colors.map((color, index) => (
+                                <div key={index} className="color-name-product" onClick={() => console.log(color)}>
+                                    <div className="color-box" style={{ backgroundColor: `${color.value}` }}></div>
+                                    <div className="color-name">{color.name}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                     <div className="price">{product.price} KGS</div>
                     <div className="actions">
                         <button className="buy-now" onClick={() => handleAddToCart(true)}>
@@ -611,31 +636,31 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     </div>
                 </div>
             </div>
-            {/* Добавляем раздел для отображения размеров товаров */}
-            <div className="product-sizes">
-                <h3>Размеры:</h3>
-                <div className="size-list">
-                    {/* Мапим массив размеров и выводим их */}
-                    {product.sizes.map((size, index) => (
-                        <div key={index} className="size" onClick={() => console.log(size)}>
-                            <div className="size-icon">{size}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            {/* Добавляем раздел для отображения цветов товаров */}
-            <div className="product-colors">
-                <h3>Цвета:</h3>
-                <div className="color-list">
-                    {/* Мапим массив цветов и выводим их */}
-                    {product.colors.map((color, index) => (
-                        <div key={index} className="color" onClick={() => console.log(color)}>
-                            <div className="color-box" style={{width:"33px", height:"30px", backgroundColor: `${color.value}` }}></div>
-                            <div className="color-name">{color.name}</div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            {/*/!* Добавляем раздел для отображения размеров товаров *!/*/}
+            {/*<div className="product-sizes">*/}
+            {/*    <h3>Размеры:</h3>*/}
+            {/*    <div className="size-list">*/}
+            {/*        /!* Мапим массив размеров и выводим их *!/*/}
+            {/*        {product.sizes.map((size, index) => (*/}
+            {/*            <div key={index} className="size" onClick={() => console.log(size)}>*/}
+            {/*                <div className="size-icon">{size}</div>*/}
+            {/*            </div>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            {/*/!* Добавляем раздел для отображения цветов товаров *!/*/}
+            {/*<div className="product-colors">*/}
+            {/*    <h3>Цвета:</h3>*/}
+            {/*    <div className="color-list">*/}
+            {/*        /!* Мапим массив цветов и выводим их *!/*/}
+            {/*        {product.colors.map((color, index) => (*/}
+            {/*            <div key={index} className="color" onClick={() => console.log(color)}>*/}
+            {/*                <div className="color-box" style={{width:"33px", height:"30px", backgroundColor: `${color.value}` }}></div>*/}
+            {/*                <div className="color-name">{color.name}</div>*/}
+            {/*            </div>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             {/* Добавляем компоненты */}
             <RelatedSellerProducts productId={productId} />
             <RelatedProducts productId={productId} />
