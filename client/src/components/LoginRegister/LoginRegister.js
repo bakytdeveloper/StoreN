@@ -265,7 +265,9 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             // Автоматический вход для администратора
             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
             // toast.success('Successfully logged in as admin');
-            history.push('/admin'); // Перейти на страницу администратора
+            localStorage.setItem('role', 'admin'); // Установите роль "admin" для администратора
+
+        history.push('/admin'); // Перейти на страницу администратора
             return;
         }
 
