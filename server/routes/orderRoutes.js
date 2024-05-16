@@ -169,7 +169,7 @@ router.post('/add-to-cart', async (req, res) => {
             order.cart[existingCartItemIndex].quantity += quantity;
         } else {
             order.cart.push({ product, quantity, size, color }); // Добавляем размер и цвет товара в корзину
-            order.products.push({ product, quantity });
+            order.products.push({ product, quantity, size, color });
         }
 
         order.totalAmount = order.cart.reduce((total, item) => total + item.product.price * item.quantity, 0);

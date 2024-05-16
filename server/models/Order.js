@@ -43,7 +43,6 @@ const orderSchema = new mongoose.Schema({
     paymentMethod: { type: String },
     comments: { type: String },
     statusHistory: [statusHistorySchema], // Добавлено поле для хранения истории статусов
-
     commentsAdmin: { type: String },
 
 });

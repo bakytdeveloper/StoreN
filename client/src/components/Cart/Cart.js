@@ -468,6 +468,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         }
     };
 
+
+
     const handleContinue = () => {
         // Отключаем кнопку "Купить", если заказ уже совершен
         if (orderPlaced) {
@@ -513,7 +515,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     guestInfo: token ? undefined : { name: firstName, email }, // Используем имя гостя
                     address,
                     phoneNumber,
-                    products: cartItems.map((item) => ({ product: item.productId, quantity: item.quantity })),
+                    products: cartItems.map((item) => ({
+                        product: item.productId,
+                        quantity: item.quantity,
+                        size: item.size, // Включаем информацию о размере
+                        color: item.color, // Включаем информацию о цвете
+
+                    })),
                     totalAmount: totalPrice,
                     paymentMethod,
                     comments,
@@ -597,7 +605,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                             {/*<span>{(item.price * item.quantity).toFixed(2)}сом</span>*/}
                                                         </div>
                                                     </div>
-                                                    <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>
+                                                    <button className="btnMinus"
+                                                            onClick={() => handleQuantityChange(
+                                                                item.productId, item.quantity - 1)}>
                                                         -
                                                     </button>
                                                     <input
@@ -606,10 +616,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         value={item.quantity}
                                                         onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
                                                     />
-                                                    <button className="btnPlus" onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>
+                                                    <button className="btnPlus"
+                                                            onClick={() => handleQuantityChange(
+                                                                item.productId, item.quantity + 1)}>
                                                         +
                                                     </button>
-                                                    <button className="deleteOne" onClick={() => handleRemoveItem(item.productId)}>
+                                                    <button className="deleteOne"
+                                                            onClick={() => handleRemoveItem(item.productId)}>
                                                         &#10006;
                                                     </button>
                                                 </div>
