@@ -1126,6 +1126,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     name: product.name,
                     price: product.price,
                     quantity: 1,
+                    size: selectedSize, // Добавляем выбранный размер
+                    color: selectedColor, // Добавляем выбранный цвет
+
                 },
             ]);
         }

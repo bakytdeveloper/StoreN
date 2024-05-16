@@ -714,6 +714,7 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
                                             <div>
                                                 <strong>Описание:</strong> {item.product.description}
                                             </div>
+
                                             {/* Количество товара с кнопками */}
                                             <div className="quantityItem">
                                                 <strong>Количество:</strong> {item.quantity}

@@ -118,6 +118,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                     name: product.name,
                     price: product.price,
                     quantity: 1,
+                    size: product.size, // Передаем размер товара
+                    color: product.color, // Передаем цвет товара
                 },
             ]);
         }

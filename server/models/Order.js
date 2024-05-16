@@ -27,6 +27,9 @@ const orderSchema = new mongoose.Schema({
         {
             product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
             quantity: { type: Number, required: true },
+            size: { type: String }, // Добавляем поле для хранения размера продукта
+            color: { type: String }, // Добавляем поле для хранения цвета продукта
+
         },
     ],
     totalAmount: { type: Number, required: true },

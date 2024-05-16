@@ -334,6 +334,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalItems, setTotalItems] = useState(0); // Состояние для хранения общего количества товара в корзине
 
+// Добавляем новые состояния для хранения выбранных параметров
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
+
     const [showPayment, setShowPayment] = useState(false);
     const [user, setUser] = useState(null);
     const [showCheckout, setShowCheckout] = useState(false);
@@ -436,6 +440,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         setSection(3);
     };
 
+
+// В функции handleQuantityChange и handleRemoveItem обновляем их таким образом, чтобы они работали с выбранным размером и цветом товара
     const handleQuantityChange = (productId, newQuantity) => {
         const updatedCart = cartItems.map((item) => {
             if (item.productId === productId) {
@@ -449,6 +455,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         setTotalPrice(total);
         setTotalItems(updatedCart.reduce((acc, item) => acc + item.quantity, 0));
     };
+
 
     const handleRemoveItem = (productId) => {
         const removedItem = cartItems.find(item => item.productId === productId);
@@ -544,6 +551,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
         setDeliveryType(type);
     };
 
+
+
     return (
         <div className="cartAll">
             <div className="cart">
@@ -573,6 +582,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         <span className="itemName" style={{ fontWeight: 'bold' }}>{item.type}</span>
                                                         <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</span>
                                                         <span>{item.name}</span>
+                                                        <span>{item.name}</span>
+                                                        <div>Цвет: {item.color}</div> {/* Добавляем вывод выбранного цвета */}
+                                                        <div>Размер: {item.size}</div> {/* Добавляем вывод выбранного размера */}
                                                         <div className="sumKg">
                                                             <span>KGS</span> {item.price}
                                                         </div>
