@@ -184,8 +184,11 @@ strong {
 }
 
 .price {
-    text-align: center;
-    color: #055486;
+    align-items: flex-start;
+    color: black;
+    background: none !important;
+
+
 }
 
 .actions {

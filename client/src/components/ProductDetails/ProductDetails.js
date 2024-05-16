@@ -1165,6 +1165,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <div className="description">
                         <strong>Описание:</strong> {truncatedDescription}
                     </div>
+                    <div className="price">KGS {product.price}</div>
 
                     <div className="product-sizes">
                         <h3>Размеры: {selectedSize}</h3>
@@ -1206,7 +1207,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     {/*        ))}*/}
                     {/*    </ul>*/}
                     {/*</div>*/}
-                    <div className="price">{product.price} KGS</div>
+                    {/*<div className="price">{product.price} KGS</div>*/}
                     <div className="actions">
                         <button className="buy-now" onClick={() => handleAddToCart(true)}>
                             Купить сейчас

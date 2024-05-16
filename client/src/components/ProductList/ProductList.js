@@ -175,7 +175,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                                 <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>
 
                                 <div className="price">
-                                    <span>KGS</span> {product.price}
+                                    KGS {product.price}
+                                    {/*<span>KGS</span> {product.price}*/}
                                 </div>
                             </div>
                         </Link>

@@ -27,20 +27,22 @@ const ProductTabs = ({ description, characteristics }) => {
                 </div>
             </div>
             <div className="tab-content">
-                {activeTab === 'description' && <div className="description-content">{description}</div>}
-                {activeTab === 'characteristics' && (
-                    <div className="characteristics-content">
-                        <h3>Характеристики:</h3>
-                        <ul>
-                            {characteristics.map((char) => (
-                                <li className="character" key={char.name}>
-                                    <strong>{char.name}:</strong> {char.value}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-                {activeTab === 'reviews' && <div className="reviews-content">Здесь будут отзывы</div>}
+                <div className={activeTab === 'description' ? 'description-content show' : 'description-content'}>
+                    {description}
+                </div>
+                <div className={activeTab === 'characteristics' ? 'characteristics-content show' : 'characteristics-content'}>
+                    <h3>Характеристики:</h3>
+                    <ul>
+                        {characteristics.map((char) => (
+                            <li className="character" key={char.name}>
+                                <strong>{char.name}:</strong> {char.value}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className={activeTab === 'reviews' ? 'reviews-content show' : 'reviews-content'}>
+                    Здесь будут отзывы
+                </div>
             </div>
         </div>
     );
