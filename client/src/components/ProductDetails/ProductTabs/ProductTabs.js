@@ -31,11 +31,11 @@ const ProductTabs = ({ description, characteristics }) => {
                     {description}
                 </div>
                 <div className={activeTab === 'characteristics' ? 'characteristics-content show' : 'characteristics-content'}>
-                    <h3>Характеристики:</h3>
+                    <h3 className="characteristics-title">Характеристики:</h3>
                     <ul>
                         {characteristics.map((char) => (
                             <li className="character" key={char.name}>
-                                <strong>{char.name}:</strong> {char.value}
+                                <strong className="characteristics-title-name">{char.name}:</strong> {char.value}
                             </li>
                         ))}
                     </ul>

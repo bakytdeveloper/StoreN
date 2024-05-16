@@ -249,7 +249,7 @@ const RelatedSellerProducts = ({ productId }) => {
 
     return (
         <div className="related-seller-products">
-            <h2>Другие товары продавца</h2>
+            <h2 className="related-seller-products-title">Другие товары продавца</h2>
             <div className="product-list-related-seller-products"  ref={containerRef} onScroll={handleScroll}>
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>

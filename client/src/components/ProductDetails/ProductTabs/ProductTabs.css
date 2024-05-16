@@ -1,12 +1,15 @@
 .product-tabs {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     border-radius: 5px;
     margin-top: 20px;
+    width: 60%;
+    justify-content: start;
 }
 
 .tab-header {
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
+    align-items: flex-start;
     padding: 10px;
     border-bottom: 1px solid #ccc;
 }
@@ -15,6 +18,8 @@
     cursor: pointer;
     padding: 5px 10px;
     color: #333;
+    font-family: Oswald;
+    font-weight: 600;
 }
 
 .tab-item:hover {
@@ -22,7 +27,7 @@
 }
 
 .tab-item.active {
-    color: #007bff;
+    color: #0160c8;
     /*border-bottom: 2px solid #007bff;*/
     border-bottom-color: #1f1c1c;
     border-right: none;
@@ -44,4 +49,22 @@
 .characteristics-content.show,
 .reviews-content.show {
     display: block;
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.characteristics-title {
+    font-family: 'Oswald';
+}
+
+.character {
+    font-family: Poppins;
+    font-weight: 400;
+}
+
+.characteristics-title-name {
+    font-family: Oswald;
+    font-weight: 500;
 }

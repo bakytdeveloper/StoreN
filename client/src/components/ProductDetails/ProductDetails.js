@@ -1069,6 +1069,8 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     }, [setShowSidebar]);
 
     useEffect(() => {
+        setSelectedSize(null); // Сбрасываем выбранный размер
+        setSelectedColor(null); // Сбрасываем выбранный цвет
         const fetchProductDetails = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
@@ -1158,14 +1160,22 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <img src={selectedImage} alt={product.name} className="main-image" />
                 </div>
                 <div className="details">
-                    <div className="type-details">{product.type}</div>
-                    <div className="brand-details">{product.brand}</div>
-                    <div className="name-details">{product.name}</div>
-                    <hr />
+                    <div  className="details-names" >
+                        <div className="details-names-all">
+                            <div className="type-details">{product.type}</div>
+                            <div className="brand-details">{product.brand}</div>
+                            <div className="name-details">{product.name}</div>
+                        </div>
+
+                        <div className="price-details">KGS {product.price}</div>
+
+                    </div>
+                    <hr style={{width:"100%", height:"1px", border:"1px solid darkgrey" ,
+                        background:"#ffffff"}} />
                     <div className="description">
                         <strong>Описание:</strong> {truncatedDescription}
                     </div>
-                    <div className="price">KGS {product.price}</div>
+                    {/*<div className="price">KGS {product.price}</div>*/}
 
                     <div className="product-sizes">
                         <h3>Размеры: {selectedSize}</h3>

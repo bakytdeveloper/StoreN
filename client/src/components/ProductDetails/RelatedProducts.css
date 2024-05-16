@@ -2,9 +2,18 @@
 
 .related-products {
     max-width: 100%; /* Выберите подходящее значение ширины */
-    border: 1px solid #efeeee;
+    /*border: 1px solid #efeeee;*/
     overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
 
+}
+.related-products h2 {
+    display: inline-flex;
+    align-items: flex-start;
+    font-family: Poppins;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-top: 11px;
+    margin-bottom: 0;
 }
 
 
