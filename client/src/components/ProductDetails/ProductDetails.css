@@ -105,12 +105,12 @@
     margin-right: 10px;
     border: 1px solid #c1bebe;
     padding: 7px;
-    background-color: #f1f1f1;
+    /*background-color: #f1f1f1;*/
     cursor: pointer;
 
 }
 
-.color-name-product {
+.color {
     display: inline-block;
     border: 1px solid #c1bebe;
     margin-right: 10px;
@@ -120,15 +120,27 @@
 }
 
 .color-box {
-    width: 33px;
-    height: 20px;
+    width: 27px;
+    height: 27px;
     /*margin-left: 30%;*/
     margin: 0 auto;
+    border: 1px solid #dddbdb;
+
 }
 .color-name {
     /*padding: 3px;*/
     margin: 0 auto;
 }
+
+/* Добавляем стили для выбранных цветов и размеров */
+.selected-color {
+    background-color: #c4c4c4; /* Измените цвет фона на свой выбранный цвет */
+}
+
+.selected-size {
+    background-color: #c4c4c4; /* Измените цвет фона на свой выбранный цвет */
+}
+
 
 
 
