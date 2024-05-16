@@ -130,6 +130,8 @@ const SalesHistory = () => {
                     <th>Статус</th>
                     <th>Тип товара</th>
                     <th>Название товара</th>
+                    <th>Цвет товара</th>
+                    <th>Размер</th>
                     <th>Цена товара</th>
                     <th>Сумма</th>
                 </tr>
@@ -146,6 +148,8 @@ const SalesHistory = () => {
                             )}
                             <td>{item.product.type}</td>
                             <td>{item.product.name}</td>
+                            <td>{item.color}</td>
+                            <td>{item.size}</td>
                             <td>{item.product.price}</td>
                             {index === 0 && <td rowSpan={order.products.length}>{order.totalAmount}</td>}
                         </tr>

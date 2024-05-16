@@ -712,6 +712,12 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
                                                 <strong>Название товара:</strong> {item.product.name}
                                             </div>
                                             <div>
+                                                <strong>Цвет товара:</strong> {item.color}
+                                            </div>
+                                            <div>
+                                                <strong>Размер:</strong> {item.size}
+                                            </div>
+                                            <div>
                                                 <strong>Описание:</strong> {item.product.description}
                                             </div>
 
