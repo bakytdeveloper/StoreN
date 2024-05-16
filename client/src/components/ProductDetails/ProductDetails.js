@@ -1180,47 +1180,75 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     </div>
                     {/*<div className="price">KGS {product.price}</div>*/}
 
+                    {/*<div className="product-sizes">*/}
+                    {/*    <h3>Размеры: {selectedSize}</h3>*/}
+                    {/*    <div className="size-list">*/}
+                    {/*        {product.sizes.map((size, index) => (*/}
+                    {/*            <div*/}
+                    {/*                key={index}*/}
+                    {/*                className={selectedSize === size ? 'size selected-size' : 'size'}*/}
+                    {/*                onClick={() => setSelectedSize(size)}*/}
+                    {/*            >*/}
+                    {/*                {size}*/}
+                    {/*            </div>*/}
+                    {/*        ))}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className="product-colors">*/}
+                    {/*    <h3>Цвета: {selectedColor}</h3>*/}
+                    {/*    <div className="color-list">*/}
+                    {/*        {product.colors.map((color, index) => (*/}
+                    {/*            <div*/}
+                    {/*                key={index}*/}
+                    {/*                className={selectedColor === color.name ? 'color selected-color' : 'color'}*/}
+                    {/*                onClick={() => setSelectedColor(color.name)}*/}
+                    {/*            >*/}
+                    {/*                <div className="color-box" style={{ backgroundColor: color.value }}></div>*/}
+                    {/*                /!*<div className="color-name">{color.name}</div>*!/*/}
+                    {/*            </div>*/}
+                    {/*        ))}*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+
                     <div className="product-sizes">
-                        <h3>Размеры: {selectedSize}</h3>
-                        <div className="size-list">
-                            {product.sizes.map((size, index) => (
-                                <div
-                                    key={index}
-                                    className={selectedSize === size ? 'size selected-size' : 'size'}
-                                    onClick={() => setSelectedSize(size)}
-                                >
-                                    {size}
+                        {product.sizes.length > 0 && (
+                            <>
+                                <h3>Размеры: {selectedSize}</h3>
+                                <div className="size-list">
+                                    {product.sizes.map((size, index) => (
+                                        <div
+                                            key={index}
+                                            className={selectedSize === size ? 'size selected-size' : 'size'}
+                                            onClick={() => setSelectedSize(size)}
+                                        >
+                                            {size}
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                            </>
+                        )}
                     </div>
                     <div className="product-colors">
-                        <h3>Цвета: {selectedColor}</h3>
-                        <div className="color-list">
-                            {product.colors.map((color, index) => (
-                                <div
-                                    key={index}
-                                    className={selectedColor === color.name ? 'color selected-color' : 'color'}
-                                    onClick={() => setSelectedColor(color.name)}
-                                >
-                                    <div className="color-box" style={{ backgroundColor: color.value }}></div>
-                                    {/*<div className="color-name">{color.name}</div>*/}
+                        {product.colors.length > 0 && (
+                            <>
+                                <h3>Цвета: {selectedColor}</h3>
+                                <div className="color-list">
+                                    {product.colors.map((color, index) => (
+                                        <div
+                                            key={index}
+                                            className={selectedColor === color.name ? 'color selected-color' : 'color'}
+                                            onClick={() => setSelectedColor(color.name)}
+                                        >
+                                            <div className="color-box" style={{ backgroundColor: color.value }}></div>
+                                            {/*<div className="color-name">{color.name}</div>*/}
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                            </>
+                        )}
                     </div>
 
-                    {/*<div className="characteristics">*/}
-                    {/*    <h3>Характеристики:</h3>*/}
-                    {/*    <ul>*/}
-                    {/*        {product.characteristics.map((char) => (*/}
-                    {/*            <li className="character" key={char.name}>*/}
-                    {/*                <strong>{char.name}:</strong> {char.value}*/}
-                    {/*            </li>*/}
-                    {/*        ))}*/}
-                    {/*    </ul>*/}
-                    {/*</div>*/}
-                    {/*<div className="price">{product.price} KGS</div>*/}
                     <div className="actions">
                         <button className="buy-now" onClick={() => handleAddToCart(true)}>
                             Купить сейчас

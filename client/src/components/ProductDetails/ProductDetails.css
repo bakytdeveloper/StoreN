@@ -99,12 +99,19 @@
     font-family: Oswald;
     font-weight: 600;
 }
-.description  {
-    font-family: Oswald;
-    font-weight: 400;
-}
+/*.description  {*/
+/*    font-family: Oswald;*/
+/*    font-weight: 400;*/
+/*}*/
 
 .product-sizes h3 {
+    display: inline-block;
+    font-family: Poppins;
+    font-weight: 600;
+    margin-bottom: 9px;
+    margin-top: 10px;
+}
+.product-colors h3 {
     display: inline-block;
     font-family: Poppins;
     font-weight: 600;
