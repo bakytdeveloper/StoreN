@@ -23,6 +23,7 @@ import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPa
 import ProductForm from "./components/AdminPanel/ProductForm";
 import SalesHistory from "./components/SalesHistory/SalesHistory";
 import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
+import HomePage from "./components/HomePage/HomePage";
 
 
 
@@ -98,6 +99,24 @@ const App = () => {
                     selectedOption={selectedOption}
                 />
                 <Switch>
+
+
+                    <Route path="/home">
+                        <HomePage />
+                    </Route>
+
+
+                    <Route path="/catalog">
+                        <ProductList
+                            searchKeyword={searchKeyword}
+                            cartItems={cartItems}
+                            setCartItems={setCartItems}
+                            products={products}
+                            showSidebar={showSidebar}
+                            setProducts={setProducts}
+                            setShowSidebar={setShowSidebar}
+                        />
+                    </Route>
 
                     <Route path="/sellers/register">
                         <SellerRegistrationForm  />
@@ -187,17 +206,7 @@ const App = () => {
                             setShowSidebar={setShowSidebar}
                         />
                     </Route>
-                    <Route path="/">
-                        <ProductList
-                            searchKeyword={searchKeyword}
-                            cartItems={cartItems}
-                            setCartItems={setCartItems}
-                            products={products}
-                            showSidebar={showSidebar}
-                            setProducts={setProducts}
-                            setShowSidebar={setShowSidebar}
-                        />
-                    </Route>
+
                 </Switch>
             </div>
             <ToastContainer />

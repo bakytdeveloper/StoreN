@@ -1,0 +1,130 @@
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    /*max-width: 1200px;*/
+    margin: 0 auto;
+
+    /*width: 1920px;*/
+    height: 800px;
+    top: 180px;
+
+}
+
+.carousel-slide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.carousel-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 180px;
+    /*left: 250px;*/
+    width: auto;
+    /*gap: 40px;*/
+    margin-top: -255px;
+
+
+}
+
+.carousel-title {
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+}
+
+.title1 {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 60px;
+    letter-spacing: 0.05em;
+    margin-top: 0;
+}
+
+.title2 {
+    /*width: 450px;*/
+    height: 47px;
+    top: 389px;
+    left: 280px;
+    gap: 0;
+    font-family: Oswald;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 47.42px;
+    letter-spacing: 0.05em;
+    text-align: left;
+
+
+}
+
+.title3 {
+    width: 457px;
+    height: 24px;
+    top: 442px;
+    left: 280px;
+    gap: 0;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 275;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+    text-align: left;
+
+}
+
+.carousel-image {
+    width: 462px;
+    height: 727px;
+    top: 216px;
+    left: 885px;
+    object-fit: contain;
+}
+
+.elements-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 50px;
+}
+
+.element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 255px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.element-images {
+    object-fit: contain;
+    width: 100%;
+    height: 255px;
+}
+
+.carousel-container {
+    margin-bottom: 63px!important;
+
+}
+
+.control-next:hover {
+    cursor: none!important;
+    display: none!important;
+    /*background: white;*/
+}

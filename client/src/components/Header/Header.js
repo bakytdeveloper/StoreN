@@ -17,7 +17,7 @@ import SellerRegistrationForm from "./SellerRegistrationForm";
 
 
 
-const Header = ({ onSearch, cartItems, showSidebar,
+const Header = ({ onSearch, cartItems=[], showSidebar,
                     setShowSidebar, selectedOption, setSelectedOption,
                     resetFilter, setCurrentPage }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -66,6 +66,11 @@ const Header = ({ onSearch, cartItems, showSidebar,
     };
 
     const handleTitleClick = () => {
+        resetFilter();
+        history.push("/catalog");
+    };
+
+    const homePage = () => {
         resetFilter();
         history.push("/");
     };
@@ -123,15 +128,16 @@ const Header = ({ onSearch, cartItems, showSidebar,
         setShowSidebar(false);
     };
 
+    const totalItemsCount = cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
 
 
 
     return (
         <div className="header">
-            <Link to="/" className="title" onClick={handleTitleClick}>
+            <div className="title"  onClick={handleTitleClick}>
                 <h1 className="titleH"> kiosk<span className="titleN">.kg</span></h1>
-            </Link>
-            <div className="desktop-contact-info">
+            </div>
+            <div className="desktop-contact-info" onClick={homePage}>
                 <ContactInfo />
                 {/* Контактная информация */}
             </div>
@@ -141,9 +147,8 @@ const Header = ({ onSearch, cartItems, showSidebar,
             <div className="auth-buttons">
                 <Link to="/cart" style={{ display: "inline-flex" }} className="auth-button btn" onClick={handleCartClick}>
                     <img src={cart} alt="Cart Icon" />
-                    <span className="totalItems">
-                        ({cartItems.reduce((total, item) => total + item.quantity, 0)})
-                    </span>
+                    <span className="totalItems">({totalItemsCount})</span>
+
 
                 </Link>
                 <div className="profileIcon" ref={profileRef}>
@@ -151,11 +156,8 @@ const Header = ({ onSearch, cartItems, showSidebar,
                     {isProfileOpen && (
                         <div className="dropdown-menu">
                             <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
-                            {/*<button onClick={handleLoginClick}>{isAuthenticated ? "Войти" : "Логин"}</button>*/}
-                            {/*<button onClick={handlePartnerClick}>Партнёр</button>*/}
                             {!isAuthenticated && <button onClick={handlePartnerClick}>Партнёр</button>}
                             {isAuthenticated && <button onClick={handleLogoutClick}>Выход</button>}
-                            {/*<button onClick={handlePartnerClick}>Партнёр</button>*/}
                         </div>
                     )}
                 </div>

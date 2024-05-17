@@ -245,7 +245,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 if (registerResponse.ok) {
                     localStorage.setItem('token', responseData.token);
                     toast.success('Успешная регистрация и вход');
-                    history.push('/');
+                    history.push('/catalog');
                     return;
                 } else {
                     // Если регистрация не удалась
@@ -297,7 +297,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
                 // Перенаправляем на нужную страницу в зависимости от роли
                 if (userData.user.role === 'customer') {
-                    history.push('/');
+                    history.push('/catalog');
                 } else if (userData.user.role === 'admin') {
                     history.push('/admin');
                 } else if (userData.user.role === 'seller') {
@@ -378,7 +378,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     }, [setShowSidebar]);
 
     const handleClose = () => {
-        history.push('/');
+        history.push('/home');
     };
 
     return (
