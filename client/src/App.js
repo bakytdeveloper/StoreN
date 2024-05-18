@@ -100,7 +100,7 @@ const App = () => {
                 <Switch>
 
 
-                    <Route path="/home" exact>
+                    <Route path="/" exact>
                         <Home />
                     </Route>
 

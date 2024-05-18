@@ -519,7 +519,7 @@
     width: 30%;
     height: 200px;
     margin: 10px 0;
-    background-color: #f0f0f0;
+    background-color: #f8f6f6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -554,4 +554,8 @@
 .contact-info {
     text-align: center;
     display: flex;
+}
+
+.close-btn {
+    display: none;
 }
