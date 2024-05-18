@@ -23,8 +23,7 @@ import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPa
 import ProductForm from "./components/AdminPanel/ProductForm";
 import SalesHistory from "./components/SalesHistory/SalesHistory";
 import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
-import HomePage from "./components/HomePage/HomePage";
-
+import Home from "./components/Home/Home";
 
 
 const App = () => {
@@ -101,8 +100,8 @@ const App = () => {
                 <Switch>
 
 
-                    <Route path="/home">
-                        <HomePage />
+                    <Route path="/home" exact>
+                        <Home />
                     </Route>
 
 
