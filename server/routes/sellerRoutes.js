@@ -175,15 +175,56 @@ router.get('/profile', authenticateToken, async (req, res) => {
 
 
 // Создание нового товара
-// Создание нового товара
+// // Создание нового товара
+// router.post('/products', authenticateToken, async (req, res) => {
+//     try {
+//         const { name, description, price, category, direction, type, brand, characteristics, images, sizes, colors, quantity = 10 } = req.body;
+//
+//         // Получаем ID текущего продавца из аутентификационного токена
+//         const sellerId = req.user.sellerId;
+//
+//         // Создание нового продукта с использованием модели Product
+//         const newProduct = new Product({
+//             name,
+//             description,
+//             price,
+//             category,
+//             direction,
+//             type,
+//             brand,
+//             characteristics,
+//             images,
+//             sizes, // Добавляем размеры товара
+//             colors, // Добавляем цвета товара
+//             quantity,
+//             seller: sellerId // Устанавливаем продавца для нового товара
+//         });
+//
+//         // Сохранение нового продукта
+//         await newProduct.save();
+//
+//         // Добавление ID нового продукта к массиву продуктов продавца
+//         const updatedSeller = await Seller.findByIdAndUpdate(
+//             sellerId,
+//             { $push: { products: newProduct._id } }, // Добавление только ID продукта
+//             { new: true }
+//         );
+//
+//         res.json(updatedSeller.products);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+// Роут для создания нового товара
 router.post('/products', authenticateToken, async (req, res) => {
     try {
-        const { name, description, price, category, direction, type, brand, characteristics, images, sizes, colors, quantity = 10 } = req.body;
+        const { name, description, price, category, direction, type, brand, gender, characteristics, images, sizes, colors, quantity = 10 } = req.body;
 
-        // Получаем ID текущего продавца из аутентификационного токена
         const sellerId = req.user.sellerId;
 
-        // Создание нового продукта с использованием модели Product
         const newProduct = new Product({
             name,
             description,
@@ -192,16 +233,17 @@ router.post('/products', authenticateToken, async (req, res) => {
             direction,
             type,
             brand,
+            gender,
             characteristics,
             images,
-            sizes, // Добавляем размеры товара
-            colors, // Добавляем цвета товара
+            sizes,
+            colors,
             quantity,
-            seller: sellerId // Устанавливаем продавца для нового товара
+            seller: sellerId
         });
 
-        // Сохранение нового продукта
         await newProduct.save();
+
 
         // Добавление ID нового продукта к массиву продуктов продавца
         const updatedSeller = await Seller.findByIdAndUpdate(
@@ -215,7 +257,6 @@ router.post('/products', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 
 

@@ -5,8 +5,6 @@ import {toast} from "react-toastify";
 import {useHistory, useLocation, useParams} from "react-router-dom";
 
 
-
-// //  !!!!!!!!
 // const ProductForm = ({ onSubmit, onCancel }) => {
 //     const [selectedProduct, setSelectedProduct] = useState(null);
 //     const [products, setProducts] = useState([]);
@@ -17,17 +15,22 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //     const [formData, setFormData] = useState({
 //         name: '',
 //         description: '',
-//         price: "",
+//         price: '',
 //         category: '',
 //         type: '',
 //         brand: '',
 //         characteristics: [],
 //         images: [],
+//         sizes: [], // Добавляем поле для размеров
+//         colors: [], // Добавляем поле для цветов
 //     });
+//
 //     const [categories, setCategories] = useState([]);
 //     const [types, setTypes] = useState([]);
 //     const [isSubmitting, setIsSubmitting] = useState(false); // Состояние для отслеживания отправки формы
-//
+//     const [direction, setDirection] = useState('');
+//     // const [allTypes, setAllTypes] = useState([]);
+//     const [allCategories, setAllCategories] = useState([]);
 //
 //     const history = useHistory();
 //
@@ -40,7 +43,6 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //             history.push('/login');
 //         }
 //     }, [history]);
-//
 //
 //     useEffect(() => {
 //         const fetchProduct = async () => {
@@ -63,7 +65,6 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //         };
 //         fetchProduct();
 //     }, [productId]);
-//
 //
 //     useEffect(() => {
 //         if (product) {
@@ -105,10 +106,17 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //         fetchTypes();
 //     }, []);
 //
-//
 //     const handleChange = async (e) => {
 //         const { name, value } = e.target;
+//         // console.log('Name:', name);
+//         // console.log('Value:', value);
 //         setFormData({ ...formData, [name]: value });
+//
+//         if (name === 'category') {
+//             if (value === 'Аксессуары') {
+//                 setDirection(''); // Сбросить выбранное направление при смене категории на "Аксессуары"
+//             }
+//         }
 //
 //         if (name === 'category') {
 //             try {
@@ -122,13 +130,13 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //
 //                 // Фильтруем типы товаров в зависимости от выбранной категории
 //                 let filteredTypes = [];
-//                 if (value === 'Аксессуары') {
-//                     filteredTypes = ['Для гаджетов', 'Для спорта', 'Для стиля', 'Для орг. техники'];
-//                 } else {
+//                 // if (value === 'Аксессуары') {
+//                 //     filteredTypes = ['Для гаджетов', 'Для спорта', 'Для стиля', 'Для орг. техники'];
+//                 // } else {
 //                     filteredTypes = data
 //                         .filter(product => product.category === value)
 //                         .map(product => product.type);
-//                 }
+//                 // }
 //
 //                 // Извлекаем уникальные типы из отфильтрованных товаров
 //                 const uniqueTypes = [...new Set(filteredTypes)];
@@ -140,10 +148,6 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //             }
 //         }
 //     };
-//
-//
-//
-//
 //
 //     const handleCharacteristicChange = (index, field, value) => {
 //         const updatedCharacteristics = [...formData.characteristics];
@@ -218,7 +222,7 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //                             'Content-Type': 'application/json',
 //                             Authorization: `Bearer ${token}`,
 //                         },
-//                         body: JSON.stringify(formData),
+//                         body: JSON.stringify({...formData, direction}), // Добавляем значение direction в formData
 //                     }
 //                 );
 //             }
@@ -286,6 +290,38 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //         history.goBack(); // Переход на предыдущую страницу
 //     };
 //
+//     useEffect(() => {
+//         const fetchAllCategories = async () => {
+//             try {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
+//                 if (response.ok) {
+//                     const data = await response.json();
+//                     setAllCategories(data.types);
+//                 } else {
+//                     console.error('Failed to fetch types');
+//                 }
+//             } catch (error) {
+//                 console.error('Error fetching types:', error);
+//             }
+//         };
+//         fetchAllCategories();
+//     }, []);
+//
+//
+//
+// // Добавляем функцию handleColorChange для обновления данных о цветах
+//     const handleColorChange = (index, field, value) => {
+//         const updatedColors = [...formData.colors];
+//         updatedColors[index][field] = value;
+//         setFormData({ ...formData, colors: updatedColors });
+//     };
+//
+//
+//     const handleSizesChange = (e) => {
+//         const sizes = e.target.value.split(',').map(size => size.trim()); // Разделяем строку по запятым и удаляем лишние пробелы
+//         setFormData({ ...formData, sizes: sizes });
+//     };
+//
 //
 //     return (
 //         <form className="sellerFormAdd" onSubmit={handleSubmit}>
@@ -304,6 +340,24 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //             </select>
 //             <input type="text" name="category" value={formData.category} onChange={handleChange} required />
 //
+//             {formData.category === 'Аксессуары' && (
+//                 <div>
+//                     <label>Направление:</label>
+//                     <select
+//                         name="direction"
+//                         value={direction}
+//                         onChange={(e) => setDirection(e.target.value)}
+//                         disabled={!formData.category || formData.category !== 'Аксессуары'}
+//                     >
+//                         <option value="">Выберите направление</option>
+//                         {categories.map((category, index) => (
+//                             <option key={index} value={category}>{category}</option>
+//                         ))}
+//                     </select>
+//                 </div>
+//             )}
+//
+//
 //             <label>Тип:</label>
 //             <select name="type" value={formData.type} onChange={handleChange} >
 //                 <option value="">Выберите тип</option>
@@ -320,6 +374,46 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //             <textarea name="description" value={formData.description} onChange={handleChange} required />
 //             <label>Цена:</label>
 //             <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required />
+//
+//             <label>Размеры:</label>
+//             <input
+//                 type="text"
+//                 name="sizes"
+//                 value={Array.isArray(formData.sizes) ? formData.sizes.join(',') : ''}
+//                 onChange={handleSizesChange}
+//             />
+//             <label>Цвета:</label>
+//             {formData.colors && formData.colors.map((color, index) => (
+//                 <div key={index}>
+//                     <input
+//                         type="text"
+//                         value={color.name}
+//                         onChange={(e) => handleColorChange(index, 'name', e.target.value)}
+//                         placeholder="Название цвета"
+//                     />
+//                     <input
+//                         type="color"
+//                         value={color.value}
+//                         onChange={(e) => handleColorChange(index, 'value', e.target.value)}
+//                     />
+//                     <button
+//                         className="deleteField"
+//                         type="button"
+//                         onClick={() => setFormData({
+//                             ...formData,
+//                             colors: formData.colors.filter((_, i) => i !== index)
+//                         })}
+//                     >
+//                         &#10006;
+//                     </button>
+//                 </div>
+//             ))}
+//
+//             <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, colors: [...formData.colors, { name: '', value: '#000000' }] })}>
+//                 Добавить цвет
+//             </button>
+//
+//
 //             <label>Характеристики:</label>
 //             {formData.characteristics.map((char, index) => (
 //                 <div key={index}>
@@ -336,11 +430,11 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 //                         placeholder="Значение характеристики"
 //                     />
 //                     <button className="deleteField"
-//                         type="button"
-//                         onClick={() => setFormData({
-//                             ...formData,
-//                             characteristics: formData.characteristics.filter((_, i) => i !== index)
-//                         })}
+//                             type="button"
+//                             onClick={() => setFormData({
+//                                 ...formData,
+//                                 characteristics: formData.characteristics.filter((_, i) => i !== index)
+//                             })}
 //                     >
 //                         {/*Удалить*/}
 //                         &#10006;
@@ -385,22 +479,22 @@ import {useHistory, useLocation, useParams} from "react-router-dom";
 // };
 //
 // export default ProductForm;
-//
-//   {/*<option value="">Выберите направление</option>*/}
-//                         {/*<option value="Для гаджетов">Для гаджетов</option>*/}
-//                         {/*<option value="Для спорта">Для спорта</option>*/}
-//                         {/*<option value="Для стиля">Для стиля</option>*/}
-//                         {/*<option value="Для орг. техники">Для орг.
+
+
+
+
+
+
 
 
 
 const ProductForm = ({ onSubmit, onCancel }) => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
-    const { productId } = useParams();
+    const {productId} = useParams();
     const [productData, setProductData] = useState(null);
     const location = useLocation();
-    const { product } = location.state || {};
+    const {product} = location.state || {};
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -408,6 +502,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         category: '',
         type: '',
         brand: '',
+        gender: '', // Добавляем поле gender
         characteristics: [],
         images: [],
         sizes: [], // Добавляем поле для размеров
@@ -418,9 +513,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const [types, setTypes] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false); // Состояние для отслеживания отправки формы
     const [direction, setDirection] = useState('');
-    // const [allTypes, setAllTypes] = useState([]);
     const [allCategories, setAllCategories] = useState([]);
-
     const history = useHistory();
 
     useEffect(() => {
@@ -428,7 +521,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         const role = localStorage.getItem('role');
         if (!token || role !== 'seller') {
             toast.error('Ваш аккаунт еще не подтвержден');
-            // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
             history.push('/login');
         }
     }, [history]);
@@ -436,7 +528,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                // Проверяем, определен ли productId
                 if (!productId) {
                     return;
                 }
@@ -496,10 +587,8 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     }, []);
 
     const handleChange = async (e) => {
-        const { name, value } = e.target;
-        // console.log('Name:', name);
-        // console.log('Value:', value);
-        setFormData({ ...formData, [name]: value });
+        const {name, value} = e.target;
+        setFormData({...formData, [name]: value});
 
         if (name === 'category') {
             if (value === 'Аксессуары') {
@@ -509,7 +598,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
         if (name === 'category') {
             try {
-                // Получаем все товары из базы данных
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
                 if (!response.ok) {
                     console.error('Failed to fetch products');
@@ -517,20 +605,12 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 }
                 const data = await response.json();
 
-                // Фильтруем типы товаров в зависимости от выбранной категории
                 let filteredTypes = [];
-                // if (value === 'Аксессуары') {
-                //     filteredTypes = ['Для гаджетов', 'Для спорта', 'Для стиля', 'Для орг. техники'];
-                // } else {
-                    filteredTypes = data
-                        .filter(product => product.category === value)
-                        .map(product => product.type);
-                // }
+                filteredTypes = data
+                    .filter(product => product.category === value)
+                    .map(product => product.type);
 
-                // Извлекаем уникальные типы из отфильтрованных товаров
                 const uniqueTypes = [...new Set(filteredTypes)];
-
-                // Устанавливаем список уникальных типов в состояние types
                 setTypes(uniqueTypes);
             } catch (error) {
                 console.error('Error handling category change:', error);
@@ -541,13 +621,13 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const handleCharacteristicChange = (index, field, value) => {
         const updatedCharacteristics = [...formData.characteristics];
         updatedCharacteristics[index][field] = value;
-        setFormData({ ...formData, characteristics: updatedCharacteristics });
+        setFormData({...formData, characteristics: updatedCharacteristics});
     };
 
     const handleImageChange = (index, value) => {
         const updatedImages = [...formData.images];
         updatedImages[index] = value;
-        setFormData({ ...formData, images: updatedImages });
+        setFormData({...formData, images: updatedImages});
     };
 
     const handleFormSubmit = async (formData) => {
@@ -557,7 +637,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             let response;
             const token = localStorage.getItem('token');
 
-            // Получаем список товаров этого продавца
             const sellerProductsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/products`, {
                 method: 'GET',
                 headers: {
@@ -572,24 +651,22 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
             const sellerProducts = await sellerProductsResponse.json();
 
-            // Проверяем, создается ли новый товар
             if (!productId) {
-                // Проверяем, есть ли уже товар с таким же названием и брендом
                 const existingProduct = sellerProducts.find(
                     (product) =>
                         product.name === formData.name && product.brand === formData.brand
                 );
 
                 if (existingProduct) {
-                    // Если товар уже существует, показываем оповещение и выходим из функции
                     toast.error('Такой товар уже существует');
-                    setIsSubmitting(false); // Устанавливаем состояние отправки формы обратно в false
+                    setIsSubmitting(false);
                     return;
                 }
             }
 
+            console.log('Отправляемые данные:', formData);
+
             if (productId) {
-                // Если есть productId, отправляем запрос на обновление существующего товара
                 response = await fetch(
                     `${process.env.REACT_APP_API_URL}/api/sellers/products/${productId}`,
                     {
@@ -602,7 +679,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                     }
                 );
             } else {
-                // Если нет productId, отправляем запрос на создание нового товара
                 response = await fetch(
                     `${process.env.REACT_APP_API_URL}/api/sellers/products`,
                     {
@@ -611,7 +687,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                             'Content-Type': 'application/json',
                             Authorization: `Bearer ${token}`,
                         },
-                        body: JSON.stringify({...formData, direction}), // Добавляем значение direction в formData
+                        body: JSON.stringify({ ...formData, direction }),
                     }
                 );
             }
@@ -632,9 +708,10 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         } catch (error) {
             console.error('Error saving product:', error);
         } finally {
-            setIsSubmitting(false); // Устанавливаем состояние отправки формы обратно в false, независимо от результата запроса
+            setIsSubmitting(false);
         }
     };
+
 
     const clearFormFields = () => {
         setFormData({
@@ -644,9 +721,12 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             category: '',
             type: '',
             brand: '',
+            gender: '',
             characteristics: [],
             images: [],
-            quantity: 10
+            sizes: [],
+            colors: [],
+            quantity: 10,
         });
     };
 
@@ -655,19 +735,14 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         if (isSubmitting) {
             return; // Если уже отправляется, выходим
         }
-
         setIsSubmitting(true); // Устанавливаем состояние отправки формы в true
 
-        // Проверяем, чтобы хотя бы одно поле характеристик имело заполненное значение
         const hasValidCharacteristics = formData.characteristics.some(char => char.name.trim() !== '' && char.value.trim() !== '');
-
-        // Проверяем, чтобы хотя бы одно поле картинок имело заполненное значение
         const hasValidImages = formData.images.some(image => image.trim() !== '');
 
         if (!hasValidCharacteristics || !hasValidImages) {
             toast.error('Характеристики и изображения должны быть заполнены хотя бы одним значением');
             setIsSubmitting(false); // Устанавливаем состояние отправки формы обратно в false
-
             return;
         }
 
@@ -675,7 +750,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     };
 
     const handleClose = () => {
-        // history.push('/');
         history.goBack(); // Переход на предыдущую страницу
     };
 
@@ -696,38 +770,32 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         fetchAllCategories();
     }, []);
 
-
-
-// Добавляем функцию handleColorChange для обновления данных о цветах
     const handleColorChange = (index, field, value) => {
         const updatedColors = [...formData.colors];
         updatedColors[index][field] = value;
-        setFormData({ ...formData, colors: updatedColors });
+        setFormData({...formData, colors: updatedColors});
     };
-
 
     const handleSizesChange = (e) => {
-        const sizes = e.target.value.split(',').map(size => size.trim()); // Разделяем строку по запятым и удаляем лишние пробелы
-        setFormData({ ...formData, sizes: sizes });
+        const sizes = e.target.value.split(',').map(size => size.trim());
+        setFormData({...formData, sizes: sizes});
     };
-
 
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Добавить товар</h2>
             <span className="sellersListClose" type="button" onClick={handleClose}>
-               <span> &#10006;</span>
-            </span>
+           <span> &#10006;</span>
+        </span>
             <label>Категория:</label>
-            <select name="category" value={formData.category} onChange={handleChange} >
+            <select name="category" value={formData.category} onChange={handleChange}>
                 <option value="">Выберите категорию</option>
                 {categories.map((category, index) => (
                     <option key={index} value={category}>{category}</option>
                 ))}
-                {/* Добавляем категорию "Аксессуары" */}
                 <option value="Аксессуары">Аксессуары</option>
             </select>
-            <input type="text" name="category" value={formData.category} onChange={handleChange} required />
+            <input type="text" name="category" value={formData.category} onChange={handleChange} required/>
 
             {formData.category === 'Аксессуары' && (
                 <div>
@@ -746,23 +814,32 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 </div>
             )}
 
-
             <label>Тип:</label>
-            <select name="type" value={formData.type} onChange={handleChange} >
+            <select name="type" value={formData.type} onChange={handleChange}>
                 <option value="">Выберите тип</option>
                 {types.map((type, index) => (
                     <option key={index} value={type}>{type}</option>
                 ))}
             </select>
-            <input type="text" name="type" value={formData.type} onChange={handleChange} required />
+            <label>Пол:</label>
+            <select name="gender" value={formData.gender} onChange={handleChange} required>
+                <option value="">Выберите пол</option>
+                <option value="Мужская одежда">Мужская одежда</option>
+                <option value="Женская одежда">Женская одежда</option>
+                <option value="Детская одежда">Детская одежда</option>
+                <option value="Гаджеты">Гаджеты</option>
+                <option value="Унисекс">Унисекс</option>
+                <option value="Аксессуары">Аксессуары</option>
+            </select>
+            <input type="text" name="type" value={formData.type} onChange={handleChange} required/>
             <label>Бренд:</label>
-            <input type="text" name="brand" value={formData.brand} onChange={handleChange} required />
+            <input type="text" name="brand" value={formData.brand} onChange={handleChange} required/>
             <label>Название:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required/>
             <label>Описание:</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} required />
+            <textarea name="description" value={formData.description} onChange={handleChange} required/>
             <label>Цена:</label>
-            <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required />
+            <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required/>
 
             <label>Размеры:</label>
             <input
@@ -798,10 +875,12 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 </div>
             ))}
 
-            <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, colors: [...formData.colors, { name: '', value: '#000000' }] })}>
+            <button className="newProductAdd" type="button" onClick={() => setFormData({
+                ...formData,
+                colors: [...formData.colors, {name: '', value: '#000000'}]
+            })}>
                 Добавить цвет
             </button>
-
 
             <label>Характеристики:</label>
             {formData.characteristics.map((char, index) => (
@@ -825,12 +904,14 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                                 characteristics: formData.characteristics.filter((_, i) => i !== index)
                             })}
                     >
-                        {/*Удалить*/}
                         &#10006;
                     </button>
                 </div>
             ))}
-            <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, characteristics: [...formData.characteristics, { name: '', value: '' }] })}>
+            <button className="newProductAdd" type="button" onClick={() => setFormData({
+                ...formData,
+                characteristics: [...formData.characteristics, {name: '', value: ''}]
+            })}>
                 Добавить характеристику
             </button>
 
@@ -851,27 +932,33 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                             images: formData.images.filter((_, i) => i !== index)
                         })}
                     >
-                        {/*Удалить*/}
                         &#10006;
                     </button>
                 </div>
             ))}
-            <button className="newProductAdd" type="button" onClick={() => setFormData({ ...formData, images: [...formData.images, ''] })}>
+            <button className="newProductAdd" type="button"
+                    onClick={() => setFormData({...formData, images: [...formData.images, '']})}>
                 Добавить изображение
             </button>
+
+            {/*<label>Пол:</label>*/}
+            {/*<select name="gender" value={formData.gender} onChange={handleChange} required>*/}
+            {/*    <option value="">Выберите пол</option>*/}
+            {/*    <option value="Мужская одежда">Мужская одежда</option>*/}
+            {/*    <option value="Женская одежда">Женская одежда</option>*/}
+            {/*    <option value="Детская одежда">Детская одежда</option>*/}
+            {/*    <option value="Гаджеты">Гаджеты</option>*/}
+            {/*    <option value="Унисекс">Унисекс</option>*/}
+            {/*    <option value="Аксессуары">Аксессуары</option>*/}
+            {/*</select>*/}
+
             <div className="submitBtn">
-                <button className="submit" type="submit"  disabled={isSubmitting}>&#10004; Создать продукт</button>
+                <button className="submit" type="submit" disabled={isSubmitting}>&#10004; Создать продукт</button>
                 <button className="cancel" type="button" onClick={onCancel}>&#10006; Отмена</button>
             </div>
         </form>
     );
 };
 
+
 export default ProductForm;
-
-
-
-
-
-
-

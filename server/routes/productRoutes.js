@@ -246,4 +246,24 @@ router.get('/accessories/:direction', async (req, res) => {
 
 
 
+
+// Роут для фильтрации продуктов по полу
+router.get('/products/filter', async (req, res) => {
+    try {
+        const { gender } = req.query;
+
+        if (!gender) {
+            return res.status(400).json({ message: 'Gender parameter is required' });
+        }
+
+        const products = await Product.find({ gender });
+
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
 module.exports = router;

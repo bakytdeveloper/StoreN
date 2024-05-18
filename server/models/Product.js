@@ -15,15 +15,17 @@ const productSchema = new mongoose.Schema({
     type: { type: String, required: true },
     direction: { type: String },
     brand: { type: String, required: true },
+    gender: { type: String, required: true }, // Добавлено поле gender
     characteristics: [characteristicSchema],
-    sizes: [{ type: String }], // Добавляем поле для размеров
+    sizes: [{ type: String }],
     colors: [{
-        name: { type: String, required: true }, // Название цвета
-        value: { type: String, required: true }, // Значение цвета
-    }], // Добавляем поле для цветов
-    images: [{ type: String }], // Добавлено поле для картинок
-    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' } // Ссылка на продавца
+        name: { type: String, required: true },
+        value: { type: String, required: true },
+    }],
+    images: [{ type: String }],
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
 });
+
 
 const Product = mongoose.model('Product', productSchema);
 
