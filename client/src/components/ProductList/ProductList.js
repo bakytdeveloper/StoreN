@@ -238,48 +238,47 @@ import right from "./arrowsR.png";
 // import bas from '../assets/basket.png';
 // import { useHistory } from 'react-router-dom';
 
+import './ProductList.css';
+
 const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProducts, showSidebar, setShowSidebar }) => {
-    const [selectedType, setSelectedType] = useState(null);
+    const [selectedGender, setSelectedGender] = useState(null);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeSellers, setActiveSellers] = useState([]);
-    const [productsPerPage, setProductsPerPage] = useState(12); // Изменено количество карточек на странице
+    const [productsPerPage, setProductsPerPage] = useState(12);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [resizeTimer, setResizeTimer] = useState(null);
-
-    const location = useLocation();
     const history = useHistory();
+    const location = useLocation();
 
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const gender = searchParams.get('gender');
-        setSelectedType(gender);
-    }, [location]);
-
-    useEffect(() => {
-        window.scrollTo(0, 0); // При изменении текущей страницы скроллируем наверх
-    }, [currentPage]);
+        const params = new URLSearchParams(location.search);
+        const gender = params.get('gender');
+        if (gender) {
+            setSelectedGender(decodeURIComponent(gender));
+        }
+    }, [location.search]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setCurrentPage(1); // Сброс текущей страницы при изменении searchKeyword или products
+        setCurrentPage(1);
     }, [searchKeyword, products]);
 
     useEffect(() => {
-        fetchData(); // Получение данных при загрузке компонента или изменении selectedType
-    }, [searchKeyword, selectedType, windowWidth]); // Вызов fetchData при изменении searchKeyword, selectedType или ширины экрана
+        fetchData();
+    }, [searchKeyword, selectedGender, windowWidth]);
 
     useEffect(() => {
-        fetchActiveSellers(); // Получение активных продавцов при загрузке компонента
+        fetchActiveSellers();
     }, []);
 
     useEffect(() => {
         if (products && products.length > 0 && activeSellers.length > 0) {
-            setFilteredProducts(filterProducts(products, activeSellers)); // Фильтрация продуктов при загрузке активных продавцов или изменении страницы
+            setFilteredProducts(filterProducts(products, activeSellers));
         } else {
-            fetchData(); // Получение данных при загрузке продуктов или изменении страницы
+            fetchData();
         }
-    }, [products, currentPage, activeSellers]); // Вызов fetchData при изменении products, currentPage или activeSellers
+    }, [products, currentPage, activeSellers]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -288,9 +287,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                 setWindowWidth(window.innerWidth);
             }, 200));
         };
-
         window.addEventListener('resize', handleResize);
-
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -311,7 +308,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
         try {
             const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}`, { timeout: 10000 });
             const productsData = await productsResponse.json();
-            setProducts(productsData); // Обновляем список продуктов (для возврата назад)
+            setProducts(productsData);
             const filteredProductsData = filterProducts(productsData || [], activeSellers);
             setFilteredProducts(filteredProductsData);
         } catch (error) {
@@ -321,7 +318,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
 
     const filterProducts = (productsToFilter, activeSellersData) => {
         return productsToFilter
-            .filter((product) => !selectedType || product.gender === selectedType)
+            .filter((product) => !selectedGender || product.gender === selectedGender)
             .filter(
                 (product) =>
                     searchKeyword
@@ -331,8 +328,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                         product.type.toLowerCase().includes(searchKeyword.toLowerCase())
                         : true
             )
-            .filter((product) => {
-                const seller = activeSellersData.find((seller) => seller.products.includes(product._id));
+            .filter(product => {
+                const seller = activeSellersData.find(seller => seller.products.includes(product._id));
                 return seller ? true : false;
             });
     };
@@ -354,8 +351,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                     name: product.name,
                     price: product.price,
                     quantity: 1,
-                    size: product.size, // Передаем размер товара
-                    color: product.color, // Передаем цвет товара
+                    size: product.size,
+                    color: product.color,
                 },
             ]);
         }
@@ -395,7 +392,6 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     return (
         <div className="product-list">
             {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} />}
-
             {displayedProducts.length ? (
                 displayedProducts.map((product) => (
                     <div className="product-card" key={product._id}>
@@ -407,30 +403,18 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                             <div className="details">
                                 <div className="type">{product.type}</div>
                                 <div className="brand">{product.brand}</div>
-                                {/*<div className="name">{product.name}</div>*/}
-                                {/* Ограничиваем длину названия товара до 10 символов */}
                                 <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>
-
                                 <div className="price">
                                     KGS {product.price}
-                                    {/*<span>KGS</span> {product.price}*/}
                                 </div>
                             </div>
                         </Link>
                         <div className="actions">
-                            <button
-                                className="cart-button"
-                                title="Add to Cart"
-                                onClick={() => handleAddToCart(product)}
-                            >
+                            <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
                                 <strong>+</strong>
                                 <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
                             </button>
-                            <button
-                                className="buy-button"
-                                title="Buy Now"
-                                onClick={() => handleBuyNow(product)}
-                            >
+                            <button className="buy-button" title="Buy Now" onClick={() => handleBuyNow(product)}>
                                 Заказать
                             </button>
                         </div>
@@ -439,7 +423,6 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
             ) : (
                 <h2 className="no-products">Идёт загрузка...</h2>
             )}
-
             {displayedProducts.length > 0 && (
                 <div className="pagination-container">
                     <div className="pagination">

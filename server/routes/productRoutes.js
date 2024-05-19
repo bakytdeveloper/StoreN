@@ -246,23 +246,31 @@ router.get('/accessories/:direction', async (req, res) => {
 
 
 
-
 // Роут для фильтрации продуктов по полу
-router.get('/products/filter', async (req, res) => {
+router.get('/api/products', async (req, res) => {
     try {
-        const { gender } = req.query;
+        const { gender, search } = req.query;
 
-        if (!gender) {
-            return res.status(400).json({ message: 'Gender parameter is required' });
+        let query = {};
+        if (gender) {
+            query.gender = gender;
+        }
+        if (search) {
+            query.$or = [
+                { name: new RegExp(search, 'i') },
+                { description: new RegExp(search, 'i') },
+                { brand: new RegExp(search, 'i') },
+                { type: new RegExp(search, 'i') }
+            ];
         }
 
-        const products = await Product.find({ gender });
-
+        const products = await Product.find(query);
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 
