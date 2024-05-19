@@ -404,6 +404,7 @@
 /* Home.css */
 .home-container {
     width: 100%;
+    margin-top: 180px;
     /*padding: 20px;*/
 }
 
@@ -527,6 +528,7 @@
     font-size: 20px;
     text-align: center;
     /*object-fit: contain;*/
+    cursor: pointer;
 }
 
 

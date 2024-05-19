@@ -1,8 +1,8 @@
 // src/components/AdminPanel/ProductForm.js
 import React, { useState, useEffect } from 'react';
-import './ProductForm.css';
 import {toast} from "react-toastify";
 import {useHistory, useLocation, useParams} from "react-router-dom";
+import './ProductForm.css';
 
 
 // const ProductForm = ({ onSubmit, onCancel }) => {
@@ -787,7 +787,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             <span className="sellersListClose" type="button" onClick={handleClose}>
            <span> &#10006;</span>
         </span>
-            <label>Категория:</label>
+            <label className="seller-form-add-once">Категория:</label>
             <select name="category" value={formData.category} onChange={handleChange}>
                 <option value="">Выберите категорию</option>
                 {categories.map((category, index) => (
@@ -821,8 +821,10 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                     <option key={index} value={type}>{type}</option>
                 ))}
             </select>
+            <input type="text" name="type" value={formData.type} onChange={handleChange} required/>
+
             <label>Пол:</label>
-            <select name="gender" value={formData.gender} onChange={handleChange} required>
+            <select name="gender" value={formData.gender} onChange={handleChange}>
                 <option value="">Выберите пол</option>
                 <option value="Мужская одежда">Мужская одежда</option>
                 <option value="Женская одежда">Женская одежда</option>
@@ -831,13 +833,16 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 <option value="Унисекс">Унисекс</option>
                 <option value="Аксессуары">Аксессуары</option>
             </select>
-            <input type="text" name="type" value={formData.type} onChange={handleChange} required/>
+
             <label>Бренд:</label>
             <input type="text" name="brand" value={formData.brand} onChange={handleChange} required/>
+
             <label>Название:</label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} required/>
+
             <label>Описание:</label>
             <textarea name="description" value={formData.description} onChange={handleChange} required/>
+
             <label>Цена:</label>
             <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required/>
 

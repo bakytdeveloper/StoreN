@@ -1230,9 +1230,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 1px 20px;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
+    box-shadow: 3px 3px 5px #dddddd;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
 }
 
 .titleN {
@@ -1255,6 +1259,26 @@
     display: flex;
     align-items: center;
     margin-left: 32px;
+}
+
+.dropdown-menu {
+    border: 1px solid #4c4b4b;
+    padding: 5px;
+
+
+}
+
+.dropdown-menu button {
+    background: none;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+
+}
+
+.dropdown-menu-partner {
+    border-top-color: black;
 }
 
 
@@ -1283,6 +1307,9 @@
     align-items: center;
 
 }
+.search {
+    margin-top: 11px!important;
+}
 
 .profileIcon-text {
     cursor: pointer;
@@ -1309,11 +1336,15 @@
     /*background: #a49f9f;*/
 }
 
+.social-icons {
+    margin-left: 32px;
+    margin-right: 12px;
+}
 
 .icon {
     width: 32px;
     height: 32px;
-    margin-right: 10px;
+    margin-right: 20px;
     cursor: pointer;
     transition: transform 0.3s ease; /* Добавим анимацию при наведении */
 }

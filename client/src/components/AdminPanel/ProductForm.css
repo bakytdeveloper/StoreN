@@ -12,11 +12,19 @@
     flex-direction: column;
     width: 70%;
     margin: 0 auto;
-    margin-top: 111px;
+    margin-top: 161px;
 }
 
 label {
     margin-top: 10px;
+}
+
+.sellersListClose span {
+    margin-top: -21px!important;
+}
+
+.seller-form-add-once {
+    margin-top: -11px;
 }
 
 input,
