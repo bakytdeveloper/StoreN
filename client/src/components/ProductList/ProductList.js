@@ -240,7 +240,7 @@ import right from "./arrowsR.png";
 
 import './ProductList.css';
 
-const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProducts, showSidebar, setShowSidebar }) => {
+const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProducts, showSidebar, setShowSidebar, selectedCategory, selectedType, setSelectedCategory, setSelectedType }) => {
     const [selectedGender, setSelectedGender] = useState(null);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

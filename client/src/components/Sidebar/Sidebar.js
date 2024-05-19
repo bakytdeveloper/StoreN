@@ -526,11 +526,10 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
     );
 };
 
-const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption, setFilters }) => {
+const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedType, setSelectedType] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
     const history = useHistory();
 
@@ -578,22 +577,17 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption, set
         setShowSidebar(true);
     };
 
-
-
     const handleCategoryClick = async (category) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${category}`);
             const data = await response.json();
             setTypes(data.types);
             setSelectedCategory(category);
-            setSelectedType(null); // Reset selectedType when a new category is selected
             setProducts(data.products);
         } catch (error) {
             console.error('Error fetching types by category:', error);
         }
     };
-
-
 
     const handleTypeClick = async (type) => {
         try {
@@ -652,5 +646,4 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption, set
         </div>
     );
 };
-
 export default Sidebar;
