@@ -3,7 +3,7 @@
 // src/components/Header/Header.js
 import React, {useEffect, useRef, useState} from 'react';
 import './Header.css';
-import { Link, useHistory } from 'react-router-dom';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import ins from "./instagram.png";
 import tel from "./telegram.png";
 import what from "./whatsapp.png";
@@ -485,6 +485,19 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     const history = useHistory();
     const profileRef = useRef(null);
     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
+    const location = useLocation();
+    const [activePage, setActivePage] = useState('');
+
+    useEffect(() => {
+        const path = location.pathname;
+        if (path === '/') {
+            setActivePage('home');
+        } else if (path === '/catalog') {
+            setActivePage('catalog');
+        } else if (path === '/contact') {
+            setActivePage('contact');
+        }
+    }, [location.pathname]);
 
     useEffect(() => {
         if (showSidebar) {
@@ -589,8 +602,8 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
                 </div>
                 <nav className="nav-links">
-                    <Link to="/" className="nav-link">Главная</Link>
-                    <Link to="/catalog" className="nav-link">Каталог</Link>
+                    <Link to="/" className={`nav-link ${activePage === 'home' ? 'active' : ''}`}>Главная</Link>
+                    <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active' : ''}`}>Каталог</Link>
                 </nav>
             </div>
             <div className="header-right">

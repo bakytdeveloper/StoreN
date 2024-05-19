@@ -590,7 +590,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         <span className="itemName" style={{ fontWeight: 'bold' }}>{item.type}</span>
                                                         <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</span>
                                                         <span>{item.name}</span>
-                                                        <span>{item.name}</span>
                                                         <div>Цвет: {item.color}</div> {/* Добавляем вывод выбранного цвета */}
                                                         <div>Размер: {item.size}</div> {/* Добавляем вывод выбранного размера */}
                                                         <div className="sumKg">

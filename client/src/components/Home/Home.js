@@ -53,8 +53,8 @@ const Home = () => {
                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
                             <div className="text-container">
                                 <h1 className="title">{slide.title}</h1>
-                                <p className="subtitle">{slide.subtitle}</p>
-                                <p className="description">{slide.description}</p>
+                                <h2 className="subtitle">{slide.subtitle}</h2>
+                                <h3 className="description">{slide.description}</h3>
                             </div>
                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
                             <div className="slide-button">ПОСМОТРЕТЬ СЕЙЧАС</div>

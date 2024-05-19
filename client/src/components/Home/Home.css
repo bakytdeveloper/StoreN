@@ -46,6 +46,10 @@
     left: 180px;
 }
 
+.text-container h1 {
+    cursor: text;
+}
+
 .title {
     font-family: 'Poppins', sans-serif;
     font-size: 40px;
@@ -102,6 +106,7 @@
     margin-left: 180px;
     padding: 5px;
     border-radius: 13px;
+    cursor: pointer;
 }
 
 .slide-button:hover {

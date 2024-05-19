@@ -1236,7 +1236,7 @@
     box-shadow: 3px 3px 5px #dddddd;
     position: fixed;
     width: 100%;
-    z-index: 1;
+    z-index: 111;
 }
 
 .titleN {
@@ -1279,6 +1279,15 @@
 
 .dropdown-menu-partner {
     border-top-color: black;
+}
+
+.active {
+
+    border-bottom-color: black!important;
+    border-top: none !important;
+    border-right: none!important;
+    border-left: none!important;
+
 }
 
 

@@ -1178,37 +1178,6 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <div className="description">
                         <strong>Описание:</strong> {truncatedDescription}
                     </div>
-                    {/*<div className="price">KGS {product.price}</div>*/}
-
-                    {/*<div className="product-sizes">*/}
-                    {/*    <h3>Размеры: {selectedSize}</h3>*/}
-                    {/*    <div className="size-list">*/}
-                    {/*        {product.sizes.map((size, index) => (*/}
-                    {/*            <div*/}
-                    {/*                key={index}*/}
-                    {/*                className={selectedSize === size ? 'size selected-size' : 'size'}*/}
-                    {/*                onClick={() => setSelectedSize(size)}*/}
-                    {/*            >*/}
-                    {/*                {size}*/}
-                    {/*            </div>*/}
-                    {/*        ))}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                    {/*<div className="product-colors">*/}
-                    {/*    <h3>Цвета: {selectedColor}</h3>*/}
-                    {/*    <div className="color-list">*/}
-                    {/*        {product.colors.map((color, index) => (*/}
-                    {/*            <div*/}
-                    {/*                key={index}*/}
-                    {/*                className={selectedColor === color.name ? 'color selected-color' : 'color'}*/}
-                    {/*                onClick={() => setSelectedColor(color.name)}*/}
-                    {/*            >*/}
-                    {/*                <div className="color-box" style={{ backgroundColor: color.value }}></div>*/}
-                    {/*                /!*<div className="color-name">{color.name}</div>*!/*/}
-                    {/*            </div>*/}
-                    {/*        ))}*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
 
 
                     <div className="product-sizes">
