@@ -31,12 +31,6 @@
 
     transition: transform 0.5s ease-in-out;
 }
-/*.slide {*/
-/*    min-width: 100%; !* Каждая слайд занимает всю ширину карусели *!*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*}*/
 
 .text-container {
     text-align: left;
