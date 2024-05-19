@@ -1,155 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import './Home.css';
-//
-// const Home = () => {
-//     const [currentSlide, setCurrentSlide] = useState(0);
-//     const slides = [
-//         { title: "Заголовок 1", subtitle: "Подзаголовок 1", description: "Описание 1", image: "placeholder.jpg" },
-//         { title: "Заголовок 2", subtitle: "Подзаголовок 2", description: "Описание 2", image: "placeholder.jpg" },
-//         { title: "Заголовок 3", subtitle: "Подзаголовок 3", description: "Описание 3", image: "placeholder.jpg" }
-//     ];
-//
-//     useEffect(() => {
-//         const interval = setInterval(() => {
-//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-//         }, 5000); // Переключаем слайд каждые 5 секунд
-//
-//         return () => clearInterval(interval);
-//     }, [slides.length]);
-//
-//     return (
-//         <div className="home-container">
-//             <div className="carousel">
-//                 <div className="carousel-track" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-//                     {slides.map((slide, index) => (
-//                         <div className="slide" key={index}>
-//                             <div className="text-container">
-//                                 <h1 className="title">{slide.title}</h1>
-//                                 <p className="subtitle">{slide.subtitle}</p>
-//                                 <p className="description">{slide.description}</p>
-//                             </div>
-//                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
-//                         </div>
-//                     ))}
-//                 </div>
-//             </div>
-//             <div className="info-blocks">
-//                 <div className="info-block">Информация 1</div>
-//                 <div className="info-block">Информация 2</div>
-//                 <div className="info-block">Информация 3</div>
-//                 <div className="info-block">Информация 4</div>
-//                 <div className="info-block">Информация 5</div>
-//                 <div className="info-block">Информация 6</div>
-//             </div>
-//         </div>
-//     );
-// };
-//
-// export default Home;
-
-
-//
-// import React, { useState, useEffect } from 'react';
-// import './Home.css';
-//
-// const Home = () => {
-//     const [currentSlide, setCurrentSlide] = useState(0);
-//     const slides = [
-//         { title: "Заголовок 1", subtitle: "Подзаголовок 1", description: "Описание 1", image: "placeholder.jpg" },
-//         { title: "Заголовок 2", subtitle: "Подзаголовок 2", description: "Описание 2", image: "placeholder.jpg" },
-//         { title: "Заголовок 3", subtitle: "Подзаголовок 3", description: "Описание 3", image: "placeholder.jpg" }
-//     ];
-//
-//     useEffect(() => {
-//         const interval = setInterval(() => {
-//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-//         }, 5000); // Переключаем слайд каждые 5 секунд
-//
-//         return () => clearInterval(interval);
-//     }, [slides.length]);
-//
-//     return (
-//         <div className="home-container">
-//             <div className="carousel">
-//                 <div className="carousel-track" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-//                     {slides.map((slide, index) => (
-//                         <div className="slide" key={index}>
-//                             <div className="text-container">
-//                                 <h1 className="title">{slide.title}</h1>
-//                                 <p className="subtitle">{slide.subtitle}</p>
-//                                 <p className="description">{slide.description}</p>
-//                             </div>
-//                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
-//                         </div>
-//                     ))}
-//                 </div>
-//             </div>
-//             <div className="info-blocks">
-//                 <div className="info-block">Информация 1</div>
-//                 <div className="info-block">Информация 2</div>
-//                 <div className="info-block">Информация 3</div>
-//                 <div className="info-block">Информация 4</div>
-//                 <div className="info-block">Информация 5</div>
-//                 <div className="info-block">Информация 6</div>
-//             </div>
-//         </div>
-//     );
-// };
-//
-// export default Home;
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import './Home.css';
-//
-// const Home = () => {
-//     const [currentSlide, setCurrentSlide] = useState(0);
-//     const slides = [
-//         { title: "Заголовок 1", subtitle: "Подзаголовок 1", description: "Описание 1", image: "placeholder.jpg" },
-//         { title: "Заголовок 2", subtitle: "Подзаголовок 2", description: "Описание 2", image: "placeholder.jpg" },
-//         { title: "Заголовок 3", subtitle: "Подзаголовок 3", description: "Описание 3", image: "placeholder.jpg" }
-//     ];
-//
-//     useEffect(() => {
-//         const interval = setInterval(() => {
-//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-//         }, 5000); // Переключаем слайд каждые 5 секунд
-//
-//         return () => clearInterval(interval);
-//     }, [slides.length]);
-//
-//     return (
-//         <div className="home-container">
-//             <div className="carousel">
-//                 <div className="carousel-track" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-//                     {slides.map((slide, index) => (
-//                         <div className="slide" key={index}>
-//                             <div className="text-container">
-//                                 <h1 className="title">{slide.title}</h1>
-//                                 <p className="subtitle">{slide.subtitle}</p>
-//                                 <p className="description">{slide.description}</p>
-//                             </div>
-//                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
-//                         </div>
-//                     ))}
-//                 </div>
-//             </div>
-//             <div className="info-blocks">
-//                 <div className="info-block">Информация 1</div>
-//                 <div className="info-block">Информация 2</div>
-//                 <div className="info-block">Информация 3</div>
-//                 <div className="info-block">Информация 4</div>
-//                 <div className="info-block">Информация 5</div>
-//                 <div className="info-block">Информация 6</div>
-//             </div>
-//         </div>
-//     );
-// };
-//
-// export default Home;
-
-
 
 
 import React, { useState, useEffect } from 'react';
@@ -162,6 +10,8 @@ import childrenProducts from './imgHome/children-products.png';
 import gadgets from './imgHome/gadgets.png';
 import unisex from './imgHome/unisex.png';
 import accessories from './imgHome/accessories.png';
+import allElectricalGoods from './imgHome/allElectricalGoods.png';
+import catalog_page from './imgHome/catalog-page.jpg';
 import {useHistory} from "react-router-dom";
 import ContactInfo from "../Header/ContactInfo";
 
@@ -171,8 +21,8 @@ const Home = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         { title: "ГОТОВЬСЯ К ЛЕТУ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
-        { title: "ГОТОВЬСЯ К ОСЕНИ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ОСЕННЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
-        { title: "ГОТОВЬСЯ К ЗИМЕ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЗИМНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 }
+        { title: "ГОТОВЬСЯ К ОСЕНИ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ОСЕННЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne2 },
+        { title: "ГОТОВЬСЯ К ЗИМЕ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЗИМНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne }
     ];
 
     const history = useHistory();
@@ -187,6 +37,11 @@ const Home = () => {
 
     const handleImageClick = (gender) => {
         history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+    };
+
+
+    const catalogPage = () => {
+        history.push("/catalog");
     };
 
 
@@ -232,6 +87,18 @@ const Home = () => {
                     <span>Аксессуары</span>
                     <img className="info-block-img" src={accessories} alt="Аксессуары" />
                 </div>
+
+
+                <div className="info-block info-all" onClick={() => handleImageClick('Бытовая эл.техника')}>
+                    <span>Бытовая эл.техника</span>
+                    <img className="info-block-img info-all-img" src={allElectricalGoods} alt="Бытовая эл.техника" />
+                </div>
+
+                <div className="info-block info-all" onClick={catalogPage}>
+                    <span>ВСЕ ТОВАРЫ</span>
+                    <img style={{objectFit:"cover"}} className="info-block-img" src={catalog_page} alt="Аксессуары" />
+                </div>
+
             </div>
             <div className="home-page-footer">
                 <ContactInfo />

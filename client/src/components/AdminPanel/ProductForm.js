@@ -832,6 +832,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 <option value="Гаджеты">Гаджеты</option>
                 <option value="Унисекс">Унисекс</option>
                 <option value="Аксессуары">Аксессуары</option>
+                <option value="Бытовая эл.техника">Бытовая эл.техника</option>
             </select>
 
             <label>Бренд:</label>
