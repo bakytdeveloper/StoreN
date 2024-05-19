@@ -46,6 +46,11 @@ const App = () => {
         }
     }, []);
 
+
+
+
+
+
     // Функция для установки токена и сохранения его в localStorage
     const setToken = (token) => {
         localStorage.setItem('token', token);
@@ -90,6 +95,7 @@ const App = () => {
                     />
                 )}
 
+                {/*<button onClick={toggleSidebar}>Toggle Sidebar</button>*/}
 
                 <Sidebar
                     setProducts={setProducts}
