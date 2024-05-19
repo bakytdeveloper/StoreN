@@ -30,7 +30,8 @@ const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
-    const [showSidebar, setShowSidebar] = useState(true);
+    const [showSidebar, setShowSidebar] = useState(false);
+    // const [showSidebar, setShowSidebar] = useState(true);
     const [showHeader, setShowHeader] = useState(true); // Добавлено состояние для отображения или скрытия шапки
     const [selectedOption, setSelectedOption] = useState(null);
     const [currentPage, setCurrentPage] = useState(1); // добавляем состояние currentPage и функцию setCurrentPage

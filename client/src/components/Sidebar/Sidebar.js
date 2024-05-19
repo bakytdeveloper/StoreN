@@ -531,6 +531,8 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+
+    const [selectedType, setSelectedType] = useState(null);
     const history = useHistory();
 
     useEffect(() => {
@@ -539,7 +541,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
                 const data = await response.json();
                 setCategories(data.categories);
-                setProducts(data.products);
+                // setProducts(data.products);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -553,7 +555,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [setProducts]);
+    }, []);
 
     useEffect(() => {
         const handleBodyScroll = (event) => {
@@ -583,19 +585,29 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             const data = await response.json();
             setTypes(data.types);
             setSelectedCategory(category);
+            setSelectedType(null); // Reset selectedType when a new category is selected
             setProducts(data.products);
         } catch (error) {
             console.error('Error fetching types by category:', error);
         }
     };
 
+    const handleBackClick = () => {
+        setSelectedCategory(null);
+        setTypes([]);
+        setProducts([]);
+    };
+
+
     const handleTypeClick = async (type) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${selectedCategory}?type=${type}`);
             const data = await response.json();
+            setSelectedType(type);
             setProducts(data.products);
             if (isSmallScreen) {
-                setShowSidebar(false);
+                setShowSidebar(true);
+                // setShowSidebar(false);
             }
         } catch (error) {
             console.error('Error fetching products by type:', error);
