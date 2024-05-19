@@ -629,14 +629,19 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'}`}>
             <div className="titleShow">
+                {/*{isSmallScreen && (*/}
+                {/*    <div className="closeBtn" onClick={handleCloseClick}>*/}
+                {/*        &#215;*/}
+                {/*    </div>*/}
+                {/*)}*/}
+                <h2 className="sbTitle">
+                    {selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}
+                </h2>
                 {isSmallScreen && (
                     <div className="closeBtn" onClick={handleCloseClick}>
                         &#215;
                     </div>
                 )}
-                <h2 className="sbTitle">
-                    {selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}
-                </h2>
             </div>
             <ul>
                 {selectedOption === 'contact' ? (
