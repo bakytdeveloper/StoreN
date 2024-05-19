@@ -602,8 +602,8 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
                 </div>
                 <nav className="nav-links">
-                    <Link to="/" className={`nav-link ${activePage === 'home' ? 'active' : ''}`}>Главная</Link>
-                    <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active' : ''}`}>Каталог</Link>
+                    <Link to="/" className={`nav-link ${activePage === 'home' ? 'active-title' : ''}`}>Главная</Link>
+                    <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>
                 </nav>
             </div>
             <div className="header-right">

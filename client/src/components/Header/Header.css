@@ -1281,9 +1281,9 @@
     border-top-color: black;
 }
 
-.active {
-
-    border-bottom-color: black!important;
+.active-title {
+    border: 3px solid black;
+    border-bottom-color: black;
     border-top: none !important;
     border-right: none!important;
     border-left: none!important;
