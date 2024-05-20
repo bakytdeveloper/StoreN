@@ -498,6 +498,48 @@ import ContactsInfo from './ContactsInfo';
 import './Sidebar.css';
 // import ContactsInfo from './ContactsInfo';
 
+// const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
+//     const [isExpanded, setIsExpanded] = useState(false);
+//     const [selectedCategory, setSelectedCategory] = useState(null);
+//
+//
+//     const handleCategoryClick = async () => {
+//         if (isExpanded) {
+//             resetProducts();
+//         } else {
+//             await onCategoryClick(category);
+//         }
+//         setIsExpanded(!isExpanded);
+//     };
+//
+//
+//     const handleBackClick = () => {
+//         setSelectedCategory(null);
+//         setTypes([]);
+//         setProducts([]);
+//     };
+//
+//
+//     return (
+//         <>
+//             <li className="sbLi" onClick={handleCategoryClick}>
+//                 {category} <SlArrowRight />
+//             </li>
+//             <div className={`accordionContent ${isExpanded && selectedCategory === category ? 'expanded' : ''}`}>
+//                 <li className="sbLiBack" key="back" onClick={handleBackClick}>
+//                         <SlArrowLeft style={{ fontSize: "15px" }} /> Назад
+//                  </li>
+//                 {types.map((type) => (
+//                     <li className="sbLi" key={type} onClick={() => onTypeClick(type)}>
+//                         {type} <SlArrowRight />
+//                     </li>
+//                 ))}
+//             </div>
+//         </>
+//     );
+// };
+
+
 const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -510,15 +552,29 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
         setIsExpanded(!isExpanded);
     };
 
+    const handleBackClick = () => {
+        resetProducts(); // Сбрасывает выбранный тип и возвращает категории товаров
+        setIsExpanded(false); // Сворачивает список типов
+    };
+
     return (
         <>
             <li className="sbLi" onClick={handleCategoryClick}>
-                {category} <SlArrowRight />
+                {category} <strong>+</strong>
+                {/*{category} <SlArrowRight />*/}
             </li>
             <div className={`accordionContent ${isExpanded && selectedCategory === category ? 'expanded' : ''}`}>
+                <h5>Типы</h5>
+                <li className="sbLi" key="back" onClick={handleBackClick}>
+                {/*<li className="sbLiBack" key="back" onClick={handleBackClick}>*/}
+                    {/*<SlArrowLeft style={{ fontSize: "10px" }} />*/}
+                    Назад<strong>-</strong>
+
+                </li>
                 {types.map((type) => (
-                    <li className="sbLi" key={type} onClick={() => onTypeClick(type)}>
-                        {type} <SlArrowRight />
+                    <li className="sbLi sb-li-type" style={{marginLeft:"15px"}} key={type} onClick={() => onTypeClick(type)}>
+                        {type} <strong>+</strong>
+                        {/*{type} <SlArrowRight />*/}
                     </li>
                 ))}
             </div>
@@ -526,12 +582,149 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
     );
 };
 
+
+// import React, { useEffect, useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+// const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
+//     const [categories, setCategories] = useState([]);
+//     const [types, setTypes] = useState([]);
+//     const [selectedCategory, setSelectedCategory] = useState(null);
+//     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+//     const [selectedType, setSelectedType] = useState(null);
+//     const history = useHistory();
+//
+//     useEffect(() => {
+//         const fetchCategories = async () => {
+//             try {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
+//                 const data = await response.json();
+//                 setCategories(data.categories);
+//             } catch (error) {
+//                 console.error('Error fetching categories:', error);
+//             }
+//         };
+//         fetchCategories();
+//
+//         const handleResize = () => {
+//             setIsSmallScreen(window.innerWidth <= 768);
+//         };
+//         window.addEventListener('resize', handleResize);
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+//
+//     useEffect(() => {
+//         const handleBodyScroll = (event) => {
+//             if (!showSidebar && isSmallScreen) {
+//                 event.preventDefault();
+//                 event.stopPropagation();
+//             }
+//         };
+//         if (isSmallScreen) {
+//             document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
+//             document.body.style.position = showSidebar ? 'static' : 'fixed';
+//             document.body.style.width = '100%';
+//             document.body.addEventListener('scroll', handleBodyScroll, { passive: false });
+//             return () => {
+//                 document.body.removeEventListener('scroll', handleBodyScroll);
+//             };
+//         }
+//     }, [showSidebar, isSmallScreen]);
+//
+//     const handleCloseClick = () => {
+//         setShowSidebar(true);
+//     };
+//
+//     const handleCategoryClick = async (category) => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${category}`);
+//             const data = await response.json();
+//             setTypes(data.types);
+//             setSelectedCategory(category);
+//             setSelectedType(null);
+//             setProducts(data.products);
+//         } catch (error) {
+//             console.error('Error fetching types by category:', error);
+//         }
+//     };
+//     //
+//     // const handleBackClick = () => {
+//     //     setSelectedCategory(null);
+//     //     setTypes([]);
+//     //     setProducts([]);
+//     // };
+//
+//     const handleTypeClick = async (type) => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${selectedCategory}?type=${type}`);
+//             const data = await response.json();
+//             setSelectedType(type);
+//             setProducts(data.products);
+//             if (isSmallScreen) {
+//                 setShowSidebar(false);
+//             }
+//         } catch (error) {
+//             console.error('Error fetching products by type:', error);
+//         }
+//     };
+//
+//     const resetProducts = async () => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
+//             const data = await response.json();
+//             setProducts(data.products);
+//             setSelectedCategory(null);
+//             setTypes([]);
+//         } catch (error) {
+//             console.error('Error fetching all products:', error);
+//         }
+//     };
+//
+//     return (
+//         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
+//         {/*<div className={`sidebar ${showSidebar ? '' : 'show'}`}>*/}
+//             <div className="titleShow">
+//                 <h2 className="sbTitle">
+//                     {selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}
+//                 </h2>
+//                 {isSmallScreen && (
+//                     <div className="closeBtn" onClick={handleCloseClick}>
+//                         &#215;
+//                     </div>
+//                 )}
+//             </div>
+//             <ul>
+//                 {selectedOption === 'contact' ? (
+//                     <ContactsInfo />
+//                 ) : (
+//                     categories.map((category) => (
+//                         <AccordionItem
+//                             key={category}
+//                             category={category}
+//                             onCategoryClick={handleCategoryClick}
+//                             selectedCategory={selectedCategory}
+//                             types={types}
+//                             onTypeClick={handleTypeClick}
+//                             resetProducts={resetProducts}
+//                         />
+//                     ))
+//                 )}
+//             </ul>
+//         </div>
+//     );
+// };
+
+
+
+
+
 const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-
     const [selectedType, setSelectedType] = useState(null);
     const history = useHistory();
 
@@ -541,7 +734,6 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
                 const data = await response.json();
                 setCategories(data.categories);
-                // setProducts(data.products);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -557,24 +749,6 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         };
     }, []);
 
-    useEffect(() => {
-        const handleBodyScroll = (event) => {
-            if (!showSidebar && isSmallScreen) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-        };
-        if (isSmallScreen) {
-            document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
-            document.body.style.position = showSidebar ? 'static' : 'fixed';
-            document.body.style.width = '100%';
-            document.body.addEventListener('scroll', handleBodyScroll, { passive: false });
-            return () => {
-                document.body.removeEventListener('scroll', handleBodyScroll);
-            };
-        }
-    }, [showSidebar, isSmallScreen]);
-
     const handleCloseClick = () => {
         setShowSidebar(true);
     };
@@ -585,19 +759,12 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             const data = await response.json();
             setTypes(data.types);
             setSelectedCategory(category);
-            setSelectedType(null); // Reset selectedType when a new category is selected
+            setSelectedType(null);
             setProducts(data.products);
         } catch (error) {
             console.error('Error fetching types by category:', error);
         }
     };
-
-    const handleBackClick = () => {
-        setSelectedCategory(null);
-        setTypes([]);
-        setProducts([]);
-    };
-
 
     const handleTypeClick = async (type) => {
         try {
@@ -606,8 +773,7 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             setSelectedType(type);
             setProducts(data.products);
             if (isSmallScreen) {
-                setShowSidebar(true);
-                // setShowSidebar(false);
+                setShowSidebar(false);
             }
         } catch (error) {
             console.error('Error fetching products by type:', error);
@@ -627,16 +793,9 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
     };
 
     return (
-        <div className={`sidebar ${showSidebar ? '' : 'show'}`}>
+        <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
             <div className="titleShow">
-                {/*{isSmallScreen && (*/}
-                {/*    <div className="closeBtn" onClick={handleCloseClick}>*/}
-                {/*        &#215;*/}
-                {/*    </div>*/}
-                {/*)}*/}
-                <h2 className="sbTitle">
-                    {selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}
-                </h2>
+                <h2 className="sbTitle">{selectedOption === 'contact' ? 'Наши контакты' : 'Товары'}</h2>
                 {isSmallScreen && (
                     <div className="closeBtn" onClick={handleCloseClick}>
                         &#215;
@@ -647,20 +806,24 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
                 {selectedOption === 'contact' ? (
                     <ContactsInfo />
                 ) : (
-                    categories.map((category) => (
-                        <AccordionItem
-                            key={category}
-                            category={category}
-                            onCategoryClick={handleCategoryClick}
-                            selectedCategory={selectedCategory}
-                            types={types}
-                            onTypeClick={handleTypeClick}
-                            resetProducts={resetProducts}
-                        />
-                    ))
+                    <>
+                        <li className="sectionTitle">Категории</li>
+                        {categories.map((category) => (
+                            <AccordionItem
+                                key={category}
+                                category={category}
+                                onCategoryClick={handleCategoryClick}
+                                selectedCategory={selectedCategory}
+                                types={types}
+                                onTypeClick={handleTypeClick}
+                                resetProducts={resetProducts}
+                            />
+                        ))}
+                    </>
                 )}
             </ul>
         </div>
     );
 };
+
 export default Sidebar;

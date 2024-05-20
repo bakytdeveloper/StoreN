@@ -1226,8 +1226,29 @@
 
 
 
+/*display: flex;*/
+/*position: fixed;*/
+/*top: 0;*/
+/*width: 100%;*/
+/*height: 100px;*/
+/*justify-content: space-between;*/
+/*align-items: center;*/
+/*padding: 1px 30px;*/
+/*z-index: 1000;*/
+/*!*background-color: #d62f2f;*!*/
+/*!*background-image: url("./header8.jpg");*!*/
+/*background: rgba(255, 255, 255, 1);*/
+
+/*background-size: cover;*/
+/*!*background-position: center;*!*/
+/*border-bottom: 2px solid rgba(246, 246, 246, 1);*/
+/*box-shadow: 0 4px 5px rgba(0, 0, 0, 0.7); !* Добавим небольшую тень для выделения шапки *!*/
+/*}*/
+
+
 .header {
     display: flex;
+    position: fixed;
     justify-content: space-between;
     align-items: center;
     padding: 1px 20px;

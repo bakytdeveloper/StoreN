@@ -1,21 +1,23 @@
 
 
 /*!* src/components/Sidebar/Sidebar.css *!*/
-/*.sidebar {*/
-/*    margin-top: 22px;*/
-/*    position: fixed;*/
-/*    !*width: 100%;*!*/
-/*    width: 215px;*/
-/*    height: auto;*/
-/*    padding: 15px 5px;*/
-/*    !*background-color: #272727; !* Цвет фона - темный серый *!*!*/
-/*    !*color: #0732d0; !* Цвет текста - белый *!*!*/
-/*    !*box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);*!*/
-/*    !*text-align: center;*!*/
-/*    overflow-y: auto; !* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается *!*/
-/*    margin-left: 10px;*/
-/*    border-radius: 0 6px 6px 0;*/
-/*}*/
+.sidebar {
+    margin-top: 22px;
+    position: fixed;
+    /*width: 100%;*/
+    width: 215px;
+    height: auto;
+    padding: 15px 5px;
+    /*background-color: #272727; !* Цвет фона - темный серый *!*/
+    /*color: #0732d0; !* Цвет текста - белый *!*/
+    /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);*/
+    /*text-align: center;*/
+    overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
+    margin-left: 10px;
+    border-radius: 0;
+    padding-bottom: 100px;
+    position: fixed;
+}
 
 /*.sidebar {*/
 /*    !* ... (остальной код) *!*/
@@ -217,13 +219,13 @@
 
 
 
-.sidebar {
+.sidebar, permanent {
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
     width: 300px;
-    max-width: 80%;
+    max-width: 100%;
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     transform: translateX(-100%);
@@ -251,14 +253,21 @@
 }
 
 .sbTitle {
+    display: flex;
+    position: absolute;
     font-size: 20px;
     margin: 0;
+    margin-top: -111px!important;
 }
 
 ul {
     list-style: none;
     padding: 0;
     margin: 0;
+
+
+    /*overflow-y: auto;*/
+    /*height: 100%;*/
 }
 
 .sbLi {
@@ -269,6 +278,8 @@ ul {
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.2s;
+
+    overflow-y: auto;
 }
 
 .sbLi:hover {
@@ -285,6 +296,31 @@ ul {
     max-height: 200px;
 }
 
+
+
+
+.sidebar.permanent {
+    display: flex;
+    position: fixed;
+    /*width: 250px; !* или другой фиксированный размер *!*/
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+        /* существующие стили для маленьких экранов */
+    }
+
+    .sidebar.show {
+        display: inline-block;
+        /* существующие стили для отображения сайдбара на маленьких экранах */
+    }
+}
+
+
+
+
+
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     .sidebar {
@@ -297,10 +333,14 @@ ul {
 
     .titleShow {
         padding: 10px;
+        /*display: block;*/
     }
 
     .sbTitle {
         font-size: 18px;
+        /*display: block!important;*/
+        /*position: relative;*/
+        /*margin-top: -100px;*/
     }
 
     .sbLi {
@@ -339,6 +379,10 @@ ul {
     align-items: center;
     padding: 15px;
     border-bottom: 1px solid #eaeaea;
+
+
+    margin-top: 0;
+    position: absolute;
 }
 
 .closeBtn {
@@ -358,17 +402,22 @@ ul {
 }
 
 .sbLi {
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid #eaeaea;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.2s;
+    font-size: 15px;
 }
 
 .sbLi:hover {
     background-color: #f5f5f5;
+}
+
+.sb-li-type {
+    font-size: 13px;
 }
 
 .accordionContent {
@@ -378,7 +427,9 @@ ul {
 }
 
 .accordionContent.expanded {
-    max-height: 200px;
+    max-height: 250px;
+
+    overflow-y: auto;
 }
 
 /* Responsive styles */
@@ -397,5 +448,32 @@ ul {
 
     .sbLi {
         padding: 10px;
+
     }
 }
+
+
+
+
+.sidebar {
+    /* стили для боковой панели */
+}
+
+.sectionTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.sbLiBack {
+    cursor: pointer;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+}
+
+.sbLiBack:hover {
+    text-decoration: underline;
+}
+
+/* Добавьте другие стили по вашему усмотрению */
+
