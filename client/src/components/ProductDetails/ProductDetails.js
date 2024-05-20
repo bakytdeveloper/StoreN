@@ -298,6 +298,7 @@ import RelatedAccessories from "./RelatedAccessories";
 
 import { Link } from 'react-router-dom';
 import ProductTabs from "./ProductTabs/ProductTabs";
+import ContactInfo from "../Header/ContactInfo";
 
 
 
@@ -1233,7 +1234,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
             <RelatedSellerProducts productId={productId} />
             <RelatedProducts productId={productId} />
             {product.category && !product.direction && <RelatedAccessories direction={product.category} />}
-            <div className="plinth"></div>
+            <div className="home-page-footer">
+                <ContactInfo />
+            </div>
         </div>
     );
 };

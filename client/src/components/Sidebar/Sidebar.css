@@ -370,7 +370,7 @@ ul {
     max-width: 100%;
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transform: translateX(-100%);
+    transform: translateX(-110%);
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
     overflow-y: auto;

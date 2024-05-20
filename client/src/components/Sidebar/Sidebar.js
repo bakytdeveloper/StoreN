@@ -1165,13 +1165,6 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
     };
 
 
-    // useEffect(() => {
-    //     setShowSidebar(true);
-    //     return () => {
-    //         setShowSidebar(true);
-    //     };
-    // }, [setShowSidebar]);
-
 
 
     return (

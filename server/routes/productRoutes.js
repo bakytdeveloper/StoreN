@@ -57,6 +57,23 @@ router.get('/types', async (req, res) => {
 });
 
 
+
+
+
+// Получение списка самых новых продуктов
+router.get('/newest', async (req, res) => {
+    try {
+        const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(24);
+        res.json(newestProducts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
+
 // Получение информации о конкретном продукте по ID
 router.get('/:id', async (req, res) => {
     try {
@@ -270,6 +287,9 @@ router.get('/api/products', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+
 
 
 
