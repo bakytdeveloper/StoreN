@@ -224,7 +224,7 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 300px;
+    width: 215px;
     max-width: 100%;
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -264,6 +264,7 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 
 
     /*overflow-y: auto;*/
@@ -302,7 +303,7 @@ ul {
 .sidebar.permanent {
     display: flex;
     position: fixed;
-    /*width: 250px; !* или другой фиксированный размер *!*/
+    width: 215px; /* или другой фиксированный размер */
 }
 
 @media (max-width: 768px) {

@@ -540,52 +540,48 @@ import './Sidebar.css';
 // };
 
 
-const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    const handleCategoryClick = async () => {
-        if (isExpanded) {
-            resetProducts();
-        } else {
-            await onCategoryClick(category);
-        }
-        setIsExpanded(!isExpanded);
-    };
-
-    const handleBackClick = () => {
-        resetProducts(); // Сбрасывает выбранный тип и возвращает категории товаров
-        setIsExpanded(false); // Сворачивает список типов
-    };
-
-    return (
-        <>
-            <li className="sbLi" onClick={handleCategoryClick}>
-                {category} <strong>+</strong>
-                {/*{category} <SlArrowRight />*/}
-            </li>
-            <div className={`accordionContent ${isExpanded && selectedCategory === category ? 'expanded' : ''}`}>
-                <h5>Типы</h5>
-                <li className="sbLi" key="back" onClick={handleBackClick}>
-                {/*<li className="sbLiBack" key="back" onClick={handleBackClick}>*/}
-                    {/*<SlArrowLeft style={{ fontSize: "10px" }} />*/}
-                    Назад<strong>-</strong>
-
-                </li>
-                {types.map((type) => (
-                    <li className="sbLi sb-li-type" style={{marginLeft:"15px"}} key={type} onClick={() => onTypeClick(type)}>
-                        {type} <strong>+</strong>
-                        {/*{type} <SlArrowRight />*/}
-                    </li>
-                ))}
-            </div>
-        </>
-    );
-};
-
-
-// import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
-
+// const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
+//     const [isExpanded, setIsExpanded] = useState(false);
+//
+//     const handleCategoryClick = async () => {
+//         if (isExpanded) {
+//             resetProducts();
+//         } else {
+//             await onCategoryClick(category);
+//         }
+//         setIsExpanded(!isExpanded);
+//     };
+//
+//     const handleBackClick = () => {
+//         resetProducts(); // Сбрасывает выбранный тип и возвращает категории товаров
+//         setIsExpanded(false); // Сворачивает список типов
+//     };
+//
+//     return (
+//         <>
+//             <li className="sbLi" onClick={handleCategoryClick}>
+//                 {category} <strong>+</strong>
+//                 {/*{category} <SlArrowRight />*/}
+//             </li>
+//             <div className={`accordionContent ${isExpanded && selectedCategory === category ? 'expanded' : ''}`}>
+//                 <h5>Типы</h5>
+//                 <li className="sbLi" key="back" onClick={handleBackClick}>
+//                 {/*<li className="sbLiBack" key="back" onClick={handleBackClick}>*/}
+//                     {/*<SlArrowLeft style={{ fontSize: "10px" }} />*/}
+//                     Назад<strong>-</strong>
+//
+//                 </li>
+//                 {types.map((type) => (
+//                     <li className="sbLi sb-li-type" style={{marginLeft:"15px"}} key={type} onClick={() => onTypeClick(type)}>
+//                         {type} <strong>+</strong>
+//                         {/*{type} <SlArrowRight />*/}
+//                     </li>
+//                 ))}
+//             </div>
+//         </>
+//     );
+// };
+//
 // const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
 //     const [categories, setCategories] = useState([]);
 //     const [types, setTypes] = useState([]);
@@ -615,24 +611,6 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
 //         };
 //     }, []);
 //
-//     useEffect(() => {
-//         const handleBodyScroll = (event) => {
-//             if (!showSidebar && isSmallScreen) {
-//                 event.preventDefault();
-//                 event.stopPropagation();
-//             }
-//         };
-//         if (isSmallScreen) {
-//             document.body.style.overflow = showSidebar ? 'auto' : 'hidden';
-//             document.body.style.position = showSidebar ? 'static' : 'fixed';
-//             document.body.style.width = '100%';
-//             document.body.addEventListener('scroll', handleBodyScroll, { passive: false });
-//             return () => {
-//                 document.body.removeEventListener('scroll', handleBodyScroll);
-//             };
-//         }
-//     }, [showSidebar, isSmallScreen]);
-//
 //     const handleCloseClick = () => {
 //         setShowSidebar(true);
 //     };
@@ -649,12 +627,6 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
 //             console.error('Error fetching types by category:', error);
 //         }
 //     };
-//     //
-//     // const handleBackClick = () => {
-//     //     setSelectedCategory(null);
-//     //     setTypes([]);
-//     //     setProducts([]);
-//     // };
 //
 //     const handleTypeClick = async (type) => {
 //         try {
@@ -684,11 +656,8 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
 //
 //     return (
 //         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
-//         {/*<div className={`sidebar ${showSidebar ? '' : 'show'}`}>*/}
 //             <div className="titleShow">
-//                 <h2 className="sbTitle">
-//                     {selectedOption === 'contact' ? <span className="contactTitle">Наши контакты</span> : 'Товары'}
-//                 </h2>
+//                 <h2 className="sbTitle">{selectedOption === 'contact' ? 'Наши контакты' : 'Товары'}</h2>
 //                 {isSmallScreen && (
 //                     <div className="closeBtn" onClick={handleCloseClick}>
 //                         &#215;
@@ -699,24 +668,78 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
 //                 {selectedOption === 'contact' ? (
 //                     <ContactsInfo />
 //                 ) : (
-//                     categories.map((category) => (
-//                         <AccordionItem
-//                             key={category}
-//                             category={category}
-//                             onCategoryClick={handleCategoryClick}
-//                             selectedCategory={selectedCategory}
-//                             types={types}
-//                             onTypeClick={handleTypeClick}
-//                             resetProducts={resetProducts}
-//                         />
-//                     ))
+//                     <>
+//                         <li className="sectionTitle">Категории</li>
+//                         {categories.map((category) => (
+//                             <AccordionItem
+//                                 key={category}
+//                                 category={category}
+//                                 onCategoryClick={handleCategoryClick}
+//                                 selectedCategory={selectedCategory}
+//                                 types={types}
+//                                 onTypeClick={handleTypeClick}
+//                                 resetProducts={resetProducts}
+//                             />
+//                         ))}
+//                     </>
 //                 )}
 //             </ul>
 //         </div>
 //     );
 // };
+//
+// export default Sidebar;
 
 
+
+
+
+const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
+    const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
+    const [expandedType, setExpandedType] = useState(null);
+
+    const handleCategoryClick = async () => {
+        if (isCategoryExpanded) {
+            resetProducts();
+        } else {
+            await onCategoryClick(category);
+        }
+        setIsCategoryExpanded(!isCategoryExpanded);
+    };
+
+    const handleTypeClick = async (type) => {
+        if (expandedType === type) {
+            setExpandedType(null);
+        } else {
+            await onTypeClick(type);
+            setExpandedType(type);
+        }
+    };
+
+    const handleBackClick = () => {
+        resetProducts(); // Сбрасывает выбранный тип и возвращает категории товаров
+        setIsCategoryExpanded(false); // Сворачивает список типов
+    };
+
+    return (
+        <>
+            <li className="sbLi" onClick={handleCategoryClick}>
+                {category} <strong>{isCategoryExpanded ? '-' : '+'}</strong>
+            </li>
+            <div className={`accordionContent ${isCategoryExpanded && selectedCategory === category ? 'expanded' : ''}`}>
+                <h5>Типы</h5>
+                {/*<li className="sbLiBack" key="back" onClick={handleBackClick}>*/}
+                {/*    Назад <strong>-</strong>*/}
+                {/*</li>*/}
+                {types.map((type) => (
+                    <li className="sbLi sb-li-type" style={{marginLeft:"15px"}} key={type} onClick={() => handleTypeClick(type)}>
+                        {type} <strong>{expandedType === type ? '-' : '+'}</strong>
+                    </li>
+                ))}
+            </div>
+        </>
+    );
+};
 
 
 
