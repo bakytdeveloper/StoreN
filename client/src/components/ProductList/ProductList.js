@@ -599,6 +599,16 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
         }
     }, [windowWidth]);
 
+
+
+    useEffect(() => {
+        setShowSidebar(false);
+        return () => {
+            setShowSidebar(false);
+        };
+    }, [setShowSidebar]);
+
+
     return (
         <div className="product-list">
             {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}

@@ -108,7 +108,9 @@ const App = () => {
 
 
                     <Route path="/" exact>
-                        <Home />
+                        <Home
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
 
 

@@ -110,18 +110,19 @@
 /*    display: block;*/
 /*}*/
 
-/*.contacts-info {*/
-/*    flex-direction: column;*/
-/*}*/
+.contacts-info {
+    flex-direction: column;
+    margin-left: 22px;
+}
 
-/*.phones {*/
-/*    margin-top: 5px;*/
-/*    margin-bottom: 5px;*/
-/*}*/
+.phones {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
 
-/*.socials-icons {*/
-/*    margin-top: 21px;*/
-/*}*/
+.socials-icons {
+    margin-top: 21px;
+}
 
 /*.sbLi {*/
 /*    position: relative; !* Установка позиции элемента *!*/
@@ -142,30 +143,30 @@
 /*        padding: 0;*/
 
 /*    }*/
-/*.icons {*/
-/*    width: 45px;*/
-/*    height: 45px;*/
-/*    margin-left: 8px;*/
-/*}*/
+.icons {
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+}
 
 
 
-/*    .sbTitle {*/
-/*        color: white;*/
-/*        text-shadow: 2px 3px 3px #c3c1c1;*/
-/*        font-size: 30px!important;*/
-/*        padding-top: 10px;*/
-/*    }*/
+    .sbTitle {
+        color: white;
+        text-shadow: 2px 3px 3px #c3c1c1;
+        font-size: 30px!important;
+        padding-top: 10px;
+    }
 
 
-/*    .sbTitle {*/
-/*        width: 100%;*/
-/*        margin-top: 0;*/
-/*        background: #076986;*/
-/*        padding: 5px 0 10px 0;*/
-/*        margin-bottom: 0;*/
-/*        z-index: 1;*/
-/*    }*/
+    .sbTitle {
+        width: 100%;
+        margin-top: 0;
+        background: #076986;
+        padding: 5px 0 10px 0;
+        margin-bottom: 0;
+        z-index: 1;
+    }
 
 /*    .contactTitle {*/
 /*        font-size: 27px;*/
@@ -184,18 +185,18 @@
 
 /*    }*/
 
-/*    .show {*/
-/*        top: 150px;*/
-/*        z-index: 1;*/
-/*        background: white;*/
-/*        font-size: 26px;*/
-/*        margin-left: 0;*/
+    .show {
+        top: 180px;
+        z-index: 1;
+        background: white;
+        font-size: 26px;
+        margin-left: 0;
 
-/*        overflow: hidden;*/
-/*    }*/
-/*    li {*/
-/*        font-size: 18px;*/
-/*    }*/
+        overflow: hidden;
+    }
+    li {
+        font-size: 18px;
+    }
 
 /*    !* Добавляем стиль для затемнения фона *!*/
 /*    .backdrop {*/
@@ -250,6 +251,7 @@
 .closeBtn {
     cursor: pointer;
     font-size: 24px;
+
 }
 
 .sbTitle {
@@ -330,18 +332,22 @@ ul {
 
     .show {
         width: 80% !important;
+        margin-top: 190px;
     }
 
     .titleShow {
         padding: 10px;
-        /*display: block;*/
+        display: inline-flex;
+        position: relative;
     }
 
     .sbTitle {
+        position: absolute;
         font-size: 18px;
         /*display: block!important;*/
         /*position: relative;*/
-        /*margin-top: -100px;*/
+        margin-top: 100px!important;
+        z-index: 1;
     }
 
     .sbLi {

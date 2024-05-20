@@ -8,9 +8,15 @@ import ins from "../Header/instagram.png";
 import tel from "../Header/telegram.png";
 
 
-const ContactsInfo = () => {
+const ContactsInfo = ({ setShowSidebar }) => {
+
+
+
     return (
         <div className="contacts-info">
+            <h2 style={{marginTop:"11px", color:"black"}}>Наши контакты</h2>
+
+
             <div className="phones">
                 <FaPhone style={{ marginTop: "0" }} />
                 <a style={{ marginLeft: "25px" }} href="tel:+996508100777">0(508) 100 777</a>

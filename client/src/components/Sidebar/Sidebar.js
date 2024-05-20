@@ -1059,10 +1059,11 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
     return (
         <>
             <li className="sbLi" onClick={handleCategoryClick}>
+
                 {category} <strong>{isCategoryExpanded ? '-' : '+'}</strong>
             </li>
             <div className={`accordionContent ${isCategoryExpanded && selectedCategory === category ? 'expanded' : ''}`}>
-                <h5>Типы</h5>
+                <h5 style={{marginTop:"7px", marginBottom:"0"}}>Типы</h5>
                 {types.map((type) => (
                     <li
                         className="sbLi sb-li-type"
@@ -1163,10 +1164,20 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         }
     };
 
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => {
+            setShowSidebar(true);
+        };
+    }, [setShowSidebar]);
+
+
+
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
             <div className="titleShow">
-                <h2 className="sbTitle">{selectedOption === 'contact' ? 'Наши контакты' : 'Товары'}</h2>
+                {/*<h2 className="sbTitle">{selectedOption === 'contact' ? 'Наши контакты' : 'Товары'}</h2>*/}
                 {isSmallScreen && (
                     <div className="closeBtn" onClick={handleCloseClick}>
                         &#215;
@@ -1175,9 +1186,20 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             </div>
             <ul>
                 {selectedOption === 'contact' ? (
+
+
+
                     <ContactsInfo />
                 ) : (
                     <>
+                        <h2>Товары</h2>
+
+                        {/*{isSmallScreen && (*/}
+                        {/*    <div className="closeBtn" onClick={handleCloseClick}>*/}
+                        {/*        &#215;*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
+
                         <li className="sectionTitle">Категории</li>
                         {categories.map((category) => (
                             <AccordionItem

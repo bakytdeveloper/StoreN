@@ -17,7 +17,7 @@ import ContactInfo from "../Header/ContactInfo";
 
 import './Home.css';
 
-const Home = () => {
+const Home = ({ setShowSidebar }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         { title: "ГОТОВЬСЯ К ЛЕТУ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
@@ -43,6 +43,13 @@ const Home = () => {
     const catalogPage = () => {
         history.push("/catalog");
     };
+
+
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => setShowSidebar(true);
+    }, [setShowSidebar]);
 
 
     return (
