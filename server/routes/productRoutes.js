@@ -63,7 +63,7 @@ router.get('/types', async (req, res) => {
 // Получение списка самых новых продуктов
 router.get('/newest', async (req, res) => {
     try {
-        const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(24);
+        const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(20);
         res.json(newestProducts);
     } catch (error) {
         res.status(500).json({ message: error.message });

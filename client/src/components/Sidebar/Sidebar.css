@@ -485,5 +485,10 @@ ul {
     text-decoration: underline;
 }
 
+
+
 /* Добавьте другие стили по вашему усмотрению */
 
+.sbLi.sb-li-type.selected-type {
+    border-bottom: 2px solid #000; /* Или другой цвет на ваш вкус */
+}

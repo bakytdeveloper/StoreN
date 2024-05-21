@@ -1027,6 +1027,201 @@ import './Sidebar.css';
 
 
 
+// const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
+//     const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
+//     const [expandedType, setExpandedType] = useState(null);
+//
+//     const handleCategoryClick = async () => {
+//         if (isCategoryExpanded) {
+//             resetProducts();
+//         } else {
+//             await onCategoryClick(category);
+//         }
+//         setIsCategoryExpanded(!isCategoryExpanded);
+//     };
+//
+//     const handleTypeClick = async (type) => {
+//         if (expandedType === type) {
+//             setExpandedType(null);
+//             await onCategoryClick(category); // Показать все товары категории при повторном клике на тип
+//         } else {
+//             await onTypeClick(type);
+//             setExpandedType(type);
+//         }
+//     };
+//
+//     const handleBackClick = () => {
+//         resetProducts(); // Сбрасывает выбранный тип и возвращает категории товаров
+//         setIsCategoryExpanded(false); // Сворачивает список типов
+//         setExpandedType(null); // Сбрасывает выбранный тип
+//     };
+//
+//     return (
+//         <>
+//             <li className="sbLi" onClick={handleCategoryClick}>
+//
+//                 {category} <strong>{isCategoryExpanded ? '-' : '+'}</strong>
+//             </li>
+//             <div className={`accordionContent ${isCategoryExpanded && selectedCategory === category ? 'expanded' : ''}`}>
+//                 <h5 style={{marginTop:"7px", marginBottom:"0"}}>Типы</h5>
+//                 {types.map((type) => (
+//                     <li
+//                         className="sbLi sb-li-type"
+//                         style={{ marginLeft: "15px" }}
+//                         key={type}
+//                         onClick={() => handleTypeClick(type)}
+//                     >
+//                         {expandedType === null || expandedType === type ? (
+//                             <>
+//                                 {type} <strong>{expandedType === type ? '-' : '+'}</strong>
+//                             </>
+//                         ) : null}
+//                     </li>
+//                 ))}
+//             </div>
+//         </>
+//     );
+// };
+//
+//
+// const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
+//     const [categories, setCategories] = useState([]);
+//     const [types, setTypes] = useState([]);
+//     const [selectedCategory, setSelectedCategory] = useState(null);
+//     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+//     const [selectedType, setSelectedType] = useState(null);
+//     const history = useHistory();
+//
+//     useEffect(() => {
+//         const fetchCategories = async () => {
+//             try {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
+//                 const data = await response.json();
+//                 setCategories(data.categories);
+//             } catch (error) {
+//                 console.error('Error fetching categories:', error);
+//             }
+//         };
+//         fetchCategories();
+//
+//         const handleResize = () => {
+//             setIsSmallScreen(window.innerWidth <= 768);
+//         };
+//         window.addEventListener('resize', handleResize);
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+//
+//     const handleCloseClick = () => {
+//         setShowSidebar(true);
+//     };
+//
+//     const handleCategoryClick = async (category) => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${category}`);
+//             const data = await response.json();
+//             setTypes(data.types);
+//             setSelectedCategory(category);
+//             setSelectedType(null);
+//             setProducts(data.products);
+//         } catch (error) {
+//             console.error('Error fetching types by category:', error);
+//         }
+//     };
+//
+//     const handleTypeClick = async (type) => {
+//         try {
+//             if (selectedType === type) {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${selectedCategory}`);
+//                 const data = await response.json();
+//                 setTypes(data.types);
+//                 setSelectedType(null);
+//                 setProducts(data.products);
+//             } else {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types/${selectedCategory}?type=${type}`);
+//                 const data = await response.json();
+//                 setSelectedType(type);
+//                 setProducts(data.products);
+//                 if (isSmallScreen) {
+//                     setShowSidebar(false);
+//                 }
+//             }
+//         } catch (error) {
+//             console.error('Error fetching products by type:', error);
+//         }
+//     };
+//
+//     const resetProducts = async () => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
+//             const data = await response.json();
+//             setProducts(data.products);
+//             setSelectedCategory(null);
+//             setTypes([]);
+//         } catch (error) {
+//             console.error('Error fetching all products:', error);
+//         }
+//     };
+//
+//
+//
+//
+//     return (
+//         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
+//             <div className="titleShow">
+//                 {/*<h2 className="sbTitle">{selectedOption === 'contact' ? 'Наши контакты' : 'Товары'}</h2>*/}
+//                 {isSmallScreen && (
+//                     <div className="closeBtn" onClick={handleCloseClick}>
+//                         &#215;
+//                     </div>
+//                 )}
+//             </div>
+//             <ul>
+//                 {selectedOption === 'contact' ? (
+//
+//
+//
+//                     <ContactsInfo />
+//                 ) : (
+//                     <>
+//                         <h2>Товары</h2>
+//
+//                         {/*{isSmallScreen && (*/}
+//                         {/*    <div className="closeBtn" onClick={handleCloseClick}>*/}
+//                         {/*        &#215;*/}
+//                         {/*    </div>*/}
+//                         {/*)}*/}
+//
+//                         <li className="sectionTitle">Категории</li>
+//                         {categories.map((category) => (
+//                             <AccordionItem
+//                                 key={category}
+//                                 category={category}
+//                                 onCategoryClick={handleCategoryClick}
+//                                 selectedCategory={selectedCategory}
+//                                 types={types}
+//                                 onTypeClick={handleTypeClick}
+//                                 resetProducts={resetProducts}
+//                             />
+//                         ))}
+//                     </>
+//                 )}
+//             </ul>
+//         </div>
+//     );
+// };
+//
+// export default Sidebar;
+//
+
+
+
+
+
+
+
+
 const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
     const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
     const [expandedType, setExpandedType] = useState(null);
@@ -1059,30 +1254,24 @@ const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onT
     return (
         <>
             <li className="sbLi" onClick={handleCategoryClick}>
-
                 {category} <strong>{isCategoryExpanded ? '-' : '+'}</strong>
             </li>
             <div className={`accordionContent ${isCategoryExpanded && selectedCategory === category ? 'expanded' : ''}`}>
-                <h5 style={{marginTop:"7px", marginBottom:"0"}}>Типы</h5>
+                <h5 style={{ marginTop: "7px", marginBottom: "0" }}>Типы</h5>
                 {types.map((type) => (
                     <li
-                        className="sbLi sb-li-type"
+                        className={`sbLi sb-li-type ${expandedType === type ? 'selected-type' : ''}`}
                         style={{ marginLeft: "15px" }}
                         key={type}
                         onClick={() => handleTypeClick(type)}
                     >
-                        {expandedType === null || expandedType === type ? (
-                            <>
-                                {type} <strong>{expandedType === type ? '-' : '+'}</strong>
-                            </>
-                        ) : null}
+                        {type}
                     </li>
                 ))}
             </div>
         </>
     );
 };
-
 
 const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
     const [categories, setCategories] = useState([]);
@@ -1164,13 +1353,9 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         }
     };
 
-
-
-
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
             <div className="titleShow">
-                {/*<h2 className="sbTitle">{selectedOption === 'contact' ? 'Наши контакты' : 'Товары'}</h2>*/}
                 {isSmallScreen && (
                     <div className="closeBtn" onClick={handleCloseClick}>
                         &#215;
@@ -1179,20 +1364,10 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             </div>
             <ul>
                 {selectedOption === 'contact' ? (
-
-
-
                     <ContactsInfo />
                 ) : (
                     <>
                         <h2>Товары</h2>
-
-                        {/*{isSmallScreen && (*/}
-                        {/*    <div className="closeBtn" onClick={handleCloseClick}>*/}
-                        {/*        &#215;*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
-
                         <li className="sectionTitle">Категории</li>
                         {categories.map((category) => (
                             <AccordionItem
@@ -1213,4 +1388,3 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
 };
 
 export default Sidebar;
-
