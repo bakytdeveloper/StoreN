@@ -492,3 +492,7 @@ ul {
 .sbLi.sb-li-type.selected-type {
     border-bottom: 2px solid #000; /* Или другой цвет на ваш вкус */
 }
+
+.sbLi.sb-li-type.selected-type {
+    border-bottom: 2px solid #000; /* Или другой цвет на ваш вкус */
+}
