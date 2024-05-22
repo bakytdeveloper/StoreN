@@ -237,8 +237,9 @@ import './ProductList.css';
 
 
 
-const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProducts, showSidebar, setShowSidebar, selectedCategory, selectedType, setSelectedCategory, setSelectedType }) => {
-    const [selectedGender, setSelectedGender] = useState(null);
+const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProducts, showSidebar, setShowSidebar,
+                         selectedGender, selectedCategory, selectedType, setSelectedGender,
+                         setSelectedCategory, setSelectedType}) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeSellers, setActiveSellers] = useState([]);
@@ -263,7 +264,23 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
 
     useEffect(() => {
         fetchData();
-    }, [searchKeyword, selectedGender, windowWidth]);
+    }, [searchKeyword, selectedGender, windowWidth,
+        selectedGender, selectedCategory, selectedType]);
+
+
+    const fetchData = async () => {
+        try {
+            const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}`, { timeout: 10000 });
+            const productsData = await productsResponse.json();
+            setProducts(productsData);
+            const filteredProductsData = filterProducts(productsData || [], activeSellers);
+            setFilteredProducts(filteredProductsData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
 
     useEffect(() => {
         fetchActiveSellers();
@@ -317,17 +334,17 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
         }
     };
 
-    const fetchData = async () => {
-        try {
-            const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}`, { timeout: 10000 });
-            const productsData = await productsResponse.json();
-            setProducts(productsData);
-            const filteredProductsData = filterProducts(productsData || [], activeSellers);
-            setFilteredProducts(filteredProductsData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+    // const fetchData = async () => {
+    //     try {
+    //         const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}`, { timeout: 10000 });
+    //         const productsData = await productsResponse.json();
+    //         setProducts(productsData);
+    //         const filteredProductsData = filterProducts(productsData || [], activeSellers);
+    //         setFilteredProducts(filteredProductsData);
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // };
 
     const filterProducts = (productsToFilter, activeSellersData) => {
         return productsToFilter

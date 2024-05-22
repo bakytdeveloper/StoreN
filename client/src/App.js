@@ -37,6 +37,9 @@ const App = () => {
     const [currentPage, setCurrentPage] = useState(1); // добавляем состояние currentPage и функцию setCurrentPage
     const [orders, setOrders] = useState([]);
 
+    const [selectedGender, setSelectedGender] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedType, setSelectedType] = useState(null);
 
     // Проверяем, есть ли токен в localStorage при загрузке приложения
     useEffect(() => {
@@ -103,6 +106,17 @@ const App = () => {
                     showSidebar={showSidebar}
                     setShowSidebar={setShowSidebar}
                     selectedOption={selectedOption}
+
+                    // setProducts={setProducts}
+                    // showSidebar={showSidebar}
+                    // setShowSidebar={setShowSidebar}
+                    // selectedOption={selectedCategory}
+                    selectedGender={selectedGender}
+                    selectedCategory={selectedCategory}
+                    selectedType={selectedType}
+                    setSelectedGender={setSelectedGender}
+                    setSelectedCategory={setSelectedCategory}
+                    setSelectedType={setSelectedType}
                 />
                 <Switch>
 
@@ -123,6 +137,14 @@ const App = () => {
                             showSidebar={showSidebar}
                             setProducts={setProducts}
                             setShowSidebar={setShowSidebar}
+
+
+                            selectedGender={selectedGender}
+                            selectedCategory={selectedCategory}
+                            selectedType={selectedType}
+                            setSelectedGender={setSelectedGender}
+                            setSelectedCategory={setSelectedCategory}
+                            setSelectedType={setSelectedType}
                         />
                     </Route>
 

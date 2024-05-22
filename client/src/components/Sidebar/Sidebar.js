@@ -1287,14 +1287,16 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
 };
 
 
-const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) => {
+const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
+                     selectedGender, selectedCategory, selectedType, setSelectedGender, setSelectedCategory, setSelectedType
+                }) => {
     const [genders, setGenders] = useState([]);
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
-    const [selectedGender, setSelectedGender] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState(null);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-    const [selectedType, setSelectedType] = useState(null);
+
+
+
     const history = useHistory();
 
     useEffect(() => {
@@ -1322,16 +1324,16 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         setShowSidebar(true);
     };
 
+
     const handleGenderClick = async (gender) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`);
             const data = await response.json();
             setCategories(data.categories);
-            setSelectedGender(gender);
+            setSelectedGender(gender); // Установка выбранного пола
             setSelectedCategory(null);
             setSelectedType(null);
-            setTypes([]);
-            setProducts(data.products);
+            setProducts(data.products); // Установка товаров с учетом выбранного пола
         } catch (error) {
             console.error('Error fetching categories by gender:', error);
         }
@@ -1342,9 +1344,9 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
             const data = await response.json();
             setTypes(data.types);
-            setSelectedCategory(category);
+            setSelectedCategory(category); // Установка выбранной категории
             setSelectedType(null);
-            setProducts(data.products);
+            setProducts(data.products); // Установка товаров с учетом выбранного пола и категории
         } catch (error) {
             console.error('Error fetching types by category:', error);
         }
@@ -1354,8 +1356,8 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
             const data = await response.json();
-            setSelectedType(type);
-            setProducts(data.products);
+            setSelectedType(type); // Установка выбранного типа товара
+            setProducts(data.products); // Установка товаров с учетом выбранного пола, категории и типа товара
             if (isSmallScreen) {
                 setShowSidebar(false);
             }
@@ -1363,6 +1365,8 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption }) =
             console.error('Error fetching products by type:', error);
         }
     };
+
+
 
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
