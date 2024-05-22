@@ -268,6 +268,20 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
         selectedGender, selectedCategory, selectedType]);
 
 
+    // const fetchData = async () => {
+    //     try {
+    //         const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}`, { timeout: 10000 });
+    //         const productsData = await productsResponse.json();
+    //         setProducts(productsData);
+    //         const filteredProductsData = filterProducts(productsData || [], activeSellers);
+    //         setFilteredProducts(filteredProductsData);
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // };
+
+
+    // ProductList.js
     const fetchData = async () => {
         try {
             const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}`, { timeout: 10000 });
@@ -279,6 +293,8 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
             console.error('Error fetching data:', error);
         }
     };
+
+
 
 
 
@@ -346,9 +362,12 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     //     }
     // };
 
+    // ProductList.js
     const filterProducts = (productsToFilter, activeSellersData) => {
         return productsToFilter
             .filter((product) => !selectedGender || product.gender === selectedGender)
+            .filter((product) => !selectedCategory || product.category === selectedCategory) // Filter by selected category
+            .filter((product) => !selectedType || product.type === selectedType) // Filter by selected type
             .filter(
                 (product) =>
                     searchKeyword
@@ -363,6 +382,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                 return seller ? true : false;
             });
     };
+
 
     const handleAddToCart = (product) => {
         const itemInCart = cartItems.find((item) => item.productId === product._id);

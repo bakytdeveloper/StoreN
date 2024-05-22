@@ -1339,14 +1339,42 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
         }
     };
 
+    // const handleCategoryClick = async (category) => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
+    //         const data = await response.json();
+    //         setTypes(data.types);
+    //         setSelectedCategory(category); // Установка выбранной категории
+    //         setSelectedType(null);
+    //         setProducts(data.products); // Установка товаров с учетом выбранного пола и категории
+    //     } catch (error) {
+    //         console.error('Error fetching types by category:', error);
+    //     }
+    // };
+    //
+    // const handleTypeClick = async (type) => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
+    //         const data = await response.json();
+    //         setSelectedType(type); // Установка выбранного типа товара
+    //         setProducts(data.products); // Установка товаров с учетом выбранного пола, категории и типа товара
+    //         if (isSmallScreen) {
+    //             setShowSidebar(false);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching products by type:', error);
+    //     }
+    // };
+
+
     const handleCategoryClick = async (category) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
             const data = await response.json();
             setTypes(data.types);
-            setSelectedCategory(category); // Установка выбранной категории
-            setSelectedType(null);
-            setProducts(data.products); // Установка товаров с учетом выбранного пола и категории
+            setSelectedCategory(category); // Update selected category
+            setSelectedType(null); // Reset selected type
+            setProducts(data.products); // Fetch products based on updated category
         } catch (error) {
             console.error('Error fetching types by category:', error);
         }
@@ -1356,8 +1384,8 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
             const data = await response.json();
-            setSelectedType(type); // Установка выбранного типа товара
-            setProducts(data.products); // Установка товаров с учетом выбранного пола, категории и типа товара
+            setSelectedType(type); // Update selected type
+            setProducts(data.products); // Fetch products based on updated type
             if (isSmallScreen) {
                 setShowSidebar(false);
             }
@@ -1365,7 +1393,6 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
             console.error('Error fetching products by type:', error);
         }
     };
-
 
 
     return (
