@@ -1228,7 +1228,8 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
     const [expandedType, setExpandedType] = useState(null);
 
     const handleGenderClick = async () => {
-        if (isGenderExpanded) {
+        if (isGenderExpanded && selectedGender === gender) {
+            onGenderClick(null); // Reset selected gender
             setIsGenderExpanded(false);
         } else {
             await onGenderClick(gender);
@@ -1238,6 +1239,7 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
 
     const handleCategoryClick = async (category) => {
         if (isCategoryExpanded && selectedCategory === category) {
+            onCategoryClick(null); // Reset selected category
             setIsCategoryExpanded(false);
         } else {
             await onCategoryClick(category);
@@ -1247,6 +1249,7 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
 
     const handleTypeClick = async (type) => {
         if (expandedType === type) {
+            onTypeClick(null); // Reset selected type
             setExpandedType(null);
         } else {
             await onTypeClick(type);
@@ -1285,6 +1288,7 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
         </>
     );
 };
+
 
 
 const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
