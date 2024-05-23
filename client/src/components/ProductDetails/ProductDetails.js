@@ -1174,8 +1174,8 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                         <div className="price-details">KGS {product.price}</div>
 
                     </div>
-                    <hr style={{width:"100%", height:"1px", border:"1px solid darkgrey" ,
-                        background:"#ffffff"}} />
+                    <hr style={{width:"100%", height:"1px", border:"1px solid grey" ,
+                        background:"#a5a4a4"}} />
                     <div className="description">
                         <strong>Описание:</strong> {truncatedDescription}
                     </div>
@@ -1219,11 +1219,11 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                         )}
                     </div>
 
-                    <div className="actions">
-                        <button className="buy-now" onClick={() => handleAddToCart(true)}>
+                    <div className="actions-details">
+                        <button className="detail-buy-now" onClick={() => handleAddToCart(true)}>
                             Купить сейчас
                         </button>
-                        <button className="add-to-cart" onClick={() => handleAddToCart()}>
+                        <button className="detail-add-to-cart" onClick={() => handleAddToCart()}>
                             Добавить в корзину
                         </button>
                     </div>
