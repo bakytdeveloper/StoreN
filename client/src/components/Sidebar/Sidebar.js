@@ -1260,12 +1260,12 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
     return (
         <>
             <li className="sbLi" onClick={handleGenderClick}>
-                {gender} <strong>{isGenderExpanded ? '-' : '+'}</strong>
+                <strong className="gender-names">{gender}</strong> <strong>{isGenderExpanded ? '-' : '+'}</strong>
             </li>
             <div className={`accordionContent ${isGenderExpanded && selectedGender === gender ? 'expanded' : ''}`}>
                 {categories.map((category) => (
                     <div key={category}>
-                        <li className="sbLi" onClick={() => handleCategoryClick(category)}>
+                        <li className="sbLi-category" onClick={() => handleCategoryClick(category)}>
                             {category} <strong>{isCategoryExpanded && selectedCategory === category ? '-' : '+'}</strong>
                         </li>
                         {isCategoryExpanded && selectedCategory === category && (
@@ -1273,7 +1273,7 @@ const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCa
                                 {types.map((type) => (
                                     <li
                                         className={`sbLi sb-li-type ${expandedType === type ? 'selected-type' : ''}`}
-                                        style={{ marginLeft: "15px" }}
+                                        style={{ marginLeft: "19px" }}
                                         key={type}
                                         onClick={() => handleTypeClick(type)}
                                     >
