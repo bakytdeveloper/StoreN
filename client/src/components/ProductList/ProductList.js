@@ -475,9 +475,9 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
                                 <strong>+</strong>
                                 <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
                             </button>
-                            <button className="buy-button" title="Buy Now" onClick={() => handleBuyNow(product)}>
-                                Заказать
-                            </button>
+                            {/*<button className="buy-button" title="Buy Now" onClick={() => handleBuyNow(product)}>*/}
+                            {/*    Заказать*/}
+                            {/*</button>*/}
                         </div>
                     </div>
                 ))
