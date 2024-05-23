@@ -496,6 +496,7 @@ import ContactsInfo from './ContactsInfo';
 // import { SlArrowRight, SlArrowLeft } from 'react-icons/sl';
 // import { useHistory } from 'react-router-dom';
 import './Sidebar.css';
+import AccordionItem from "./AccordionItem";
 // import ContactsInfo from './ContactsInfo';
 
 // const AccordionItem = ({ category, onCategoryClick, selectedCategory, types, onTypeClick, resetProducts }) => {
@@ -1222,84 +1223,213 @@ import './Sidebar.css';
 
 
 
-const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCategoryClick, selectedCategory, types, onTypeClick }) => {
-    const [isGenderExpanded, setIsGenderExpanded] = useState(false);
-    const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
-    const [expandedType, setExpandedType] = useState(null);
+// const AccordionItem = ({ gender, onGenderClick, selectedGender, categories, onCategoryClick, selectedCategory, types, onTypeClick }) => {
+//     const [isGenderExpanded, setIsGenderExpanded] = useState(false);
+//     const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
+//     const [expandedType, setExpandedType] = useState(null);
+//
+//     const handleGenderClick = async () => {
+//         if (isGenderExpanded && selectedGender === gender) {
+//             onGenderClick(null); // Reset selected gender
+//             setIsGenderExpanded(false);
+//         } else {
+//             await onGenderClick(gender);
+//             setIsGenderExpanded(true);
+//         }
+//     };
+//
+//     const handleCategoryClick = async (category) => {
+//         if (isCategoryExpanded && selectedCategory === category) {
+//             onCategoryClick(null); // Reset selected category
+//             setIsCategoryExpanded(false);
+//         } else {
+//             await onCategoryClick(category);
+//             setIsCategoryExpanded(true);
+//         }
+//     };
+//
+//     const handleTypeClick = async (type) => {
+//         if (expandedType === type) {
+//             onTypeClick(null); // Reset selected type
+//             setExpandedType(null);
+//         } else {
+//             await onTypeClick(type);
+//             setExpandedType(type);
+//         }
+//     };
+//
+//     return (
+//         <>
+//             <li className="sbLi" onClick={handleGenderClick}>
+//                 <strong className="gender-names">{gender}</strong> <strong>{isGenderExpanded ? '-' : '+'}</strong>
+//             </li>
+//             <div className={`accordionContent ${isGenderExpanded && selectedGender === gender ? 'expanded' : ''}`}>
+//                 {categories.map((category) => (
+//                     <div key={category}>
+//                         <li className="sbLi-category" onClick={() => handleCategoryClick(category)}>
+//                             {category} <strong>{isCategoryExpanded && selectedCategory === category ? '-' : '+'}</strong>
+//                         </li>
+//                         {isCategoryExpanded && selectedCategory === category && (
+//                             <div className="nestedContent">
+//                                 {types.map((type) => (
+//                                     <li
+//                                         className={`sbLi sb-li-type ${expandedType === type ? 'selected-type' : ''}`}
+//                                         style={{ marginLeft: "19px" }}
+//                                         key={type}
+//                                         onClick={() => handleTypeClick(type)}
+//                                     >
+//                                         {type}
+//                                     </li>
+//                                 ))}
+//                             </div>
+//                         )}
+//                     </div>
+//                 ))}
+//             </div>
+//         </>
+//     );
+// };
+//
+//
+//
+// const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
+//                      selectedGender, selectedCategory, selectedType, setSelectedGender, setSelectedCategory, setSelectedType
+//                 }) => {
+//     const [genders, setGenders] = useState([]);
+//     const [categories, setCategories] = useState([]);
+//     const [types, setTypes] = useState([]);
+//     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+//
+//
+//
+//     const history = useHistory();
+//
+//     useEffect(() => {
+//         const fetchGenders = async () => {
+//             try {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/genders`);
+//                 const data = await response.json();
+//                 setGenders(data.genders);
+//             } catch (error) {
+//                 console.error('Error fetching genders:', error);
+//             }
+//         };
+//         fetchGenders();
+//
+//         const handleResize = () => {
+//             setIsSmallScreen(window.innerWidth <= 768);
+//         };
+//         window.addEventListener('resize', handleResize);
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+//
+//     const handleCloseClick = () => {
+//         setShowSidebar(true);
+//     };
+//
+//
+//     const handleGenderClick = async (gender) => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`);
+//             const data = await response.json();
+//             setCategories(data.categories);
+//             setSelectedGender(gender); // Установка выбранного пола
+//             setSelectedCategory(null);
+//             setSelectedType(null);
+//             setProducts(data.products); // Установка товаров с учетом выбранного пола
+//         } catch (error) {
+//             console.error('Error fetching categories by gender:', error);
+//         }
+//     };
+//
+//
+//     const handleCategoryClick = async (category) => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
+//             const data = await response.json();
+//             setTypes(data.types);
+//             setSelectedCategory(category); // Update selected category
+//             setSelectedType(null); // Reset selected type
+//             setProducts(data.products); // Fetch products based on updated category
+//         } catch (error) {
+//             console.error('Error fetching types by category:', error);
+//         }
+//     };
+//
+//     const handleTypeClick = async (type) => {
+//         try {
+//             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
+//             const data = await response.json();
+//             setSelectedType(type); // Update selected type
+//             setProducts(data.products); // Fetch products based on updated type
+//             if (isSmallScreen) {
+//                 setShowSidebar(false);
+//             }
+//         } catch (error) {
+//             console.error('Error fetching products by type:', error);
+//         }
+//     };
+//
+//
+//     return (
+//         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
+//             <div className="titleShow">
+//                 {isSmallScreen && (
+//                     <div className="closeBtn" onClick={handleCloseClick}>
+//                         &#215;
+//                     </div>
+//                 )}
+//             </div>
+//             <ul>
+//                 {selectedOption === 'contact' ? (
+//                     <ContactsInfo />
+//                 ) : (
+//                     <>
+//                         <h2>Товары</h2>
+//                         <li className="sectionTitle">Пол</li>
+//                         {genders && genders.map((gender) => (
+//                             <AccordionItem
+//                                 key={gender}
+//                                 gender={gender}
+//                                 onGenderClick={handleGenderClick}
+//                                 selectedGender={selectedGender}
+//                                 categories={categories}
+//                                 onCategoryClick={handleCategoryClick}
+//                                 selectedCategory={selectedCategory}
+//                                 types={types}
+//                                 onTypeClick={handleTypeClick}
+//                             />
+//                         ))}
+//                     </>
+//                 )}
+//             </ul>
+//         </div>
+//     );
+// };
+//
+// export default Sidebar;
+//
+//
 
-    const handleGenderClick = async () => {
-        if (isGenderExpanded && selectedGender === gender) {
-            onGenderClick(null); // Reset selected gender
-            setIsGenderExpanded(false);
-        } else {
-            await onGenderClick(gender);
-            setIsGenderExpanded(true);
-        }
-    };
 
-    const handleCategoryClick = async (category) => {
-        if (isCategoryExpanded && selectedCategory === category) {
-            onCategoryClick(null); // Reset selected category
-            setIsCategoryExpanded(false);
-        } else {
-            await onCategoryClick(category);
-            setIsCategoryExpanded(true);
-        }
-    };
-
-    const handleTypeClick = async (type) => {
-        if (expandedType === type) {
-            onTypeClick(null); // Reset selected type
-            setExpandedType(null);
-        } else {
-            await onTypeClick(type);
-            setExpandedType(type);
-        }
-    };
-
-    return (
-        <>
-            <li className="sbLi" onClick={handleGenderClick}>
-                <strong className="gender-names">{gender}</strong> <strong>{isGenderExpanded ? '-' : '+'}</strong>
-            </li>
-            <div className={`accordionContent ${isGenderExpanded && selectedGender === gender ? 'expanded' : ''}`}>
-                {categories.map((category) => (
-                    <div key={category}>
-                        <li className="sbLi-category" onClick={() => handleCategoryClick(category)}>
-                            {category} <strong>{isCategoryExpanded && selectedCategory === category ? '-' : '+'}</strong>
-                        </li>
-                        {isCategoryExpanded && selectedCategory === category && (
-                            <div className="nestedContent">
-                                {types.map((type) => (
-                                    <li
-                                        className={`sbLi sb-li-type ${expandedType === type ? 'selected-type' : ''}`}
-                                        style={{ marginLeft: "19px" }}
-                                        key={type}
-                                        onClick={() => handleTypeClick(type)}
-                                    >
-                                        {type}
-                                    </li>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
-        </>
-    );
-};
-
-
-
-const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
-                     selectedGender, selectedCategory, selectedType, setSelectedGender, setSelectedCategory, setSelectedType
-                }) => {
+const Sidebar = ({
+                     setProducts,
+                     showSidebar,
+                     setShowSidebar,
+                     selectedOption,
+                     selectedGender,
+                     selectedCategory,
+                     selectedType,
+                     setSelectedGender,
+                     setSelectedCategory,
+                     setSelectedType
+                 }) => {
     const [genders, setGenders] = useState([]);
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-
-
 
     const history = useHistory();
 
@@ -1328,76 +1458,63 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
         setShowSidebar(true);
     };
 
-
     const handleGenderClick = async (gender) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`);
-            const data = await response.json();
-            setCategories(data.categories);
-            setSelectedGender(gender); // Установка выбранного пола
-            setSelectedCategory(null);
-            setSelectedType(null);
-            setProducts(data.products); // Установка товаров с учетом выбранного пола
-        } catch (error) {
-            console.error('Error fetching categories by gender:', error);
+        if (selectedGender === gender) {
+            setSelectedGender(null);
+            setCategories([]);
+            setProducts([]);
+        } else {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`);
+                const data = await response.json();
+                setCategories(data.categories);
+                setSelectedGender(gender); // Set selected gender
+                setSelectedCategory(null);
+                setSelectedType(null);
+                setProducts(data.products); // Set products based on selected gender
+            } catch (error) {
+                console.error('Error fetching categories by gender:', error);
+            }
         }
     };
 
-    // const handleCategoryClick = async (category) => {
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
-    //         const data = await response.json();
-    //         setTypes(data.types);
-    //         setSelectedCategory(category); // Установка выбранной категории
-    //         setSelectedType(null);
-    //         setProducts(data.products); // Установка товаров с учетом выбранного пола и категории
-    //     } catch (error) {
-    //         console.error('Error fetching types by category:', error);
-    //     }
-    // };
-    //
-    // const handleTypeClick = async (type) => {
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
-    //         const data = await response.json();
-    //         setSelectedType(type); // Установка выбранного типа товара
-    //         setProducts(data.products); // Установка товаров с учетом выбранного пола, категории и типа товара
-    //         if (isSmallScreen) {
-    //             setShowSidebar(false);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching products by type:', error);
-    //     }
-    // };
-
-
     const handleCategoryClick = async (category) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
-            const data = await response.json();
-            setTypes(data.types);
-            setSelectedCategory(category); // Update selected category
-            setSelectedType(null); // Reset selected type
-            setProducts(data.products); // Fetch products based on updated category
-        } catch (error) {
-            console.error('Error fetching types by category:', error);
+        if (selectedCategory === category) {
+            setSelectedCategory(null);
+            setTypes([]);
+            setProducts([]);
+        } else {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
+                const data = await response.json();
+                setTypes(data.types);
+                setSelectedCategory(category); // Update selected category
+                setSelectedType(null); // Reset selected type
+                setProducts(data.products); // Fetch products based on updated category
+            } catch (error) {
+                console.error('Error fetching types by category:', error);
+            }
         }
     };
 
     const handleTypeClick = async (type) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
-            const data = await response.json();
-            setSelectedType(type); // Update selected type
-            setProducts(data.products); // Fetch products based on updated type
-            if (isSmallScreen) {
-                setShowSidebar(false);
+        if (selectedType === type) {
+            setSelectedType(null);
+            setProducts([]);
+        } else {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
+                const data = await response.json();
+                setSelectedType(type); // Update selected type
+                setProducts(data.products); // Fetch products based on updated type
+                if (isSmallScreen) {
+                    setShowSidebar(false);
+                }
+            } catch (error) {
+                console.error('Error fetching products by type:', error);
             }
-        } catch (error) {
-            console.error('Error fetching products by type:', error);
         }
     };
-
 
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
@@ -1436,5 +1553,3 @@ const Sidebar = ({ setProducts, showSidebar, setShowSidebar, selectedOption,
 };
 
 export default Sidebar;
-
-

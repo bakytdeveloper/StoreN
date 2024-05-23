@@ -165,7 +165,7 @@ ul {
 
 .sbLi {
     padding: 10px;
-    border-bottom: 1px solid #645f5f;
+    border-bottom: 1px solid #8f8b8b;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -179,9 +179,16 @@ ul {
     background-color: #f5f5f5;
 }
 
+.gender-names {
+    font-family: Oswald;
+    /*font-family: Poppins;*/
+    font-weight: 600;
+    color: #4e4d4d;
+}
+
 .sbLi-category {
     padding: 10px;
-    border-bottom: 1px solid #b8b6b6;
+    border-bottom: 1px solid #cfcdcd;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -189,11 +196,17 @@ ul {
     transition: background-color 0.2s;
     font-size: 15px;
     margin-left: 11px;
+    font-family: Poppins;
+    font-weight: 600;
+    color: #3b3a3a;
 }
 
 .sb-li-type {
-    font-size: 13px;
+    font-size: 14px;
     border-bottom: #b8b8b8;
+
+    font-family: Poppins;
+    font-weight: 600;
 }
 
 .accordionContent {
