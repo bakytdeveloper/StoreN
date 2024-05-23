@@ -33,12 +33,30 @@
     object-fit: contain;
 }
 
+
+.brand-and-name {
+    display: inline-flex;
+
+}
+
+.brand {
+    margin-right: 4px;
+}
+
+.name {
+    margin-left: 4px;
+
+}
+
+
 .details {
     /*margin-left: 20px;*/
     /*margin-right: 25px;*/
     /*flex: 1;*/
     text-decoration: none;
-    padding: 11px;
+    padding: 5px;
+
+
 }
 .brand {
     font-weight: bold;
@@ -48,6 +66,8 @@
 .type, .brand, .name {
     font-size: 14px;
     margin-bottom: 5px;
+    font-family: Poppins;
+    font-weight: 500;
 }
 
 .price span {
