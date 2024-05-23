@@ -46,7 +46,7 @@ const SellerRegistrationForm = ({ onSubmit }) => {
             }
 
             await axios.post(`${apiUrl}/api/sellers/register`, formData);
-            toast.success('Ваш запрос на позицию продавца принят👍! Ожидайте одобрения.');
+            toast.success('Ваш запрос на позицию продавца принят! Ожидайте одобрения.');
             history.push('/');
         } catch (error) {
             console.error('Error registering seller:', error);

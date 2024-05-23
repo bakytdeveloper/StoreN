@@ -30,12 +30,12 @@
     align-items: center;
     padding: 1px 20px;
     background-color: #fff;
-    /*border-bottom: 1px solid #ddd;*/
+    border-bottom: 1px solid #db0f0f;
     /*box-shadow: 3px 3px 5px #dddddd;*/
     position: fixed;
     width: 100%;
     z-index: 111;
-    height: 170px;
+    height: 120px;
 }
 
 .titleN {
@@ -175,6 +175,11 @@
     transform: scale(1.2); /* Увеличим размер иконки при наведении */
 }
 
+
+
+.sellerRegistration {
+    margin-top: 170px;
+}
 
 
 
