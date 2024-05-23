@@ -697,6 +697,32 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 );
             }
 
+            if (productId) {
+                response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/sellers/products/${productId}`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(formData),
+                    }
+                );
+            } else {
+                response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/sellers/products`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({...formData, direction}), // Обновлено: включить направление в отправляемые данные
+                    }
+                );
+            }
+
             if (response.ok) {
                 clearFormFields();
                 const updatedProduct = await response.json();
@@ -786,6 +812,13 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         setFormData({...formData, sizes: sizes});
     };
 
+
+    const handleDirectionChange = (value) => {
+        setDirection(value);
+        setFormData({...formData, direction: value}); // Обновить данные формы с учетом измененного направления
+    };
+
+
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Добавить товар</h2>
@@ -802,13 +835,13 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             </select>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required/>
 
-            {formData.category === 'Аксессуары' && ( // Обновлено: условие для отображения поля direction
+            {formData.category === 'Аксессуары' && (
                 <div>
                     <label>Направление:</label>
                     <select
                         name="direction"
                         value={direction}
-                        onChange={(e) => setDirection(e.target.value)}
+                        onChange={(e) => handleDirectionChange(e.target.value)} // Обновлено: добавлен обработчик изменения направления
                         disabled={!formData.category || formData.category !== 'Аксессуары'}
                     >
                         <option value="">Выберите направление</option>
