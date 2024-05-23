@@ -4,7 +4,7 @@
 /* Home.css */
 .home-container {
     width: 100%;
-    margin-top: 180px;
+    margin-top: 120px;
     /*padding: 20px;*/
 }
 
@@ -15,6 +15,7 @@
     margin: 0 auto;
     overflow: hidden; /* Скрываем все, что выходит за пределы карусели */
     position: relative;
+    background: #dddddd;
 
 }
 
