@@ -498,6 +498,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
+        direction: "",
         price: '',
         category: '',
         type: '',
@@ -546,9 +547,13 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         fetchProduct();
     }, [productId]);
 
+
     useEffect(() => {
         if (product) {
             setFormData(product);
+            if (product.category === 'Аксессуары' && product.direction) {
+                setDirection(product.direction); // Установить значение direction, если товар аксессуар и у него есть значение в свойстве direction
+            }
         }
     }, [product]);
 
@@ -797,7 +802,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
             </select>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required/>
 
-            {formData.category === 'Аксессуары' && (
+            {formData.category === 'Аксессуары' && ( // Обновлено: условие для отображения поля direction
                 <div>
                     <label>Направление:</label>
                     <select
