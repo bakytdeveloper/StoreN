@@ -1682,8 +1682,9 @@ const Sidebar = ({
                     <ContactsInfo />
                 ) : (
                     <>
-                        <h2>Товары</h2>
-                        <li className="sectionTitle">Пол</li>
+                        <h2 style={{marginTop:"0", marginBottom:"5px"}}>Товары</h2>
+                        {/*<li className="sectionTitle">Пол</li>*/}
+                        <hr />
                         {genders && genders.map((gender) => (
                             <AccordionItem
                                 key={gender}

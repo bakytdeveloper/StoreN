@@ -30,12 +30,16 @@
     align-items: center;
     padding: 1px 20px;
     background-color: #fff;
-    border-bottom: 1px solid #db0f0f;
+    /*border-bottom: 1px solid #db0f0f;*/
     /*box-shadow: 3px 3px 5px #dddddd;*/
     position: fixed;
     width: 100%;
     z-index: 111;
     height: 120px;
+
+    font-family: Poppins;
+    font-weight: 600;
+
 }
 
 .titleN {
@@ -56,6 +60,7 @@
     padding: 0;
 
     font-family: Poppins;
+
 }
 
 .nav-links {
