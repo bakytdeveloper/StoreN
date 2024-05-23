@@ -47,7 +47,17 @@ tbody td p {
 
 .pagination-order-admin {
     display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 45%;
 }
+
+.pagination-order-admin span {
+    margin-left: 11px;
+    margin-right: 11px;
+}
+
 
 /* Add more styles as needed */
 

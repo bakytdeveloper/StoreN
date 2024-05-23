@@ -404,7 +404,7 @@ const OrderList = ({ setShowSidebar }) => {
 
             <div  className="pagination-order-admin">
                 <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Prev</button>
-                <span>Page {page}</span>
+                <span>Страница {page}</span>
                 <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={orders.length < perPage}>Next</button>
             </div>
         </div>
