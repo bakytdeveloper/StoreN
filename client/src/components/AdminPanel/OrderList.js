@@ -226,14 +226,18 @@ const OrderList = ({ setShowSidebar }) => {
     //     fetchOrders();
     // }, []);
 
+
+
     useEffect(() => {
         fetchOrders();
     }, [page, perPage]);
 
-
     const getOrderNumber = (index) => {
         return (page - 1) * perPage + index + 1;
     };
+
+    // const sortedOrders = orders.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+
 
 
     const updateStatus = async (orderId, newStatus) => {
@@ -315,6 +319,7 @@ const OrderList = ({ setShowSidebar }) => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
+    const sortedOrders = orders.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
 
     return (
         <div className="order">
@@ -343,7 +348,8 @@ const OrderList = ({ setShowSidebar }) => {
                 </thead>
                 <tbody>
 
-                {orders.slice().reverse().map((order, index) => (
+                {orders.map((order, index) => (
+                // {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id}>
                         <td>{getOrderNumber(index)}</td>
                         <td onClick={() => handleOrderClick(order._id)}>{order.user ? order.user.role : 'Гость'}</td>
@@ -396,7 +402,7 @@ const OrderList = ({ setShowSidebar }) => {
                 <OrderDetailsModal order={selectedOrder} onClose={handleCloseModal} />
             )}
 
-            <div style={{marginBottom:"50px", background:"red", fontSize:"100px", marginTop:"50px"}} className="pagination">
+            <div  className="pagination-order-admin">
                 <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Prev</button>
                 <span>Page {page}</span>
                 <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={orders.length < perPage}>Next</button>

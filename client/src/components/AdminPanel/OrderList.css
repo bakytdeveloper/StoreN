@@ -45,6 +45,10 @@ tbody td p {
     margin: 5px 0;
 }
 
+.pagination-order-admin {
+    display: inline-flex;
+}
+
 /* Add more styles as needed */
 
 @media only screen and (max-width: 768px) {

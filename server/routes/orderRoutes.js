@@ -234,14 +234,35 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
 // });
 
 
+// router.get('/', async (req, res) => {
+//     try {
+//         const page = parseInt(req.query.page) || 1;
+//         const perPage = parseInt(req.query.perPage) || 20;
+//         const skip = (page - 1) * perPage;
+//         const orders = await Order.find().skip(skip).limit(perPage).populate('user').populate('products.product');
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 router.get('/', async (req, res) => {
     try {
-        const orders = await Order.find().sort({ createdAt: -1 }).populate('user').populate('products.product');
+        const { page = 1, perPage = 20 } = req.query;
+        const orders = await Order.find()
+            .populate('user')
+            .populate('products.product')
+            .sort({ date: 'desc' }) // Сортировка по убыванию времени создания заказа
+            .skip((page - 1) * perPage)
+            .limit(perPage);
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 
 
