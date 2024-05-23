@@ -199,6 +199,10 @@ const OrderList = ({ setShowSidebar }) => {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const history = useHistory();
 
+
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(20); // Установите количество заказов на странице
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         const isAdmin = localStorage.getItem('role') === 'admin';
@@ -207,10 +211,11 @@ const OrderList = ({ setShowSidebar }) => {
         }
     }, [history]);
 
-    useEffect(() => {
+    // useEffect(() => {
+
         const fetchOrders = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/?page=${page}&perPage=${perPage}`);
                 const data = await response.json();
                 setOrders(data);
             } catch (error) {
@@ -218,8 +223,17 @@ const OrderList = ({ setShowSidebar }) => {
             }
         };
 
+    //     fetchOrders();
+    // }, []);
+
+    useEffect(() => {
         fetchOrders();
-    }, []);
+    }, [page, perPage]);
+
+
+    const getOrderNumber = (index) => {
+        return (page - 1) * perPage + index + 1;
+    };
 
 
     const updateStatus = async (orderId, newStatus) => {
@@ -328,9 +342,10 @@ const OrderList = ({ setShowSidebar }) => {
                 </tr>
                 </thead>
                 <tbody>
+
                 {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id}>
-                        <td>{index + 1}</td>
+                        <td>{getOrderNumber(index)}</td>
                         <td onClick={() => handleOrderClick(order._id)}>{order.user ? order.user.role : 'Гость'}</td>
                         <td onClick={() => handleOrderClick(order._id)}>
                             {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
@@ -380,6 +395,12 @@ const OrderList = ({ setShowSidebar }) => {
             {selectedOrder && (
                 <OrderDetailsModal order={selectedOrder} onClose={handleCloseModal} />
             )}
+
+            <div style={{marginBottom:"50px", background:"red", fontSize:"100px", marginTop:"50px"}} className="pagination">
+                <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Prev</button>
+                <span>Page {page}</span>
+                <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={orders.length < perPage}>Next</button>
+            </div>
         </div>
     );
 

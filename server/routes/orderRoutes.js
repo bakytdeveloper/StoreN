@@ -209,16 +209,40 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
 
 
 
-// Получение списка всех заказов для администратора
+// // Получение списка всех заказов для администратора
+// router.get('/', async (req, res) => {
+//     try {
+//         const orders = await Order.find().populate('user').populate('products.product');
+//         // const orders = await Order.find().populate('user').populate('cart.product');
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+// router.get('/', async (req, res) => {
+//     try {
+//         const page = parseInt(req.query.page) || 1;
+//         const perPage = parseInt(req.query.perPage) || 20;
+//         const skip = (page - 1) * perPage;
+//         const orders = await Order.find().skip(skip).limit(perPage).populate('user').populate('products.product');
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 router.get('/', async (req, res) => {
     try {
-        const orders = await Order.find().populate('user').populate('products.product');
-        // const orders = await Order.find().populate('user').populate('cart.product');
+        const orders = await Order.find().sort({ createdAt: -1 }).populate('user').populate('products.product');
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 
