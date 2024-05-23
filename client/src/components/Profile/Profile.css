@@ -5,11 +5,11 @@
 
 .profile-container {
     display: flex;
-    margin-top: 80px;
+    margin-top: 10px;
 }
 
 .side {
-    margin-top: 150px;
+    margin-top: 130px;
     position: fixed;
     width: 100%;
     max-width: 200px;
@@ -128,28 +128,37 @@ label {
 }
 
 .addProfile {
-    font-size: 27px;
-    background: #63db47;
-    width: 120px;
-    margin-right: 9px;
-    box-shadow: 4px 7px 7px #6e6e6e;
+    background: #023062;
+    font-size: 16px;
+    margin-right: 6px;
+    border-radius: 3px;
+    box-shadow: 3px 6px 6px #676565;
+    color: white;
+    font-family: Poppins;
+    font-weight: 400;
+    width: 15%;
 }
 .addProfile:hover {
-    background: #30b811;
+    background: #0c13a4;
     box-shadow: 2px 3px 4px #606060;
 
 }
 
 .noAdd {
-    font-size: 27px;
-    background: #fa3a32;
-    width: 120px;
-    margin-left: 9px;
-    box-shadow: 4px 7px 7px #6e6e6e;
+    background: black;
+    font-size: 16px;
+    margin-left: 6px;
+    border-radius: 3px;
+    box-shadow: 3px 6px 6px #6d6b6b;
+    line-height: 24px;
+    font-family: Poppins;
+    font-weight: 400;
+    color: white;
+    width: 15%;
 }
 
 .noAdd:hover {
-    background: #d0150d;
+    background: #282626;
     box-shadow: 2px 3px 4px #6e6e6e;
 }
 

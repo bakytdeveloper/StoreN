@@ -327,8 +327,8 @@ const Profile = ({ setShowSidebar }) => {
                                 <div className="profile-buttons">
                                     {editPassword ? (
                                         <>
-                                            <button className="addProfile" onClick={handleEditProfile}>&#128396;</button>
-                                            <button className="noAdd" onClick={handleCancelEditProfile}>&#128465;</button>
+                                            <button className="addProfile" onClick={handleEditProfile}>Изменить</button>
+                                            <button className="noAdd" onClick={handleCancelEditProfile}>Отменить</button>
                                         </>
                                     ) : (
                                         <button className="updateProfile" onClick={() => setEditPassword(true)}>&#128736;</button>
