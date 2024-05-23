@@ -462,7 +462,7 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
 
                                 <div className="brand-and-name">
                                     <div className="brand">{product.brand}</div>
-                                    <div className="name">{product.name.length > 10 ? product.name.substring(0, 10) + '...' : product.name}</div>
+                                    <div className="name">{product.name.length > 7 ? product.name.substring(0, 7) + '...' : product.name}</div>
                                 </div>
 
                                  <div className="price">

@@ -2,7 +2,7 @@
 
 
 .cart-summary {
-    margin-top: 0;
+    margin-top: 25px;
     /*top: 0!important;*/
     position: fixed;
     display: inline-block;
