@@ -76,8 +76,8 @@
 }
 
 .active-title {
-    border: 3px solid black;
-    border-bottom-color: black;
+    border: 1px solid #bcbaba;
+    border-bottom-color: #585656;
     border-top: none !important;
     border-right: none!important;
     border-left: none!important;
