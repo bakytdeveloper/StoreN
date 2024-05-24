@@ -864,18 +864,18 @@ const Profile = ({ setShowSidebar }) => {
                                     ))}
                                     </tbody>
                                 </table>
-                                {/*<div className="pagination-buttons-users-profile">*/}
-                                {/*    /!* Кнопка предыдущей страницы *!/*/}
-                                {/*    <button className="pagination-buttons-users-profile-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>*/}
-                                {/*        {hasPrevPage ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой предыдущей страницы *!/*/}
-                                {/*    </button>*/}
-                                {/*    /!* Счётчик страниц *!/*/}
-                                {/*    <span>Страница {page} из {pageSize}</span>*/}
-                                {/*    /!* Кнопка следующей страницы *!/*/}
-                                {/*    <button className="pagination-buttons-users-profile-next" onClick={handleNextPage} disabled={!hasNextPage}>*/}
-                                {/*        {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой следующей страницы *!/*/}
-                                {/*    </button>*/}
-                                {/*</div>*/}
+                                <div className="pagination-buttons-users-profile">
+                                    {/* Кнопка предыдущей страницы */}
+                                    <button className="pagination-buttons-users-profile-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>
+                                        {hasPrevPage ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faBan} />} {/* Символ пустой предыдущей страницы */}
+                                    </button>
+                                    {/* Счётчик страниц */}
+                                    <span>Страница {page} из {pageSize}</span>
+                                    {/* Кнопка следующей страницы */}
+                                    <button className="pagination-buttons-users-profile-next" onClick={handleNextPage} disabled={!hasNextPage}>
+                                        {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} {/* Символ пустой следующей страницы */}
+                                    </button>
+                                </div>
 
 
                                 {/*<div  className="sales-history-pagination">*/}
@@ -901,18 +901,18 @@ const Profile = ({ setShowSidebar }) => {
                     </div>
                 )}
             </div>
-            <div className="pagination-buttons-users-profile">
-                {/* Кнопка предыдущей страницы */}
-                <button className="pagination-buttons-users-profile-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>
-                    {hasPrevPage ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faBan} />} {/* Символ пустой предыдущей страницы */}
-                </button>
-                {/* Счётчик страниц */}
-                <span>Страница {page} из {pageSize}</span>
-                {/* Кнопка следующей страницы */}
-                <button className="pagination-buttons-users-profile-next" onClick={handleNextPage} disabled={!hasNextPage}>
-                    {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} {/* Символ пустой следующей страницы */}
-                </button>
-            </div>
+            {/*<div className="pagination-buttons-users-profile">*/}
+            {/*    /!* Кнопка предыдущей страницы *!/*/}
+            {/*    <button className="pagination-buttons-users-profile-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>*/}
+            {/*        {hasPrevPage ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой предыдущей страницы *!/*/}
+            {/*    </button>*/}
+            {/*    /!* Счётчик страниц *!/*/}
+            {/*    <span>Страница {page} из {pageSize}</span>*/}
+            {/*    /!* Кнопка следующей страницы *!/*/}
+            {/*    <button className="pagination-buttons-users-profile-next" onClick={handleNextPage} disabled={!hasNextPage}>*/}
+            {/*        {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой следующей страницы *!/*/}
+            {/*    </button>*/}
+            {/*</div>*/}
         </div>
     );
 };
