@@ -84,12 +84,16 @@ label {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+
+
 }
 
 .order-history-table th, .order-history-table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
+
+
 }
 
 .order-history-table th {
@@ -168,9 +172,24 @@ label {
     justify-content: center;
 }
 
-/*.existProfile {*/
-/*    box-shadow: 4px 7px 7px #452b2b;*/
-/*}*/
+.pagination-buttons-users-profile {
+
+    margin-top: 160px;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+
+ .pagination-buttons-users-profile span {
+     margin: 0 20px;
+ }
+
+.pagination-buttons-users-profile-prev {
+    width: 111px;
+}
+.pagination-buttons-users-profile-next {
+    width: 111px;
+}
 
 
 @media screen and (max-width: 768px) {
@@ -197,6 +216,7 @@ label {
     .profile-content {
         margin: 20px 0 0 0;
         width: 98% !important;
+
     }
 
     .sidebar-item {

@@ -185,8 +185,29 @@ router.post('/add-to-cart', async (req, res) => {
 
 
 
+//
+// // Получение списка заказов для зарегистрированных пользователей
+// router.get('/my-orders', authenticateToken, async (req, res) => {
+//     if (!req.user || req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     try {
+//         const user = await User.findById(req.user.userId);
+//
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//
+//         const orders = await Order.find({ user: user._id }).populate('products.product', 'name price');
+//         res.json(orders);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
-// Получение списка заказов для зарегистрированных пользователей
+
+// Получение списка заказов для зарегистрированных пользователей с пагинацией
 router.get('/my-orders', authenticateToken, async (req, res) => {
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
@@ -199,12 +220,23 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        const orders = await Order.find({ user: user._id }).populate('products.product', 'name price');
-        res.json(orders);
+        const page = parseInt(req.query.page) || 1;
+        const perPage = parseInt(req.query.perPage) || 2; // Количество заказов на странице
+
+        const orders = await Order.find({ user: user._id })
+            .populate('products.product', 'name price')
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .sort({ createdAt: -1 }); // Сортировка по убыванию времени создания заказа
+
+        const totalOrders = await Order.countDocuments({ user: user._id });
+
+        res.json({ orders, totalOrders });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 
