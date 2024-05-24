@@ -23,6 +23,20 @@ const ProductList = ({ searchKeyword, cartItems, setCartItems, products, setProd
     const location = useLocation();
 
 
+    useEffect(() => {
+        setShowSidebar(false);
+        return () => {
+            setShowSidebar(false);
+        };
+    }, [setShowSidebar]);
+
+    useEffect(() => {
+        if (windowWidth >= 1200) {
+            setShowSidebar(false);
+        }
+    }, [windowWidth, setShowSidebar]);
+
+
     // Сбросить выбранные значения при изменении маршрута
     useEffect(() => {
         setSelectedGender(null);

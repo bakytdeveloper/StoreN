@@ -149,7 +149,10 @@ const App = () => {
                     </Route>
 
                     <Route path="/sellers/register">
-                        <SellerRegistrationForm  />
+                        <SellerRegistrationForm
+                            showSidebar={showSidebar}
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
                     <Route path="/sellers">
                         <SellerListPage />
@@ -160,7 +163,10 @@ const App = () => {
                     </Route>
 
                     <Route path="/sellers-products">
-                        <ProductForm />
+                        <ProductForm
+                            showSidebar={showSidebar}
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
 
 
@@ -177,6 +183,7 @@ const App = () => {
 
                     <Route path="/seller/sales-history">
                         <SalesHistory
+                            showSidebar={showSidebar}
                             setShowSidebar={setShowSidebar}
                         />
                     </Route>

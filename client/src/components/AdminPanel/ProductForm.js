@@ -6,7 +6,7 @@ import './ProductForm.css';
 
 
 
-const ProductForm = ({ onSubmit, onCancel }) => {
+const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
     const {productId} = useParams();
@@ -34,6 +34,12 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const [direction, setDirection] = useState('');
     const [allCategories, setAllCategories] = useState([]);
     const history = useHistory();
+
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => setShowSidebar(true);
+    }, [setShowSidebar]);
 
 
     useEffect(() => {
@@ -310,7 +316,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
 
     return (
-        <form className="sellerFormAdd" onSubmit={handleSubmit}>
+        <div className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Информация о товаре</h2>
             <span className="sellersListClose" type="button" onClick={handleClose}>
            <span> &#10006;</span>
@@ -484,7 +490,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
 
                 <button className="cancel" type="button" onClick={onCancel}>&#10006; Отмена</button>
             </div>
-        </form>
+        </div>
     );
 };
 

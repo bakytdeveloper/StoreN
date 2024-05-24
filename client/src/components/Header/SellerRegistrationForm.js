@@ -1,13 +1,13 @@
 
 
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './Header.css';
 import { toast } from 'react-toastify'; // Импортируем библиотеку react-toastify
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const SellerRegistrationForm = ({ onSubmit }) => {
+const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -20,6 +20,12 @@ const SellerRegistrationForm = ({ onSubmit }) => {
         address: ''
     });
     const history = useHistory();
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => setShowSidebar(true);
+    }, [setShowSidebar]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -59,7 +65,7 @@ const SellerRegistrationForm = ({ onSubmit }) => {
     };
 
     return (
-        <div className="sellerRegistration">
+        <div className="seller-registration">
             <h2>Станьте продавцом</h2>
             <p className="SellerRegistrationClose" type="button" onClick={handleClose}>
                 &#10006;

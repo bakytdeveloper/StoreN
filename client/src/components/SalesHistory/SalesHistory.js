@@ -10,12 +10,19 @@ import './SalesHistory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faBan } from '@fortawesome/free-solid-svg-icons';
 
-const SalesHistory = () => {
+const SalesHistory = ({ setShowSidebar }) => {
     const [orders, setOrders] = useState([]);
     const [page, setPage] = useState(1);
     const [perPage] = useState(5); // Количество заказов на странице
     const [totalOrders, setTotalOrders] = useState(0);
     const history = useHistory();
+
+
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => setShowSidebar(true);
+    }, [setShowSidebar]);
 
     useEffect(() => {
         const fetchSalesHistory = async (page) => {
