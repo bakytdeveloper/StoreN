@@ -1,5 +1,4 @@
 
-// require('dotenv').config(); // Import and configure dotenv to load .env file
 
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
