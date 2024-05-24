@@ -592,16 +592,14 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     }, []);
 
     const handleChange = async (e) => {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]: value});
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
 
         if (name === 'category') {
             if (value === 'Аксессуары') {
-                setDirection(''); // Сбросить выбранное направление при смене категории на "Аксессуары"
+                setDirection('');
             }
-        }
 
-        if (name === 'category') {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
                 if (!response.ok) {
@@ -610,8 +608,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 }
                 const data = await response.json();
 
-                let filteredTypes = [];
-                filteredTypes = data
+                let filteredTypes = data
                     .filter(product => product.category === value)
                     .map(product => product.type);
 
@@ -697,32 +694,6 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 );
             }
 
-            if (productId) {
-                response = await fetch(
-                    `${process.env.REACT_APP_API_URL}/api/sellers/products/${productId}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: JSON.stringify(formData),
-                    }
-                );
-            } else {
-                response = await fetch(
-                    `${process.env.REACT_APP_API_URL}/api/sellers/products`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: JSON.stringify({...formData, direction}), // Обновлено: включить направление в отправляемые данные
-                    }
-                );
-            }
-
             if (response.ok) {
                 clearFormFields();
                 const updatedProduct = await response.json();
@@ -761,7 +732,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (isSubmitting) {
             return; // Если уже отправляется, выходим
@@ -985,19 +956,13 @@ const ProductForm = ({ onSubmit, onCancel }) => {
                 Добавить изображение
             </button>
 
-            {/*<label>Пол:</label>*/}
-            {/*<select name="gender" value={formData.gender} onChange={handleChange} required>*/}
-            {/*    <option value="">Выберите пол</option>*/}
-            {/*    <option value="Мужская одежда">Мужская одежда</option>*/}
-            {/*    <option value="Женская одежда">Женская одежда</option>*/}
-            {/*    <option value="Детская одежда">Детская одежда</option>*/}
-            {/*    <option value="Гаджеты">Гаджеты</option>*/}
-            {/*    <option value="Унисекс">Унисекс</option>*/}
-            {/*    <option value="Аксессуары">Аксессуары</option>*/}
-            {/*</select>*/}
-
             <div className="submitBtn">
-                <button className="submit" type="submit" disabled={isSubmitting}>&#10004; Создать продукт</button>
+                {/*<button className="submit" type="submit" disabled={isSubmitting}>&#10004; Создать продукт</button>*/}
+
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Отправка...' : 'Создать продукт'}
+                </button>
+
                 <button className="cancel" type="button" onClick={onCancel}>&#10006; Отмена</button>
             </div>
         </form>
