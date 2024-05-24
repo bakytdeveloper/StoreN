@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaPhone } from 'react-icons/fa';
 
-
 import tik from "../Header/tik-tok.png";
 import what from "../Header/whatsapp.png";
 import ins from "../Header/instagram.png";
