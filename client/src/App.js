@@ -176,7 +176,9 @@ const App = () => {
                     </Route>
 
                     <Route path="/seller/sales-history">
-                        <SalesHistory  />
+                        <SalesHistory
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
 
                     <Route path="/products/:productId">

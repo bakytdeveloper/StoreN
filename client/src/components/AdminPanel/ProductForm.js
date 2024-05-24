@@ -35,6 +35,7 @@ const ProductForm = ({ onSubmit, onCancel }) => {
     const [allCategories, setAllCategories] = useState([]);
     const history = useHistory();
 
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
