@@ -1,16 +1,16 @@
 /* src/components/ProductList/ProductList.css */
 
-.product-list {
-    display: grid;
-    position: relative;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    margin-top: 151px!important;
-    margin-left: 230px;
-    margin-bottom: 90px!important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
+/*.product-list {*/
+/*    display: grid;*/
+/*    position: relative;*/
+/*    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));*/
+/*    gap: 20px;*/
+/*    padding: 20px;*/
+/*    margin-top: 151px!important;*/
+/*    margin-left: 230px;*/
+/*    margin-bottom: 90px!important; !* Добавленный отступ снизу, чтобы не перекрывать pagination *!*/
 
-}
+/*}*/
 
 .product-card {
     border: 1px solid #eeecec;
@@ -300,4 +300,52 @@
         margin-right: 200px!important;
     }
 
+}
+
+
+
+
+
+.product-list {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; /* Изменено */
+    gap: 20px;
+    padding: 20px;
+    margin-top: 151px !important;
+    margin-left: 230px;
+    margin-bottom: 90px !important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
+}
+
+@media only screen and (max-width: 1200px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 5 - 20px), 1fr)) !important; /* Изменено */
+    }
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4 - 20px), 1fr)); /* Изменено */
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)); /* Изменено */
+        margin: 170px 4px 90px 1px !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 2 - 20px), 1fr)); /* Изменено */
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 1 - 20px), 1fr)); /* Изменено */
+    }
 }
