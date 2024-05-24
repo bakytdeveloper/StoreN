@@ -4,18 +4,23 @@
 /* Home.css */
 .home-container {
     width: 100%;
-    margin-top: 120px;
+    margin-top: 96px;
     /*padding: 20px;*/
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+
 }
 
 .carousel {
     width: 100%;
     /*width: 1920px;*/
-    height: 800px;
+    height: 350px;
     margin: 0 auto;
     overflow: hidden; /* Скрываем все, что выходит за пределы карусели */
     position: relative;
-    background: #dddddd;
+    background: #f8efe5;
+    border-radius: 20px;
 
 }
 
@@ -37,7 +42,7 @@
     text-align: left;
     position: absolute;
     align-items: flex-start;
-    top: 216px;
+    top: 85px;
     left: 180px;
 }
 
@@ -74,7 +79,7 @@
 
 .slide-image {
     width: 462px;
-    height: 727px;
+    height: 98%;
     position: absolute;
     /*top: 216px;*/
     top: 6px;
@@ -93,11 +98,11 @@
     line-height: 18px;
     letter-spacing: 0.1em;
     /*text-align: left;*/
-    background: rgb(236, 230, 230);
+    background: rgb(252, 249, 249);
     text-align: center;
     color: black;
     gap: 3px;
-    margin-top: 505px;
+    margin-top: 280px;
     margin-left: 180px;
     padding: 5px;
     border-radius: 13px;
@@ -114,6 +119,8 @@
     flex-wrap: wrap;
     justify-content: space-around;
     margin-top: 20px;
+    width: 100%;
+    left: 0;
 
 }
 
@@ -125,10 +132,10 @@
 
 .info-block {
     display: block;
-    width: 30%;
+    width: 33%;
     height: 200px;
     margin: 10px 0;
-    background-color: #f8f6f6;
+    background-color: #f6f6f3;
     /*display: flex;*/
 
     justify-content: center;
@@ -142,7 +149,7 @@
 
 
 .info-all {
-    width: 48%;
+    width: 50%;
 
 }
 
@@ -167,6 +174,8 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+    left: 0;
+   position: absolute;
 }
 
 .contact-info {

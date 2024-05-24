@@ -2,10 +2,13 @@
 .new-product {
     display: inline-grid;
     width: 100% !important;
-    margin-left: 8px;
+    margin-left: 0;
     justify-content: space-between;
     margin-top: 10px !important;
     padding: 0 20px;
+
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
 }
 
 /*.new-cards {*/
