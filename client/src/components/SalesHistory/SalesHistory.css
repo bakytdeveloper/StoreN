@@ -45,6 +45,26 @@ tbody td p {
     margin: 5px 0;
 }
 
+.sales-history-pagination {
+    margin-top: 10px;
+    /*background: #5d5c5c;*/
+text-align: center;
+    margin-bottom: 55px;
+}
+
+
+.sales-history-pagination span {
+    margin: 0 20px;
+}
+
+.sales-history-pagination-prev {
+    width: 111px;
+}
+
+.sales-history-pagination-next {
+    width: 111px;
+}
+
 /* Add more styles as needed */
 
 @media only screen and (max-width: 768px) {

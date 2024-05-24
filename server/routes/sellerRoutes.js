@@ -353,123 +353,154 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 
 
 
+// router.get('/sales-history', authenticateToken, async (req, res) => {
+//     try {
+//         // Получаем ID текущего продавца из аутентификационного токена
+//         const sellerId = req.user.sellerId;
+//
+//         // Получаем все продукты текущего продавца
+//         const sellerProducts = await Product.find({ seller: sellerId });
+//
+//         // Выполняем агрегацию для поиска заказов, содержащих продукты текущего продавца
+//         const orders = await Order.aggregate([
+//             {
+//                 // Находим заказы, в которых содержатся продукты текущего продавца
+//                 $match: {
+//                     'products.product': { $in: sellerProducts.map(product => product._id) }
+//                 }
+//             },
+//             {
+//                 // Добавляем информацию о пользователе, сделавшем заказ
+//                 $lookup: {
+//                     from: 'users',
+//                     localField: 'user',
+//                     foreignField: '_id',
+//                     as: 'user'
+//                 }
+//             },
+//             {
+//                 // Выбираем первого найденного пользователя
+//                 $addFields: {
+//                     user: { $arrayElemAt: ['$user', 0] }
+//                 }
+//             },
+//             {
+//                 // Добавляем подробную информацию о продуктах заказа, подключая коллекцию "products"
+//                 $lookup: {
+//                     from: 'products',
+//                     localField: 'products.product',
+//                     foreignField: '_id',
+//                     as: 'productDetails'
+//                 }
+//             },
+//             {
+//                 // Фильтруем продукты в заказе, оставляем только те, которые принадлежат текущему продавцу
+//                 $addFields: {
+//                     products: {
+//                         $filter: {
+//                             input: '$products',
+//                             as: 'product',
+//                             cond: {
+//                                 $in: ['$$product.product', sellerProducts.map(product => product._id)]
+//                             }
+//                         }
+//                     }
+//                 }
+//             },
+//             // Добавляем информацию о типе и названии каждого товара
+//             {
+//                 $addFields: {
+//                     products: {
+//                         $map: {
+//                             input: '$products',
+//                             as: 'product',
+//                             in: {
+//                                 $mergeObjects: [
+//                                     '$$product',
+//                                     {
+//                                         product: {
+//                                             $arrayElemAt: [
+//                                                 { $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } },
+//                                                 0
+//                                             ]
+//                                         }
+//                                     }
+//                                 ]
+//                             }
+//                         }
+//                     }
+//                 }
+//             },
+//             // Фильтруем товары в заказе, оставляем только товары текущего продавца, и вычисляем сумму для каждого заказа
+//             {
+//                 $addFields: {
+//                     totalAmount: {
+//                         $reduce: {
+//                             input: '$products',
+//                             initialValue: 0,
+//                             in: {
+//                                 $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }]
+//                             }
+//                         }
+//                     }
+//                 }
+//             },
+//             // Оставляем только необходимые поля для вывода
+//             {
+//                 $project: {
+//                     guestInfo: 1,
+//                     cart: 1,
+//                     products: 1,
+//                     totalAmount: 1,
+//                     status: 1,
+//                     date: 1,
+//                     address: 1,
+//                     phoneNumber: 1,
+//                     paymentMethod: 1,
+//                     comments: 1,
+//                     user: { name: 1, email: 1 }
+//                 }
+//             }
+//         ]);
+//
+//         // Отправляем список заказов в формате JSON
+//         res.json(orders);
+//     } catch (error) {
+//         // Если произошла ошибка, отправляем статус ошибки 500 и сообщение об ошибке
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+
 router.get('/sales-history', authenticateToken, async (req, res) => {
     try {
-        // Получаем ID текущего продавца из аутентификационного токена
+        const { page = 1, perPage = 15 } = req.query;
         const sellerId = req.user.sellerId;
-
-        // Получаем все продукты текущего продавца
         const sellerProducts = await Product.find({ seller: sellerId });
 
-        // Выполняем агрегацию для поиска заказов, содержащих продукты текущего продавца
         const orders = await Order.aggregate([
-            {
-                // Находим заказы, в которых содержатся продукты текущего продавца
-                $match: {
-                    'products.product': { $in: sellerProducts.map(product => product._id) }
-                }
-            },
-            {
-                // Добавляем информацию о пользователе, сделавшем заказ
-                $lookup: {
-                    from: 'users',
-                    localField: 'user',
-                    foreignField: '_id',
-                    as: 'user'
-                }
-            },
-            {
-                // Выбираем первого найденного пользователя
-                $addFields: {
-                    user: { $arrayElemAt: ['$user', 0] }
-                }
-            },
-            {
-                // Добавляем подробную информацию о продуктах заказа, подключая коллекцию "products"
-                $lookup: {
-                    from: 'products',
-                    localField: 'products.product',
-                    foreignField: '_id',
-                    as: 'productDetails'
-                }
-            },
-            {
-                // Фильтруем продукты в заказе, оставляем только те, которые принадлежат текущему продавцу
-                $addFields: {
-                    products: {
-                        $filter: {
-                            input: '$products',
-                            as: 'product',
-                            cond: {
-                                $in: ['$$product.product', sellerProducts.map(product => product._id)]
-                            }
-                        }
-                    }
-                }
-            },
-            // Добавляем информацию о типе и названии каждого товара
-            {
-                $addFields: {
-                    products: {
-                        $map: {
-                            input: '$products',
-                            as: 'product',
-                            in: {
-                                $mergeObjects: [
-                                    '$$product',
-                                    {
-                                        product: {
-                                            $arrayElemAt: [
-                                                { $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } },
-                                                0
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                }
-            },
-            // Фильтруем товары в заказе, оставляем только товары текущего продавца, и вычисляем сумму для каждого заказа
-            {
-                $addFields: {
-                    totalAmount: {
-                        $reduce: {
-                            input: '$products',
-                            initialValue: 0,
-                            in: {
-                                $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }]
-                            }
-                        }
-                    }
-                }
-            },
-            // Оставляем только необходимые поля для вывода
-            {
-                $project: {
-                    guestInfo: 1,
-                    cart: 1,
-                    products: 1,
-                    totalAmount: 1,
-                    status: 1,
-                    date: 1,
-                    address: 1,
-                    phoneNumber: 1,
-                    paymentMethod: 1,
-                    comments: 1,
-                    user: { name: 1, email: 1 }
-                }
-            }
+            { $match: { 'products.product': { $in: sellerProducts.map(product => product._id) } } },
+            { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+            { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
+            { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
+            { $addFields: { products: { $filter: { input: '$products', as: 'product', cond: { $in: ['$$product.product', sellerProducts.map(product => product._id)] } } } } },
+            { $addFields: { products: { $map: { input: '$products', as: 'product', in: { $mergeObjects: ['$$product', { product: { $arrayElemAt: [{ $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } }, 0] } }] } } } } },
+            { $addFields: { totalAmount: { $reduce: { input: '$products', initialValue: 0, in: { $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }] } } } } },
+            { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 } } },
+            { $sort: { date: -1 } }, // Сортировка по убыванию даты
+            { $skip: (page - 1) * perPage },
+            { $limit: parseInt(perPage, 10) }
         ]);
 
-        // Отправляем список заказов в формате JSON
-        res.json(orders);
+        const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.map(product => product._id) } });
+        res.json({ orders, totalOrders, page: parseInt(page, 15), perPage: parseInt(perPage, 15) });
     } catch (error) {
-        // Если произошла ошибка, отправляем статус ошибки 500 и сообщение об ошибке
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 

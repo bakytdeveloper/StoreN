@@ -2,6 +2,8 @@
 
 import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
+import './SalesHistory.css';
+
 
 
 // const SalesHistory = () => {
@@ -51,25 +53,32 @@ import { useHistory } from 'react-router-dom';
 //                 <tr>
 //                     <th>Дата</th>
 //                     <th>Статус</th>
-//                     <th>Товары</th>
+//                     <th>Тип товара</th>
+//                     <th>Название товара</th>
+//                     <th>Цвет товара</th>
+//                     <th>Размер</th>
+//                     <th>Цена товара</th>
 //                     <th>Сумма</th>
 //                 </tr>
 //                 </thead>
 //                 <tbody>
 //                 {orders.slice().reverse().map((order) => (
-//                     <tr key={order._id}>
-//                         <td>{formatDate(order.date)}</td>
-//                         <td>{order.status}</td>
-//                         <td>
-//                             {order.products.map((item, index) => (
-//                                 <span key={item.product._id}>
-//                                     {item.product.type} {item.product.name}: {item.quantity}шт * {item.product.price} ; <br />
-//                                 </span>
-//                             ))}
-//
-//                         </td>
-//                         <td>{order.totalAmount}</td>
-//                     </tr>
+//                     order.products.map((item, index) => (
+//                         <tr key={`${order._id}-${item.product._id}`}>
+//                             {index === 0 && (
+//                                 <>
+//                                     <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
+//                                     <td rowSpan={order.products.length}>{order.status}</td>
+//                                 </>
+//                             )}
+//                             <td>{item.product.type}</td>
+//                             <td>{item.product.name}</td>
+//                             <td>{item.color}</td>
+//                             <td>{item.size}</td>
+//                             <td>{item.product.price}</td>
+//                             {index === 0 && <td rowSpan={order.products.length}>{order.totalAmount}</td>}
+//                         </tr>
+//                     ))
 //                 ))}
 //                 </tbody>
 //             </table>
@@ -81,15 +90,124 @@ import { useHistory } from 'react-router-dom';
 
 
 
+// const SalesHistory = () => {
+//     const [orders, setOrders] = useState([]);
+//     const [page, setPage] = useState(1);
+//     const [perPage] = useState(15); // Количество заказов на странице
+//     const [totalOrders, setTotalOrders] = useState(0);
+//     const history = useHistory();
+//
+//     useEffect(() => {
+//         const fetchSalesHistory = async (page) => {
+//             try {
+//                 const token = localStorage.getItem('token');
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/sales-history?page=${page}&perPage=${perPage}`, {
+//                     method: 'GET',
+//                     headers: {
+//                         'Authorization': `Bearer ${token}`,
+//                     },
+//                 });
+//                 if (response.ok) {
+//                     const data = await response.json();
+//                     setOrders(data.orders);
+//                     setTotalOrders(data.totalOrders);
+//                 } else {
+//                     console.error('Error fetching sales history:', response.statusText);
+//                 }
+//             } catch (error) {
+//                 console.error('Error fetching sales history:', error);
+//             }
+//         };
+//
+//         fetchSalesHistory(page);
+//     }, [page, perPage]);
+//
+//     const formatDate = (date) => new Date(date).toLocaleDateString();
+//
+//     const handleGoBack = () => history.goBack();
+//
+//     const handleNextPage = () => {
+//         if ((page - 1) * perPage + orders.length < totalOrders) {
+//             setPage(page + 1);
+//         }
+//     };
+//
+//     const handlePrevPage = () => {
+//         if (page > 1) {
+//             setPage(page - 1);
+//         }
+//     };
+//
+//     return (
+//         <div className="order">
+//             <h2>История продаж</h2>
+//             <span className="sellersListClose" type="button" onClick={handleGoBack}>
+//                <span> &#10006;</span>
+//             </span>
+//             <table>
+//                 <thead>
+//                 <tr>
+//                     <th>Дата</th>
+//                     <th>Статус</th>
+//                     <th>Тип товара</th>
+//                     <th>Название товара</th>
+//                     <th>Цвет товара</th>
+//                     <th>Размер</th>
+//                     <th>Цена товара</th>
+//                     <th>Сумма</th>
+//                 </tr>
+//                 </thead>
+//                 <tbody>
+//                 {orders.map((order) => (
+//                     order.products.map((item, index) => (
+//                         <tr key={`${order._id}-${item.product._id}`}>
+//                             {index === 0 && (
+//                                 <>
+//                                     <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
+//                                     <td rowSpan={order.products.length}>{order.status}</td>
+//                                 </>
+//                             )}
+//                             <td>{item.product.type}</td>
+//                             <td>{item.product.name}</td>
+//                             <td>{item.color}</td>
+//                             <td>{item.size}</td>
+//                             <td>{item.product.price}</td>
+//                             {index === 0 && <td rowSpan={order.products.length}>{order.totalAmount}</td>}
+//                         </tr>
+//                     ))
+//                 ))}
+//                 </tbody>
+//             </table>
+//             <div className="sales-history-pagination">
+//                 <button className="sales-history-pagination-prev" onClick={handlePrevPage} disabled={page === 1}>Предыдущая</button>
+//                 <span>Страница {page}</span>
+//                 <button  className="sales-history-pagination-next" onClick={handleNextPage} disabled={(page - 1) * perPage + orders.length >= totalOrders}>Следующая</button>
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default SalesHistory;
+
+
+
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faArrowRight, faBan } from '@fortawesome/free-solid-svg-icons';
+
 const SalesHistory = () => {
     const [orders, setOrders] = useState([]);
+    const [page, setPage] = useState(1);
+    const [perPage] = useState(5); // Количество заказов на странице
+    const [totalOrders, setTotalOrders] = useState(0);
     const history = useHistory();
 
     useEffect(() => {
-        const fetchSalesHistory = async () => {
+        const fetchSalesHistory = async (page) => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/sales-history`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/sales-history?page=${page}&perPage=${perPage}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -97,7 +215,8 @@ const SalesHistory = () => {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setOrders(data);
+                    setOrders(data.orders);
+                    setTotalOrders(data.totalOrders);
                 } else {
                     console.error('Error fetching sales history:', response.statusText);
                 }
@@ -106,16 +225,27 @@ const SalesHistory = () => {
             }
         };
 
-        fetchSalesHistory();
-    }, []);
+        fetchSalesHistory(page);
+    }, [page, perPage]);
 
-    const formatDate = (date) => {
-        return new Date(date).toLocaleDateString();
+    const formatDate = (date) => new Date(date).toLocaleDateString();
+
+    const handleGoBack = () => history.goBack();
+
+    const handleNextPage = () => {
+        if ((page - 1) * perPage + orders.length < totalOrders) {
+            setPage(page + 1);
+        }
     };
 
-    const handleGoBack = () => {
-        history.goBack();
+    const handlePrevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
     };
+
+    const isPrevDisabled = page === 1;
+    const isNextDisabled = (page - 1) * perPage + orders.length >= totalOrders;
 
     return (
         <div className="order">
@@ -137,7 +267,7 @@ const SalesHistory = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {orders.slice().reverse().map((order) => (
+                {orders.map((order) => (
                     order.products.map((item, index) => (
                         <tr key={`${order._id}-${item.product._id}`}>
                             {index === 0 && (
@@ -157,6 +287,15 @@ const SalesHistory = () => {
                 ))}
                 </tbody>
             </table>
+            <div  className="sales-history-pagination">
+                <button className="sales-history-pagination-prev" onClick={handlePrevPage} disabled={isPrevDisabled}>
+                    {isPrevDisabled ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faArrowLeft} />}
+                </button>
+                <span>Страница {page}</span>
+                <button className="sales-history-pagination-next" onClick={handleNextPage} disabled={isNextDisabled}>
+                    {isNextDisabled ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faArrowRight} />}
+                </button>
+            </div>
         </div>
     );
 };
