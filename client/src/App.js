@@ -16,7 +16,7 @@ import ClientListPage from './components/AdminPanel/ClientListPage'; // Доба
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as PropTypes from "prop-types";
-import SellerRegistrationForm from "./components/Header/SellerRegistrationForm";
+import SellerRegistrationForm from "./components/Header/SellerRegistrationForm/SellerRegistrationForm";
 import SellerListPage from "./components/AdminPanel/SellerListPage";
 import SellerProfile from "./components/SellerProfile/SellerProfile";
 import SellerProductsPage from "./components/SellerProductsPage/SellerProductsPage";

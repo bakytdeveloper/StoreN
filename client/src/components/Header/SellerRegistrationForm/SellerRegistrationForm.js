@@ -3,9 +3,11 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import './Header.css';
+import '../Header.css';
 import { toast } from 'react-toastify'; // Импортируем библиотеку react-toastify
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+import './SellerRegistrationForm.css';
 
 const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -66,11 +68,11 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
 
     return (
         <div className="seller-registration">
-            <h2>Станьте продавцом</h2>
-            <p className="SellerRegistrationClose" type="button" onClick={handleClose}>
+            <h2 className="seller-registration-title" >Станьте продавцом</h2>
+            <div className="seller-registration-close" type="button" onClick={handleClose}>
                 &#10006;
-            </p>
-            <form className="sellerAddForm" onSubmit={handleSubmit}>
+            </div>
+            <form className="seller-add-form" onSubmit={handleSubmit}>
                 <input type="text" name="companyName" placeholder="Название компании" value={formData.companyName} onChange={handleChange} required />
                 <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} required />
                 <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
@@ -93,7 +95,7 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
                 <input type="tel" name="phone" placeholder="Телефон" value={formData.phone} onChange={handleChange} required />
                 <input type="text" name="address" placeholder="Адрес" value={formData.address} onChange={handleChange} required />
                 <textarea name="companyDescription" placeholder="Описание компании" value={formData.companyDescription} onChange={handleChange} required />
-                <button className="sellerForm" type="submit">Отправить</button>
+                <button className="seller-form-button" type="submit">Отправить</button>
             </form>
         </div>
     );
