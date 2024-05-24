@@ -7,13 +7,19 @@
 
 
 .order {
-    margin-top: 70px;
+    margin-top: 80px;
     padding: 20px;
 }
 
 h2 {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
+}
+
+.sellers-list-close {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 95%;
 }
 
 table {
@@ -46,10 +52,12 @@ tbody td p {
 }
 
 .sales-history-pagination {
-    margin-top: 10px;
-    /*background: #5d5c5c;*/
-text-align: center;
-    margin-bottom: 55px;
+    position: fixed;
+    bottom: 20px; /* Располагаем кнопки внизу страницы с отступом 20px */
+    left: 50%; /* Располагаем по центру горизонтально */
+    transform: translateX(-50%); /* Центрируем кнопки относительно родительского элемента */
+    text-align: center;
+    /* Остальные стили */
 }
 
 

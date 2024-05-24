@@ -175,9 +175,11 @@ label {
 
 .pagination-buttons-users-profile {
 
-    margin-top: 30px;
+    position: fixed;
+    bottom: 20px; /* Располагаем кнопки внизу страницы с отступом 20px */
+    left: 50%; /* Располагаем по центру горизонтально */
+    transform: translateX(-50%); /* Центрируем кнопки относительно родительского элемента */
     text-align: center;
-    margin-bottom: 22px;
 }
 
 

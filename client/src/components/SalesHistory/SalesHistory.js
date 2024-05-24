@@ -250,7 +250,7 @@ const SalesHistory = () => {
     return (
         <div className="order">
             <h2>История продаж</h2>
-            <span className="sellersListClose" type="button" onClick={handleGoBack}>
+            <span className="sellers-list-close" type="button" onClick={handleGoBack}>
                <span> &#10006;</span>
             </span>
             <table>
