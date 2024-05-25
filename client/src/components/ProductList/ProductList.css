@@ -14,7 +14,7 @@
 
 .product-card {
     border: 1px solid #eeecec;
-    border-radius: 3px;
+    border-radius: 9px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;

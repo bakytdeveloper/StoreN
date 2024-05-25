@@ -192,11 +192,11 @@ const Home = ({ setShowSidebar }) => {
                     <span>Аксессуары</span>
                     <img className="info-block-img" src={accessories} alt="Аксессуары" />
                 </div>
-                <div className="info-block info-all" onClick={() => handleImageClick('Бытовая эл.техника')}>
+                <div className="info-block info-all one-all" onClick={() => handleImageClick('Бытовая эл.техника')}>
                     <span>Бытовая эл.техника</span>
                     <img className="info-block-img info-all-img" src={allElectricalGoods} alt="Бытовая эл.техника" />
                 </div>
-                <div className="info-block info-all" onClick={catalogPage}>
+                <div className="info-block info-all two-all" onClick={catalogPage}>
                     <span>Товары для всех</span>
                     <img style={{ objectFit: "cover" }} className="info-block-img" src={catalog_page} alt="Аксессуары" />
                 </div>
