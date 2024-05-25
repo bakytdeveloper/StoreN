@@ -194,16 +194,24 @@
     .header {
         flex-direction: column;
         align-items: flex-start;
+        height: auto;
+        z-index: 111111;
+        position: fixed;
     }
 
     .header-left, .header-right {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        font-size: 15px;
+        margin-top: 0!important;
     }
+
+
 
     .header-right {
         margin-top: 10px;
+
     }
 
     .nav-links {

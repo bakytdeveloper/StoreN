@@ -327,6 +327,16 @@
     .product-list {
         grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4 - 20px), 1fr)) !important; /* Изменено */
     }
+
+}
+
+
+@media only screen and (max-width: 960px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)) !important; /* Изменено */
+        /*margin: 170px 4px 90px 1px !important;*/
+        padding-bottom: 0 !important;
+    }
 }
 
 @media only screen and (max-width: 900px) {
