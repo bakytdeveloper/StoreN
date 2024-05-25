@@ -12,6 +12,17 @@
 
 /*}*/
 
+.product-list {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; /* Изменено */
+    gap: 20px;
+    padding: 20px;
+    margin-top: 151px !important;
+    margin-left: 230px;
+    margin-bottom: 90px !important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
+}
+
 .product-card {
     border: 1px solid #eeecec;
     border-radius: 9px;
@@ -228,10 +239,45 @@
 }
 
 
+
+
+
+@media only screen and (width: 280px) {
+    .pagination {
+        margin-left: -18px!important;
+    }
+
+}
+
 @media only screen and (max-width: 768px) {
     .product-list {
-        margin: 170px 4px 90px 1px!important;
-        padding-bottom: 0!important;
+        margin: 170px 1px 90px 1px !important;
+        padding-bottom: 0 !important;
+        gap: 3px!important;
+        padding: 0;
+        flex-wrap: wrap;
+
+
+    }
+
+    .product-card:nth-child(odd) {
+        margin-top: 0;
+        height: 322px;
+    }
+
+    .actions {
+        margin-bottom: 0!important;
+        margin-top: 0;
+    }
+
+    .product-card:nth-child(even) {
+        margin-top: 22px; /* Adjust the value as needed */
+
+    }
+
+    .brand-and-name {
+        flex-direction: column !important;
+        line-height: 11px;
     }
 
 
@@ -276,13 +322,6 @@
 
 }
 
-@media only screen and (width: 280px) {
-    .pagination {
-        margin-left: -18px!important;
-    }
-
-}
-
 @media only screen and (width: 820px) {
     .pagination {
         margin-left: -127px!important;
@@ -306,16 +345,16 @@
 
 
 
-.product-list {
-    display: grid;
-    position: relative;
-    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; /* Изменено */
-    gap: 20px;
-    padding: 20px;
-    margin-top: 151px !important;
-    margin-left: 230px;
-    margin-bottom: 90px !important; /* Добавленный отступ снизу, чтобы не перекрывать pagination */
-}
+/*.product-list {*/
+/*    display: grid;*/
+/*    position: relative;*/
+/*    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; !* Изменено *!*/
+/*    gap: 20px;*/
+/*    padding: 20px;*/
+/*    margin-top: 151px !important;*/
+/*    margin-left: 230px;*/
+/*    margin-bottom: 90px !important; !* Добавленный отступ снизу, чтобы не перекрывать pagination *!*/
+/*}*/
 
 @media only screen and (max-width: 1340px) {
     .product-list {
