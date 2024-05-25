@@ -254,7 +254,7 @@
         margin: 170px 1px 90px 1px !important;
         padding-bottom: 0 !important;
         gap: 3px!important;
-        padding: 0;
+        padding: 5px !important;
         flex-wrap: wrap;
 
 

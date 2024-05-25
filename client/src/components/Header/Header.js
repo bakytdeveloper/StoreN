@@ -69,7 +69,7 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
 
     const handleTitleClick = () => {
         resetFilter();
-        history.push("/catalog");
+        history.push("/");
     };
 
     const homePage = () => {
