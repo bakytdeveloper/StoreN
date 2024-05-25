@@ -196,27 +196,149 @@
 }
 
 
+@media (max-width: 768px) {
 
 
+    .home-container {
+        margin-top: 80px;
+        padding: 10px;
+
+    }
 
 
+    .carousel {
+        width: 100%;
+        /*width: 1920px;*/
+        height: 222px;
+        margin: 0 auto;
+        overflow: hidden; /* Скрываем все, что выходит за пределы карусели */
+        position: relative;
+        background: #f8efe5;
+        border-radius: 20px;
+
+    }
+/*///*/
+
+    .carousel {
+        margin-top: 110px;
+    }
+
+    .text-container {
+        text-align: left;
+        position: absolute;
+        align-items: flex-start;
+        top: 15px;
+        left: 15px;
+    }
 
 
+    .title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 25px;
+        font-weight: 600;
+        line-height: 20px;
+        margin: 0;
+        margin-left: 10px;
+    }
 
 
+    .slide-title {
+        cursor: text;
+        font-size: 15px;
+        margin-left: 0;
+
+    }
+
+    .subtitle {
+        font-family: 'Poppins', sans-serif;
+        font-size: 10px !important;
+        line-height: 16px;
+        margin: 10px 0;
+        text-align: left;
+        font-weight: bold;
+
+    }
+
+    .description {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        width: 44%;
+        font-weight: 275;
+        line-height: 17px;
+        letter-spacing: 0.05em;
+        margin: 0;
+    }
+
+    .slide-image {
+        width: 100px;
+        height: 98%;
+        position: absolute;
+        /*top: 216px;*/
+        top: 6px;
+        left: 67%;
+        object-fit: contain;
+    }
+
+    .slide-button {
+        width: 177px;
+        /*width: 176px;*/
+        height: auto;
+        font-family: Poppins;
+        /*font-size: 194px;*/
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 18px;
+        letter-spacing: 0.1em;
+        /*text-align: left;*/
+        background: rgb(252, 249, 249);
+        text-align: center;
+        color: black;
+        gap: 3px;
+        margin-top: 180px;
+        margin-left: 28px;
+        padding: 5px;
+        border-radius: 13px;
+        cursor: pointer;
+    }
 
 
+    .info-block {
+        display: block;
+        width: 47%;
+        height: 200px;
+        margin: 10px 0;
+        background-color: #f6f6f3;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 12px;
 
+    }
 
-
-
-
-
-
-
-/* Global styles to remove horizontal scrolling */
-body, html {
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*!* Global styles to remove horizontal scrolling *!*/
+/*body, html {*/
+/*    overflow-x: hidden;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/

@@ -168,10 +168,10 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
             </div>
             <div className="mobile-buttons">
                 <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
-                    <Link to="/catalog" className="btn">Каталог товаров</Link>
+                    <Link style={{color:"white"}} to="/catalog" className="btn">Каталог товаров</Link>
                 </div>
                 <div className={`btn2 ${contactButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleContactClick} style={{ backgroundColor: contactButtonColor }}>
-                    <Link to="/contact" className="btn">Связаться с нами</Link>
+                    <Link  style={{color:"white"}} to="/contact" className="btn">Связаться с нами</Link>
                 </div>
             </div>
         </div>

@@ -157,7 +157,7 @@ const Home = ({ setShowSidebar }) => {
                     {slides.map((slide, index) => (
                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
                             <div className="text-container">
-                                <h1 className="title">{slide.title}</h1>
+                                <h1 className="title slide-title">{slide.title}</h1>
                                 <h2 className="subtitle">{slide.subtitle}</h2>
                                 <h3 className="description">{slide.description}</h3>
                             </div>

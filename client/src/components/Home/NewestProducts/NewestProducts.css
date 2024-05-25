@@ -11,6 +11,22 @@
     gap: 20px;
 }
 
-/*.new-cards {*/
-/*    top: 10px!important;*/
-/*}*/
+
+@media (max-width: 768px) {
+
+    .new-product {
+        display: inline-grid;
+        width: 100% !important;
+        margin-left: 0;
+        justify-content: space-between;
+        margin-top: 12px !important;
+        padding: 0;
+
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+.newest-products-title {
+    margin-top: 11px;
+}
+
+}

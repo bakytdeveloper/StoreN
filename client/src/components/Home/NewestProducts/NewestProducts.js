@@ -44,7 +44,7 @@ const NewestProducts = ({ apiUrl }) => {
 
     return (
         <div className="newest-products">
-            <h2>Самые Новые Товары</h2>
+            <h2 className="newest-products-title">Самые Новые Товары</h2>
             <div className="product-list new-product">
                 {newestProducts.map((product) => (
                     <div className="product-card new-cards" key={product._id}>
