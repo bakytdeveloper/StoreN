@@ -348,6 +348,7 @@ h2 {
 
 .emptyCartEls {
     text-align: center;
+
 }
 
 .emptyCart {
@@ -376,6 +377,8 @@ h2 {
         /*margin-top: 100px;*/
         height: 100% !important;
         bottom: 0;
+        left: 0;
+        margin-top: 0;
     }
 
 
