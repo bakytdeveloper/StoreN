@@ -265,6 +265,18 @@ const App = () => {
                     </Route>
 
                 </Switch>
+
+                <Footer
+                    cartItems={cartItems}
+                    showSidebar={showSidebar}
+                    setShowSidebar={setShowSidebar}
+                    selectedOption={selectedOption}
+                    setSelectedOption={setSelectedOption}
+                    resetFilter={resetFilter}
+                    setCurrentPage={setCurrentPage}
+
+                />
+
             </div>
             <ToastContainer />
         </Router>
