@@ -174,15 +174,16 @@
 }
 
 .home-page-footer {
-    display: flex;
+    display: inline-flex;
     width: 100%;
     height: 111px;
     background: #dddddd;
-    text-align: center;
+    /*text-align: center;*/
     align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     left: 0;
    position: absolute;
+    padding: 0;
 }
 
 .contact-info {
@@ -200,9 +201,8 @@
 
 
     .home-container {
-        margin-top: 80px;
+        margin-top: 10px;
         padding: 10px;
-
     }
 
 
@@ -316,6 +316,10 @@
         cursor: pointer;
         border-radius: 12px;
 
+    }
+
+    .home-page-footer {
+        padding: 0 !important;
     }
 
 }

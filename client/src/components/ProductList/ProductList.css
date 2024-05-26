@@ -260,20 +260,20 @@
 
     }
 
-    .product-card:nth-child(odd) {
-        margin-top: 0;
-        height: 322px;
-    }
+    /*.product-card:nth-child(odd) {*/
+    /*    margin-top: 0;*/
+    /*    height: 322px;*/
+    /*}*/
 
-    .actions {
-        margin-bottom: 0!important;
-        margin-top: 0;
-    }
+    /*.actions {*/
+    /*    margin-bottom: 0!important;*/
+    /*    margin-top: 0;*/
+    /*}*/
 
-    .product-card:nth-child(even) {
-        margin-top: 22px; /* Adjust the value as needed */
+    /*.product-card:nth-child(even) {*/
+    /*    margin-top: 22px; !* Adjust the value as needed *!*/
 
-    }
+    /*}*/
 
     .brand-and-name {
         flex-direction: column !important;

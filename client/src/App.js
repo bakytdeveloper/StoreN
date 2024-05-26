@@ -24,6 +24,7 @@ import ProductForm from "./components/AdminPanel/ProductForm";
 import SalesHistory from "./components/SalesHistory/SalesHistory";
 import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
 import Home from "./components/Home/Home";
+import Footer from "./components/Footer/Footer";
 
 
 const App = () => {
@@ -40,6 +41,10 @@ const App = () => {
     const [selectedGender, setSelectedGender] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
+
+
+
+
 
     // Проверяем, есть ли токен в localStorage при загрузке приложения
     useEffect(() => {
@@ -118,6 +123,19 @@ const App = () => {
                     setSelectedCategory={setSelectedCategory}
                     setSelectedType={setSelectedType}
                 />
+
+
+                {/*<Footer*/}
+
+                {/*    cartItems={cartItems}*/}
+                {/*    showSidebar={showSidebar}*/}
+                {/*    setShowSidebar={setShowSidebar}*/}
+                {/*    selectedOption={selectedOption}*/}
+                {/*    setSelectedOption={setSelectedOption}*/}
+                {/*    resetFilter={resetFilter}*/}
+                {/*    setCurrentPage={setCurrentPage}*/}
+                {/*/>*/}
+
                 <Switch>
 
 

@@ -199,6 +199,13 @@
         position: fixed;
     }
 
+    .title {
+        display: flex;
+        font-size: 18px !important;
+        width: 34%;
+    }
+
+
 
 
     .header-left, .header-right {
@@ -215,56 +222,65 @@
         margin-top: 10px;
 
     }
+    .search {
+        display: inline-flex;
+        position: absolute;
+        margin-top: -50px!important;
+        margin-left: 50%;
+    }
 
     .nav-links {
-        flex-direction: column;
+        /*flex-direction: column;*/
+        display: none;
     }
 
-    .nav-link {
-        margin-bottom: 10px;
-    }
+    /*.nav-link {*/
+    /*    margin-bottom: 10px;*/
+    /*}*/
 
-    .auth-buttons, .search, .totalItems {
-        margin-left: 0;
-        margin-top: 10px;
+    .auth-buttons, .totalItems {
+        /*margin-left: 0;*/
+        /*margin-top: 10px;*/
+        display: none;
     }
 
 
 
     .mobile-buttons {
-        display: inline-flex;
+        display: none;
+        /*display: inline-flex;*/
         /*background: #08a7e7;*/
-        width: 100%;
-        font-size: 18px;
-        font-weight: bold;
-        font-family: Poppins;
-        font-weight: 600;
+        /*width: 100%;*/
+        /*font-size: 18px;*/
+        /*font-weight: bold;*/
+        /*font-family: Poppins;*/
+        /*font-weight: 600;*/
 
 
     }
 
-    .phone {
-        font-size: 17px;
-    }
+    /*.phone {*/
+    /*    font-size: 17px;*/
+    /*}*/
 
-    .btn1 {
-        text-align: center;
-        border: 1px solid #aac3f8;
-        width: 50%;
-        padding: 3px 0;
-        background: #023062 !important;
-        color: white!important;
-    }
+    /*.btn1 {*/
+    /*    text-align: center;*/
+    /*    border: 1px solid #aac3f8;*/
+    /*    width: 50%;*/
+    /*    padding: 3px 0;*/
+    /*    background: #023062 !important;*/
+    /*    color: white!important;*/
+    /*}*/
 
 
 
-    .btn2 {
-        text-align: center;
-        border: 1px solid #aac3f8;
-        width: 50%;
-        padding: 3px 0;
-        background: #131111 !important;
-    }
+    /*.btn2 {*/
+    /*    text-align: center;*/
+    /*    border: 1px solid #aac3f8;*/
+    /*    width: 50%;*/
+    /*    padding: 3px 0;*/
+    /*    background: #131111 !important;*/
+    /*}*/
 
 
     .social-icons img {
@@ -273,6 +289,14 @@
         height: 22px;
 
 
+    }
+
+    .contact-info {
+        display: none !important;
+    }
+
+    .workingTime {
+        display: none;
     }
 
 }

@@ -1,0 +1,138 @@
+
+.footer-page {
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+    /*.home-page-footer {*/
+    /*    width: 100% !important;*/
+
+    /*}*/
+    .footer-page {
+        display: inline-flex;
+        width: 100% !important;
+        height: 111px;
+        background-color: #ddd9d9;
+        /*padding: 10px;*/
+        justify-content: space-between;
+        font-family: Oswald;
+        font-weight: 400;
+        /*margin-left: 11px;*/
+        /*padding-right: 70px;*/
+        padding: 10px;
+
+box-sizing: border-box !important;
+    }
+
+    .home-icon {
+        display: block;
+        /*width: 13%;*/
+        align-items: center;
+        text-align: center;
+        margin-top: auto;
+        margin-bottom: auto;
+        column-count: 1;
+        padding: 0;
+
+    }
+    .home-icon-img {
+        width: 25px;
+        height: 25px;
+        align-items: center;
+
+
+    }
+
+    .home-icon-link {
+
+    }
+
+    .catalog-icon {
+        display: block;
+        /*width: 13%;*/
+        align-items: center;
+        text-align: center;
+        /*margin-left: 40px;*/
+        margin-top: auto;
+        margin-bottom: auto;
+        padding: 0;
+
+    }
+
+    .catalog-icon-img {
+        width: 25px;
+        height: 25px;
+        align-items: center;
+
+    }
+
+
+
+    .profile-icon {
+        display: block;
+        /*width: 13%;*/
+        align-items: center;
+        text-align: center;
+        /*margin-left: 40px;*/
+        margin-top: auto;
+        margin-bottom: auto;
+        padding: 0;
+
+    }
+
+    .profile-icon-img {
+        width: 25px;
+        height: 25px;
+        align-items: center;
+
+    }
+
+
+
+
+    .cart-icon {
+        display: block;
+        /*width: 13%;*/
+        align-items: center;
+        text-align: center;
+        /*margin-left: 40px;*/
+        margin-top: auto;
+        margin-bottom: auto;
+        font-weight: 400;
+        padding: 0;
+
+    }
+
+    .cart-icon-img {
+        width: 25px;
+        height: 25px;
+        align-items: center;
+
+    }
+
+
+
+
+    .contact-icon {
+        display: block;
+        /*width: 13%;*/
+        align-items: center;
+        text-align: center;
+        /*margin-left: 40px;*/
+        margin-top: auto;
+        margin-bottom: auto;
+
+        font-weight: 400;
+        padding: 0;
+
+    }
+
+    .contact-icon-img {
+        width: 25px;
+        height: 25px;
+        align-items: center;
+
+    }
+
+}

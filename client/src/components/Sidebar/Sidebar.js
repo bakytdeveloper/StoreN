@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
-// import { FaPhone } from 'react-icons/fa';
+import { FaPhone } from 'react-icons/fa';
 import { SlArrowRight } from "react-icons/sl";
 import { SlArrowLeft } from "react-icons/sl";
 import {useHistory} from "react-router-dom";

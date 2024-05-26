@@ -119,6 +119,7 @@ import './Home.css';
 
 
 import NewestProducts from './NewestProducts/NewestProducts';
+import Footer from "../Footer/Footer";
 
 
 const Home = ({ setShowSidebar }) => {
@@ -204,6 +205,7 @@ const Home = ({ setShowSidebar }) => {
             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
             <div className="home-page-footer">
                 <ContactInfo />
+                <Footer />
             </div>
         </div>
     );
