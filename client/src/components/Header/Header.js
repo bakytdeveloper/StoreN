@@ -6,7 +6,7 @@ import './Header.css';
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import SellerRegistrationForm from "./SellerRegistrationForm/SellerRegistrationForm";
 import './SellerRegistrationForm/SellerRegistrationForm.css'
-
+import menuIcon from './menu-icon.png';
 import './Header.css';
 
 
@@ -127,6 +127,10 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         setShowSidebar(false);
     };
 
+    const handleSidebarToggle = () => {
+        setShowSidebar(!showSidebar);
+    };
+
     const totalItemsCount = cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
 
     return (
@@ -164,6 +168,12 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 </Link>
                 <div className="search">
                     <input type="text" placeholder="Поиск...&#128269;" value={searchTerm} onChange={handleSearchChange} />
+                    <Link to="/catalog">
+                        {/*<img className="header-menu-icon" src={menuIcon} />*/}
+                        <img className="header-menu-icon" src={menuIcon} onClick={handleSidebarToggle} alt="Menu Icon" />
+
+                    </Link>
+
                 </div>
             </div>
             <div className="mobile-buttons">

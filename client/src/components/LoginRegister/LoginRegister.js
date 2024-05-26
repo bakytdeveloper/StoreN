@@ -378,7 +378,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     }, [setShowSidebar]);
 
     const handleClose = () => {
-        history.push('/home');
+        history.push('/');
     };
 
     return (

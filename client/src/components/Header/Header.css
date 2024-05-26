@@ -181,10 +181,9 @@
 }
 
 
-
-/*.seller-registration {*/
-/*    margin-top: 170px;*/
-/*}*/
+.header-menu-icon {
+    display: none;
+}
 
 
 
@@ -205,6 +204,15 @@
         width: 34%;
     }
 
+    .header-menu-icon {
+        display: inline-flex;
+        width: 30px;
+        height: auto;
+        margin-top: 0;
+        margin-bottom: 10px;
+        margin-left: 7px;
+        margin-right: 8px;
+    }
 
 
 
@@ -226,7 +234,7 @@
         display: inline-flex;
         position: absolute;
         margin-top: -50px!important;
-        margin-left: 50%;
+        margin-left: 47%;
     }
 
     .nav-links {

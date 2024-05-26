@@ -143,7 +143,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                    <div className="catalog-icon">
                        <img className="catalog-icon-img" src={catalogPageIcon} />
                         <div>
-                            <Link className="catalog-icon-link" to="/catalog" >Каталог</Link>
+                            <Link className="catalog-icon-link catalog-header" to="/catalog" >Каталог</Link>
 
                         </div>
                        {/*<Link to="/catalog" className={`footer-nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>*/}
