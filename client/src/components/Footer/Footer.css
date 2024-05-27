@@ -160,12 +160,17 @@ box-sizing: border-box !important;
         border-radius: 4px;
         margin-top: -150px;
         margin-right: 29px!important;
+        width: 200px;
 
+    }
+    .footer-dropdown-menu-close {
+        margin-left: 80%;
+        font-size: 22px;
     }
 
     .footer-dropdown-menu button {
         display: block;
-        width: 100%;
+        width: 80%;
         padding: 8px;
         margin-bottom: 4px;
         text-align: left;

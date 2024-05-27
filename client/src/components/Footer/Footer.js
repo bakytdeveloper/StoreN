@@ -443,6 +443,10 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         setShowSidebar(false);
     };
 
+    const closeDropoutLogin = () => {
+        history.goBack();
+    }
+
     const totalItemsCount = cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
 
     return (
@@ -470,6 +474,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     )}
                     {isProfileOpen && (
                         <div className="footer-dropdown-menu">
+                            <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
                             <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
