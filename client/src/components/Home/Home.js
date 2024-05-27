@@ -13,7 +13,7 @@ import accessories from './imgHome/accessories.png';
 import allElectricalGoods from './imgHome/allElectricalGoods.png';
 import catalog_page from './imgHome/catalog-page.jpg';
 import {useHistory} from "react-router-dom";
-import ContactInfo from "../Header/ContactInfo";
+import ContactInfo from "../ContactInfo/ContactInfo";
 
 import './Home.css';
 

@@ -25,6 +25,7 @@ import SalesHistory from "./components/SalesHistory/SalesHistory";
 import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
+import ContactInfo from "./components/ContactInfo/ContactInfo";
 
 
 const App = () => {
@@ -265,6 +266,8 @@ const App = () => {
                     </Route>
 
                 </Switch>
+
+                <ContactInfo />
 
                 <Footer
                     cartItems={cartItems}

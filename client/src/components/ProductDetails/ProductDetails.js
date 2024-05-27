@@ -6,7 +6,7 @@ import RelatedSellerProducts from "./RelatedSellerProducts";
 import RelatedProducts from "./RelatedProducts";
 import RelatedAccessories from "./RelatedAccessories";
 import ProductTabs from "./ProductTabs/ProductTabs";
-import ContactInfo from "../Header/ContactInfo";
+import ContactInfo from "../ContactInfo/ContactInfo";
 
 
 

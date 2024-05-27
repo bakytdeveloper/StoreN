@@ -1,9 +1,10 @@
 // src/components/Header/ContactInfo.js
 import React from 'react';
-import ins from "./instagram1.png";
-import tel from "./telegram1.png";
-import what from "./whatsapp1.png";
-import tik from "./tik-tok1.png";
+import ins from "../Header/instagram1.png";
+import tel from "../Header/telegram1.png";
+import what from "../Header/whatsapp1.png";
+import tik from "../Header/tik-tok1.png";
+import './ContactInfo.css';
 
 const ContactInfo = () => {
     return (
