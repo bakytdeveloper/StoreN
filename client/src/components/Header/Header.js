@@ -169,7 +169,7 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 <div className="search">
                     <input type="text" placeholder="Поиск...&#128269;" value={searchTerm} onChange={handleSearchChange} />
                     <Link to="/catalog">
-                        {/*<img className="header-menu-icon" src={menuIcon} />*/}
+
                         <img className="header-menu-icon" src={menuIcon} onClick={handleSidebarToggle} alt="Menu Icon" />
 
                     </Link>

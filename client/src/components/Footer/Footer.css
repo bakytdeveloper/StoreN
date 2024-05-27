@@ -20,13 +20,11 @@
         position: fixed;
         width: 100% !important;
         height: 90px;
-        background-color: #ddd9d9;
+        background-color: #eeebeb;
         /*padding: 10px;*/
         justify-content: space-between;
         font-family: Oswald;
         font-weight: 400;
-        /*margin-left: 11px;*/
-        /*padding-right: 70px;*/
         padding: 10px;
 
 box-sizing: border-box !important;
@@ -43,11 +41,13 @@ box-sizing: border-box !important;
         column-count: 1;
         padding: 0;
 
+
     }
     .home-icon-img {
         width: 25px;
         height: 25px;
         align-items: center;
+
 
 
     }
