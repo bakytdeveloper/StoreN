@@ -420,7 +420,7 @@ strong {
 @media (max-width: 768px) {
     .add-to-cart-fixed {
         position: fixed;
-        bottom: 60px; /* выше футера */
+        bottom: 80px; /* выше футера */
         left: 50%;
         transform: translateX(-50%);
         width: 80%;
