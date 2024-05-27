@@ -1,5 +1,5 @@
 import React from 'react';
-import tik from './../Header/tik-tok.png';
+import tik from './../Header/tik-tok1.png';
 import what from './../Header/whatsapp1.png';
 import ins from './../Header/instagram1.png';
 import tel from './../Header/telegram1.png';
