@@ -417,6 +417,24 @@ strong {
 }
 
 
+@media (max-width: 768px) {
+    .add-to-cart-fixed {
+        position: fixed;
+        bottom: 60px; /* выше футера */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        z-index: 1000;
+        padding: 10px;
+        background-color: #ffcc00;
+        border: none;
+        border-radius: 4px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+}
+
+
 
 
 .products-lists {
