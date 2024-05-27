@@ -1,10 +1,16 @@
 
 /* src/components/AdminPanel/AdminPanel.css */
 .admin-panel {
-    margin-top: 155px;
+    margin-top: 55px;
     padding: 20px 10%;
     width: 90%;
     margin-bottom: 120px;
+}
+
+.admin-panel-button-close {
+    display: inline-flex;
+    margin-left: 94%;
+    margin-bottom: 11px!important;
 }
 
 h2 {
@@ -146,7 +152,7 @@ h2 {
 @media screen and (max-width: 768px) {
 .admin-panel {
     width: 100%;
-    margin-top: 202px;
+    margin-top: 82px;
 }
 
 }

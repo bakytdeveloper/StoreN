@@ -378,14 +378,14 @@ h2 {
         height: 100% !important;
         bottom: 0;
         left: 0;
-        margin-top: 0;
+        margin-top: -222px;
     }
 
 
     .cart {
         width: 99% !important;
         margin: 0 auto;
-        margin-top: 160px!important;
+        margin-top: 100px!important;
         flex-direction: column;
         padding-top: 30px;
         padding-bottom: 155px;
@@ -464,10 +464,10 @@ h2 {
 
     .buy_next {
         margin-top: 20px;
-        background-color: #049238 !important;
+        background-color: #02a6f1 !important;
         margin-left: -5px;
         font-weight: bold;
-        font-size: 19px;
+        font-size: 15px;
         padding: 3px 6px!important;
         width: 35% !important;
         text-align: center!important;

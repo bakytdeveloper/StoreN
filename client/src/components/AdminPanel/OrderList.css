@@ -7,7 +7,7 @@
 
 
 .order {
-    margin-top: 80px;
+    margin-top: 80px!important;
     padding: 20px;
 }
 
@@ -15,6 +15,7 @@ h2 {
     font-size: 24px;
     margin-bottom: 20px;
 }
+
 
 table {
     width: 100%;
@@ -58,7 +59,6 @@ tbody td p {
     margin-right: 11px;
 }
 
-
 /* Add more styles as needed */
 
 @media only screen and (max-width: 768px) {
@@ -66,6 +66,12 @@ tbody td p {
     .order {
         margin-top: 260px;
         padding: 2px 10px;
+    }
+
+
+    .order-sellers-list {
+        /*border: none !important;*/
+        background: red !important;
     }
 
 }

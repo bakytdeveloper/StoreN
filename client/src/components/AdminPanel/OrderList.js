@@ -324,8 +324,12 @@ const OrderList = ({ setShowSidebar }) => {
     return (
         <div className="order">
             <h2>Список заказов</h2>
-            <span className="sellersListClose" type="button" onClick={handleClose}>
+            <span
+                className="sellersListClose order-sellers-list"
+                type="button" onClick={handleClose}>
+
                <span> &#10006;</span>
+
             </span>
             <table>
                 <thead>

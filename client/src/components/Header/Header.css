@@ -156,6 +156,9 @@
 .desktop-contact-info .contact-info{
     display: inline-flex;
     /*background: #a49f9f;*/
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .social-icons {

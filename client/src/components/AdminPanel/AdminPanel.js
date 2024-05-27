@@ -161,7 +161,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductForm from './ProductForm';
 import './AdminPanel.css';
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const AdminPanel = ({ setShowSidebar }) => {
     const [products, setProducts] = useState([]);
@@ -306,6 +306,7 @@ const AdminPanel = ({ setShowSidebar }) => {
     return (
         <div className="admin-panel">
             <h2>Админ панель</h2>
+            <Link className="admin-panel-button-close" to="/" > &#10006;</Link>
             <div className="customerOrders">
                 <button className="customerOrdersBtnOne" onClick={handleViewOrders}>Список заказов</button>
                 <button className="customerOrdersBtnTwo" onClick={handleViewClients}>Список клиентов</button>
