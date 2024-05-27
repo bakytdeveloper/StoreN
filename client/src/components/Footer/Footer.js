@@ -461,11 +461,12 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 </div>
             </div>
 
-            <div className="profile-icon">
+            <div className="profile-icon"  onClick={handleProfileClick}>
                 <img className="profile-icon-img" src={profileIcon} />
                 <div className="footer-profileIcon" ref={profileRef}>
                     {!isProfileOpen && (
-                        <span className="profile-icon-link" onClick={handleProfileClick}>Войти</span>
+                        <span className="profile-icon-link" >Войти</span>
+                        // <span className="profile-icon-link" onClick={handleProfileClick}>Войти</span>
                     )}
                     {isProfileOpen && (
                         <div className="footer-dropdown-menu">
@@ -480,20 +481,22 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 )}
             </div>
 
-            <div className="cart-icon">
+            <div className="cart-icon"  onClick={handleCartClick}>
                 <img className="cart-icon-img" src={cartIcon}/>
                 <span>({totalItemsCount})</span>
                 <div>
-                    <Link to="/cart" className="footer-auth-button btn" onClick={handleCartClick}>
+                    <Link to="/cart" className="footer-auth-button btn" >
+                    {/*<Link to="/cart" className="footer-auth-button btn" onClick={handleCartClick}>*/}
                         <span className="footer-totalItems">Корзина</span>
                     </Link>
                 </div>
             </div>
 
-            <div className="contact-icon">
+            <div className="contact-icon" onClick={handleContactClick}>
                 <img className="contact-icon-img" src={contactIcon}/>
                 <div>
-                    <span className="footer-btn" onClick={handleContactClick}>Контакты</span>
+                    <span className="footer-btn">Контакты</span>
+                    {/*<span className="footer-btn" onClick={handleContactClick}>Контакты</span>*/}
                 </div>
             </div>
 

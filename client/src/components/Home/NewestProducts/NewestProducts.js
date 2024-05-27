@@ -294,8 +294,14 @@ const NewestProducts = ({ apiUrl }) => {
                             />
                             <div className="details">
                                 <div className="type">{product.type}</div>
-                                <div className="brand">{product.brand}</div>
-                                <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>
+
+                                <div className="brand-and-name">
+                                    <div className="brand">{product.brand}</div>
+                                    <div className="name">{product.name.length > 5 ? product.name.substring(0, 5) + '...' : product.name}</div>
+                                </div>
+
+                                {/*<div className="brand">{product.brand}</div>*/}
+                                {/*<div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>*/}
                                 <div className="price">KGS {product.price}</div>
                             </div>
                         </Link>

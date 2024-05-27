@@ -11,6 +11,13 @@
     gap: 20px;
 }
 
+.brand-and-name {
+    display: inline;
+    /*flex-direction: fl !important;*/
+    line-height: 11px;
+
+
+}
 
 @media (max-width: 768px) {
 
@@ -28,5 +35,6 @@
 .newest-products-title {
     margin-top: 11px;
 }
+
 
 }
