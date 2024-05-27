@@ -17,8 +17,9 @@
     /*}*/
     .footer-page {
         display: inline-flex;
+        position: fixed;
         width: 100% !important;
-        height: 111px;
+        height: 90px;
         background-color: #ddd9d9;
         /*padding: 10px;*/
         justify-content: space-between;
@@ -29,6 +30,7 @@
         padding: 10px;
 
 box-sizing: border-box !important;
+        bottom: 0;
     }
 
     .home-icon {

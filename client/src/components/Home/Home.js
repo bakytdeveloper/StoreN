@@ -205,7 +205,7 @@ const Home = ({ setShowSidebar }) => {
             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
             <div className="home-page-footer">
                 <ContactInfo />
-                <Footer />
+                {/*<Footer />*/}
             </div>
         </div>
     );

@@ -386,6 +386,7 @@
         grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)) !important; /* Изменено */
         /*margin: 170px 4px 90px 1px !important;*/
         padding-bottom: 0 !important;
+        margin-bottom: 160px!important;
     }
 }
 
