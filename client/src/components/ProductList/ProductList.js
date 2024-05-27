@@ -629,11 +629,17 @@ const ProductList = ({
         };
     }, [resizeTimer]);
 
+    // 960(3), 1340(6), 1200(4), 480(2)
+
     useEffect(() => {
-        if (windowWidth >= 1200) {
+        if (windowWidth >= 1340) {
+            setProductsPerPage(18);
+        } else if (windowWidth >= 1200) {
             setProductsPerPage(15);
-        } else if (windowWidth < 450) {
-            setProductsPerPage(10);
+        } else if (windowWidth < 960) {
+            setProductsPerPage(12);
+        } else if (windowWidth <= 900) {
+            setProductsPerPage(8);
         } else {
             setProductsPerPage(12);
         }
@@ -726,7 +732,7 @@ const ProductList = ({
                                 <div className="type">{product.type}</div>
                                 <div className="brand-and-name">
                                     <div className="brand">{product.brand}</div>
-                                    <div className="name">{product.name.length > 7 ? product.name.substring(0, 7) + '...' : product.name}</div>
+                                    <div className="name">{product.name.length > 5 ? product.name.substring(0, 5) + '...' : product.name}</div>
                                 </div>
                                 <div className="price">KGS {product.price}</div>
                             </div>

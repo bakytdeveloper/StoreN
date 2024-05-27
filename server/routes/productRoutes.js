@@ -428,15 +428,29 @@ router.get('/products', async (req, res) => {
 
 
 
+// // Получение списка самых новых продуктов
+// router.get('/newest', async (req, res) => {
+//     try {
+//         const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(18);
+//         res.json(newestProducts);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 // Получение списка самых новых продуктов
 router.get('/newest', async (req, res) => {
     try {
-        const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(20);
+        const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
+        const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(limit);
         res.json(newestProducts);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 // Получение информации о конкретном продукте по ID
 router.get('/:id', async (req, res) => {
