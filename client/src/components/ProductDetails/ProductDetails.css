@@ -791,7 +791,8 @@ strong {
         display: inline;
         width: 100%;
         font-family: Poppins !important;
-        font-weight: bold !important;
+        font-weight: 400 !important;
+        font-size: 17px!important;
 
     }
 
@@ -806,9 +807,9 @@ strong {
     }
 
     .main-image {
-        width: 90%;
-        height: 275px;
-        margin-left: -25% !important;
+        width: 100%;
+        height: 230px;
+        margin-left: -40% !important;
         /*margin-right: 222px!important;*/
         /*justify-content: flex-start;*/
         /*margin-left: -111px;*/
