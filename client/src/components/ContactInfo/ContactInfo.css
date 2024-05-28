@@ -1,10 +1,14 @@
 
 .contact-info {
+    display: flex;
+    /*position: absolute;*/
     width: 100%;
     text-align: center;
     align-items: center;
     justify-content: center;
     padding: 25px 0;
     background: #dddddd;
+    margin-bottom: 0!important;
+    bottom: 0!important;
     z-index: 11111;
 }

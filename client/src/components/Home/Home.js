@@ -203,10 +203,10 @@ const Home = ({ setShowSidebar }) => {
                 </div>
             </div>
             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
-            <div className="home-page-footer">
-                <ContactInfo />
-                {/*<Footer />*/}
-            </div>
+            {/*<div className="home-page-footer">*/}
+            {/*    <ContactInfo />*/}
+            {/*    /!*<Footer />*!/*/}
+            {/*</div>*/}
         </div>
     );
 };

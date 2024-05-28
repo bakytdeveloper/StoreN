@@ -1240,11 +1240,14 @@ const ProductList = ({
                     <div className="product-card" key={product._id}>
                         <Link to={`/products/${product._id}`}>
                             <img src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
-                            <div className="details">
-                                <div className="type">{product.type}</div>
-                                <div className="brand-and-name">
-                                    <div className="brand">{product.brand}</div>
-                                    <div className="name">{product.name.length > 5 ? product.name.substring(0, 5) + '...' : product.name}</div>
+                            <div className="product-list-details">
+                                <div className="product-list-details-brand-and-name">
+                                {/*<div className="type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>*/}
+                                {/*<div className="brand-and-name">*/}
+                                    <div className="product-list-brand">{product.brand}</div>
+                                    <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+
+                                    {/*<div className="name">{product.name.length > 5 ? product.name.substring(0, 5) + '...' : product.name}</div>*/}
                                 </div>
                                 <div className="price">KGS {product.price}</div>
                             </div>

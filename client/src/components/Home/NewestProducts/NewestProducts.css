@@ -11,12 +11,17 @@
     gap: 20px;
 }
 
-.brand-and-name {
-    display: inline;
-    /*flex-direction: fl !important;*/
+.brand-and-name-new {
+    display: flex!important;
+    width: 100%;
     line-height: 11px;
+    justify-content: start!important;
+    /*justify-content: space-between!important;*/
 
+}
 
+.new-brand {
+    width: auto;
 }
 
 @media (max-width: 768px) {

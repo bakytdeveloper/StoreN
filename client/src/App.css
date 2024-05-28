@@ -23,6 +23,7 @@ body, html {
   display: flex;
   flex-direction: column;
   /* Добавьте остальные стили для .app по вашему усмотрению */
+
 }
 .app .header {
   top: 0!important;
