@@ -374,7 +374,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     </div>
                 </div>
             </div>
-            <ProductTabs description={product.description} characteristics={product.characteristics} />
+            <div>
+                <ProductTabs description={product.description} characteristics={product.characteristics} />
+            </div>
 
             <RelatedSellerProducts productId={productId} />
             <RelatedProducts productId={productId} />

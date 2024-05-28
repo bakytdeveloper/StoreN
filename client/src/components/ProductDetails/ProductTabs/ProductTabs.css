@@ -1,7 +1,7 @@
 .product-tabs {
     /*border: 1px solid #ccc;*/
     border-radius: 5px;
-    margin-top: 20px;
+    margin-top: 10px;
     width: 60%;
     justify-content: start;
 }
@@ -67,4 +67,28 @@
 .characteristics-title-name {
     font-family: Oswald;
     font-weight: 500;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .product-tabs {
+        width: 100%;
+    }
+    .tab-content {
+        display: flex;
+        width: 100%;
+        padding: 5px 20px;
+    }
+
+    .description-content.show {
+        width: 100% !important;
+        margin-top: 0;
+
+        font-family: Poppins;
+        font-weight: 500;
+    }
+
+    
+
 }
