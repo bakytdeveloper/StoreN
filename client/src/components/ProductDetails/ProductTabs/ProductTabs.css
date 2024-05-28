@@ -86,9 +86,16 @@
         margin-top: 0;
 
         font-family: Poppins;
+        font-weight: 400;
+    }
+
+    /*.characteristics-content.show*/
+    .show {
+        width: 100% !important;
+        margin-top: 0;
+        font-family: Poppins;
         font-weight: 500;
     }
 
-    
 
 }
