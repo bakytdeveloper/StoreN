@@ -883,9 +883,12 @@ strong {
     }
 
     .detail-buy-now {
-        background: #63e349;
+        background: #023062;
         color: #2b2828;
-        font-weight: bold;
+        font-family: Poppins;
+        font-weight: 600;
+        color: white;
+
     }
 
     .detail-add-to-cart {
