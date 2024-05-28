@@ -217,11 +217,11 @@ const NewestProducts = ({ apiUrl }) => {
                 } else if (windowWidth >= 1200) {
                     limit = 15;
                 } else if (windowWidth >= 960) {
-                    limit = 12;
+                    limit = 15;
                 } else if (windowWidth >= 900) {
-                    limit = 8;
-                } else {
                     limit = 12;
+                } else {
+                    limit = 8;
                 }
 
                 const response = await fetch(`${apiUrl}/api/products/newest?limit=${limit}`, { timeout: 10000 });
@@ -259,19 +259,19 @@ const NewestProducts = ({ apiUrl }) => {
     }, []);
 
     // Обновление количества колонок в зависимости от ширины окна
-    useEffect(() => {
-        if (windowWidth >= 1800) {
-            setColumns(6);
-        } else if (windowWidth >= 1500) {
-            setColumns(5);
-        } else if (windowWidth >= 1200) {
-            setColumns(4);
-        } else if (windowWidth >= 900) {
-            setColumns(3);
-        } else {
-            setColumns(2);
-        }
-    }, [windowWidth]);
+    // useEffect(() => {
+    //     if (windowWidth >= 1800) {
+    //         setColumns(6);
+    //     } else if (windowWidth >= 1500) {
+    //         setColumns(5);
+    //     } else if (windowWidth >= 1200) {
+    //         setColumns(4);
+    //     } else if (windowWidth >= 900) {
+    //         setColumns(3);
+    //     } else {
+    //         setColumns(2);
+    //     }
+    // }, [windowWidth]);
 
     if (loading) {
         return <h2>Loading...</h2>;
