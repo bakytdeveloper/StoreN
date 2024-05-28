@@ -160,7 +160,7 @@ const Home = ({ setShowSidebar }) => {
                             <div className="text-container">
                                 <h1 className="title slide-title">{slide.title}</h1>
                                 <h2 className="subtitle">{slide.subtitle}</h2>
-                                <h3 className="description">{slide.description}</h3>
+                                <h3 className="description-home">{slide.description}</h3>
                             </div>
                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
                             <div className="slide-button">ПОСМОТРЕТЬ СЕЙЧАС</div>

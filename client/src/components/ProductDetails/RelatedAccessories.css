@@ -128,12 +128,12 @@
         flex-direction: column;
         margin-top: 20px;
         /*margin-right: 10px;*/
-        width: 200px;
+        /*width: 200px;*/
         padding: 2px;
         text-align: center!important;
         scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */
         flex: 0 0 auto;
-        /*width: 33%; !* Или любая другая ширина, в зависимости от вашего дизайна *!*/
+        width: 40%; /* Или любая другая ширина, в зависимости от вашего дизайна */
         margin-right: 10px; /* Добавляем небольшой отступ между карточками */
 
 

@@ -124,7 +124,7 @@
 
 
 .cart-button {
-    background-color: #1b9805 !important;
+    background-color: #08b4f8 !important;
     /*color: #fff;*/
     padding: 3px 10px 0;
     border: none;
@@ -253,7 +253,7 @@
 
 @media only screen and (max-width: 768px) {
     .product-list {
-        margin: 70px 1px 90px 1px !important;
+        margin: 0 1px 90px 1px !important;
         padding-bottom: 0 !important;
         gap: 3px!important;
         padding: 5px !important;
