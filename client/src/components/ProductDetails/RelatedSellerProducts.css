@@ -108,7 +108,6 @@
 
     .product-list-related-seller-products {
         box-sizing: content-box;
-
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */

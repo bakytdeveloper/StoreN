@@ -748,10 +748,21 @@ strong {
         top: 5px;
     }
 
+    .details-names-all {
+        display: block;
+        flex-direction: column;
+        margin-top: 10px;
+        line-height: 12px;
+    }
+
     .type-details,
     .brand-details,
     .name-details {
         margin-bottom: 20px;
+    }
+
+    .price-details {
+        font-size: 22px;
     }
 
     .details {
@@ -761,6 +772,19 @@ strong {
         border: none;
     }
 
+    .description {
+        display: inline;
+        width: 100%;
+        font-family: Poppins;
+        font-weight: 400;
+
+
+    }
+
+    .description strong {
+        font-size: 18px;
+    }
+
     .image-gallery {
         width: 100%;
         align-items: center;
@@ -768,11 +792,17 @@ strong {
     }
 
     .main-image {
-        width: 80%;
-        height: 255px;
-        margin-right: 222px!important;
-        justify-content: flex-start;
-        margin-left: -111px;
+        width: 90%;
+        height: 275px;
+        margin-left: -25% !important;
+        /*margin-right: 222px!important;*/
+        /*justify-content: flex-start;*/
+        /*margin-left: -111px;*/
+    }
+
+    .main-picture-detail {
+        text-align: center;
+        align-items: center;
 
     }
 
@@ -780,13 +810,13 @@ strong {
         display: flex;
         height: 40px;
         justify-content: flex-start;
-        margin-top: 333px;
+        margin-top: 343px;
         z-index: 0;
     }
 
     .thumbnail-gallery img {
         margin-right: 15px;
-        margin-top: 10px;
+        margin-top: 1px;
     }
 
     .thumbnail {
@@ -795,6 +825,26 @@ strong {
         margin-right: 5px;
         width: 44px;
         height: 44px;
+    }
+
+    .tab-content {
+        display: inline;
+        width: 100% !important;
+
+    }
+
+
+    .description-content {
+        width: 100% !important;
+
+    }
+
+    .show {
+        display: inline!important;
+        width: 100%;
+        margin-top: 0;
+        padding: 0;
+
     }
 
     .actions-details {
