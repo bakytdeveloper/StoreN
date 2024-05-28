@@ -81,7 +81,6 @@ const RelatedSellerProducts = ({ productId }) => {
             <div className="product-list-related-seller-products"  ref={containerRef} onScroll={handleScroll}>
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>
-                    {/*&#8592; Назад*/}
                     <img src={sliderLeft}/>
                 </button>
                 {sellerProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (

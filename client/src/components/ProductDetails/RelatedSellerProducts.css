@@ -189,6 +189,7 @@
     background-color: rgba(0, 0, 0, 0.5); /* Цвет кнопки */
     color: white; /* Цвет текста */
     border: none;
+
     border-radius: 20%; /* Для круглой формы */
     cursor: pointer;
     z-index: 1; /* Позволяет кнопкам быть поверх карточек */
@@ -196,10 +197,26 @@
 
 .slider-control-one-left {
     left: 10px; /* Расположение кнопки "Назад" */
+
+}
+
+.slider-control-one-left img {
+    display: flex;
+
+    margin-top: -3px;
+    margin-left: -5px!important;
+
 }
 
 .slider-control-one-right {
     right: 10px; /* Расположение кнопки "Вперёд" */
+}
+
+.slider-control-one-right img {
+    display: flex;
+
+    margin-top: -3px;
+    margin-left: -10px!important;
 }
 
 .product-list-related-seller-products {
