@@ -217,7 +217,8 @@ const Sidebar = ({
     }, []);
 
     const handleCloseClick = () => {
-        setShowSidebar(false);
+        setShowSidebar(!showSidebar);
+        // setShowSidebar(false);
     };
 
     const handleGenderClick = async (gender) => {

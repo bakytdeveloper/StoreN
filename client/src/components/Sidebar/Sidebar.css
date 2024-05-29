@@ -225,7 +225,7 @@ ul {
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
-        margin-top: 70px;
+        margin-top: 15%!important;
     }
 
     .titleShow {
@@ -239,6 +239,10 @@ ul {
     .sbLi {
         padding: 10px;
 
+    }
+
+    .closeBtn {
+        font-size: 25px;
     }
 }
 
