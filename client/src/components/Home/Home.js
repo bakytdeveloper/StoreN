@@ -199,7 +199,7 @@ const Home = ({ setShowSidebar }) => {
                 </div>
                 <div className="info-block info-all two-all" onClick={catalogPage}>
                     <span>Товары для всех</span>
-                    <img style={{ objectFit: "cover" }} className="info-block-img" src={catalog_page} alt="Аксессуары" />
+                    <img style={{ objectFit: "cover" }} className="info-block-img info-block-img-two" src={catalog_page} alt="Аксессуары" />
                 </div>
             </div>
             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
