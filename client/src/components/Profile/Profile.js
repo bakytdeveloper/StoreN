@@ -912,6 +912,11 @@ const Profile = ({ setShowSidebar }) => {
             {/*        {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой следующей страницы *!/*/}
             {/*    </button>*/}
             {/*</div>*/}
+
+            <div style={{width:"100%"}}>
+
+            </div>
+
         </div>
     );
 };

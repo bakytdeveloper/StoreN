@@ -829,13 +829,15 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     return (
         <div className="footer-page">
             <div className={`home-icon ${activeButton === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home')}>
+                <Link  to="/" >
                 <img className="home-icon-img" src={homeIcon} />
                 <div>
-                    <Link  to="/" >
-                    <span className="home-icon-link" >Каталог</span>
-                    </Link>
+                    {/*<Link  to="/" >*/}
+                    <span className="home-icon-link" >Главная</span>
+                    {/*</Link>*/}
 
                 </div>
+                </Link>
             </div>
 
             <div className={`catalog-icon ${activeButton === 'catalog' ? 'active' : ''}`} onClick={handleCatalogClick}>
@@ -846,13 +848,19 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
             </div>
 
             <div className={`cart-icon ${activeButton === 'cart' ? 'active' : ''}`} onClick={handleCartClick}>
+                {/*<img className="cart-icon-img" src={cartIcon} />*/}
+
+                <Link to="/cart" className="footer-auth-button btn">
+
                 <img className="cart-icon-img" src={cartIcon} />
-                <span>({totalItemsCount})</span>
+
+                <div className="total-items-count"><span>{totalItemsCount}</span></div>
                 <div>
-                    <Link to="/cart" className="footer-auth-button btn">
+                    {/*<Link to="/cart" className="footer-auth-button btn">*/}
                         <span className="footer-totalItems">Корзина</span>
-                    </Link>
+                    {/*</Link>*/}
                 </div>
+            </Link>
             </div>
 
             <div className={`contact-icon ${activeButton === 'contact' ? 'active' : ''}`} onClick={handleContactClick}>
@@ -879,7 +887,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     {isProfileOpen && (
                         <div className="footer-dropdown-menu">
                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
-                            <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                            <button style={{color:"black"}} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
                         </div>

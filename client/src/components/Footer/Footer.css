@@ -357,15 +357,17 @@
         display: inline-flex;
         position: fixed;
         width: 100% !important;
-        height: 90px;
+        height: 66px;
         background-color: #eeebeb;
         justify-content: space-between;
         font-family: Oswald;
         font-weight: 400;
         padding: 10px;
+        padding-top: 2px;
         z-index: 1111;
         bottom: 0;
-
+        font-size: 17px;
+        line-height: 12px;
 
     }
 
@@ -379,6 +381,30 @@
 
         color: #5d5c5c;
     }
+
+    .cart-icon {
+        position: relative; /* Это необходимо для абсолютного позиционирования внутри */
+        display: inline-block;
+    }
+
+    .cart-icon-img {
+        width: 50px; /* Ширина и высота изображения, вы можете изменить их под свои нужды */
+        height: 50px;
+    }
+
+    .total-items-count {
+        position: absolute;
+        top: 3px;
+        right: 9px;
+        background-color: red; /* Фон для счетчика, вы можете изменить цвет */
+        color: white; /* Цвет текста счетчика */
+        border-radius: 50%; /* Закругленные углы для создания круга */
+        padding: 4px 6px; /* Внутренние отступы */
+        font-size: 12px; /* Размер шрифта */
+        transform: translate(50%, -50%); /* Сместить на 50% вправо и вверх для нахлёстывания */
+        font-weight: bold;
+    }
+
 
     .home-icon-img, .catalog-icon-img, .profile-icon-img, .cart-icon-img, .contact-icon-img {
         width: 25px;
