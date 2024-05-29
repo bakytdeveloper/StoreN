@@ -832,7 +832,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 <img className="home-icon-img" src={homeIcon} />
                 <div>
                     <Link  to="/" >
-                    <span className="home-icon-link">Каталог</span>
+                    <span className="home-icon-link" >Каталог</span>
                     </Link>
 
                 </div>

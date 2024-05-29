@@ -365,6 +365,8 @@
         padding: 10px;
         z-index: 1111;
         bottom: 0;
+
+
     }
 
     .home-icon, .catalog-icon, .profile-icon, .cart-icon, .contact-icon {
@@ -374,12 +376,16 @@
         margin-top: auto;
         margin-bottom: auto;
         padding: 0;
+
+        color: #5d5c5c;
     }
 
     .home-icon-img, .catalog-icon-img, .profile-icon-img, .cart-icon-img, .contact-icon-img {
         width: 25px;
         height: 25px;
         align-items: center;
+        filter: brightness(62%) saturate(10%) invert(10%) sepia(0%) saturate(30%) hue-rotate(10deg) brightness(10%) contrast(15%);
+
     }
 
     .footer-dropdown-menu {
@@ -398,6 +404,14 @@
     .footer-dropdown-menu-close {
         margin-left: 80%;
         font-size: 22px;
+        color: #5d5c5c;
+    }
+    .home-icon-link {
+        color: #5d5c5c;
+    }
+
+    .footer-totalItems {
+        color: #5d5c5c;
     }
 
     .footer-dropdown-menu button {
@@ -409,10 +423,12 @@
         border: none;
         background-color: transparent;
         cursor: pointer;
-        color: black;
+        /*color: black;*/
         font-family: Poppins;
         font-weight: 500;
         font-size: 25px;
+
+
     }
 
     .footer-dropdown-menu button:hover {
