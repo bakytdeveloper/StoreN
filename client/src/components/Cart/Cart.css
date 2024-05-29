@@ -2,14 +2,14 @@
 .cartAll {
     display: flex;
     height: 100vh; /* Высота монитора */
-    bottom: 0;
+    bottom: 133px;
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
     margin-top: 80px;
     /*overflow-y: auto;*/
     width: 63% !important;
-    overflow-y: -moz-scrollbars-none;
+    /*overflow-y: -moz-scrollbars-none;*/
 }
 
 
@@ -378,7 +378,16 @@ h2 {
         height: 100% !important;
         bottom: 0;
         left: 0;
-        margin-top: -222px;
+        /*margin-top: -222px;*/
+        z-index: 1111;
+    }
+
+    .section-indicator {
+        line-height: 7px;
+    }
+
+    .cart-summary   {
+        margin-bottom: 55px;
     }
 
 
@@ -457,7 +466,7 @@ h2 {
     }
 
     .cart-summary {
-        bottom: 55px!important;
+        bottom: 88px!important;
         /*width: 100% !important;*/
 
     }
@@ -471,6 +480,11 @@ h2 {
         padding: 3px 6px!important;
         width: 35% !important;
         text-align: center!important;
+    }
+
+    .section-indicator {
+        bottom: 50px;
+        line-height: 5px;
     }
 
     .updateSection {
@@ -490,6 +504,10 @@ h2 {
     }
     .sectionTwo {
         padding-bottom: 0;
+    }
+
+    .sectionThree {
+        line-height: 55px;
     }
 
     .allSection h3 {

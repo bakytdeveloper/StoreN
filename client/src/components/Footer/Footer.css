@@ -399,7 +399,7 @@
         background-color: red; /* Фон для счетчика, вы можете изменить цвет */
         color: white; /* Цвет текста счетчика */
         border-radius: 50%; /* Закругленные углы для создания круга */
-        padding: 4px 6px; /* Внутренние отступы */
+        padding: 4px 8px; /* Внутренние отступы */
         font-size: 12px; /* Размер шрифта */
         transform: translate(50%, -50%); /* Сместить на 50% вправо и вверх для нахлёстывания */
         font-weight: bold;
@@ -487,5 +487,9 @@
 
     .home-icon.active span, .catalog-icon.active span, .cart-icon.active span, .contact-icon.active span, .profile-icon.active span {
         color: #0990ea; /* Makes the text white */
+    }
+
+    .total-items-count span {
+        color: white!important;
     }
 }
