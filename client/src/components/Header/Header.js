@@ -123,13 +123,18 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         history.push("/sellers/register");
     };
 
-    const handleCloseSidebar = () => {
-        setShowSidebar(false);
-    };
+    // const handleCloseSidebar = () => {
+    //     setShowSidebar(false);
+    // };
+    //
+    // const handleSidebarToggle = () => {
+    //     setShowSidebar(!showSidebar);
+    // };
 
-    const handleSidebarToggle = () => {
-        setShowSidebar(!showSidebar);
-    };
+    const dropdownMenuClose = () => {
+        setIsProfileOpen(false); // Закрываем меню
+    }
+
 
     const totalItemsCount = cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
 
@@ -148,13 +153,15 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 <div className="auth-buttons">
                     <div className="profileIcon" ref={profileRef}>
                         {!isProfileOpen && (
-                            <span className="profileIcon-text" onClick={handleProfileClick}>ВОЙТИ</span>
+                            <span className="profileIcon-text" onClick={handleProfileClick}>Войти</span>
                         )}
                         {isProfileOpen && (
                             <div className="dropdown-menu">
+
                                 <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
                                 {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
                                 {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                                <span className="dropdown-menu-close" onClick={dropdownMenuClose} > &#10006;</span>
                             </div>
                         )}
                     </div>
@@ -164,7 +171,7 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     )}
                 </div>
                 <Link to="/cart" className="auth-button btn" onClick={handleCartClick}>
-                    <span className="totalItems">КОРЗИНА ({totalItemsCount})</span>
+                    <span className="totalItems">Корзина ({totalItemsCount})</span>
                 </Link>
                 <div className="search">
                     <input type="text" placeholder="Поиск...&#128269;" value={searchTerm} onChange={handleSearchChange} />
