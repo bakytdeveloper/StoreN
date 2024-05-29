@@ -630,7 +630,9 @@
     border-radius: 3px;
 }
 
-.size-list {}
+.size-list {
+
+}
 
 .size,
 .color {
@@ -639,6 +641,7 @@
     border: 1px solid #c1bebe;
     padding: 7px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .color-box {
