@@ -633,25 +633,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 </div>
             </div>
 
-            <div className="profile-icon" onClick={handleProfileClick}>
-                <img className="profile-icon-img" src={profileIcon} />
-                <div className="footer-profileIcon" ref={profileRef}>
-                    {!isProfileOpen && (
-                        <span className="profile-icon-link">Войти</span>
-                    )}
-                    {isProfileOpen && (
-                        <div className="footer-dropdown-menu">
-                            <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
-                            <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
-                            {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
-                            {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
-                        </div>
-                    )}
-                </div>
-                {showSellerRegistration && (
-                    <SellerRegistrationForm />
-                )}
-            </div>
+
 
             <div className="cart-icon" onClick={handleCartClick}>
                 <img className="cart-icon-img" src={cartIcon} />
@@ -677,6 +659,26 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     </div>
                 </div>
             )}
+
+            <div className="profile-icon" onClick={handleProfileClick}>
+                <img className="profile-icon-img" src={profileIcon} />
+                <div className="footer-profileIcon" ref={profileRef}>
+                    {!isProfileOpen && (
+                        <span className="profile-icon-link">Войти</span>
+                    )}
+                    {isProfileOpen && (
+                        <div className="footer-dropdown-menu">
+                            <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
+                            <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                            {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+                            {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                        </div>
+                    )}
+                </div>
+                {showSellerRegistration && (
+                    <SellerRegistrationForm />
+                )}
+            </div>
         </div>
     );
 };

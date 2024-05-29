@@ -1,9 +1,9 @@
 
 .seller-registration {
-    margin-top: 120px;
+    margin-top: 70px;
 }
 .seller-registration-title {
-
+    margin-left: 10%;
 }
 
 .seller-registration-close {
@@ -19,12 +19,26 @@
 }
 
 .seller-form-button {
+    margin-top: 11px;
     font-size: 17px;
     font-family: Poppins;
     font-weight: 500;
     width: 200px;
     text-align: center;
-    margin-left: 42%;
+    margin-left: 20%;
     border-radius: 3px;
     background: #023058;
+}
+
+
+@media (max-width: 768px) {
+    .seller-registration {
+        width: 90%;
+    }
+
+    .seller-add-form {
+        margin: 0 auto;
+        margin-left: 10%;
+    }
+
 }
