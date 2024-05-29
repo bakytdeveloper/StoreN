@@ -197,13 +197,13 @@ label {
 
 @media screen and (max-width: 768px) {
     .profile-container {
-        margin-top: 80px;
+        margin-top: 0;
         flex-direction: column;
         align-items: stretch;
     }
 
     .side {
-        margin-top: 120px;
+        margin-top: 0;
         width: 100%;
         max-width: none;
         position: relative;
