@@ -147,7 +147,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                         <div className="footer-dropdown-menu">
                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
                             {!isAuthenticated && <div className="footer-dropdown-menu-text" >
-                               При регистрации и логине ты сможешь стать нашим клиентом или Партнёром
+                               При регистрации и логине ты сможешь стать нашим Клиентом или Партнёром
                             </div>}
                             <button style={{color:"black"}} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
