@@ -231,6 +231,40 @@
     margin-left: 75%;
 }
 
+.header .cartIcon {
+    position: relative;
+    display: inline-block;
+}
+
+.total-items-title {
+    color: #4f4e4e;
+    align-items: center;
+    font-family: Poppins;
+    margin-left: 22px;
+}
+
+ .cartIcon .totalItems {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background-color: red!important;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.header .cartIcon span {
+    margin-left: 10px;
+}
+
+.btn {
+    margin-right: 22px;
+    margin-left: 15px;
+}
+
+
 
 /* Адаптивность */
 @media (max-width: 768px) {

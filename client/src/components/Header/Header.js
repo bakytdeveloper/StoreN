@@ -341,9 +341,18 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                         <SellerRegistrationForm />
                     )}
                 </div>
+
+
+
                 <Link to="/cart" className="auth-button btn" onClick={handleCartClick}>
-                    <span className="totalItems">Корзина ({totalItemsCount})</span>
+                    <span className="cartIcon">
+                       {totalItemsCount > 0 && (
+                           <span className="totalItems">{totalItemsCount}</span>
+                       )}
+                        <span className="total-items-title" >Корзина</span>
+                    </span>
                 </Link>
+
                 <div className="search">
                     <input type="text" placeholder="Поиск...&#128269;" value={searchTerm} onChange={handleSearchChange} />
                 </div>
