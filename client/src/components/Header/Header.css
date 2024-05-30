@@ -193,6 +193,43 @@
 }
 
 
+.header .profileIcon {
+    position: relative;
+}
+
+.header .profileIcon .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+    width: 150px;
+}
+
+.header .profileIcon .dropdown-menu button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.header .profileIcon .dropdown-menu button:hover {
+    background-color: #f1f1f1;
+}
+
+.header .profileIcon-text {
+    cursor: pointer;
+}
+
+
+.dropdown-menu-close {
+    margin-left: 75%;
+}
 
 
 /* Адаптивность */
