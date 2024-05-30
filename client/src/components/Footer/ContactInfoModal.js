@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import tik from './../Header/tik-tok1.png';
 import what from './../Header/whatsapp1.png';
 import ins from './../Header/instagram1.png';
 import tel from './../Header/telegram1.png';
 import {useHistory} from "react-router-dom";
 
-const ContactInfoModal = ({handleCloseModal}) => {
+const ContactInfoModal = ({setShowSidebar}) => {
     const history = useHistory();
 
     const handleGoBack = () => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => {
+            setShowSidebar(true);
+        };
+    }, [setShowSidebar]);
 
 
 
