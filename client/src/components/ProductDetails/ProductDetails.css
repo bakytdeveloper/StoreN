@@ -667,6 +667,11 @@
     font-size: 22px !important;
     font-family: 'Poppins';
     margin-right: 11px;
+
+}
+
+.name-details {
+    line-height: 25px;
 }
 
 .brand-details {
