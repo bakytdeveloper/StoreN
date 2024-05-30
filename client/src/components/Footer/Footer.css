@@ -379,7 +379,7 @@
         justify-content: space-between;
         font-family: Oswald;
         font-weight: 400;
-        padding: 10px;
+        padding: 15px 10px 10px 10px;
         padding-top: 2px;
         z-index: 1;
         bottom: 0;
@@ -542,5 +542,11 @@
 
     .total-items-count span {
         color: white!important;
+    }
+
+    .cart-icon {
+        bottom: 0!important;
+        margin-bottom: 0!important;
+        margin-top: 10px!important;
     }
 }
