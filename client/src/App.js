@@ -126,16 +126,7 @@ const App = () => {
                 />
 
 
-                {/*<Footer*/}
 
-                {/*    cartItems={cartItems}*/}
-                {/*    showSidebar={showSidebar}*/}
-                {/*    setShowSidebar={setShowSidebar}*/}
-                {/*    selectedOption={selectedOption}*/}
-                {/*    setSelectedOption={setSelectedOption}*/}
-                {/*    resetFilter={resetFilter}*/}
-                {/*    setCurrentPage={setCurrentPage}*/}
-                {/*/>*/}
 
                 <Switch>
 
@@ -267,7 +258,7 @@ const App = () => {
 
                 </Switch>
 
-                <ContactInfo />
+                {/*<ContactInfo />*/}
 
                 <Footer
                     cartItems={cartItems}
@@ -279,6 +270,7 @@ const App = () => {
                     setCurrentPage={setCurrentPage}
 
                 />
+                <ContactInfo />
 
             </div>
             <ToastContainer />

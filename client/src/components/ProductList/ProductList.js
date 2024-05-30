@@ -1274,7 +1274,7 @@ const ProductList = ({
                         <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
                             <img className="arrowRImg" src={right} alt="Cart" />
                         </button>
-                        <div className="product-list-plinth"></div>
+                        {/*<div className="product-list-plinth"></div>*/}
                     </div>
                 </div>
             )}

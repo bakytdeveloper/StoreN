@@ -458,7 +458,8 @@ const Profile = ({ setShowSidebar }) => {
     const [editedEmail, setEditedEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [page, setPage] = useState(1); // Страница для пагинации
-    const [pageSize, setPageSize] = useState(2); // Размер страницы для пагинации
+    const [pageSize, setPageSize] = useState(5); // Размер страницы для пагинации
+    const [totalPages, setTotalPages] = useState(0); // Общее количество страниц
     const history = useHistory();
 
     useEffect(() => {
@@ -519,7 +520,7 @@ const Profile = ({ setShowSidebar }) => {
                     setUser(null);
                     return;
                 }
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/my-orders?page=${page}&pageSize=${pageSize}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/my-orders?page=${page}&perPage=${pageSize}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -527,7 +528,8 @@ const Profile = ({ setShowSidebar }) => {
                 });
                 const data = await response.json();
                 if (response.ok) {
-                    setUserOrders(data);
+                    setUserOrders(data.orders);
+                    setTotalPages(data.totalPages);
                 } else {
                     console.error(data.message);
                 }
@@ -535,6 +537,7 @@ const Profile = ({ setShowSidebar }) => {
                 console.error('Error fetching purchase history:', error);
             }
         };
+
 
         fetchProfile();
         fetchUserOrders();
@@ -642,12 +645,25 @@ const Profile = ({ setShowSidebar }) => {
     }, [setShowSidebar]);
 
 
+    // const handleNextPage = () => {
+    //     if (page < pageSize) {
+    //         setPage((prevPage) => prevPage + 1);
+    //     }
+    // };
+    //
+    //
+    // const handlePrevPage = () => {
+    //     if (page > 1) {
+    //         setPage((prevPage) => prevPage - 1);
+    //     }
+    // };
+
     const handleNextPage = () => {
-        setPage((prevPage) => prevPage + 1);
+        setPage((prevPage) => Math.min(prevPage + 1, totalPages));
     };
 
     const handlePrevPage = () => {
-        setPage((prevPage) => prevPage - 1);
+        setPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
     // Проверка на наличие следующей и предыдущей страницы
@@ -828,67 +844,35 @@ const Profile = ({ setShowSidebar }) => {
                             </>
                         )}
                         {activeTab === 'purchaseHistory' && (
-                            <>
-                                <h4 style={{textAlign: "center"}}>Это ваша история заказов</h4>
-                                <table className="order-history-table">
-                                    <thead >
-                                    <tr>
-                                        <th>Дата</th>
-                                        <th>Статус</th>
-                                        <th>Товары</th>
-                                        <th>Сумма</th>
+                            <div className="purchase-history">
+                                {userOrders.map(order => (
+                                    <div key={order._id} className="order">
+                                        <p><strong>ID Заказа:</strong> {order._id}</p>
+                                        {/*{new Date(order.date).toLocaleDateString()}*/}
+                                        <p><strong>Дата создания:</strong> {new Date(order.date).toLocaleDateString()}</p>
+                                        <p><strong>Статус:</strong> {order.status}</p>
+                                        <p><strong>Продукты:</strong></p>
+                                        <ul>
+                                            {order.products.map(item => (
+                                                <li key={item.product._id}>
+                                                    {item.product.name} - Количество: {item.quantity} - Цена: {item.product.price}$
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <p><strong>Общая сумма:</strong> {order.totalAmount}</p>
 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    {userOrders.orders?.map((order) => (
-                                        <tr key={order._id}>
-                                            <td>{new Date(order.date).toLocaleDateString()}</td>
-                                            <td>{order.status}</td>
-                                            <td>
-                                                <ul>
-                                                    {order.products.map((product) => (
-                                                        <span key={product.product._id}>
-                                                            {product.product.name} - {product.quantity} шт. по {product.product.price} руб.
-                                                      <hr />
-                                                        </span>
-
-                                                    ))}
-                                                </ul>
-                                            </td>
-                                            <td style={{fontWeight:"bold"}}>{order.totalAmount}</td>
-
-                                        </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                                <div className="pagination-buttons-users-profile">
-                                    {/* Кнопка предыдущей страницы */}
-                                    <button className="pagination-buttons-users-profile-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>
-                                        {hasPrevPage ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faBan} />} {/* Символ пустой предыдущей страницы */}
-                                    </button>
-                                    {/* Счётчик страниц */}
-                                    <span>Страница {page} из {pageSize}</span>
-                                    {/* Кнопка следующей страницы */}
-                                    <button className="pagination-buttons-users-profile-next" onClick={handleNextPage} disabled={!hasNextPage}>
-                                        {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} {/* Символ пустой следующей страницы */}
-                                    </button>
+                                    </div>
+                                ))}
+                                <div className="pagination-my-history">
+                                    <button className="pagination-my-history-prev"
+                                        onClick={handlePrevPage} disabled={!hasPrevPage}>Назад</button>
+                                    <span className="pagination-my-history-pages">Страница {page} из {totalPages}</span>
+                                    <button className="pagination-my-history-next"
+                                        onClick={handleNextPage} disabled={!hasNextPage}>Вперёд</button>
                                 </div>
-
-
-                                {/*<div  className="sales-history-pagination">*/}
-                                {/*    <button className="sales-history-pagination-prev" onClick={handlePrevPage} disabled={isPrevDisabled}>*/}
-                                {/*        {isPrevDisabled ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faArrowLeft} />}*/}
-                                {/*    </button>*/}
-                                {/*    <span>Страница {page}</span>*/}
-                                {/*    <button className="sales-history-pagination-next" onClick={handleNextPage} disabled={isNextDisabled}>*/}
-                                {/*        {isNextDisabled ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faArrowRight} />}*/}
-                                {/*    </button>*/}
-                                {/*</div>*/}
-
-                            </>
+                            </div>
                         )}
+
                     </div>
                 ) : (
                     <div className="registration-notification" style={{ marginTop: "130px", textAlign: "center" }}>
@@ -913,9 +897,9 @@ const Profile = ({ setShowSidebar }) => {
             {/*    </button>*/}
             {/*</div>*/}
 
-            <div style={{width:"100%"}}>
+            {/*<div style={{width:"100%"}}>*/}
 
-            </div>
+            {/*</div>*/}
 
         </div>
     );

@@ -207,7 +207,36 @@ router.post('/add-to-cart', async (req, res) => {
 // });
 
 
-// Получение списка заказов для зарегистрированных пользователей с пагинацией
+// // Получение списка заказов для зарегистрированных пользователей с пагинацией
+// router.get('/my-orders', authenticateToken, async (req, res) => {
+//     if (!req.user || req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     try {
+//         const user = await User.findById(req.user.userId);
+//
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//
+//         const page = parseInt(req.query.page) || 1;
+//         const perPage = parseInt(req.query.perPage) || 2; // Количество заказов на странице
+//
+//         const orders = await Order.find({ user: user._id })
+//             .populate('products.product', 'name price')
+//             .skip((page - 1) * perPage)
+//             .limit(perPage)
+//             .sort({ createdAt: -1 }); // Сортировка по убыванию времени создания заказа
+//
+//         const totalOrders = await Order.countDocuments({ user: user._id });
+//
+//         res.json({ orders, totalOrders });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
 router.get('/my-orders', authenticateToken, async (req, res) => {
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
@@ -221,17 +250,18 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
         }
 
         const page = parseInt(req.query.page) || 1;
-        const perPage = parseInt(req.query.perPage) || 2; // Количество заказов на странице
+        const perPage = 5; // Количество заказов на странице
 
         const orders = await Order.find({ user: user._id })
             .populate('products.product', 'name price')
+            .sort({ createdAt: -1 }) // Сортировка по убыванию времени создания заказа
             .skip((page - 1) * perPage)
-            .limit(perPage)
-            .sort({ createdAt: -1 }); // Сортировка по убыванию времени создания заказа
+            .limit(perPage);
 
         const totalOrders = await Order.countDocuments({ user: user._id });
+        const totalPages = Math.ceil(totalOrders / perPage);
 
-        res.json({ orders, totalOrders });
+        res.json({ orders, totalOrders, totalPages, currentPage: page });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -240,44 +270,7 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
 
 
 
-
 // // Получение списка всех заказов для администратора
-// router.get('/', async (req, res) => {
-//     try {
-//         const orders = await Order.find().populate('user').populate('products.product');
-//         // const orders = await Order.find().populate('user').populate('cart.product');
-//         res.json(orders);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-// router.get('/', async (req, res) => {
-//     try {
-//         const page = parseInt(req.query.page) || 1;
-//         const perPage = parseInt(req.query.perPage) || 20;
-//         const skip = (page - 1) * perPage;
-//         const orders = await Order.find().skip(skip).limit(perPage).populate('user').populate('products.product');
-//         res.json(orders);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-// router.get('/', async (req, res) => {
-//     try {
-//         const page = parseInt(req.query.page) || 1;
-//         const perPage = parseInt(req.query.perPage) || 20;
-//         const skip = (page - 1) * perPage;
-//         const orders = await Order.find().skip(skip).limit(perPage).populate('user').populate('products.product');
-//         res.json(orders);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 
 router.get('/', async (req, res) => {
     try {

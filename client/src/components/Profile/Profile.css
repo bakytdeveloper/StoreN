@@ -6,6 +6,7 @@
 .profile-container {
     display: flex;
     margin-top: 10px;
+    width: 99%;
 }
 
 .side {
@@ -194,12 +195,105 @@ label {
     width: 111px;
 }
 
+/*.pagination-my-history {*/
+/*    display: flex;*/
+/*    width: 90%;*/
+/*    margin-bottom: 90px;*/
+/*    margin-top: 20px;*/
+/*}*/
 
-@media screen and (max-width: 768px) {
+/*.pagination-my-history-pages {*/
+/*    margin-left: 22px;*/
+/*    margin-right: 22px;*/
+/*}*/
+
+
+ .purchase-history {
+     width: 100%;
+     margin-top: 20px;
+
+ }
+
+ .order {
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     padding: 10px;
+     margin-bottom: 20px;
+ }
+
+ .order p {
+     margin: 5px 0;
+ }
+
+ .order ul {
+     margin: 5px 0;
+     padding-left: 20px;
+ }
+
+ .order ul li {
+     margin-bottom: 5px;
+ }
+
+ /* Стили для пагинации */
+ .pagination-my-history {
+     margin-top: 20px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin-bottom: 55px;
+
+ }
+
+ .pagination-my-history button {
+     background-color: #007bff;
+     color: #fff;
+     border: none;
+     border-radius: 5px;
+     padding: 10px 20px;
+     margin: 0 5px;
+     cursor: pointer;
+ }
+
+ .pagination-my-history button:hover {
+     background-color: #0056b3;
+ }
+
+ .pagination-my-history button:disabled {
+     background-color: #ccc;
+     cursor: not-allowed;
+ }
+
+ .pagination-my-history-pages {
+     margin: 0 10px;
+ }
+
+ /* Медиа-запрос для адаптивного дизайна */
+ @media screen and (max-width: 768px) {
+     .order {
+         padding: 10px;
+     }
+
+     .order p {
+         font-size: 14px;
+     }
+
+     .order ul {
+         font-size: 14px;
+     }
+
+     .order ul li {
+         font-size: 14px;
+     }
+ }
+
+
+
+ @media screen and (max-width: 768px) {
     .profile-container {
         margin-top: 0;
         flex-direction: column;
         align-items: stretch;
+        margin-left: 1%;
     }
 
     .side {
@@ -250,5 +344,13 @@ label {
         border: 1px solid #acaaaa;
 
     }
+
+    .pagination-my-history {
+        display: flex;
+
+
+    }
+
+    /*.pagination-my-history-prev*/
 
 }
