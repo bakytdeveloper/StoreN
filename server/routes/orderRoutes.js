@@ -237,6 +237,41 @@ router.post('/add-to-cart', async (req, res) => {
 //     }
 // });
 
+// router.get('/my-orders', authenticateToken, async (req, res) => {
+//     if (!req.user || req.user.role === 'guest') {
+//         return res.status(403).json({ message: 'Permission denied' });
+//     }
+//
+//     try {
+//         const user = await User.findById(req.user.userId);
+//
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//
+//         const page = parseInt(req.query.page) || 1;
+//         const perPage = 5; // Количество заказов на странице
+//
+//         const orders = await Order.find({ user: user._id })
+//             .populate('products.product', 'name price')
+//             .skip((page - 1) * perPage)
+//             .limit(perPage);
+//
+//
+//
+//
+//         const totalOrders = await Order.countDocuments({ user: user._id });
+//         const totalPages = Math.ceil(totalOrders / perPage);
+//
+//         res.json({ orders, totalOrders, totalPages, currentPage: page });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+
 router.get('/my-orders', authenticateToken, async (req, res) => {
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
@@ -254,9 +289,12 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
 
         const orders = await Order.find({ user: user._id })
             .populate('products.product', 'name price')
-            .sort({ createdAt: -1 }) // Сортировка по убыванию времени создания заказа
+            .sort({ date: 'desc' }) // Сортировка по убыванию времени создания заказа
             .skip((page - 1) * perPage)
             .limit(perPage);
+
+
+
 
         const totalOrders = await Order.countDocuments({ user: user._id });
         const totalPages = Math.ceil(totalOrders / perPage);
@@ -266,6 +304,8 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 
 
