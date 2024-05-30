@@ -8,7 +8,7 @@ import cartIcon from './cart-icon.png';
 import profileIcon from './priffile-icon.png';
 import contactIcon from './contact.png'
 // import ContactInfo from "../Header/ContactInfo";
-import ContactInfoModal from "./ContactInfoModal";
+import ContactInfoModal from "./ContactInfoFooter";
 
 // const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
 //     const [searchTerm, setSearchTerm] = useState('');

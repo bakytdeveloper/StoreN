@@ -5,7 +5,7 @@ import ins from './../Header/instagram1.png';
 import tel from './../Header/telegram1.png';
 import {useHistory} from "react-router-dom";
 
-const ContactInfoModal = ({setShowSidebar}) => {
+const ContactInfoFooter = ({setShowSidebar}) => {
     const history = useHistory();
 
     const handleGoBack = () => {
@@ -52,4 +52,4 @@ const ContactInfoModal = ({setShowSidebar}) => {
     );
 };
 
-export default ContactInfoModal;
+export default ContactInfoFooter;
