@@ -79,6 +79,23 @@ span {
   border: none!important;
 }
 
+/*.contact-info {*/
+/*  display: inline-flex;*/
+/*  position: fixed;*/
+/*  width: 100% !important;*/
+/*  height: 66px;*/
+/*  background-color: #eeebeb;*/
+/*  justify-content: space-between;*/
+/*  font-family: Oswald;*/
+/*  font-weight: 400;*/
+/*  padding: 10px;*/
+/*  padding-top: 2px;*/
+/*  z-index: 1111;*/
+/*  bottom: 0;*/
+/*  font-size: 17px;*/
+/*  line-height: 12px;*/
+/*}*/
+
 
 @media only screen and (max-width: 768px) {
 

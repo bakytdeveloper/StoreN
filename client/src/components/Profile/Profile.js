@@ -845,33 +845,55 @@ const Profile = ({ setShowSidebar }) => {
                         )}
                         {activeTab === 'purchaseHistory' && (
                             <div className="purchase-history">
-                                {userOrders.map(order => (
-                                    <div key={order._id} className="order">
-                                        <p><strong>ID Заказа:</strong> {order._id}</p>
-                                        {/*{new Date(order.date).toLocaleDateString()}*/}
-                                        <p><strong>Дата создания:</strong> {new Date(order.date).toLocaleDateString()}</p>
-                                        <p><strong>Статус:</strong> {order.status}</p>
-                                        <p><strong>Продукты:</strong></p>
-                                        <ul>
-                                            {order.products.map(item => (
-                                                <li key={item.product._id}>
-                                                    {item.product.name} - Количество: {item.quantity} - Цена: {item.product.price}$
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <p><strong>Общая сумма:</strong> {order.totalAmount}</p>
+                                <table className="order-history-table">
+                                    <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        {/*<th>ID Заказа</th>*/}
+                                        <th>Дата создания</th>
+                                        <th>Статус</th>
+                                        <th>Продукты</th>
+                                        <th>Общая сумма</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userOrders.map((order, index) => (
+                                        <tr key={order._id}>
+                                            <td>{index + 1}</td>
+                                            {/*<td>{order._id}</td>*/}
+                                            <td>{new Date(order.date).toLocaleDateString()}</td>
+                                            <td>{order.status}</td>
+                                            <td>
+                                                <ul>
+                                                    {order.products.map(item => (
+                                                        <li key={item.product._id}>
+                                                            {item.product.name} - Количество: {item.quantity} - Цена: {item.product.price}$
+                                                            <hr/>
+                                                        </li>
 
-                                    </div>
-                                ))}
+                                                    ))}
+
+                                                </ul>
+                                            </td>
+                                            <td>{order.totalAmount}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
                                 <div className="pagination-my-history">
-                                    <button className="pagination-my-history-prev"
-                                        onClick={handlePrevPage} disabled={!hasPrevPage}>Назад</button>
+                                    <button className="pagination-my-history-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>
+                                        {/*Предыдущая страница*/}
+                                         Назад
+                                    </button>
                                     <span className="pagination-my-history-pages">Страница {page} из {totalPages}</span>
-                                    <button className="pagination-my-history-next"
-                                        onClick={handleNextPage} disabled={!hasNextPage}>Вперёд</button>
+                                    <button className="pagination-my-history-next" onClick={handleNextPage} disabled={!hasNextPage}>
+                                        {/*Следующая страница*/}
+                                        Вперёд
+                                    </button>
                                 </div>
                             </div>
                         )}
+
 
                     </div>
                 ) : (
@@ -884,22 +906,6 @@ const Profile = ({ setShowSidebar }) => {
                     </div>
                 )}
             </div>
-            {/*<div className="pagination-buttons-users-profile">*/}
-            {/*    /!* Кнопка предыдущей страницы *!/*/}
-            {/*    <button className="pagination-buttons-users-profile-prev" onClick={handlePrevPage} disabled={!hasPrevPage}>*/}
-            {/*        {hasPrevPage ? <FontAwesomeIcon icon={faArrowLeft} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой предыдущей страницы *!/*/}
-            {/*    </button>*/}
-            {/*    /!* Счётчик страниц *!/*/}
-            {/*    <span>Страница {page} из {pageSize}</span>*/}
-            {/*    /!* Кнопка следующей страницы *!/*/}
-            {/*    <button className="pagination-buttons-users-profile-next" onClick={handleNextPage} disabled={!hasNextPage}>*/}
-            {/*        {hasNextPage ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBan} />} /!* Символ пустой следующей страницы *!/*/}
-            {/*    </button>*/}
-            {/*</div>*/}
-
-            {/*<div style={{width:"100%"}}>*/}
-
-            {/*</div>*/}
 
         </div>
     );
