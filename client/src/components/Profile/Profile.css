@@ -124,18 +124,16 @@ label {
 }
 
 .updateProfile {
-    font-size: 26px;
+    font-size: 17px;
     padding: 5px 7px;
-    width: 120px;
-    background: #c4bfbf;
+    width: auto;
+    background: #023062;
     box-shadow: 4px 7px 7px grey;
 
 }
 .updateProfile:hover {
-    font-size: 26px;
     padding: 5px 7px;
-    width: 120px;
-    background: #a5a1a1;
+    background: #3060f5;
     box-shadow: 2px 3px 3px #5d5c5c;
 
 }
