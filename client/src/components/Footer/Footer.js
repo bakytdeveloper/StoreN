@@ -20,7 +20,6 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     const profileRef = useRef(null);
     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
     const location = useLocation();
-
     const [activeButton, setActiveButton] = useState(null);
 
     useEffect(() => {
@@ -56,15 +55,10 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     };
 
     const handleContactClick = () => {
-        // setIsContactModalOpen(true);
-        handleButtonClick('contact');
         history.push('/sellers-contacts');
+        handleButtonClick('contact');
     };
 
-    const handleCloseModal = () => {
-        setIsContactModalOpen(false);
-        handleButtonClick(null);
-    };
 
     const handleCatalogClick = () => {
         setSelectedOption('catalog');
@@ -110,10 +104,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 <Link  to="/" >
                 <img className="home-icon-img" src={homeIcon} />
                 <div>
-                    {/*<Link  to="/" >*/}
                     <span className="home-icon-link" >Главная</span>
-                    {/*</Link>*/}
-
                 </div>
                 </Link>
             </div>
@@ -155,6 +146,9 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     {isProfileOpen && (
                         <div className="footer-dropdown-menu">
                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
+                            {!isAuthenticated && <div className="footer-dropdown-menu-text" >
+                               При регистрации и логине ты сможешь стать нашим клиентом или Партнёром
+                            </div>}
                             <button style={{color:"black"}} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
