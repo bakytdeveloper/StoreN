@@ -1266,7 +1266,7 @@ const ProductList = ({
             {displayedProducts.length > 0 && (
                 <div className="pagination-container">
                     <div className="pagination">
-                        <hr style={{ color: 'black' }} />
+                        {/*<hr style={{ color: 'black' }} />*/}
                         <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
                             <img className="arrowLImg" src={left} alt="Cart" />
                         </button>

@@ -758,6 +758,7 @@ strong {
 @media screen and (max-width: 768px) {
     .product-details-container {
         width: 100%;
+        margin-bottom: 110px;
     }
 
     .product-details {
@@ -765,6 +766,7 @@ strong {
         flex-direction: column;
         margin-top: 1px;
         padding: 10px;
+
     }
 
     .block-product-details-close-button {

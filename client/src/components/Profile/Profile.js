@@ -531,13 +531,13 @@ const Profile = ({ setShowSidebar }) => {
                                                 <ul>
                                                     {order.products.map(item => (
                                                         <li key={item.product._id}>
-                                                            {item.product.name} - Количество: {item.quantity} - Цена: {item.product.price}$
+                                                            {item.product.name} - Количество: {item.quantity} - Цена: {item.product.price}сом
                                                             <hr />
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </td>
-                                            <td>{order.totalAmount}</td>
+                                            <td>{order.totalAmount}сом</td>
                                         </tr>
                                     ))}
                                     </tbody>
