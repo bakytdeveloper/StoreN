@@ -277,6 +277,10 @@
         /*margin-bottom: 0;*/
     }
 
+    .total-items-title {
+        display: none;
+    }
+
     .title {
         display: flex;
         font-size: 18px !important;
