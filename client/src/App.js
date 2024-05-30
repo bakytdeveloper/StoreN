@@ -26,6 +26,7 @@ import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import ContactInfo from "./components/ContactInfo/ContactInfo";
+import ContactInfoModal from "./components/Footer/ContactInfoModal";
 
 
 const App = () => {
@@ -214,6 +215,12 @@ const App = () => {
                     </Route>
                     <Route path="/profile">
                         <Profile
+                            showSidebar={showSidebar}
+                            setShowSidebar={setShowSidebar}
+                        />
+                    </Route>
+                    <Route path="/sellers-contacts">
+                        <ContactInfoModal
                             showSidebar={showSidebar}
                             setShowSidebar={setShowSidebar}
                         />

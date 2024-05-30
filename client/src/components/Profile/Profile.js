@@ -360,7 +360,7 @@ const Profile = ({ setShowSidebar }) => {
                     className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`}
                     onClick={() => setActiveTab('purchaseHistory')}
                 >
-                    История <br/>покупок
+                    История покупок
                 </div>
                 <div
                     style={{fontWeight:"bold"}}

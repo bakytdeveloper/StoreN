@@ -9,6 +9,9 @@
     width: 99%;
     height: 100%;
     position: relative;
+
+    font-family: Poppins;
+
 }
 
 .side {
@@ -27,6 +30,7 @@
 }
 
 .sidebar-item {
+    display: flex;
     cursor: pointer;
     padding: 10px;
     margin-bottom: 10px;
@@ -34,6 +38,7 @@
     box-shadow: 4px 7px 7px #452b2b;
     box-sizing: border-box;
     transition: background-color 0.3s;
+
 }
 
 .sidebar-item:hover {
@@ -327,8 +332,8 @@ label {
 
     .sidebar-item.logout {
         margin-top: 20px;
-        background-color: #4dff7a;
-        color: #0a0a0a;
+        background-color: #24a0f3;
+        color: white;
         box-shadow: 4px 7px 7px #c2c4b2;
     }
 

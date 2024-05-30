@@ -9,7 +9,7 @@ const ContactInfoModal = ({handleCloseModal}) => {
     const history = useHistory();
 
     const handleGoBack = () => {
-        history.push('/catalog'); // Переход на предыдущую страницу
+        history.goBack(); // Переход на предыдущую страницу
     };
 
 
@@ -17,7 +17,7 @@ const ContactInfoModal = ({handleCloseModal}) => {
 
     return (
         <div className="contact-info-modal">
-            <button className="close-btn-modal" onClick={handleCloseModal}>&times;</button> {/* Кнопка "крестик" */}
+            <button className="close-btn-modal" onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
 
             <h2 className="contact-info-modal-title">Наши контакты</h2>
             {/*<div className="close-btn-modal" onClick={handleCloseModal}>Закрыть</div>*/}

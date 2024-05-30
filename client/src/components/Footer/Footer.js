@@ -779,8 +779,9 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     };
 
     const handleContactClick = () => {
-        setIsContactModalOpen(true);
-        handleButtonClick('contact');
+        // setIsContactModalOpen(true);
+        // handleButtonClick('contact');
+        history.push('/sellers-contacts');
     };
 
     const handleCloseModal = () => {
@@ -878,13 +879,13 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 </div>
             </div>
 
-            {isContactModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <ContactInfoModal handleCloseModal={handleCloseModal} />
-                    </div>
-                </div>
-            )}
+            {/*{isContactModalOpen && (*/}
+            {/*    <div className="modal">*/}
+            {/*        <div className="modal-content">*/}
+            {/*            <ContactInfoModal handleCloseModal={handleCloseModal} />*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
             <div className={`profile-icon ${activeButton === 'profile' ? 'active' : ''}`} onClick={handleProfileClick}>
                 <img className="profile-icon-img" src={profileIcon} />
