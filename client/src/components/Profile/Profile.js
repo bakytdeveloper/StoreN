@@ -454,7 +454,8 @@ const Profile = ({ setShowSidebar }) => {
                                             <button className="noAdd" onClick={handleCancelEditProfile}>Отменить</button>
                                         </>
                                     ) : (
-                                        <button className="updateProfile" onClick={() => setEditPassword(true)}>&#128736;</button>
+                                        <button className="updateProfile" onClick={() => setEditPassword(true)}>Редактировать профиль</button>
+                                        // <button className="updateProfile" onClick={() => setEditPassword(true)}>&#128736;</button>
                                     )}
                                 </div>
                             </>
@@ -501,8 +502,10 @@ const Profile = ({ setShowSidebar }) => {
                                     </div>
                                 </div>
                                 <div className="profile-buttons">
-                                    <button className="addProfile" onClick={handleSavePassword} >&#128396;</button>
-                                    <button className="noAdd" onClick={handleCancelEditPassword}>&#128465;</button>
+                                    {/*<button className="addProfile" onClick={handleSavePassword} >&#128396;</button>*/}
+                                    {/*<button className="noAdd" onClick={handleCancelEditPassword}>&#128465;</button>*/}
+                                    <button className="addProfile" onClick={handleSavePassword} >Изменить</button>
+                                    <button className="noAdd" onClick={handleCancelEditPassword}>Отменить</button>
                                 </div>
                             </>
                         )}
