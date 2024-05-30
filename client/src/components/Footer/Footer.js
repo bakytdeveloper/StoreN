@@ -854,7 +854,15 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
 
                 <img className="cart-icon-img" src={cartIcon} />
 
-                <div className="total-items-count"><span>{totalItemsCount}</span></div>
+
+
+                {/*<div className="total-items-count"><span>{totalItemsCount}</span></div>*/}
+
+                    {totalItemsCount > 0 && (
+                        <div className="total-items-count"><span>{totalItemsCount}</span></div>
+                    )}
+
+
                 <div>
                     {/*<Link to="/cart" className="footer-auth-button btn">*/}
                         <span className="footer-totalItems">Корзина</span>
