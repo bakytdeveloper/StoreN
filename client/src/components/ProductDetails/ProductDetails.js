@@ -380,9 +380,10 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
             <RelatedSellerProducts productId={productId} />
             <RelatedProducts productId={productId} />
-            {product.category && !product.direction && <RelatedAccessories direction={product.category} />}            <div className="home-page-footer">
-                <ContactInfo />
-            </div>
+            {product.category && !product.direction && <RelatedAccessories direction={product.category} />}
+            {/*<div className="home-page-footer">*/}
+            {/*    <ContactInfo />*/}
+            {/*</div>*/}
         </div>
     );
 };
