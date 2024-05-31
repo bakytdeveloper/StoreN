@@ -194,7 +194,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 <h2>Корзина</h2>
                 {cartItems.length === 0 ? (
                     <div className="emptyCartEls" onClick={handleBackToShopping}>
-                        <img className="emptyCart" src="emptyCart.png" alt="Ваша корзина пока пуста" />
+                        <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
                         <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
                     </div>
                 ) : (
@@ -228,11 +228,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         )}
                                                     </div>
                                                     <div className="sumKg">
-                                                        <span className="sum-one-product">Цена за товар:</span>
-                                                        {item.price}<span> Сом</span>
+                                                        <span className="sum-one-product">Цена:</span>
+                                                        {item.price}<span> сом</span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className="calculator-item-quantity">
                                             <div className="item-quantity">
                                                 <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>
                                                     -
@@ -249,6 +250,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                 <button className="deleteOne" onClick={() => handleRemoveItem(item.productId)}>
                                                     &#10006;
                                                 </button>
+                                            </div>
                                             </div>
                                             <div className="sumOne">Сумма:
                                                 <span style={{ marginLeft: "7px" }}>{(item.price * item.quantity)} сом</span>
