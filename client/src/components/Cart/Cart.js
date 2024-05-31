@@ -218,29 +218,36 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         </div>
 
                                                         <div className="item-details-color-size">
-
-                                                        {item.color && (
-                                                            <div className="total-items-count">Цвет: {item.color}</div>
-                                                        )}
-                                                        {item.size && (
-                                                            <div className="total-items-count">Размер: {item.size}</div>
-                                                        )}
-
-
-                                                        {/*<div>Цвет: {item.color}</div>*/}
-                                                        {/*<div>Размер: {item.size}</div>*/}
+                                                            {item.color && (
+                                                                <div className="total-items-count">
+                                                                    <span className="total-items-count-color">
+                                                                        Цвет:
+                                                                    </span>
+                                                                    {" " + item.color}
+                                                                </div>
+                                                            )}
+                                                            {item.size && (
+                                                                <div className="total-items-count">
+                                                                    <span className="total-items-count-size">
+                                                                        Размер:
+                                                                    </span>
+                                                                    {" " + item.size}
+                                                                </div>
+                                                            )}
                                                         </div>
+
                                                         <div className="sumKg">
-                                                            <span>KGS</span> {item.price}
+                                                            <span className="sum-one-product">Цена за товар:</span>
+                                                             {item.price}<span>Сом</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="item-quantity">
-                                                    <div className="allSum">
-                                                        <div className="sumOne" style={{ fontWeight: "bold" }}> Сумма:
-                                                            <span>{(item.price * item.quantity)} сом</span>
-                                                        </div>
-                                                    </div>
+                                                    {/*<div className="allSum">*/}
+                                                    {/*    <div className="sumOne" style={{ fontWeight: "bold" }}> Сумма:*/}
+                                                    {/*        <span>{(item.price * item.quantity)} сом</span>*/}
+                                                    {/*    </div>*/}
+                                                    {/*</div>*/}
                                                     <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>
                                                         -
                                                     </button>
@@ -257,7 +264,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         &#10006;
                                                     </button>
                                                 </div>
-                                                {/*<hr style={{ width: "100%", height: "2px", background: "blanchedalmond" }} />*/}
+
+                                                <div className="sumOne" >Сумма:
+                                                    <span style={{marginLeft:"7px"}}>{(item.price * item.quantity)} сом</span>
+                                                </div>
+
                                             </div>
                                         ))}
                                     </div>
@@ -333,7 +344,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
             <div className="section-indicator" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
                 {[1, '*', 2, '*', 3].map((item, index) => (
                     <span key={index} className={typeof item === 'number' && section === item ? 'active' : ''}>
-                        {typeof item === 'number' ? item : '* * * * *'}
+                        {typeof item === 'number' ? item : ' * * * * * '}
                         {section1Filled && item === 1}
                         {section2Filled && item === 2}
                     </span>
