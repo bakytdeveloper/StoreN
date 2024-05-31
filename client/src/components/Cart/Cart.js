@@ -192,11 +192,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                     &#10006;
                 </span>
                 <h2>Корзина</h2>
-                {/*<hr />*/}
-
                 {cartItems.length === 0 ? (
                     <div className="emptyCartEls" onClick={handleBackToShopping}>
-                        <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
+                        <img className="emptyCart" src="emptyCart.png" alt="Ваша корзина пока пуста" />
                         <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
                     </div>
                 ) : (
@@ -204,133 +202,110 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         <div className="sectionOne">
                             <h3>1) Подтвердите заказ</h3>
                             {section === 1 && (
-                                <>
-                                    <div className="AllCartInfo">
-                                        {cartItems.map((item) => (
-                                            <div className="cart-item" key={item.productId}>
-                                                <div className="item-info">
-                                                    <img className="cartImg" src={item.image} alt={item.name} />
-                                                    <div className="item-details">
-                                                        <div className="item-details-type-brand-name">
-                                                            <span className="itemName" style={{ fontWeight: 'bold' }}>{item.type}</span>
-                                                            <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</span>
-                                                            <span>  {item.name}</span>
-                                                        </div>
-
-                                                        <div className="item-details-color-size">
-                                                            {item.color && (
-                                                                <div className="total-items-count">
-                                                                    <span className="total-items-count-color">
-                                                                        Цвет:
-                                                                    </span>
-                                                                    {" " + item.color}
-                                                                </div>
-                                                            )}
-                                                            {item.size && (
-                                                                <div className="total-items-count">
-                                                                    <span className="total-items-count-size">
-                                                                        Размер:
-                                                                    </span>
-                                                                    {" " + item.size}
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        <div className="sumKg">
-                                                            <span className="sum-one-product">Цена за товар:</span>
-                                                             {item.price}<span>Сом</span>
-                                                        </div>
+                                <div className="AllCartInfo">
+                                    {cartItems.map((item) => (
+                                        <div className="cart-item" key={item.productId}>
+                                            <div className="item-info">
+                                                <img className="cartImg" src={item.image} alt={item.name} />
+                                                <div className="item-details">
+                                                    <div className="item-details-type-brand-name">
+                                                        <span className="itemName" style={{ fontWeight: 'bold' }}>{item.type}</span>
+                                                        <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</span>
+                                                        <span>{item.name}</span>
+                                                    </div>
+                                                    <div className="item-details-color-size">
+                                                        {item.color && (
+                                                            <div className="item-details-color">
+                                                                <span>Цвет:</span>
+                                                                {" " + item.color}
+                                                            </div>
+                                                        )}
+                                                        {item.size && (
+                                                            <div className="item-details-size">
+                                                                <span>Размер:</span>
+                                                                {" " + item.size}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="sumKg">
+                                                        <span className="sum-one-product">Цена за товар:</span>
+                                                        {item.price}<span> Сом</span>
                                                     </div>
                                                 </div>
-                                                <div className="item-quantity">
-                                                    {/*<div className="allSum">*/}
-                                                    {/*    <div className="sumOne" style={{ fontWeight: "bold" }}> Сумма:*/}
-                                                    {/*        <span>{(item.price * item.quantity)} сом</span>*/}
-                                                    {/*    </div>*/}
-                                                    {/*</div>*/}
-                                                    <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>
-                                                        -
-                                                    </button>
-                                                    <input
-                                                        type="number"
-                                                        style={{ marginTop: "8px" }}
-                                                        value={item.quantity}
-                                                        onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
-                                                    />
-                                                    <button className="btnPlus" onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>
-                                                        +
-                                                    </button>
-                                                    <button className="deleteOne" onClick={() => handleRemoveItem(item.productId)}>
-                                                        &#10006;
-                                                    </button>
-                                                </div>
-
-                                                <div className="sumOne" >Сумма:
-                                                    <span style={{marginLeft:"7px"}}>{(item.price * item.quantity)} сом</span>
-                                                </div>
-
                                             </div>
-                                        ))}
-                                    </div>
-                                </>
+                                            <div className="item-quantity">
+                                                <button className="btnMinus" onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}>
+                                                    -
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    style={{ marginTop: "8px" }}
+                                                    value={item.quantity}
+                                                    onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
+                                                />
+                                                <button className="btnPlus" onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}>
+                                                    +
+                                                </button>
+                                                <button className="deleteOne" onClick={() => handleRemoveItem(item.productId)}>
+                                                    &#10006;
+                                                </button>
+                                            </div>
+                                            <div className="sumOne">Сумма:
+                                                <span style={{ marginLeft: "7px" }}>{(item.price * item.quantity)} сом</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             )}
                             {section !== 1 && (
                                 <button className="updateSection" onClick={() => setSection(1)}>Изменить</button>
                             )}
                             <hr />
                         </div>
-
                         <div className="sectionTwo">
                             <h3>2) Оформите заказ</h3>
                             {section === 2 && (
-                                <>
-                                    <div className="checkForm">
-                                        <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
-                                        <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Имя:</label>
-                                        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                                        <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Email:</label>
-                                        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                                        <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Адрес доставки:</label>
-                                        <div className="radioButtons">
-                                            <div className="btnOne">
-                                                <input type="radio" id="delivery" name="deliveryType" checked={deliveryType === 'delivery'} onChange={() => handleDeliveryTypeChange('delivery')} />
-                                                <label htmlFor="delivery">Доставка
-                                                    <span>(по г.Бишкек - 250 сом)</span>
-                                                </label>
-                                            </div>
-                                            <div className="btnTwo">
-                                                <input type="radio" id="pickup" name="deliveryType" checked={deliveryType === 'pickup'} onChange={() => handleDeliveryTypeChange('pickup')} />
-                                                <label htmlFor="pickup">Самовывоз</label>
-                                            </div>
+                                <div className="checkForm">
+                                    <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
+                                    <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Имя:</label>
+                                    <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                                    <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Email:</label>
+                                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Адрес доставки:</label>
+                                    <div className="radioButtons">
+                                        <div className="btnOne">
+                                            <input type="radio" id="delivery" name="deliveryType" checked={deliveryType === 'delivery'} onChange={() => handleDeliveryTypeChange('delivery')} />
+                                            <label htmlFor="delivery">Доставка
+                                                <span>(по г.Бишкек - 250 сом)</span>
+                                            </label>
                                         </div>
-                                        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
-                                        <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Номер телефона:</label>
-                                        <input className="cartPhoneNumber" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                                        <label> Способ оплаты:</label>
-                                        <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
-                                        <label>Комментарии:</label>
-                                        <textarea value={comments} onChange={(e) => setComments(e.target.value)} />
+                                        <div className="btnTwo">
+                                            <input type="radio" id="pickup" name="deliveryType" checked={deliveryType === 'pickup'} onChange={() => handleDeliveryTypeChange('pickup')} />
+                                            <label htmlFor="pickup">Самовывоз</label>
+                                        </div>
                                     </div>
-                                </>
+                                    <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
+                                    <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Номер телефона:</label>
+                                    <input className="cartPhoneNumber" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                    <label>Способ оплаты:</label>
+                                    <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
+                                    <label>Комментарии:</label>
+                                    <textarea value={comments} onChange={(e) => setComments(e.target.value)} />
+                                </div>
                             )}
                             {section !== 2 && section > 1 && (
                                 <button className="updateSection" onClick={() => setSection(2)}>Изменить</button>
                             )}
-                            {/*<hr />*/}
                         </div>
-
                         <div className="sectionThree">
-                            <h3> 3) Оплатить заказ</h3>
+                            <h3>3) Оплатить заказ</h3>
                             {section === 3 && (
-                                <>
-                                    <PaymentForm />
-                                </>
+                                <PaymentForm />
                             )}
                             <hr />
                         </div>
                     </div>
                 )}
-
                 <div className="cart-summary" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
                     <CartSummary
                         totalPrice={totalPrice}
@@ -339,19 +314,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         handleClearCart={() => setCartItems([])}
                     />
                 </div>
-
-
             </div>
-
-            {/*<div className="cart-summary" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>*/}
-            {/*    <CartSummary*/}
-            {/*        totalPrice={totalPrice}*/}
-            {/*        totalItems={totalItems}*/}
-            {/*        handleCheckout={handleCheckout}*/}
-            {/*        handleClearCart={() => setCartItems([])}*/}
-            {/*    />*/}
-            {/*</div>*/}
-
             <div className="section-indicator" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
                 {[1, '*', 2, '*', 3].map((item, index) => (
                     <span key={index} className={typeof item === 'number' && section === item ? 'active' : ''}>
@@ -363,7 +326,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 <button
                     className="buy_next"
                     onClick={section === 3 ? handlePlaceOrder : handleContinue}
-                    style={{ width: '100px' }}
                     disabled={orderPlaced}
                 >
                     {section === 3 ? 'Закрыть' : 'Продолжить'}
