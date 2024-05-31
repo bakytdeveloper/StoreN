@@ -253,7 +253,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                             </div>
                                             </div>
                                             <div className="sumOne">Сумма:
-                                                <span style={{ marginLeft: "7px" }}>{(item.price * item.quantity)} сом</span>
+                                                <span style={{ marginLeft: "7px", width:"222px" }}>{(item.price * item.quantity)} сом</span>
                                             </div>
                                         </div>
                                     ))}
