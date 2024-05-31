@@ -7,6 +7,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import left from "./arrowsL.png";
 import right from "./arrowsR.png";
 import './ProductList.css';
+import {Spinner} from "react-bootstrap";
 
 
 
@@ -1052,6 +1053,7 @@ const ProductList = ({
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [resizeTimer, setResizeTimer] = useState(null);
     const [productsPerPage, setProductsPerPage] = useState(12);
+    const [loading, setLoading] = useState(true);
 
     const history = useHistory();
     const location = useLocation();
@@ -1076,6 +1078,7 @@ const ProductList = ({
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType]);
 
     const fetchData = async () => {
+        setLoading(true);
         try {
             const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}`, { timeout: 10000 });
             const productsData = await productsResponse.json();
@@ -1084,8 +1087,11 @@ const ProductList = ({
             setFilteredProducts(filteredProductsData);
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
         }
     };
+
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -1235,51 +1241,73 @@ const ProductList = ({
     return (
         <div className="product-list">
             {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
-            {displayedProducts.length ? (
-                displayedProducts.map(product => (
-                    <div className="product-card" key={product._id}>
-                        <Link to={`/products/${product._id}`}>
-                            <img src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
-                            <div className="product-list-details">
-                                <div className="product-list-details-brand-and-name">
-                                {/*<div className="type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>*/}
-                                {/*<div className="brand-and-name">*/}
-                                    <div className="product-list-brand">{product.brand}</div>
-                                    <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
 
-                                    {/*<div className="name">{product.name.length > 5 ? product.name.substring(0, 5) + '...' : product.name}</div>*/}
-                                </div>
-                                <div className="price">KGS {product.price}</div>
-                            </div>
-                        </Link>
-                        <div className="actions">
-                            <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                <strong>+</strong>
-                                <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                            </button>
-                        </div>
-                    </div>
-                ))
-            ) : (
-                <h2 className="no-products">Идёт загрузка...</h2>
-            )}
-            {displayedProducts.length > 0 && (
-                <div className="pagination-container">
-                    <div className="pagination">
-                        {/*<hr style={{ color: 'black' }} />*/}
-                        <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
-                            <img className="arrowLImg" src={left} alt="Cart" />
-                        </button>
-                        <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
-                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
-                            <img className="arrowRImg" src={right} alt="Cart" />
-                        </button>
-                        {/*<div className="product-list-plinth"></div>*/}
+            {loading ? (
+                // <div className="spinner-container">
+                //     <Spinner animation="border" role="status">
+                //         <span className="visually-hidden">Loading...</span>
+                //     </Spinner>
+                // </div>
+
+                // <div className="d-flex justify-content-center">
+                //     <div className="spinner-border" role="status">
+                //         <span className="sr-only">Loading...</span>
+                //     </div>
+                // </div>
+
+                <div className="text-center">
+                    <div className="spinner-border" role="status"
+                         style={{ color:"blueviolet" , width:"55px",
+                             right:"50%",
+                             height:"55px", fontWeight:"bold"}}>
+                        <span className="sr-only">Loading...</span>
                     </div>
                 </div>
+
+            ) : (
+                <>
+                    {displayedProducts.length ? (
+                        displayedProducts.map(product => (
+                            <div className="product-card" key={product._id}>
+                                <Link to={`/products/${product._id}`}>
+                                    <img src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                    <div className="product-list-details">
+                                        <div className="product-list-details-brand-and-name">
+                                            <div className="product-list-brand">{product.brand}</div>
+                                            <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                        </div>
+                                        <div className="price">KGS {product.price}</div>
+                                    </div>
+                                </Link>
+                                <div className="actions">
+                                    <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                        <strong>+</strong>
+                                        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <h2 className="no-products">Нет продуктов для отображения</h2>
+                    )}
+                    {displayedProducts.length > 0 && (
+                        <div className="pagination-container">
+                            <div className="pagination">
+                                <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+                                    <img className="arrowLImg" src={left} alt="Cart" />
+                                </button>
+                                <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
+                                <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                                    <img className="arrowRImg" src={right} alt="Cart" />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
+
 };
 
 export default ProductList;
