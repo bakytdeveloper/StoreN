@@ -163,7 +163,7 @@ const Home = ({ setShowSidebar }) => {
                                 <h3 className="description-home">{slide.description}</h3>
                             </div>
                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
-                            <div className="slide-button">ПОСМОТРЕТЬ СЕЙЧАС</div>
+                            {/*<div className="slide-button">ПОСМОТРЕТЬ СЕЙЧАС</div>*/}
                         </div>
                     ))}
                 </div>

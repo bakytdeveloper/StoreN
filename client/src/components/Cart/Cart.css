@@ -10,11 +10,19 @@
     margin-top: 120px;
     width: 100%;
     max-width: 1200px;
-    padding: 30px 7px 7px 7px;
+    padding: 20px 7px 7px 7px;
     background-color: #f3f2f2;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     position: relative;
+
+    font-family: Poppins;
+}
+
+.cart h2 {
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
 
 .closeCart {
@@ -28,6 +36,22 @@
 h2 {
     text-align: center;
     margin-bottom: 20px;
+}
+
+#delivery {
+    width: 12px;
+    height: auto;
+    align-items: center;
+    margin-top: 13px!important;
+    margin-right: 7px;
+
+}
+
+#pickup {
+
+    align-items: center;
+    margin-top: 13px!important;
+    margin-right: 7px;
 }
 
 .emptyCartEls {
@@ -84,9 +108,11 @@ h2 {
 }
 
 .item-quantity {
+
     display: flex;
     align-items: center;
     gap: 5px;
+    left: 33%;
 }
 
 .item-quantity input {
@@ -109,7 +135,12 @@ h2 {
 .checkForm {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
+
+}
+
+.cartImg {
+    object-fit: contain;
 }
 
 .cartPhoneNumber {
@@ -152,10 +183,11 @@ h2 {
 .buy_next {
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #0a3299;
+    background-color: #02257e;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
+    margin-top: 15px;
 }
 
 .section-indicator span.active {
@@ -170,16 +202,16 @@ h2 {
     color: #140cf6;
 }
 
-.buy_next {
-    margin-top: 11px;
-}
-
 /* Адаптивные стили */
 @media (max-width: 768px) {
 
     .cartAll {
         padding: 0;
         padding-bottom: 100px;
+    }
+
+    .cart {
+        margin-top: 0;
     }
 
     .item-info {
@@ -190,8 +222,14 @@ h2 {
 
     }
 
+    .closeCart {
+        top: 32px;
+        right: 32px;
+    }
+
     .cartImg {
         margin-bottom: 10px;
+
     }
 
     .calculator-item-quantity {
@@ -229,5 +267,9 @@ h2 {
     .buy_next {
         width: 100%;
         text-align: center;
+    }
+
+    .total-price {
+        margin-top: 22px;
     }
 }
