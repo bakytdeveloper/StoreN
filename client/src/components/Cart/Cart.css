@@ -7,6 +7,7 @@
 }
 
 .cart {
+    margin-top: 120px;
     width: 100%;
     max-width: 1200px;
     padding: 30px 7px 7px 7px;
@@ -115,6 +116,15 @@ h2 {
     width: 100%;
 }
 
+.btnOne {
+    display: flex;
+
+}
+
+.btnTwo {
+    display: flex;
+}
+
 .radioButtons {
     display: flex;
     gap: 20px;
@@ -136,15 +146,32 @@ h2 {
     text-align: center;
     gap: 10px;
     margin-top: 20px;
+
 }
 
 .buy_next {
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #28a745;
+    background-color: #0a3299;
     color: #fff;
     border: none;
     border-radius: 5px;
+}
+
+.section-indicator span.active {
+    width: 10px;
+    height: auto;
+    border-radius: 50%;
+    background: #95d7ea !important;
+    padding: 3px 8px;
+    border: 1px solid black!important;
+    font-weight: bold;
+
+    color: #140cf6;
+}
+
+.buy_next {
+    margin-top: 11px;
 }
 
 /* Адаптивные стили */
@@ -191,6 +218,7 @@ h2 {
 
     .checkForm {
         padding: 10px;
+
     }
 
     .updateSection {

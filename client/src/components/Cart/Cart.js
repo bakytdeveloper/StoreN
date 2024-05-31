@@ -276,13 +276,18 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                     <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Адрес доставки:</label>
                                     <div className="radioButtons">
                                         <div className="btnOne">
-                                            <input type="radio" id="delivery" name="deliveryType" checked={deliveryType === 'delivery'} onChange={() => handleDeliveryTypeChange('delivery')} />
+                                            <input type="radio" id="delivery" name="deliveryType"
+                                                   className="btn-one-radio"
+                                                   checked={deliveryType === 'delivery'}
+                                                   onChange={() => handleDeliveryTypeChange('delivery')} />
                                             <label htmlFor="delivery">Доставка
                                                 <span>(по г.Бишкек - 250 сом)</span>
                                             </label>
                                         </div>
                                         <div className="btnTwo">
-                                            <input type="radio" id="pickup" name="deliveryType" checked={deliveryType === 'pickup'} onChange={() => handleDeliveryTypeChange('pickup')} />
+                                            <input type="radio" id="pickup"
+                                                   name="deliveryType" checked={deliveryType === 'pickup'}
+                                                   onChange={() => handleDeliveryTypeChange('pickup')} />
                                             <label htmlFor="pickup">Самовывоз</label>
                                         </div>
                                     </div>
