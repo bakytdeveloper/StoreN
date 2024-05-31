@@ -330,16 +330,27 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                         </div>
                     </div>
                 )}
+
+                <div className="cart-summary" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
+                    <CartSummary
+                        totalPrice={totalPrice}
+                        totalItems={totalItems}
+                        handleCheckout={handleCheckout}
+                        handleClearCart={() => setCartItems([])}
+                    />
+                </div>
+
+
             </div>
 
-            <div className="cart-summary" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
-                <CartSummary
-                    totalPrice={totalPrice}
-                    totalItems={totalItems}
-                    handleCheckout={handleCheckout}
-                    handleClearCart={() => setCartItems([])}
-                />
-            </div>
+            {/*<div className="cart-summary" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>*/}
+            {/*    <CartSummary*/}
+            {/*        totalPrice={totalPrice}*/}
+            {/*        totalItems={totalItems}*/}
+            {/*        handleCheckout={handleCheckout}*/}
+            {/*        handleClearCart={() => setCartItems([])}*/}
+            {/*    />*/}
+            {/*</div>*/}
 
             <div className="section-indicator" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
                 {[1, '*', 2, '*', 3].map((item, index) => (
