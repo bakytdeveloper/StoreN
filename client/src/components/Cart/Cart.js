@@ -216,13 +216,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                     <div className="item-details-color-size">
                                                         {item.color && (
                                                             <div className="item-details-color">
-                                                                <span>Цвет:</span>
+                                                                <span style={{fontWeight:"500"}}>Цвет:</span>
                                                                 {" " + item.color}
                                                             </div>
                                                         )}
                                                         {item.size && (
                                                             <div className="item-details-size">
-                                                                <span>Размер:</span>
+                                                                <span style={{fontWeight:"500"}}>Размер:</span>
                                                                 {" " + item.size}
                                                             </div>
                                                         )}

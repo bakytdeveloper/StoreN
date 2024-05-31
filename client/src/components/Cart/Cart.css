@@ -96,6 +96,9 @@ h2 {
 .btnMinus, .btnPlus, .deleteOne {
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 3px;
+    font-weight: bold;
+    background: #1a026e;
 }
 
 .sumOne {
@@ -130,6 +133,7 @@ h2 {
 .section-indicator {
     display: flex;
     justify-content: center;
+    text-align: center;
     gap: 10px;
     margin-top: 20px;
 }
@@ -145,6 +149,12 @@ h2 {
 
 /* Адаптивные стили */
 @media (max-width: 768px) {
+
+    .cartAll {
+        padding: 0;
+        padding-bottom: 100px;
+    }
+
     .item-info {
         display: inline-flex;
         /*flex-direction: column;*/
