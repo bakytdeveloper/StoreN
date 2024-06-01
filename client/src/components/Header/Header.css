@@ -275,6 +275,12 @@
         z-index: 111111;
         position: relative;
         /*margin-bottom: 0;*/
+        padding: 11px!important;
+        padding-bottom: 0!important;
+    }
+
+    .titleH {
+        align-items: center;
     }
 
     .total-items-title {
@@ -316,8 +322,8 @@
     .search {
         display: inline-flex;
         position: absolute;
-        margin-top: -50px!important;
-        margin-left: 47%;
+        margin-top: -80px!important;
+        margin-left: 49%;
     }
 
     .nav-links {
