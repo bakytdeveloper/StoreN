@@ -210,13 +210,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                 <div className="item-details">
                                                     <div className="item-details-type-brand-name">
                                                         <span className="itemName" style={{ fontWeight: 'bold' }}>{item.type}</span>
-                                                        <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand}</span>
-                                                        <span>{item.name}</span>
+                                                        <span style={{ fontWeight: 'bold', fontSize: '15px' }}>{item.brand} </span>
+                                                        <span style={{marginLeft:"5px"}}>{item.name}</span>
                                                     </div>
                                                     <div className="item-details-color-size">
                                                         {item.color && (
                                                             <div className="item-details-color">
-                                                                <span style={{fontWeight:"500"}}>Цвет:</span>
+                                                                <span style={{fontWeight:"500"}}>Цвет: </span>
                                                                 {" " + item.color}
                                                             </div>
                                                         )}
@@ -228,7 +228,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                         )}
                                                     </div>
                                                     <div className="sumKg">
-                                                        <span className="sum-one-product">Цена:</span>
+                                                        <span className="sum-one-product">Цена: </span>
                                                         {item.price}<span> сом</span>
                                                     </div>
                                                 </div>
@@ -252,6 +252,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                                 </button>
                                             </div>
                                             </div>
+                                            <hr style={{width:"100%", height:"2px"}} />
                                             <div className="sumOne">Сумма:
                                                 <span style={{ marginLeft: "7px", width:"222px" }}>{(item.price * item.quantity)} сом</span>
                                             </div>
@@ -262,7 +263,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             {section !== 1 && (
                                 <button className="updateSection" onClick={() => setSection(1)}>Изменить</button>
                             )}
-                            <hr />
+                            {/*<hr />*/}
                         </div>
                         <div className="sectionTwo">
                             <h3>2) Оформите заказ</h3>
@@ -309,7 +310,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             {section === 3 && (
                                 <PaymentForm />
                             )}
-                            <hr />
+                            {/*<hr />*/}
                         </div>
                     </div>
                 )}
