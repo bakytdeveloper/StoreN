@@ -389,34 +389,43 @@
     }
 
     .home-icon, .catalog-icon, .profile-icon, .cart-icon, .contact-icon {
+        position: relative; /* Это необходимо для абсолютного позиционирования внутри */
+
         display: block;
         align-items: center;
         text-align: center;
         margin-top: auto;
         margin-bottom: auto;
         padding: 0;
-
+        width: 20%;
         color: #5d5c5c;
     }
 
     .cart-icon {
-        position: relative; /* Это необходимо для абсолютного позиционирования внутри */
-        display: inline-block;
+        /*position: relative; !* Это необходимо для абсолютного позиционирования внутри *!*/
+        /*display: inline-block;*/
+        /*margin-left: 0!important;*/
+
+        margin-right: 9%;
     }
 
-    .cart-icon-img {
-        width: 50px; /* Ширина и высота изображения, вы можете изменить их под свои нужды */
-        height: 50px;
+    .catalog-icon {
+        margin-left: 4% ;
+    }
+
+    .contact-icon {
+        margin-right: 4%;
     }
 
     .total-items-count {
         position: absolute;
-        top: 3px;
-        right: 9px;
+        top: 12px;
+        /*right: 3px;*/
+        left: 47px;
         background-color: red; /* Фон для счетчика, вы можете изменить цвет */
         color: white; /* Цвет текста счетчика */
         border-radius: 50%; /* Закругленные углы для создания круга */
-        padding: 4px 8px; /* Внутренние отступы */
+        padding: 4px 9px; /* Внутренние отступы */
         font-size: 12px; /* Размер шрифта */
         transform: translate(50%, -50%); /* Сместить на 50% вправо и вверх для нахлёстывания */
         font-weight: bold;
@@ -485,9 +494,11 @@
         color: #5d5c5c;
     }
 
-    .footer-totalItems {
-        color: #5d5c5c;
-    }
+    /*.footer-totalItems {*/
+    /*    color: #5d5c5c;*/
+    /*    align-items: center;*/
+    /*    margin-bottom: 3;*/
+    /*}*/
 
     .footer-dropdown-menu button {
         display: block;
@@ -541,13 +552,12 @@
         color: #0990ea; /* Makes the text white */
     }
 
-    .total-items-count span {
-        color: white!important;
-    }
 
-    .cart-icon {
-        bottom: 0!important;
-        margin-bottom: 0!important;
-        margin-top: 10px!important;
-    }
+
+    /*.cart-icon {*/
+    /*   padding: 0!important;*/
+    /*    width: auto;*/
+
+
+    /*}*/
 }
