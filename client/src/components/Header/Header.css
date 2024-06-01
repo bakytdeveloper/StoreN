@@ -218,6 +218,10 @@
     cursor: pointer;
 }
 
+.dropdown-menu button {
+    width: 80% !important;
+}
+
 .header .profileIcon .dropdown-menu button:hover {
     background-color: #f1f1f1;
 }
