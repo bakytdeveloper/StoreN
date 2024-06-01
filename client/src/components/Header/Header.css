@@ -264,6 +264,10 @@
     margin-left: 15px;
 }
 
+.dropdown-menu {
+    display: block;
+}
+
 
 
 /* Адаптивность */
