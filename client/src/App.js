@@ -182,7 +182,10 @@ const App = () => {
 
 
                     <Route path="/product-form/:productId">
-                        <ProductForm/>
+                        <ProductForm
+                            showSidebar={showSidebar}
+                            setShowSidebar={setShowSidebar}
+                        />
                     </Route>
 
 
