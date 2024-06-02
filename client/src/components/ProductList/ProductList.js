@@ -1528,7 +1528,7 @@ const ProductList = ({
             {loading ? (
                 <div className="text-center">
                     <div className="spinner-border" role="status"
-                         style={{ color: "blueviolet", width: "35px", height: "35px", fontWeight: "bold", padding: "66px" }}>
+                         >
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>
