@@ -119,4 +119,16 @@ span {
   top: 0!important;
 }
 
+
+  .spinner-border {
+
+    width: 25px;
+    height: 25px;
+    /*font-weight: bold;*/
+    padding: 46px;
+    margin: 0 auto!important;
+    margin-left: 80% !important;
+  }
+
+
 }
