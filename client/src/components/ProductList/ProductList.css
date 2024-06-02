@@ -37,8 +37,9 @@
 .product-list-details {
     /*margin-left: 0;*/
     /*margin-right: 25px;*/
-    text-decoration: none;
+    text-decoration: none!important;
     padding: 5px;
+    color: #2f2e2e;
 
     /*background: #2bc3f1;*/
 }
@@ -46,9 +47,12 @@
 
 
 
+
+
 .product-list-details-brand-and-name {
     display: flex;
     /*align-items: center;*/
+    text-decoration: none!important;
 
 }
 
@@ -60,7 +64,7 @@
     margin-left: 1px;
     font-family: Oswald;
     /*justify-content: space-between;*/
-
+    text-decoration: none!important;
 }
 
 .product-list-type, .name {

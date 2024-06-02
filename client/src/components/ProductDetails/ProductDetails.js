@@ -330,7 +330,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <div className="product-sizes">
                         {product.sizes.length > 0 && (
                             <>
-                                <h3>Размеры: {selectedSize}</h3>
+                                <h5>Размеры: {selectedSize}</h5>
                                 <div className="size-list">
                                     {product.sizes.map((size, index) => (
                                         <div
@@ -348,7 +348,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     <div className="product-colors">
                         {product.colors.length > 0 && (
                             <>
-                                <h3>Цвета: {selectedColor}</h3>
+                                <h5>Цвета: {selectedColor}</h5>
                                 <div className="color-list">
                                     {product.colors.map((color, index) => (
                                         <div

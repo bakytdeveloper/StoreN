@@ -248,6 +248,8 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         setSearchTerm(value);
         setCurrentPage(1);
         onSearch(value);
+        history.push('/catalog'); // Добавляем переход на страницу каталога
+
     };
 
     const handleCartClick = () => {

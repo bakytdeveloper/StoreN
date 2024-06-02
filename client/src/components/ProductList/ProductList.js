@@ -1257,9 +1257,10 @@ const ProductList = ({
 
                 <div className="text-center">
                     <div className="spinner-border" role="status"
-                         style={{ color:"blueviolet" , width:"55px",
-                             right:"50%",
-                             height:"55px", fontWeight:"bold"}}>
+                         style={{ color:"blueviolet" , width:"35px",
+                             height:"35px", fontWeight:"bold",
+                             padding:"55px"
+                         }}>
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>

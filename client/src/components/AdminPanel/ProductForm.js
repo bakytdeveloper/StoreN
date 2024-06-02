@@ -316,9 +316,9 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         setFormData({...formData, direction: value}); // Обновить данные формы с учетом измененного направления
     };
 
-    console.log(
-        "FORMADATA", {formData}
-    )
+    // console.log(
+    //     "FORMADATA", {formData}
+    // )
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Информация о товаре</h2>

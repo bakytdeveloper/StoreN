@@ -19,4 +19,10 @@ code {
     monospace;
 }
 
+.product-list-details {
+  text-decoration: none!important;
+}
 
+.product-list-details-brand-and-name {
+  text-decoration: none!important;
+}
