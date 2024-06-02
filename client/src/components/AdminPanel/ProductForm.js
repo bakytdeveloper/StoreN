@@ -42,6 +42,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     }, [setShowSidebar]);
 
 
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
@@ -61,6 +62,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
                 if (response.ok) {
                     const data = await response.json();
+                    console.log("DATA:", data)
                     setProductData(data);
                 } else {
                     console.error('Failed to fetch product data');
@@ -314,9 +316,11 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         setFormData({...formData, direction: value}); // Обновить данные формы с учетом измененного направления
     };
 
-
+    console.log(
+        "FORMADATA", {formData}
+    )
     return (
-        <div className="sellerFormAdd" onSubmit={handleSubmit}>
+        <form className="sellerFormAdd" onSubmit={handleSubmit}>
             <h2>Информация о товаре</h2>
             <span className="sellersListClose" type="button" onClick={handleClose}>
            <span> &#10006;</span>
@@ -387,6 +391,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                 name="sizes"
                 value={Array.isArray(formData.sizes) ? formData.sizes.join(',') : ''}
                 onChange={handleSizesChange}
+
             />
             <label>Цвета:</label>
             {formData.colors && formData.colors.map((color, index) => (
@@ -394,6 +399,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                     <input
                         type="text"
                         value={color.name}
+
                         onChange={(e) => handleColorChange(index, 'name', e.target.value)}
                         placeholder="Название цвета"
                     />
@@ -490,7 +496,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
                 <button className="cancel" type="button" onClick={onCancel}>&#10006; Отмена</button>
             </div>
-        </div>
+        </form>
     );
 };
 
