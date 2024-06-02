@@ -25,6 +25,7 @@
 
 .product-card:hover {
     transform: scale(1.015);
+
 }
 
 .product-card img {
@@ -58,12 +59,13 @@
 
 .product-card a {
     text-decoration: none;
+    color: black!important;
 }
 
 .product-card a:hover .product-list-brand,
 .product-card a:hover .product-list-type {
     text-decoration: none;
-    
+
 }
 
 
