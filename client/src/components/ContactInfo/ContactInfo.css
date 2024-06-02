@@ -1,20 +1,24 @@
 
-.contact-info {
-    display: inline-flex;
+.koko {
+    display: flex;
     /*position: absolute;*/
     width: 100% !important;
-    height: 66px;
+    height: 77px;
     background-color: #eeebeb;
     justify-content: space-between;
     font-family: Oswald;
     font-weight: 400;
     padding: 10px;
-    padding-top: 2px;
+    /*padding-top: 2px;*/
     z-index: 1111;
     /*bottom: 0;*/
     font-size: 17px;
     line-height: 12px;
-    margin-top: 15%!important;
+    margin-top: 3%!important;
+    margin-bottom: 0!important;
+    bottom: 0!important;
+
+
 }
 
 .contact-info-all-context {
@@ -25,3 +29,4 @@
     justify-content: center;
     margin-left: 30%;
 }
+

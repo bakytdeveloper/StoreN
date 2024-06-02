@@ -56,6 +56,17 @@
 
 }
 
+.product-card a {
+    text-decoration: none;
+}
+
+.product-card a:hover .product-list-brand,
+.product-card a:hover .product-list-type {
+    text-decoration: none;
+    
+}
+
+
 
 .product-list-brand {
     display: flex!important;
@@ -158,7 +169,7 @@
 .pagination {
     position: absolute;
     bottom: 0;
-    left: 40% !important;
+    /*left: 40% !important;*/
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -167,7 +178,8 @@
     width: 100%;
     /*max-width: 600px; !* Желаемая максимальная ширина пагинации *!*/
     margin: 0 auto;
-    margin-bottom: 30px!important;
+    /*margin-bottom: 30px!important;*/
+
 }
 
 .pagination span {
