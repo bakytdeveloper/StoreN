@@ -1526,12 +1526,19 @@ const ProductList = ({
             {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
 
             {loading ? (
-                <div className="text-center">
-                    <div className="spinner-border" role="status"
-                         >
-                        <span className="sr-only">Loading...</span>
+                // <div className="text-center">
+                //     <div className="spinner-border" role="status"
+                //          >
+                //         <span className="sr-only">Loading...</span>
+                //     </div>
+                // </div>
+
+                <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
+
             ) : (
                 <>
                     {displayedProducts.length ? (
