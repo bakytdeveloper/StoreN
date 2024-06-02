@@ -93,7 +93,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     };
 
     const closeDropoutLogin = () => {
-        history.goBack();
+        history.push("/catalog");
     }
 
     const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -123,7 +123,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                     {totalItemsCount > 0 && (
                         <div className="total-items-count"><span>{totalItemsCount}</span></div>
                     )}
-                <div>
+                <div className="footer-totalItems">
                         <span className="footer-totalItems">Корзина</span>
                 </div>
             </Link>
