@@ -975,15 +975,6 @@ const App = () => {
                                 {/*)}*/}
                             </Route>
                             <Route path="/cart">
-                                {activeComponent === 'cart' && (
-                                    <Cart
-                                        cartItems={cartItems}
-                                        setCartItems={setCartItems}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                )}
-                            </Route>
-                            <Route path="/cart">
                                 {/*{activeComponent === 'cart' && (*/}
                                     <Cart
                                         cartItems={cartItems}
@@ -991,6 +982,15 @@ const App = () => {
                                         setShowSidebar={setShowSidebar}
                                     />
                                 {/*)}*/}
+                            </Route>
+                            <Route path="/cart">
+                                {activeComponent === 'cart' && (
+                                    <Cart
+                                        cartItems={cartItems}
+                                        setCartItems={setCartItems}
+                                        setShowSidebar={setShowSidebar}
+                                    />
+                                )}
                             </Route>
                             <Route path="/orders/">
                                 {/*{activeComponent === 'orders' && (*/}
