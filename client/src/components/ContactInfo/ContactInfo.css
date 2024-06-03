@@ -1,7 +1,7 @@
 
 .koko {
     display: flex;
-    /*position: absolute;*/
+    position: relative;
     width: 100% !important;
     height: 77px;
     background-color: #eeebeb;

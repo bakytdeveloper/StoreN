@@ -1029,6 +1029,8 @@ const App = () => {
                                 {/*)}*/}
                             </Route>
                         </Switch>
+                        {/*<ContactInfo />*/}
+
                         <Footer
                             cartItems={cartItems}
                             showSidebar={showSidebar}
@@ -1042,7 +1044,9 @@ const App = () => {
                         <ContactInfo />
                     </>
                 )}
+                {/*<ContactInfo />*/}
             </div>
+            {/*<ContactInfo />*/}
             <ToastContainer />
         </Router>
     );

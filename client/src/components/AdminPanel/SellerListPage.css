@@ -1,6 +1,6 @@
 
 .sellersListPage {
-    margin-top: 7%;
+    margin-top: 9%;
 }
 
 .sellerTitle {
@@ -14,7 +14,7 @@
     margin-left: 94%;
     color: #054462;
     margin-top: 0!important;
-    margin-bottom: 22px;
+    margin-bottom: 5px;
     font-size: 22px;
     cursor: pointer;
 }
@@ -30,9 +30,10 @@ table {
 @media screen and (max-width: 768px) {
 
 .sellersListPage {
+    box-sizing: content-box!important;
     margin: 0 auto;
 
-    margin-top: 230px;
+    margin-top: 44px;
 }
     .sellersListClose {
         width: 100% !important;
