@@ -926,6 +926,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
 
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
+        history.push('/')
         handleButtonClick('profile', 'profile');
     };
 
