@@ -863,6 +863,12 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     const [prevPath, setPrevPath] = useState(null); // Состояние для хранения предыдущего пути
 
     useEffect(() => {
+        if (!showSidebar) {
+            setActiveButton(null); // Reset active button when the sidebar is closed
+        }
+    }, [showSidebar, setActiveButton]);
+
+    useEffect(() => {
         function handleClickOutside(event) {
             if (profileRef.current && !profileRef.current.contains(event.target)) {
                 setIsProfileOpen(false);
