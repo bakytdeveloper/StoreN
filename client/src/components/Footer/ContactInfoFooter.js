@@ -9,7 +9,7 @@ const ContactInfoFooter = ({setShowSidebar}) => {
     const history = useHistory();
 
     const handleGoBack = () => {
-        history.goBack(); // Переход на предыдущую страницу
+        history.push('/catalog'); // Переход на предыдущую страницу
     };
 
 

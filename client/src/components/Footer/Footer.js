@@ -169,7 +169,343 @@ import ContactInfoModal from "./ContactInfoFooter";
 
 
 
-const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
+// const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
+//     const [searchTerm, setSearchTerm] = useState('');
+//     const [isProfileOpen, setIsProfileOpen] = useState(false);
+//     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+//     const isAuthenticated = localStorage.getItem('token');
+//     const history = useHistory();
+//     const profileRef = useRef(null);
+//     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
+//     const location = useLocation();
+//     const [activeButton, setActiveButton] = useState(null);
+//
+//     useEffect(() => {
+//         function handleClickOutside(event) {
+//             if (profileRef.current && !profileRef.current.contains(event.target)) {
+//                 setIsProfileOpen(false);
+//             }
+//         }
+//         document.addEventListener("mousedown", handleClickOutside);
+//         return () => {
+//             document.removeEventListener("mousedown", handleClickOutside);
+//         };
+//     }, []);
+//
+//     const handleSearchChange = (e) => {
+//         const value = e.target.value;
+//         setSearchTerm(value);
+//         setCurrentPage(1);
+//         onSearch(value);
+//     };
+//
+//     const handleButtonClick = (buttonName) => {
+//         setActiveButton(prevButton => {
+//             // Если текущая активная кнопка совпадает с нажатой, то закрываем ее
+//             if (prevButton === buttonName) {
+//                 return null;
+//             } else {
+//                 return buttonName;
+//             }
+//         });
+//     };
+//
+//     const handleCartClick = () => {
+//         if (cartItems.length > 0) {
+//             history.push("/cart");
+//         } else {
+//             setShowSidebar(true);
+//         }
+//         handleButtonClick('cart');
+//     };
+//
+//     const handleContactClick = () => {
+//         history.push('/sellers-contacts');
+//         handleButtonClick('contact');
+//     };
+//
+//
+//     const handleCatalogClick = () => {
+//         setSelectedOption('catalog');
+//         history.push('/catalog');
+//         setShowSidebar(!showSidebar);
+//         handleButtonClick('catalog');
+//     };
+//
+//     const handleProfileClick = () => {
+//         setIsProfileOpen(!isProfileOpen);
+//         handleButtonClick('profile');
+//     };
+//
+//     const handleLoginClick = () => {
+//         if (isAuthenticated) {
+//             history.push("/profile");
+//         } else {
+//             history.push("/login");
+//         }
+//         setIsProfileOpen(false);
+//     };
+//
+//     const handleLogoutClick = () => {
+//         localStorage.removeItem('token');
+//         history.push("/");
+//         setIsProfileOpen(false);
+//     };
+//
+//     const handlePartnerClick = () => {
+//         setIsProfileOpen(false);
+//         history.push("/sellers/register");
+//     };
+//
+//     const closeDropoutLogin = () => {
+//         history.push("/catalog");
+//     }
+//
+//     const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+//
+//     return (
+//         <div className="footer-page">
+//             <div className={`home-icon ${activeButton === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home')}>
+//                 <Link  to="/" >
+//                     <img className="home-icon-img" src={homeIcon} />
+//                     <div>
+//                         <span className="home-icon-link" >Главная</span>
+//                     </div>
+//                 </Link>
+//             </div>
+//
+//             <div className={`catalog-icon ${activeButton === 'catalog' ? 'active' : ''}`} onClick={handleCatalogClick}>
+//                 <img className="catalog-icon-img" src={catalogPageIcon} />
+//                 <div>
+//                     <span className="catalog-icon-link catalog-header">Каталог</span>
+//                 </div>
+//             </div>
+//
+//             <div className={`cart-icon ${activeButton === 'cart' ? 'active' : ''}`} onClick={handleCartClick}>
+//                 <Link to="/cart" className="footer-auth-button btn">
+//                     <img className="cart-icon-img" src={cartIcon} />
+//                     {totalItemsCount > 0 && (
+//                         <div className="total-items-count"><span>{totalItemsCount}</span></div>
+//                     )}
+//                     <div className="footer-totalItems">
+//                         <span className="footer-totalItems">Корзина</span>
+//                     </div>
+//                 </Link>
+//             </div>
+//
+//             <div className={`contact-icon ${activeButton === 'contact' ? 'active' : ''}`} onClick={handleContactClick}>
+//                 <img className="contact-icon-img" src={contactIcon} />
+//                 <div>
+//                     <span className="footer-btn">Контакты</span>
+//                 </div>
+//             </div>
+//
+//
+//             <div className={`profile-icon ${activeButton === 'profile' ? 'active' : ''}`} onClick={handleProfileClick}>
+//                 <img className="profile-icon-img" src={profileIcon} />
+//                 <div className="footer-profileIcon" ref={profileRef}>
+//                     {!isProfileOpen && (
+//                         <span className="profile-icon-link">Войти</span>
+//                     )}
+//                     {isProfileOpen && (
+//                         <div className="footer-dropdown-menu">
+//                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
+//                             {!isAuthenticated && <div className="footer-dropdown-menu-text" >
+//                                 При регистрации и логине ты сможешь стать нашим Клиентом или Партнёром
+//                             </div>}
+//                             <button style={{color:"black"}} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+//                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+//                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+//                         </div>
+//                     )}
+//                 </div>
+//                 {showSellerRegistration && (
+//                     <SellerRegistrationForm />
+//                 )}
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default Footer;
+
+
+
+
+
+
+// const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage, setActiveComponent }) => {
+//     const [searchTerm, setSearchTerm] = useState('');
+//     const [isProfileOpen, setIsProfileOpen] = useState(false);
+//     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+//     const isAuthenticated = localStorage.getItem('token');
+//     const history = useHistory();
+//     const profileRef = useRef(null);
+//     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
+//     const location = useLocation();
+//     const [activeButton, setActiveButton] = useState(null);
+//
+//     useEffect(() => {
+//         function handleClickOutside(event) {
+//             if (profileRef.current && !profileRef.current.contains(event.target)) {
+//                 setIsProfileOpen(false);
+//             }
+//         }
+//         document.addEventListener("mousedown", handleClickOutside);
+//         return () => {
+//             document.removeEventListener("mousedown", handleClickOutside);
+//         };
+//     }, []);
+//
+//     const handleSearchChange = (e) => {
+//         const value = e.target.value;
+//         setSearchTerm(value);
+//         setCurrentPage(1);
+//         onSearch(value);
+//     };
+//
+//     const handleButtonClick = (buttonName, component) => {
+//         setActiveButton(prevButton => {
+//             if (prevButton === buttonName) {
+//                 setActiveComponent(null); // Если кнопка уже активна, деактивируем компонент
+//                 return null;
+//             } else {
+//                 setActiveComponent(component);
+//                 return buttonName;
+//             }
+//         });
+//     };
+//
+//     const handleCartClick = () => {
+//         if (cartItems.length > 0) {
+//             history.push("/cart");
+//         } else {
+//             setShowSidebar(true);
+//         }
+//         handleButtonClick('cart', 'cart');
+//     };
+//
+//     const handleContactClick = () => {
+//         history.push('/sellers-contacts');
+//         handleButtonClick('contact', 'sellers-contacts');
+//     };
+//
+//     const handleCatalogClick = () => {
+//         setSelectedOption('catalog');
+//         history.push('/catalog');
+//         setShowSidebar(!showSidebar);
+//         handleButtonClick('catalog', 'catalog');
+//     };
+//
+//     const handleProfileClick = () => {
+//         setIsProfileOpen(!isProfileOpen);
+//         handleButtonClick('profile', 'profile');
+//     };
+//
+//     const handleLoginClick = () => {
+//         if (isAuthenticated) {
+//             history.push("/profile");
+//         } else {
+//             history.push("/login");
+//         }
+//         setIsProfileOpen(false);
+//         handleButtonClick('profile', 'profile');
+//     };
+//
+//     const handleLogoutClick = () => {
+//         localStorage.removeItem('token');
+//         history.push("/");
+//         setIsProfileOpen(false);
+//         handleButtonClick('profile', 'profile');
+//     };
+//
+//     const handlePartnerClick = () => {
+//         setIsProfileOpen(false);
+//         history.push("/sellers/register");
+//         handleButtonClick('profile', 'sellers/register');
+//     };
+//
+//     const closeDropoutLogin = () => {
+//         history.push("/catalog");
+//     }
+//
+//     const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+//
+//     return (
+//         <div className="footer-page">
+//             <div className={`home-icon ${activeButton === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home', 'home')}>
+//                 <Link to="/" >
+//                     <img className="home-icon-img" src={homeIcon} />
+//                     <div>
+//                         <span className="home-icon-link">Главная</span>
+//                     </div>
+//                 </Link>
+//             </div>
+//
+//             <div className={`catalog-icon ${activeButton === 'catalog' ? 'active' : ''}`} onClick={handleCatalogClick}>
+//                 <img className="catalog-icon-img" src={catalogPageIcon} />
+//                 <div>
+//                     <span className="catalog-icon-link catalog-header">Каталог</span>
+//                 </div>
+//             </div>
+//
+//             <div className={`cart-icon ${activeButton === 'cart' ? 'active' : ''}`} onClick={handleCartClick}>
+//                 <Link to="/cart" className="footer-auth-button btn">
+//                     <img className="cart-icon-img" src={cartIcon} />
+//                     {totalItemsCount > 0 && (
+//                         <div className="total-items-count"><span>{totalItemsCount}</span></div>
+//                     )}
+//                     <div className="footer-totalItems">
+//                         <span className="footer-totalItems">Корзина</span>
+//                     </div>
+//                 </Link>
+//             </div>
+//
+//             <div className={`contact-icon ${activeButton === 'contact' ? 'active' : ''}`} onClick={handleContactClick}>
+//                 <img className="contact-icon-img" src={contactIcon} />
+//                 <div>
+//                     <span className="footer-btn">Контакты</span>
+//                 </div>
+//             </div>
+//
+//             <div className={`profile-icon ${activeButton === 'profile' ? 'active' : ''}`} onClick={handleProfileClick}>
+//                 <img className="profile-icon-img" src={profileIcon} />
+//                 <div className="footer-profileIcon" ref={profileRef}>
+//                     {!isProfileOpen && (
+//                         <span className="profile-icon-link">Войти</span>
+//                     )}
+//                     {isProfileOpen && (
+//                         <div className="footer-dropdown-menu">
+//                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>&#10006;</span>
+//                             {!isAuthenticated && <div className="footer-dropdown-menu-text" >
+//                                 При регистрации и логине ты сможешь стать нашим Клиентом или Партнёром
+//                             </div>}
+//                             <button style={{ color: "black" }} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+//                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+//                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+//                         </div>
+//                     )}
+//                 </div>
+//                 {showSellerRegistration && (
+//                     <SellerRegistrationForm />
+//                 )}
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default Footer;
+
+
+
+
+
+
+
+
+
+
+const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage, setActiveComponent }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -199,12 +535,13 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         onSearch(value);
     };
 
-    const handleButtonClick = (buttonName) => {
+    const handleButtonClick = (buttonName, component) => {
         setActiveButton(prevButton => {
-            // Если текущая активная кнопка совпадает с нажатой, то закрываем ее
             if (prevButton === buttonName) {
+                setActiveComponent(null); // Если кнопка уже активна, деактивируем компонент
                 return null;
             } else {
+                setActiveComponent(component);
                 return buttonName;
             }
         });
@@ -216,25 +553,24 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         } else {
             setShowSidebar(true);
         }
-        handleButtonClick('cart');
+        handleButtonClick('cart', 'cart');
     };
 
     const handleContactClick = () => {
         history.push('/sellers-contacts');
-        handleButtonClick('contact');
+        handleButtonClick('contact', 'sellers-contacts');
     };
-
 
     const handleCatalogClick = () => {
         setSelectedOption('catalog');
         history.push('/catalog');
         setShowSidebar(!showSidebar);
-        handleButtonClick('catalog');
+        handleButtonClick('catalog', 'catalog');
     };
 
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
-        handleButtonClick('profile');
+        handleButtonClick('profile', 'profile');
     };
 
     const handleLoginClick = () => {
@@ -244,17 +580,20 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
             history.push("/login");
         }
         setIsProfileOpen(false);
+        handleButtonClick('profile', 'profile');
     };
 
     const handleLogoutClick = () => {
         localStorage.removeItem('token');
         history.push("/");
         setIsProfileOpen(false);
+        handleButtonClick('profile', 'profile');
     };
 
     const handlePartnerClick = () => {
         setIsProfileOpen(false);
         history.push("/sellers/register");
+        handleButtonClick('profile', 'sellers/register');
     };
 
     const closeDropoutLogin = () => {
@@ -265,11 +604,11 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
 
     return (
         <div className="footer-page">
-            <div className={`home-icon ${activeButton === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home')}>
-                <Link  to="/" >
+            <div className={`home-icon ${activeButton === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home', 'home')}>
+                <Link to="/" >
                     <img className="home-icon-img" src={homeIcon} />
                     <div>
-                        <span className="home-icon-link" >Главная</span>
+                        <span className="home-icon-link">Главная</span>
                     </div>
                 </Link>
             </div>
@@ -300,7 +639,6 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                 </div>
             </div>
 
-
             <div className={`profile-icon ${activeButton === 'profile' ? 'active' : ''}`} onClick={handleProfileClick}>
                 <img className="profile-icon-img" src={profileIcon} />
                 <div className="footer-profileIcon" ref={profileRef}>
@@ -313,7 +651,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
                             {!isAuthenticated && <div className="footer-dropdown-menu-text" >
                                 При регистрации и логине ты сможешь стать нашим Клиентом или Партнёром
                             </div>}
-                            <button style={{color:"black"}} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                            <button style={{ color: "black" }} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
                         </div>
@@ -328,5 +666,3 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
 };
 
 export default Footer;
-
-
