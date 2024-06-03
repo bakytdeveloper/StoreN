@@ -287,7 +287,7 @@ const Sidebar = ({
     };
 
     return (
-        <div className={`sidebar ${showSidebar ? 'show' : ''} ${isSmallScreen ? '' : 'permanent'}`}>
+        <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
             <div className="titleShow">
                 {isSmallScreen && (
                     <div className="closeBtn" onClick={handleCloseClick}>
