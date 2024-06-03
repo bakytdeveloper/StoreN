@@ -761,6 +761,8 @@ import LoadingSpinner from "./components/LoadingSpinner";
 
 
 
+
+
 const App = () => {
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cartItems, setCartItems] = useState([]);
@@ -842,7 +844,7 @@ const App = () => {
                         />
                         <Switch>
                             <Route path="/" exact>
-                                <Home setShowSidebar={setShowSidebar} />
+                              <Home setShowSidebar={setShowSidebar} />
                             </Route>
                             <Route path="/catalog">
 
@@ -1004,4 +1006,3 @@ const App = () => {
 };
 
 export default App;
-
