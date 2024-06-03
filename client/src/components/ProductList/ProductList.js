@@ -606,9 +606,9 @@ const ProductList = ({
     const location = useLocation();
 
     useEffect(() => {
-        setShowSidebar(false);
+        setShowSidebar(true);
         return () => {
-            setShowSidebar(false);
+            setShowSidebar(true);
         };
     }, [setShowSidebar]);
 
@@ -831,14 +831,17 @@ const ProductList = ({
                     )}
                 </>
             )}
-            {filteredProducts.length > productsPerPage && (
-                <div className="pagination">
-                    <button className="pagination-button" onClick={handlePrevPage} disabled={currentPage === 1}>
-                        &lt; Prev
-                    </button>
-                    <button className="pagination-button" onClick={handleNextPage} disabled={currentPage === totalPages}>
-                        Next &gt;
-                    </button>
+            {displayedProducts.length > 0 && (
+                <div className="pagination-container">
+                    <div className="pagination">
+                        <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+                            <img className="arrowLImg" src={left} alt="Cart" />
+                        </button>
+                        <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
+                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                            <img className="arrowRImg" src={right} alt="Cart" />
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
