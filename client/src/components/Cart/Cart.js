@@ -31,7 +31,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
 
     const handleBackToShopping = () => {
-        history.push('/catalog');
+        history.goBack();
     };
 
     useEffect(() => {

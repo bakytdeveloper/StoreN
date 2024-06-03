@@ -605,12 +605,27 @@ const ProductList = ({
     const history = useHistory();
     const location = useLocation();
 
+    // useEffect(() => {
+    //     setShowSidebar(true);
+    //     return () => {
+    //         setShowSidebar(true);
+    //     };
+    // }, [setShowSidebar]);
+
+
     useEffect(() => {
-        setShowSidebar(true);
-        return () => {
+        if (windowWidth >= 768) {
+            setShowSidebar(false);
+        }
+    }, [windowWidth, setShowSidebar]);
+
+    useEffect(() => {
+        if (windowWidth < 768) {
             setShowSidebar(true);
-        };
-    }, [setShowSidebar]);
+        }
+    }, [windowWidth, setShowSidebar]);
+
+
 
     useEffect(() => {
         if (windowWidth >= 1200) {
