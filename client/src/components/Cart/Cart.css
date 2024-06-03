@@ -4,6 +4,8 @@
     flex-direction: column;
     align-items: center;
     padding: 7px;
+    font-family: Poppins;
+    font-weight: 500;
 }
 
 .cart {
@@ -19,7 +21,7 @@
     font-family: Poppins;
 }
 
-.cart h2 {
+.cart h5 {
     align-items: center;
     margin: 0 auto;
     margin-bottom: 10px;
@@ -34,8 +36,8 @@
     font-size: 20px;
 }
 
-h2 {
-    text-align: center;
+h5 {
+    /*text-align: center;*/
     margin-bottom: 20px;
 }
 
@@ -73,7 +75,7 @@ h2 {
 }
 
 .sectionOne, .sectionTwo, .sectionThree {
-    padding: 20px;
+    padding: 15px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -84,7 +86,7 @@ h2 {
 .item-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     align-items: center;
     border: 1px solid #eae3e3;
     width: 60%;
@@ -208,6 +210,12 @@ h2 {
     font-weight: bold;
 
     color: #140cf6;
+}
+
+.checkList {
+    font-family: Poppins;
+    font-weight: 500;
+    padding: 10px;
 }
 
 /* Адаптивные стили */

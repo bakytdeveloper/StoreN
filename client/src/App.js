@@ -925,15 +925,6 @@ const App = () => {
                                 {/*)}*/}
                             </Route>
                             <Route path="/login">
-                                {activeComponent === 'login' && (
-                                    <LoginRegister
-                                        showHeader={showHeader}
-                                        setShowHeader={setShowHeader}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                )}
-                            </Route>
-                            <Route path="/login">
                                 {/*{activeComponent === 'login' && (*/}
                                     <LoginRegister
                                         showHeader={showHeader}
@@ -941,6 +932,15 @@ const App = () => {
                                         setShowSidebar={setShowSidebar}
                                     />
                                 {/*)}*/}
+                            </Route>
+                            <Route path="/login">
+                                {activeComponent === 'login' && (
+                                    <LoginRegister
+                                        showHeader={showHeader}
+                                        setShowHeader={setShowHeader}
+                                        setShowSidebar={setShowSidebar}
+                                    />
+                                )}
                             </Route>
                             <Route path="/profile">
                                 {activeComponent === 'profile' && (

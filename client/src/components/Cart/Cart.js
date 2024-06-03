@@ -200,7 +200,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                 ) : (
                     <div className="allSection">
                         <div className="sectionOne">
-                            <h3>1) Подтвердите заказ</h3>
+                            <h5>1) Подтвердите заказ</h5>
                             {section === 1 && (
                                 <div className="AllCartInfo">
                                     {cartItems.map((item) => (
@@ -266,7 +266,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             {/*<hr />*/}
                         </div>
                         <div className="sectionTwo">
-                            <h3>2) Оформите заказ</h3>
+                            <h5>2) Оформите заказ</h5>
                             {section === 2 && (
                                 <div className="checkForm">
                                     <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
@@ -306,7 +306,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                             )}
                         </div>
                         <div className="sectionThree">
-                            <h3>3) Оплатить заказ</h3>
+                            <h5>3) Оплатить заказ</h5>
                             {section === 3 && (
                                 <PaymentForm />
                             )}
