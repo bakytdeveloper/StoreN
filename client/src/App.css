@@ -129,6 +129,13 @@ span {
     margin: 0 auto!important;
     margin-left: 80% !important;
   }
+  /* Add this to your CSS file */
+  body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
 
 
 }
