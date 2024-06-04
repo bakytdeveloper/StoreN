@@ -7,7 +7,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import left from "./arrowsL.png";
 import right from "./arrowsR.png";
 import './ProductList.css';
-import {Spinner} from "react-bootstrap";
+// import {Spinner} from "react-bootstrap";
 
 
 
