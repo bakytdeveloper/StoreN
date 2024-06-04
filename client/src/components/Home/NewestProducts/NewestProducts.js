@@ -215,7 +215,7 @@ const NewestProducts = ({ apiUrl }) => {
                 } else if (windowWidth >= 1500) {
                     limit = 18;
                 } else if (windowWidth >= 1200) {
-                    limit = 18;
+                    limit = 15;
                 } else if (windowWidth >= 960) {
                     limit = 15;
                 } else if (windowWidth >= 900) {
