@@ -587,7 +587,7 @@ import './ProductList.css';
 
 
 
-// //   !!!!!!!!!!
+// //   !!!!!!!!!! Blok prokrutki
 // const ProductList = ({
 //                          searchKeyword,
 //                          cartItems,
@@ -1138,7 +1138,6 @@ import './ProductList.css';
 
 
 
-
 const ProductList = ({
                          searchKeyword,
                          cartItems,
@@ -1165,12 +1164,27 @@ const ProductList = ({
     const history = useHistory();
     const location = useLocation();
 
+    // useEffect(() => {
+    //     setShowSidebar(false);
+    //     return () => {
+    //         setShowSidebar(false);
+    //     };
+    // }, [setShowSidebar]);
+
+
+
+    // Эффект для управления отображением боковой панели в зависимости от ширины окна
     useEffect(() => {
-        setShowSidebar(false);
-        return () => {
+        if (windowWidth >= 768) {
             setShowSidebar(false);
-        };
-    }, [setShowSidebar]);
+        }
+    }, [windowWidth, setShowSidebar]);
+
+    useEffect(() => {
+        if (windowWidth < 768) {
+            setShowSidebar(true);
+        }
+    }, [windowWidth, setShowSidebar]);
 
     useEffect(() => {
         if (windowWidth >= 1200) {
@@ -1312,10 +1326,10 @@ const ProductList = ({
         }
     };
 
-    const handleBuyNow = (product) => {
-        handleAddToCart(product);
-        history.push('/cart');
-    };
+    // const handleBuyNow = (product) => {
+    //     handleAddToCart(product);
+    //     history.push('/cart');
+    // };
 
     const handleNextPage = () => {
         setCurrentPage(prevPage => {
@@ -1346,7 +1360,7 @@ const ProductList = ({
     };
 
     useEffect(() => {
-        if (showSidebar && windowWidth <= 768) {
+        if (!showSidebar && windowWidth <= 768) {
             document.body.classList.add('no-scroll');
             window.scrollTo(0, 0);
         } else {
