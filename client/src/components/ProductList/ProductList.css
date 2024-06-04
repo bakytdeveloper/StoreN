@@ -142,13 +142,17 @@
 
 
 .cart-button {
-    background-color: #08b4f8 !important;
+    position: relative;
+    background-color: #036685 !important;
     /*color: #fff;*/
-    padding: 3px 10px 0;
+    padding: 0 10px;
     border: none;
-    border-radius: 4px!important;
+    border-radius: 3px!important;
     cursor: pointer;
     box-shadow: 3px 7px 7px grey;
+    max-height: 40px;
+
+    /*box-sizing: border-box!important;*/
 
 
 }
@@ -157,7 +161,17 @@
     font-weight: bold;
     font-size: 26px;
     margin-right: 10px;
+    position: absolute;
     color: white;
+    top: -3px;
+
+}
+
+.cart-button img {
+    margin-bottom: 5px;
+    /*margin: 0 auto;*/
+    padding: 0;
+    margin-left: 21px;
 }
 
 
@@ -168,6 +182,19 @@
 }
 
 
+
+
+
+.pagination-container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    margin: 0 auto;
+    margin-bottom: 88px;
+}
 
 .pagination {
     position: absolute;
@@ -251,21 +278,65 @@
 
 }
 
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0; /* или любой другой нужный вам отступ */
-    margin-bottom: 11px;
+
+
+
+
+
+
+
+@media only screen and (max-width: 1340px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 5 - 20px), 1fr)) !important; /* Изменено */
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4 - 20px), 1fr)) !important; /* Изменено */
+    }
+
+}
+
+
+@media only screen and (width: 1024px) {
+    .pagination {
+        display: inline-flex;
+        margin-right: 210px!important;
+    }
+    .arrowR {
+        margin-right: 200px!important;
+    }
+
 }
 
 
 
 
 
-@media only screen and (width: 280px) {
+@media only screen and (max-width: 960px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)) !important; /* Изменено */
+        /*margin: 170px 4px 90px 1px !important;*/
+        padding-bottom: 0 !important;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)) !important; /* Изменено */
+        /*margin: 170px 4px 90px 1px !important;*/
+        padding-bottom: 0 !important;
+        margin-bottom: 160px!important;
+    }
+}
+
+
+
+@media only screen and (width: 820px) {
     .pagination {
-        margin-left: -18px!important;
+        margin-left: -127px!important;
     }
 
 }
@@ -288,29 +359,6 @@
         width: 100%;
         height: 100%;
     }
-
-
-    /*.product-card:nth-child(odd) {*/
-    /*    margin-top: 0;*/
-    /*    height: 322px;*/
-    /*}*/
-
-    /*.actions {*/
-    /*    margin-bottom: 0!important;*/
-    /*    margin-top: 0;*/
-    /*}*/
-
-    /*.product-card:nth-child(even) {*/
-    /*    margin-top: 22px; !* Adjust the value as needed *!*/
-
-    /*}*/
-
-    /*.brand-and-name {*/
-    /*    flex-direction: column !important;*/
-    /*    line-height: 11px;*/
-
-    /*}*/
-
 
     .pagination {
         display: inline-flex;
@@ -353,72 +401,6 @@
 
 }
 
-@media only screen and (width: 820px) {
-    .pagination {
-        margin-left: -127px!important;
-    }
-
-}
-
-
-@media only screen and (width: 1024px) {
-        .pagination {
-            display: inline-flex;
-            margin-right: 210px!important;
-        }
-    .arrowR {
-        margin-right: 200px!important;
-    }
-
-}
-
-
-
-
-
-/*.product-list {*/
-/*    display: grid;*/
-/*    position: relative;*/
-/*    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; !* Изменено *!*/
-/*    gap: 20px;*/
-/*    padding: 20px;*/
-/*    margin-top: 151px !important;*/
-/*    margin-left: 230px;*/
-/*    margin-bottom: 90px !important; !* Добавленный отступ снизу, чтобы не перекрывать pagination *!*/
-/*}*/
-
-
-
-@media only screen and (max-width: 960px) {
-    .product-list {
-        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)) !important; /* Изменено */
-        /*margin: 170px 4px 90px 1px !important;*/
-        padding-bottom: 0 !important;
-    }
-}
-
-
-@media only screen and (max-width: 1340px) {
-    .product-list {
-        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 5 - 20px), 1fr)) !important; /* Изменено */
-    }
-}
-
-@media only screen and (max-width: 1200px) {
-    .product-list {
-        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4 - 20px), 1fr)) !important; /* Изменено */
-    }
-
-}
-
-@media only screen and (max-width: 900px) {
-    .product-list {
-        grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3 - 20px), 1fr)) !important; /* Изменено */
-        /*margin: 170px 4px 90px 1px !important;*/
-        padding-bottom: 0 !important;
-        margin-bottom: 160px!important;
-    }
-}
 
 @media only screen and (max-width: 480px) {
     .product-list {
@@ -431,6 +413,16 @@
         grid-template-columns: repeat(auto-fill, minmax(calc(100% / 1 - 20px), 1fr)) !important; /* Изменено */
     }
 }
+
+
+
+@media only screen and (width: 280px) {
+    .pagination {
+        margin-left: -18px!important;
+    }
+
+}
+
 
 
 

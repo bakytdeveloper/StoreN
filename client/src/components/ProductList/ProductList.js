@@ -1397,7 +1397,7 @@ const ProductList = ({
                                 </Link>
                                 <div className="actions">
                                     <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                        <strong>+</strong>
+                                        <strong >+</strong>
                                         <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
                                     </button>
                                 </div>
