@@ -846,7 +846,7 @@ const App = () => {
                             <Route path="/" exact>
                               <Home setShowSidebar={setShowSidebar} />
                             </Route>
-                            <Route path="/catalog">
+                            <Route path="/catalog" exact>
 
                                     <ProductList
                                         searchKeyword={searchKeyword}
