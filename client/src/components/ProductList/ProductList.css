@@ -191,23 +191,27 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    left: 50%;
+    width: 100%;
+    /*left: 50%;*/
     margin: 0 auto;
-    margin-bottom: 88px;
+    margin-bottom: 70px;
+    font-family: Poppins;
 }
 
 .pagination {
+    display: flex;
     position: absolute;
     bottom: 0;
     /*left: 40% !important;*/
     transform: translateX(-50%);
-    display: flex;
+
     align-items: center;
-    /*justify-content: center;*/
-    /*justify-content: space-between;*/
-    width: 100%;
-    /*max-width: 600px; !* Желаемая максимальная ширина пагинации *!*/
-    margin: 0 auto;
+    text-align: center;
+    justify-content: center!important;
+    /*justify-content: space-between!important;*/
+    margin: 0 auto!important;
+    margin-left: 100% !important;
+
     /*margin-bottom: 30px!important;*/
 
 }
@@ -336,7 +340,7 @@
 
 @media only screen and (width: 820px) {
     .pagination {
-        margin-left: -127px!important;
+        /*margin-left: -127px!important;*/
     }
 
 }
@@ -346,7 +350,7 @@
         margin: 0 1px 90px 1px !important;
         padding-bottom: 0 !important;
         gap: 3px!important;
-        padding: 5px !important;
+        padding: 0 5px 5px 5px !important;
         flex-wrap: wrap;
 
 
@@ -362,8 +366,9 @@
 
     .pagination {
         display: inline-flex;
-        margin-left: 1%!important;
+        margin-left: 58%!important;
         width: auto;
+
 
     }
     .pagination span {
@@ -383,11 +388,11 @@
     }
 
 
-    .pagination {
-        text-align: center;
-        right: 25% !important;
-        width: auto;
-    }
+    /*.pagination {*/
+    /*    text-align: center;*/
+    /*    right: 25% !important;*/
+    /*    width: auto;*/
+    /*}*/
 
     .pagination span {
         margin-left: 16px;
@@ -428,41 +433,3 @@
 
 
 
-
-
-
-/*.product-card {*/
-/*    border: 1px solid #eeecec;*/
-/*    border-radius: 3px;*/
-/*    overflow: hidden;*/
-/*    transition: transform 0.2s ease-in-out;*/
-/*}*/
-
-/*.product-card:hover {*/
-/*    transform: scale(1.05);*/
-/*}*/
-
-/*.product-list {*/
-/*    display: grid;*/
-/*    grid-template-columns: repeat(3, 1fr); !* 3 columns for desktop *!*/
-/*    gap: 10px;*/
-/*    margin-top: 40px;*/
-/*}*/
-
-/*@media (max-width: 1200px) {*/
-/*    .product-list {*/
-/*        grid-template-columns: repeat(5, 1fr) !important; !* 2 columns for tablet *!*/
-/*    }*/
-/*}*/
-
-/*@media (max-width: 768px) {*/
-/*    .product-list {*/
-/*        grid-template-columns: repeat(4, 1fr); !* 2 columns for smaller screens *!*/
-/*    }*/
-/*}*/
-
-/*@media (max-width: 480px) {*/
-/*    .product-list {*/
-/*        grid-template-columns: repeat(4, 1fr); !* 1 column for mobile *!*/
-/*    }*/
-/*}*/

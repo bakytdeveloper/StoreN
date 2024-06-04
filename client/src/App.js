@@ -866,19 +866,18 @@ const App = () => {
 
                             </Route>
                             <Route path="/sellers/register">
+                                    <SellerRegistrationForm
+                                        showSidebar={showSidebar}
+                                        setShowSidebar={setShowSidebar}
+                                    />
+                            </Route>
+                            <Route path="/sellers/register">
                                 {activeComponent === 'sellers/register' && (
                                     <SellerRegistrationForm
                                         showSidebar={showSidebar}
                                         setShowSidebar={setShowSidebar}
                                     />
                                 )}
-                            </Route>
-                            <Route path="/sellers/register">
-
-                                    <SellerRegistrationForm
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
                             </Route>
                             <Route path="/sellers">
                                <SellerListPage />
@@ -903,11 +902,11 @@ const App = () => {
                                 {/*)}*/}
                             </Route>
                             <Route path="/sellerProfile">
-                                {activeComponent === 'sellerProfile' && <SellerProfile setShowSidebar={setShowSidebar} />}
-                            </Route>
-                            <Route path="/sellerProfile">
                                 <SellerProfile setShowSidebar={setShowSidebar} />
                             </Route>
+                            {/*<Route path="/sellerProfile">*/}
+                            {/*    {activeComponent === 'sellerProfile' && <SellerProfile setShowSidebar={setShowSidebar} />}*/}
+                            {/*</Route>*/}
                             <Route path="/seller/sales-history">
                                     <SalesHistory
                                         showSidebar={showSidebar}
@@ -916,36 +915,24 @@ const App = () => {
 
                             </Route>
                             <Route path="/products/:productId">
-                                {/*{activeComponent === 'products' && (*/}
                                     <ProductDetails
                                         setShowSidebar={setShowSidebar}
                                         cartItems={cartItems}
                                         setCartItems={setCartItems}
                                     />
-                                {/*)}*/}
                             </Route>
                             <Route path="/login">
-                                {/*{activeComponent === 'login' && (*/}
                                     <LoginRegister
                                         showHeader={showHeader}
                                         setShowHeader={setShowHeader}
                                         setShowSidebar={setShowSidebar}
                                     />
-                                {/*)}*/}
                             </Route>
                             <Route path="/login">
                                 {activeComponent === 'login' && (
                                     <LoginRegister
                                         showHeader={showHeader}
                                         setShowHeader={setShowHeader}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                )}
-                            </Route>
-                            <Route path="/profile">
-                                {activeComponent === 'profile' && (
-                                    <Profile
-                                        showSidebar={showSidebar}
                                         setShowSidebar={setShowSidebar}
                                     />
                                 )}
@@ -958,14 +945,14 @@ const App = () => {
                                     />
                                 {/*)}*/}
                             </Route>
-                            <Route path="/sellers-contacts">
-                                {activeComponent === 'sellers-contacts' && (
-                                    <ContactInfoFooter
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                )}
-                            </Route>
+                            {/*<Route path="/profile">*/}
+                            {/*    {activeComponent === 'profile' && (*/}
+                            {/*        <Profile*/}
+                            {/*            showSidebar={showSidebar}*/}
+                            {/*            setShowSidebar={setShowSidebar}*/}
+                            {/*        />*/}
+                            {/*    )}*/}
+                            {/*</Route>*/}
                             <Route path="/sellers-contacts">
                                 {/*{activeComponent === 'sellers-contacts' && (*/}
                                     <ContactInfoFooter
@@ -973,6 +960,14 @@ const App = () => {
                                         setShowSidebar={setShowSidebar}
                                     />
                                 {/*)}*/}
+                            </Route>
+                            <Route path="/sellers-contacts">
+                                {activeComponent === 'sellers-contacts' && (
+                                    <ContactInfoFooter
+                                        showSidebar={showSidebar}
+                                        setShowSidebar={setShowSidebar}
+                                    />
+                                )}
                             </Route>
                             <Route path="/cart">
                                 {/*{activeComponent === 'cart' && (*/}
@@ -993,15 +988,12 @@ const App = () => {
                                 )}
                             </Route>
                             <Route path="/orders/">
-                                {/*{activeComponent === 'orders' && (*/}
                                     <OrderList
                                         showSidebar={showSidebar}
                                         setShowSidebar={setShowSidebar}
                                     />
-                                {/*)}*/}
                             </Route>
                             <Route path="/order/:orderId">
-                                {/*{activeComponent === 'order' && (*/}
                                     <OrderDetailsPage
                                         orders={orders}
                                         setOrders={setOrders}
@@ -1010,23 +1002,18 @@ const App = () => {
                                         showSidebar={showSidebar}
                                         setShowSidebar={setShowSidebar}
                                     />
-                                {/*)}*/}
                             </Route>
                             <Route path="/admin">
-                                {/*{activeComponent === 'admin' && (*/}
                                     <AdminPanel
                                         showSidebar={showSidebar}
                                         setShowSidebar={setShowSidebar}
                                     />
-                                {/*)}*/}
                             </Route>
                             <Route path="/users/clients">
-                                {/*{activeComponent === 'users/clients' && (*/}
                                     <ClientListPage
                                         showSidebar={showSidebar}
                                         setShowSidebar={setShowSidebar}
                                     />
-                                {/*)}*/}
                             </Route>
                         </Switch>
                         {/*<ContactInfo />*/}

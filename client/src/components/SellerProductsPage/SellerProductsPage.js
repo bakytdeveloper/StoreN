@@ -141,9 +141,9 @@ const SellerProductsPage = () => {
                 {/* Остальной код компонента */}
             </div>
 
-            <div className="products-list">
+            <div className="products-list seller-products-page-products-list">
                 {products.map((product) => (
-                    <div className="product-card" key={product._id}>
+                    <div className="product-card product-card-seller" key={product._id}>
                         <div className="sellerEditDelete">
                             <button className="admin-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
                             <button className="admin-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
@@ -155,7 +155,7 @@ const SellerProductsPage = () => {
                                 src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
-                            <div className="details">
+                            <div className="details details-seller-products-page">
                                 <div className="type">{product.type}</div>
                                 <div className="brand">{product.brand}</div>
                                 <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>

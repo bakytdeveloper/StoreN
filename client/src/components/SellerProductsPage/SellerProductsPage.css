@@ -27,7 +27,7 @@
     font-size: 23px;
     border-radius: 3px 0 0 3px;
     margin-top: 0;
-    background-color: #dddddd;
+    background-color: #020343;
     color: #2f2c2c;
 
 }
@@ -349,12 +349,17 @@ body.modal_open {
 
 
 @media only screen and (max-width: 768px) {
+
+    .products-list.seller-products-page-products-list {
+        margin-bottom: 121px!important;
+    }
     .seller-panel {
-        margin-top: 177px;
+        margin-top: 0;
     }
     .products-list {
         margin: 10px 4px 0 1px!important;
         padding-bottom: 0!important;
+
     }
 
     .sellerEditDelete {
@@ -378,25 +383,39 @@ body.modal_open {
         width: 45%;
         padding: 4px 10px;
         font-size: 18px;
-        border-radius: 3px 0 0 3px;
+        border-radius: 3px;
         margin-top: 0;
-        background-color: #dddddd;
-        color: #2f2c2c;
+        background-color: #020464;
+        color: white;
 
     }
     .newProduct {
         width: 45%;
         padding: 4px 10px;
-        border-radius: 0 3px 3px 0;
+        border-radius: 3px;
         font-size: 18px;
         margin-top: 0;
-        background-color: #dddddd;
-        color: #2f2c2c;
+        background-color: #180000;
+        color: white;
         font-weight: bold;
     }
 
     .sellerButtons {
+        display: flex;
+        justify-content: center;
         text-align: center;
+        gap: 5px;
+
+    }
+
+    .product-card.product-card-seller {
+        height: auto!important;
+        /*padding: 22px!important;*/
+        /*padding-bottom: 111px!important;*/
+    }
+
+    .details-seller-products-page {
+        margin-top: -22px;
     }
 
 
@@ -464,5 +483,7 @@ body.modal_open {
     .arrowR {
         margin-right: 200px!important;
     }
+
+
 
 }

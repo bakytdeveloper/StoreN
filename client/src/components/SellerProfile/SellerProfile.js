@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './SellerProfile.css';
 
 const SellerProfile = ({ setShowSidebar }) => {
     const [seller, setSeller] = useState(null);
@@ -189,7 +190,7 @@ const SellerProfile = ({ setShowSidebar }) => {
                 </div>
             </div>
 
-            <div className="profile-content">
+            <div className="profile-content" >
                 {seller ? (
                     <div>
                         <h3>Профиль Компании/ИП, "{seller.companyName}"</h3>
@@ -241,9 +242,9 @@ const SellerProfile = ({ setShowSidebar }) => {
                                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                                     </div>
                                 </div>
-                                <div>
-                                    <button onClick={handleSavePassword}>Сохранить</button>
-                                    <button onClick={handleCancelEditPassword}>Отмена</button>
+                                <div className="seller-profile-buttons">
+                                    <button className="seller-profile-buttons-add" onClick={handleSavePassword}>Сохранить</button>
+                                    <button className="seller-profile-buttons-none" onClick={handleCancelEditPassword}>Отмена</button>
                                 </div>
                             </div>
                         )}

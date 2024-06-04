@@ -196,6 +196,7 @@ label {
 
 .pagination-buttons-users-profile-prev {
     width: 111px;
+    background: #1a026e;
 }
 .pagination-buttons-users-profile-next {
     width: 111px;
@@ -233,17 +234,18 @@ label {
  .pagination-my-history {
      margin-top: 20px;
      display: flex;
-     justify-content: center;
+     justify-content: space-between;
      align-items: center;
      margin-bottom: 55px;
+     text-align: center;
 
  }
 
  .pagination-my-history button {
-     background-color: #007bff;
+     background-color: #022651;
      color: #fff;
      border: none;
-     border-radius: 5px;
+     border-radius: 3px;
      padding: 10px 20px;
      margin: 0 5px;
      cursor: pointer;

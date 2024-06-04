@@ -1,0 +1,24 @@
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+    .profile-content {
+        margin-bottom: 100px;
+
+    }
+    .seller-profile-buttons {
+        display: flex;
+        margin-top: 20px;
+        justify-content: space-between;
+        gap: 20px;
+}
+
+    .seller-profile-buttons-add {
+        background: #1a026e;
+    }
+    .seller-profile-buttons-none {
+        background: #090002;
+    }
+}

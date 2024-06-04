@@ -1404,7 +1404,9 @@ const ProductList = ({
                             </div>
                         ))
                     ) : (
-                        <h2 className="no-products">Нет продуктов для отображения</h2>
+                        <h2 style={{
+                            marginTop:"111px"
+                        }} className="no-products">Нет продуктов для отображения</h2>
                     )}
                     {displayedProducts.length > 0 && (
                         <div className="pagination-container">
