@@ -1391,7 +1391,8 @@ const ProductList = ({
                                             <div className="product-list-brand">{product.brand}</div>
                                             <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
                                         </div>
-                                        <div className="price">KGS {product.price}</div>
+                                        <div className="price">{product.price} сом</div>
+                                        {/*<div className="price">KGS {product.price}</div>*/}
                                     </div>
                                 </Link>
                                 <div className="actions">

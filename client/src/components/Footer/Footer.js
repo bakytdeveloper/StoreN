@@ -860,6 +860,7 @@ const Footer = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
     const location = useLocation();
     const [activeButton, setActiveButton] = useState(null);
+    // const [activeButton, setActiveButton] = useState(null);
     const [prevPath, setPrevPath] = useState(null); // Состояние для хранения предыдущего пути
 
     useEffect(() => {
