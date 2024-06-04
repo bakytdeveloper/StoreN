@@ -41,7 +41,10 @@ const RelatedAccessories = ({ direction }) => {
             let count = 5; // Количество карточек по умолчанию
 
             if (screenWidth <= 1100) {
-                count = 5; // Изменить количество карточек для экранов <= 1100px
+                count = 4; // Изменить количество карточек для экранов <= 1100px
+            }
+            if (screenWidth <= 960) {
+                count = 3; // Изменить количество карточек для экранов <= 960px
             }
 
             if (screenWidth <= 768) {
