@@ -1230,7 +1230,10 @@ import ContactInfoModal from "./ContactInfoFooter";
 // export default Footer;
 //
 
-const Footer = ({ onSearch,
+
+
+const Footer = ({
+                    onSearch,
                     cartItems = [],
                     showSidebar,
                     setShowSidebar,
@@ -1240,7 +1243,6 @@ const Footer = ({ onSearch,
                     setCurrentPage,
                     setActiveComponent,
                     activeComponent
-
                 }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -1306,32 +1308,32 @@ const Footer = ({ onSearch,
         }
         setActiveComponent((prevComponent) => {
             if (prevComponent === component) {
-                setActiveComponent(null);
                 return null;
             } else {
-                setActiveComponent(component);
                 return component;
             }
         });
     };
 
-
-
     const handleCartClick = () => {
-        if (cartItems.length > 0) {
-            history.push("/cart");
+        if (activeComponent === 'cart') {
+            setActiveComponent(null);
+            setShowSidebar(false);
+            history.push(prevPath || "/");
         } else {
-            setShowSidebar(true);
+            if (cartItems.length > 0) {
+                history.push("/cart");
+            } else {
+                setShowSidebar(true);
+            }
+            handleButtonClick('cart', 'cart');
         }
-        handleButtonClick('cart', 'cart');
     };
-
 
     const handleContactClick = () => {
         history.push('/sellers-contacts');
         handleButtonClick('contact', 'contact');
     };
-
 
     const handleCatalogClick = () => {
         setSelectedOption('catalog');
@@ -1342,7 +1344,7 @@ const Footer = ({ onSearch,
 
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
-        history.goBack()
+        history.push('/catalog')
         handleButtonClick('profile', 'profile');
     };
 
@@ -1428,4 +1430,3 @@ const Footer = ({ onSearch,
 };
 
 export default Footer;
-
