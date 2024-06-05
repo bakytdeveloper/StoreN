@@ -1540,7 +1540,9 @@ const Footer = ({
             setActiveComponent(null);
             history.push(prevPath || "/");
         } else {
+
             history.push('/sellers-contacts');
+
             handleButtonClick('contact', 'contact');
         }
     };
