@@ -4,12 +4,14 @@ import what from './../Header/whatsapp1.png';
 import ins from './../Header/instagram1.png';
 import tel from './../Header/telegram1.png';
 import {useHistory} from "react-router-dom";
+import './Footer.css';
+import cross from './cross.png';
 
-const ContactInfoFooter = ({setShowSidebar}) => {
+const ContactInfoFooter = ({setShowSidebar, onClose}) => {
     const history = useHistory();
 
     const handleGoBack = () => {
-        history.push('/catalog'); // Переход на предыдущую страницу
+        onClose();
     };
 
 
@@ -24,7 +26,10 @@ const ContactInfoFooter = ({setShowSidebar}) => {
 
     return (
         <div className="contact-info-modal">
-            <button className="close-btn-modal" onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
+            <button className="close-btn-modal" onClick={handleGoBack}>
+                {/*&times;*/}
+                <img src={cross}/>
+            </button> {/* Кнопка "крестик" */}
 
             <h2 className="contact-info-modal-title">Наши контакты</h2>
             {/*<div className="close-btn-modal" onClick={handleCloseModal}>Закрыть</div>*/}

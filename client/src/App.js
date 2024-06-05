@@ -1195,20 +1195,20 @@ const App = () => {
                                     setShowSidebar={setShowSidebar}
                                 />
                             </Route>
-                            <Route path="/sellers-contacts">
-                                <ContactInfoFooter
-                                    showSidebar={showSidebar}
-                                    setShowSidebar={setShowSidebar}
-                                />
-                            </Route>
-                            <Route path="/sellers-contacts">
-                                {activeComponent === 'sellers-contacts' && (
-                                    <ContactInfoFooter
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                )}
-                            </Route>
+                            {/*<Route path="/sellers-contacts">*/}
+                            {/*    <ContactInfoFooter*/}
+                            {/*        showSidebar={showSidebar}*/}
+                            {/*        setShowSidebar={setShowSidebar}*/}
+                            {/*    />*/}
+                            {/*</Route>*/}
+                            {/*<Route path="/sellers-contacts">*/}
+                            {/*    {activeComponent === 'sellers-contacts' && (*/}
+                            {/*        <ContactInfoFooter*/}
+                            {/*            showSidebar={showSidebar}*/}
+                            {/*            setShowSidebar={setShowSidebar}*/}
+                            {/*        />*/}
+                            {/*    )}*/}
+                            {/*</Route>*/}
                             <Route path="/cart">
                                 <Cart
                                     cartItems={cartItems}
