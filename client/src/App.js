@@ -761,6 +761,268 @@ import LoadingSpinner from "./components/LoadingSpinner";
 
 
 
+//
+//
+// const App = () => {
+//     const [searchKeyword, setSearchKeyword] = useState('');
+//     const [cartItems, setCartItems] = useState([]);
+//     const [products, setProducts] = useState([]);
+//     const [showSidebar, setShowSidebar] = useState(false);
+//     const [showHeader, setShowHeader] = useState(true);
+//     const [selectedOption, setSelectedOption] = useState(null);
+//     const [currentPage, setCurrentPage] = useState(1);
+//     const [orders, setOrders] = useState([]);
+//     const [selectedGender, setSelectedGender] = useState(null);
+//     const [selectedCategory, setSelectedCategory] = useState(null);
+//     const [selectedType, setSelectedType] = useState(null);
+//     const [isLoading, setIsLoading] = useState(true); // Добавлено состояние для загрузки
+//     const [activeComponent, setActiveComponent] = useState(null); // Добавлено состояние для активного компонента
+//
+//     useEffect(() => {
+//         const token = localStorage.getItem('token');
+//         if (token) {
+//             setToken(token);
+//         }
+//     }, []);
+//
+//     const setToken = (token) => {
+//         localStorage.setItem('token', token);
+//     };
+//
+//     useEffect(() => {
+//         const fetchOrders = async () => {
+//             try {
+//                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`);
+//                 const data = await response.json();
+//                 setOrders(data);
+//                 setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки
+//             } catch (error) {
+//                 console.error('Fetch error:', error);
+//                 setIsLoading(false); // Устанавливаем isLoading в false даже при ошибке
+//             }
+//         };
+//         fetchOrders();
+//     }, []);
+//
+//     const handleSearch = (keyword) => {
+//         setSearchKeyword(keyword);
+//     };
+//
+//     const resetFilter = () => {
+//         setSearchKeyword('');
+//         setProducts([]);
+//     };
+//
+//     return (
+//         <Router>
+//             <div className="app">
+//                 {isLoading && <LoadingSpinner />} {/* Показываем спиннер при загрузке */}
+//                 {!isLoading && (
+//                     <>
+//                         {showHeader && (
+//                             <Header
+//                                 onSearch={handleSearch}
+//                                 cartItems={cartItems}
+//                                 setShowSidebar={setShowSidebar}
+//                                 showSidebar={showSidebar}
+//                                 resetFilter={resetFilter}
+//                                 setSelectedOption={setSelectedOption}
+//                                 setCurrentPage={setCurrentPage}
+//                             />
+//                         )}
+//                         <Sidebar
+//                             setProducts={setProducts}
+//                             showSidebar={showSidebar}
+//                             setShowSidebar={setShowSidebar}
+//                             selectedOption={selectedOption}
+//                             selectedGender={selectedGender}
+//                             selectedCategory={selectedCategory}
+//                             selectedType={selectedType}
+//                             setSelectedGender={setSelectedGender}
+//                             setSelectedCategory={setSelectedCategory}
+//                             setSelectedType={setSelectedType}
+//                         />
+//                         <Switch>
+//                             <Route path="/" exact>
+//                               <Home setShowSidebar={setShowSidebar} />
+//                             </Route>
+//                             <Route path="/catalog" exact>
+//
+//                                     <ProductList
+//                                         searchKeyword={searchKeyword}
+//                                         cartItems={cartItems}
+//                                         setCartItems={setCartItems}
+//                                         products={products}
+//                                         showSidebar={showSidebar}
+//                                         setProducts={setProducts}
+//                                         setShowSidebar={setShowSidebar}
+//                                         selectedGender={selectedGender}
+//                                         selectedCategory={selectedCategory}
+//                                         selectedType={selectedType}
+//                                         setSelectedGender={setSelectedGender}
+//                                         setSelectedCategory={setSelectedCategory}
+//                                         setSelectedType={setSelectedType}
+//                                     />
+//
+//                             </Route>
+//                             <Route path="/sellers/register">
+//                                     <SellerRegistrationForm
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/sellers/register">
+//                                 {activeComponent === 'sellers/register' && (
+//                                     <SellerRegistrationForm
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                                 )}
+//                             </Route>
+//                             <Route path="/sellers">
+//                                <SellerListPage />
+//                             </Route>
+//                             <Route path="/seller/products">
+//                                 <SellerProductsPage />
+//                             </Route>
+//                             <Route path="/sellers-products">
+//                                     <ProductForm
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/product-form/:productId">
+//                                     <ProductForm
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/sellerProfile">
+//                                 <SellerProfile setShowSidebar={setShowSidebar} />
+//                             </Route>
+//
+//                             <Route path="/seller/sales-history">
+//                                     <SalesHistory
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//
+//                             </Route>
+//                             <Route path="/products/:productId">
+//                                     <ProductDetails
+//                                         setShowSidebar={setShowSidebar}
+//                                         cartItems={cartItems}
+//                                         setCartItems={setCartItems}
+//                                     />
+//                             </Route>
+//                             <Route path="/login">
+//                                     <LoginRegister
+//                                         showHeader={showHeader}
+//                                         setShowHeader={setShowHeader}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/login">
+//                                 {activeComponent === 'login' && (
+//                                     <LoginRegister
+//                                         showHeader={showHeader}
+//                                         setShowHeader={setShowHeader}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                                 )}
+//                             </Route>
+//                             <Route path="/profile">
+//                                     <Profile
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//
+//                             <Route path="/sellers-contacts">
+//                                     <ContactInfoFooter
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/sellers-contacts">
+//                                 {activeComponent === 'sellers-contacts' && (
+//                                     <ContactInfoFooter
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                                 )}
+//                             </Route>
+//                             <Route path="/cart">
+//                                 {/*{activeComponent === 'cart' && (*/}
+//                                     <Cart
+//                                         cartItems={cartItems}
+//                                         setCartItems={setCartItems}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                                 {/*)}*/}
+//                             </Route>
+//                             <Route path="/cart">
+//                                 {activeComponent === 'cart' && (
+//                                     <Cart
+//                                         cartItems={cartItems}
+//                                         setCartItems={setCartItems}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                                 )}
+//                             </Route>
+//                             <Route path="/orders/">
+//                                     <OrderList
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/order/:orderId">
+//                                     <OrderDetailsPage
+//                                         orders={orders}
+//                                         setOrders={setOrders}
+//                                         cartItems={cartItems}
+//                                         setCartItems={setCartItems}
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/admin">
+//                                     <AdminPanel
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                             <Route path="/users/clients">
+//                                     <ClientListPage
+//                                         showSidebar={showSidebar}
+//                                         setShowSidebar={setShowSidebar}
+//                                     />
+//                             </Route>
+//                         </Switch>
+//                         {/*<ContactInfo />*/}
+//
+//                         <Footer
+//                             cartItems={cartItems}
+//                             showSidebar={showSidebar}
+//                             setShowSidebar={setShowSidebar}
+//                             selectedOption={selectedOption}
+//                             setSelectedOption={setSelectedOption}
+//                             resetFilter={resetFilter}
+//                             setCurrentPage={setCurrentPage}
+//                             setActiveComponent={setActiveComponent} // Добавлено для управления активным компонентом
+//                         />
+//                         <ContactInfo />
+//                     </>
+//                 )}
+//
+//             </div>
+//
+//             <ToastContainer />
+//         </Router>
+//     );
+// };
+//
+// export default App;
 
 
 const App = () => {
@@ -816,7 +1078,7 @@ const App = () => {
     return (
         <Router>
             <div className="app">
-                {isLoading && <LoadingSpinner />} {/* Показываем спиннер при загрузке */}
+                {isLoading && <LoadingSpinner />}
                 {!isLoading && (
                     <>
                         {showHeader && (
@@ -844,32 +1106,30 @@ const App = () => {
                         />
                         <Switch>
                             <Route path="/" exact>
-                              <Home setShowSidebar={setShowSidebar} />
+                                <Home setShowSidebar={setShowSidebar} />
                             </Route>
                             <Route path="/catalog" exact>
-
-                                    <ProductList
-                                        searchKeyword={searchKeyword}
-                                        cartItems={cartItems}
-                                        setCartItems={setCartItems}
-                                        products={products}
-                                        showSidebar={showSidebar}
-                                        setProducts={setProducts}
-                                        setShowSidebar={setShowSidebar}
-                                        selectedGender={selectedGender}
-                                        selectedCategory={selectedCategory}
-                                        selectedType={selectedType}
-                                        setSelectedGender={setSelectedGender}
-                                        setSelectedCategory={setSelectedCategory}
-                                        setSelectedType={setSelectedType}
-                                    />
-
+                                <ProductList
+                                    searchKeyword={searchKeyword}
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
+                                    products={products}
+                                    showSidebar={showSidebar}
+                                    setProducts={setProducts}
+                                    setShowSidebar={setShowSidebar}
+                                    selectedGender={selectedGender}
+                                    selectedCategory={selectedCategory}
+                                    selectedType={selectedType}
+                                    setSelectedGender={setSelectedGender}
+                                    setSelectedCategory={setSelectedCategory}
+                                    setSelectedType={setSelectedType}
+                                />
                             </Route>
                             <Route path="/sellers/register">
-                                    <SellerRegistrationForm
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
+                                <SellerRegistrationForm
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/sellers/register">
                                 {activeComponent === 'sellers/register' && (
@@ -880,53 +1140,45 @@ const App = () => {
                                 )}
                             </Route>
                             <Route path="/sellers">
-                               <SellerListPage />
+                                <SellerListPage />
                             </Route>
                             <Route path="/seller/products">
                                 <SellerProductsPage />
                             </Route>
                             <Route path="/sellers-products">
-                                {/*{activeComponent === 'sellers-products' && (*/}
-                                    <ProductForm
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                {/*)}*/}
+                                <ProductForm
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/product-form/:productId">
-                                {/*{activeComponent === 'product-form' && (*/}
-                                    <ProductForm
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                {/*)}*/}
+                                <ProductForm
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/sellerProfile">
                                 <SellerProfile setShowSidebar={setShowSidebar} />
                             </Route>
-                            {/*<Route path="/sellerProfile">*/}
-                            {/*    {activeComponent === 'sellerProfile' && <SellerProfile setShowSidebar={setShowSidebar} />}*/}
-                            {/*</Route>*/}
                             <Route path="/seller/sales-history">
-                                    <SalesHistory
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-
+                                <SalesHistory
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/products/:productId">
-                                    <ProductDetails
-                                        setShowSidebar={setShowSidebar}
-                                        cartItems={cartItems}
-                                        setCartItems={setCartItems}
-                                    />
+                                <ProductDetails
+                                    setShowSidebar={setShowSidebar}
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
+                                />
                             </Route>
                             <Route path="/login">
-                                    <LoginRegister
-                                        showHeader={showHeader}
-                                        setShowHeader={setShowHeader}
-                                        setShowSidebar={setShowSidebar}
-                                    />
+                                <LoginRegister
+                                    showHeader={showHeader}
+                                    setShowHeader={setShowHeader}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/login">
                                 {activeComponent === 'login' && (
@@ -938,28 +1190,16 @@ const App = () => {
                                 )}
                             </Route>
                             <Route path="/profile">
-                                {/*{activeComponent === 'profile' && (*/}
-                                    <Profile
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                {/*)}*/}
+                                <Profile
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
-                            {/*<Route path="/profile">*/}
-                            {/*    {activeComponent === 'profile' && (*/}
-                            {/*        <Profile*/}
-                            {/*            showSidebar={showSidebar}*/}
-                            {/*            setShowSidebar={setShowSidebar}*/}
-                            {/*        />*/}
-                            {/*    )}*/}
-                            {/*</Route>*/}
                             <Route path="/sellers-contacts">
-                                {/*{activeComponent === 'sellers-contacts' && (*/}
-                                    <ContactInfoFooter
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                {/*)}*/}
+                                <ContactInfoFooter
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/sellers-contacts">
                                 {activeComponent === 'sellers-contacts' && (
@@ -970,13 +1210,11 @@ const App = () => {
                                 )}
                             </Route>
                             <Route path="/cart">
-                                {/*{activeComponent === 'cart' && (*/}
-                                    <Cart
-                                        cartItems={cartItems}
-                                        setCartItems={setCartItems}
-                                        setShowSidebar={setShowSidebar}
-                                    />
-                                {/*)}*/}
+                                <Cart
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/cart">
                                 {activeComponent === 'cart' && (
@@ -988,36 +1226,34 @@ const App = () => {
                                 )}
                             </Route>
                             <Route path="/orders/">
-                                    <OrderList
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
+                                <OrderList
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/order/:orderId">
-                                    <OrderDetailsPage
-                                        orders={orders}
-                                        setOrders={setOrders}
-                                        cartItems={cartItems}
-                                        setCartItems={setCartItems}
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
+                                <OrderDetailsPage
+                                    orders={orders}
+                                    setOrders={setOrders}
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/admin">
-                                    <AdminPanel
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
+                                <AdminPanel
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/users/clients">
-                                    <ClientListPage
-                                        showSidebar={showSidebar}
-                                        setShowSidebar={setShowSidebar}
-                                    />
+                                <ClientListPage
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                         </Switch>
-                        {/*<ContactInfo />*/}
-
                         <Footer
                             cartItems={cartItems}
                             showSidebar={showSidebar}
@@ -1026,14 +1262,13 @@ const App = () => {
                             setSelectedOption={setSelectedOption}
                             resetFilter={resetFilter}
                             setCurrentPage={setCurrentPage}
-                            setActiveComponent={setActiveComponent} // Добавлено для управления активным компонентом
+                            setActiveComponent={setActiveComponent}
+                            activeComponent={activeComponent}
                         />
                         <ContactInfo />
                     </>
                 )}
-                {/*<ContactInfo />*/}
             </div>
-            {/*<ContactInfo />*/}
             <ToastContainer />
         </Router>
     );
