@@ -292,7 +292,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
                                             <label htmlFor="pickup">Самовывоз</label>
                                         </div>
                                     </div>
-                                    <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
+                                    <input className="address-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
                                     <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Номер телефона:</label>
                                     <input className="cartPhoneNumber" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                                     <label>Способ оплаты:</label>

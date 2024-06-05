@@ -112,6 +112,10 @@ span {
   top: 0!important;
 }
 
+  .spinner-container {
+    position: relative;
+
+  }
 
 
   .spinner-border {
@@ -122,6 +126,8 @@ span {
     padding: 17px;
     /*margin: 50%!important;*/
     margin-left: 100% !important;
+    margin-top: 100% !important;
+
   }
   /* Add this to your CSS file */
   body.no-scroll {

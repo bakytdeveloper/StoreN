@@ -289,4 +289,52 @@ h5 {
     .total-price {
         margin-top: 22px;
     }
+
+    .payment-form {
+        display: block;
+        font-family: Poppins;
+        /*line-height: 15px!important;*/
+
+    }
+
+    .payment-form-h1 {
+        font-size: 25px;
+    }
+    .payment-form-h2-1 {
+        margin-top: 11px;
+        font-size: 23px;
+    }
+    .payment-form-h2-2 {
+        font-size: 23px;
+        margin-top: 11px;
+    }
+
+    .radioButtons {
+        display: inline-block;
+        width: 100%;
+        position: relative;
+    }
+
+    .btnTwo {
+        display: flex;
+        position: absolute;
+        /*justify-content: flex-start!important;*/
+        align-items: flex-start;
+    }
+
+    .btnTwo input {
+        display: flex;
+        left: 0!important;
+
+    }
+    .btnTwo label {
+        display: flex;
+        margin-left: 0!important;
+
+    }
+
+    .address-input {
+        margin-top: 50px;
+    }
+
 }

@@ -359,8 +359,9 @@ const Footer = ({
     };
 
     const handleCatalogClick = () => {
-        setSelectedOption('catalog');
+
         history.push('/catalog');
+        setSelectedOption('catalog');
         setShowSidebar(!showSidebar);
         handleButtonClick('catalog', 'catalog');
     };

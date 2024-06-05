@@ -150,7 +150,7 @@
         position: absolute;
         top: 12px;
         /*right: 3px;*/
-        left: 47px;
+        left: 33px;
         background-color: red; /* Фон для счетчика, вы можете изменить цвет */
         color: white!important; /* Цвет текста счетчика */
         border-radius: 50%; /* Закругленные углы для создания круга */
@@ -166,6 +166,18 @@
         height: 27px;
         align-items: center;
         filter: brightness(62%) saturate(10%) invert(10%) sepia(0%) saturate(30%) hue-rotate(10deg) brightness(10%) contrast(15%);
+    }
+
+    .cart-icon-img {
+        margin-bottom: -7px!important;
+        padding: 0!important;
+        margin-top: 5px;
+    }
+
+    .footer-totalItems {
+        padding: 0!important;
+        /*margin-top: 3px!important;*/
+        /*margin-bottom: 10px!important;*/
     }
 
     .footer-dropdown-menu {
