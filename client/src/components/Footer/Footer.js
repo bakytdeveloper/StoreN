@@ -1342,6 +1342,7 @@ const Footer = ({ onSearch,
 
     const handleProfileClick = () => {
         setIsProfileOpen(!isProfileOpen);
+        history.goBack()
         handleButtonClick('profile', 'profile');
     };
 
