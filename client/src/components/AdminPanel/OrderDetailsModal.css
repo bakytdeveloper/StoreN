@@ -229,3 +229,21 @@
     font-size: 15px;
     margin-bottom: 11px;
 }
+
+
+@media screen and (max-width: 768px) {
+
+    .modal-content {
+        margin-top: 70px;
+    }
+    .modal-content h2 {
+        margin-top: 20px;
+    }
+
+    .close-button {
+        margin-top: 7px;
+        color: #1a026e;
+        left: 35% !important;
+    }
+
+}

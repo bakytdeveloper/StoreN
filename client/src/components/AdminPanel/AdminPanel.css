@@ -152,7 +152,9 @@ h2 {
 @media screen and (max-width: 768px) {
 .admin-panel {
     width: 100%;
-    margin-top: 82px;
+    margin-top: 22px;
+    /*margin-top: 82px;*/
+    padding: 7px;
 }
 
 }
