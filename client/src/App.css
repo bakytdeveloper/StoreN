@@ -131,6 +131,11 @@ span {
     height: 100%;
   }
 
+  .footer-auth-button-btn {
+
+    border: none;
+  }
+
 
 
 }

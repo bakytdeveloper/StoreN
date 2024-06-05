@@ -269,10 +269,47 @@
 .btn {
     margin-right: 22px;
     margin-left: 15px;
+
 }
+
 
 .dropdown-menu {
     display: block;
+}
+
+/* Убираем рамку при фокусе на кнопке корзины */
+.auth-button.btn:focus,
+.auth-button.btn:active {
+    outline: none!important;
+}
+
+/* Добавьте этот стиль, если его нет */
+.active-title {
+    border: 1px solid #bcbaba;
+    border-bottom-color: #0355a7;
+    border-top: none !important;
+    border-right: none!important;
+    border-left: none!important;
+    color: #0355a7!important;
+    border-radius: 0;
+    text-align: center;
+    width: 100px;
+
+}
+
+.active-title {
+    border-bottom: 2px solid #0355a7;
+    padding: 0!important;
+    color: #0355a7 !important;
+    width: auto!important;
+}
+
+
+.active-title .total-items-title {
+    border-bottom: 2px solid #0355a7;
+    padding: 0!important;
+    color: #0355a7 !important;
+    margin-left: 0!important;
 }
 
 
@@ -320,7 +357,7 @@
     .header-left, .header-right {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between!important;
         font-size: 15px;
         margin-top: 0!important;
     }
