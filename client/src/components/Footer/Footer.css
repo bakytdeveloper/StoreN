@@ -193,7 +193,7 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 28%;
+        height: 35%;
         background-color: white;
         box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
         /*margin-bottom: 66px;*/
@@ -254,7 +254,7 @@
     .footer-dropdown-menu button {
         display: block;
         width: 50%;
-        padding: 12px;
+        padding: 17px;
         margin-bottom: 1px;
         /*text-align: left;*/
         border: none;
@@ -263,11 +263,15 @@
         /*color: black;*/
         font-family: Poppins;
         font-weight: 500;
-        font-size: 17px;
-        color: black;
-        background: #14f5f5;
+        font-size: 20px;
+        color: white;
+        background: #000d5f;
         margin-top: 13px;
 
+    }
+
+    .footer-dropdown-menu button.profile-login {
+        background: #090808;
     }
 
     .footer-dropdown-menu button:hover {
@@ -307,22 +311,36 @@
 
 
     .contact-info-modal {
-        height: 30%;
-        top: 70%;
+        height: 35%;
+        top: 65%;
         bottom: 5px!important;
         border-radius: 20px 20px 0 0;
 
-        /*line-height: 17px;*/
+        line-height: 40px;
         animation: slideUp 1s ease-in-out;
         background-color: white;
         box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
         padding-top: 0;
+        overflow: hidden;
+        gap: 10px;
     }
     .social-icons-modal {
         top: 0;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         z-index: 1000;
     }
+
+    .workingTime-modal {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-footer-dropdown-menu {
+        color: #5d5c5c!important;
+        width: 44px!important;
+
+    }
+
 
 
 
@@ -362,8 +380,9 @@
     }
 
     .close-btn-modal img {
-        width: 35px;
+        width: 44px;
         height: auto;
+
     }
 
 

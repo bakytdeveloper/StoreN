@@ -447,12 +447,19 @@ const Footer = ({
                     {isProfileOpen && (
                         <div className="footer-dropdown-menu">
                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>
-                                                               &#10006;
+                                                               {/*&#10006;*/}
+                                 <img className="profile-footer-dropdown-menu" src={cross}/>
                             </span>
                             {!isAuthenticated && <div className="footer-dropdown-menu-text">
                                 При регистрации и логине ты сможешь стать нашим Клиентом или Партнёром
                             </div>}
-                            <button style={{ color: "black" }} onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+
+                            {isAuthenticated && <div className="footer-dropdown-menu-text">
+                                Вам доступен ваш профиль. Вы можете войти в него
+                            </div>}
+
+                            <button className="profile-login"  onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+
                             {!isAuthenticated && <button className="footer-dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
                             {isAuthenticated && <button className="footer-dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
                         </div>
