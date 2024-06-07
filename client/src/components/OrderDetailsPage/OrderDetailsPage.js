@@ -818,6 +818,8 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
         history.goBack();
     };
 
+
+
     // const updateQuantity = async (productId, newQuantity) => {
     //     if (newQuantity < 0) {
     //         console.error('Нельзя установить отрицательное количество товара');
@@ -835,7 +837,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
     //         if (response.ok) {
     //             const updatedOrder = { ...order };
     //             const updatedProducts = updatedOrder.products.map(item => {
-    //                 if (item.product._id === productId) {
+    //                 if (item.product && item.product._id === productId) {
     //                     return { ...item, quantity: newQuantity };
     //                 }
     //                 return item;
@@ -859,6 +861,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
     //     }
     // };
 
+
     const updateQuantity = async (productId, newQuantity) => {
         if (newQuantity < 0) {
             console.error('Нельзя установить отрицательное количество товара');
@@ -877,7 +880,9 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
                 const updatedOrder = { ...order };
                 const updatedProducts = updatedOrder.products.map(item => {
                     if (item.product && item.product._id === productId) {
-                        return { ...item, quantity: newQuantity };
+                        // Добавляем проверку на наличие свойства price у товара
+                        const price = item.product.price || 0; // Если свойство price отсутствует, устанавливаем значение по умолчанию
+                        return { ...item, quantity: newQuantity, price: price };
                     }
                     return item;
                 });
@@ -899,6 +904,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
             console.error('Error updating quantity:', error);
         }
     };
+
 
 
     // const onDeleteItem = async (productId) => {
@@ -979,7 +985,9 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
     const calculateTotalAmountLocally = (products) => {
         let sum = 0;
         for (const item of products) {
-            sum += item.product.price * item.quantity;
+            if (item.product && item.product.price) { // Добавляем проверку на существование товара и его цены
+                sum += item.product.price * item.quantity;
+            }
         }
         return sum;
     };
