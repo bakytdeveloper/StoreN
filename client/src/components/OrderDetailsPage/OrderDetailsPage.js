@@ -818,6 +818,47 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
         history.goBack();
     };
 
+    // const updateQuantity = async (productId, newQuantity) => {
+    //     if (newQuantity < 0) {
+    //         console.error('Нельзя установить отрицательное количество товара');
+    //         return;
+    //     }
+    //
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ quantity: newQuantity }),
+    //         });
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             const updatedProducts = updatedOrder.products.map(item => {
+    //                 if (item.product._id === productId) {
+    //                     return { ...item, quantity: newQuantity };
+    //                 }
+    //                 return item;
+    //             });
+    //             updatedOrder.products = updatedProducts;
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+    //             setOrder(updatedOrder);
+    //
+    //             const updatedOrders = orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             });
+    //             setOrders(updatedOrders);
+    //         } else {
+    //             console.error('Failed to update quantity');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating quantity:', error);
+    //     }
+    // };
+
     const updateQuantity = async (productId, newQuantity) => {
         if (newQuantity < 0) {
             console.error('Нельзя установить отрицательное количество товара');
@@ -835,7 +876,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
             if (response.ok) {
                 const updatedOrder = { ...order };
                 const updatedProducts = updatedOrder.products.map(item => {
-                    if (item.product._id === productId) {
+                    if (item.product && item.product._id === productId) {
                         return { ...item, quantity: newQuantity };
                     }
                     return item;
@@ -859,6 +900,36 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
         }
     };
 
+
+    // const onDeleteItem = async (productId) => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
+    //             method: 'DELETE',
+    //         });
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             updatedOrder.products = updatedOrder.products.filter((item) => item.product._id !== productId);
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
+    //             setOrder(updatedOrder);
+    //             const updatedOrders = orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             });
+    //             setOrders(updatedOrders);
+    //
+    //             if (updatedOrder.products.length === 0) {
+    //                 await deleteOrder(orderId);
+    //             }
+    //         } else {
+    //             console.error('Failed to delete item');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error deleting item:', error);
+    //     }
+    // };
+
     const onDeleteItem = async (productId) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
@@ -866,7 +937,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
             });
             if (response.ok) {
                 const updatedOrder = { ...order };
-                updatedOrder.products = updatedOrder.products.filter((item) => item.product._id !== productId);
+                updatedOrder.products = updatedOrder.products.filter((item) => item.product && item.product._id !== productId);
                 updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
                 setOrder(updatedOrder);
                 const updatedOrders = orders.map((order) => {
@@ -887,6 +958,8 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
             console.error('Error deleting item:', error);
         }
     };
+
+
 
     const deleteOrder = async (orderId) => {
         try {
