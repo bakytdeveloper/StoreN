@@ -517,7 +517,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
-const OrderDetailsPage = ({ orders, setOrders }) => {
+const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
     const { orderId } = useParams();
     const [order, setOrder] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -665,6 +665,15 @@ const OrderDetailsPage = ({ orders, setOrders }) => {
     const cancelDeleteItem = () => {
         setDeleteConfirmation(null);
     };
+
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => {
+            setShowSidebar(true);
+        };
+    }, [setShowSidebar]);
+
 
     return (
         <div className="order-details-page">
