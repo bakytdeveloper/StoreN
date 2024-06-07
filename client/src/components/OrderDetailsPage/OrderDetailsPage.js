@@ -516,6 +516,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import './OrderDetailsPage.css';
 
 const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
     const { orderId } = useParams();
@@ -675,6 +676,102 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
     }, [setShowSidebar]);
 
 
+    // return (
+    //     <div className="order-details-page">
+    //         {order && (
+    //             <div className="order-details-modal">
+    //                 <div className="modal-content">
+    //                     <button className="close-button" onClick={onClose}>
+    //                         &#10006;
+    //                     </button>
+    //                     <h2>Детали заказа</h2>
+    //                     <div className="order-info">
+    //                         <div>
+    //                             <strong>ID заказа:</strong> {order._id}
+    //                         </div>
+    //                         <div>
+    //                             <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
+    //                         </div>
+    //                         {/* Остальные детали заказа */}
+    //                         <div>
+    //                             <strong>Товары:</strong>
+    //                             <hr />
+    //                             <ul>
+    //                                 {order.products.map((item, index) => (
+    //                                     <li key={item.product._id}>
+    //                                         {/* Инфо о продавце */}
+    //                                         <h3>Инф. о продавце заказа</h3>
+    //                                         <div>
+    //                                             <strong>Продавец:</strong> {getSellerInfo(item.product).name}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Email продавца:</strong> {getSellerInfo(item.product).email}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Номер телефона продавца:</strong> {getSellerInfo(item.product).phoneNumber}
+    //                                         </div>
+    //                                         <hr />
+    //                                         {/* Остальные детали товара */}
+    //                                         <div>
+    //                                             <strong>Тип товара:</strong> {item.product.type}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Бренд:</strong> {item.product.brand}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Название товара:</strong> {item.product.name}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Цвет товара:</strong> {item.color}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Размер:</strong> {item.size}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Описание:</strong> {item.product.description}
+    //                                         </div>
+    //
+    //                                         {/* Количество товара с кнопками */}
+    //                                         <div className="quantityItem">
+    //                                             <strong>Количество:</strong> {item.quantity}
+    //                                             {editMode[item.product._id] ? (
+    //                                                 <>
+    //                                                     <div className="quantityButtons">
+    //                                                         <button className="minusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
+    //                                                         <button className="plusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
+    //                                                     </div>
+    //                                                     {deleteConfirmation === item.product._id ? (
+    //                                                         <>
+    //                                                             <button className="cancelDeleteItemButton" onClick={cancelDeleteItem}>Отмена</button>
+    //                                                             <button className="confirmDeleteItemButton" onClick={() => onDeleteItem(item.product._id)}>Подтвердить удаление</button>
+    //                                                         </>
+    //                                                     ) : (
+    //                                                         <button className="deleteOneItemOrder" onClick={() => confirmDeleteItem(item.product._id)}>Удалить</button>
+    //                                                     )}
+    //                                                 </>
+    //                                             ) : (
+    //                                                 <button onClick={() => toggleEditMode(item.product._id)}>Редактировать</button>
+    //                                             )}
+    //                                         </div>
+    //                                         <div>
+    //                                             <strong>Цена за единицу:</strong> {item.product.price} KGS
+    //                                         </div>
+    //                                         <hr />
+    //                                     </li>
+    //                                 ))}
+    //                             </ul>
+    //                         </div>
+    //                         <div>
+    //                             <strong>Общая сумма заказа: {totalAmount}</strong> KGS
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         )}
+    //     </div>
+    // );
+
+
     return (
         <div className="order-details-page">
             {order && (
@@ -697,49 +794,49 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
                                 <hr />
                                 <ul>
                                     {order.products.map((item, index) => (
-                                        <li key={item.product._id}>
+                                        <li key={item.product ? item.product._id : index}>
                                             {/* Инфо о продавце */}
                                             <h3>Инф. о продавце заказа</h3>
                                             <div>
-                                                <strong>Продавец:</strong> {getSellerInfo(item.product).name}
+                                                <strong>Продавец:</strong> {item.product ? getSellerInfo(item.product).name : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Email продавца:</strong> {getSellerInfo(item.product).email}
+                                                <strong>Email продавца:</strong> {item.product ? getSellerInfo(item.product).email : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Номер телефона продавца:</strong> {getSellerInfo(item.product).phoneNumber}
+                                                <strong>Номер телефона продавца:</strong> {item.product ? getSellerInfo(item.product).phoneNumber : 'Не указано'}
                                             </div>
                                             <hr />
                                             {/* Остальные детали товара */}
                                             <div>
-                                                <strong>Тип товара:</strong> {item.product.type}
+                                                <strong>Тип товара:</strong> {item.product ? item.product.type : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Бренд:</strong> {item.product.brand}
+                                                <strong>Бренд:</strong> {item.product ? item.product.brand : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Название товара:</strong> {item.product.name}
+                                                <strong>Название товара:</strong> {item.product ? item.product.name : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Цвет товара:</strong> {item.color}
+                                                <strong>Цвет товара:</strong> {item.color ? item.color : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Размер:</strong> {item.size}
+                                                <strong>Размер:</strong> {item.size ? item.size : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Описание:</strong> {item.product.description}
+                                                <strong>Описание:</strong> {item.product ? item.product.description : 'Не указано'}
                                             </div>
 
                                             {/* Количество товара с кнопками */}
                                             <div className="quantityItem">
                                                 <strong>Количество:</strong> {item.quantity}
-                                                {editMode[item.product._id] ? (
+                                                {editMode[item.product ? item.product._id : index] ? (
                                                     <>
                                                         <div className="quantityButtons">
                                                             <button className="minusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
                                                             <button className="plusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
                                                         </div>
-                                                        {deleteConfirmation === item.product._id ? (
+                                                        {deleteConfirmation === (item.product ? item.product._id : index) ? (
                                                             <>
                                                                 <button className="cancelDeleteItemButton" onClick={cancelDeleteItem}>Отмена</button>
                                                                 <button className="confirmDeleteItemButton" onClick={() => onDeleteItem(item.product._id)}>Подтвердить удаление</button>
@@ -749,11 +846,11 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
                                                         )}
                                                     </>
                                                 ) : (
-                                                    <button onClick={() => toggleEditMode(item.product._id)}>Редактировать</button>
+                                                    <button onClick={() => toggleEditMode(item.product ? item.product._id : index)}>Редактировать</button>
                                                 )}
                                             </div>
                                             <div>
-                                                <strong>Цена за единицу:</strong> {item.product.price} KGS
+                                                <strong>Цена за единицу:</strong> {item.product ? item.product.price : 'Не указано'} KGS
                                             </div>
                                             <hr />
                                         </li>
@@ -769,6 +866,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
             )}
         </div>
     );
+
 };
 
 export default OrderDetailsPage;
