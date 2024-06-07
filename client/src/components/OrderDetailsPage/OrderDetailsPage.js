@@ -1040,21 +1040,30 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
             {order && (
                 <div className="order-details-modal">
                     <div className="modal-content">
-                        <button className="close-button" onClick={onClose}>
+                        <button className="order-details-page-close-button" onClick={onClose}>
                             &#10006;
                         </button>
                         <h2>Детали заказа</h2>
                         <div className="order-info">
+                           <div className="client-order-info">
+                               <div>
+                                   <strong>ID заказа:</strong> {order._id}
+                               </div>
+                               <div>
+                                   <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
+                               </div>
+                               <div>
+                                   <strong>Адрес:</strong> {order.user ? order.address : 'Гость'}
+                               </div>
+                               <div>
+                                   <strong>Телефон №:</strong> {order.user ? order.phoneNumber : 'Гость'}
+                               </div>
+                           </div>
                             <div>
-                                <strong>ID заказа:</strong> {order._id}
-                            </div>
-                            <div>
-                                <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
-                            </div>
-                            <div>
-                                <strong>Товары:</strong>
+                                {/*<strong>Товары:</strong>*/}
                                 <hr />
                                 <ul>
+                                    <h3 style={{textAlign:"center"}}> Товары</h3>
                                     {order && order.products && order.products.map((item, index) => (
                                         <li key={item.product ? item.product._id : index}>
                                             <h3>Инф. о продавце заказа</h3>
@@ -1094,13 +1103,13 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
                                                             <button className="minusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
                                                             <button className="plusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
                                                         </div>
-                                                        {deleteConfirmation === (item.product ? item.product._id : index) ? (
+                                                        {deleteConfirmation === (item.product && item.product ? item.product._id : index) ? (
                                                             <>
                                                                 <button className="cancelDeleteItemButton" onClick={cancelDeleteItem}>Отмена</button>
                                                                 <button className="confirmDeleteItemButton" onClick={() => onDeleteItem(item.product._id)}>Подтвердить удаление</button>
                                                             </>
                                                         ) : (
-                                                            <button className="deleteOneItemOrder" onClick={() => confirmDeleteItem(item.product._id)}>Удалить</button>
+                                                            <button className="deleteOneItemOrder" onClick={() => confirmDeleteItem(item.product && item.product._id)}>Удалить</button>
                                                         )}
                                                     </>
                                                 ) : (
