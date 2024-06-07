@@ -1063,7 +1063,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
                                 {/*<strong>Товары:</strong>*/}
                                 <hr />
                                 <ul>
-                                    <h3 style={{textAlign:"center"}}> Товары</h3>
+                                    <h4 style={{textAlign:"center"}}> Товары</h4>
                                     {order && order.products && order.products.map((item, index) => (
                                         <li key={item.product ? item.product._id : index}>
                                             <h3>Инф. о продавце заказа</h3>
