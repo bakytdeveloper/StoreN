@@ -169,7 +169,7 @@ const OrderList = ({ setShowSidebar }) => {
                 {orders.map((order, index) => (
                 // {orders.slice().reverse().map((order, index) => (
                     <tr key={order._id}>
-                        <td>{getOrderNumber(index)}</td>
+                        <td style={{textAlign:'center'}}>{getOrderNumber(index)}</td>
                         <td onClick={() => handleOrderClick(order._id)}>{order.user ? order.user.role : 'Гость'}</td>
                         <td onClick={() => handleOrderClick(order._id)}>
                             {order.user ? order.user.name : (order.guestInfo ? order.guestInfo.name : '-')}
