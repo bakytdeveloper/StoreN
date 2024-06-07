@@ -52,6 +52,7 @@ tbody td p {
     justify-content: center;
     align-items: center;
     margin-left: 45%;
+    margin-top: 20px;
 }
 
 .pagination-order-admin span {
