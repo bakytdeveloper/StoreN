@@ -806,7 +806,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
         const currentOrder = orders.find(order => order._id === orderId);
         if (currentOrder) {
             setOrder(currentOrder);
-            setTotalAmount(currentOrder.totalAmount);
+            setTotalAmount(currentOrder ? currentOrder.totalAmount : 0);
         } else {
             fetchOrder();
         }

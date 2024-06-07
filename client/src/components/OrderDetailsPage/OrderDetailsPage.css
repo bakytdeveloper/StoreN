@@ -1,4 +1,124 @@
-
+/* Основные стили для страницы деталей заказа */
 .order-details-page {
-    padding: 100px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    min-height: 100vh;
+}
+
+.order-details-modal {
+    margin-top: 111px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.close-button {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-info > div {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.order-info strong {
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+li h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.quantityItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantityButtons {
+    display: flex;
+    gap: 5px;
+}
+
+.quantityButtons button,
+.cancelDeleteItemButton,
+.confirmDeleteItemButton,
+.deleteOneItemOrder,
+button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .order-details-modal {
+        padding: 15px;
+    }
+
+    .modal-content {
+        padding: 10px;
+    }
+
+    .order-info > div {
+        font-size: 16px;
+    }
+
+    li {
+        padding: 10px;
+    }
+
+    li h3 {
+        font-size: 18px;
+    }
 }
