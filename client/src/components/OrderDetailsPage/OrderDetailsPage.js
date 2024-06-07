@@ -1055,7 +1055,7 @@ const OrderDetailsPage = ({ orders, setOrders, setShowSidebar }) => {
                                 <strong>Товары:</strong>
                                 <hr />
                                 <ul>
-                                    {order.products.map((item, index) => (
+                                    {order && order.products && order.products.map((item, index) => (
                                         <li key={item.product ? item.product._id : index}>
                                             <h3>Инф. о продавце заказа</h3>
                                             <div>
