@@ -1182,7 +1182,7 @@ const ProductList = ({
 
     useEffect(() => {
         if (windowWidth < 768) {
-            setShowSidebar(true);
+            setShowSidebar(false);
         }
     }, [windowWidth, setShowSidebar]);
 
