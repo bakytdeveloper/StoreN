@@ -1109,6 +1109,8 @@ const App = () => {
                             <Route path="/" exact>
                                 <Home setShowSidebar={setShowSidebar} />
                             </Route>
+
+                            {!isLoading && (
                             <Route path="/catalog" exact>
                                 <ProductList
                                     searchKeyword={searchKeyword}
@@ -1126,6 +1128,7 @@ const App = () => {
                                     setSelectedType={setSelectedType}
                                 />
                             </Route>
+                            )}
                             <Route path="/sellers/register">
                                 <SellerRegistrationForm
                                     showSidebar={showSidebar}

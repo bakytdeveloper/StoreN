@@ -21,7 +21,7 @@
     cursor: pointer;
     /*text-align: center;*/
     padding-top: 10px;
-    max-height: 275px;
+    max-height: 290px;
 }
 
 .product-card:hover {
@@ -52,7 +52,7 @@
 
 
 .product-list-details-brand-and-name {
-    display: flex;
+    display: inline-block;
     /*align-items: center;*/
     text-decoration: none!important;
 
@@ -92,7 +92,7 @@
 }
 
 .product-list-type {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     color: #5d5c5c;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .buy-button {
-    background-color: #d0d0d0;
+    background-color: #dedede;
     color: #160101;
     padding: 5px 10px;
     border: none;
@@ -353,6 +353,11 @@
 
 
     }
+
+    /*.cart-button {*/
+    /*    height: 42px;*/
+    /*    !*width: ;*!*/
+    /*}*/
 
     /* Add this to your CSS file */
     body.no-scroll {
