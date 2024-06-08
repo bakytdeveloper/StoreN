@@ -1184,6 +1184,8 @@ const App = () => {
                                     cartItems={cartItems}
                                     setCartItems={setCartItems}
                                     setShowSidebar={setShowSidebar}
+                                    setActiveComponent={setActiveComponent} // Передача setActiveComponent
+
                                 />
                             </Route>
                             <Route path="/orders/">

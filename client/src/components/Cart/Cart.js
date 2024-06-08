@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CartSummary from './CartSummary';
 import emptyCart from './emptyCart.png'
 
-const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
+const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalItems, setTotalItems] = useState(0);
     const [showPayment, setShowPayment] = useState(false);
@@ -31,6 +31,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar }) => {
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
 
     const handleBackToShopping = () => {
+        setActiveComponent(null);  // Убираем активный компонент при закрытии корзины
         history.goBack();
     };
 
