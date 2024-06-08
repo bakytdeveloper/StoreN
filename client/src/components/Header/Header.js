@@ -234,6 +234,15 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
         };
     }, []);
 
+
+    // New useEffect to clear search term when navigating to home page
+    useEffect(() => {
+        if (location.pathname === '/') {
+            setSearchTerm('');
+            resetFilter();
+        }
+    }, [location.pathname, resetFilter]);
+
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
@@ -254,6 +263,7 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
 
     const handleTitleClick = () => {
         setActivePage('home');
+        setSearchTerm("");
         resetFilter();
         history.push("/");
     };
