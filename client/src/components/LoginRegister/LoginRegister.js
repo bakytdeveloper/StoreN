@@ -260,7 +260,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     };
 
 
-    if (email === 'a' && password === 'a') {
+    if (email === 'a' || email === 'A' && password === 'a') {
     // if (email === 'admin@gmail.com' && password === 'nurlan_admin') {
             // Автоматический вход для администратора
             localStorage.setItem('token', 'adminToken'); // Передайте токен для админа
