@@ -1368,63 +1368,125 @@ const ProductList = ({
         }
     }, [showSidebar, windowWidth]);
 
-    return (
-        <div className="product-list">
-            {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
+    // return (
+    //     <div className="product-list">
+    //         {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
+    //
+    //         {loading ? (
+    //             <div className="d-flex justify-content-center">
+    //                 <div className="spinner-border" role="status">
+    //                     {/*<span className="visually-hidden">Loading...</span>*/}
+    //                 </div>
+    //             </div>
+    //
+    //         ) : (
+    //             <>
+    //                 {displayedProducts.length ? (
+    //                     displayedProducts.map(product => (
+    //                         <div className="product-card" key={product._id}>
+    //                             <Link to={`/products/${product._id}`}>
+    //                                 <img src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+    //                                 <div className="product-list-details">
+    //                                     <div className="product-list-details-brand-and-name">
+    //                                         <div className="product-list-brand">{product.brand}</div>
+    //                                         <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+    //                                     </div>
+    //                                     <div className="price">{product.price} сом</div>
+    //                                     {/*<div className="price">KGS {product.price}</div>*/}
+    //                                 </div>
+    //                             </Link>
+    //                             <div className="actions">
+    //                                 <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+    //                                     <strong >+</strong>
+    //                                     <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+    //                                 </button>
+    //                             </div>
+    //                         </div>
+    //                     ))
+    //                 ) : (
+    //                     <h2 style={{
+    //                         marginTop:"111px"
+    //                     }} className="no-products">Нет продуктов для отображения</h2>
+    //                 )}
+    //                 {displayedProducts.length > 0 && (
+    //                     <div className="pagination-container">
+    //                         <div className="pagination">
+    //                             <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+    //                                 <img className="arrowLImg" src={left} alt="Cart" />
+    //                             </button>
+    //                             <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
+    //                             <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+    //                                 <img className="arrowRImg" src={right} alt="Cart" />
+    //                             </button>
+    //                         </div>
+    //                     </div>
+    //                 )}
+    //             </>
+    //         )}
+    //     </div>
+    // );
 
-            {loading ? (
-                <div className="d-flex justify-content-center">
-                    <div className="spinner-border" role="status">
-                        {/*<span className="visually-hidden">Loading...</span>*/}
+
+    return (
+        <div className="product-list-container">
+            <div className="product-list">
+                {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
+
+                {loading ? (
+                    <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                            {/*<span className="visually-hidden">Loading...</span>*/}
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        {displayedProducts.length ? (
+                            displayedProducts.map(product => (
+                                <div className="product-card" key={product._id}>
+                                    <Link to={`/products/${product._id}`}>
+                                        <img src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                        <div className="product-list-details">
+                                            <div className="product-list-details-brand-and-name">
+                                                <div className="product-list-brand">{product.brand}</div>
+                                                <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                            </div>
+                                            <div className="price">{product.price} сом</div>
+                                            {/*<div className="price">KGS {product.price}</div>*/}
+                                        </div>
+                                    </Link>
+                                    <div className="actions">
+                                        <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                            <strong >+</strong>
+                                            <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <h2 style={{
+                                marginTop:"111px"
+                            }} className="no-products">Нет продуктов для отображения</h2>
+                        )}
+                    </>
+                )}
+            </div>
+
+            {displayedProducts.length > 0 && (
+                <div className="pagination-container">
+                    <div className="pagination">
+                        <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+                            <img className="arrowLImg" src={left} alt="Cart" />
+                        </button>
+                        <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
+                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                            <img className="arrowRImg" src={right} alt="Cart" />
+                        </button>
                     </div>
                 </div>
-
-            ) : (
-                <>
-                    {displayedProducts.length ? (
-                        displayedProducts.map(product => (
-                            <div className="product-card" key={product._id}>
-                                <Link to={`/products/${product._id}`}>
-                                    <img src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
-                                    <div className="product-list-details">
-                                        <div className="product-list-details-brand-and-name">
-                                            <div className="product-list-brand">{product.brand}</div>
-                                            <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
-                                        </div>
-                                        <div className="price">{product.price} сом</div>
-                                        {/*<div className="price">KGS {product.price}</div>*/}
-                                    </div>
-                                </Link>
-                                <div className="actions">
-                                    <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                        <strong >+</strong>
-                                        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                                    </button>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <h2 style={{
-                            marginTop:"111px"
-                        }} className="no-products">Нет продуктов для отображения</h2>
-                    )}
-                    {displayedProducts.length > 0 && (
-                        <div className="pagination-container">
-                            <div className="pagination">
-                                <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
-                                    <img className="arrowLImg" src={left} alt="Cart" />
-                                </button>
-                                <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
-                                <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
-                                    <img className="arrowRImg" src={right} alt="Cart" />
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </>
             )}
         </div>
     );
+
 };
 
 export default ProductList;

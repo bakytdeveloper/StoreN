@@ -196,23 +196,21 @@
     margin: 0 auto;
     margin-bottom: 70px;
     font-family: Poppins;
+
 }
 
 .pagination {
-    display: flex;
+    display: inline-flex;
     position: absolute;
-    bottom: 0;
-    /*left: 40% !important;*/
     transform: translateX(-50%);
-
-    align-items: center;
-    text-align: center;
+    /*align-items: center;*/
+    /*text-align: center!important;*/
     justify-content: center!important;
-    /*justify-content: space-between!important;*/
-    margin: 0 auto!important;
-    margin-left: 100% !important;
+    /*justify-content: space-between;*/
+    margin: 0 auto;
+    margin-left: 18% !important;
 
-    /*margin-bottom: 30px!important;*/
+    margin-bottom: 30px!important;
 
 }
 
@@ -366,8 +364,10 @@
 
     .pagination {
         display: inline-flex;
-        margin-left: 58%!important;
+        margin-left: 9%!important;
         width: auto;
+        margin-bottom: 88px!important;
+
 
 
     }
