@@ -29,6 +29,8 @@ const SellerProductsPage = () => {
         images: [],
         // quantity: 10
     });
+    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
+
     const history = useHistory();
 
     // Проверка, аутентифицирован ли пользователь
@@ -123,6 +125,10 @@ const SellerProductsPage = () => {
         history.goBack();
     };
 
+    const getFullImageUrl = (image) => {
+        return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+    };
+
     return (
         <div className="seller-panel">
             <h1>Мои товары</h1>
@@ -141,7 +147,7 @@ const SellerProductsPage = () => {
                 {/* Остальной код компонента */}
             </div>
 
-            <div className="products-list seller-products-page-products-list">
+            <div className="products-list my-products  seller-products-page-products-list">
                 {products.map((product) => (
                     <div className="product-card product-card-seller" key={product._id}>
                         <div className="sellerEditDelete">
@@ -152,7 +158,7 @@ const SellerProductsPage = () => {
 
                         <Link to={`/products/${product._id}`}>
                             <img
-                                src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
+                                src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
                             <div className="details details-seller-products-page">
@@ -209,3 +215,6 @@ const SellerProductsPage = () => {
 };
 
 export default SellerProductsPage;
+
+
+
