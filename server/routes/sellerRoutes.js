@@ -7,6 +7,8 @@ const authenticateToken = require("../middleware/authenticateToken");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
+const multer = require("multer");
+const path = require("path");
 
 
 // Создание нового продавца
@@ -215,6 +217,30 @@ router.get('/profile', authenticateToken, async (req, res) => {
 //         res.status(500).json({ message: error.message });
 //     }
 // });
+
+
+
+
+// Настройка хранилища для multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Путь для сохранения файлов
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)); // Уникальное имя файла
+    }
+});
+
+// Инициализация multer
+const upload = multer({ storage: storage });
+
+// Добавление маршрута для загрузки изображения
+router.post('/upload', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'Файл не загружен' });
+    }
+    res.status(200).json({ imageUrl: `/uploads/${req.file.filename}` });
+});
 
 
 
