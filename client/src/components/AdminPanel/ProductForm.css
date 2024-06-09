@@ -109,7 +109,13 @@ textarea {
     padding: 3px;
 }
 
+.newProductAdd-input {
+    margin-top: 20px;
+}
 
+.submitBtn {
+    margin-bottom: 33px;
+}
 
 @media screen and (max-width: 768px) {
 
