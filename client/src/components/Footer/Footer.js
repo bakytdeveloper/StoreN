@@ -593,7 +593,7 @@ const Footer = ({
             setButtonClick(null);
             history.push(prevPath || "/");
         } else {
-            history.push("/catalog");
+            // history.push("/catalog");
             setIsContactModalOpen(true);
             handleButtonClick('contact', 'contact');
         }
@@ -613,7 +613,7 @@ const Footer = ({
             history.push(prevPath || "/");
         } else {
             setIsProfileOpen(true);
-            history.push('/catalog');
+            // history.push('/catalog');
             handleButtonClick('profile', 'profile');
         }
     };
