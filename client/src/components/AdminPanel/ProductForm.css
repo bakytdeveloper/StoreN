@@ -19,9 +19,12 @@ label {
     margin-top: 10px;
 }
 
+/*.sellersListClose {*/
+/*    background: none!important;*/
+/*}*/
+
 .sellersListClose span {
     margin-top: -21px!important;
-
 }
 
 .seller-form-add-once {
@@ -110,6 +113,31 @@ textarea {
 
 @media screen and (max-width: 768px) {
 
+    .sellerFormAdd {
+        display: flex;
+        flex-direction: column;
+        width: 88%;
+        /*margin: 0 auto;*/
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .sellersListClose  {
+        /*position: absolute;*/
+        width: 20%;
+        height: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 90% !important;
+        text-align: center!important;
+        align-items: center;
+       background: none;
+    }
+
+    .seller-form-add-once {
+        /*margin-top: 20px;*/
+    }
+
     .submitBtn {
         margin-top: 20px;
     }
@@ -133,13 +161,7 @@ textarea {
         color: #1c1b1b;
     }
 
-    .sellerFormAdd {
-        display: flex;
-        flex-direction: column;
-        width: 88%;
-        margin: 0 auto;
-        margin-top: 209px;
-    }
+
 
 }
 
