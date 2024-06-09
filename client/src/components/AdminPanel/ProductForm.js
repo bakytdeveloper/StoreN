@@ -366,7 +366,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
               <span style={{background:"none"}} className="sellersListClose" type="button" onClick={handleClose}>
            &#10006;
         </span>
-            <h2>Информация о товаре</h2>
+            <h2>Создание товара</h2>
 
             <label className="seller-form-add-once">Категория:</label>
             <select name="category" value={formData.category} onChange={handleChange}>
