@@ -259,6 +259,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                             </div>
                                         </div>
                                     ))}
+                                    <button
+                                        className="buy_next buy_next_small_monitor"
+                                        onClick={handleContinue}
+                                        disabled={orderPlaced}
+                                    >
+                                        Оформить заказ
+                                    </button>
                                 </div>
                             )}
                             {section !== 1 && (
@@ -300,8 +307,16 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                     <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
                                     <label>Комментарии:</label>
                                     <textarea value={comments} onChange={(e) => setComments(e.target.value)} />
+                                    <button
+                                        className="buy_next buy_next_small_monitor"
+                                        onClick={handleContinue}
+                                        disabled={orderPlaced}
+                                    >
+                                        Продолжить
+                                    </button>
                                 </div>
                             )}
+
                             {section !== 2 && section > 1 && (
                                 <button className="updateSection" onClick={() => setSection(2)}>Изменить</button>
                             )}
@@ -309,10 +324,22 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                         <div className="sectionThree">
                             <h5>3) Оплатить заказ</h5>
                             {section === 3 && (
-                                <PaymentForm />
+                               <div>
+                                   <PaymentForm />
+                                   <button
+                                       className="buy_next buy_next_small_monitor"
+                                       onClick={handlePlaceOrder}
+                                       disabled={orderPlaced}
+                                   >
+                                       Закрыть
+                                   </button>
+                               </div>
+
                             )}
                             {/*<hr />*/}
+
                         </div>
+
                     </div>
                 )}
                 <div className="cart-summary" style={{ display: cartItems.length > 0 ? 'block' : 'none' }}>
@@ -333,7 +360,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                     </span>
                 ))}
                 <button
-                    className="buy_next"
+                    className="buy_next buy_next_big_monitor"
                     onClick={section === 3 ? handlePlaceOrder : handleContinue}
                     disabled={orderPlaced}
                 >
