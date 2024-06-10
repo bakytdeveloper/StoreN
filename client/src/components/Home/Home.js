@@ -152,7 +152,6 @@ const Home = ({ setShowSidebar }) => {
     }, [setShowSidebar]);
 
 
-
     return (
         <div className="home-container">
             <div className="carousel">
