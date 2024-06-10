@@ -13,6 +13,7 @@ const RelatedProducts = ({ productId }) => {
     const [cardCount, setCardCount] = useState(5); // Количество карточек по умолчанию
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
+    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
 
     useEffect(() => {
         const fetchRelatedProducts = async () => {
@@ -89,6 +90,10 @@ const RelatedProducts = ({ productId }) => {
         return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
     };
 
+    const getFullImageUrl = (image) => {
+        return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+    };
+
     return (
         <div className="related-products">
             <h2>Схожие товары</h2>
@@ -102,7 +107,7 @@ const RelatedProducts = ({ productId }) => {
                     <div className="product-cards-related-products" key={product._id}>
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
-                                src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
+                                src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
                             <div className="details-related-products">
