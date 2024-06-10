@@ -1649,6 +1649,7 @@ const ProductList = ({
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+
     useEffect(() => {
         if (!showSidebar && windowWidth <= 768) {
             document.body.classList.add('no-scroll');

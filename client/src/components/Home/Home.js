@@ -151,6 +151,8 @@ const Home = ({ setShowSidebar }) => {
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
+
+
     return (
         <div className="home-container">
             <div className="carousel">

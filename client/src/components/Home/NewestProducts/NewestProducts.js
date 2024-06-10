@@ -205,6 +205,9 @@ const NewestProducts = ({ apiUrl }) => {
     const [error, setError] = useState(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [columns, setColumns] = useState(6); // начальное значение колонок
+    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
+
+
 
     useEffect(() => {
         const fetchNewestProducts = async () => {
@@ -281,6 +284,10 @@ const NewestProducts = ({ apiUrl }) => {
         return <h2>Error: {error}</h2>;
     }
 
+    const getFullImageUrl = (image) => {
+        return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+    };
+
     return (
         <div className="newest-products">
             <h2 className="newest-products-title">Самые Новые Товары</h2>
@@ -289,7 +296,7 @@ const NewestProducts = ({ apiUrl }) => {
                     <div className="product-card new-cards" key={product._id}>
                         <Link to={`/products/${product._id}`}>
                             <img
-                                src={product.images && product.images.length > 0 ? fixImagePath(product.images[0]) : 'placeholder.jpg'}
+                                src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
                             <div className="details">
