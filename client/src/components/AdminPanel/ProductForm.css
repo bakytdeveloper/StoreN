@@ -117,6 +117,72 @@ textarea {
     margin-bottom: 33px;
 }
 
+.image-manager {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.image-manager img {
+    margin-right: 10px;
+}
+
+.image-manager button {
+    margin: 0 5px;
+}
+
+.image-manager-move-up {
+    background: none;
+    /*max-width: 44px;*/
+
+}
+.image-manager-move-up:hover {
+    background: deepskyblue;
+    /*max-width: 44px;*/
+
+}
+
+.image-manager-move-down {
+    background: none;
+    /*max-width: 44px;*/
+}
+
+
+.image-manager-move-down:hover {
+    background: deepskyblue;
+    /*max-width: 44px;*/
+
+}
+
+.image-manager-move-delete {
+    background: none;
+    /*max-width: 44px;*/
+}
+
+
+.image-manager-move-delete:hover {
+    background: deepskyblue;
+    /*max-width: 44px;*/
+
+}
+
+/*.image-manager-move-up img {*/
+/*    max-width: 33px;*/
+/*    max-height: 33px;*/
+
+/*}*/
+
+/*.image-manager-move-down img {*/
+/*    max-width: 33px;*/
+/*    max-height: 33px;*/
+/*}*/
+
+.image-manager-move-delete img {
+    max-width: 33px;
+    max-height: 33px;
+}
+
+
 @media screen and (max-width: 768px) {
 
     .sellerFormAdd {
@@ -166,6 +232,69 @@ textarea {
         font-weight: bold;
         color: #1c1b1b;
     }
+
+
+
+
+
+
+
+.image-manager {
+    justify-content: space-between;
+}
+
+
+
+    .image-manager-move-up {
+        background: none;
+        max-width: 44px;
+
+
+
+    }
+
+    .image-manager-move-up:hover {
+        background: none;
+        max-width: 44px;
+       
+
+    }
+    .image-manager-move-down {
+        background: none;
+        max-width: 44px;
+    }
+    .image-manager-move-delete {
+        background: none;
+        max-width: 44px;
+    }
+
+    .image-manager-move-down:hover {
+        background: none;
+        max-width: 44px;
+        border: none;
+    }
+    .image-manager-move-delete:hover {
+        background: none;
+        max-width: 44px;
+        border: none;
+    }
+
+    .image-manager-move-up img {
+        max-width: 33px;
+        max-height: 33px;
+        margin: 0 auto;
+    }
+
+    .image-manager-move-down img {
+        max-width: 33px;
+        max-height: 33px;
+    }
+
+    .image-manager-move-delete img {
+        max-width: 33px;
+        max-height: 33px;
+    }
+
 
 
 

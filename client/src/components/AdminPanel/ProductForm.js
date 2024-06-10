@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import axios from 'axios';
 import './ProductForm.css';
+import ImageManager from "./ImageManager";
 
 
 
@@ -915,6 +916,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
 
 
+
     const handleMoveImageUp = (index) => {
         if (index === 0) return;
         const newImages = [...formData.images];
@@ -932,6 +934,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         newImages[index] = temp;
         setFormData({ ...formData, images: newImages });
     };
+
 
 
     // console.log(
@@ -1082,14 +1085,14 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
             <label>Изображения:</label>
             {formData.images.map((image, index) => (
-                <div key={index} className="dynamic-field">
-                    <input type="text" value={image} onChange={(e) => handleImageChange(index, e.target.value)} placeholder="URL изображения" />
-
-                    <button type="button" onClick={() => handleMoveImageUp(index)}>Вверх</button>
-                    <button type="button" onClick={() => handleMoveImageDown(index)}>Вниз</button>
-
-                    <button type="button" onClick={() => handleImageRemove(index)}>Удалить</button>
-                </div>
+                <ImageManager
+                    key={index}
+                    image={image}
+                    index={index}
+                    onMoveUp={handleMoveImageUp}
+                    onMoveDown={handleMoveImageDown}
+                    onRemove={handleImageRemove}
+                />
             ))}
             <button className="newProductAdd" type="button" onClick={handleImageAdd}>
                 Добавить изображение
