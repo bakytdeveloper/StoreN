@@ -1514,6 +1514,7 @@ const ProductList = ({
         setCurrentPage(page);
     }, [location.search]);
 
+    
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [currentPage]);
