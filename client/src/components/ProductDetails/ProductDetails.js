@@ -95,6 +95,7 @@ import ContactInfo from "../ContactInfo/ContactInfo";
 //
 //     const truncatedDescription = product.description.slice(0, 100) + (product.description.length > 100 ? "..." : "");
 //
+
 //     return (
 //         <div className="product-details-container">
 //             <div className="product-details">
