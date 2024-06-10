@@ -12,7 +12,8 @@
 }
 
 .brand-and-name-new {
-    display: flex!important;
+    display: inline-block;
+    /*display: flex!important;*/
     width: 100%;
     line-height: 11px;
     justify-content: start!important;
