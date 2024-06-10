@@ -352,11 +352,24 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         });
     };
 
-    const handleImageRemove = (index) => {
+    const handleImageRemove = async (index) => {
         const updatedImages = [...formData.images];
-        updatedImages.splice(index, 1);
+        const removedImage = updatedImages.splice(index, 1)[0];
         setFormData({ ...formData, images: updatedImages });
+
+        try {
+            const imageName = removedImage.split('/').pop(); // Извлекаем имя файла из URL
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/sellers/images/${imageName}`);
+            if (response.status === 200) {
+                console.log('Image deleted successfully');
+            } else {
+                console.error('Failed to delete image');
+            }
+        } catch (error) {
+            console.error('Error deleting image:', error);
+        }
     };
+
 
     // console.log(
     //     "FORMADATA", {formData}

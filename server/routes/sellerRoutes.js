@@ -9,7 +9,7 @@ const Order = require("../models/Order");
 const User = require("../models/User");
 const multer = require("multer");
 const path = require("path");
-
+const fs = require("fs");
 
 // Создание нового продавца
 router.post('/register', async (req, res) => {
@@ -545,6 +545,22 @@ router.put('/:id', async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
+
+router.delete('/images/:imageName', (req, res) => {
+    const imageName = req.params.imageName;
+    const imagePath = path.join(__dirname, '../uploads', imageName);
+
+    fs.unlink(imagePath, (err) => {
+        if (err) {
+            console.error('Error deleting image:', err);
+            return res.status(500).json({ error: 'Failed to delete image' });
+        }
+        res.status(200).json({ message: 'Image deleted successfully' });
+    });
+});
+
 
 
 
