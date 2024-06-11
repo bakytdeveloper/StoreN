@@ -581,6 +581,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     const [allCategories, setAllCategories] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
     const history = useHistory();
+    const [imageUrl, setImageUrl] = useState('');
 
 
     useEffect(() => {
@@ -588,6 +589,15 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
+    const handleAddImageByUrl = () => {
+        if (imageUrl.trim()) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                images: [...prevFormData.images, imageUrl.trim()]
+            }));
+            setImageUrl('');
+        }
+    };
 
 
     useEffect(() => {
@@ -1085,6 +1095,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             </button>
 
             <label>Изображения:</label>
+
             {formData.images.map((image, index) => (
                 <ImageManager
                     key={index}
@@ -1094,12 +1105,24 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                     onMoveDown={handleMoveImageDown}
                     onRemove={handleImageRemove}
                 />
+
             ))}
-            <button className="newProductAdd" type="button" onClick={handleImageAdd}>
-                Добавить изображение
-            </button>
             <input className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />
             {imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}
+<p style={{color:"grey", textDecoration:"none", cursor:"text"}}>Или введите URL</p>
+            <input
+                className="w-full px-3 py-2 border rounded"
+                id="imageUrl"
+                name="imageUrl"
+                type="text"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+            />
+            <button className="newProductAdd" type="button" onClick={handleAddImageByUrl}>
+                Добавить изображение
+            </button>
+            {/*<input className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />*/}
+            {/*{imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}*/}
 
 
             <div className="submitBtn">
