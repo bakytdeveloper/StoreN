@@ -888,6 +888,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     };
 
 
+
     const handleImageAdd = () => {
         setFormData({
             ...formData,
