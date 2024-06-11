@@ -68,20 +68,32 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
 
     return (
         <div className="seller-registration">
-            <h2 className="seller-registration-title" >Станьте продавцом</h2>
+            <h2 className="seller-registration-title" >СТАТЬ ПАРТНЕРОМ</h2>
             <div className="seller-registration-close" type="button" onClick={handleClose}>
                 &#10006;
             </div>
             <form className="seller-add-form" onSubmit={handleSubmit}>
-                <input type="text" name="companyName" placeholder="Название компании" value={formData.companyName} onChange={handleChange} required />
-                <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} required />
-                <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} required />
+                <label>Электронная почта:</label>
                 <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+                <label>Имя:</label>
+                <input type="text" name="firstName" placeholder="введите свое имя" value={formData.firstName} onChange={handleChange} required />
+                <label>Фамилия:</label>
+                <input type="text" name="lastName" placeholder="введите свое имя фамилия" value={formData.lastName} onChange={handleChange} required />
+                <label>Название компании:</label>
+                <input type="text" name="companyName" placeholder="введите название своей компании" value={formData.companyName} onChange={handleChange} required />
+                <label>Телефонный №:</label>
+                <input type="tel" name="phone" placeholder="введите свой номер телефона" value={formData.phone} onChange={handleChange} required />
+                <label>Фактический адрес компании:</label>
+                <input type="text" name="address" placeholder="введите адрес компании" value={formData.address} onChange={handleChange} required />
+                <label>О Компании:</label>
+                <textarea name="companyDescription" placeholder="Расскажите о своих товарах" value={formData.companyDescription} onChange={handleChange} required />
+
+                <label>Пароль:</label>
                 <div className="password-input-container" style={{ position: 'relative' }}>
                     <input
                         name="password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="Password"
+                        placeholder="придумайте надежный пароль"
                         value={formData.password}
                         onChange={handleChange} required
                     />
@@ -92,9 +104,7 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
                         {showPassword ?  <FaEyeSlash /> : <FaEye />}
                     </span>
                 </div>
-                <input type="tel" name="phone" placeholder="Телефон" value={formData.phone} onChange={handleChange} required />
-                <input type="text" name="address" placeholder="Адрес" value={formData.address} onChange={handleChange} required />
-                <textarea name="companyDescription" placeholder="Описание компании" value={formData.companyDescription} onChange={handleChange} required />
+
                 <button className="seller-form-button" type="submit">Отправить</button>
             </form>
         </div>

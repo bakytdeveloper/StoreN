@@ -279,9 +279,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                 <div className="checkForm">
                                     <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
                                     <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Имя:</label>
-                                    <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                                    <input type="text" value={firstName} placeholder="введите ваше имя" onChange={(e) => setFirstName(e.target.value)} />
+
                                     <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Email:</label>
-                                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                    <input type="text" value={email} placeholder="введите ваш Email" onChange={(e) => setEmail(e.target.value)} />
+
                                     <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Адрес доставки:</label>
                                     <div className="radioButtons">
                                         <div className="btnOne">
@@ -300,13 +302,17 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                             <label htmlFor="pickup">Самовывоз</label>
                                         </div>
                                     </div>
-                                    <input className="address-input" type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
-                                    <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Номер телефона:</label>
-                                    <input className="cartPhoneNumber" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                    <input className="address-input" placeholder="укажите адрес доставки" type="text" value={address} onChange={(e) => setAddress(e.target.value)} disabled={deliveryType === 'pickup'} />
+
+
+                                    <label><span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span> Телефонный №:</label>
+                                    <input className="cartPhoneNumber" placeholder="введите ваш номер телефона" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+
                                     <label>Способ оплаты:</label>
-                                    <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
+                                    <input type="text" value={paymentMethod} placeholder="введите ваш желаймый способ оплаты" onChange={(e) => setPaymentMethod(e.target.value)} />
+
                                     <label>Комментарии:</label>
-                                    <textarea value={comments} onChange={(e) => setComments(e.target.value)} />
+                                    <textarea placeholder="введите уточнения или рекомендации, если они есть" value={comments} onChange={(e) => setComments(e.target.value)} />
                                     <button
                                         className="buy_next buy_next_small_monitor"
                                         onClick={handleContinue}

@@ -1,9 +1,9 @@
 
 .seller-registration {
-    margin-top: 70px;
+   padding: 33px 130px;
 }
 .seller-registration-title {
-    margin-left: 10%;
+    margin: 90px;
 }
 
 .seller-registration-close {
@@ -19,26 +19,43 @@
 }
 
 .seller-form-button {
-    margin-top: 11px;
+    /*margin-top: 11px;*/
     font-size: 17px;
     font-family: Poppins;
     font-weight: 500;
-    width: 200px;
+    width: auto;
     text-align: center;
-    margin-left: 20%;
+    /*margin-left: 20%;*/
     border-radius: 3px;
     background: #023058;
+    justify-content: center;
+    margin-left: 42%;
+
 }
 
 
 @media (max-width: 768px) {
     .seller-registration {
-        width: 90%;
+        padding: 25px;
+        padding-top: 0;
     }
+
+
 
     .seller-add-form {
         margin: 0 auto;
-        margin-left: 10%;
+        /*margin-left: 10%;*/
     }
+
+
+    .seller-registration-title {
+        margin: 0;
+    }
+
+    .seller-form-button {
+        margin-top: 20px;
+        margin-bottom: 93px;
+    }
+
 
 }
