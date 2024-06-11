@@ -706,7 +706,8 @@ strong {
         left: 50%;
         transform: translateX(-50%);
         width: 80%;
-        z-index: 1000;
+        z-index: 1;
+        /*z-index: 1000;*/
         padding: 10px;
         background-color: #ffcc00;
         border: none;

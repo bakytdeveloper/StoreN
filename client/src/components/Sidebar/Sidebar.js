@@ -223,9 +223,9 @@ const Sidebar = ({
         };
     }, []);
 
-    const handleCloseClick = () => {
-        setShowSidebar(!showSidebar);
-    };
+    // const handleCloseClick = () => {
+    //     setShowSidebar(!showSidebar);
+    // };
 
     const handleGenderClick = async (gender) => {
         if (selectedGender === gender) {
@@ -289,11 +289,11 @@ const Sidebar = ({
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
             <div className="titleShow">
-                {isSmallScreen && (
-                    <div className="closeBtn" onClick={handleCloseClick}>
-                        &#215;
-                    </div>
-                )}
+                {/*{isSmallScreen && (*/}
+                {/*    <div className="closeBtn" onClick={handleCloseClick}>*/}
+                {/*        &#215;*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </div>
             <ul>
                 {selectedOption === 'contact' ? (
