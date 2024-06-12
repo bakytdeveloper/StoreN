@@ -46,7 +46,7 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(true); // Состояние для загрузки
     const [activeComponent, setActiveComponent] = useState(null); // Состояние для активного компонента
     const [isFooterCatalog, setIsFooterCatalog] = useState(true);
-    
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -97,6 +97,7 @@ const App = () => {
                                 resetFilter={resetFilter}
                                 setSelectedOption={setSelectedOption}
                                 setCurrentPage={setCurrentPage}
+                                setIsFooterCatalog={setIsFooterCatalog}
                             />
                         )}
                         <Sidebar

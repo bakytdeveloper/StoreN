@@ -601,7 +601,7 @@ import './Header.css';
 
 
 
-const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
+const Header = ({ onSearch, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [catalogButtonColor, setCatalogButtonColor] = useState('initial');
     const [contactButtonColor, setContactButtonColor] = useState('initial');
@@ -656,7 +656,9 @@ const Header = ({ onSearch, cartItems = [], showSidebar, setShowSidebar, selecte
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         onSearch(searchTerm);
+        // setIsFooterCatalog(false);
         history.push('/catalog');
+        setIsFooterCatalog(true);
     };
 
     const handleClearSearch = () => {
