@@ -1121,6 +1121,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             <button className="newProductAdd" type="button" onClick={handleAddImageByUrl}>
                 Добавить изображение
             </button>
+
             {/*<input className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />*/}
             {/*{imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}*/}
 
