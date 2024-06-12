@@ -221,27 +221,27 @@ router.get('/profile', authenticateToken, async (req, res) => {
 
 
 
-// Настройка хранилища для multer
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Путь для сохранения файлов
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Уникальное имя файла
-    }
-});
-
-// Инициализация multer
-const upload = multer({ storage: storage });
-
-// Добавление маршрута для загрузки изображения
-router.post('/upload', upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ message: 'Файл не загружен' });
-    }
-    res.status(200).json({ imageUrl: `/uploads/${req.file.filename}` });
-});
-
+// // Настройка хранилища для multer
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'uploads/'); // Путь для сохранения файлов
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, Date.now() + path.extname(file.originalname)); // Уникальное имя файла
+//     }
+// });
+//
+// // Инициализация multer
+// const upload = multer({ storage: storage });
+//
+// // Добавление маршрута для загрузки изображения
+// router.post('/upload', upload.single('image'), (req, res) => {
+//     if (!req.file) {
+//         return res.status(400).json({ message: 'Файл не загружен' });
+//     }
+//     res.status(200).json({ imageUrl: `/uploads/${req.file.filename}` });
+// });
+//
 
 
 // Роут для создания нового товара
