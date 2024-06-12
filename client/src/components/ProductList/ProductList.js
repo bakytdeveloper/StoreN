@@ -23,7 +23,8 @@ const ProductList = ({
                          selectedType,
                          setSelectedGender,
                          setSelectedCategory,
-                         setSelectedType
+                         setSelectedType,
+                         isFooterCatalog
                      }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +47,7 @@ const ProductList = ({
 
     useEffect(() => {
         if (windowWidth < 768) {
-            setShowSidebar(false);
+            setShowSidebar(isFooterCatalog);
         }
     }, [windowWidth, setShowSidebar]);
 

@@ -498,7 +498,8 @@ const Footer = ({
                     resetFilter,
                     setCurrentPage,
                     setActiveComponent,
-                    activeComponent
+                    activeComponent,
+                    setIsFooterCatalog
                 }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -603,6 +604,7 @@ const Footer = ({
         history.push('/catalog');
         setSelectedOption('catalog');
         setShowSidebar(!showSidebar);
+        setIsFooterCatalog(false);
         handleButtonClick('catalog', 'catalog');
     };
 

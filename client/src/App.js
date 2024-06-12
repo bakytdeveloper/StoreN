@@ -45,7 +45,8 @@ const App = () => {
     const [selectedType, setSelectedType] = useState(null);
     const [isLoading, setIsLoading] = useState(true); // Состояние для загрузки
     const [activeComponent, setActiveComponent] = useState(null); // Состояние для активного компонента
-
+    const [isFooterCatalog, setIsFooterCatalog] = useState(true);
+    
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -112,7 +113,9 @@ const App = () => {
                         />
                         <Switch>
                             <Route path="/" exact>
-                                <Home setShowSidebar={setShowSidebar} />
+                                <Home
+                                    setIsFooterCatalog={setIsFooterCatalog}
+                                    setShowSidebar={setShowSidebar} />
                             </Route>
 
                             {!isLoading && (
@@ -131,6 +134,7 @@ const App = () => {
                                     setSelectedGender={setSelectedGender}
                                     setSelectedCategory={setSelectedCategory}
                                     setSelectedType={setSelectedType}
+                                    isFooterCatalog={isFooterCatalog}
                                 />
                             </Route>
                             )}
@@ -235,6 +239,7 @@ const App = () => {
                             setCurrentPage={setCurrentPage}
                             setActiveComponent={setActiveComponent}
                             activeComponent={activeComponent}
+                            setIsFooterCatalog={setIsFooterCatalog}
                         />
                         <ContactInfo />
                     </>

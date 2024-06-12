@@ -122,7 +122,7 @@ import NewestProducts from './NewestProducts/NewestProducts';
 import Footer from "../Footer/Footer";
 
 
-const Home = ({ setShowSidebar }) => {
+const Home = ({ setShowSidebar, setIsFooterCatalog }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         { title: "ГОТОВЬСЯ К ЛЕТУ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
@@ -139,6 +139,7 @@ const Home = ({ setShowSidebar }) => {
     }, [slides.length]);
 
     const handleImageClick = (gender) => {
+        setIsFooterCatalog(true)
         history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
     };
 
