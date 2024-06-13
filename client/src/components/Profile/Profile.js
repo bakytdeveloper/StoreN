@@ -713,6 +713,14 @@ const Profile = ({ setShowSidebar }) => {
     ordersCopy.reverse();
     const latestOrder = ordersCopy.find(order => order.user?._id === user?._id);
 
+    useEffect(() => {
+        setShowSidebar(true);
+        // Возвращаем функцию для очистки (аналог componentWillUnmount)
+        return () => {
+            setShowSidebar(true); // Восстановим значение при размонтировании компонента
+        };
+    }, [setShowSidebar]);
+
     return (
         <div className="profile-container">
             <div className="side">

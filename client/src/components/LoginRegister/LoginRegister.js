@@ -297,7 +297,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
                 // Перенаправляем на нужную страницу в зависимости от роли
                 if (userData.user.role === 'customer') {
-                    history.push('/catalog');
+                    history.push('/profile');
                 } else if (userData.user.role === 'admin') {
                     history.push('/admin');
                 } else if (userData.user.role === 'seller') {
@@ -424,7 +424,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             <button type="button" onClick={handleLoginRegister}>
                 {isRegisterMode ? 'Register' : 'Login'}
             </button>
-            <p onClick={() => setRegisterMode(!isRegisterMode)}>
+            <p className="text-login-or-register" onClick={() => setRegisterMode(!isRegisterMode)}>
                 {isRegisterMode
                     ? 'У вас уже есть аккаунт? Войдите здесь.'
                     : "У вас нет учетной записи? Зарегистрируйтесь здесь."}
