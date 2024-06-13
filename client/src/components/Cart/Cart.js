@@ -29,6 +29,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
     const history = useHistory();
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
 
     const handleBackToShopping = () => {
         setActiveComponent(null);  // Убираем активный компонент при закрытии корзины
@@ -186,6 +187,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         setDeliveryType(type);
     };
 
+    const getFullImageUrl = (image) => {
+        return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+    };
+
     return (
         <div className="cartAll">
             <div className="cart">
@@ -207,7 +212,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                     {cartItems.map((item) => (
                                         <div className="cart-item" key={item.productId}>
                                             <div className="item-info">
-                                                <img className="cartImg" src={item.image} alt={item.name} />
+                                                <img className="cartImg" src={getFullImageUrl(item.image)} alt={item.name} />
                                                 <div className="item-details">
                                                     <div className="item-details-type-brand-name">
                                                         <span className="itemName" style={{ fontWeight: 'bold' }}>{item.type}</span>

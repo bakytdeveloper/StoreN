@@ -11,6 +11,8 @@ const router = express.Router();
 const apiRoutes = require('./routes/index');
 const path = require("path");
 const multer = require("multer");
+const fs = require("fs");
+const sharp = require("sharp");
 dotenv.config();
 
 const app = express();
@@ -34,31 +36,62 @@ app.use(express.json());
 app.use('/api', apiRoutes);
 
 app.use(compression());
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(router);
 
-// Настройка хранилища для multer
+
+
+
+// Папка для загрузки оригинальных изображений
+const uploadDir = path.join(__dirname, 'uploads');
+
+// Настройка хранилища для Multer
 const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-                cb(null, 'uploads/'); // Путь для сохранения файлов
+                cb(null, uploadDir); // Путь для сохранения оригинальных файлов
         },
         filename: function (req, file, cb) {
                 cb(null, Date.now() + path.extname(file.originalname)); // Уникальное имя файла
         }
 });
 
-// Инициализация multer
+
+
+// Инициализация Multer с хранилищем
 const upload = multer({ storage: storage });
 
-// Добавление маршрута для загрузки изображения
-router.post('/api/sellers/upload', upload.single('image'), (req, res) => {
-        if (!req.file) {
-                return res.status(400).json({ message: 'Файл не загружен' });
+// Обработка POST запроса на загрузку изображения
+app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
+        try {
+                // Путь к загруженному файлу
+                const originalImagePath = path.join(uploadDir, req.file.filename);
+
+                // Изменение размера изображения до 600x900px и сжатие до 250KB
+                const resizedImage = await sharp(originalImagePath)
+                    .resize({ width: 600, height: 900 })
+                    .toFormat('jpeg')  // Формат jpeg для уменьшения размера файла
+                    .jpeg({ quality: 80 }) // Качество сжатия JPEG
+                    .toBuffer();
+
+                // Путь для сохранения измененного изображения
+                const resizedImagePath = path.join(uploadDir, 'resized_' + req.file.filename);
+
+                // Сохранение измененного изображения
+                fs.writeFileSync(resizedImagePath, resizedImage);
+
+                // Отправка успешного ответа с URL измененного изображения
+                res.status(200).json({ imageUrl: `/uploads/${path.basename(resizedImagePath)}` });
+
+                // Удаление оригинального изображения (если требуется)
+                fs.unlinkSync(originalImagePath);
+        } catch (error) {
+                console.error('Error uploading image:', error);
+                res.status(400).json({ message: 'Ошибка при загрузке и обработке изображения' });
         }
-        res.status(200).json({ imageUrl: `/uploads/${req.file.filename}` });
 });
 
+
+// Обслуживание статических файлов в папке uploads
+app.use('/uploads', express.static(uploadDir));
 
 // Запуск сервера
 app.listen(PORT, () => {
