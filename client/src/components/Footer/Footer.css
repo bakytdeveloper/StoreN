@@ -203,6 +203,7 @@
         align-items: center;
         animation: slideUp 1s ease-in-out;
 
+
     }
 
 
@@ -323,7 +324,12 @@
         padding-top: 0;
         overflow: hidden;
         gap: 10px;
+
+        padding-bottom: 35px;
+
     }
+
+
     .social-icons-modal {
         top: 0;
         margin-bottom: 5px;
