@@ -20,7 +20,7 @@ app.use(cors());
 
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const PORT = process.env.PORT || 5504;
+const PORT = process.env.PORT || 5506;
 
 
 // Подключение к базе данных
@@ -64,7 +64,6 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
         try {
                 // Путь к загруженному файлу
                 const originalImagePath = path.join(uploadDir, req.file.filename);
-
                 // Изменение размера изображения до 600x900px и сжатие до 250KB
                 const resizedImage = await sharp(originalImagePath)
                     .resize({ width: 600, height: 900 })
