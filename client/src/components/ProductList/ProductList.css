@@ -345,7 +345,7 @@
 
 @media only screen and (max-width: 768px) {
     .product-list {
-        margin: 0 1px 90px 1px !important;
+        margin: 0 1px 155px 1px !important;
         padding-bottom: 0 !important;
         gap: 3px!important;
         padding: 0 5px 5px 5px !important;
@@ -369,9 +369,9 @@
 
     .pagination {
         display: inline-flex;
-        margin-left: 9%!important;
+        margin-left: 10%!important;
         width: auto;
-        margin-bottom: 88px!important;
+        margin-bottom: 144px!important;
 
 
 
