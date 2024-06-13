@@ -225,14 +225,23 @@ const ProductList = ({
     };
 
 
+    // useEffect(() => {
+    //     if (!showSidebar && windowWidth <= 768) {
+    //         document.body.classList.add('no-scroll');
+    //         window.scrollTo(0, 0);
+    //     } else {
+    //         document.body.classList.remove('no-scroll');
+    //     }
+    // }, [showSidebar, windowWidth]);
+
     useEffect(() => {
-        if (!showSidebar && windowWidth <= 768) {
+        if (!showSidebar && windowWidth <= 768 && location.pathname === "/catalog") {
             document.body.classList.add('no-scroll');
             window.scrollTo(0, 0);
         } else {
             document.body.classList.remove('no-scroll');
         }
-    }, [showSidebar, windowWidth]);
+    }, [showSidebar, windowWidth, location.pathname]);
 
     return (
         <div className="product-list-container">

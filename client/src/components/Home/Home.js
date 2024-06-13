@@ -149,6 +149,7 @@ const Home = ({ setShowSidebar, setIsFooterCatalog }) => {
 
     useEffect(() => {
         setShowSidebar(true);
+        document.body.classList.remove('no-scroll');
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
