@@ -42,7 +42,7 @@ const SellerProfile = ({ setShowSidebar }) => {
         // Получаем данные профиля продавца
         const fetchProfile = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/profile`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/seller/profile`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

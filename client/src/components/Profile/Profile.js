@@ -522,7 +522,7 @@ const Profile = ({ setShowSidebar }) => {
                     return;
                 }
                 if (token) {
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/profile`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
