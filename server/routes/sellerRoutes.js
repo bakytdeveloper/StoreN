@@ -11,88 +11,88 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-// Создание нового продавца
-router.post('/register', async (req, res) => {
-    const { firstName, lastName, email, password, phone, companyName, companyDescription, address } = req.body;
-
-    try {
-        const existingSeller = await Seller.findOne({ email });
-
-        if (existingSeller) {
-            return res.status(400).json({ message: 'Seller already exists' });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const createdAt = new Date();
-
-        const newSeller = new Seller({
-            name: `${firstName} ${lastName}`,
-            email,
-            password: hashedPassword,
-            address,
-            phoneNumber: phone,
-            companyName,
-            companyDescription,
-            createdAt,
-            status: 'pending',
-            role: 'seller',
-            products: []
-        });
-
-        await newSeller.save();
-
-        const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
-
-        res.status(201).json({ seller: newSeller, token, success: true });
-    } catch (error) {
-        res.status(500).json({ message: error.message, success: false });
-    }
-});
-
-// Проверка уникальности email
-router.get('/checkEmail', async (req, res) => {
-    const { email } = req.query;
-    try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            res.json({ unique: false });
-        } else {
-            res.json({ unique: true });
-        }
-    } catch (error) {
-        console.error('Error checking email uniqueness:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
-
-// Аутентификация продавца
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-
-    try {
-        const seller = await Seller.findOne({ email });
-
-        if (!seller) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, seller.password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-
-        if (seller.status !== 'approved') {
-            return res.status(401).json({ message: 'Seller is not approved yet' });
-        }
-
-        const token = jwt.sign({ sellerId: seller._id, email: seller.email }, process.env.SECRET_KEY);
-        res.json({ seller, token, success: true });
-    } catch (error) {
-        console.error('Error authenticating seller:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
+// // Создание нового продавца
+// router.post('/register', async (req, res) => {
+//     const { firstName, lastName, email, password, phone, companyName, companyDescription, address } = req.body;
+//
+//     try {
+//         const existingSeller = await Seller.findOne({ email });
+//
+//         if (existingSeller) {
+//             return res.status(400).json({ message: 'Seller already exists' });
+//         }
+//
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const createdAt = new Date();
+//
+//         const newSeller = new Seller({
+//             name: `${firstName} ${lastName}`,
+//             email,
+//             password: hashedPassword,
+//             address,
+//             phoneNumber: phone,
+//             companyName,
+//             companyDescription,
+//             createdAt,
+//             status: 'pending',
+//             role: 'seller',
+//             products: []
+//         });
+//
+//         await newSeller.save();
+//
+//         const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
+//
+//         res.status(201).json({ seller: newSeller, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
+//
+// // Проверка уникальности email
+// router.get('/checkEmail', async (req, res) => {
+//     const { email } = req.query;
+//     try {
+//         const existingUser = await User.findOne({ email });
+//         if (existingUser) {
+//             res.json({ unique: false });
+//         } else {
+//             res.json({ unique: true });
+//         }
+//     } catch (error) {
+//         console.error('Error checking email uniqueness:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+//
+// // Аутентификация продавца
+// router.post('/login', async (req, res) => {
+//     const { email, password } = req.body;
+//
+//     try {
+//         const seller = await Seller.findOne({ email });
+//
+//         if (!seller) {
+//             return res.status(401).json({ message: 'Invalid email or password' });
+//         }
+//
+//         const isPasswordValid = await bcrypt.compare(password, seller.password);
+//
+//         if (!isPasswordValid) {
+//             return res.status(401).json({ message: 'Invalid email or password' });
+//         }
+//
+//         if (seller.status !== 'approved') {
+//             return res.status(401).json({ message: 'Seller is not approved yet' });
+//         }
+//
+//         const token = jwt.sign({ sellerId: seller._id, email: seller.email }, process.env.SECRET_KEY);
+//         res.json({ seller, token, success: true });
+//     } catch (error) {
+//         console.error('Error authenticating seller:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
 
 
 
@@ -165,15 +165,15 @@ router.put('/update-password', authenticateToken, async (req, res) => {
 });
 
 
-// Получение информации о текущем продавце
-router.get('/profile', authenticateToken, async (req, res) => {
-    try {
-        const seller = await Seller.findById(req.user.sellerId).select('-password');
-        res.json(seller);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+// // Получение информации о текущем продавце
+// router.get('/profile', authenticateToken, async (req, res) => {
+//     try {
+//         const seller = await Seller.findById(req.user.sellerId).select('-password');
+//         res.json(seller);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 
 // Создание нового товара
