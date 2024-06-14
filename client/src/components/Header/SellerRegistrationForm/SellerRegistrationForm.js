@@ -39,7 +39,7 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const checkEmailUrl = `${apiUrl}/api/users/checkEmail?email=${formData.email}`;
+            const checkEmailUrl = `${apiUrl}/api/auth/checkEmail?email=${formData.email}`;
             const emailResponse = await fetch(checkEmailUrl);
             const emailData = await emailResponse.json();
 
@@ -53,7 +53,7 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
                 return;
             }
 
-            await axios.post(`${apiUrl}/api/sellers/register`, formData);
+            await axios.post(`${apiUrl}/api/auth/seller/register`, formData);
             toast.success('Ваш запрос на позицию продавца принят! Ожидайте одобрения.');
             history.push('/');
         } catch (error) {
