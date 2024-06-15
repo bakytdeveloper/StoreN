@@ -358,6 +358,130 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     // };
 
 
+    // const handleLoginRegister = async () => {
+    //     if (isRegisterMode) {
+    //         // Проверка уникальности email перед регистрацией клиента
+    //         const checkEmailUrl = `${process.env.REACT_APP_API_URL}/api/auth/checkEmail?email=${email.toLowerCase()}`;
+    //         const emailResponse = await fetch(checkEmailUrl);
+    //         const emailData = await emailResponse.json();
+    //         if (!emailResponse.ok) {
+    //             toast.error(emailData.message || 'Произошла ошибка при проверке email');
+    //             return;
+    //         }
+    //         if (!emailData.unique) {
+    //             toast.error('Такой email занят');
+    //             return;
+    //         }
+    //
+    //         // Регистрация нового клиента
+    //         const registerUrl = `${process.env.REACT_APP_API_URL}/api/auth/register`;
+    //         try {
+    //             const registerResponse = await fetch(registerUrl, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     email: email.toLowerCase(),
+    //                     password,
+    //                     name,
+    //                 }),
+    //             });
+    //             const responseData = await registerResponse.json();
+    //             if (registerResponse.ok) {
+    //                 localStorage.setItem('token', responseData.token);
+    //                 toast.success('Успешная регистрация и вход');
+    //                 history.push('/catalog');
+    //                 return;
+    //             } else {
+    //                 toast.error(responseData.message || 'Произошла ошибка при регистрации');
+    //                 return;
+    //             }
+    //         } catch (error) {
+    //             console.error('Registration error:', error);
+    //             toast.error('Произошла ошибка при регистрации');
+    //             return;
+    //         }
+    //     }
+    //
+    //     // Логин пользователя или администратора
+    //     if (email.toLowerCase() === 'a' && password === 'a') {
+    //         localStorage.setItem('token', 'adminToken');
+    //         localStorage.setItem('role', 'admin');
+    //         history.push('/admin');
+    //         return;
+    //     }
+    //
+    //     const userAdminUrl = `${process.env.REACT_APP_API_URL}/api/auth/login`;
+    //     try {
+    //         const userAdminResponse = await fetch(userAdminUrl, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 email: email.toLowerCase(),
+    //                 password,
+    //                 name,
+    //             }),
+    //         });
+    //         const userData = await userAdminResponse.json();
+    //         if (userAdminResponse.ok) {
+    //             localStorage.setItem('token', userData.token);
+    //             localStorage.setItem('role', userData.user.role);
+    //             const userName = userData.user.name;
+    //             toast.success(`Приветствую вас, ${userName}!`);
+    //             if (userData.user.role === 'customer') {
+    //                 history.push('/profile');
+    //             } else if (userData.user.role === 'admin') {
+    //                 history.push('/admin');
+    //             } else if (userData.user.role === 'seller') {
+    //                 history.push('/sellerProfile');
+    //             }
+    //             return;
+    //         }
+    //     } catch (error) {
+    //         console.error('User/Admin fetch error:', error);
+    //         toast.error('Произошла ошибка');
+    //     }
+    //
+    //     // Логин продавца
+    //     const sellerUrl = `${process.env.REACT_APP_API_URL}/api/auth/seller/login`;
+    //     try {
+    //         const sellerResponse = await fetch(sellerUrl, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 email: email.toLowerCase(),
+    //                 password,
+    //                 name,
+    //             }),
+    //         });
+    //         const sellerData = await sellerResponse.json();
+    //         if (sellerResponse.ok) {
+    //             if (sellerData.seller.status === 'approved') {
+    //                 localStorage.setItem('token', sellerData.token);
+    //                 localStorage.setItem('role', 'seller');
+    //                 const userName = sellerData.seller.name;
+    //                 toast.success(`Приветствую вас, ${userName}!`);
+    //                 history.push('/sellerProfile');
+    //                 return;
+    //             } else {
+    //                 toast.error('Ваш аккаунт еще не подтвержден');
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error('Seller fetch error:', error);
+    //         toast.error('Произошла ошибка');
+    //     }
+    //
+    //     toast.error('Неверный email или пароль');
+    // };
+
+
+
     const handleLoginRegister = async () => {
         if (isRegisterMode) {
             // Проверка уникальности email перед регистрацией клиента
@@ -404,17 +528,10 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             }
         }
 
-        // Логин пользователя или администратора
-        if (email.toLowerCase() === 'a' && password === 'a') {
-            localStorage.setItem('token', 'adminToken');
-            localStorage.setItem('role', 'admin');
-            history.push('/admin');
-            return;
-        }
-
-        const userAdminUrl = `${process.env.REACT_APP_API_URL}/api/auth/login`;
+        // Логин пользователя, администратора или продавца
+        const loginUrl = `${process.env.REACT_APP_API_URL}/api/auth/login`;
         try {
-            const userAdminResponse = await fetch(userAdminUrl, {
+            const loginResponse = await fetch(loginUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -425,61 +542,29 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     name,
                 }),
             });
-            const userData = await userAdminResponse.json();
-            if (userAdminResponse.ok) {
-                localStorage.setItem('token', userData.token);
-                localStorage.setItem('role', userData.user.role);
-                const userName = userData.user.name;
+            const loginData = await loginResponse.json();
+            if (loginResponse.ok) {
+                localStorage.setItem('token', loginData.token);
+                localStorage.setItem('role', loginData.user.role);
+                const userName = loginData.user.name;
+                console.log("userName:", loginData.user.role)
                 toast.success(`Приветствую вас, ${userName}!`);
-                if (userData.user.role === 'customer') {
+                if (loginData.user.role === 'customer') {
                     history.push('/profile');
-                } else if (userData.user.role === 'admin') {
+                } else if (loginData.user.role === 'admin') {
                     history.push('/admin');
-                } else if (userData.user.role === 'seller') {
+                } else if (loginData.user.role === 'seller') {
                     history.push('/sellerProfile');
                 }
                 return;
+            } else {
+                toast.error(loginData.message || 'Неверный email или пароль');
             }
         } catch (error) {
-            console.error('User/Admin fetch error:', error);
+            console.error('Login fetch error:', error);
             toast.error('Произошла ошибка');
         }
-
-        // Логин продавца
-        const sellerUrl = `${process.env.REACT_APP_API_URL}/api/auth/seller/login`;
-        try {
-            const sellerResponse = await fetch(sellerUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email.toLowerCase(),
-                    password,
-                    name,
-                }),
-            });
-            const sellerData = await sellerResponse.json();
-            if (sellerResponse.ok) {
-                if (sellerData.seller.status === 'approved') {
-                    localStorage.setItem('token', sellerData.token);
-                    localStorage.setItem('role', 'seller');
-                    const userName = sellerData.seller.name;
-                    toast.success(`Приветствую вас, ${userName}!`);
-                    history.push('/sellerProfile');
-                    return;
-                } else {
-                    toast.error('Ваш аккаунт еще не подтвержден');
-                }
-            }
-        } catch (error) {
-            console.error('Seller fetch error:', error);
-            toast.error('Произошла ошибка');
-        }
-
-        toast.error('Неверный email или пароль');
     };
-
 
 
 

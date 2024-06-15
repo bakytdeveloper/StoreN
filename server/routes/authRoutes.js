@@ -76,55 +76,103 @@ router.post('/seller/register', async (req, res) => {
     }
 });
 
-// Аутентификация пользователя и администратора
+
+
+// Аутентификация пользователя, администратора и продавца
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        let user;
-
+        // Проверка администратора
         if (email.toLowerCase() === 'a' && password === 'a') {
             const adminRole = 'admin';
             const adminToken = jwt.sign({ email, role: adminRole }, process.env.SECRET_KEY);
             return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
-        } else {
-            user = await User.findOne({ email });
-            if (!user) {
-                return res.status(401).json({ message: 'Invalid email or password' });
-            }
+        }
+
+        // Проверка пользователя
+        let user = await User.findOne({ email });
+        if (user) {
             const isPasswordValid = await bcrypt.compare(password, user.password);
-            if (!isPasswordValid) {
-                return res.status(401).json({ message: 'Invalid email or password' });
+            if (isPasswordValid) {
+                const token = jwt.sign({ userId: user._id, address: user.profile, email: user.email, role: user.role }, process.env.SECRET_KEY);
+                return res.json({ user, token, success: true });
             }
         }
 
-        const token = jwt.sign({ userId: user._id, address: user.profile, email: user.email, role: user.role }, process.env.SECRET_KEY);
-        res.json({ user, token, success: true });
+        // Проверка продавца
+        let seller = await Seller.findOne({ email });
+        if (seller) {
+            const isPasswordValid = await bcrypt.compare(password, seller.password);
+            if (isPasswordValid) {
+                if (seller.status !== 'approved') {
+                    return res.status(401).json({ message: 'Seller is not approved yet' });
+                }
+                const token = jwt.sign({ sellerId: seller._id, email: seller.email, role: seller.role }, process.env.SECRET_KEY);
+                return res.json({ user: seller, token, success: true });
+            }
+        }
+
+        // Если ни один из логинов не подошел
+        return res.status(401).json({ message: 'Invalid email or password' });
+
     } catch (error) {
         res.status(500).json({ message: error.message, success: false });
     }
 });
 
-// Аутентификация продавца
-router.post('/seller/login', async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const seller = await Seller.findOne({ email });
-        if (!seller) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-        const isPasswordValid = await bcrypt.compare(password, seller.password);
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-        if (seller.status !== 'approved') {
-            return res.status(401).json({ message: 'Seller is not approved yet' });
-        }
-        const token = jwt.sign({ sellerId: seller._id, email: seller.email, role: seller.role }, process.env.SECRET_KEY);
-        res.json({ seller, token, success: true });
-    } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
+
+// // Аутентификация пользователя и администратора
+// router.post('/login', async (req, res) => {
+//     const { email, password } = req.body;
+//     try {
+//         let user;
+//
+//         if (email.toLowerCase() === 'a' && password === 'a') {
+//             const adminRole = 'admin';
+//             const adminToken = jwt.sign({ email, role: adminRole }, process.env.SECRET_KEY);
+//             return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
+//         } else {
+//             user = await User.findOne({ email });
+//             if (!user) {
+//                 return res.status(401).json({ message: 'Invalid email or password' });
+//             }
+//             const isPasswordValid = await bcrypt.compare(password, user.password);
+//             if (!isPasswordValid) {
+//                 return res.status(401).json({ message: 'Invalid email or password' });
+//             }
+//         }
+//
+//         const token = jwt.sign({ userId: user._id, address: user.profile, email: user.email, role: user.role }, process.env.SECRET_KEY);
+//         res.json({ user, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
+
+
+// // Аутентификация продавца
+// router.post('/seller/login', async (req, res) => {
+//     const { email, password } = req.body;
+//     try {
+//         const seller = await Seller.findOne({ email });
+//         if (!seller) {
+//             return res.status(401).json({ message: 'Invalid email or password' });
+//         }
+//         const isPasswordValid = await bcrypt.compare(password, seller.password);
+//         if (!isPasswordValid) {
+//             return res.status(401).json({ message: 'Invalid email or password' });
+//         }
+//         if (seller.status !== 'approved') {
+//             return res.status(401).json({ message: 'Seller is not approved yet' });
+//         }
+//         const token = jwt.sign({ sellerId: seller._id, email: seller.email, role: seller.role }, process.env.SECRET_KEY);
+//         res.json({ seller, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
 
 // Получение информации о текущем пользователе
 router.get('/profile', authenticateToken, async (req, res) => {

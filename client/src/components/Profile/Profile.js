@@ -492,6 +492,7 @@ import {faArrowLeft, faArrowRight, faBan} from "@fortawesome/free-solid-svg-icon
 
 
 
+import {jwtDecode} from 'jwt-decode'; // Ensure you have jwt-decode installed
 
 
 const Profile = ({ setShowSidebar }) => {
@@ -521,6 +522,18 @@ const Profile = ({ setShowSidebar }) => {
                     setUser(null);
                     return;
                 }
+
+                // Decode the token to get the user role
+                const decodedToken = jwtDecode(token);
+                const userRole = decodedToken.role;
+
+                // Redirect based on user role
+                if (userRole === 'seller') {
+                    history.push('/sellerProfile');
+                    return;
+                }
+
+
                 if (token) {
                     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/profile`, {
                         method: 'GET',
@@ -720,6 +733,8 @@ const Profile = ({ setShowSidebar }) => {
             setShowSidebar(true); // Восстановим значение при размонтировании компонента
         };
     }, [setShowSidebar]);
+
+    console.log("latestOrder:", latestOrder)
 
     return (
         <div className="profile-container">
