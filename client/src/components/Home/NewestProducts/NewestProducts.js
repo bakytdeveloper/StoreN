@@ -102,10 +102,15 @@ const NewestProducts = ({ apiUrl }) => {
                 {newestProducts.map((product) => (
                     <div className="product-card new-cards" key={product._id}>
                         <Link to={`/products/${product._id}`}>
-                            <img
-                                src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
-                                alt={product.name}
-                            />
+
+                            <div className="product-card-images">
+                                <img
+                                    src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
+                                    alt={product.name}
+                                />
+                            </div>
+
+
                             <div className="details">
                                 {/*<div className="type">{product.type}</div>*/}
 
