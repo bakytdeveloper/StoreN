@@ -568,6 +568,7 @@ const Profile = ({ setShowSidebar }) => {
                 });
                 const data = await response.json();
                 if (response.ok) {
+                    console.log("DATA:", data)
                     setOrders(data);
                 } else {
                     console.error(data.message);
@@ -576,6 +577,8 @@ const Profile = ({ setShowSidebar }) => {
                 console.error('Error fetching user orders:', error);
             }
         };
+
+        console.log('ORDERS:', orders)
 
         const fetchPurchaseHistory = async () => {
             try {
@@ -722,9 +725,13 @@ const Profile = ({ setShowSidebar }) => {
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
-    const ordersCopy = orders.slice();
-    ordersCopy.reverse();
-    const latestOrder = ordersCopy.find(order => order.user?._id === user?._id);
+    // const ordersCopy = orders.slice();
+    // ordersCopy.reverse();
+    // const latestOrder = ordersCopy.find(order => order.user?._id === user?._id);
+
+    const latestOrder = orders.length > 0 ? orders[orders.length - 1] : null;
+
+    console.log("latestOrder:", latestOrder)
 
     useEffect(() => {
         setShowSidebar(true);
