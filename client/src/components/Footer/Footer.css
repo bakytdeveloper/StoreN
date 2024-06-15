@@ -79,12 +79,15 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    margin-bottom: 13px;
+    margin-top: 21px;
+    margin-bottom: 0;
+    padding-top: 20px;
     color: black;
     margin-left: 70%;
     font-weight: bold;
     background: none;
-    top: 3px!important;
+
+    /*top: 13px!important;*/
 
 }
 
@@ -312,20 +315,21 @@
 
 
     .contact-info-modal {
-        height: 35%;
-        top: 65%;
+        height: 38%;
+        top: 62%;
         bottom: 5px!important;
         border-radius: 20px 20px 0 0;
-
+        position: absolute;
         line-height: 40px;
         animation: slideUp 1s ease-in-out;
         background-color: white;
         box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-        padding-top: 0;
+        padding: 20px;
+
         overflow: hidden;
         gap: 10px;
 
-        padding-bottom: 35px;
+        padding-bottom: 55px;
 
     }
 
