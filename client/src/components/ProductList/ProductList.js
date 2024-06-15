@@ -260,7 +260,9 @@ const ProductList = ({
                             displayedProducts.map(product => (
                                 <div className="product-card" key={product._id}>
                                     <Link to={`/products/${product._id}`}>
-                                        <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                        <div className="product-card-images">
+                                            <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                        </div>
                                         <div className="product-list-details">
                                             <div className="product-list-details-brand-and-name">
                                                 <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
