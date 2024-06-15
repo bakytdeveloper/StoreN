@@ -119,7 +119,7 @@ router.post('/seller/login', async (req, res) => {
         if (seller.status !== 'approved') {
             return res.status(401).json({ message: 'Seller is not approved yet' });
         }
-        const token = jwt.sign({ sellerId: seller._id, email: seller.email }, process.env.SECRET_KEY);
+        const token = jwt.sign({ sellerId: seller._id, email: seller.email, role: seller.role }, process.env.SECRET_KEY);
         res.json({ seller, token, success: true });
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' });
