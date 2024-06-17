@@ -150,17 +150,20 @@ const SellerProductsPage = () => {
             <div className="products-list my-products  seller-products-page-products-list">
                 {products.map((product) => (
                     <div className="product-card product-card-seller" key={product._id}>
-                        <div className="sellerEditDelete">
-                            <button className="admin-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
-                            <button className="admin-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
+                        <div className="sellerEditDelete" >
+                            <button className="seller-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
+                            <button className="seller-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
 
                         </div>
 
                         <Link to={`/products/${product._id}`}>
+
+                            <div className="product-card-images">
                             <img
                                 src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
                             />
+                            </div>
                             <div className="details details-seller-products-page">
                                 <div className="type">{product.type}</div>
                                 <div className="brand">{product.brand}</div>
@@ -172,21 +175,16 @@ const SellerProductsPage = () => {
                                 </div>
                             </div>
                         </Link>
-                        <div className="actions">
-                            <button
-                                className="cart-button"
-                                title="Add to Cart"
-                            >
-                                <strong>+</strong>
-                                <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                            </button>
-                            {/*<button*/}
-                            {/*    className="buy-button"*/}
-                            {/*    title="Buy Now"*/}
-                            {/*>*/}
-                            {/*    Заказать*/}
-                            {/*</button>*/}
-                        </div>
+                        {/*<div className="actions">*/}
+                        {/*    <button*/}
+                        {/*        className="cart-button"*/}
+                        {/*        title="Add to Cart"*/}
+                        {/*    >*/}
+                        {/*        <strong>+</strong>*/}
+                        {/*        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
+                        {/*    </button>*/}
+                        {/*  */}
+                        {/*</div>*/}
                     </div>
                 ))}
             </div>
