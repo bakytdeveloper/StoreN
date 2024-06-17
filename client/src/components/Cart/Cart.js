@@ -48,7 +48,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const response = await fetch(`${apiUrl}/api/users/profile`, {
+                    const response = await fetch(`${apiUrl}/api/auth/profile`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,

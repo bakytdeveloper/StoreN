@@ -517,6 +517,37 @@ router.delete('/:id', async (req, res) => {
 
 
 
+// Получение последнего заказа и профиля пользователя
+router.get('/last-order/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const lastOrder = await Order.findOne({ user: userId }).sort({ date: -1 });
+        if (!lastOrder) {
+            return res.status(404).json({ message: 'No orders found for this user' });
+        }
+
+        res.json({
+            profile: {
+                name: user.name,
+                email: user.email,
+                address: user.address || lastOrder.address,
+                phoneNumber: user.phoneNumber || lastOrder.phoneNumber
+            },
+            lastOrder
+        });
+    } catch (error) {
+        console.error('Error fetching last order or user profile:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+
 module.exports = router;
 
 

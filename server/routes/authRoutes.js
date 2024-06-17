@@ -184,6 +184,28 @@ router.get('/profile', authenticateToken, async (req, res) => {
     }
 });
 
+// Обновление профиля пользователя
+router.put('/profile/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const { address, phoneNumber } = req.body;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { address, phoneNumber },
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(updatedUser);
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
 // Получение информации о текущем продавце
 router.get('/seller/profile', authenticateToken, async (req, res) => {
     try {

@@ -495,6 +495,7 @@ import {faArrowLeft, faArrowRight, faBan} from "@fortawesome/free-solid-svg-icon
 import {jwtDecode} from 'jwt-decode'; // Ensure you have jwt-decode installed
 
 
+
 const Profile = ({ setShowSidebar }) => {
     const [user, setUser] = useState(null);
     const [orders, setOrders] = useState([]);
@@ -504,17 +505,56 @@ const Profile = ({ setShowSidebar }) => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [editedAddress, setEditedAddress] = useState('');
-    const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
+    const [editedAddress, setEditedAddress] = useState(''); // Default to empty string
+    const [editedPhoneNumber, setEditedPhoneNumber] = useState(''); // Default to empty string
     const [editedName, setEditedName] = useState('');
     const [editedEmail, setEditedEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [page, setPage] = useState(1); // Страница для пагинации
-    const [pageSize, setPageSize] = useState(5); // Размер страницы для пагинации
-    const [totalPages, setTotalPages] = useState(0); // Общее количество страниц
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const [totalPages, setTotalPages] = useState(0);
     const history = useHistory();
 
     useEffect(() => {
+        // const fetchProfile = async () => {
+        //     try {
+        //         const token = localStorage.getItem('token');
+        //         if (!token) {
+        //             setUser(null);
+        //             return;
+        //         }
+        //
+        //         const decodedToken = jwtDecode(token);
+        //         const userRole = decodedToken.role;
+        //
+        //         if (userRole === 'seller') {
+        //             history.push('/sellerProfile');
+        //             return;
+        //         }
+        //
+        //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/profile/:userId`, {
+        //             method: 'GET',
+        //             headers: {
+        //                 'Authorization': `Bearer ${token}`,
+        //             },
+        //         });
+        //
+        //         if (response.ok) {
+        //             const data = await response.json();
+        //             setUser(data);
+        //             setEditedAddress(data.profile?.address || ''); // Set default address if available
+        //             setEditedPhoneNumber(data.profile?.phoneNumber || ''); // Set default phone number if available
+        //             setEditedName(data.name || '');
+        //             setEditedEmail(data.email || '');
+        //         } else {
+        //             const data = await response.json();
+        //             console.error(data.message);
+        //         }
+        //     } catch (error) {
+        //         console.error('Error:', error);
+        //     }
+        // };
+
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -533,27 +573,45 @@ const Profile = ({ setShowSidebar }) => {
                     return;
                 }
 
+                // Fetch user profile details
+                const profileResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/profile`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                const profileData = await profileResponse.json();
+                if (!profileResponse.ok) {
+                    console.error(profileData.message);
+                    toast.error('Ошибка загрузки профиля', { position: toast.POSITION.BOTTOM_RIGHT });
+                    return;
+                }
 
-                if (token) {
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/profile`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
-                    const data = await response.json();
-                    if (response.ok) {
-                        setUser(data);
-                        setEditedAddress(data.profile?.address || '');
-                        setEditedPhoneNumber(data.profile?.phoneNumber || '');
-                        setEditedName(data.name || '');
-                        setEditedEmail(data.email || '');
-                    } else {
-                        console.error(data.message);
-                    }
+                setUser(profileData);
+                setEditedName(profileData.name || '');
+                setEditedEmail(profileData.email || '');
+
+                // Fetch last order details
+                const lastOrderResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/last-order/${profileData._id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                const lastOrderData = await lastOrderResponse.json();
+                if (lastOrderResponse.ok) {
+
+                    console.log("lastOrderData.address:", lastOrderData.lastOrder?.address)
+
+                    setEditedAddress( lastOrderData.lastOrder?.address || '');
+                    setEditedPhoneNumber( lastOrderData.lastOrder?.phoneNumber || '');
+                } else {
+                    console.error('Ошибка загрузки последнего заказа:', lastOrderData.message);
+                    toast.error('Ошибка загрузки последнего заказа', { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Ошибка загрузки профиля:', error);
+                toast.error('Ошибка загрузки профиля', { position: toast.POSITION.BOTTOM_RIGHT });
             }
         };
 
@@ -566,19 +624,17 @@ const Profile = ({ setShowSidebar }) => {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                const data = await response.json();
                 if (response.ok) {
-                    console.log("DATA:", data)
+                    const data = await response.json();
                     setOrders(data);
                 } else {
+                    const data = await response.json();
                     console.error(data.message);
                 }
             } catch (error) {
                 console.error('Error fetching user orders:', error);
             }
         };
-
-        console.log('ORDERS:', orders)
 
         const fetchPurchaseHistory = async () => {
             try {
@@ -593,11 +649,12 @@ const Profile = ({ setShowSidebar }) => {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                const data = await response.json();
                 if (response.ok) {
+                    const data = await response.json();
                     setUserOrders(data.orders);
                     setTotalPages(data.totalPages);
                 } else {
+                    const data = await response.json();
                     console.error(data.message);
                 }
             } catch (error) {
@@ -622,8 +679,8 @@ const Profile = ({ setShowSidebar }) => {
                 body: JSON.stringify({
                     name: editedName || user.name,
                     email: editedEmail || user.email,
-                    address: editedAddress || user.profile?.address || '', // Используем адрес из профиля, если есть
-                    phoneNumber: editedPhoneNumber || user.profile?.phoneNumber || '', // Используем номер телефона из профиля, если есть
+                    address: editedAddress || user.profile?.address || '',
+                    phoneNumber: editedPhoneNumber || user.profile?.phoneNumber || '',
                 }),
             });
             if (response.ok) {
@@ -674,10 +731,10 @@ const Profile = ({ setShowSidebar }) => {
                     newPassword,
                 }),
             });
-            const data = await response.json();
             if (response.ok) {
                 toast.success('Пароль успешно обновлен', { position: toast.POSITION.BOTTOM_RIGHT });
             } else {
+                const data = await response.json();
                 console.error(data.message);
                 toast.error('Ошибка при обновлении пароля', { position: toast.POSITION.BOTTOM_RIGHT });
             }
@@ -725,6 +782,8 @@ const Profile = ({ setShowSidebar }) => {
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
+
+
     // const ordersCopy = orders.slice();
     // ordersCopy.reverse();
     // const latestOrder = ordersCopy.find(order => order.user?._id === user?._id);
@@ -741,7 +800,7 @@ const Profile = ({ setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
-    console.log("latestOrder:", latestOrder)
+    console.log("latestOrder:", editedAddress)
 
     return (
         <div className="profile-container">
@@ -819,10 +878,10 @@ const Profile = ({ setShowSidebar }) => {
                                     <>
                                         <div className="profile-input">
                                             <label>Address:</label>
-                                            {editPassword ? (
+                                            {editedAddress ? (
                                                 <input
                                                     type="text"
-                                                    value={editedAddress || latestOrder.address || ''}
+                                                    value={ editedAddress ||  ''}
                                                     onChange={(e) => setEditedAddress(e.target.value)}
                                                 />
                                             ) : (
@@ -835,7 +894,7 @@ const Profile = ({ setShowSidebar }) => {
                                         </div>
                                         <div className="profile-input">
                                             <label>Phone Number:</label>
-                                            {editPassword ? (
+                                            {editedPhoneNumber ? (
                                                 <input
                                                     type="text"
                                                     value={editedPhoneNumber || latestOrder.phoneNumber || ''}

@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['guest', 'customer', 'admin'], default: 'guest' },
     cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
+    address: { type: String }, // Добавлено поле для адреса
+    phoneNumber: { type: String } // Добавлено поле для номера телефона
 
 });
 
