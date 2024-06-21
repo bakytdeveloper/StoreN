@@ -26,52 +26,51 @@ router.get('/checkEmail', async (req, res) => {
 
 
 
-router.post('/send-otp', (req, res) => {
-    const { email } = req.body;
-    sendOTP(email);
-    res.status(200).json({ message: 'OTP sent' });
-});
-
-
-router.post('/verify-otp', (req, res) => {
-    const { email, otp } = req.body;
-    const isValid = verifyOTP(email, otp);
-    if (isValid) {
-        res.status(200).json({ message: 'OTP verified' });
-    } else {
-        res.status(400).json({ message: 'Invalid OTP' });
-    }
-});
-
-
-
-// Изменение маршрута регистрации в auth.js
-router.post('/register', async (req, res) => {
-    const { email, password, name, otp } = req.body;
-    if (!verifyOTP(email, otp)) {
-        return res.status(400).json({ message: 'Invalid OTP' });
-    }
-    // Дальнейшая логика регистрации
-    try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({
-            name,
-            email,
-            password: hashedPassword,
-            profile,
-            role: role || 'customer',
-        });
-        await newUser.save();
-        const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
-        res.status(201).json({ user: newUser, token, success: true });
-    } catch (error) {
-        res.status(500).json({ message: error.message, success: false });
-    }
-});
+// router.post('/send-otp', (req, res) => {
+//     const { email } = req.body;
+//     sendOTP(email);
+//     res.status(200).json({ message: 'OTP sent' });
+// });
+//
+//
+// router.post('/verify-otp', (req, res) => {
+//     const { email, otp } = req.body;
+//     const isValid = verifyOTP(email, otp);
+//     if (isValid) {
+//         res.status(200).json({ message: 'OTP verified' });
+//     } else {
+//         res.status(400).json({ message: 'Invalid OTP' });
+//     }
+// });
+//
+//
+// // Изменение маршрута регистрации в auth.js
+// router.post('/register', async (req, res) => {
+//     const { email, password, name, otp } = req.body;
+//     if (!verifyOTP(email, otp)) {
+//         return res.status(400).json({ message: 'Invalid OTP' });
+//     }
+//     // Дальнейшая логика регистрации
+//     try {
+//         const existingUser = await User.findOne({ email });
+//         if (existingUser) {
+//             return res.status(400).json({ message: 'User already exists' });
+//         }
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const newUser = new User({
+//             name,
+//             email,
+//             password: hashedPassword,
+//             profile,
+//             role: role || 'customer',
+//         });
+//         await newUser.save();
+//         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
+//         res.status(201).json({ user: newUser, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
 
 
 
@@ -100,6 +99,84 @@ router.post('/register', async (req, res) => {
 //         res.status(500).json({ message: error.message, success: false });
 //     }
 // });
+
+
+
+// Маршрут для отправки OTP
+router.post('/send-otp', (req, res) => {
+    const { email } = req.body;
+    sendOTP(email);
+    res.status(200).json({ message: 'OTP sent' });
+});
+
+// Маршрут для проверки OTP
+router.post('/verify-otp', (req, res) => {
+    const { email, otp } = req.body;
+    const isValid = verifyOTP(email, otp);
+    if (isValid) {
+        res.status(200).json({ message: 'OTP verified' });
+    } else {
+        res.status(400).json({ message: 'Invalid OTP' });
+    }
+});
+
+
+router.post('/register', async (req, res) => {
+    const { email, password, name, otp } = req.body;
+    if (!verifyOTP(email, otp)) {
+        return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            role: 'customer', // or assign based on your logic
+        });
+
+        await newUser.save();
+        const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
+        res.status(201).json({ user: newUser, token, success: true });
+    } catch (error) {
+        res.status(500).json({ message: error.message, success: false });
+    }
+});
+
+
+// // Изменение маршрута регистрации в auth.js
+// router.post('/register', async (req, res) => {
+//     const { email, password, name, otp } = req.body;
+//     if (!verifyOTP(email, otp)) {
+//         return res.status(400).json({ message: 'Invalid OTP' });
+//     }
+//     // Дальнейшая логика регистрации
+//     try {
+//         const existingUser = await User.findOne({ email });
+//         if (existingUser) {
+//             return res.status(400).json({ message: 'User already exists' });
+//         }
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         const newUser = new User({
+//             name,
+//             email,
+//             password: hashedPassword,
+//             role: 'customer',
+//         });
+//         await newUser.save();
+//         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
+//         res.status(201).json({ user: newUser, token, success: true });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message, success: false });
+//     }
+// });
+
 
 // Регистрация нового продавца
 router.post('/seller/register', async (req, res) => {
