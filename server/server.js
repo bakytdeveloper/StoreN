@@ -13,6 +13,7 @@ const path = require("path");
 const multer = require("multer");
 const fs = require("fs");
 const sharp = require("sharp");
+const {sendOTP} = require("./smtp/otpService");
 dotenv.config();
 
 const app = express();
@@ -87,6 +88,19 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
                 res.status(400).json({ message: 'Ошибка при загрузке и обработке изображения' });
         }
 });
+
+
+
+
+// app.post('/api/auth/sendOtp', (req, res) => {
+//         const { email } = req.body;
+//         sendOTP(email);
+//         console.log(`Sending OTP to ${email}`);
+//         res.status(200).json({ message: 'OTP sent' });
+// });
+
+
+
 
 
 // Обслуживание статических файлов в папке uploads
