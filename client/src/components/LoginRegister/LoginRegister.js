@@ -1698,6 +1698,16 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         onChange={(e) => setName(e.target.value)}
                         onKeyPress={handleKeyPress}
                     />
+
+
+                        <input
+                            className="formInput"
+                            type="text"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                        />
                     <div style={{ position: 'relative' }}>
                         <input
                             className="formInput"
