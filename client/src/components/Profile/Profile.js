@@ -1594,7 +1594,7 @@ const Profile = ({ setShowSidebar }) => {
                     setEditedPhoneNumber(lastOrderData.lastOrder?.phoneNumber || '');
                 } else {
                     console.error('Ошибка загрузки последнего заказа:', lastOrderData.message);
-                    toast.error('Ошибка загрузки последнего заказа', { position: toast.POSITION.BOTTOM_RIGHT });
+                    // toast.error('Ошибка загрузки последнего заказа', { position: toast.POSITION.BOTTOM_RIGHT });
                 }
             } catch (error) {
                 console.error('Ошибка загрузки профиля:', error);
@@ -1943,7 +1943,7 @@ const Profile = ({ setShowSidebar }) => {
                                                     {order.products.map(item => (
                                                         <li key={item.product?._id}>
                                                             {item.product?.name} - Количество: {item.quantity} - Цена: {item.product?.price}сом
-                                                            <hr />
+                                                            {/*<hr />*/}
                                                         </li>
                                                     ))}
                                                 </ul>
