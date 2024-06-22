@@ -19,7 +19,7 @@ const sendOTP = (email) => {
         from: 'bakytdeveloper@gmail.com',
         to: email,
         subject: 'Проверка получения OTP',
-        text: `ПРИВЕТ КАНАТ, это твой OTP: ${otp}`
+        text: `Здравствуйте, это ваш код: ${otp}`
     });
     return otp;
 };
