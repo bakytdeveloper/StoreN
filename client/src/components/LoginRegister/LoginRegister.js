@@ -2628,7 +2628,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         type="text"
                         placeholder="Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        // onChange={(e) => setEmail(e.target.value)}
                         onKeyPress={handleKeyPress}
                         readOnly
                     />
