@@ -62,8 +62,8 @@
 }
 
 .dropdown-menu {
-    border: 1px solid #4c4b4b;
-    border-radius: 6px;
+    border: 1px solid #d7d5d5;
+    border-radius: 3px;
     padding: 0;
     margin-right: 40px;
 
@@ -71,8 +71,8 @@
 
 .dropdown-menu-close {
     position: absolute;
-    margin-top: -4%;
-   cursor: pointer;
+    margin-top: -3%;
+    cursor: pointer;
 }
 
 .dropdown-menu button {
@@ -208,7 +208,7 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 10px;
     z-index: 1000;
-    width: 150px;
+    width: 190px;
 }
 
 .header .profileIcon .dropdown-menu button {
