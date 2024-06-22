@@ -2478,7 +2478,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 if (!registerResponse.ok) {
                     const errorText = await registerResponse.text();
                     console.error('Registration error response text:', errorText);
-                    toast.error('Произошла ошибка при регистрации');
+                    toast.error('Произошла ошибка при регистрации, клиент с таким email уже существует');
                     return;
                 }
 
@@ -2492,7 +2492,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
             } catch (error) {
                 console.error('Registration error:', error);
-                toast.error('Произошла ошибка при регистрации');
+                toast.error('Произошла ошибка при регистрации, клиент с таким email уже существует');
             }
             return;
         }
