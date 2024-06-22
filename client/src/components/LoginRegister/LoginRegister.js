@@ -2055,15 +2055,17 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     </button>
                 </div>
             )}
-            <p
-                className="text-login-or-register"
-                onClick={() => {
-                    setRegisterMode(!isRegisterMode);
-                    setStep(1); // Reset step when mode changes
-                }}
-            >
-                {isRegisterMode ? 'У вас уже есть аккаунт? Войти' : 'Еще нет аккаунта? Регистрация'}
-            </p>
+            <div className="text-login-or-register-block">
+                <p
+                    className="text-login-or-register"
+                    onClick={() => {
+                        setRegisterMode(!isRegisterMode);
+                        setStep(1); // Reset step when mode changes
+                    }}
+                >
+                    {isRegisterMode ? 'У вас уже есть аккаунт? Войти' : 'Еще нет аккаунта? Регистрация'}
+                </p>
+            </div>
         </form>
     );
 };
