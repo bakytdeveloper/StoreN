@@ -137,7 +137,6 @@ const SellerProductsPage = () => {
                     Назад к профилю
                 </button>
                 <button className="newProduct" onClick={handleCreateProduct}> Создать продукт</button>
-                {/*<button className="newProduct" onClick={handleCreateProduct}>&#9997; Создать продукт</button>*/}
 
             </div>
 
