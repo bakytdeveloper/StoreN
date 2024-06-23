@@ -1858,7 +1858,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             <span className="formCloseLogin" type="button" onClick={handleClose}>
                 &#10006;
             </span>
-            {/*<h2>{isRegisterMode ? 'Register' : 'Login'}</h2>*/}
+            <h2>{isRegisterMode ? '' : 'Login'}</h2>
             {isRegisterMode && step === 1 && (
                 <div>
                     <h2>{isRegisterMode ? 'Создать аккаунт' : 'Login'}</h2>
@@ -1894,7 +1894,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     </button>
                    <div className="timer-login">
                        {resendTimer > 0 ? (
-                           <div className="timer-login-time">Повторная отправка через:<p > {resendTimer}</p>секунд</div>
+                           <div className="timer-login-time">Повторная отправка через:
+                               <strong> {resendTimer}</strong>секунд</div>
                        ) : (
                            <p className="resend-otp" onClick={handleSendOtp}>
                                Отправить снова
