@@ -349,4 +349,53 @@ router.get('/seller/profile', authenticateToken, async (req, res) => {
     }
 });
 
+
+
+// // Обновление пароля пользователя по email
+// router.put('/update-password-by-email', async (req, res) => {
+//     const { email, newPassword } = req.body;
+//
+//     try {
+//         const user = await User.findOne({ email });
+//
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//
+//         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+//         user.password = hashedNewPassword;
+//
+//         await user.save();
+//
+//         res.json({ message: 'Password updated successfully' });
+//     } catch (error) {
+//         console.error('Error updating password:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+// Обновление пароля пользователя по email
+router.put('/update-password-by-email', async (req, res) => {
+    const { email, newPassword } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedNewPassword;
+
+        await user.save();
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
 module.exports = router;
