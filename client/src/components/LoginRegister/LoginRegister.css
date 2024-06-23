@@ -91,6 +91,14 @@ p:hover {
     text-align: center;
     margin-bottom: 10px;
 }
+.otp-error {
+    display: flex;
+    color: red;
+    margin-bottom: 5px;
+    margin-top: -5px;
+    font-size: 9px;
+    font-weight: bold;
+}
 
 
 
