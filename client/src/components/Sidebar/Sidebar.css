@@ -6,7 +6,7 @@
     position: fixed;
     /*width: 100%;*/
     width: 215px;
-    height: 70vh;
+    height: 100vh;
     padding: 15px 5px;
     /*background-color: #272727; !* Цвет фона - темный серый *!*/
     /*color: #0732d0; !* Цвет текста - белый *!*/
@@ -15,7 +15,7 @@
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
     margin-left: 10px;
     border-radius: 0;
-    /*padding-bottom: 100px;*/
+    padding-bottom: 222px;
     position: fixed;
 }
 
