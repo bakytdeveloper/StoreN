@@ -13,6 +13,7 @@
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Poppins;
 }
 
 .formCloseLogin {
@@ -29,7 +30,13 @@
 }
 
 h2 {
-    text-align: center;
+    margin-left: 0;
+    left: 0;
+}
+
+
+h2 {
+    /*text-align: center;*/
     color: #343a40;
 }
 
@@ -57,9 +64,11 @@ button:hover {
 }
 
 p {
-    text-align: center;
+    text-align: end;
+    /*text-align: center;*/
     color: #007bff;
     cursor: pointer;
+    /*margin-left: 22px;*/
 }
 
 p:hover {
@@ -67,7 +76,14 @@ p:hover {
 }
 
 .text-login-or-register-block {
-    margin-top: 10px;
+    display: flex;
+    margin-top: 11px;
+    justify-content: space-between;
+}
+
+.newPassword {
+    margin-top: 15px;
+    margin-bottom: -17px;
 }
 
 .timer-login {
@@ -100,6 +116,37 @@ p:hover {
     font-weight: bold;
 }
 
+.formInput {
+    /*margin-top: 12px;*/
+}
+
+.formInput password-yey {
+    margin-top: 1px!important;
+}
+
+.formInput-password-eye {
+    position: absolute;
+    /*margin-top: 10px;*/
+}
+
+.form-register-and-login label {
+    margin-top: 0;
+}
+
+.load-new-password {
+    display: inline-flex;
+    width: 100%;
+    margin-bottom: -22px;
+    justify-content: space-between;
+
+}
+
+.load-new-password div {
+    justify-content: left;
+    margin-left: 0;
+}
+
+/*style={{ position: 'absolute', right: '10px', top: '10px', cursor: 'pointer' }}*/
 
 
 @media only screen and (max-width: 768px) {
@@ -113,7 +160,7 @@ p:hover {
     }
 
     .formCloseLogin {
-        margin-left: 285px!important;
+        margin-left: 95%!important;
         /*margin-top: 10px;*/
         cursor: pointer;
         z-index: 1111;
@@ -140,5 +187,7 @@ p:hover {
         margin-top: 10px;
         line-height: 23px;
     }
+
+
 
 }
