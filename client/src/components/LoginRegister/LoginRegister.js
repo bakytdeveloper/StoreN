@@ -3159,6 +3159,16 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
     const history = useHistory();
 
+    useEffect(() => {
+        let timer;
+        if (resendTimer > 0) {
+            timer = setInterval(() => {
+                setResendTimer((prevTime) => prevTime - 1);
+            }, 1000); // Changed interval to 1000ms (1 second)
+        }
+        return () => clearInterval(timer);
+    }, [resendTimer]);
+
     const handleSendOtp = async () => {
         const sendOtpUrl = `${process.env.REACT_APP_API_URL}/api/auth/send-otp`;
         try {
@@ -3371,13 +3381,15 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             <span className="formCloseLogin" type="button" onClick={handleClose}>
                 &#10006;
             </span>
-            <h2>{isRegisterMode ? 'Создать аккаунт' : 'Login'}</h2>
+            {/*<h2>{isRegisterMode ? 'Создать аккаунт' : 'Login'}</h2>*/}
             {isRegisterMode && step === 1 && (
                 <div>
+                    <h2>Создайте аккаунт</h2>
+                    <label>Email:</label>
                     <input
                         className="formInput"
                         type="text"
-                        placeholder="Email"
+                        placeholder="Эл.почта"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         onKeyPress={handleKeyPress}
@@ -3389,9 +3401,11 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             )}
             {isRegisterMode && step === 2 && (
                 <div>
+                    <h2>Подтвердите эл.почту</h2>
                     <div className="login-step-email">
                         Мы отправили подтверждение на email: <strong>{email}</strong>
                     </div>
+                    <label>Введите код подтверждения</label>
                     <input
                         className="formInput"
                         type="text"
@@ -3402,7 +3416,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     />
                     {otpError && <span className="otp-error">{otpError}</span>}
                     <button type="button" onClick={handleVerifyOtp}>
-                        Продолжить
+                        Подтвердите
                     </button>
                     <div className="timer-login">
                         {resendTimer > 0 ? (
@@ -3419,6 +3433,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             )}
             {isRegisterMode && step === 3 && (
                 <div>
+                    <h2>Заполните форму</h2>
+                    <label>Имя:</label>
                     <input
                         className="formInput"
                         type="text"
@@ -3427,15 +3443,17 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         onChange={(e) => setName(e.target.value)}
                         onKeyPress={handleKeyPress}
                     />
+                    <label>Email:</label>
                     <input
                         className="formInput"
                         type="text"
-                        placeholder="Email"
+                        placeholder="Эл.почта"
                         value={email}
                         onKeyPress={handleKeyPress}
                         readOnly
                     />
                     <div style={{ position: 'relative' }}>
+                        <label>Пароль:</label>
                         <input
                             className="formInput"
                             type={showPassword ? 'text' : 'password'}
@@ -3451,6 +3469,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                     </div>
+                    <label>Подтвердите пароль:</label>
                     <input
                         className="formInput"
                         type={showPassword ? 'text' : 'password'}
@@ -3469,6 +3488,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             )}
             {!isRegisterMode && !forgotPassword && (
                 <div>
+                    <h2>Войти в аккаунт</h2>
                     <input
                         className="formInput"
                         type="text"
@@ -3512,6 +3532,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         &#10006;
                     </p>
                     <h2>Восстановление пароля</h2>
+                    <span>Для восстановления пароля введите email указанный при регистрации</span>
                     <input
                         className="formInput"
                         type="text"
@@ -3561,7 +3582,10 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         setResendTimer(-1); // Reset timer when switching modes
                     }}
                 >
-                    {isRegisterMode ? 'У вас уже есть аккаунт? Войти' : 'Еще нет аккаунта? Регистрация'}
+
+                        {isRegisterMode ? 'У вас уже есть аккаунт? Войти' : 'Еще нет аккаунта? За Регистрация'}
+
+
                 </p>
             </div>
         </form>
