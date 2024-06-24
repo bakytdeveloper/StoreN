@@ -14,6 +14,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Poppins;
+    position: relative;
 }
 
 .formCloseLogin {
@@ -23,9 +24,9 @@
 
 }
 .formCloseLogin:hover {
-    margin-left: 340px;
-    font-size: 22px;
-    cursor: pointer;
+    /*margin-left: 340px;*/
+    /*font-size: 22px;*/
+    /*cursor: pointer;*/
     color: #0355a7;
 }
 
@@ -38,6 +39,17 @@ h2 {
 h2 {
     /*text-align: center;*/
     color: #343a40;
+}
+
+.form-register-and-login-arrow {
+    display: inline-flex;
+    position: absolute;
+    top: 14px;
+    font-size: 20px;
+}
+
+.hr-line {
+    margin-top: 0;
 }
 
 input {
@@ -161,7 +173,7 @@ p:hover {
 
     .formCloseLogin {
         margin-left: 95%!important;
-        /*margin-top: 10px;*/
+        /*margin-top: -10px;*/
         cursor: pointer;
         z-index: 1111;
         /*width: 150px;*/
@@ -171,7 +183,6 @@ p:hover {
         color: #0355a7;
         /*font-size: 22px;*/
         /*margin-left: 87%;*/
-
     }
 
     .form {
@@ -179,8 +190,23 @@ p:hover {
         margin: 55px 0 1px 17px;
         width: 90%;
     }
+
+
+    .hr-line {
+        margin-top: 0;
+        margin-bottom: 33px;
+    }
+
+
+    .form-register-and-login label {
+        margin-top: 11px;
+    }
+
+
+
     .formInput {
         font-size: 17px;
+        margin-bottom: 20px;
     }
 
     .text-login-or-register {
@@ -188,6 +214,15 @@ p:hover {
         line-height: 23px;
     }
 
+    .text-login-or-register-block {
+        display: flex;
+        position: relative;
+        margin-top: 33px;
+    }
+
+    .text-login-or-register {
+        margin-top: 0;
+    }
 
 
 }

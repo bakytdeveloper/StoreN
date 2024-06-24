@@ -866,11 +866,21 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
         history.push('/');
     };
 
+    const handleCloseForm = () => {
+        if (isRegisterMode && step > 1) {
+            setStep(1); // Reset to step 1 if in register mode and step is greater than 1
+        } else {
+            history.push('/login'); // Navigate to login page if not in register mode
+        }
+    };
+
+
     return (
         <form className="form">
-            <span className="formCloseLogin" type="button" onClick={handleClose}>
+            <span className="formCloseLogin"  type="button"  onClick={handleClose}>
                 &#10006;
             </span>
+            <hr className="hr-line"/>
             {/* Register Flow */}
             {isRegisterMode && step === 1 && (
                 <div className="form-register-and-login">
@@ -891,6 +901,12 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             )}
             {isRegisterMode && step === 2 && (
                 <div className="form-register-and-login">
+                    <span
+                        className="form-register-and-login-arrow"
+                        onClick={handleCloseForm}>
+                        ⟻ назад
+                    </span>
+
                     <h2>Подтвердите эл.почту</h2>
                     <div className="login-step-email">
                         Мы отправили подтверждение на email: <strong>{email}</strong>
