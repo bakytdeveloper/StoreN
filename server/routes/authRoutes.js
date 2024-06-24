@@ -24,21 +24,37 @@ router.get('/checkEmail', async (req, res) => {
 });
 
 
+// router.post('/check-email', async (req, res) => {
+//     const { email } = req.body;
+//     try {
+//         const user = await User.findOne({ email: email.toLowerCase() });
+//         if (user) {
+//             return res.json({ exists: true });
+//         }
+//         return res.json({ exists: false });
+//     } catch (error) {
+//         console.error('Error checking email:', error);
+//         return res.status(500).send('Internal Server Error');
+//     }
+// });
+
+
 router.post('/check-email', async (req, res) => {
     const { email } = req.body;
     try {
         const user = await User.findOne({ email: email.toLowerCase() });
-        if (user) {
+        const seller = await Seller.findOne({ email: email.toLowerCase() });
+
+        if (user || seller) {
             return res.json({ exists: true });
         }
+
         return res.json({ exists: false });
     } catch (error) {
         console.error('Error checking email:', error);
         return res.status(500).send('Internal Server Error');
     }
 });
-
-
 
 
 
