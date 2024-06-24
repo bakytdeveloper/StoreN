@@ -509,31 +509,6 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
         return () => clearInterval(timer);
     }, [forgotPasswordResendTimer]);
 
-    // const handleSendOtp = async () => {
-    //     const sendOtpUrl = `${process.env.REACT_APP_API_URL}/api/auth/send-otp`;
-    //     try {
-    //         const response = await fetch(sendOtpUrl, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ email: email.toLowerCase() }),
-    //         });
-    //         if (response.ok) {
-    //             toast.success('OTP отправлен на ваш email');
-    //             setStep(2); // Move to the next step (Verify OTP)
-    //             setResendTimer(60); // Set timer for 60 seconds
-    //             setOtpError(''); // Clear OTP error message on successful OTP send
-    //         } else {
-    //             const errorText = await response.text();
-    //             console.error('OTP send error response text:', errorText);
-    //             toast.error('Произошла ошибка при отправке OTP');
-    //         }
-    //     } catch (error) {
-    //         console.error('OTP send error:', error);
-    //         toast.error('Произошла ошибка при отправке OTP');
-    //     }
-    // };
 
 
     const handleSendOtp = async () => {
@@ -728,9 +703,29 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
         }
     };
 
+
+
     const handleSendOtpForgotPassword = async () => {
+        const checkEmailUrl = `${process.env.REACT_APP_API_URL}/api/auth/check-email`;
         const sendOtpUrl = `${process.env.REACT_APP_API_URL}/api/auth/send-otp`;
+
         try {
+            // Проверка существования email
+            const checkEmailResponse = await fetch(checkEmailUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email.toLowerCase() }),
+            });
+
+            const checkEmailData = await checkEmailResponse.json();
+            if (!checkEmailData.exists) {
+                toast.error('У нас нет такого клиента');
+                return;
+            }
+
+            // Отправка OTP
             const response = await fetch(sendOtpUrl, {
                 method: 'POST',
                 headers: {
@@ -738,12 +733,13 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 },
                 body: JSON.stringify({ email: email.toLowerCase() }),
             });
+
             if (response.ok) {
                 toast.success('OTP отправлен на ваш email');
-                setForgotPasswordStep(2); // Move to OTP verification step
-                setForgotPasswordResendTimer(60); // Set timer for 60 seconds
-                setOtpErrorForgotPassword(''); // Clear OTP error message on successful OTP send
-                setShowOtpInput(true); // Show OTP input
+                setForgotPasswordStep(2); // Переход к шагу проверки OTP
+                setForgotPasswordResendTimer(60); // Установка таймера на 60 секунд
+                setOtpErrorForgotPassword(''); // Очистка сообщения об ошибке OTP при успешной отправке
+                setShowOtpInput(true); // Показать ввод OTP
             } else {
                 const errorText = await response.text();
                 console.error('OTP send error response text:', errorText);
@@ -754,6 +750,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             toast.error('Произошла ошибка при отправке OTP');
         }
     };
+
+
 
     const handleVerifyOtpForgotPassword = async () => {
         const verifyOtpUrl = `${process.env.REACT_APP_API_URL}/api/auth/verify-otp`;
