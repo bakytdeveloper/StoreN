@@ -863,7 +863,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     }, [setShowSidebar]);
 
     const handleClose = () => {
-        history.push('/');
+        history.goBack();
+        // history.push('/');
     };
 
     const handleCloseForm = () => {
