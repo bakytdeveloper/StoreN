@@ -486,6 +486,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     const [forgotPasswordResendTimer, setForgotPasswordResendTimer] = useState(-1); // Timer for forgot password OTP resend
     const [otpErrorForgotPassword, setOtpErrorForgotPassword] = useState('');
     const [showOtpInput, setShowOtpInput] = useState(false); // Toggle OTP input for forgot password
+    const [newPasswordMatchError, setNewPasswordMatchError] = useState(false); // State for new password match error
 
     const history = useHistory();
 
@@ -627,6 +628,97 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
         }
     };
 
+    // const handleLoginRegister = async () => {
+    //     if (isRegisterMode) {
+    //         if (step === 1) {
+    //             await handleSendOtp();
+    //             return;
+    //         } else if (step === 2) {
+    //             await handleVerifyOtp();
+    //             return;
+    //         }
+    //         // Проверка совпадения паролей
+    //         if (password !== confirmPassword) {
+    //             setPasswordMatchError(true);
+    //             return;
+    //         }
+    //         // Регистрация нового клиента
+    //         const registerUrl = `${process.env.REACT_APP_API_URL}/api/auth/register`;
+    //         try {
+    //             const registerResponse = await fetch(registerUrl, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     email: email.toLowerCase(),
+    //                     password,
+    //                     name,
+    //                     otp,
+    //                 }),
+    //             });
+    //             if (!registerResponse.ok) {
+    //                 const errorText = await registerResponse.text();
+    //                 console.error('Registration error response text:', errorText);
+    //                 toast.error('Произошла ошибка при регистрации, клиент с таким email уже существует');
+    //                 return;
+    //             }
+    //             const responseData = await registerResponse.json();
+    //             localStorage.setItem('token', responseData.token);
+    //             toast.success('Успешная регистрация и вход');
+    //             // После успешной регистрации переключаемся на форму логина
+    //             setRegisterMode(false);
+    //             setStep(1); // Сбрасываем шаг на первый для формы логина
+    //         } catch (error) {
+    //             console.error('Registration error:', error);
+    //             toast.error('Произошла ошибка при регистрации, клиент с таким email уже существует');
+    //         }
+    //         return;
+    //     }
+    //     // Логин пользователя или администратора
+    //     if (email.toLowerCase() === 'a' && password === 'a') {
+    //         localStorage.setItem('token', 'adminToken');
+    //         localStorage.setItem('role', 'admin');
+    //         history.push('/admin');
+    //         return;
+    //     }
+    //     // Логин пользователя, администратора или продавца
+    //     const loginUrl = `${process.env.REACT_APP_API_URL}/api/auth/login`;
+    //     try {
+    //         const loginResponse = await fetch(loginUrl, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 email: email.toLowerCase(),
+    //                 password,
+    //             }),
+    //         });
+    //         if (!loginResponse.ok) {
+    //             const errorText = await loginResponse.text();
+    //             console.error('Login error response text:', errorText);
+    //             toast.error('Неверный email или пароль');
+    //             return;
+    //         }
+    //         const loginData = await loginResponse.json();
+    //         localStorage.setItem('token', loginData.token);
+    //         localStorage.setItem('role', loginData.user.role);
+    //         const userName = loginData.user.name;
+    //         toast.success(`Приветствую вас, ${userName}!`);
+    //         if (loginData.user.role === 'customer') {
+    //             history.push('/profile'); // Переход на страницу профиля после успешного логина
+    //         } else if (loginData.user.role === 'admin') {
+    //             history.push('/admin');
+    //         } else if (loginData.user.role === 'seller') {
+    //             history.push('/sellerProfile');
+    //         }
+    //     } catch (error) {
+    //         console.error('Login fetch error:', error);
+    //         toast.error('Произошла ошибка');
+    //     }
+    // };
+
     const handleLoginRegister = async () => {
         if (isRegisterMode) {
             if (step === 1) {
@@ -639,6 +731,11 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             // Проверка совпадения паролей
             if (password !== confirmPassword) {
                 setPasswordMatchError(true);
+                return;
+            }
+            // Проверка минимальной длины пароля
+            if (password.length < 6) {
+                toast.error('Пароль должен содержать минимум 6 символов');
                 return;
             }
             // Регистрация нового клиента
@@ -718,7 +815,52 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
         }
     };
 
+
+    // const handleForgotPassword = async () => {
+    //     const forgotPasswordUrl = `${process.env.REACT_APP_API_URL}/api/auth/update-password-by-email`;
+    //     try {
+    //         const response = await fetch(forgotPasswordUrl, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({
+    //                 email: email.toLowerCase(),
+    //                 currentPassword: '', // Current password is not required here
+    //                 newPassword: newPassword,
+    //             }),
+    //         });
+    //         if (response.ok) {
+    //             toast.success('Пароль успешно обновлен');
+    //             setForgotPassword(false); // Hide forgot password form
+    //             setPassword(''); // Clear password field
+    //             setNewPassword(''); // Clear new password field
+    //         } else {
+    //             const errorText = await response.text();
+    //             console.error('Password update error response text:', errorText);
+    //             toast.error('Ошибка при обновлении пароля');
+    //         }
+    //     } catch (error) {
+    //         console.error('Password update error:', error);
+    //         toast.error('Ошибка при обновлении пароля');
+    //     }
+    // };
+
+
     const handleForgotPassword = async () => {
+        // Проверка минимальной длины нового пароля
+        if (newPassword.length < 6) {
+            toast.error('Пароль должен содержать минимум 6 символов');
+            setNewPasswordMatchError(true)
+            return;
+        }
+
+        // Проверка совпадения паролей
+        if (newPassword !== confirmPassword) {
+            setPasswordMatchError(true);
+            return;
+        }
+
         const forgotPasswordUrl = `${process.env.REACT_APP_API_URL}/api/auth/update-password-by-email`;
         try {
             const response = await fetch(forgotPasswordUrl, {
@@ -736,6 +878,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 toast.success('Пароль успешно обновлен');
                 setForgotPassword(false); // Hide forgot password form
                 setPassword(''); // Clear password field
+                setConfirmPassword('');
                 setNewPassword(''); // Clear new password field
             } else {
                 const errorText = await response.text();
@@ -747,7 +890,6 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             toast.error('Ошибка при обновлении пароля');
         }
     };
-
 
 
     const handleSendOtpForgotPassword = async () => {
@@ -1129,6 +1271,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                                 className="formInput"
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Новый пароль"
+                                pattern={"6"}
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 onKeyPress={handleKeyPress}
@@ -1140,6 +1283,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder="Подтвердите новый пароль"
                                     value={confirmPassword}
+                                    pattern={"6"}
+
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     onKeyPress={handleKeyPress}
                                 />
