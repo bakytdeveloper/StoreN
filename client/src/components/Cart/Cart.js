@@ -180,7 +180,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
     const handleDeliveryTypeChange = (type) => {
         if (type === 'pickup') {
-            setAddress('г.Бишкек, Универмаг ЦУМ, 0 этаж, бутик sotochka.kg');
+            setAddress('г.Бишкек, Универмаг ЦУМ, 0 этаж, бутик LimPoPo.kg');
         } else {
             setAddress('');
         }

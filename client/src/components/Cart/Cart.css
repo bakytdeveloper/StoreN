@@ -58,6 +58,7 @@ h5 {
 }
 
 .emptyCartEls {
+    display: block;
     text-align: center;
     cursor: pointer;
 }
@@ -66,6 +67,7 @@ h5 {
     max-width: 200px;
     margin: 0 auto;
     display: block;
+    text-align: center;
 }
 
 .allSection {

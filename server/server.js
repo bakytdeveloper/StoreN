@@ -91,18 +91,6 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
 
 
 
-
-// app.post('/api/auth/sendOtp', (req, res) => {
-//         const { email } = req.body;
-//         sendOTP(email);
-//         console.log(`Sending OTP to ${email}`);
-//         res.status(200).json({ message: 'OTP sent' });
-// });
-
-
-
-
-
 // Обслуживание статических файлов в папке uploads
 app.use('/uploads', express.static(uploadDir));
 
@@ -111,8 +99,5 @@ app.listen(PORT, () => {
         console.log(`СЕРВЕР РАБОТАЕТ НА ${PORT} ПОРТУ!!!`);
 });
 
-
-
-// "start": "nodemon server.js",
 
 // "nodemon": "^3.0.2"
