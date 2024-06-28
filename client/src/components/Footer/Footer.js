@@ -612,7 +612,7 @@ const Footer = ({
         if (activeComponent === 'profile') {
             setActiveComponent(null);
             setIsProfileOpen(false);
-            history.push(prevPath || "/");
+            // history.push(prevPath || "/");
         } else {
             setIsProfileOpen(true);
             // history.push('/catalog');
@@ -633,7 +633,8 @@ const Footer = ({
     };
 
     const closeDropoutLogin = () => {
-        history.push("/catalog");
+        setActiveComponent(null);
+        setIsProfileOpen(false);
     };
 
     const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
