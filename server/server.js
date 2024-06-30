@@ -42,20 +42,17 @@ app.use(router);
 
 
 
-// Папка для загрузки оригинальных изображений
-const uploadDir = path.join(__dirname, 'uploads');
+const uploadDir = 'uploads';
 
-// Настройка хранилища для Multer
+// Инициализация хранилища Multer
 const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-                cb(null, uploadDir); // Путь для сохранения оригинальных файлов
+        destination: (req, file, cb) => {
+                cb(null, uploadDir);
         },
-        filename: function (req, file, cb) {
-                cb(null, Date.now() + path.extname(file.originalname)); // Уникальное имя файла
+        filename: (req, file, cb) => {
+                cb(null, Date.now() + path.extname(file.originalname));
         }
 });
-
-
 
 // Инициализация Multer с хранилищем
 const upload = multer({ storage: storage });
@@ -65,15 +62,30 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
         try {
                 // Путь к загруженному файлу
                 const originalImagePath = path.join(uploadDir, req.file.filename);
-                // Изменение размера изображения до 600x900px и сжатие до 250KB
-                const resizedImage = await sharp(originalImagePath)
-                    .resize({ width: 600, height: 900 })
-                    .toFormat('jpeg')  // Формат jpeg для уменьшения размера файла
-                    .jpeg({ quality: 80 }) // Качество сжатия JPEG
-                    .toBuffer();
 
-                // Путь для сохранения измененного изображения
-                const resizedImagePath = path.join(uploadDir, 'resized_' + req.file.filename);
+                // Получение информации о загруженном изображении
+                const image = sharp(originalImagePath);
+                const metadata = await image.metadata();
+
+                let resizedImage;
+                let resizedImagePath;
+
+                // Проверка формата изображения
+                if (metadata.format === 'png') {
+                        // Если изображение в формате PNG, просто изменить его размер
+                        resizedImage = await image
+                            .resize({ width: 600, height: 900, fit: 'inside'  })
+                            .toBuffer();
+                        resizedImagePath = path.join(uploadDir, req.file.filename); // Сохранение с тем же именем
+                } else {
+                        // Если изображение не в формате PNG, изменить его размер и формат на JPEG
+                        resizedImage = await image
+                            .resize({ width: 600, height: 900, fit: 'inside'  })
+                            .toFormat('jpeg')
+                            .jpeg({ quality: 80 })
+                            .toBuffer();
+                        resizedImagePath = path.join(uploadDir, path.parse(req.file.filename).name + '.jpeg'); // Сохранение с расширением .jpeg
+                }
 
                 // Сохранение измененного изображения
                 fs.writeFileSync(resizedImagePath, resizedImage);
@@ -81,15 +93,15 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
                 // Отправка успешного ответа с URL измененного изображения
                 res.status(200).json({ imageUrl: `/uploads/${path.basename(resizedImagePath)}` });
 
-                // Удаление оригинального изображения (если требуется)
-                fs.unlinkSync(originalImagePath);
+                // Удаление оригинального изображения, если оно было преобразовано
+                if (metadata.format !== 'png') {
+                        fs.unlinkSync(originalImagePath);
+                }
         } catch (error) {
                 console.error('Error uploading image:', error);
                 res.status(400).json({ message: 'Ошибка при загрузке и обработке изображения' });
         }
 });
-
-
 
 // Обслуживание статических файлов в папке uploads
 app.use('/uploads', express.static(uploadDir));
