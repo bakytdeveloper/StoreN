@@ -3,9 +3,10 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
 const User = require("../models/User");
-const authenticateToken = require("../middleware/authenticateToken");
+const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
 const Product = require("../models/Product");
+const {checkRole} = require("../middleware/authenticateToken");
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
@@ -72,67 +73,6 @@ router.post('/', async (req, res) => {
 
 
 
-// // Добавление товара в корзину (для гостей и зарегистрированных пользователей)
-// router.post('/add-to-cart', async (req, res) => {
-//     console.log('Received add-to-cart request:', req.body); // Добавим лог для отслеживания запроса
-//
-//     const { user, guestInfo, product, quantity, size, color } = req.body;
-//
-//     // Если пользователь гость, проверим наличие необходимых данных
-//     if (!user && (!req.user || req.user.role === 'guest')) {
-//         if (!guestInfo || !guestInfo.name || !guestInfo.email) {
-//             return res.status(400).json({ message: 'Guest information is incomplete' });
-//         }
-//     }
-//
-//     try {
-//         let order;
-//
-//         // Найдем активный заказ для пользователя или гостя
-//         if (user) {
-//             order = await Order.findOne({ user, status: 'pending' }).populate('cart.product');
-//         } else {
-//             order = await Order.findOne({ 'guestInfo.email': guestInfo.email, status: 'pending' }).populate('cart.product');
-//         }
-//
-//         if (!order) {
-//             // Если активного заказа нет, создадим новый
-//             order = new Order({
-//                 user,
-//                 guestInfo: user ? undefined : guestInfo,
-//                 cart: [],
-//                 products: [],
-//                 totalAmount: 0,
-//             });
-//         }
-//
-//         // Проверим, есть ли уже такой товар в корзине
-//         const existingCartItemIndex = order.cart.findIndex((item) => item.product._id.toString() === product);
-//
-//         if (existingCartItemIndex !== -1) {
-//             // Если товар уже в корзине, увеличим количество
-//             order.cart[existingCartItemIndex].quantity += quantity;
-//         } else {
-//             // Если товара еще нет в корзине, добавим его
-//             // order.products.push({ product, quantity });
-//
-//             order.cart.push({ product, quantity });
-//             order.products.push({ product, quantity });
-//
-//         }
-//
-//         // Подсчитаем общую стоимость корзины
-//         order.totalAmount = order.cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
-//
-//         // Сохраним изменения в заказе
-//         await order.save();
-//
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 router.post('/add-to-cart', async (req, res) => {
     console.log('Received add-to-cart request:', req.body);
 
@@ -183,95 +123,6 @@ router.post('/add-to-cart', async (req, res) => {
 });
 
 
-
-
-//
-// // Получение списка заказов для зарегистрированных пользователей
-// router.get('/my-orders', authenticateToken, async (req, res) => {
-//     if (!req.user || req.user.role === 'guest') {
-//         return res.status(403).json({ message: 'Permission denied' });
-//     }
-//
-//     try {
-//         const user = await User.findById(req.user.userId);
-//
-//         if (!user) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-//
-//         const orders = await Order.find({ user: user._id }).populate('products.product', 'name price');
-//         res.json(orders);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-// // Получение списка заказов для зарегистрированных пользователей с пагинацией
-// router.get('/my-orders', authenticateToken, async (req, res) => {
-//     if (!req.user || req.user.role === 'guest') {
-//         return res.status(403).json({ message: 'Permission denied' });
-//     }
-//
-//     try {
-//         const user = await User.findById(req.user.userId);
-//
-//         if (!user) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-//
-//         const page = parseInt(req.query.page) || 1;
-//         const perPage = parseInt(req.query.perPage) || 2; // Количество заказов на странице
-//
-//         const orders = await Order.find({ user: user._id })
-//             .populate('products.product', 'name price')
-//             .skip((page - 1) * perPage)
-//             .limit(perPage)
-//             .sort({ createdAt: -1 }); // Сортировка по убыванию времени создания заказа
-//
-//         const totalOrders = await Order.countDocuments({ user: user._id });
-//
-//         res.json({ orders, totalOrders });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-// router.get('/my-orders', authenticateToken, async (req, res) => {
-//     if (!req.user || req.user.role === 'guest') {
-//         return res.status(403).json({ message: 'Permission denied' });
-//     }
-//
-//     try {
-//         const user = await User.findById(req.user.userId);
-//
-//         if (!user) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-//
-//         const page = parseInt(req.query.page) || 1;
-//         const perPage = 5; // Количество заказов на странице
-//
-//         const orders = await Order.find({ user: user._id })
-//             .populate('products.product', 'name price')
-//             .skip((page - 1) * perPage)
-//             .limit(perPage);
-//
-//
-//
-//
-//         const totalOrders = await Order.countDocuments({ user: user._id });
-//         const totalPages = Math.ceil(totalOrders / perPage);
-//
-//         res.json({ orders, totalOrders, totalPages, currentPage: page });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-
-
 router.get('/my-orders', authenticateToken, async (req, res) => {
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
@@ -293,9 +144,6 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
             .skip((page - 1) * perPage)
             .limit(perPage);
 
-
-
-
         const totalOrders = await Order.countDocuments({ user: user._id });
         const totalPages = Math.ceil(totalOrders / perPage);
 
@@ -306,13 +154,8 @@ router.get('/my-orders', authenticateToken, async (req, res) => {
 });
 
 
-
-
-
-
 // // Получение списка всех заказов для администратора
-
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, checkRole(['admin']),  async (req, res) => {
     try {
         const { page = 1, perPage = 20 } = req.query;
         const orders = await Order.find()
@@ -326,7 +169,6 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 
 // Получение деталей заказа по его ID
@@ -344,12 +186,8 @@ router.get('/:orderId', async (req, res) => {
     }
 });
 
-
-
-
-
 // Обновление статуса заказа
-router.put('/update-status/:orderId', async (req, res) => {
+router.put('/update-status/:orderId', authenticateToken, async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
 
@@ -372,8 +210,6 @@ router.put('/update-status/:orderId', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
 
 
 // Обновление комментариев админа
@@ -399,9 +235,6 @@ router.put('/update-comments-admin/:orderId', async (req, res) => {
     }
 });
 
-
-
-
 // Функция для пересчета общей суммы заказа
 async function calculateTotalAmount(products) {
     let sum = 0;
@@ -414,31 +247,6 @@ async function calculateTotalAmount(products) {
     // console.log("sum:", sum);
     return sum;
 }
-
-// router.put('/update-quantity/:orderId/:productId', async (req, res) => {
-//     const { orderId, productId } = req.params;
-//     const { quantity } = req.body;
-//     try {
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-//         // Найдите товар в корзине заказа
-//         const productIndex = order.products.findIndex(item => item.product.toString() === productId);
-//         if (productIndex === -1) {
-//             return res.status(404).json({ message: 'Product not found in order' });
-//         }
-//         // Обновите количество товара
-//         order.products[productIndex].quantity = quantity;
-//         // Пересчитайте общую сумму заказа и перезапишите свойство totalAmount
-//         order.totalAmount = await calculateTotalAmount(order.products); // Используйте функцию для пересчета и дождитесь ее выполнения
-//         // Сохраните изменения
-//         await order.save(); // Используйте метод save для сохранения изменений
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 router.put('/update-quantity/:orderId/:productId', async (req, res) => {
     const { orderId, productId } = req.params;

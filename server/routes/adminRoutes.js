@@ -1,7 +1,7 @@
 // server/routes/adminRoutes.js
 const express = require('express');
 const adminController = require('../controllers/adminController');
-const authenticateToken = require("../middleware/authenticateToken");
+const {authenticateToken} = require("../middleware/authenticateToken");
 const router = express.Router();
 
 // Защищаем маршрут аутентификацией

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Seller = require('../models/Seller');
-const authenticateToken = require('../middleware/authenticateToken');
+const {authenticateToken} = require('../middleware/authenticateToken');
 const {verifyOTP} = require("../smtp/otpService");
 const {sendOTP} = require("../smtp/otpService");
 
@@ -24,21 +24,6 @@ router.get('/checkEmail', async (req, res) => {
 });
 
 
-// router.post('/check-email', async (req, res) => {
-//     const { email } = req.body;
-//     try {
-//         const user = await User.findOne({ email: email.toLowerCase() });
-//         if (user) {
-//             return res.json({ exists: true });
-//         }
-//         return res.json({ exists: false });
-//     } catch (error) {
-//         console.error('Error checking email:', error);
-//         return res.status(500).send('Internal Server Error');
-//     }
-// });
-
-
 router.post('/check-email', async (req, res) => {
     const { email } = req.body;
     try {
@@ -55,83 +40,6 @@ router.post('/check-email', async (req, res) => {
         return res.status(500).send('Internal Server Error');
     }
 });
-
-
-
-// router.post('/send-otp', (req, res) => {
-//     const { email } = req.body;
-//     sendOTP(email);
-//     res.status(200).json({ message: 'OTP sent' });
-// });
-//
-//
-// router.post('/verify-otp', (req, res) => {
-//     const { email, otp } = req.body;
-//     const isValid = verifyOTP(email, otp);
-//     if (isValid) {
-//         res.status(200).json({ message: 'OTP verified' });
-//     } else {
-//         res.status(400).json({ message: 'Invalid OTP' });
-//     }
-// });
-//
-//
-// // Изменение маршрута регистрации в auth.js
-// router.post('/register', async (req, res) => {
-//     const { email, password, name, otp } = req.body;
-//     if (!verifyOTP(email, otp)) {
-//         return res.status(400).json({ message: 'Invalid OTP' });
-//     }
-//     // Дальнейшая логика регистрации
-//     try {
-//         const existingUser = await User.findOne({ email });
-//         if (existingUser) {
-//             return res.status(400).json({ message: 'User already exists' });
-//         }
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//         const newUser = new User({
-//             name,
-//             email,
-//             password: hashedPassword,
-//             profile,
-//             role: role || 'customer',
-//         });
-//         await newUser.save();
-//         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
-//         res.status(201).json({ user: newUser, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
-
-
-
-
-// // Регистрация нового пользователя
-// router.post('/register', async (req, res) => {
-//     const { name, email, password, role, profile } = req.body;
-//     try {
-//         const existingUser = await User.findOne({ email });
-//         if (existingUser) {
-//             return res.status(400).json({ message: 'User already exists' });
-//         }
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//         const newUser = new User({
-//             name,
-//             email,
-//             password: hashedPassword,
-//             profile,
-//             role: role || 'customer',
-//         });
-//         await newUser.save();
-//         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
-//         res.status(201).json({ user: newUser, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
 
 
 // Маршрут для отправки OTP
@@ -180,34 +88,6 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: error.message, success: false });
     }
 });
-
-
-// // Изменение маршрута регистрации в auth.js
-// router.post('/register', async (req, res) => {
-//     const { email, password, name, otp } = req.body;
-//     if (!verifyOTP(email, otp)) {
-//         return res.status(400).json({ message: 'Invalid OTP' });
-//     }
-//     // Дальнейшая логика регистрации
-//     try {
-//         const existingUser = await User.findOne({ email });
-//         if (existingUser) {
-//             return res.status(400).json({ message: 'User already exists' });
-//         }
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//         const newUser = new User({
-//             name,
-//             email,
-//             password: hashedPassword,
-//             role: 'customer',
-//         });
-//         await newUser.save();
-//         const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY);
-//         res.status(201).json({ user: newUser, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
 
 
 // Регистрация нового продавца
@@ -286,59 +166,6 @@ router.post('/login', async (req, res) => {
 });
 
 
-// // Аутентификация пользователя и администратора
-// router.post('/login', async (req, res) => {
-//     const { email, password } = req.body;
-//     try {
-//         let user;
-//
-//         if (email.toLowerCase() === 'a' && password === 'a') {
-//             const adminRole = 'admin';
-//             const adminToken = jwt.sign({ email, role: adminRole }, process.env.SECRET_KEY);
-//             return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
-//         } else {
-//             user = await User.findOne({ email });
-//             if (!user) {
-//                 return res.status(401).json({ message: 'Invalid email or password' });
-//             }
-//             const isPasswordValid = await bcrypt.compare(password, user.password);
-//             if (!isPasswordValid) {
-//                 return res.status(401).json({ message: 'Invalid email or password' });
-//             }
-//         }
-//
-//         const token = jwt.sign({ userId: user._id, address: user.profile, email: user.email, role: user.role }, process.env.SECRET_KEY);
-//         res.json({ user, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
-
-// // Аутентификация продавца
-// router.post('/seller/login', async (req, res) => {
-//     const { email, password } = req.body;
-//     try {
-//         const seller = await Seller.findOne({ email });
-//         if (!seller) {
-//             return res.status(401).json({ message: 'Invalid email or password' });
-//         }
-//         const isPasswordValid = await bcrypt.compare(password, seller.password);
-//         if (!isPasswordValid) {
-//             return res.status(401).json({ message: 'Invalid email or password' });
-//         }
-//         if (seller.status !== 'approved') {
-//             return res.status(401).json({ message: 'Seller is not approved yet' });
-//         }
-//         const token = jwt.sign({ sellerId: seller._id, email: seller.email, role: seller.role }, process.env.SECRET_KEY);
-//         res.json({ seller, token, success: true });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
-
-
 // Получение информации о текущем пользователе
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
@@ -381,30 +208,6 @@ router.get('/seller/profile', authenticateToken, async (req, res) => {
     }
 });
 
-
-
-// // Обновление пароля пользователя по email
-// router.put('/update-password-by-email', async (req, res) => {
-//     const { email, newPassword } = req.body;
-//
-//     try {
-//         const user = await User.findOne({ email });
-//
-//         if (!user) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-//
-//         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-//         user.password = hashedNewPassword;
-//
-//         await user.save();
-//
-//         res.json({ message: 'Password updated successfully' });
-//     } catch (error) {
-//         console.error('Error updating password:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
 
 // Обновление пароля пользователя по email
 router.put('/update-password-by-email', async (req, res) => {
