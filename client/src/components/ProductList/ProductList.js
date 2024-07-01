@@ -435,9 +435,23 @@ const ProductList = ({
         }
     }, [windowWidth]);
 
+    // const fetchActiveSellers = async () => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, { timeout: 10000 });
+    //         const data = await response.json();
+    //         const activeSellersData = data.filter(seller => seller.status !== 'suspend');
+    //         setActiveSellers(activeSellersData);
+    //     } catch (error) {
+    //         console.error('Error fetching active sellers:', error);
+    //     }
+    // };
+
     const fetchActiveSellers = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, { timeout: 10000 });
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/active`, { timeout: 10000 });
+            if (!response.ok) {
+                throw new Error('Failed to fetch sellers');
+            }
             const data = await response.json();
             const activeSellersData = data.filter(seller => seller.status !== 'suspend');
             setActiveSellers(activeSellersData);
@@ -445,6 +459,7 @@ const ProductList = ({
             console.error('Error fetching active sellers:', error);
         }
     };
+
 
     const filterProducts = (productsToFilter, activeSellersData) => {
         return productsToFilter

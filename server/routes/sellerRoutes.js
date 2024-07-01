@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Seller = require('../models/Seller');
-const {authenticateToken} = require("../middleware/authenticateToken");
+const {authenticateToken, checkRole} = require("../middleware/authenticateToken");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
@@ -13,8 +13,22 @@ const fs = require("fs");
 
 
 
-// Получение списка всех продавцов
-router.get('/', async (req, res) => {
+// // Получение списка всех продавцов
+router.get('/active', async (req, res) => {
+    try {
+        const sellers = await Seller.find();
+        if (!sellers) {
+            return res.status(404).json({ message: 'Sellers not found' });
+        }
+        res.json(sellers);
+    } catch (error) {
+        console.error('Error fetching sellers:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+// Get all sellers (accessible only to admins)
+router.get('/', checkRole(['admin']), async (req, res) => {
     try {
         const sellers = await Seller.find();
         if (!sellers) {

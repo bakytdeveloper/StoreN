@@ -40,9 +40,27 @@ const SellerListPage = () => {
         }
     }, [history]);
 
+    // const fetchSellersFromDatabase = async () => {
+    //     try {
+    //         const response = await fetch(`${apiUrl}/api/sellers`);
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch sellers');
+    //         }
+    //         const data = await response.json();
+    //         setSellers(data);
+    //     } catch (error) {
+    //         console.error('Error fetching sellers:', error);
+    //     }
+    // };
+
     const fetchSellersFromDatabase = async () => {
         try {
-            const response = await fetch(`${apiUrl}/api/sellers`);
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${apiUrl}/api/sellers`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             if (!response.ok) {
                 throw new Error('Failed to fetch sellers');
             }
@@ -52,6 +70,7 @@ const SellerListPage = () => {
             console.error('Error fetching sellers:', error);
         }
     };
+
 
     useEffect(() => {
         fetchSellersFromDatabase();
