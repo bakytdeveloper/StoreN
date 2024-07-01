@@ -241,19 +241,53 @@ const OrderList = ({ setShowSidebar }) => {
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(20);
 
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     const isAdmin = localStorage.getItem('role') === 'admin';
+    //     if (!token || token !== "adminToken" || !isAdmin) {
+    //         history.push('/login');
+    //     }
+    // }, [history]);
+
+
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const isAdmin = localStorage.getItem('role') === 'admin';
-        if (!token || token !== "adminToken" || !isAdmin) {
-            history.push('/login');
-        }
-    }, [history]);
+        const role = localStorage.getItem('role');
 
-    const fetchOrders = async () => {
+        if (!token || role !== 'admin') {
+            history.push('/login');
+            return;
+        }
+
+        fetchOrders(token);
+    }, [history, page, perPage]);
+
+
+    // const fetchOrders = async () => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/?page=${page}&perPage=${perPage}`);
+    //         const data = await response.json();
+    //         console.log('Fetched orders:', data); // Добавьте эту строку для отладки
+    //         if (Array.isArray(data)) {
+    //             setOrders(data);
+    //         } else {
+    //             console.error('Expected an array but received:', data);
+    //         }
+    //     } catch (error) {
+    //         console.error('Fetch error:', error);
+    //     }
+    // };
+
+    const fetchOrders = async (token) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/?page=${page}&perPage=${perPage}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/?page=${page}&perPage=${perPage}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const data = await response.json();
-            console.log('Fetched orders:', data); // Добавьте эту строку для отладки
+            console.log('Fetched orders:', data);
+
             if (Array.isArray(data)) {
                 setOrders(data);
             } else {
@@ -272,15 +306,42 @@ const OrderList = ({ setShowSidebar }) => {
         return (page - 1) * perPage + index + 1;
     };
 
+    // const updateStatus = async (orderId, newStatus) => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-status/${orderId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ status: newStatus }),
+    //         });
+    //         if (response.ok) {
+    //             const updatedOrders = orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return { ...order, status: newStatus, statusHistory: [...order.statusHistory, { status: newStatus, time: Date.now() }] };
+    //                 }
+    //                 return order;
+    //             });
+    //             setOrders(updatedOrders);
+    //         } else {
+    //             console.error('Failed to update status');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating status:', error);
+    //     }
+    // };
+
     const updateStatus = async (orderId, newStatus) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-status/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({ status: newStatus }),
             });
+
             if (response.ok) {
                 const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
@@ -297,12 +358,39 @@ const OrderList = ({ setShowSidebar }) => {
         }
     };
 
+    // const updateCommentsAdmin = async (orderId, commentsAdmin) => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-comments-admin/${orderId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ commentsAdmin }),
+    //         });
+    //
+    //         if (response.ok) {
+    //             const updatedOrders = orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return { ...order, commentsAdmin };
+    //                 }
+    //                 return order;
+    //             });
+    //             setOrders(updatedOrders);
+    //         } else {
+    //             console.error('Failed to update comments admin');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating comments admin:', error);
+    //     }
+    // };
+
     const updateCommentsAdmin = async (orderId, commentsAdmin) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-comments-admin/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({ commentsAdmin }),
             });
@@ -322,6 +410,7 @@ const OrderList = ({ setShowSidebar }) => {
             console.error('Error updating comments admin:', error);
         }
     };
+
 
     const handleOrderClick = (orderId) => {
         history.push(`/order/${orderId}`);
