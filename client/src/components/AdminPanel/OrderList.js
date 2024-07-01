@@ -462,7 +462,7 @@ const OrderList = ({ setShowSidebar }) => {
                 </tr>
                 </thead>
                 <tbody>
-                {sortedOrders.map((order, index) => (
+                {sortedOrders.reverse().map((order, index) => (
                     <tr key={order._id}>
                         <td style={{textAlign:'center'}}>{getOrderNumber(index)}</td>
                         <td onClick={() => handleOrderClick(order._id)}>{order.user ? order.user.role : 'Гость'}</td>
