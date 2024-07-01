@@ -286,12 +286,12 @@ const OrderList = ({ setShowSidebar }) => {
                 }
             });
             const data = await response.json();
-            console.log('Fetched orders:', data);
+            // console.log('Fetched orders:', data);
 
             if (Array.isArray(data)) {
                 setOrders(data);
             } else {
-                console.error('Expected an array but received:', data);
+                // console.error('Expected an array but received:', data);
             }
         } catch (error) {
             console.error('Fetch error:', error);
@@ -305,6 +305,7 @@ const OrderList = ({ setShowSidebar }) => {
     const getOrderNumber = (index) => {
         return (page - 1) * perPage + index + 1;
     };
+
 
     // const updateStatus = async (orderId, newStatus) => {
     //     try {
@@ -330,6 +331,7 @@ const OrderList = ({ setShowSidebar }) => {
     //         console.error('Error updating status:', error);
     //     }
     // };
+
 
     const updateStatus = async (orderId, newStatus) => {
         try {

@@ -695,6 +695,92 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         history.goBack();
     };
 
+    // const updateQuantity = async (productId, newQuantity) => {
+    //     if (newQuantity < 0) {
+    //         console.error('Нельзя установить отрицательное количество товара');
+    //         return;
+    //     }
+    //
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ quantity: newQuantity }),
+    //         });
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             const updatedProducts = updatedOrder.products.map(item => {
+    //                 if (item.product && item.product._id === productId) {
+    //                     const price = item.product.price || 0;
+    //                     return { ...item, quantity: newQuantity, price: price };
+    //                 }
+    //                 return item;
+    //             });
+    //             updatedOrder.products = updatedProducts;
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+    //             setOrder(updatedOrder);
+    //
+    //             const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             }) : [];
+    //             setOrders(updatedOrders);
+    //         } else {
+    //             console.error('Failed to update quantity');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating quantity:', error);
+    //     }
+    // };
+
+    // const updateQuantity = async (productId, newQuantity) => {
+    //     if (newQuantity < 0) {
+    //         console.error('Нельзя установить отрицательное количество товара');
+    //         return;
+    //     }
+    //
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //             },
+    //             body: JSON.stringify({ quantity: newQuantity }),
+    //         });
+    //         if (!response.ok) {
+    //             const errorData = await response.json();
+    //             console.error('Failed to update quantity:', errorData);
+    //             return;
+    //         }
+    //         const updatedOrder = { ...order };
+    //         const updatedProducts = updatedOrder.products.map(item => {
+    //             if (item.product && item.product._id === productId) {
+    //                 const price = item.product.price || 0;
+    //                 return { ...item, quantity: newQuantity, price: price };
+    //             }
+    //             return item;
+    //         });
+    //         updatedOrder.products = updatedProducts;
+    //         updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+    //         setOrder(updatedOrder);
+    //
+    //         const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+    //             if (order._id === orderId) {
+    //                 return updatedOrder;
+    //             }
+    //             return order;
+    //         }) : [];
+    //         setOrders(updatedOrders);
+    //     } catch (error) {
+    //         console.error('Error updating quantity:', error);
+    //     }
+    // };
+
     const updateQuantity = async (productId, newQuantity) => {
         if (newQuantity < 0) {
             console.error('Нельзя установить отрицательное количество товара');
@@ -706,9 +792,11 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
                 },
                 body: JSON.stringify({ quantity: newQuantity }),
             });
+            const result = await response.json();
             if (response.ok) {
                 const updatedOrder = { ...order };
                 const updatedProducts = updatedOrder.products.map(item => {
@@ -730,17 +818,51 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                 }) : [];
                 setOrders(updatedOrders);
             } else {
-                console.error('Failed to update quantity');
+                console.error('Failed to update quantity:', result);
             }
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
     };
 
+
+    // const onDeleteItem = async (productId) => {  localStorage.getItem('token')
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
+    //             method: 'DELETE',
+    //         });
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             updatedOrder.products = updatedOrder.products.filter((item) => item.product && item.product._id !== productId);
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
+    //             setOrder(updatedOrder);
+    //
+    //             const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             }) : [];
+    //             setOrders(updatedOrders);
+    //
+    //             if (updatedOrder.products.length === 0) {
+    //                 await deleteOrder(orderId);
+    //             }
+    //         } else {
+    //             console.error('Failed to delete item');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error deleting item:', error);
+    //     }
+    // };
+
     const onDeleteItem = async (productId) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
+                },
             });
             if (response.ok) {
                 const updatedOrder = { ...order };
@@ -760,12 +882,14 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                     await deleteOrder(orderId);
                 }
             } else {
-                console.error('Failed to delete item');
+                const result = await response.json();
+                console.error('Failed to delete item:', result);
             }
         } catch (error) {
             console.error('Error deleting item:', error);
         }
     };
+
 
     const deleteOrder = async (orderId) => {
         try {
@@ -796,9 +920,48 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         fetchSellers();
     }, []);
 
+    // const fetchSellers = async () => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`);
+    //         const data = await response.json();
+    //         setSellers(data);
+    //     } catch (error) {
+    //         console.error('Error fetching sellers:', error);
+    //     }
+    // };
+
+
+    // const fetchSellers = async () => {
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`, // добавьте ваш токен авторизации
+    //             }
+    //         });
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setSellers(data);
+    //         } else {
+    //             throw new Error('Unauthorized');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching sellers:', error);
+    //         setSellers([]); // устанавливаем пустой массив в случае ошибки
+    //     }
+    // };
+
     const fetchSellers = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`);
+            const token = localStorage.getItem('token'); // Или используйте другой метод получения токена
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.status === 401) {
+                console.error('Unauthorized');
+                return;
+            }
             const data = await response.json();
             setSellers(data);
         } catch (error) {
@@ -806,12 +969,26 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
+
+
+    // const getSellerInfo = (product) => {
+    //     const seller = sellers.find((seller) => seller.products.includes(product._id));
+    //     return seller
+    //         ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
+    //         : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+    // };
+
     const getSellerInfo = (product) => {
+        if (!Array.isArray(sellers)) {
+            console.error('sellers is not an array:', sellers);
+            return { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+        }
         const seller = sellers.find((seller) => seller.products.includes(product._id));
         return seller
             ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
             : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
     };
+
 
     const toggleEditMode = (productId) => {
         setEditMode(prevState => ({
@@ -835,7 +1012,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
-    console.log("ORDER:", order.address)
+    // console.log("ORDER:", order.address)
 
     return (
         <div className="order-details-page">

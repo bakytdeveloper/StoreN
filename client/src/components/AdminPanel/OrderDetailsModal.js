@@ -4,6 +4,7 @@
 // import cross from './../Footer/cross.png';
 //
 //
+//
 // const OrderDetailsModal = ({ order, onUpdateQuantity, onDeleteItem }) => {
 //     const [totalAmount, setTotalAmount] = useState(order.totalAmount);
 //
@@ -117,3 +118,4 @@
 //     );
 // };
 // export default OrderDetailsModal;
+
