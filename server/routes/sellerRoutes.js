@@ -12,9 +12,8 @@ const path = require("path");
 const fs = require("fs");
 
 
-
-// // Получение списка всех продавцов
-router.get('/active', async (req, res) => {
+// Защищённый маршрут для получения списка всех продавцов
+router.get('/active', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
         const sellers = await Seller.find();
         if (!sellers) {
@@ -27,8 +26,9 @@ router.get('/active', async (req, res) => {
     }
 });
 
+
 // Get all sellers (accessible only to admins)
-router.get('/', checkRole(['admin']), async (req, res) => {
+router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
         const sellers = await Seller.find();
         if (!sellers) {
@@ -137,9 +137,6 @@ router.post('/products', authenticateToken, async (req, res) => {
     }
 });
 
-
-
-// Удаление товара
 // Удаление товара
 router.delete('/products/:productId', authenticateToken, async (req, res) => {
     try {
@@ -268,9 +265,6 @@ router.delete('/images/:imageName', (req, res) => {
         res.status(200).json({ message: 'Image deleted successfully' });
     });
 });
-
-
-
 
 
 module.exports = router;

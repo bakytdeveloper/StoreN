@@ -30,15 +30,15 @@ const SellerListPage = () => {
     //     }
     // }, [history]);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const role = localStorage.getItem('role');
-
-        if (!token || role !== 'admin') {
-            history.push('/login');
-            return;
-        }
-    }, [history]);
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     const role = localStorage.getItem('role');
+    //
+    //     if (!token || role !== 'admin') {
+    //         history.push('/login');
+    //         return;
+    //     }
+    // }, [history]);
 
     // const fetchSellersFromDatabase = async () => {
     //     try {
@@ -53,28 +53,59 @@ const SellerListPage = () => {
     //     }
     // };
 
-    const fetchSellersFromDatabase = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${apiUrl}/api/sellers`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch sellers');
-            }
-            const data = await response.json();
-            setSellers(data);
-        } catch (error) {
-            console.error('Error fetching sellers:', error);
-        }
-    };
+    // const fetchSellersFromDatabase = async () => {
+    //     try {
+    //         const token = localStorage.getItem('token');
+    //         const response = await fetch(`${apiUrl}/api/sellers`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch sellers');
+    //         }
+    //         const data = await response.json();
+    //         setSellers(data);
+    //     } catch (error) {
+    //         console.error('Error fetching sellers:', error);
+    //     }
+    // };
+
 
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+
+        if (!token || role !== 'admin') {
+            history.push('/login');
+            return;
+        }
+
+        const fetchSellersFromDatabase = async () => {
+            try {
+                const response = await fetch(`${apiUrl}/api/sellers`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch sellers');
+                }
+                const data = await response.json();
+                setSellers(data);
+            } catch (error) {
+                console.error('Error fetching sellers:', error);
+            }
+        };
+
         fetchSellersFromDatabase();
-    }, []);
+    }, [history]);
+
+
+    // useEffect(() => {
+    //     fetchSellersFromDatabase();
+    // }, []);
 
     const handleClose = () => {
         // history.push('/');

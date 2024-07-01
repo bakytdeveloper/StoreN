@@ -101,8 +101,8 @@ const Profile = ({ setShowSidebar }) => {
                     const data = await response.json();
                     setOrders(data);
                 } else {
-                    const data = await response.json();
-                    console.error(data.message);
+                    // const data = await response.json();
+                    // console.error(data.message);
                 }
             } catch (error) {
                 console.error('Error fetching user orders:', error);
