@@ -264,6 +264,17 @@ label {
      margin: 0 10px;
  }
 
+ .registration-notification {
+     text-align: center;
+     display: flex;
+     flex-direction: column;
+
+ }
+
+ .registration-notification-span {
+     color: #05619f;
+ }
+
  /* Медиа-запрос для адаптивного дизайна */
  @media screen and (max-width: 768px) {
      .order {
