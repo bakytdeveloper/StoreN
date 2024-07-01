@@ -11,7 +11,7 @@ const SellerListPage = () => {
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const history = useHistory();
 
-    // Проверка, аутентифицирован ли пользователь
+    // // Проверка, аутентифицирован ли пользователь
     // useEffect(() => {
     //     const token = localStorage.getItem('token');
     //     const role = localStorage.getItem('role');
@@ -22,11 +22,21 @@ const SellerListPage = () => {
     //     }
     // }, [history]);
 
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     const isAdmin = localStorage.getItem('role') === 'admin';
+    //     if (!token || token !== "adminToken" || !isAdmin) {
+    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
+    //     }
+    // }, [history]);
+
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const isAdmin = localStorage.getItem('role') === 'admin';
-        if (!token || token !== "adminToken" || !isAdmin) {
-            history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
+        const role = localStorage.getItem('role');
+
+        if (!token || role !== 'admin') {
+            history.push('/login');
+            return;
         }
     }, [history]);
 
