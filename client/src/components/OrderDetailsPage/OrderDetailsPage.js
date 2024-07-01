@@ -835,6 +835,8 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
+    console.log("ORDER:", order.address)
+
     return (
         <div className="order-details-page">
             {order && (
@@ -850,13 +852,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     <strong>ID заказа:</strong> {order._id}
                                 </div>
                                 <div>
-                                    <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
+                                    <strong>Клиент:</strong> {order.name ? order.name : 'Гость'}
                                 </div>
                                 <div>
-                                    <strong>Адрес:</strong> {order.user ? order.address : 'Гость'}
+                                    <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}
                                 </div>
                                 <div>
-                                    <strong>Телефон №:</strong> {order.user ? order.phoneNumber : 'Гость'}
+                                    <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}
                                 </div>
                             </div>
                             <div>
