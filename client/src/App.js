@@ -201,7 +201,7 @@ const App = () => {
 
                                 />
                             </Route>
-                            <Route path="/orders/">
+                            <Route path="/orders">
                                 <OrderList
                                     showSidebar={showSidebar}
                                     setShowSidebar={setShowSidebar}

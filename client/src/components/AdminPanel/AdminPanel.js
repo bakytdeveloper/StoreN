@@ -181,20 +181,77 @@ const AdminPanel = ({ setShowSidebar }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const isAdmin = localStorage.getItem('role') === 'admin';
-        if (!token || token !== "adminToken" || !isAdmin) {
+        const role = localStorage.getItem('role');
+        if (!token || role !== 'admin') {
             history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
         }
     }, [history]);
+
 
 
     const handleViewSellers = () => {
         history.push('/sellers');
     };
 
-    const handleViewOrders = () => {
-        history.push('/orders/');
+    // const handleViewOrders = () => {
+    //     history.push('/orders/');
+    // };
+
+    // const handleViewOrders = async () => {
+    //     try {
+    //         const token = localStorage.getItem('token');
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         });
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             console.log('Fetched orders:', data);
+    //             history.push('/orders/'); // Перенаправление на страницу заказов после успешного получения данных
+    //
+    //             // Делайте что-то с полученными данными, например, установите их в состояние компонента
+    //         } else {
+    //             throw new Error('Failed to fetch orders');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching orders:', error);
+    //     }
+    // };
+
+    const handleViewOrders = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            // Проверяем наличие токена
+            if (!token) {
+                history.push('/login'); // Перенаправляем на страницу входа, если токен отсутствует
+                return;
+            }
+
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/?page=1&perPage=20`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Fetched orders:', data);
+                // Перенаправляем на страницу заказов после успешного получения данных
+                history.push('/orders/');
+            } else {
+                throw new Error('Failed to fetch orders');
+            }
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            // Обрабатываем ошибку запроса заказов
+            // Можно добавить обработку ошибки и отображение сообщения об ошибке пользователю
+        }
     };
+
+
+
 
     const handleViewClients = () => {
         history.push('/users/clients');
