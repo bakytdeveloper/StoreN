@@ -56,9 +56,10 @@ const App = () => {
 
     const setToken = (token) => {
         localStorage.setItem('token', token);
+        fetchOrders(token); // Передаем токен в fetchOrders
     };
 
-    useEffect(() => {
+    // useEffect(() => {
         const fetchOrders = async (token) => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`, {
@@ -74,8 +75,8 @@ const App = () => {
                 setIsLoading(false); // Устанавливаем isLoading в false даже при ошибке
             }
         };
-        fetchOrders();
-    }, []);
+    //     fetchOrders();
+    // }, []);
 
     const handleSearch = (keyword) => {
         setSearchKeyword(keyword);
