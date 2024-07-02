@@ -241,13 +241,6 @@ const OrderList = ({ setShowSidebar }) => {
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(20);
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     const isAdmin = localStorage.getItem('role') === 'admin';
-    //     if (!token || token !== "adminToken" || !isAdmin) {
-    //         history.push('/login');
-    //     }
-    // }, [history]);
 
 
     useEffect(() => {
