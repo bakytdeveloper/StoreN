@@ -59,9 +59,13 @@ const App = () => {
     };
 
     useEffect(() => {
-        const fetchOrders = async () => {
+        const fetchOrders = async (token) => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
                 const data = await response.json();
                 setOrders(data);
                 setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки

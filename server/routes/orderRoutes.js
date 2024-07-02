@@ -123,7 +123,7 @@ router.post('/add-to-cart', async (req, res) => {
 });
 
 
-router.get('/my-orders', authenticateToken, async (req, res) => {
+router.get('/my-orders', authenticateToken, checkRole(['customer']), async (req, res) => {
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
     }
@@ -344,7 +344,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 
 
 // Получение последнего заказа и профиля пользователя
-router.get('/last-order/:userId', async (req, res) => {
+router.get('/last-order/:userId', authenticateToken, async (req, res) => {
     const userId = req.params.userId;
     try {
         const user = await User.findById(userId);
