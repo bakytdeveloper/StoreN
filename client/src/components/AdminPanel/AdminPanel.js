@@ -171,14 +171,6 @@ const AdminPanel = ({ setShowSidebar }) => {
 
     const history = useHistory();
 
-    // Проверка, аутентифицирован ли пользователь
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     if (!token || token !== "adminToken") {
-    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена
-    //     }
-    // }, [history]);
-
     useEffect(() => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
@@ -193,31 +185,6 @@ const AdminPanel = ({ setShowSidebar }) => {
         history.push('/sellers');
     };
 
-    // const handleViewOrders = () => {
-    //     history.push('/orders/');
-    // };
-
-    // const handleViewOrders = async () => {
-    //     try {
-    //         const token = localStorage.getItem('token');
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         });
-    //         if (response.ok) {
-    //             const data = await response.json();
-    //             console.log('Fetched orders:', data);
-    //             history.push('/orders/'); // Перенаправление на страницу заказов после успешного получения данных
-    //
-    //             // Делайте что-то с полученными данными, например, установите их в состояние компонента
-    //         } else {
-    //             throw new Error('Failed to fetch orders');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching orders:', error);
-    //     }
-    // };
 
     const handleViewOrders = async () => {
         try {

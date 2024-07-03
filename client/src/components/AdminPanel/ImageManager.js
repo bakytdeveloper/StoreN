@@ -14,11 +14,7 @@ const ImageManager = ({ image, index, onMoveUp, onMoveDown, onRemove }) => {
 
     return (
         <div className="image-manager">
-            {/*<img src={getFullImageUrl(image)} alt={`Image ${index + 1}`} style={{ width: '70px', height: '70px' }} />*/}
-            {/*<button className="image-manager-move-up" type="button" onClick={() => onMoveUp(index)}>Вверх</button>*/}
-            {/*<button className="image-manager-move-down" type="button" onClick={() => onMoveDown(index)}>Вниз</button>*/}
-            {/*<button className="image-manager-move-delete" type="button" onClick={() => onRemove(index)}>Удалить</button>*/}
-            <button className="image-manager-move-up" type="button" onClick={() => onMoveUp(index)}>
+               <button className="image-manager-move-up" type="button" onClick={() => onMoveUp(index)}>
                 <img src={admin_up}/>
             </button>
 

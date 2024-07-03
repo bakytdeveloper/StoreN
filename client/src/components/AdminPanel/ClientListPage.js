@@ -7,14 +7,6 @@ const ClientListPage = ({setShowSidebar}) => {
     const [clients, setClients] = useState([]);
     const history = useHistory();
 
-    // // Проверка, аутентифицирован ли пользователь и является ли он администратором
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     const isAdmin = localStorage.getItem('role') === 'admin';
-    //     if (!token || token !== "adminToken" || !isAdmin) {
-    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
-    //     }
-    // }, [history]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');

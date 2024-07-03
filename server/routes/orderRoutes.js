@@ -249,27 +249,6 @@ async function calculateTotalAmount(products) {
     return sum;
 }
 
-// router.put('/update-quantity/:orderId/:productId', async (req, res) => {
-//     const { orderId, productId } = req.params;
-//     const { quantity } = req.body;
-//     try {
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-//         const productIndex = order.products.findIndex(item => item.product && item.product.toString() === productId);
-//         if (productIndex === -1) {
-//             return res.status(404).json({ message: 'Product not found in order' });
-//         }
-//         order.products[productIndex].quantity = quantity;
-//         order.totalAmount = await calculateTotalAmount(order.products);
-//         await order.save();
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
     const { orderId, productId } = req.params;
     const { quantity } = req.body;
@@ -290,23 +269,6 @@ router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole
         res.status(500).json({ message: error.message });
     }
 });
-
-
-// router.delete('/delete-item/:orderId/:productId', async (req, res) => {
-//     const { orderId, productId } = req.params;
-//     try {
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-//         order.products = order.products.filter(item => item.product && item.product.toString() !== productId);
-//         order.totalAmount = await calculateTotalAmount(order.products);
-//         await order.save();
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 
 router.delete('/delete-item/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {

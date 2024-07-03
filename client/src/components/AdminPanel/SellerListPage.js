@@ -11,67 +11,6 @@ const SellerListPage = () => {
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const history = useHistory();
 
-    // // Проверка, аутентифицирован ли пользователь
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     const role = localStorage.getItem('role');
-    //     if (!token || (role === 'admin' && role !== 'seller')) {
-    //         toast.error('Ваш аккаунт еще не подтвержден');
-    //
-    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не является администратором или продавцом
-    //     }
-    // }, [history]);
-
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     const isAdmin = localStorage.getItem('role') === 'admin';
-    //     if (!token || token !== "adminToken" || !isAdmin) {
-    //         history.push('/login'); // Перенаправление на страницу входа, если нет токена или пользователь не администратор
-    //     }
-    // }, [history]);
-
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     const role = localStorage.getItem('role');
-    //
-    //     if (!token || role !== 'admin') {
-    //         history.push('/login');
-    //         return;
-    //     }
-    // }, [history]);
-
-    // const fetchSellersFromDatabase = async () => {
-    //     try {
-    //         const response = await fetch(`${apiUrl}/api/sellers`);
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch sellers');
-    //         }
-    //         const data = await response.json();
-    //         setSellers(data);
-    //     } catch (error) {
-    //         console.error('Error fetching sellers:', error);
-    //     }
-    // };
-
-    // const fetchSellersFromDatabase = async () => {
-    //     try {
-    //         const token = localStorage.getItem('token');
-    //         const response = await fetch(`${apiUrl}/api/sellers`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch sellers');
-    //         }
-    //         const data = await response.json();
-    //         setSellers(data);
-    //     } catch (error) {
-    //         console.error('Error fetching sellers:', error);
-    //     }
-    // };
-
-
 
     useEffect(() => {
         const token = localStorage.getItem('token');

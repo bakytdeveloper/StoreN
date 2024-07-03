@@ -159,23 +159,6 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// router.post('/login/admin', async (req, res) => {
-//     const { email, password } = req.body;
-//     try {
-//         if (email.toLowerCase() === 'a' && password === 'a') {
-//             const adminRole = 'admin';
-//             const adminToken = jwt.sign({ adminId: 'admin', address: "", email, role: adminRole }, process.env.SECRET_KEY);
-//             console.log("ADMINTOKEN:", adminToken)
-//             console.log("ADMINTOKEN:", adminRole)
-//             return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
-//         }
-//         // Если администратор не найден
-//         return res.status(401).json({ message: 'Invalid email or password' });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message, success: false });
-//     }
-// });
-
 
 router.post('/login/admin', async (req, res) => {
     const { email, password } = req.body;
@@ -183,8 +166,6 @@ router.post('/login/admin', async (req, res) => {
         if (email.toLowerCase() === 'a' && password === 'a') {
             const adminRole = 'admin';
             const adminToken = jwt.sign({ adminId: 'admin', email, role: adminRole }, process.env.SECRET_KEY);
-            console.log("ADMINTOKEN:", adminToken);
-            console.log("ADMINROLE:", adminRole);
             return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
         }
         // Если администратор не найден

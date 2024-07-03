@@ -220,14 +220,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     };
 
 
-
-    // const getSellerInfo = (product) => {
-    //     const seller = sellers.find((seller) => seller.products.includes(product._id));
-    //     return seller
-    //         ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
-    //         : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
-    // };
-
     const getSellerInfo = (product) => {
         if (!Array.isArray(sellers)) {
             console.error('sellers is not an array:', sellers);

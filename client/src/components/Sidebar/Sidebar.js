@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import './Sidebar.css';
 import { FaPhone } from 'react-icons/fa';

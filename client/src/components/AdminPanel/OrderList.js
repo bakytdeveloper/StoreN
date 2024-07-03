@@ -299,33 +299,6 @@ const OrderList = ({ setShowSidebar }) => {
         return (page - 1) * perPage + index + 1;
     };
 
-
-    // const updateStatus = async (orderId, newStatus) => {
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-status/${orderId}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ status: newStatus }),
-    //         });
-    //         if (response.ok) {
-    //             const updatedOrders = orders.map((order) => {
-    //                 if (order._id === orderId) {
-    //                     return { ...order, status: newStatus, statusHistory: [...order.statusHistory, { status: newStatus, time: Date.now() }] };
-    //                 }
-    //                 return order;
-    //             });
-    //             setOrders(updatedOrders);
-    //         } else {
-    //             console.error('Failed to update status');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error updating status:', error);
-    //     }
-    // };
-
-
     const updateStatus = async (orderId, newStatus) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-status/${orderId}`, {
