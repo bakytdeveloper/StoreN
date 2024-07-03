@@ -188,7 +188,7 @@ router.get('/:orderId',  async (req, res) => {
 });
 
 // Обновление статуса заказа
-router.put('/update-status/:orderId', authenticateToken, async (req, res) => {
+router.put('/update-status/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
 
@@ -214,7 +214,7 @@ router.put('/update-status/:orderId', authenticateToken, async (req, res) => {
 
 
 // Обновление комментариев админа
-router.put('/update-comments-admin/:orderId', authenticateToken, async (req, res) => {
+router.put('/update-comments-admin/:orderId', authenticateToken,  checkRole(['admin']), async (req, res) => {
     const { orderId } = req.params;
     const { commentsAdmin } = req.body;
 
@@ -270,7 +270,7 @@ async function calculateTotalAmount(products) {
 //     }
 // });
 
-router.put('/update-quantity/:orderId/:productId', authenticateToken, async (req, res) => {
+router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
     const { orderId, productId } = req.params;
     const { quantity } = req.body;
     try {
@@ -309,7 +309,7 @@ router.put('/update-quantity/:orderId/:productId', authenticateToken, async (req
 // });
 
 
-router.delete('/delete-item/:orderId/:productId', authenticateToken, async (req, res) => {
+router.delete('/delete-item/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
     const { orderId, productId } = req.params;
     try {
         const order = await Order.findById(orderId);

@@ -3,6 +3,7 @@ const router = express.Router();
 const Product = require('../models/Product');
 const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
+const {checkRole} = require("../middleware/authenticateToken");
 
 
 
@@ -134,19 +135,6 @@ router.get('/products', async (req, res) => {
 });
 
 
-
-
-// // Получение списка самых новых продуктов
-// router.get('/newest', async (req, res) => {
-//     try {
-//         const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(18);
-//         res.json(newestProducts);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
 // Получение списка самых новых продуктов
 router.get('/newest', async (req, res) => {
     try {
@@ -174,7 +162,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Создание нового продукта (только для администратора)
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', authenticateToken,  checkRole(['admin']), async (req, res) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied' });
     }
@@ -211,7 +199,7 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Обновление информации о продукте по ID (только для администратора)
-router.put('/:id', authenticateToken, async (req, res) => {
+router.put('/:id', authenticateToken,  checkRole(['admin']), async (req, res) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied' });
     }
@@ -245,7 +233,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
 });
 
 // Удаление продукта по ID (только для администратора)
-router.delete('/:id', authenticateToken, async (req, res) => {
+router.delete('/:id', authenticateToken,  checkRole(['admin']), async (req, res) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied' });
     }

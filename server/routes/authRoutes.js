@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Seller = require('../models/Seller');
+const {checkRole} = require("../middleware/authenticateToken");
 const {authenticateToken} = require('../middleware/authenticateToken');
 const {verifyOTP} = require("../smtp/otpService");
 const {sendOTP} = require("../smtp/otpService");
@@ -196,7 +197,7 @@ router.post('/login/admin', async (req, res) => {
 
 
 // Получение информации о текущем пользователе
-router.get('/profile', authenticateToken, async (req, res) => {
+router.get('/profile', authenticateToken,  checkRole(['customer']), async (req, res) => {
     try {
         const user = await User.findById(req.user.userId).select('-password');
         res.json(user);
@@ -206,7 +207,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
 });
 
 // Обновление профиля пользователя
-router.put('/profile/:userId', async (req, res) => {
+router.put('/profile/:userId', authenticateToken,  checkRole(['customer']), async (req, res) => {
     const userId = req.params.userId;
     const { address, phoneNumber } = req.body;
 
@@ -228,7 +229,7 @@ router.put('/profile/:userId', async (req, res) => {
 
 
 // Получение информации о текущем продавце
-router.get('/seller/profile', authenticateToken, async (req, res) => {
+router.get('/seller/profile', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const seller = await Seller.findById(req.user.sellerId).select('-password');
         res.json(seller);
@@ -239,7 +240,7 @@ router.get('/seller/profile', authenticateToken, async (req, res) => {
 
 
 // Обновление пароля пользователя по email
-router.put('/update-password-by-email', async (req, res) => {
+router.put('/update-password-by-email', authenticateToken ,  checkRole(['customer']), async (req, res) => {
     const { email, newPassword } = req.body;
 
     try {

@@ -44,7 +44,7 @@ router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
 // Обновление информации о продавце
 
 // Обновление статуса заказа
-router.put('/update-status/:sellerId', async (req, res) => {
+router.put('/update-status/:sellerId', authenticateToken ,  checkRole(['admin']), async (req, res) => {
     const { sellerId } = req.params;
     const { status } = req.body;
 
@@ -70,7 +70,7 @@ router.put('/update-status/:sellerId', async (req, res) => {
 
 
 // Обновление информации о продавце
-router.put('/update-profile', authenticateToken, async (req, res) => {
+router.put('/update-profile', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { name, email, address, phoneNumber, companyName, companyDescription } = req.body;
         const updatedData = { name, email, address, phoneNumber, companyName, companyDescription };
@@ -83,7 +83,7 @@ router.put('/update-profile', authenticateToken, async (req, res) => {
 });
 
 // Смена пароля продавца
-router.put('/update-password', authenticateToken, async (req, res) => {
+router.put('/update-password', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { newPassword } = req.body;
         const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -98,7 +98,7 @@ router.put('/update-password', authenticateToken, async (req, res) => {
 
 
 // Роут для создания нового товара
-router.post('/products', authenticateToken, async (req, res) => {
+router.post('/products', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { name, description, price, category, direction, type, brand, gender, characteristics, images, sizes, colors, quantity = 10 } = req.body;
 
@@ -138,7 +138,7 @@ router.post('/products', authenticateToken, async (req, res) => {
 });
 
 // Удаление товара
-router.delete('/products/:productId', authenticateToken, async (req, res) => {
+router.delete('/products/:productId', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { productId } = req.params;
         // Удаляем товар из базы данных по _id
@@ -194,7 +194,7 @@ router.get('/products/:productId', authenticateToken, async (req, res) => {
 
 
 // Изменение информации о товаре
-router.put('/products/:productId', authenticateToken, async (req, res) => {
+router.put('/products/:productId', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { productId } = req.params;
         const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
@@ -205,7 +205,7 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
-router.get('/sales-history', authenticateToken, async (req, res) => {
+router.get('/sales-history', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { page = 1, perPage = 15 } = req.query;
         const sellerId = req.user.sellerId;
@@ -235,7 +235,7 @@ router.get('/sales-history', authenticateToken, async (req, res) => {
 
 
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const { id } = req.params;
         const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
@@ -253,7 +253,7 @@ router.put('/:id', async (req, res) => {
 
 
 
-router.delete('/images/:imageName', (req, res) => {
+router.delete('/images/:imageName', authenticateToken ,  checkRole(['seller']), async (req, res) => {
     const imageName = req.params.imageName;
     const imagePath = path.join(__dirname, '../uploads', imageName);
 

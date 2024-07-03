@@ -6,11 +6,12 @@ const User = require('../models/User');
 const Order = require('../models/Order');
 const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
+const {checkRole} = require("../middleware/authenticateToken");
 
 
 
 // Обновление информации о текущем пользователе
-router.put('/update-profile', authenticateToken, async (req, res) => {
+router.put('/update-profile', authenticateToken,  checkRole(['customer']), async (req, res) => {
     try {
         console.log('Update profile endpoint reached');
         console.log('Request body:', req.body);
@@ -78,7 +79,7 @@ router.put('/update-profile/:userId', authenticateToken, async (req, res) => {
 
 
 // Получение истории заказов текущего пользователя
-router.get('/orders', async (req, res) => {
+router.get('/orders', authenticateToken,  checkRole(['customer']), async (req, res) => {
     try {
         const orders = await Order.find({ user: req.user._id }).populate('products.product');
         res.json(orders);
@@ -89,7 +90,7 @@ router.get('/orders', async (req, res) => {
 
 
 // Обновление пароля пользователя
-router.put('/update-password/:userId', async (req, res) => {
+router.put('/update-password/:userId', authenticateToken,  checkRole(['customer']), async (req, res) => {
     const userId = req.params.userId;
     const { currentPassword, newPassword } = req.body;
 
@@ -120,7 +121,7 @@ router.put('/update-password/:userId', async (req, res) => {
 
 
 // Добавление роута для получения списка клиентов
-router.get('/clients', async (req, res) => {
+router.get('/clients', authenticateToken,  checkRole(['admin']), async (req, res) => {
     try {
         const clients = await User.find({ role: 'customer' }).select('name email');
         res.json(clients);
