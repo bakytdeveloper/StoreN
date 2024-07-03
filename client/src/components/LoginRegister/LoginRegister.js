@@ -1386,6 +1386,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 toast.error('Неверный email или пароль');
                 return;
             }
+
             const loginData = await loginResponse.json();
             localStorage.setItem('token', loginData.token);
             localStorage.setItem('role', loginData.user.role);
