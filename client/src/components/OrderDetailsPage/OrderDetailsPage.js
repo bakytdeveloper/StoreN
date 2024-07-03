@@ -271,13 +271,16 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     <strong>ID заказа:</strong> {order._id}
                                 </div>
                                 <div>
-                                    <strong>Клиент:</strong> {order.user ? order.user.name : 'Гость'}
+                                    <strong>Имя:</strong> {order.user ? order.user.name : 'Гость'}
                                 </div>
                                 <div>
                                     <strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}
                                 </div>
                                 <div>
                                     <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}
+                                </div>
+                                <div>
+                                    <strong>Email:</strong> {order.user ? order.user.email : 'Гость'}
                                 </div>
                                 <div>
                                     <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}
