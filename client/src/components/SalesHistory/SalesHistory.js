@@ -67,6 +67,8 @@ const SalesHistory = ({ setShowSidebar }) => {
     const isPrevDisabled = page === 1;
     const isNextDisabled = (page - 1) * perPage + orders.length >= totalOrders;
 
+    console.log("ORDERS SELLERS:", orders)
+
     return (
         <div className="order">
             <h2>История продаж</h2>
@@ -82,6 +84,9 @@ const SalesHistory = ({ setShowSidebar }) => {
                     <th>Название товара</th>
                     <th>Цвет товара</th>
                     <th>Размер</th>
+
+                    <th>Кол.</th>
+
                     <th>Цена товара</th>
                     <th>Сумма</th>
                 </tr>
@@ -100,6 +105,9 @@ const SalesHistory = ({ setShowSidebar }) => {
                             <td>{item.product ? item.product.name : 'N/A'}</td>
                             <td>{item.color}</td>
                             <td>{item.size}</td>
+
+                            <td style={{textAlign:"center"}}>{item.quantity}</td>
+
                             <td>{item.product ? item.product.price : 'N/A'}</td>
                             {index === 0 && <td rowSpan={order.products.length}>{order.totalAmount}</td>}
                         </tr>
