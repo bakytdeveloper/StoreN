@@ -43,7 +43,7 @@ router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
 
 
 // Обновление статуса заказа
-router.put('/update-status/:sellerId' , async (req, res) => {
+router.put('/update-status/:sellerId' , authenticateToken, checkRole(['admin']), async (req, res) => {
     const { sellerId } = req.params;
     const { status } = req.body;
 
@@ -193,7 +193,7 @@ router.get('/products/:productId', authenticateToken, async (req, res) => {
 
 
 // Изменение информации о товаре
-router.put('/products/:productId', authenticateToken,  checkRole(['seller']), async (req, res) => {
+router.put('/products/:productId', authenticateToken, async (req, res) => {
     try {
         const { productId } = req.params;
         const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
@@ -234,7 +234,7 @@ router.get('/sales-history', authenticateToken,  checkRole(['seller']), async (r
 
 
 
-router.put('/:id', authenticateToken,  checkRole(['seller']), async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
     try {
         const { id } = req.params;
         const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });

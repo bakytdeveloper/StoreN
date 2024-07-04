@@ -162,7 +162,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Создание нового продукта (только для администратора)
-router.post('/', authenticateToken,  checkRole(['admin']), async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied' });
     }
@@ -199,7 +199,7 @@ router.post('/', authenticateToken,  checkRole(['admin']), async (req, res) => {
 });
 
 // Обновление информации о продукте по ID (только для администратора)
-router.put('/:id', authenticateToken,  checkRole(['admin']), async (req, res) => {
+router.put('/:id', authenticateToken, async (req, res) => {
     if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied' });
     }
