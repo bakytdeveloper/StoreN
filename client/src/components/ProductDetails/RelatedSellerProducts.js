@@ -46,22 +46,6 @@ const RelatedSellerProducts = ({ productId }) => {
     };
 
 
-    // const handleResize = () => {
-    //     const screenWidth = window.innerWidth;
-    //     let count = 5; // Количество карточек по умолчанию
-    //
-    //     if (screenWidth <= 1100) {
-    //         count = 5; // Изменить количество карточек для экранов <= 1100px
-    //     }
-    //
-    //     if (screenWidth <= 768) {
-    //         count = accessories.length; // Показать все карточки на маленьких экранах
-    //     }
-    //
-    //     setCardCount(count);
-    // };
-
-
 
     useEffect(() => {
         handleResize();
