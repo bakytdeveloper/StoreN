@@ -254,7 +254,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         };
     }, [setShowSidebar]);
 
-    // console.log("ORDER:", order.address)
+    console.log("ORDER:", order)
 
     return (
         <div className="order-details-page">
@@ -266,12 +266,32 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                         </button>
                         <h2>Детали заказа</h2>
                         <div className="order-info">
+                            {/*<div className="client-order-info">*/}
+                            {/*    <div>*/}
+                            {/*        <strong>ID заказа:</strong> {order._id}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Имя:</strong> {order.user ? order.user.name : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Email:</strong> {order.user ? order.user.email : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                             <div className="client-order-info">
                                 <div>
                                     <strong>ID заказа:</strong> {order._id}
                                 </div>
                                 <div>
-                                    <strong>Имя:</strong> {order.user ? order.user.name : 'Гость'}
+                                    <strong>Имя:</strong> {order.user ? order.user.name : order.guestInfo.name}
                                 </div>
                                 <div>
                                     <strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}
@@ -280,12 +300,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}
                                 </div>
                                 <div>
-                                    <strong>Email:</strong> {order.user ? order.user.email : 'Гость'}
+                                    <strong>Email:</strong> {order.user ? order.user.email : order.guestInfo.email}
                                 </div>
                                 <div>
                                     <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}
                                 </div>
                             </div>
+
                             <div>
                                 <hr />
                                 <ul>

@@ -41,7 +41,6 @@ router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
     }
 });
 
-// Обновление информации о продавце
 
 // Обновление статуса заказа
 router.put('/update-status/:sellerId' , async (req, res) => {

@@ -121,7 +121,7 @@ router.put('/update-password/:userId', authenticateToken,  checkRole(['customer'
 
 
 // Добавление роута для получения списка клиентов
-router.get('/clients', authenticateToken,  checkRole(['admin']), async (req, res) => {
+router.get('/clients', async (req, res) => {
     try {
         const clients = await User.find({ role: 'customer' }).select('name email');
         res.json(clients);
