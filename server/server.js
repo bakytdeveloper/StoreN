@@ -74,13 +74,13 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
                 if (metadata.format === 'png') {
                         // Если изображение в формате PNG, просто изменить его размер
                         resizedImage = await image
-                            .resize({ width: 600, height: 900, fit: 'inside'  })
+                            .resize({ width: 800, height: 800, fit: 'inside'  })
                             .toBuffer();
                         resizedImagePath = path.join(uploadDir, req.file.filename); // Сохранение с тем же именем
                 } else {
                         // Если изображение не в формате PNG, изменить его размер и формат на JPEG
                         resizedImage = await image
-                            .resize({ width: 600, height: 900, fit: 'inside'  })
+                            .resize({ width: 800, height: 800, fit: 'inside'  })
                             .toFormat('jpeg')
                             .jpeg({ quality: 80 })
                             .toBuffer();
