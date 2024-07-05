@@ -197,6 +197,17 @@ const ProductList = ({
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+
+
+
+    const calculateDiscountPercentage = (originalPrice, price) => {
+        if (!originalPrice || originalPrice <= price) return 0;
+        return ((originalPrice - price) / originalPrice * 100).toFixed(2);
+    };
+
+
+
+
     useEffect(() => {
         if (!showSidebar && windowWidth <= 768 && location.pathname === "/catalog") {
             document.body.classList.add('no-scroll');
@@ -234,8 +245,20 @@ const ProductList = ({
                                                    <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
                                                    <div className="product-list-brand">{product.brand}</div>
                                                </div>
-                                               <div className="price">{product.price} сом</div>
-                                               {/*<div className="price">KGS {product.price}</div>*/}
+                                               {/*<div className="price">{product.price} сом</div>*/}
+
+                                               <div className="price">
+                                                   {product.originalPrice && product.originalPrice > product.price && (
+                                                       <div className="original-price">{product.originalPrice} сом</div>
+                                                   )}
+                                                   <div className="discounted-price">{product.price} сом</div>
+                                                   {product.originalPrice && product.originalPrice > product.price && (
+                                                       <div className="discount-percentage">
+                                                           Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                                       </div>
+                                                   )}
+                                               </div>
+
                                            </div>
                                        </Link>
                                        <div className="actions" >
