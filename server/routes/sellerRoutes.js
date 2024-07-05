@@ -43,7 +43,7 @@ router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
 
 
 // Обновление статуса заказа
-router.put('/update-status/:sellerId' , authenticateToken, checkRole(['admin']), async (req, res) => {
+router.put('/update-status/:sellerId', async (req, res) => {
     const { sellerId } = req.params;
     const { status } = req.body;
 
