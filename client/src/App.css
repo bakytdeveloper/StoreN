@@ -37,8 +37,9 @@ body, html {
 /* Стили для ProductList */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 20px 10px;
+
   padding: 20px;
   flex: 1; /* Растягиваем карточки на всю доступную ширину */
 
