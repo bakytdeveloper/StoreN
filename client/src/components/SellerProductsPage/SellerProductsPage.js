@@ -78,7 +78,7 @@ const SellerProductsPage = () => {
         history.push(`/product-form/${product._id}`, { product });
     };
 
-    const handleDeleteProduct = (productId) => {
+    const handleDeleteProduct = async (productId) => {
         setSelectedProduct(productId); // Сохраняем id продукта для удаления
         setShowConfirmationModal(true); // Показываем модальное окно подтверждения удаления
         document.body.classList.add('modal_open'); // Добавляем класс для блокировки скролла
@@ -94,18 +94,34 @@ const SellerProductsPage = () => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
             if (response.ok) {
+                // Remove the product from the local state
                 setProducts(prevProducts => prevProducts.filter(product => product._id !== selectedProduct));
+
+                // Also remove associated images from the state
+                const deletedProduct = products.find(product => product._id === selectedProduct);
+                if (deletedProduct && deletedProduct.images) {
+                    for (const imageUrl of deletedProduct.images) {
+                        const updatedImages = formData.images.filter(image => image !== imageUrl);
+                        setFormData(prevState => ({
+                            ...prevState,
+                            images: updatedImages
+                        }));
+                    }
+                }
+
+                toast.success('Продукт успешно удален');
             } else {
                 console.error('Failed to delete product');
+                toast.error('Не удалось удалить продукт');
             }
         } catch (error) {
             console.error('Error deleting product:', error);
+            toast.error('Ошибка при удалении продукта');
         } finally {
-            setShowConfirmationModal(false); // Закрыть модальное окно подтверждения удаления
-            setSelectedProduct(null); // Сбросить id продукта для удаления
-            document.body.classList.remove('modal_open'); // Убираем класс для разблокировки скролла
+            setShowConfirmationModal(false); // Close the confirmation modal
+            setSelectedProduct(null); // Reset selected product
+            document.body.classList.remove('modal_open'); // Remove class to unlock scroll
         }
     };
 
@@ -117,9 +133,9 @@ const SellerProductsPage = () => {
     };
 
 
-    const fixImagePath = (imagePath) => {
-        return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
-    };
+    // const fixImagePath = (imagePath) => {
+    //     return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
+    // };
 
     const handleGoBack = () => {
         history.goBack();
@@ -174,28 +190,11 @@ const SellerProductsPage = () => {
                                 </div>
                             </div>
                         </Link>
-                        {/*<div className="actions">*/}
-                        {/*    <button*/}
-                        {/*        className="cart-button"*/}
-                        {/*        title="Add to Cart"*/}
-                        {/*    >*/}
-                        {/*        <strong>+</strong>*/}
-                        {/*        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
-                        {/*    </button>*/}
-                        {/*  */}
-                        {/*</div>*/}
+
                     </div>
                 ))}
             </div>
-
-            {/*{showForm && (*/}
-            {/*    <ProductForm*/}
-            {/*        product={selectedProduct}*/}
-            {/*        onSubmit={handleFormSubmit}*/}
-            {/*        onCancel={handleFormCancel}*/}
-            {/*    />*/}
-            {/*)}*/}
-
+            
             {showConfirmationModal && (
                 <div className="modal-background">
                     <div className="confirmation-modal">
