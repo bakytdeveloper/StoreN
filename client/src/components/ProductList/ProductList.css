@@ -31,7 +31,7 @@
 }
 
 .product-card:hover {
-    transform: scale(1.015);
+    transform: scale(1.012);
 
 }
 
@@ -202,7 +202,7 @@
 
 
 .cart-button:hover {
-    background-color: #3447f6 !important;
+    background-color: #068d23 !important;
     box-shadow: 1px 3px 3px #5a5959;
 
 }
