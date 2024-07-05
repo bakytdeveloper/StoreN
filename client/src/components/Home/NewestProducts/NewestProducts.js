@@ -95,6 +95,11 @@ const NewestProducts = ({ apiUrl }) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+    const calculateDiscountPercentage = (originalPrice, price) => {
+        if (!originalPrice || originalPrice <= price) return 0;
+        return ((originalPrice - price) / originalPrice * 100).toFixed(2);
+    };
+
     return (
         <div className="newest-products">
             <h2 className="newest-products-title">Самые Новые Товары</h2>
@@ -104,6 +109,11 @@ const NewestProducts = ({ apiUrl }) => {
                         <Link to={`/products/${product._id}`}>
 
                             <div className="product-card-images">
+                                {product.originalPrice && product.originalPrice > product.price && (
+                                    <div className="discount-percentage-badge">
+                                        -{calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                    </div>
+                                )}
                                 <img
                                     src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                     alt={product.name}
@@ -122,7 +132,12 @@ const NewestProducts = ({ apiUrl }) => {
 
                                 {/*<div className="brand">{product.brand}</div>*/}
                                 {/*<div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>*/}
+                                <div className="discounted-price">
                                 <div className="price">KGS {product.price}</div>
+                                {product.originalPrice && product.originalPrice > product.price && (
+                                    <div className="original-price"><s>{product.originalPrice} сом</s></div>
+                                )}
+                            </div>
                             </div>
                         </Link>
                     </div>
