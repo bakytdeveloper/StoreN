@@ -235,6 +235,12 @@ const ProductList = ({
                                 <div className="product-card" key={product._id}>
                                     <Link to={`/products/${product._id}`}>
                                         <div className="product-card-images">
+                                            {product.originalPrice && product.originalPrice > product.price && (
+                                                <div className="discount-percentage-badge">
+                                                    - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                                    {/*Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%*/}
+                                                </div>
+                                            )}
                                             <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
                                         </div>
                                     </Link>
@@ -247,17 +253,18 @@ const ProductList = ({
                                                </div>
                                                {/*<div className="price">{product.price} сом</div>*/}
 
-                                               <div className="price">
+                                               <div className="discounted-price">
+                                                   <div className="price">{product.price} сом</div>
                                                    {product.originalPrice && product.originalPrice > product.price && (
-                                                       <div className="original-price">{product.originalPrice} сом</div>
-                                                   )}
-                                                   <div className="discounted-price">{product.price} сом</div>
-                                                   {product.originalPrice && product.originalPrice > product.price && (
-                                                       <div className="discount-percentage">
-                                                           Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%
-                                                       </div>
+                                                       <div className="original-price"><s style={{display:"inline"}}>{product.originalPrice} сом</s></div>
                                                    )}
                                                </div>
+                                                   {/*{product.originalPrice && product.originalPrice > product.price && (*/}
+                                                   {/*    <div className="discount-percentage">*/}
+                                                   {/*        Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%*/}
+                                                   {/*    </div>*/}
+                                                   {/*)}*/}
+
 
                                            </div>
                                        </Link>

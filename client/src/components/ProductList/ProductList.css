@@ -47,6 +47,20 @@
 
 }
 
+
+.discount-percentage-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    padding: 3px 5px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 1;
+}
+
 .product-card-images img {
 
     width: 100%;
@@ -69,10 +83,6 @@
 
     background: none;
 }
-
-
-
-
 
 
 .product-list-details-brand-and-name {
@@ -131,12 +141,26 @@
 
 
 .price {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold!important;
     color: #000000!important;
     font-family: Oswald;
-    width: 100%;
+    /*width: 100%;*/
 }
+
+
+.discounted-price {
+    display: flex;
+}
+
+.original-price {
+    display: inline-flex;
+    font-size: 13px;
+    align-items: center;
+    color: red;
+    margin-left: 20px;
+}
+
 
 .actions {
     display: flex;
