@@ -362,20 +362,29 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     };
 
     const handleImageRemove = async (index) => {
-        const updatedImages = [...formData.images];
-        const removedImage = updatedImages.splice(index, 1)[0];
-        setFormData({ ...formData, images: updatedImages });
+        const imageToRemove = formData.images[index];
 
         try {
-            const imageName = removedImage.split('/').pop(); // Извлекаем имя файла из URL
-            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/sellers/images/${imageName}`);
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/sellers/remove-image`, {
+                data: { imageUrl: imageToRemove }
+            });
+
             if (response.status === 200) {
-                console.log('Image deleted successfully');
+                setFormData((prevFormData) => {
+                    const updatedImages = [...prevFormData.images];
+                    updatedImages.splice(index, 1);
+                    return {
+                        ...prevFormData,
+                        images: updatedImages,
+                    };
+                });
+                toast.success('Изображение успешно удалено');
             } else {
-                console.error('Failed to delete image');
+                toast.error('Не удалось удалить изображение');
             }
         } catch (error) {
-            console.error('Error deleting image:', error);
+            console.error('Error removing image:', error);
+            toast.error('Произошла ошибка при удалении изображения');
         }
     };
 
