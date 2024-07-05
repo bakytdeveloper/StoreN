@@ -19,6 +19,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         description: '',
         direction: "",
         price: '',
+        originalPrice: '', // Новое поле для цены до скидки
         category: '',
         type: '',
         brand: '',
@@ -283,6 +284,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             name: '',
             description: '',
             price: '',
+            originalPrice: '', // Очищаем новое поле
             category: '',
             type: '',
             brand: '',
@@ -481,6 +483,17 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
             <label>Цена:</label>
             <input type="number" placeholder="0" name="price" value={formData.price} onChange={handleChange} required/>
+
+
+            <label>Цена до скидки</label>
+            <input
+                type="number"
+                name="originalPrice"
+                className="form-control"
+                value={formData.originalPrice}
+                onChange={handleChange}
+            />
+
 
             <label>Размеры:</label>
             <input
