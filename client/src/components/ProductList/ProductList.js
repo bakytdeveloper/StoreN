@@ -202,7 +202,7 @@ const ProductList = ({
 
     const calculateDiscountPercentage = (originalPrice, price) => {
         if (!originalPrice || originalPrice <= price) return 0;
-        return ((originalPrice - price) / originalPrice * 100).toFixed(2);
+        return Math.floor((originalPrice - price) / originalPrice * 100).toFixed();
     };
 
 

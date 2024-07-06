@@ -221,9 +221,11 @@ strong {
     display: inline-flex;
     font-size: 17px;
     align-items: center;
-    color: red;
+    color: #000000!important;
     margin-left: auto;
+    font-weight: bold;
 }
+
 
 .actions-details {
     display: flex;
