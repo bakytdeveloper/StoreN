@@ -109,23 +109,31 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                         ⟻ <span className="span-product-details-close-button">Назад</span>
                     </button>
                 </div>
+                <div className="main-picture-detail-two">
+                    <img  className="main-image" src={getFullImageUrl(selectedImage)} alt={product.name} />
+                </div>
                 <div className="image-gallery">
                     <div className="thumbnail-gallery">
-                        {product.images.map((image) => (
-                            <img
-                                key={image}
-                                src={getFullImageUrl(image)}
-                                alt={product.name}
-                                className={selectedImage === image ? 'thumbnail active' : 'thumbnail'}
-                                onClick={() => handleImageClick(image)}
-                            />
-                        ))}
-                    </div>
 
-                    <div className="main-picture-detail">
-                        <img src={getFullImageUrl(selectedImage)} alt={product.name} className="main-image" />
+                           {product.images.map((image) => (
+                               <img
+                                   key={image}
+                                   src={getFullImageUrl(image)}
+                                   alt={product.name}
+                                   className={selectedImage === image ? 'thumbnail active' : 'thumbnail'}
+                                   onClick={() => handleImageClick(image)}
+                               />
+                           ))}
+
+                    </div>
+                    <div className="main-picture-detail-one">
+                        <img  className="main-image" src={getFullImageUrl(selectedImage)} alt={product.name} />
                     </div>
                 </div>
+                    {/*<div className="main-picture-detail">*/}
+                    {/*    <img  className="main-image" src={getFullImageUrl(selectedImage)} alt={product.name} />*/}
+                    {/*</div>*/}
+
                 <div className="details">
                     <div className="details-names">
                         <div className="details-names-all">
