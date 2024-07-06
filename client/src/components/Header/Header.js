@@ -23,6 +23,7 @@ const Header = ({ onSearch, setIsFooterCatalog, cartItems = [], showSidebar, set
     const location = useLocation();
     const [activePage, setActivePage] = useState('');
     const [lastPath, setLastPath] = useState(location.pathname);
+    const [searchResultMessage, setSearchResultMessage] = useState('');
 
     useEffect(() => {
         const path = location.pathname;
@@ -66,10 +67,11 @@ const Header = ({ onSearch, setIsFooterCatalog, cartItems = [], showSidebar, set
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         onSearch(searchTerm);
-        // setIsFooterCatalog(false);
+        setSearchResultMessage(searchTerm); // Устанавливаем значение для отображения в сообщении
         history.push('/catalog');
         setIsFooterCatalog(true);
     };
+
 
     const handleClearSearch = () => {
         setSearchTerm('');

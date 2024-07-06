@@ -35,6 +35,7 @@ const ProductList = ({
     const location = useLocation();
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const previousPathname = useRef(location.pathname);
+    const [searchEmptyResult, setSearchEmptyResult] = useState(false);
 
     useEffect(() => {
         const updateSidebar = () => {
@@ -92,6 +93,15 @@ const ProductList = ({
     useEffect(() => {
         fetchData();
     }, [searchKeyword, selectedGender, windowWidth, selectedCategory, selectedType]);
+
+    useEffect(() => {
+        if (filteredProducts.length === 0 && searchKeyword) {
+            setSearchEmptyResult(true);
+        } else {
+            setSearchEmptyResult(false);
+        }
+    }, [filteredProducts, searchKeyword]);
+
 
     useEffect(() => {
         if (products && products.length > 0) {
@@ -217,6 +227,96 @@ const ProductList = ({
         }
     }, [showSidebar, windowWidth, location.pathname]);
 
+    // return (
+    //     <div className="product-list-container">
+    //         <div className="product-list">
+    //             {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
+    //
+    //             {loading ? (
+    //                 <div className="d-flex justify-content-center">
+    //                     <div className="spinner-border" role="status">
+    //                         {/*<span className="visually-hidden">Loading...</span>*/}
+    //                     </div>
+    //                 </div>
+    //             ) : (
+    //                 <>
+    //                     {displayedProducts.length ? (
+    //                         displayedProducts.map(product => (
+    //                             <div className="product-card" key={product._id}>
+    //                                 <Link to={`/products/${product._id}`}>
+    //                                     <div className="product-card-images">
+    //                                         {product.originalPrice && product.originalPrice > product.price && (
+    //                                             <div className="discount-percentage-badge">
+    //                                                 - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+    //                                                 {/*Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%*/}
+    //                                             </div>
+    //                                         )}
+    //                                         <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+    //                                     </div>
+    //                                 </Link>
+    //                                <div style={{background:'none'}}>
+    //                                    <Link to={`/products/${product._id}`}>
+    //                                        <div className="product-list-details">
+    //                                            <div className="product-list-details-brand-and-name">
+    //                                                <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+    //                                                <div className="product-list-brand">{product.brand}</div>
+    //                                            </div>
+    //                                            {/*<div className="price">{product.price} сом</div>*/}
+    //
+    //                                            <div className="discounted-price">
+    //
+    //
+    //                                                {product.originalPrice ? (
+    //                                                    <div className="price-red">{product.price} сом</div>
+    //                                                ) : (
+    //                                                    <div className="price">{product.price} сом</div>
+    //                                                )}
+    //
+    //                                                {product.originalPrice && product.originalPrice > product.price && (
+    //                                                    <div className="original-price"><s style={{display:"inline"}}>{product.originalPrice} сом</s></div>
+    //                                                )}
+    //                                            </div>
+    //                                                {/*{product.originalPrice && product.originalPrice > product.price && (*/}
+    //                                                {/*    <div className="discount-percentage">*/}
+    //                                                {/*        Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%*/}
+    //                                                {/*    </div>*/}
+    //                                                {/*)}*/}
+    //
+    //
+    //                                        </div>
+    //                                    </Link>
+    //                                    <div className="actions" >
+    //                                        <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+    //                                            <strong>+</strong>
+    //                                            <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+    //                                        </button>
+    //                                    </div>
+    //                                </div>
+    //                             </div>
+    //                         ))
+    //                     ) : (
+    //                         <h2 style={{ marginTop: "111px" }} className="no-products">Нет продуктов для отображения</h2>
+    //                     )}
+    //                 </>
+    //             )}
+    //         </div>
+    //
+    //         {displayedProducts.length > 0 && (
+    //             <div className="pagination-container">
+    //                 <div className="pagination">
+    //                     <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+    //                         <img className="arrowLImg" src={left} alt="Cart" />
+    //                     </button>
+    //                     <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
+    //                     <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+    //                         <img className="arrowRImg" src={right} alt="Cart" />
+    //                     </button>
+    //                 </div>
+    //             </div>
+    //         )}
+    //     </div>
+    // );
+
     return (
         <div className="product-list-container">
             <div className="product-list">
@@ -244,48 +344,81 @@ const ProductList = ({
                                             <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
                                         </div>
                                     </Link>
-                                   <div style={{background:'none'}}>
-                                       <Link to={`/products/${product._id}`}>
-                                           <div className="product-list-details">
-                                               <div className="product-list-details-brand-and-name">
-                                                   <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
-                                                   <div className="product-list-brand">{product.brand}</div>
-                                               </div>
-                                               {/*<div className="price">{product.price} сом</div>*/}
-
-                                               <div className="discounted-price">
-
-
-                                                   {product.originalPrice ? (
-                                                       <div className="price-red">{product.price} сом</div>
-                                                   ) : (
-                                                       <div className="price">{product.price} сом</div>
-                                                   )}
-
-                                                   {product.originalPrice && product.originalPrice > product.price && (
-                                                       <div className="original-price"><s style={{display:"inline"}}>{product.originalPrice} сом</s></div>
-                                                   )}
-                                               </div>
-                                                   {/*{product.originalPrice && product.originalPrice > product.price && (*/}
-                                                   {/*    <div className="discount-percentage">*/}
-                                                   {/*        Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%*/}
-                                                   {/*    </div>*/}
-                                                   {/*)}*/}
-
-
-                                           </div>
-                                       </Link>
-                                       <div className="actions" >
-                                           <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                               <strong>+</strong>
-                                               <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                                           </button>
-                                       </div>
-                                   </div>
+                                    <div style={{ background: 'none' }}>
+                                        <Link to={`/products/${product._id}`}>
+                                            <div className="product-list-details">
+                                                <div className="product-list-details-brand-and-name">
+                                                    <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                                    <div className="product-list-brand">{product.brand}</div>
+                                                </div>
+                                                {/*<div className="price">{product.price} сом</div>*/}
+                                                <div className="discounted-price">
+                                                    {product.originalPrice ? (
+                                                        <div className="price-red">{product.price} сом</div>
+                                                    ) : (
+                                                        <div className="price">{product.price} сом</div>
+                                                    )}
+                                                    {product.originalPrice && product.originalPrice > product.price && (
+                                                        <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        <div className="actions">
+                                            <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                <strong>+</strong>
+                                                <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             ))
                         ) : (
-                            <h2 style={{ marginTop: "111px" }} className="no-products">Нет продуктов для отображения</h2>
+                            <>
+                                <div className="no-products">
+                                    <p>Товар с запросом "{searchKeyword}" не найден.</p>
+                                </div>
+                                {products.map(product => (
+                                    <div className="product-card" key={product._id}>
+                                        <Link to={`/products/${product._id}`}>
+                                            <div className="product-card-images">
+                                                {product.originalPrice && product.originalPrice > product.price && (
+                                                    <div className="discount-percentage-badge">
+                                                        - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                                    </div>
+                                                )}
+                                                <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                            </div>
+                                        </Link>
+                                        <div style={{ background: 'none' }}>
+                                            <Link to={`/products/${product._id}`}>
+                                                <div className="product-list-details">
+                                                    <div className="product-list-details-brand-and-name">
+                                                        <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                                        <div className="product-list-brand">{product.brand}</div>
+                                                    </div>
+                                                    <div className="discounted-price">
+                                                        {product.originalPrice ? (
+                                                            <div className="price-red">{product.price} сом</div>
+                                                        ) : (
+                                                            <div className="price">{product.price} сом</div>
+                                                        )}
+                                                        {product.originalPrice && product.originalPrice > product.price && (
+                                                            <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                            <div className="actions">
+                                                <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                    <strong>+</strong>
+                                                    <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </>
                         )}
                     </>
                 )}
@@ -306,6 +439,7 @@ const ProductList = ({
             )}
         </div>
     );
+
 };
 
 export default ProductList;
