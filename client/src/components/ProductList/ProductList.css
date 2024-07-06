@@ -194,11 +194,11 @@
 
 .cart-button {
     position: relative;
-    background-color: #12c404 !important;
+    background-color: #04c4b4 !important;
     /*color: #fff;*/
     padding: 0 10px;
     border: none;
-    border-radius: 25px!important;
+    border-radius: 9px!important;
     cursor: pointer;
     box-shadow: none!important;
     height: 40px!important;
@@ -229,7 +229,7 @@
 
 
 .cart-button:hover {
-    background-color: #068d23 !important;
+    background-color: #068d72 !important;
     box-shadow: 1px 3px 3px #5a5959;
 
 }
