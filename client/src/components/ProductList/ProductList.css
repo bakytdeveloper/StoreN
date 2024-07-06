@@ -149,6 +149,13 @@
     font-family: Oswald;
     /*width: 100%;*/
 }
+.price-red {
+    font-size: 22px;
+    font-weight: bold!important;
+    color: #e70202 !important;
+    font-family: Oswald;
+    /*width: 100%;*/
+}
 
 
 .discounted-price {
@@ -160,8 +167,9 @@
     display: inline-flex;
     font-size: 17px;
     align-items: center;
-    color: #757373;
+    color: #000000;
     margin-left: auto;
+    font-weight: bold;
 }
 
 

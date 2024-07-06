@@ -254,7 +254,14 @@ const ProductList = ({
                                                {/*<div className="price">{product.price} сом</div>*/}
 
                                                <div className="discounted-price">
-                                                   <div className="price">{product.price} сом</div>
+
+
+                                                   {product.originalPrice ? (
+                                                       <div className="price-red">{product.price} сом</div>
+                                                   ) : (
+                                                       <div className="price">{product.price} сом</div>
+                                                   )}
+
                                                    {product.originalPrice && product.originalPrice > product.price && (
                                                        <div className="original-price"><s style={{display:"inline"}}>{product.originalPrice} сом</s></div>
                                                    )}
