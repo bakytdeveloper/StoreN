@@ -147,7 +147,7 @@ const SellerProductsPage = () => {
 
     const calculateDiscountPercentage = (originalPrice, price) => {
         if (!originalPrice || originalPrice <= price) return 0;
-        return ((originalPrice - price) / originalPrice * 100).toFixed(2);
+        return Math.floor((originalPrice - price) / originalPrice * 100).toFixed();
     };
 
     return (
@@ -196,7 +196,15 @@ const SellerProductsPage = () => {
 
                                 {/*<div className="name">{product.name}</div>*/}
                                 <div className="discounted-price">
-                                    <div className="price">KGS {product.price}</div>
+
+                                    {/*<div className="price">KGS {product.price}</div>*/}
+
+                                    {product.originalPrice ? (
+                                        <div className="price-red" style={{fontSize:"18px"}}>{product.price} сом</div>
+                                    ) : (
+                                        <div className="price" style={{fontSize:"17px"}}>{product.price} сом</div>
+                                    )}
+
                                     {product.originalPrice && product.originalPrice > product.price && (
                                         <div className="original-price"><s>{product.originalPrice} сом</s></div>
                                     )}
