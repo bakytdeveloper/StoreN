@@ -197,7 +197,64 @@ router.post('/products', authenticateToken, checkRole(['seller']), async (req, r
 // });
 
 
-// Маршрут для удаления изображения
+// // Маршрут для удаления изображения
+// router.delete('/remove-image', authenticateToken, async (req, res) => {
+//     const { imageUrl } = req.body;
+//     try {
+//         // Путь к файлу
+//         const filePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
+//         // Проверка существования файла
+//         if (fs.existsSync(filePath)) {
+//             // Удаление файла
+//             fs.unlinkSync(filePath);
+//             res.status(200).send({ message: 'Изображение успешно удалено' });
+//         } else {
+//             res.status(404).send({ message: 'Файл не найден' });
+//         }
+//     } catch (error) {
+//         console.error('Ошибка при удалении изображения:', error);
+//         res.status(500).send({ message: 'Ошибка при удалении изображения' });
+//     }
+// });
+//
+// // Удаление товара
+// router.delete('/products/:productId', authenticateToken, checkRole(['seller']), async (req, res) => {
+//     try {
+//         const { productId } = req.params;
+//
+//         // Находим товар в базе данных
+//         const product = await Product.findById(productId);
+//         if (!product) {
+//             return res.status(404).json({ message: 'Товар не найден' });
+//         }
+//
+//         // Удаляем изображения товара с сервера
+//         for (const imageUrl of product.images) {
+//             const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
+//             if (fs.existsSync(imagePath)) {
+//                 fs.unlinkSync(imagePath);
+//             }
+//         }
+//
+//         // Удаляем товар из базы данных
+//         await Product.findByIdAndDelete(productId);
+//
+//         // Удаляем ссылку на товар у продавца
+//         const updatedSeller = await Seller.findByIdAndUpdate(
+//             req.user.sellerId,
+//             { $pull: { products: productId } },
+//             { new: true }
+//         );
+//
+//         // Возвращаем обновленный список продуктов продавца
+//         res.json(updatedSeller.products);
+//     } catch (error) {
+//         console.error('Ошибка при удалении товара:', error);
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 router.delete('/remove-image', authenticateToken, async (req, res) => {
     const { imageUrl } = req.body;
     try {
@@ -207,17 +264,19 @@ router.delete('/remove-image', authenticateToken, async (req, res) => {
         if (fs.existsSync(filePath)) {
             // Удаление файла
             fs.unlinkSync(filePath);
-            res.status(200).send({ message: 'Изображение успешно удалено' });
-        } else {
-            res.status(404).send({ message: 'Файл не найден' });
         }
+
+        // Удаление ссылки на изображение из базы данных
+        await Product.updateMany({}, { $pull: { images: imageUrl } });
+
+        res.status(200).send({ message: 'Изображение успешно удалено' });
     } catch (error) {
         console.error('Ошибка при удалении изображения:', error);
         res.status(500).send({ message: 'Ошибка при удалении изображения' });
     }
 });
 
-// Удаление товара
+
 router.delete('/products/:productId', authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const { productId } = req.params;
@@ -240,19 +299,43 @@ router.delete('/products/:productId', authenticateToken, checkRole(['seller']), 
         await Product.findByIdAndDelete(productId);
 
         // Удаляем ссылку на товар у продавца
-        const updatedSeller = await Seller.findByIdAndUpdate(
+        await Seller.findByIdAndUpdate(
             req.user.sellerId,
             { $pull: { products: productId } },
             { new: true }
         );
 
         // Возвращаем обновленный список продуктов продавца
-        res.json(updatedSeller.products);
+        res.json({ message: 'Товар и его изображения успешно удалены' });
     } catch (error) {
         console.error('Ошибка при удалении товара:', error);
         res.status(500).json({ message: error.message });
     }
 });
+
+router.delete('/images/:imageName', authenticateToken, checkRole(['seller']), async (req, res) => {
+    const imageName = req.params.imageName;
+    const imagePath = path.join(__dirname, '../uploads', imageName);
+
+    try {
+        if (fs.existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+        }
+
+        // Удаление ссылки на изображение из базы данных
+        const imageUrl = `${process.env.REACT_APP_API_URL}/uploads/${imageName}`;
+        await Product.updateMany({}, { $pull: { images: imageUrl } });
+
+        res.status(200).json({ message: 'Изображение успешно удалено' });
+    } catch (err) {
+        console.error('Ошибка при удалении изображения:', err);
+        res.status(500).json({ message: 'Не удалось удалить изображение' });
+    }
+});
+
+
+
+
 
 
 
@@ -354,18 +437,18 @@ router.put('/:id', authenticateToken, async (req, res) => {
 
 
 
-router.delete('/images/:imageName', authenticateToken ,  checkRole(['seller']), async (req, res) => {
-    const imageName = req.params.imageName;
-    const imagePath = path.join(__dirname, '../uploads', imageName);
-
-    fs.unlink(imagePath, (err) => {
-        if (err) {
-            console.error('Error deleting image:', err);
-            return res.status(500).json({ error: 'Failed to delete image' });
-        }
-        res.status(200).json({ message: 'Image deleted successfully' });
-    });
-});
+// router.delete('/images/:imageName', authenticateToken ,  checkRole(['seller']), async (req, res) => {
+//     const imageName = req.params.imageName;
+//     const imagePath = path.join(__dirname, '../uploads', imageName);
+//
+//     fs.unlink(imagePath, (err) => {
+//         if (err) {
+//             console.error('Error deleting image:', err);
+//             return res.status(500).json({ error: 'Failed to delete image' });
+//         }
+//         res.status(200).json({ message: 'Image deleted successfully' });
+//     });
+// });
 
 
 module.exports = router;

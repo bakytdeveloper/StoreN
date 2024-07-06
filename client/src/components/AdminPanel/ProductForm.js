@@ -363,11 +363,43 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         });
     };
 
+    // const handleImageRemove = async (index) => {
+    //     const imageToRemove = formData.images[index];
+    //
+    //     try {
+    //         const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/sellers/remove-image`, {
+    //             data: { imageUrl: imageToRemove }
+    //         });
+    //
+    //         if (response.status === 200) {
+    //             setFormData((prevFormData) => {
+    //                 const updatedImages = [...prevFormData.images];
+    //                 updatedImages.splice(index, 1);
+    //                 return {
+    //                     ...prevFormData,
+    //                     images: updatedImages,
+    //                 };
+    //             });
+    //             toast.success('Изображение успешно удалено');
+    //         } else {
+    //             toast.error('Не удалось удалить изображение');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error removing image:', error);
+    //         toast.error('Произошла ошибка при удалении изображения');
+    //     }
+    // };
+
+
     const handleImageRemove = async (index) => {
         const imageToRemove = formData.images[index];
+        const token = localStorage.getItem('token'); // Предполагая, что вы храните токен в localStorage
 
         try {
             const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/sellers/remove-image`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
                 data: { imageUrl: imageToRemove }
             });
 
@@ -389,7 +421,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             toast.error('Произошла ошибка при удалении изображения');
         }
     };
-
 
 
 
