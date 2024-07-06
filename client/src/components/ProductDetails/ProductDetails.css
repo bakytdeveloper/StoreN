@@ -75,6 +75,20 @@
     display: none;
 }
 
+.main-picture-detail-one-discount-percentage-badge {
+    position: absolute;
+    top: 60px;
+    left: 122px;
+    background-color: red;
+    color: white;
+    padding: 5px 11px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+
 .details-names {
     width: 100%;
     display: block;
@@ -197,6 +211,20 @@ strong {
     font-weight: 500;
 }
 
+.details-names-price {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.details-names-price-original-price {
+    display: inline-flex;
+    font-size: 17px;
+    align-items: center;
+    color: red;
+    margin-left: auto;
+}
+
 .actions-details {
     display: flex;
     margin-top: 22px;
@@ -281,10 +309,57 @@ strong {
         line-height: 12px;
     }
 
+
+    .main-picture-detail-two-discount-percentage-badge {
+        position: absolute;
+        top: 30px;
+        left: 70%;
+        background-color: red;
+        color: white;
+        padding: 5px 11px;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 5px;
+        z-index: 1;
+    }
+
+    .details-names-price {
+
+    }
+
+
+    .original-price {
+        display: inline-flex;
+        font-size: 13px;
+        align-items: center;
+        color: red;
+        margin-left: auto;
+    }
+
+
+
+    .details-names-all-type-band {
+        display: flex;
+        justify-content: space-between;
+
+    }
+
     .type-details,
     .brand-details,
     .name-details {
         margin-bottom: 20px;
+    }
+
+    .details-names-price {
+        display: flex;
+    }
+
+    .details-names-price-original-price {
+        display: inline-flex;
+        font-size: 19px;
+        align-items: center;
+        color: red;
+        margin-left: auto;
     }
 
     .price-details {

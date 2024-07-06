@@ -101,6 +101,12 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
     const truncatedDescription = product.description.slice(0, 100) + (product.description.length > 100 ? "..." : "");
 
+
+    const calculateDiscountPercentage = (originalPrice, price) => {
+        if (!originalPrice || originalPrice <= price) return 0;
+        return ((originalPrice - price) / originalPrice * 100).toFixed(2);
+    };
+
     return (
         <div className="product-details-container">
             <div className="product-details">
@@ -110,6 +116,13 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     </button>
                 </div>
                 <div className="main-picture-detail-two">
+
+                    {product.originalPrice && product.originalPrice > product.price && (
+                        <div className="main-picture-detail-two-discount-percentage-badge">
+                            -{calculateDiscountPercentage(product.originalPrice, product.price)}%
+                        </div>
+                    )}
+
                     <img  className="main-image" src={getFullImageUrl(selectedImage)} alt={product.name} />
                 </div>
                 <div className="image-gallery">
@@ -127,6 +140,13 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
                     </div>
                     <div className="main-picture-detail-one">
+
+                        {product.originalPrice && product.originalPrice > product.price && (
+                            <div className="main-picture-detail-one-discount-percentage-badge">
+                                -{calculateDiscountPercentage(product.originalPrice, product.price)}%
+                            </div>
+                        )}
+
                         <img  className="main-image" src={getFullImageUrl(selectedImage)} alt={product.name} />
                     </div>
                 </div>
@@ -137,12 +157,19 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                 <div className="details">
                     <div className="details-names">
                         <div className="details-names-all">
-                            <div className="type-details">{product.type}</div>
-                            <div className="brand-details">{product.brand}</div>
+                           <div className='details-names-all-type-band'>
+                               <div className="type-details">{product.type}</div>
+                               <div className="brand-details">{product.brand}</div>
+                           </div>
                             <div className="name-details">{product.name}</div>
                         </div>
 
-                        <div className="price-details">KGS {product.price}</div>
+                       <div className="details-names-price">
+                           <div className="price-details">KGS {product.price}</div>
+                           {product.originalPrice && product.originalPrice > product.price && (
+                               <div className="details-names-price-original-price"><s>{product.originalPrice} сом</s></div>
+                           )}
+                       </div>
                     </div>
                     <hr style={{ width: "100%", height: "1px", border: "1px solid grey", background: "#a5a4a4" }} />
                     <div className="description">
