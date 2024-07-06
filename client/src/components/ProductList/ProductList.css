@@ -343,6 +343,17 @@
 
 
 
+/* New styles for no-products */
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
 
 
 
