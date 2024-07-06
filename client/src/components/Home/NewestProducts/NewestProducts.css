@@ -12,12 +12,12 @@
 }
 
 .brand-and-name-new {
-    display: inline-block;
-    /*display: flex!important;*/
+    /*display: inline-block;*/
+    display: flex;
     width: 100%;
     line-height: 11px;
-    justify-content: start!important;
-    /*justify-content: space-between!important;*/
+    /*justify-content: start!important;*/
+    justify-content: space-between;
 
 }
 

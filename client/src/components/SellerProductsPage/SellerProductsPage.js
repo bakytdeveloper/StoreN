@@ -145,6 +145,11 @@ const SellerProductsPage = () => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+    const calculateDiscountPercentage = (originalPrice, price) => {
+        if (!originalPrice || originalPrice <= price) return 0;
+        return ((originalPrice - price) / originalPrice * 100).toFixed(2);
+    };
+
     return (
         <div className="seller-panel">
             <h1>Мои товары</h1>
@@ -174,6 +179,11 @@ const SellerProductsPage = () => {
                         <Link to={`/products/${product._id}`}>
 
                             <div className="product-card-images">
+                                {product.originalPrice && product.originalPrice > product.price && (
+                                    <div className="discount-percentage-badge">
+                                        -{calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                    </div>
+                                )}
                             <img
                                 src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                 alt={product.name}
@@ -185,8 +195,11 @@ const SellerProductsPage = () => {
                                 <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>
 
                                 {/*<div className="name">{product.name}</div>*/}
-                                <div className="price">
-                                    <span>KGS</span> {product.price}
+                                <div className="discounted-price">
+                                    <div className="price">KGS {product.price}</div>
+                                    {product.originalPrice && product.originalPrice > product.price && (
+                                        <div className="original-price"><s>{product.originalPrice} сом</s></div>
+                                    )}
                                 </div>
                             </div>
                         </Link>
