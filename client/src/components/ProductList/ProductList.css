@@ -86,9 +86,11 @@
 
 
 .product-list-details-brand-and-name {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: flex;
     /*align-items: center;*/
     text-decoration: none!important;
+    justify-content: space-between;
 
 }
 
