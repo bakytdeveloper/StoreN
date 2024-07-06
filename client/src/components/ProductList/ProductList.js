@@ -376,7 +376,8 @@ const ProductList = ({
                         ) : (
                             <>
                                 <div className="no-products">
-                                    <p>Товар с запросом "{searchKeyword}" не найден.</p>
+                                    <h2>Ничего не нашлось по запросу "{searchKeyword}" не найден.</h2>
+                                    <div>Попробуйте поискать по другому или сократите запрос</div>
                                 </div>
                                 {products.map(product => (
                                     <div className="product-card" key={product._id}>
