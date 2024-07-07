@@ -85,11 +85,13 @@
 
 .active-title {
     border: 1px solid #bcbaba;
-    border-bottom-color: #0355a7;
+    border-bottom-color: #2bc3f1;
+    /*border-bottom-color: #0355a7;*/
     border-top: none !important;
     border-right: none!important;
     border-left: none!important;
-    color: #0355a7!important;
+    color: #2bc3f1!important;
+    /*color: #0355a7!important;*/
 }
 
 
@@ -280,11 +282,13 @@
 /* Добавьте этот стиль, если его нет */
 .active-title {
     border: 1px solid #bcbaba;
-    border-bottom-color: #0355a7;
+    border-bottom-color: #2bc3f1;
+    /*border-bottom-color: #0355a7;*/
     border-top: none !important;
     border-right: none!important;
     border-left: none!important;
-    color: #0355a7!important;
+    color: #2bc3f1!important;
+    /*color: #0355a7!important;*/
     border-radius: 0;
     text-align: center;
     width: 100px;
@@ -292,9 +296,11 @@
 }
 
 .active-title {
-    border-bottom: 2px solid #0355a7;
+    border-bottom: 2px solid #2bc3f1;
+    /*border-bottom: 2px solid #0355a7;*/
     padding: 0!important;
-    color: #0355a7 !important;
+    color: #2bc3f1 !important;
+    /*color: #0355a7 !important;*/
     width: auto!important;
 }
 
@@ -352,7 +358,8 @@
     /*border-left: none;*/
     padding: 1px 9px;
     margin-left: 10px;
-    background: #0040ff;
+    background: #2bc3f1;
+    /*background: #0040ff;*/
 }
 .search-button-img {
     width: 22px;
