@@ -545,13 +545,14 @@
         border-radius: 0 3px 3px 0;
         height: 39px;
         background: none;
-        color: black;
+        /*color: black!important;*/
         font-weight: 400;
         border: none;
         /*border-left: none;*/
         padding: 1px 9px;
         margin-left: 0;
-        background: #0040ff;
+        background: #0b9dca;
+        /*background: #0040ff;*/
     }
     .search-button-img {
         width: 22px;
