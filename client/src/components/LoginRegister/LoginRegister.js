@@ -409,8 +409,8 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
     }, [setShowSidebar]);
 
     const handleClose = () => {
-        history.goBack();
-        // history.push('/');
+        // history.goBack();
+        history.push('/');
     };
 
     const handleCloseForm = () => {

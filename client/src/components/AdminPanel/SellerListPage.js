@@ -17,7 +17,7 @@ const SellerListPage = () => {
         const role = localStorage.getItem('role');
 
         if (!token || role !== 'admin') {
-            history.push('/login');
+            history.push('/');
             return;
         }
 

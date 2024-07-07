@@ -378,7 +378,7 @@ const ProductList = ({
                                 <div className="no-products">
                                     <h2>Ничего не нашлось по запросу "{searchKeyword}"</h2>
                                     <div>Попробуйте поискать по другому или сократите запрос</div>
-                                    <h1>Возможно вам понравится:</h1>
+                                    <h1 style={{marginBottom:"-40px"}}>Возможно вам понравятся:</h1>
                                 </div>
                                 {products.map(product => (
                                     <div className="product-card" key={product._id}>

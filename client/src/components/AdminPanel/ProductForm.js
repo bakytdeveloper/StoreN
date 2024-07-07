@@ -61,7 +61,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         const role = localStorage.getItem('role');
         if (!token || role !== 'seller') {
             toast.error('Ваш аккаунт еще не подтвержден');
-            history.push('/login');
+            history.push('/');
         }
     }, [history]);
 
@@ -362,33 +362,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             images: [...formData.images, ''],
         });
     };
-
-    // const handleImageRemove = async (index) => {
-    //     const imageToRemove = formData.images[index];
-    //
-    //     try {
-    //         const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/sellers/remove-image`, {
-    //             data: { imageUrl: imageToRemove }
-    //         });
-    //
-    //         if (response.status === 200) {
-    //             setFormData((prevFormData) => {
-    //                 const updatedImages = [...prevFormData.images];
-    //                 updatedImages.splice(index, 1);
-    //                 return {
-    //                     ...prevFormData,
-    //                     images: updatedImages,
-    //                 };
-    //             });
-    //             toast.success('Изображение успешно удалено');
-    //         } else {
-    //             toast.error('Не удалось удалить изображение');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error removing image:', error);
-    //         toast.error('Произошла ошибка при удалении изображения');
-    //     }
-    // };
 
 
     const handleImageRemove = async (index) => {
