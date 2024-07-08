@@ -28,6 +28,8 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         images: [],
         sizes: [], // Добавляем поле для размеров
         colors: [], // Добавляем поле для цветов
+        quantity: 10, // Добавляем поле для количества
+
     });
 
     const [categories, setCategories] = useState([]);
@@ -498,6 +500,10 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                 onChange={handleChange}
             />
 
+            <label htmlFor="quantity">Количество</label>
+            <input type="number" id="quantity" name="quantity" value={formData.quantity} onChange={handleChange} required />
+
+
 
             <label>Размеры:</label>
             <input
@@ -588,9 +594,11 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                 />
 
             ))}
-            <input className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />
-            {imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}
-<p style={{color:"grey", textDecoration:"none", cursor:"text"}}>Или введите URL</p>
+
+            <label>Выберите подходящую картинку:</label>
+            <input style={{marginTop:"0" , marginBottom:"22px"}} className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />
+            {/*{imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}*/}
+<label style={{ textDecoration:"none", cursor:"text"}}>Или введите URL:</label>
             <input
                 className="w-full px-3 py-2 border rounded"
                 id="imageUrl"

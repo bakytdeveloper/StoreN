@@ -24,6 +24,8 @@ const productSchema = new mongoose.Schema({
         value: { type: String, required: true },
     }],
     images: [{ type: String }],
+    // quantity: { type: Number }, // Новое поле для количества товара
+    quantity: { type: Number, default: 10 }, // Новое поле для количества товара
     seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
     createdAt: { type: Date, default: Date.now }  // Добавлено поле createdAt с датой по умолчанию
 });
