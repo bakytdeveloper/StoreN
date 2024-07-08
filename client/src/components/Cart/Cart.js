@@ -166,6 +166,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             if (response.ok) {
                 const data = await response.json();
                 console.log('Order placed successfully:', data);
+                await sendOrderEmail();  // Отправляем email администратору
 
                 setCartItems([]);
                 history.push('/');
@@ -189,6 +190,34 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+    };
+
+    const sendOrderEmail = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/api/orders/send-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    firstName,
+                    address,
+                    phoneNumber,
+                    cartItems,
+                    totalPrice
+                }),
+            });
+
+            if (response.ok) {
+                toast.success('Email sent to admin');
+            } else {
+                toast.error('Failed to send email');
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            toast.error('Failed to send email');
+        }
     };
 
     return (

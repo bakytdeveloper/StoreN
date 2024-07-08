@@ -95,47 +95,6 @@ router.put('/update-password', authenticateToken,  checkRole(['seller']), async 
 });
 
 
-
-// // Роут для создания нового товара
-// router.post('/products', authenticateToken,  checkRole(['seller']), async (req, res) => {
-//     try {
-//         const { name, description, price, category, direction, type, brand, gender, characteristics, images, sizes, colors, quantity = 10 } = req.body;
-//
-//         const sellerId = req.user.sellerId;
-//
-//         const newProduct = new Product({
-//             name,
-//             description,
-//             price,
-//             category,
-//             direction,
-//             type,
-//             brand,
-//             gender,
-//             characteristics,
-//             images,
-//             sizes,
-//             colors,
-//             quantity,
-//             seller: sellerId
-//         });
-//
-//         await newProduct.save();
-//
-//
-//         // Добавление ID нового продукта к массиву продуктов продавца
-//         const updatedSeller = await Seller.findByIdAndUpdate(
-//             sellerId,
-//             { $push: { products: newProduct._id } }, // Добавление только ID продукта
-//             { new: true }
-//         );
-//
-//         res.json(updatedSeller.products);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 // Роут для создания нового товара
 router.post('/products', authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
@@ -332,9 +291,6 @@ router.delete('/images/:imageName', authenticateToken, checkRole(['seller']), as
         res.status(500).json({ message: 'Не удалось удалить изображение' });
     }
 });
-
-
-
 
 
 

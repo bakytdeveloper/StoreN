@@ -28,4 +28,4 @@ const verifyOTP = (email, otp) => {
     return otpStorage[email] === otp;
 };
 
-module.exports = { sendOTP, verifyOTP };
+module.exports = { sendOTP, verifyOTP, transporter };

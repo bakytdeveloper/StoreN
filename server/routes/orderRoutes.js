@@ -7,6 +7,7 @@ const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
 const Product = require("../models/Product");
 const {checkRole} = require("../middleware/authenticateToken");
+const {transporter} = require('../smtp/otpService');
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
@@ -333,6 +334,39 @@ router.get('/last-order/:userId', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
+
+
+router.post('/send-email', async (req, res) => {
+    const { email, firstName, address, phoneNumber, cartItems, totalPrice } = req.body;
+
+    const dateNew = new Date();
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: 'bakytdeveloper@gmail.com',
+        subject: 'Новый заказ',
+        text: `
+            Новый заказ от ${firstName} (${email})
+            Адрес доставки: ${address}
+            Номер телефона: ${phoneNumber}
+            Сумма заказа: ${totalPrice} сом
+            Товары: ${cartItems.map(item => `${item.name} - ${item.quantity} шт`).join(', ')}
+            Время заказа: ${dateNew}
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ message: 'Failed to send email' });
+    }
+});
+
+
 
 
 

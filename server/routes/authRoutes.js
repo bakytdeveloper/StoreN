@@ -8,6 +8,7 @@ const {checkRole} = require("../middleware/authenticateToken");
 const {authenticateToken} = require('../middleware/authenticateToken');
 const {verifyOTP} = require("../smtp/otpService");
 const {sendOTP} = require("../smtp/otpService");
+const {transporter} = require('../smtp/otpService');
 
 // Проверка уникальности email
 router.get('/checkEmail', async (req, res) => {
@@ -115,6 +116,31 @@ router.post('/seller/register', async (req, res) => {
             products: [],
         });
         await newSeller.save();
+
+        const dateNew = new Date();
+
+        const mailOptions = {
+            from: 'your-email@gmail.com', // Замените на ваш email
+            to: 'bakytdeveloper@gmail.com', // Email администратора
+            subject: 'Новая регистрация продавца',
+            text: `
+                Имя: ${firstName} ${lastName}
+                Электронная почта: ${email}
+                Телефон: ${phone}
+                Название компании: ${companyName}
+                О компании: ${companyDescription}
+                Адрес: ${address}
+                Время заявки: ${dateNew}
+            `
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Email sent: ' + info.response);
+        });
+
         const token = jwt.sign({ seller: newSeller }, process.env.SECRET_KEY);
         res.status(201).json({ seller: newSeller, token, success: true });
     } catch (error) {
