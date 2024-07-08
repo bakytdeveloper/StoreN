@@ -346,7 +346,7 @@ router.post('/send-email', async (req, res) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: 'bakytdeveloper@gmail.com',
-        subject: 'Новый заказ',
+        subject: 'Поступил Новый заказ',
         text: `
             Новый заказ от ${firstName} (${email})
             Адрес доставки: ${address}

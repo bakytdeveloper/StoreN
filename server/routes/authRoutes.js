@@ -122,7 +122,7 @@ router.post('/seller/register', async (req, res) => {
         const mailOptions = {
             from: 'your-email@gmail.com', // Замените на ваш email
             to: 'bakytdeveloper@gmail.com', // Email администратора
-            subject: 'Новая регистрация продавца',
+            subject: 'Новый запрос на регистрация продавца',
             text: `
                 Имя: ${firstName} ${lastName}
                 Электронная почта: ${email}
@@ -247,7 +247,7 @@ router.get('/seller/profile', authenticateToken,  checkRole(['seller']), async (
 
 
 // Обновление пароля пользователя по email
-router.put('/update-password-by-email', authenticateToken ,  checkRole(['customer']), async (req, res) => {
+router.put('/update-password-by-email', async (req, res) => {
     const { email, newPassword } = req.body;
 
     try {

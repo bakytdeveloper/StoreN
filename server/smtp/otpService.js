@@ -18,8 +18,9 @@ const sendOTP = (email) => {
     transporter.sendMail({
         from: 'bakytdeveloper@gmail.com',
         to: email,
-        subject: 'Проверка получения OTP',
-        text: `Здравствуйте, это ваш код: ${otp}`
+        subject: 'Здравствуйте',
+        text: `Мы обновили ваш пароль для авторизации, 
+        это ваш обновлённый пароль: ${otp}`
     });
     return otp;
 };
