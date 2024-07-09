@@ -128,7 +128,7 @@ const NewestProducts = ({ apiUrl }) => {
                                     <div className="type">{product.type}</div>
                                     <div className="brand new-brand">{product.brand}</div>
 
-                                    <div className="quantityAmount">{product.quantity}</div>
+                                    {/*<div className="quantityAmount">{product.quantity}</div>*/}
                                     {/*<div className="name new-name">{product.name.length > 10 ? product.name.substring(0, 10) + '...' : product.name}</div>*/}
                                 </div>
 
