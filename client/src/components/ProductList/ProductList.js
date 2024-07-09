@@ -351,21 +351,18 @@ const ProductList = ({
                                             {product.originalPrice && product.originalPrice > product.price && (
                                                 <div className="discount-percentage-badge">
                                                     - {calculateDiscountPercentage(product.originalPrice, product.price)}%
-                                                    {/*Скидка {calculateDiscountPercentage(product.originalPrice, product.price)}%*/}
                                                 </div>
                                             )}
                                             <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
                                         </div>
                                     </Link>
-                                    <div style={{ background: 'none' }}>
+                                    <div className="product-content">
                                         <Link to={`/products/${product._id}`}>
                                             <div className="product-list-details">
                                                 <div className="product-list-details-brand-and-name">
                                                     <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
                                                     <div className="product-list-brand">{product.brand.length > 11 ? product.brand.substring(0, 11) + '.' : product.brand}</div>
-                                                    {/*<div className="product-list-brand">{product.brand}</div>*/}
                                                 </div>
-                                                {/*<div className="price">{product.price} сом</div>*/}
                                                 <div className="discounted-price">
                                                     {product.originalPrice ? (
                                                         <div className="price-red">{product.price} сом</div>
@@ -376,21 +373,18 @@ const ProductList = ({
                                                         <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
                                                     )}
                                                 </div>
-                                                {product.quantity <= 11 && (
-                                                    <>
-                                                        <div className="product-list-quantity" style={{ marginLeft: "10px", fontSize: "12px", marginTop: "7px" }}>
-                                                            Осталось {product.quantity} шт.
-                                                        </div>
-                                                        <div className="progress-bar-container">
-                                                            <div
-                                                                className={`progress-bar ${getProgressBarColor(product.quantity)}`}
-                                                                style={{ width: getProgressBarWidth(product.quantity) }}
-                                                            />
-                                                        </div>
-                                                    </>
-                                                )}
                                             </div>
                                         </Link>
+                                        <div className="quantity-progress-bar">
+                                            {product.quantity <= 11 && (
+                                                <>
+                                                    <div className="product-list-quantity">Осталось {product.quantity} шт.</div>
+                                                    <div className="progress-bar-container">
+                                                        <div className={`progress-bar ${getProgressBarColor(product.quantity)}`} style={{ width: getProgressBarWidth(product.quantity) }} />
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
                                         <div className="actions">
                                             <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
                                                 <strong>+</strong>
