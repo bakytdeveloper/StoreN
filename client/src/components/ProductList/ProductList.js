@@ -227,6 +227,19 @@ const ProductList = ({
         }
     }, [showSidebar, windowWidth, location.pathname]);
 
+
+    const getProgressBarColor = (quantity) => {
+        if (quantity <= 3) return 'red';
+        if (quantity <= 10) return 'orange';
+        return 'green';
+    };
+
+    const getProgressBarWidth = (quantity) => {
+        const maxQuantity = 10; // Максимальное количество, при котором прогресс-бар будет заполнен на 100%
+        return Math.min((quantity / maxQuantity) * 100, 100) + '%';
+    };
+
+
     // return (
     //     <div className="product-list-container">
     //         <div className="product-list">
@@ -349,7 +362,8 @@ const ProductList = ({
                                             <div className="product-list-details">
                                                 <div className="product-list-details-brand-and-name">
                                                     <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
-                                                    <div className="product-list-brand">{product.brand}</div>
+                                                    <div className="product-list-brand">{product.brand.length > 11 ? product.brand.substring(0, 11) + '.' : product.brand}</div>
+                                                    {/*<div className="product-list-brand">{product.brand}</div>*/}
                                                 </div>
                                                 {/*<div className="price">{product.price} сом</div>*/}
                                                 <div className="discounted-price">
@@ -362,6 +376,19 @@ const ProductList = ({
                                                         <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
                                                     )}
                                                 </div>
+                                                {product.quantity <= 11 && (
+                                                    <>
+                                                        <div className="product-list-quantity" style={{ marginLeft: "10px", fontSize: "12px", marginTop: "7px" }}>
+                                                            Осталось {product.quantity} шт.
+                                                        </div>
+                                                        <div className="progress-bar-container">
+                                                            <div
+                                                                className={`progress-bar ${getProgressBarColor(product.quantity)}`}
+                                                                style={{ width: getProgressBarWidth(product.quantity) }}
+                                                            />
+                                                        </div>
+                                                    </>
+                                                )}
                                             </div>
                                         </Link>
                                         <div className="actions">

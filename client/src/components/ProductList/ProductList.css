@@ -356,6 +356,29 @@
 }
 
 
+.progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 10px;
+    border-radius: 4px;
+}
+
+.progress-bar.orange {
+    background-color: orange;
+}
+
+.progress-bar.red {
+    background-color: red;
+}
+
+
+
 
 
 
