@@ -99,7 +99,6 @@ const {transporter} = require('../smtp/otpService');
 // });
 
 
-// Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
@@ -141,17 +140,9 @@ router.post('/', async (req, res) => {
             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
         }
 
-        // Check if product quantity is 1, 2, or 3 and notify seller
-        if (existingProduct.quantity === 3 || existingProduct.quantity === 2 || existingProduct.quantity === 1) {
-            const seller = await User.findById(existingProduct.seller); // Assuming seller ID is stored in product
-            if (seller) {
-                // Implement your notification logic here (e.g., send email)
-                try {
-                    await sendNotificationToSeller(seller.email, existingProduct.name, existingProduct.quantity);
-                } catch (error) {
-                    console.error('Error sending notification to seller:', error);
-                }
-            }
+        // Check if product quantity is low and notify seller
+        if (existingProduct.quantity <= 3) {
+            await notifySellersIfNeeded(existingProduct);
         }
     }
 
@@ -197,22 +188,39 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Функция для отправки уведомления продавцу
-async function sendNotificationToSeller(email, productName, productQuantity) {
+// Функция для уведомления продавцов при необходимости
+async function notifySellersIfNeeded(product) {
+    const sellers = await Seller.find({ products: product._id });
+    if (sellers.length > 0) {
+        const notificationPromises = sellers.map(async (seller) => {
+            const sellerUser = await User.findById(seller.userId);
+            if (sellerUser) {
+                const email = sellerUser.email;
+                const subject = `Product Replenishment Needed: ${product.name}`;
+                const text = `Dear ${sellerUser.name},\n\nThis is to inform you that the product ${product.name} is running low in stock and needs replenishment.\n\nBest regards,\nYour Marketplace Team`;
+                try {
+                    await sendEmail(email, subject, text);
+                    console.log(`Notification sent to seller ${sellerUser.name} (${email}) regarding product ${product.name}`);
+                } catch (error) {
+                    console.error(`Failed to send notification email to seller ${sellerUser.name} (${email}) regarding product ${product.name}:`, error);
+                }
+            }
+        });
+        await Promise.all(notificationPromises);
+    }
+}
+
+async function sendEmail(email, subject, text) {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Оповещение о низком уровне запасов',
-        text: `
-           Уважаемый продавец,
-            Запас вашего товара '${productName}' на исходе (${productQuantity} осталось). Пожалуйста, пополните его в ближайшее время.
-            
-            С уважением,
-             Ваш интернет-магазин
-        `
+        subject: subject,
+        text: text
     };
     await transporter.sendMail(mailOptions);
 }
+
+
 
 
 
