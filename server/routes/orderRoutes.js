@@ -99,6 +99,8 @@ const {transporter} = require('../smtp/otpService');
 // });
 
 
+
+// Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
@@ -128,7 +130,6 @@ router.post('/', async (req, res) => {
             }
         }
     }
-
     // Check product quantities and update
     const insufficientProducts = [];
     for (const { product, quantity } of products) {
@@ -139,17 +140,10 @@ router.post('/', async (req, res) => {
         if (existingProduct.quantity < quantity) {
             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
         }
-
-        // Check if product quantity is low and notify seller
-        if (existingProduct.quantity <= 3) {
-            await notifySellersIfNeeded(existingProduct);
-        }
     }
-
     if (insufficientProducts.length > 0) {
         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
     }
-
     // Deduct quantities from products
     try {
         for (const { product, quantity } of products) {
@@ -158,6 +152,13 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error('Error updating product quantities:', error);
         return res.status(500).json({ message: 'Failed to update product quantities' });
+    }
+
+    // Notify sellers about low product quantities
+    try {
+        await notifySellersAboutLowQuantity(products);
+    } catch (error) {
+        console.error('Error notifying sellers:', error);
     }
 
     const order = new Order({
@@ -172,7 +173,6 @@ router.post('/', async (req, res) => {
         paymentMethod,
         comments,
     });
-
     try {
         const newOrder = await order.save();
         if (userId) {
@@ -188,38 +188,24 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Функция для уведомления продавцов при необходимости
-async function notifySellersIfNeeded(product) {
-    const sellers = await Seller.find({ products: product._id });
-    if (sellers.length > 0) {
-        const notificationPromises = sellers.map(async (seller) => {
-            const sellerUser = await User.findById(seller.userId);
-            if (sellerUser) {
-                const email = sellerUser.email;
-                const subject = `Product Replenishment Needed: ${product.name}`;
-                const text = `Dear ${sellerUser.name},\n\nThis is to inform you that the product ${product.name} is running low in stock and needs replenishment.\n\nBest regards,\nYour Marketplace Team`;
-                try {
-                    await sendEmail(email, subject, text);
-                    console.log(`Notification sent to seller ${sellerUser.name} (${email}) regarding product ${product.name}`);
-                } catch (error) {
-                    console.error(`Failed to send notification email to seller ${sellerUser.name} (${email}) regarding product ${product.name}:`, error);
-                }
+// Функция для отправки уведомлений продавцам о низком количестве товаров
+async function notifySellersAboutLowQuantity(products) {
+    for (const { product, quantity } of products) {
+        const existingProduct = await Product.findById(product).populate('seller');
+        if (existingProduct && existingProduct.quantity <= 3 && existingProduct.quantity >= 1) {
+            const seller = existingProduct.seller;
+            if (seller && seller.email) {
+                const mailOptions = {
+                    from: process.env.EMAIL_USER,
+                    to: seller.email,
+                    subject: `Low Stock Alert: ${existingProduct.name}`,
+                    text: `Dear ${seller.name},\n\nThis is to inform you that the stock for product "${existingProduct.name}" is running low (${existingProduct.quantity} left). Please restock as soon as possible.\n\nRegards,\nThe Store`,
+                };
+                await transporter.sendMail(mailOptions);
             }
-        });
-        await Promise.all(notificationPromises);
+        }
     }
 }
-
-async function sendEmail(email, subject, text) {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: subject,
-        text: text
-    };
-    await transporter.sendMail(mailOptions);
-}
-
 
 
 
