@@ -99,29 +99,11 @@ const {transporter} = require('../smtp/otpService');
 // });
 
 
-// Функция для отправки уведомления о низком запасе товара
-async function sendLowStockNotification(sellerEmail, productName) {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: sellerEmail,
-        subject: 'Уведомление о низком запасе',
-        text: `Уважаемый продавец,\n\nНастоящим уведомляем вас о том, что продукт "${productName}" запасы заканчиваются. Пожалуйста, пополните запасы как можно скорее.\n\nС наилучшими пожеланиями,\nКоманда вашего магазина`,
-    };
-    try {
-        await transporter.sendMail(mailOptions);
-        console.log(`Low stock notification sent to ${sellerEmail} for product ${productName}`);
-    } catch (error) {
-        console.error('Error sending low stock notification:', error);
-    }
-}
-
-
-
+// Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
     let userId;
-
     if (user) {
         let existingUser;
         try {
@@ -148,7 +130,7 @@ router.post('/', async (req, res) => {
         }
     }
 
-    // Check product quantities and notify sellers if necessary
+    // Check product quantities and update
     const insufficientProducts = [];
     for (const { product, quantity } of products) {
         const existingProduct = await Product.findById(product);
@@ -157,14 +139,18 @@ router.post('/', async (req, res) => {
         }
         if (existingProduct.quantity < quantity) {
             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
-            // Notify seller about low stock
-            try {
-                const seller = await User.findById(existingProduct.seller); // Assuming seller is stored in product document
-                if (seller) {
-                    await sendLowStockNotification(seller.email, existingProduct.name);
+        }
+
+        // Check if product quantity is 1, 2, or 3 and notify seller
+        if (existingProduct.quantity === 3 || existingProduct.quantity === 2 || existingProduct.quantity === 1) {
+            const seller = await User.findById(existingProduct.seller); // Assuming seller ID is stored in product
+            if (seller) {
+                // Implement your notification logic here (e.g., send email)
+                try {
+                    await sendNotificationToSeller(seller.email, existingProduct.name, existingProduct.quantity);
+                } catch (error) {
+                    console.error('Error sending notification to seller:', error);
                 }
-            } catch (error) {
-                console.error('Error notifying seller:', error);
             }
         }
     }
@@ -210,6 +196,23 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
+// Функция для отправки уведомления продавцу
+async function sendNotificationToSeller(email, productName, productQuantity) {
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Оповещение о низком уровне запасов',
+        text: `
+           Уважаемый продавец,
+            Запас вашего товара '${productName}' на исходе (${productQuantity} осталось). Пожалуйста, пополните его в ближайшее время.
+            
+            С уважением,
+             Ваш интернет-магазин
+        `
+    };
+    await transporter.sendMail(mailOptions);
+}
 
 
 
