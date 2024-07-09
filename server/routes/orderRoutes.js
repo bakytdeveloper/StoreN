@@ -9,11 +9,117 @@ const Product = require("../models/Product");
 const {checkRole} = require("../middleware/authenticateToken");
 const {transporter} = require('../smtp/otpService');
 
-// Создание нового заказа (для гостей и зарегистрированных пользователей)
+// // Создание нового заказа (для гостей и зарегистрированных пользователей)
+// router.post('/', async (req, res) => {
+//     console.log('Received order creation request:', req.body);
+//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
+//
+//     let userId;
+//
+//     if (user) {
+//         let existingUser;
+//         try {
+//             existingUser = await User.findOne({ email: user.email });
+//         } catch (error) {
+//             console.error('Error finding user:', error);
+//             return res.status(500).json({ message: 'Internal Server Error' });
+//         }
+//
+//         if (existingUser) {
+//             userId = existingUser._id;
+//         } else {
+//             const newUser = new User({
+//                 name: user.firstName,
+//                 email: user.email,
+//                 address: user.address
+//             });
+//
+//             try {
+//                 const savedUser = await newUser.save();
+//                 userId = savedUser._id;
+//             } catch (error) {
+//                 console.error('Error creating new user:', error);
+//                 return res.status(500).json({ message: 'Internal Server Error' });
+//             }
+//         }
+//     }
+//
+//     // Check product quantities and update
+//     const insufficientProducts = [];
+//     for (const { product, quantity } of products) {
+//         const existingProduct = await Product.findById(product);
+//         if (!existingProduct) {
+//             return res.status(404).json({ message: `Product not found: ${product}` });
+//         }
+//         if (existingProduct.quantity < quantity) {
+//             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
+//         }
+//     }
+//
+//     if (insufficientProducts.length > 0) {
+//         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
+//     }
+//
+//     // Deduct quantities from products
+//     try {
+//         for (const { product, quantity } of products) {
+//             await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } });
+//         }
+//     } catch (error) {
+//         console.error('Error updating product quantities:', error);
+//         return res.status(500).json({ message: 'Failed to update product quantities' });
+//     }
+//
+//     const order = new Order({
+//         user: userId || null,
+//         guestInfo: userId ? undefined : guestInfo,
+//         cart: [],
+//         products,
+//         totalAmount,
+//         firstName,
+//         address,
+//         phoneNumber,
+//         paymentMethod,
+//         comments,
+//     });
+//
+//     try {
+//         const newOrder = await order.save();
+//         if (userId) {
+//             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
+//         }
+//         res.status(201).json(newOrder);
+//     } catch (error) {
+//         console.error('Error placing order:', error);
+//         if (error.name === 'ValidationError' && error.errors && error.errors.password) {
+//             return res.status(400).json({ message: 'Password is required for registered users' });
+//         }
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+
+
+// Функция для отправки уведомления о низком запасе товара
+async function sendLowStockNotification(sellerEmail, productName) {
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: sellerEmail,
+        subject: 'Уведомление о низком запасе',
+        text: `Уважаемый продавец,\n\nНастоящим уведомляем вас о том, что продукт "${productName}" запасы заканчиваются. Пожалуйста, пополните запасы как можно скорее.\n\nС наилучшими пожеланиями,\nКоманда вашего магазина`,
+    };
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Low stock notification sent to ${sellerEmail} for product ${productName}`);
+    } catch (error) {
+        console.error('Error sending low stock notification:', error);
+    }
+}
+
+
+
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
-
     let userId;
 
     if (user) {
@@ -24,7 +130,6 @@ router.post('/', async (req, res) => {
             console.error('Error finding user:', error);
             return res.status(500).json({ message: 'Internal Server Error' });
         }
-
         if (existingUser) {
             userId = existingUser._id;
         } else {
@@ -33,7 +138,6 @@ router.post('/', async (req, res) => {
                 email: user.email,
                 address: user.address
             });
-
             try {
                 const savedUser = await newUser.save();
                 userId = savedUser._id;
@@ -44,7 +148,7 @@ router.post('/', async (req, res) => {
         }
     }
 
-    // Check product quantities and update
+    // Check product quantities and notify sellers if necessary
     const insufficientProducts = [];
     for (const { product, quantity } of products) {
         const existingProduct = await Product.findById(product);
@@ -53,6 +157,15 @@ router.post('/', async (req, res) => {
         }
         if (existingProduct.quantity < quantity) {
             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
+            // Notify seller about low stock
+            try {
+                const seller = await User.findById(existingProduct.seller); // Assuming seller is stored in product document
+                if (seller) {
+                    await sendLowStockNotification(seller.email, existingProduct.name);
+                }
+            } catch (error) {
+                console.error('Error notifying seller:', error);
+            }
         }
     }
 
