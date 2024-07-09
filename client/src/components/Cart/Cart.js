@@ -93,6 +93,14 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     };
 
     const handleQuantityChange = (productId, newQuantity) => {
+
+        // Ensure newQuantity is within available stock
+        const existingItem = cartItems.find(item => item.productId === productId);
+        if (existingItem && existingItem.quantity + newQuantity > existingItem.available) {
+            toast.error(`Not enough stock available for ${existingItem.name}`);
+            return;
+        }
+
         const updatedCart = cartItems.map((item) => {
             if (item.productId === productId) {
                 const validQuantity = Math.max(newQuantity, 0);
@@ -125,6 +133,68 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             }
         }
     };
+
+    // const handlePlaceOrder = async () => {
+    //     try {
+    //         if (orderPlaced) {
+    //             return;
+    //         }
+    //         setOrderPlaced(true);
+    //
+    //         if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
+    //             toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
+    //             return;
+    //         }
+    //
+    //         const token = localStorage.getItem('token');
+    //
+    //         const response = await fetch(`${apiUrl}/api/orders`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${token}`,
+    //             },
+    //             body: JSON.stringify({
+    //                 user: token ? { firstName, email } : null,
+    //                 guestInfo: token ? undefined : { name: firstName, email },
+    //                 address,
+    //                 phoneNumber,
+    //                 products: cartItems.map((item) => ({
+    //                     product: item.productId,
+    //                     quantity: item.quantity,
+    //                     size: item.size,
+    //                     color: item.color,
+    //                 })),
+    //                 totalAmount: totalPrice,
+    //                 paymentMethod,
+    //                 comments,
+    //                 userName: userName || 'Гость',
+    //             }),
+    //         });
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             console.log('Order placed successfully:', data);
+    //             await sendOrderEmail();  // Отправляем email администратору
+    //
+    //             setCartItems([]);
+    //             history.push('/');
+    //             toast.success('Ваш заказ принят. Спасибо за покупку');
+    //         } else {
+    //             console.error('Failed to place order');
+    //         }
+    //         if (!response.ok) {
+    //             const data = await response.json();
+    //             if (data.message === 'Insufficient product quantities') {
+    //                 toast.error(`Not enough stock available for ${data.products.map(p => p.name).join(', ')}`);
+    //             } else {
+    //                 console.error('Failed to place order:', data.message);
+    //             }
+    //             return;
+    //         }
+    //     } catch (error) {
+    //         console.error('Error placing order:', error);
+    //     }
+    // };
 
     const handlePlaceOrder = async () => {
         try {
@@ -163,6 +233,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                     userName: userName || 'Гость',
                 }),
             });
+
             if (response.ok) {
                 const data = await response.json();
                 console.log('Order placed successfully:', data);
@@ -172,10 +243,17 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 history.push('/');
                 toast.success('Ваш заказ принят. Спасибо за покупку');
             } else {
-                console.error('Failed to place order');
+                const data = await response.json();
+                if (data.message === 'Insufficient product quantities') {
+                    toast.error(`Not enough stock available for ${data.products.map(p => p.name).join(', ')}`);
+                } else {
+                    console.error('Failed to place order:', data.message);
+                }
+                setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
             }
         } catch (error) {
             console.error('Error placing order:', error);
+            setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
         }
     };
 

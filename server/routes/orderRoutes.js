@@ -44,6 +44,32 @@ router.post('/', async (req, res) => {
         }
     }
 
+    // Check product quantities and update
+    const insufficientProducts = [];
+    for (const { product, quantity } of products) {
+        const existingProduct = await Product.findById(product);
+        if (!existingProduct) {
+            return res.status(404).json({ message: `Product not found: ${product}` });
+        }
+        if (existingProduct.quantity < quantity) {
+            insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
+        }
+    }
+
+    if (insufficientProducts.length > 0) {
+        return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
+    }
+
+    // Deduct quantities from products
+    try {
+        for (const { product, quantity } of products) {
+            await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } });
+        }
+    } catch (error) {
+        console.error('Error updating product quantities:', error);
+        return res.status(500).json({ message: 'Failed to update product quantities' });
+    }
+
     const order = new Order({
         user: userId || null,
         guestInfo: userId ? undefined : guestInfo,
@@ -105,13 +131,24 @@ router.post('/add-to-cart', async (req, res) => {
         }
 
         const existingCartItemIndex = order.cart.findIndex((item) => item.product._id.toString() === product);
-
         if (existingCartItemIndex !== -1) {
-            order.cart[existingCartItemIndex].quantity += quantity;
+            const newQuantity = order.cart[existingCartItemIndex].quantity + quantity;
+            const existingProduct = await Product.findById(product);
+            if (existingProduct && existingProduct.quantity >= newQuantity) {
+                order.cart[existingCartItemIndex].quantity = newQuantity;
+            } else {
+                return res.status(400).json({ message: `Insufficient quantity for product: ${existingProduct.name}` });
+            }
         } else {
-            order.cart.push({ product, quantity, size, color }); // Добавляем размер и цвет товара в корзину
-            order.products.push({ product, quantity, size, color });
+            const existingProduct = await Product.findById(product);
+            if (existingProduct && existingProduct.quantity >= quantity) {
+                order.cart.push({ product, quantity, size, color });
+                order.products.push({ product, quantity, size, color });
+            } else {
+                return res.status(400).json({ message: `Insufficient quantity for product: ${existingProduct.name}` });
+            }
         }
+
 
         order.totalAmount = order.cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
 
