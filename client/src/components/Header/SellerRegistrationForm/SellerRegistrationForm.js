@@ -76,15 +76,15 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
                 <label>Электронная почта:</label>
                 <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
                 <label>Имя:</label>
-                <input type="text" name="firstName" placeholder="введите свое имя" value={formData.firstName} onChange={handleChange} required />
+                <input type="text" name="firstName" placeholder="Введите свое имя" value={formData.firstName} onChange={handleChange} required />
                 <label>Фамилия:</label>
-                <input type="text" name="lastName" placeholder="введите свое имя фамилия" value={formData.lastName} onChange={handleChange} required />
+                <input type="text" name="lastName" placeholder="Введите свое имя фамилия" value={formData.lastName} onChange={handleChange} required />
                 <label>Название компании:</label>
-                <input type="text" name="companyName" placeholder="введите название своей компании" value={formData.companyName} onChange={handleChange} required />
+                <input type="text" name="companyName" placeholder="Введите название своей компании" value={formData.companyName} onChange={handleChange} required />
                 <label>Телефонный №:</label>
-                <input type="tel" name="phone" placeholder="введите свой номер телефона" value={formData.phone} onChange={handleChange} required />
+                <input type="tel" name="phone" placeholder="Введите свой номер телефона" value={formData.phone} onChange={handleChange} required />
                 <label>Фактический адрес компании:</label>
-                <input type="text" name="address" placeholder="введите адрес компании" value={formData.address} onChange={handleChange} required />
+                <input type="text" name="address" placeholder="Введите адрес компании" value={formData.address} onChange={handleChange} required />
                 <label>О Компании:</label>
                 <textarea name="companyDescription" placeholder="Расскажите о своих товарах" value={formData.companyDescription} onChange={handleChange} required />
 
@@ -93,7 +93,7 @@ const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
                     <input
                         name="password"
                         type={showPassword ? "text" : "password"}
-                        placeholder="придумайте надежный пароль"
+                        placeholder="Придумайте надежный пароль"
                         value={formData.password}
                         onChange={handleChange} required
                     />
