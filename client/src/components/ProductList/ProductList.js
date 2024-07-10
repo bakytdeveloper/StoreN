@@ -365,9 +365,9 @@ const ProductList = ({
                                                 </div>
                                                 <div className="discounted-price">
                                                     {product.originalPrice ? (
-                                                        <div className="price-red">{product.price} сом</div>
+                                                        <div className="price-red">{product.price}<span className="price-som">сом</span></div>
                                                     ) : (
-                                                        <div className="price">{product.price} сом</div>
+                                                        <div className="price">{product.price}<span style={{color:"black"}} className="price-som">сом</span></div>
                                                     )}
                                                     {product.originalPrice && product.originalPrice > product.price && (
                                                         <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
@@ -422,12 +422,12 @@ const ProductList = ({
                                                     </div>
                                                     <div className="discounted-price">
                                                         {product.originalPrice ? (
-                                                            <div className="price-red">{product.price} сом</div>
+                                                            <div className="price-red">{product.price}сом</div>
                                                         ) : (
-                                                            <div className="price">{product.price} сом</div>
+                                                            <div className="price">{product.price}сом</div>
                                                         )}
                                                         {product.originalPrice && product.originalPrice > product.price && (
-                                                            <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
+                                                            <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
                                                         )}
                                                     </div>
                                                 </div>

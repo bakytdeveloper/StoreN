@@ -121,7 +121,7 @@ const NewestProducts = ({ apiUrl }) => {
                             </div>
 
 
-                            <div className="details">
+                            <div className="details-new-product">
                                 {/*<div className="type">{product.type}</div>*/}
 
                                 <div className="brand-and-name-new">
@@ -137,13 +137,13 @@ const NewestProducts = ({ apiUrl }) => {
                                 <div className="discounted-price">
 
                                     {product.originalPrice ? (
-                                        <div className="price-red" style={{fontSize:"18px"}}>{product.price} сом</div>
+                                        <div className="price-red" style={{fontSize:"18px"}}>{product.price}с</div>
                                     ) : (
-                                        <div className="price" style={{fontSize:"17px"}}>{product.price} сом</div>
+                                        <div className="price" style={{fontSize:"17px"}}>{product.price}с</div>
                                     )}
 
                                 {product.originalPrice && product.originalPrice > product.price && (
-                                    <div className="original-price"><s>{product.originalPrice} сом</s></div>
+                                    <div className="original-price"><s>{product.originalPrice}с</s></div>
                                 )}
                             </div>
                             </div>
