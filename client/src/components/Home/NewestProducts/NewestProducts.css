@@ -11,6 +11,15 @@
     gap: 20px;
 }
 
+.product-card-images {
+    align-items: center;
+    padding: 0;
+
+}
+
+
+
+
 .brand-and-name-new {
     /*display: inline-block;*/
     display: flex;

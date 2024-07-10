@@ -287,9 +287,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 }),
             });
 
-            if (response.ok) {
-                toast.success('Email sent to admin');
-            } else {
+            // if (response.ok) {
+            //     toast.success('Email sent to admin');
+            // } else {
+            //     toast.error('Failed to send email');
+            // }
+            if (!response.ok) {
                 toast.error('Failed to send email');
             }
         } catch (error) {

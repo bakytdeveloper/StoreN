@@ -199,7 +199,7 @@ async function notifySellersAboutLowQuantity(products) {
                     from: process.env.EMAIL_USER,
                     to: seller.email,
                     subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
-                    text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..                     Пожалуйста, пополните запасы как можно скорее.\\n\\nС уважением,\\nВаш Магазин\`,
+                    text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..                    
 
                    \nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
                 };
