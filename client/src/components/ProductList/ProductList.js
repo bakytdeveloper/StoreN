@@ -432,6 +432,18 @@ const ProductList = ({
                                                     </div>
                                                 </div>
                                             </Link>
+
+                                            <div className="quantity-progress-bar">
+                                                {product.quantity <= 11 && (
+                                                    <>
+                                                        <div className="product-list-quantity">Осталось {product.quantity} шт.</div>
+                                                        <div className="progress-bar-container">
+                                                            <div className={`progress-bar ${getProgressBarColor(product.quantity)}`} style={{ width: getProgressBarWidth(product.quantity) }} />
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </div>
+
                                             <div className="actions">
                                                 <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
                                                     <strong>+</strong>
