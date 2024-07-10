@@ -198,8 +198,8 @@ async function notifySellersAboutLowQuantity(products) {
                 const mailOptions = {
                     from: process.env.EMAIL_USER,
                     to: seller.email,
-                    subject: `Low Stock Alert: ${existingProduct.name}`,
-                    text: `Dear ${seller.name},\n\nThis is to inform you that the stock for product "${existingProduct.name}" is running low (${existingProduct.quantity} left). Please restock as soon as possible.\n\nRegards,\nThe Store`,
+                    subject: `Оповещение о низком уровне запасов: ${existingProduct.name}`,
+                    text: `Дорогой ${seller.name},\n\nНастоящим информируем вас о том, что товар на складе "${existingProduct.name}" на исходе (${existingProduct.quantity}). Пожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
                 };
                 await transporter.sendMail(mailOptions);
             }
