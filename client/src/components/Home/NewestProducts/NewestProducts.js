@@ -139,7 +139,7 @@ const NewestProducts = ({ apiUrl }) => {
                                     {product.originalPrice ? (
                                         <div className="price-red" style={{fontSize:"18px"}}>{product.price}с</div>
                                     ) : (
-                                        <div className="price" style={{fontSize:"17px"}}>{product.price}с</div>
+                                        <div className="price" style={{fontSize:"18px"}}>{product.price}с</div>
                                     )}
 
                                 {product.originalPrice && product.originalPrice > product.price && (

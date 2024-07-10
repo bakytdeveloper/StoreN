@@ -40,6 +40,8 @@ padding: 0 5px;
 
 .discounted-price-new {
     padding: 0 5px;
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 768px) {
@@ -58,6 +60,8 @@ padding: 0 5px;
 .newest-products-title {
     margin-top: 11px;
 }
+
+
 
 
 }
