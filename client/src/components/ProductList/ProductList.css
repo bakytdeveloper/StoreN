@@ -378,8 +378,9 @@
     flex-direction: column;
     justify-content: center; /* Выравниваем содержимое по центру */
     /*margin-bottom: 10px;*/
-    width: 95%;
+    width: 90%;
     margin: 0 auto;
+    padding: 0 10px 0 0;
 }
 
 .product-list-quantity {
@@ -401,6 +402,7 @@
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
 
 
 .progress-bar-container {
@@ -574,6 +576,9 @@
         justify-content: center; /* Выравниваем содержимое по центру */
         margin-bottom: 3px;
         margin-top: -5px;
+        width: 95%;
+        padding-right: 3px;
+
     }
 
     .product-list-quantity {
