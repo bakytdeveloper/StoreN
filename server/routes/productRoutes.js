@@ -296,4 +296,34 @@ router.get('/accessories/:direction', async (req, res) => {
 });
 
 
+
+// Роут для поиска продавца по ID товара
+router.get('/product/:productId/seller', async (req, res) => {
+    const productId = req.params.productId;
+
+    try {
+        // Находим товар по его ID
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Товар не найден' });
+        }
+
+        // Находим продавца товара по ссылке в поле seller
+        const seller = await Seller.findById(product.seller);
+
+        if (!seller) {
+            return res.status(404).json({ message: 'Продавец не найден' });
+        }
+
+        // Отправляем информацию о продавце
+        res.json(seller);
+    } catch (err) {
+        console.error('Ошибка при поиске продавца:', err.message);
+        res.status(500).json({ message: 'Ошибка сервера' });
+    }
+});
+
+
+
 module.exports = router;
