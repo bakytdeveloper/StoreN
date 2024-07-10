@@ -134,7 +134,7 @@ const NewestProducts = ({ apiUrl }) => {
 
                                 {/*<div className="brand">{product.brand}</div>*/}
                                 {/*<div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>*/}
-                                <div className="discounted-price">
+                                <div className="discounted-price-new">
 
                                     {product.originalPrice ? (
                                         <div className="price-red" style={{fontSize:"18px"}}>{product.price}с</div>

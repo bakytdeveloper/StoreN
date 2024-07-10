@@ -370,7 +370,7 @@ const ProductList = ({
                                                         <div className="price">{product.price}<span style={{color:"black"}} className="price-som">сом</span></div>
                                                     )}
                                                     {product.originalPrice && product.originalPrice > product.price && (
-                                                        <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice} сом</s></div>
+                                                        <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
                                                     )}
                                                 </div>
                                             </div>

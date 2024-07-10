@@ -31,10 +31,15 @@
     /*justify-content: start!important;*/
     justify-content: space-between;
 
+padding: 0 5px;
 }
 
 .new-brand {
     width: auto;
+}
+
+.discounted-price-new {
+    padding: 0 5px;
 }
 
 @media (max-width: 768px) {
