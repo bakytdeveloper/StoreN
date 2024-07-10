@@ -97,7 +97,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         // Ensure newQuantity is within available stock
         const existingItem = cartItems.find(item => item.productId === productId);
         if (existingItem && existingItem.quantity + newQuantity > existingItem.available) {
-            toast.error(`Not enough stock available for ${existingItem.name}`);
+            toast.error(`Недостаточно запасов ${existingItem.name}`);
             return;
         }
 
@@ -245,7 +245,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             } else {
                 const data = await response.json();
                 if (data.message === 'Insufficient product quantities') {
-                    toast.error(`Not enough stock available for ${data.products.map(p => p.name).join(', ')}`);
+                    toast.error(`Недостаточно запасов ${data.products.map(p => p.name).join(', ')}`);
                 } else {
                     console.error('Failed to place order:', data.message);
                 }

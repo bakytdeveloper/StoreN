@@ -6,16 +6,17 @@ const User = require("../models/User");
 const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
 const Product = require("../models/Product");
+const fs = require('fs');
+const path = require('path');
 const {checkRole} = require("../middleware/authenticateToken");
 const {transporter} = require('../smtp/otpService');
+
 
 // // Создание нового заказа (для гостей и зарегистрированных пользователей)
 // router.post('/', async (req, res) => {
 //     console.log('Received order creation request:', req.body);
 //     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
-//
 //     let userId;
-//
 //     if (user) {
 //         let existingUser;
 //         try {
@@ -24,7 +25,6 @@ const {transporter} = require('../smtp/otpService');
 //             console.error('Error finding user:', error);
 //             return res.status(500).json({ message: 'Internal Server Error' });
 //         }
-//
 //         if (existingUser) {
 //             userId = existingUser._id;
 //         } else {
@@ -33,7 +33,6 @@ const {transporter} = require('../smtp/otpService');
 //                 email: user.email,
 //                 address: user.address
 //             });
-//
 //             try {
 //                 const savedUser = await newUser.save();
 //                 userId = savedUser._id;
@@ -43,7 +42,6 @@ const {transporter} = require('../smtp/otpService');
 //             }
 //         }
 //     }
-//
 //     // Check product quantities and update
 //     const insufficientProducts = [];
 //     for (const { product, quantity } of products) {
@@ -55,11 +53,9 @@ const {transporter} = require('../smtp/otpService');
 //             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
 //         }
 //     }
-//
 //     if (insufficientProducts.length > 0) {
 //         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
 //     }
-//
 //     // Deduct quantities from products
 //     try {
 //         for (const { product, quantity } of products) {
@@ -68,6 +64,13 @@ const {transporter} = require('../smtp/otpService');
 //     } catch (error) {
 //         console.error('Error updating product quantities:', error);
 //         return res.status(500).json({ message: 'Failed to update product quantities' });
+//     }
+//
+//     // Notify sellers about low product quantities
+//     try {
+//         await notifySellersAboutLowQuantity(products);
+//     } catch (error) {
+//         console.error('Error notifying sellers:', error);
 //     }
 //
 //     const order = new Order({
@@ -82,7 +85,6 @@ const {transporter} = require('../smtp/otpService');
 //         paymentMethod,
 //         comments,
 //     });
-//
 //     try {
 //         const newOrder = await order.save();
 //         if (userId) {
@@ -97,6 +99,29 @@ const {transporter} = require('../smtp/otpService');
 //         res.status(400).json({ message: error.message });
 //     }
 // });
+//
+// // Функция для отправки уведомлений продавцам о низком количестве товаров
+// async function notifySellersAboutLowQuantity(products) {
+//     for (const { product, quantity } of products) {
+//         const existingProduct = await Product.findById(product).populate('seller');
+//         if (existingProduct && existingProduct.quantity <= 3 && existingProduct.quantity >= 1) {
+//             const seller = existingProduct.seller;
+//             if (seller && seller.email) {
+//                 const mailOptions = {
+//                     from: process.env.EMAIL_USER,
+//                     to: seller.email,
+//                     subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
+//                     text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..
+//
+//                    \nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
+//                 };
+//                 await transporter.sendMail(mailOptions);
+//             }
+//         }
+//     }
+// }
+
+
 
 
 
@@ -147,7 +172,12 @@ router.post('/', async (req, res) => {
     // Deduct quantities from products
     try {
         for (const { product, quantity } of products) {
-            await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } });
+            const updatedProduct = await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } }, { new: true });
+
+            // Check if product quantity is zero and delete if necessary
+            if (updatedProduct.quantity === 0) {
+                await deleteProductAndRelatedData(updatedProduct);
+            }
         }
     } catch (error) {
         console.error('Error updating product quantities:', error);
@@ -188,6 +218,36 @@ router.post('/', async (req, res) => {
     }
 });
 
+
+// Функция для удаления товара и связанных данных, если количество товара равно нулю
+async function deleteProductAndRelatedData(product) {
+    try {
+        // Удаление изображений товара из папки uploads
+        if (product.images && product.images.length > 0) {
+            for (const imageUrl of product.images) {
+                const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
+                fs.unlink(imagePath, (err) => {
+                    if (err) {
+                        console.error(`Error deleting image file ${imagePath}:`, err);
+                    } else {
+                        console.log(`Deleted image file ${imagePath}`);
+                    }
+                });
+            }
+        }
+        // Удаление записи о товаре из базы данных
+        await Product.findByIdAndDelete(product._id);
+        console.log(`Deleted product ${product._id}`);
+    } catch (error) {
+        console.error('Error deleting product and related data:', error);
+    }
+}
+
+
+
+
+
+
 // Функция для отправки уведомлений продавцам о низком количестве товаров
 async function notifySellersAboutLowQuantity(products) {
     for (const { product, quantity } of products) {
@@ -208,7 +268,6 @@ async function notifySellersAboutLowQuantity(products) {
         }
     }
 }
-
 
 
 
