@@ -198,8 +198,10 @@ async function notifySellersAboutLowQuantity(products) {
                 const mailOptions = {
                     from: process.env.EMAIL_USER,
                     to: seller.email,
-                    subject: `Оповещение о низком уровне запасов: ${existingProduct.name}`,
-                    text: `Дорогой ${seller.name},\n\nНастоящим информируем вас о том, что товар на складе "${existingProduct.name}" на исходе (${existingProduct.quantity}). Пожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
+                    subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
+                    text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..                     Пожалуйста, пополните запасы как можно скорее.\\n\\nС уважением,\\nВаш Магазин\`,
+
+                   \nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
                 };
                 await transporter.sendMail(mailOptions);
             }
