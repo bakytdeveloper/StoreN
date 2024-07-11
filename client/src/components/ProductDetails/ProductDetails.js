@@ -218,7 +218,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
                         {sellerName && (
                             <div className="seller-details">
-                                <Link to={`/catalog?sellerId=${product.sellerId}`} className="seller-link">
+                                <Link to={`/catalog?sellerId=${product.seller}`} className="seller-link">
                                     {sellerName}
                                 </Link>
                             </div>

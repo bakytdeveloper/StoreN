@@ -57,9 +57,9 @@ padding: 0 5px;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
     }
-.newest-products-title {
-    margin-top: 11px;
-}
+    .newest-products-title {
+        margin-top: 11px;
+    }
 
 
 
