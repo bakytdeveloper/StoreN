@@ -240,6 +240,17 @@ const ProductList = ({
     };
 
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const sellerId = params.get('sellerId');
+        if (sellerId) {
+            const filtered = products.filter(product => product.seller === sellerId);
+            setFilteredProducts(filtered);
+        } else {
+            setFilteredProducts(products);
+        }
+    }, [location.search, products]);
+
     // return (
     //     <div className="product-list-container">
     //         <div className="product-list">
