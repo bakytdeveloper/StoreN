@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './ProductDetails.css';
-import { useParams, useHistory } from 'react-router-dom';
+import {useParams, useHistory, Link} from 'react-router-dom';
 import RelatedSellerProducts from "./RelatedSellerProducts";
 import RelatedProducts from "./RelatedProducts";
 import RelatedAccessories from "./RelatedAccessories";
@@ -18,6 +18,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
     const history = useHistory();
+    const [sellerName, setSellerName] = useState(null);
 
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
 
@@ -25,6 +26,33 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
         setShowSidebar(true);
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
+
+    // useEffect(() => {
+    //     setSelectedSize(null);
+    //     setSelectedColor(null);
+    //     const fetchProductDetails = async () => {
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
+    //             const data = await response.json();
+    //             if (!data.product) {
+    //                 console.error('Product data is undefined or null');
+    //                 return;
+    //             }
+    //             const productData = data.product;
+    //             const images = productData.images ? productData.images.map(image => image.replace("images/W/MEDIAX_792452-T2/", "")) : [];
+    //             setProduct({
+    //                 ...productData,
+    //                 images: images
+    //             });
+    //             setSelectedImage(images[0]);
+    //         } catch (error) {
+    //             console.error('Ошибка при получении сведений о продукте:', error);
+    //         }
+    //     };
+    //
+    //     fetchProductDetails();
+    // }, [productId]);
+
 
     useEffect(() => {
         setSelectedSize(null);
@@ -44,13 +72,22 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                     images: images
                 });
                 setSelectedImage(images[0]);
+
+                // Fetch seller name
+                const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products/product/${productData._id}/seller`);
+                console.log('sellerResponse:', sellerResponse)
+                const sellerData = await sellerResponse.json();
+                console.log('sellerData:', sellerData)
+                console.log('sellerData:', sellerData.companyName)
+                setSellerName(sellerData.companyName);
+
             } catch (error) {
                 console.error('Ошибка при получении сведений о продукте:', error);
             }
         };
-
         fetchProductDetails();
     }, [productId]);
+
 
     if (!product) {
         return <div>Loading...</div>;
@@ -178,6 +215,15 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                                <div className="details-names-price-original-price"><s>{product.originalPrice} сом</s></div>
                            )}
                        </div>
+
+                        {sellerName && (
+                            <div className="seller-details">
+                                <Link to={`/catalog?sellerId=${product.sellerId}`} className="seller-link">
+                                    {sellerName}
+                                </Link>
+                            </div>
+                        )}
+
                     </div>
                     <hr style={{ width: "100%", height: "1px", border: "1px solid grey", background: "#a5a4a4" }} />
                     <div className="description">
