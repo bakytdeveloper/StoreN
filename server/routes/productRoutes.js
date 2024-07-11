@@ -326,4 +326,20 @@ router.get('/product/:productId/seller', async (req, res) => {
 
 
 
+
+// Получение всех товаров продавца по его ID
+router.get('/seller/:sellerId/products', async (req, res) => {
+    try {
+        const { sellerId } = req.params;
+
+        // Находим все продукты, у которых поле seller соответствует sellerId
+        const sellerProducts = await Product.find({ seller: sellerId });
+
+        res.json(sellerProducts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 module.exports = router;
