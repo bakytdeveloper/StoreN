@@ -54,6 +54,27 @@ const ProductList = ({
         updateSidebar();
     }, [windowWidth, setShowSidebar, isFooterCatalog]);
 
+
+
+    useEffect(() => {
+        const updateSidebar = () => {
+            const params = new URLSearchParams(location.search);
+            const sellerId = params.get('sellerId');
+            if (sellerId && windowWidth <= 768) {
+                setShowSidebar(true);
+            } else if (windowWidth >= 1200) {
+                setShowSidebar(false);
+            } else if (windowWidth >= 768) {
+                setShowSidebar(false);
+            } else {
+                setShowSidebar(isFooterCatalog);
+            }
+        };
+        updateSidebar();
+    }, [windowWidth, setShowSidebar, isFooterCatalog, location.search]);
+
+
+
     useEffect(() => {
         if (location.pathname !== previousPathname.current) {
             setSelectedGender(null);
