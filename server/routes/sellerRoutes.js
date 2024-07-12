@@ -393,18 +393,21 @@ router.put('/:id', authenticateToken, async (req, res) => {
 
 
 
-// router.delete('/images/:imageName', authenticateToken ,  checkRole(['seller']), async (req, res) => {
-//     const imageName = req.params.imageName;
-//     const imagePath = path.join(__dirname, '../uploads', imageName);
-//
-//     fs.unlink(imagePath, (err) => {
-//         if (err) {
-//             console.error('Error deleting image:', err);
-//             return res.status(500).json({ error: 'Failed to delete image' });
-//         }
-//         res.status(200).json({ message: 'Image deleted successfully' });
-//     });
-// });
+// Получение информации о продавце по ID
+router.get('/:sellerId', async (req, res) => {
+    const { sellerId } = req.params;
+
+    try {
+        const seller = await Seller.findById(sellerId);
+        if (!seller) {
+            return res.status(404).json({ message: 'Продавец не найден' });
+        }
+        res.json(seller);
+    } catch (error) {
+        console.error('Ошибка при получении информации о продавце:', error);
+        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
+    }
+});
 
 
 module.exports = router;
