@@ -268,10 +268,12 @@ const ProductList = ({
             {/* Заголовок с информацией о продавце, если есть sellerInfo */}
             {sellerInfo && (
                 <div className="seller-info" >
-                    <h3>Продавец: {sellerInfo.name}</h3>
-                    <p>Компания: {sellerInfo.companyName}</p>
+                    <h3>Приветствую Вас в магазине</h3>
+                    <h2>{sellerInfo.companyName}</h2>
+                    {/*<p>Компания: {sellerInfo.name}</p>*/}
                     {/* Дополнительная информация о продавце, если нужно */}
                 </div>
+
             )}
 
             <div className="product-list">
