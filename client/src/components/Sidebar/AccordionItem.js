@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import {useHistory} from "react-router-dom";
 
 
 const AccordionItem = ({
@@ -17,8 +18,10 @@ const AccordionItem = ({
     const [isGenderExpanded, setIsGenderExpanded] = useState(false);
     const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
     const [expandedType, setExpandedType] = useState(null);
+    const history = useHistory();
 
     const handleGenderClick = async () => {
+        history.push('/catalog')
         if (isGenderExpanded && selectedGender === gender) {
             onGenderClick(null); // Reset selected gender
             setIsGenderExpanded(false);
