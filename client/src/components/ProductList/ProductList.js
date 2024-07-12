@@ -7,6 +7,9 @@ import Sidebar from "../Sidebar/Sidebar";
 import left from "./arrowsL.png";
 import right from "./arrowsR.png";
 import './ProductList.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // import {Spinner} from "react-bootstrap";
 
 const ProductList = ({
@@ -169,6 +172,8 @@ const ProductList = ({
                 item.productId === product._id ? { ...item, quantity: item.quantity + 1 } : item
             );
             setCartItems(updatedCart);
+            toast.success(`${product.type} ${product.name} добавлен в корзину. Количество увеличено.`);
+
         } else {
             setCartItems([
                 ...cartItems,
@@ -183,6 +188,7 @@ const ProductList = ({
                     color: product.color
                 }
             ]);
+            toast.success(`${product.type} ${product.name} добавлен в корзину.`);
         }
     };
 
