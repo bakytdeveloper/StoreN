@@ -242,11 +242,22 @@
     height: 40px!important;
     margin-bottom: 5px;
     margin-top: -5px;
-    width: 100% !important;
+    width: 98% !important;
+    margin-left: auto;
     /*box-sizing: border-box!important;*/
 
 
 }
+
+
+.in-cart {
+    background: #4add72 !important;
+}
+
+.cart-in-cart {
+    margin-bottom: 3px;
+}
+
 
 .cart-button strong {
     font-weight: bold;
