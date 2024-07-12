@@ -39,6 +39,7 @@ const ProductList = ({
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const previousPathname = useRef(location.pathname);
     const [searchEmptyResult, setSearchEmptyResult] = useState(false);
+    const [sellerInfo, setSellerInfo] = useState(null);
 
     useEffect(() => {
         const updateSidebar = () => {
@@ -71,6 +72,15 @@ const ProductList = ({
             const productsData = await productsResponse.json();
             setProducts(productsData);
             setFilteredProducts(filterProducts(productsData));
+
+            if (sellerId) {
+                const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${sellerId}`);
+                const sellerData = await sellerResponse.json();
+                setSellerInfo(sellerData);
+            } else {
+                setSellerInfo(null); // Если нет sellerId, сбросить информацию о продавце
+            }
+
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -254,6 +264,16 @@ const ProductList = ({
 
     return (
         <div className="product-list-container">
+
+            {/* Заголовок с информацией о продавце, если есть sellerInfo */}
+            {sellerInfo && (
+                <div className="seller-info" >
+                    <h3>Продавец: {sellerInfo.name}</h3>
+                    <p>Компания: {sellerInfo.companyName}</p>
+                    {/* Дополнительная информация о продавце, если нужно */}
+                </div>
+            )}
+
             <div className="product-list">
                 {showSidebar && <Sidebar setProducts={setProducts} showSidebar={showSidebar} setShowSidebar={setShowSidebar} selectedOption={selectedCategory} />}
 
