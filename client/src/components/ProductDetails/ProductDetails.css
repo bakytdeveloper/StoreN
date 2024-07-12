@@ -370,11 +370,12 @@ strong {
     .type-details,
     .brand-details,
     .name-details {
-        margin-bottom: 20px;
+        margin-bottom: 8px;
     }
 
     .details-names-price {
         display: flex;
+        margin-bottom: 15px;
     }
 
     .details-names-price-original-price {
@@ -387,6 +388,11 @@ strong {
 
     .price-details {
         font-size: 22px;
+    }
+
+    .seller-details {
+        display: flex;
+        justify-content: space-between;
     }
 
     .details {
