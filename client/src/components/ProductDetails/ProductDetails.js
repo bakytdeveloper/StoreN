@@ -218,6 +218,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
                         {sellerName && (
                             <div className="seller-details">
+                                Посетите наш магазин:
                                 <Link to={`/catalog?sellerId=${product.seller}`} className="seller-link">
                                     {sellerName}
                                 </Link>
