@@ -62,13 +62,12 @@ const ProductList = ({
     const fetchData = async () => {
         setLoading(true);
         try {
-            const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}`, { timeout: 10000 });
+            const params = new URLSearchParams(location.search);
+            const sellerId = params.get('sellerId');
+            const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}${sellerId ? `&sellerId=${sellerId}` : ''}`, { timeout: 10000 });
             const productsData = await productsResponse.json();
             setProducts(productsData);
-
-            // Не требуется отдельный запрос для activeSellers на клиенте
-            const activeSellersData = productsData.map(product => product.sellerId); // Предположим, что в данных продукта есть поле sellerId
-            setFilteredProducts(filterProducts(productsData || [], activeSellersData));
+            setFilteredProducts(filterProducts(productsData));
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -92,7 +91,7 @@ const ProductList = ({
 
     useEffect(() => {
         fetchData();
-    }, [searchKeyword, selectedGender, windowWidth, selectedCategory, selectedType]);
+    }, [searchKeyword, selectedGender, windowWidth, selectedCategory, selectedType, location.search]);
 
     useEffect(() => {
         if (filteredProducts.length === 0 && searchKeyword) {
@@ -105,7 +104,9 @@ const ProductList = ({
 
     useEffect(() => {
         if (products && products.length > 0) {
-            setFilteredProducts(filterProducts(products, products.map(product => product.sellerId)));
+            setFilteredProducts(filterProducts(products));
+
+            // setFilteredProducts(filterProducts(products, products.map(product => product.sellerId)));
         } else {
             fetchData();
         }
@@ -143,7 +144,9 @@ const ProductList = ({
         updateProductsPerPage();
     }, [windowWidth]);
 
-    const filterProducts = (productsToFilter, activeSellersData) => {
+    const filterProducts = (productsToFilter) => {
+        const params = new URLSearchParams(location.search);
+        const sellerId = params.get('sellerId');
         return productsToFilter
             .filter(product => !selectedGender || product.gender === selectedGender)
             .filter(product => !selectedCategory || product.category === selectedCategory)
@@ -156,7 +159,7 @@ const ProductList = ({
                     product.type.toLowerCase().includes(searchKeyword.toLowerCase())
                     : true
             )
-            .filter(product => activeSellersData.includes(product.sellerId));
+            .filter(product => !sellerId || product.seller === sellerId);
     };
 
     const handleAddToCart = (product) => {
@@ -240,16 +243,16 @@ const ProductList = ({
     };
 
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const sellerId = params.get('sellerId');
-        if (sellerId) {
-            const filtered = products.filter(product => product.seller === sellerId);
-            setFilteredProducts(filtered);
-        } else {
-            setFilteredProducts(products);
-        }
-    }, [location.search, products]);
+    // useEffect(() => {
+    //     const params = new URLSearchParams(location.search);
+    //     const sellerId = params.get('sellerId');
+    //     if (sellerId) {
+    //         const filtered = products.filter(product => product.seller === sellerId);
+    //         setFilteredProducts(filtered);
+    //     } else {
+    //         setFilteredProducts(products);
+    //     }
+    // }, [location.search, products]);
 
     // return (
     //     <div className="product-list-container">
