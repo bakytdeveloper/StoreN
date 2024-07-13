@@ -223,21 +223,37 @@ const ProductList = ({
         }
     };
 
+    // const handleNextPage = () => {
+    //     const nextPage = Math.min(currentPage + 1, totalPages);
+    //     if (nextPage !== currentPage) {
+    //         history.push(`?page=${nextPage}`);
+    //         setCurrentPage(nextPage);
+    //     }
+    // };
+    //
+    // const handlePrevPage = () => {
+    //     const prevPage = Math.max(currentPage - 1, 1);
+    //     if (prevPage !== currentPage) {
+    //         history.push(`?page=${prevPage}`);
+    //         setCurrentPage(prevPage);
+    //     }
+    // };
+
+
     const handleNextPage = () => {
-        const nextPage = Math.min(currentPage + 1, totalPages);
-        if (nextPage !== currentPage) {
-            history.push(`?page=${nextPage}`);
-            setCurrentPage(nextPage);
-        }
+        const params = new URLSearchParams(location.search);
+        params.set('page', currentPage + 1);
+        history.push({ search: params.toString() });
+        setCurrentPage(currentPage + 1);
     };
 
     const handlePrevPage = () => {
-        const prevPage = Math.max(currentPage - 1, 1);
-        if (prevPage !== currentPage) {
-            history.push(`?page=${prevPage}`);
-            setCurrentPage(prevPage);
-        }
+        const params = new URLSearchParams(location.search);
+        params.set('page', currentPage - 1);
+        history.push({ search: params.toString() });
+        setCurrentPage(currentPage - 1);
     };
+
 
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
     const startIndex = (currentPage - 1) * productsPerPage;
