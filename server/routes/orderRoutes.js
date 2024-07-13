@@ -124,6 +124,101 @@ const {transporter} = require('../smtp/otpService');
 
 
 
+//
+// // Создание нового заказа (для гостей и зарегистрированных пользователей)
+// router.post('/', async (req, res) => {
+//     console.log('Received order creation request:', req.body);
+//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
+//     let userId;
+//     if (user) {
+//         let existingUser;
+//         try {
+//             existingUser = await User.findOne({ email: user.email });
+//         } catch (error) {
+//             console.error('Error finding user:', error);
+//             return res.status(500).json({ message: 'Internal Server Error' });
+//         }
+//         if (existingUser) {
+//             userId = existingUser._id;
+//         } else {
+//             const newUser = new User({
+//                 name: user.firstName,
+//                 email: user.email,
+//                 address: user.address
+//             });
+//             try {
+//                 const savedUser = await newUser.save();
+//                 userId = savedUser._id;
+//             } catch (error) {
+//                 console.error('Error creating new user:', error);
+//                 return res.status(500).json({ message: 'Internal Server Error' });
+//             }
+//         }
+//     }
+//     // Check product quantities and update
+//     const insufficientProducts = [];
+//     for (const { product, quantity } of products) {
+//         const existingProduct = await Product.findById(product);
+//         if (!existingProduct) {
+//             return res.status(404).json({ message: `Product not found: ${product}` });
+//         }
+//         if (existingProduct.quantity < quantity) {
+//             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
+//         }
+//     }
+//     if (insufficientProducts.length > 0) {
+//         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
+//     }
+//     // Deduct quantities from products
+//     try {
+//         for (const { product, quantity } of products) {
+//             const updatedProduct = await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } }, { new: true });
+//
+//             // Check if product quantity is zero and delete if necessary
+//             if (updatedProduct.quantity === 0) {
+//                 await deleteProductAndRelatedData(updatedProduct);
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Error updating product quantities:', error);
+//         return res.status(500).json({ message: 'Failed to update product quantities' });
+//     }
+//
+//     // Notify sellers about low product quantities
+//     try {
+//         await notifySellersAboutLowQuantity(products);
+//     } catch (error) {
+//         console.error('Error notifying sellers:', error);
+//     }
+//
+//     const order = new Order({
+//         user: userId || null,
+//         guestInfo: userId ? undefined : guestInfo,
+//         cart: [],
+//         products,
+//         totalAmount,
+//         firstName,
+//         address,
+//         phoneNumber,
+//         paymentMethod,
+//         comments,
+//     });
+//     try {
+//         const newOrder = await order.save();
+//         if (userId) {
+//             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
+//         }
+//         res.status(201).json(newOrder);
+//     } catch (error) {
+//         console.error('Error placing order:', error);
+//         if (error.name === 'ValidationError' && error.errors && error.errors.password) {
+//             return res.status(400).json({ message: 'Password is required for registered users' });
+//         }
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+
+
 
 // Создание нового заказа (для гостей и зарегистрированных пользователей)
 router.post('/', async (req, res) => {
@@ -218,8 +313,26 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Функция для отправки уведомлений продавцам о низком количестве товаров
+async function notifySellersAboutLowQuantity(products) {
+    for (const { product, quantity } of products) {
+        const existingProduct = await Product.findById(product).populate('seller');
+        if (existingProduct && existingProduct.quantity <= 3 && existingProduct.quantity >= 1) {
+            const seller = existingProduct.seller;
+            if (seller && seller.email) {
+                const mailOptions = {
+                    from: process.env.EMAIL_USER,
+                    to: seller.email,
+                    subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
+                    text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт.\n\nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
+                };
+                await transporter.sendMail(mailOptions);
+            }
+        }
+    }
+}
 
-// Функция для удаления товара и связанных данных, если количество товара равно нулю
+// // Функция для удаления товара и связанных данных, если количество товара равно нулю
 async function deleteProductAndRelatedData(product) {
     try {
         // Удаление изображений товара из папки uploads
@@ -236,7 +349,24 @@ async function deleteProductAndRelatedData(product) {
             }
         }
         // Удаление записи о товаре из базы данных
-        await Product.findByIdAndDelete(product._id);
+
+        const existingProduct = await Product.findById(product).populate('seller');
+
+        if (existingProduct && existingProduct.quantity == 0) {
+            const seller = existingProduct.seller;
+            if (seller && seller.email) {
+                const mailOptions = {
+                    from: process.env.EMAIL_USER,
+                    to: seller.email,
+                    subject: `Удаление товара: ${product.name}`,
+                    text: `Дорогой ${seller.name},\n\nТовар "${product.name}" был удалён из-за нулевого количества на складе.\n\nС уважением,\nВаш Магазин`,
+                };
+                await transporter.sendMail(mailOptions);
+            }
+            await Product.findByIdAndDelete(product._id);
+        }
+
+
         console.log(`Deleted product ${product._id}`);
     } catch (error) {
         console.error('Error deleting product and related data:', error);
@@ -248,26 +378,57 @@ async function deleteProductAndRelatedData(product) {
 
 
 
-// Функция для отправки уведомлений продавцам о низком количестве товаров
-async function notifySellersAboutLowQuantity(products) {
-    for (const { product, quantity } of products) {
-        const existingProduct = await Product.findById(product).populate('seller');
-        if (existingProduct && existingProduct.quantity <= 3 && existingProduct.quantity >= 1) {
-            const seller = existingProduct.seller;
-            if (seller && seller.email) {
-                const mailOptions = {
-                    from: process.env.EMAIL_USER,
-                    to: seller.email,
-                    subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
-                    text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..                    
 
-                   \nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
-                };
-                await transporter.sendMail(mailOptions);
-            }
-        }
-    }
-}
+
+// // Функция для удаления товара и связанных данных, если количество товара равно нулю
+// async function deleteProductAndRelatedData(product) {
+//     try {
+//         // Удаление изображений товара из папки uploads
+//         if (product.images && product.images.length > 0) {
+//             for (const imageUrl of product.images) {
+//                 const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
+//                 fs.unlink(imagePath, (err) => {
+//                     if (err) {
+//                         console.error(`Error deleting image file ${imagePath}:`, err);
+//                     } else {
+//                         console.log(`Deleted image file ${imagePath}`);
+//                     }
+//                 });
+//             }
+//         }
+//         // Удаление записи о товаре из базы данных
+//         await Product.findByIdAndDelete(product._id);
+//         console.log(`Deleted product ${product._id}`);
+//     } catch (error) {
+//         console.error('Error deleting product and related data:', error);
+//     }
+// }
+
+
+
+
+
+
+// // Функция для отправки уведомлений продавцам о низком количестве товаров
+// async function notifySellersAboutLowQuantity(products) {
+//     for (const { product, quantity } of products) {
+//         const existingProduct = await Product.findById(product).populate('seller');
+//         if (existingProduct && existingProduct.quantity <= 3 && existingProduct.quantity >= 1) {
+//             const seller = existingProduct.seller;
+//             if (seller && seller.email) {
+//                 const mailOptions = {
+//                     from: process.env.EMAIL_USER,
+//                     to: seller.email,
+//                     subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
+//                     text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..
+//
+//                    \nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
+//                 };
+//                 await transporter.sendMail(mailOptions);
+//             }
+//         }
+//     }
+// }
 
 
 
