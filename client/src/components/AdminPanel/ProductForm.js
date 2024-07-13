@@ -201,6 +201,12 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     const handleFormSubmit = async (formData) => {
         setIsSubmitting(true); // Устанавливаем состояние отправки формы в true
 
+        if (formData.price >= formData.originalPrice) {
+            toast.error('Цена не должна быть больше или равна Цене до скидки');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             let response;
             const token = localStorage.getItem('token');
@@ -298,7 +304,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             quantity: 10,
         });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isSubmitting) {
@@ -315,8 +320,15 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             return;
         }
 
+        if (formData.price >= formData.originalPrice) {
+            toast.error('Цена не должна быть больше или равна Цене до скидки');
+            setIsSubmitting(false);
+            return;
+        }
+
         handleFormSubmit(formData);
     };
+
 
     const handleClose = () => {
         history.goBack(); // Переход на предыдущую страницу
