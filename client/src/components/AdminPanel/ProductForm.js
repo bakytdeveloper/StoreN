@@ -136,10 +136,19 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     const handleChange = async (e) => {
         const { name, value } = e.target;
 
+        // if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
+        //     // Prevent setting quantity below zero
+        //     const newValue = parseInt(value, 10);
+        //     if (newValue < 0) {
+        //         toast.error('Количество не может быть меньше нуля');
+        //         return; // Do not update state
+        //     }
+        // }
+
         if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
             // Prevent setting quantity below zero
             const newValue = parseInt(value, 10);
-            if (newValue < 0) {
+            if (newValue < 1) {
                 toast.error('Количество не может быть меньше нуля');
                 return; // Do not update state
             }
@@ -532,7 +541,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             <input type="number"
                    id="quantity"
                    name="quantity"
-                   min="0"
+                   min="1"
                    value={formData.quantity}
                    onChange={handleChange} required />
 
