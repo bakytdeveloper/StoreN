@@ -13,7 +13,8 @@ const AccordionItem = ({
                            types,
                            onTypeClick,
                            isSmallScreen,
-                           setShowSidebar
+                           setShowSidebar,
+                           setSearchTerm
                        }) => {
     const [isGenderExpanded, setIsGenderExpanded] = useState(false);
     const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
@@ -25,7 +26,11 @@ const AccordionItem = ({
         if (isGenderExpanded && selectedGender === gender) {
             onGenderClick(null); // Reset selected gender
             setIsGenderExpanded(false);
+
+
+
         } else {
+
             await onGenderClick(gender);
             setIsGenderExpanded(true);
         }
@@ -35,6 +40,8 @@ const AccordionItem = ({
         if (isCategoryExpanded && selectedCategory === category) {
             onCategoryClick(null); // Reset selected category
             setIsCategoryExpanded(false);
+
+
         } else {
             await onCategoryClick(category);
             setIsCategoryExpanded(true);

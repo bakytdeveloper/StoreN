@@ -46,6 +46,7 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(true); // Состояние для загрузки
     const [activeComponent, setActiveComponent] = useState(null); // Состояние для активного компонента
     const [isFooterCatalog, setIsFooterCatalog] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -103,6 +104,8 @@ const App = () => {
                                 setSelectedOption={setSelectedOption}
                                 setCurrentPage={setCurrentPage}
                                 setIsFooterCatalog={setIsFooterCatalog}
+                                setSearchTerm={setSearchTerm}
+                                searchTerm={searchTerm}
                             />
                         )}
                         <Sidebar
@@ -116,6 +119,9 @@ const App = () => {
                             setSelectedGender={setSelectedGender}
                             setSelectedCategory={setSelectedCategory}
                             setSelectedType={setSelectedType}
+                            setSearchTerm={setSearchTerm}
+
+                            onSearch={handleSearch}
                         />
                         <Switch>
                             <Route path="/" exact>
@@ -141,6 +147,7 @@ const App = () => {
                                     setSelectedCategory={setSelectedCategory}
                                     setSelectedType={setSelectedType}
                                     isFooterCatalog={isFooterCatalog}
+                                    setSearchTerm={setSearchTerm}
                                 />
                             </Route>
                             )}

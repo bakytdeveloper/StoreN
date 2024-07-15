@@ -11,8 +11,8 @@ import cross from "./../Footer/cross.png";
 import './Header.css';
 
 
-const Header = ({ onSearch, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
+    // const [searchTerm, setSearchTerm] = useState('');
     const [catalogButtonColor, setCatalogButtonColor] = useState('initial');
     const [contactButtonColor, setContactButtonColor] = useState('initial');
     const [isProfileOpen, setIsProfileOpen] = useState(false);

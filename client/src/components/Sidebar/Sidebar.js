@@ -19,7 +19,9 @@ const Sidebar = ({
                      selectedType,
                      setSelectedGender,
                      setSelectedCategory,
-                     setSelectedType
+                     setSelectedType,
+                     setSearchTerm,
+                     onSearch
                  }) => {
     const [genders, setGenders] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -67,15 +69,26 @@ const Sidebar = ({
             setSelectedGender(null);
             setCategories([]);
             setProducts([]);
+
+            setSearchTerm('');
+            onSearch('');
+            
         } else {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`);
                 const data = await response.json();
+
+                setSearchTerm('');
+                onSearch('');
+
                 setCategories(data.categories);
                 setSelectedGender(gender);
                 setSelectedCategory(null);
                 setSelectedType(null);
                 setProducts(data.products);
+
+
+
             } catch (error) {
                 console.error('Error fetching categories by gender:', error);
             }
@@ -95,6 +108,9 @@ const Sidebar = ({
                 setSelectedCategory(category);
                 setSelectedType(null);
                 setProducts(data.products);
+
+
+
             } catch (error) {
                 console.error('Error fetching types by category:', error);
             }
@@ -150,6 +166,7 @@ const Sidebar = ({
                                 onTypeClick={handleTypeClick}
                                 isSmallScreen={isSmallScreen}
                                 setShowSidebar={setShowSidebar}
+                                setSearchTerm={setSearchTerm}
                             />
                         ))}
                     </>
