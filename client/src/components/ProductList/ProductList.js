@@ -13,20 +13,20 @@ import 'react-toastify/dist/ReactToastify.css';
 // import {Spinner} from "react-bootstrap";
 
 const ProductList = ({
-                         searchKeyword,
-                         cartItems,
-                         setCartItems,
-                         products,
-                         setProducts,
-                         showSidebar,
-                         setShowSidebar,
-                         selectedGender,
-                         selectedCategory,
-                         selectedType,
-                         setSelectedGender,
-                         setSelectedCategory,
-                         setSelectedType,
-                         isFooterCatalog
+                         searchKeyword, // Поисковый запрос для фильтрации продуктов
+                         cartItems, // Элементы корзины покупок
+                         setCartItems, // Функция для обновления элементов корзины покупок
+                         products, // Список продуктов для отображения
+                         setProducts, // Функция для обновления списка продуктов
+                         showSidebar, // Показать боковую панель
+                         setShowSidebar, // Функция для управления видимостью боковой панели
+                         selectedGender, // Выбранный пол продукта для фильтрации
+                         selectedCategory, // Выбранная категория продукта для фильтрации
+                         selectedType, // Выбранный тип продукта для фильтрации
+                         setSelectedGender, // Функция для обновления выбранного пола продукта
+                         setSelectedCategory, // Функция для обновления выбранной категории продукта
+                         setSelectedType, // Функция для обновления выбранного типа продукта
+                         isFooterCatalog // Флаг, указывающий, является ли это подвалом каталога
                      }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +41,7 @@ const ProductList = ({
     const [searchEmptyResult, setSearchEmptyResult] = useState(false);
     const [sellerInfo, setSellerInfo] = useState(null);
 
+    // Обновление боковой панели при изменении ширины окна
     useEffect(() => {
         const updateSidebar = () => {
             if (windowWidth >= 1200) {
@@ -55,7 +56,7 @@ const ProductList = ({
     }, [windowWidth, setShowSidebar, isFooterCatalog]);
 
 
-
+    // Обновление боковой панели при изменении ширины окна и наличии параметров в URL-адресе
     useEffect(() => {
         const updateSidebar = () => {
             const params = new URLSearchParams(location.search);
@@ -74,7 +75,7 @@ const ProductList = ({
     }, [windowWidth, setShowSidebar, isFooterCatalog, location.search]);
 
 
-
+    // Сброс выбранных параметров фильтрации при изменении пути URL-адреса
     useEffect(() => {
         if (location.pathname !== previousPathname.current) {
             setSelectedGender(null);
@@ -84,6 +85,7 @@ const ProductList = ({
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType]);
 
+    // Функция для получения данных с сервера
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -109,6 +111,8 @@ const ProductList = ({
         }
     };
 
+
+    // Обработка параметров фильтрации из URL-адреса при загрузке страницы
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const gender = params.get('gender');
@@ -119,14 +123,17 @@ const ProductList = ({
         setCurrentPage(page);
     }, [location.search, setSelectedGender]);
 
+    // Прокрутка страницы в начало при изменении текущей страницы пагинации
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [currentPage]);
 
+    // Запрос данных с сервера при изменении параметров фильтрации
     useEffect(() => {
         fetchData();
     }, [searchKeyword, selectedGender, windowWidth, selectedCategory, selectedType, location.search]);
 
+    // Отображение сообщения о пустом результате поиска
     useEffect(() => {
         if (filteredProducts.length === 0 && searchKeyword) {
             setSearchEmptyResult(true);
@@ -135,7 +142,7 @@ const ProductList = ({
         }
     }, [filteredProducts, searchKeyword]);
 
-
+    // Фильтрация продуктов при получении нового списка продуктов с сервера или изменении текущей страницы пагинации
     useEffect(() => {
         if (products && products.length > 0) {
             setFilteredProducts(filterProducts(products));
@@ -146,6 +153,7 @@ const ProductList = ({
         }
     }, [products, currentPage]);
 
+    // Обновление ширины окна браузера при изменении размера окна
     useEffect(() => {
         const handleResize = () => {
             clearTimeout(resizeTimer);
@@ -161,6 +169,7 @@ const ProductList = ({
         };
     }, [resizeTimer]);
 
+    // Обновление количества отображаемых продуктов на странице при изменении размера окна
     useEffect(() => {
         const updateProductsPerPage = () => {
             if (windowWidth >= 1340) {
@@ -178,6 +187,7 @@ const ProductList = ({
         updateProductsPerPage();
     }, [windowWidth]);
 
+    // Фильтрация продуктов по выбранным параметрам
     const filterProducts = (productsToFilter) => {
         const params = new URLSearchParams(location.search);
         const sellerId = params.get('sellerId');
@@ -196,6 +206,8 @@ const ProductList = ({
             .filter(product => !sellerId || product.seller === sellerId);
     };
 
+
+    // Добавление продукта в корзину покупок
     const handleAddToCart = (product) => {
         const itemInCart = cartItems.find(item => item.productId === product._id);
         if (itemInCart) {
@@ -223,23 +235,7 @@ const ProductList = ({
         }
     };
 
-    // const handleNextPage = () => {
-    //     const nextPage = Math.min(currentPage + 1, totalPages);
-    //     if (nextPage !== currentPage) {
-    //         history.push(`?page=${nextPage}`);
-    //         setCurrentPage(nextPage);
-    //     }
-    // };
-    //
-    // const handlePrevPage = () => {
-    //     const prevPage = Math.max(currentPage - 1, 1);
-    //     if (prevPage !== currentPage) {
-    //         history.push(`?page=${prevPage}`);
-    //         setCurrentPage(prevPage);
-    //     }
-    // };
-
-
+    // Переход на следующую страницу пагинации
     const handleNextPage = () => {
         const params = new URLSearchParams(location.search);
         params.set('page', currentPage + 1);
@@ -247,6 +243,7 @@ const ProductList = ({
         setCurrentPage(currentPage + 1);
     };
 
+    // Переход на предыдущую страницу пагинации
     const handlePrevPage = () => {
         const params = new URLSearchParams(location.search);
         params.set('page', currentPage - 1);
@@ -254,18 +251,23 @@ const ProductList = ({
         setCurrentPage(currentPage - 1);
     };
 
-
+    // Вычисление общего количества страниц для пагинации
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    // Вычисление индекса начала отображаемых продуктов на текущей странице
     const startIndex = (currentPage - 1) * productsPerPage;
+
+    // Выборка продуктов для текущей страницы
     const displayedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
 
+    // Формирование полного URL-адреса изображения с сервера
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
 
 
-
+    // Вычисление процента скидки между оригинальной и текущей ценами продукта
     const calculateDiscountPercentage = (originalPrice, price) => {
         if (!originalPrice || originalPrice <= price) return 0;
         return Math.floor((originalPrice - price) / originalPrice * 100).toFixed();
@@ -273,7 +275,7 @@ const ProductList = ({
 
 
 
-
+    // Обработка скрытия скролла страницы при отображении боковой панели на мобильных устройствах
     useEffect(() => {
         if (!showSidebar && windowWidth <= 768 && location.pathname === "/catalog") {
             document.body.classList.add('no-scroll');
@@ -283,7 +285,7 @@ const ProductList = ({
         }
     }, [showSidebar, windowWidth, location.pathname]);
 
-
+    // Определение цвета и ширины прогресс-бара в зависимости от количества товара
     const getProgressBarColor = (quantity) => {
         if (quantity <= 3) return 'red';
         if (quantity <= 10) return 'orange';
@@ -293,8 +295,8 @@ const ProductList = ({
     const getProgressBarWidth = (quantity) => {
         const maxQuantity = 10; // Максимальное количество, при котором прогресс-бар будет заполнен на 100%
         return Math.min((quantity / maxQuantity) * 100, 100) + '%';
-    };
-
+    };э
+    // Проверка, находится ли продукт в корзине покупок
     const isInCart = (productId) => {
         return cartItems.some(item => item.productId === productId);
     };
