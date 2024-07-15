@@ -295,7 +295,7 @@ const ProductList = ({
     const getProgressBarWidth = (quantity) => {
         const maxQuantity = 10; // Максимальное количество, при котором прогресс-бар будет заполнен на 100%
         return Math.min((quantity / maxQuantity) * 100, 100) + '%';
-    };э
+    };
     // Проверка, находится ли продукт в корзине покупок
     const isInCart = (productId) => {
         return cartItems.some(item => item.productId === productId);
