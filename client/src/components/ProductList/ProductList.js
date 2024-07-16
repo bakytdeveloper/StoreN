@@ -26,7 +26,9 @@ const ProductList = ({
                          setSelectedGender, // Функция для обновления выбранного пола продукта
                          setSelectedCategory, // Функция для обновления выбранной категории продукта
                          setSelectedType, // Функция для обновления выбранного типа продукта
-                         isFooterCatalog // Флаг, указывающий, является ли это подвалом каталога
+                         isFooterCatalog, // Флаг, указывающий, является ли это подвалом каталога
+                         // onSearch,
+                         setSearchTerm
                      }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -301,6 +303,11 @@ const ProductList = ({
         return cartItems.some(item => item.productId === productId);
     };
 
+    const clearSearch = () => {
+        setSearchTerm('');
+        // onSearch('');
+    }
+
     return (
         <div className="product-list-container">
 
@@ -330,7 +337,7 @@ const ProductList = ({
                     <>
                         {displayedProducts.length ? (
                             displayedProducts.map(product => (
-                                <div className="product-card" key={product._id}>
+                                <div className="product-card" onClick={clearSearch} key={product._id}>
                                     <Link to={`/products/${product._id}`}>
                                         <div className="product-card-images">
                                             {product.originalPrice && product.originalPrice > product.price && (
@@ -406,8 +413,8 @@ const ProductList = ({
                                     <div>Попробуйте поискать по другому или сократите запрос</div>
                                     <h1 style={{marginBottom:"-40px"}}>Возможно вам понравятся:</h1>
                                 </div>
-                                {products.map(product => (
-                                    <div className="product-card" key={product._id}>
+                                {products && products.map(product => (
+                                    <div className="product-card" onClick={clearSearch} key={product._id}>
                                         <Link to={`/products/${product._id}`}>
                                             <div className="product-card-images">
                                                 {product.originalPrice && product.originalPrice > product.price && (

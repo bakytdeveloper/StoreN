@@ -109,6 +109,9 @@ const Sidebar = ({
                 setSelectedType(null);
                 setProducts(data.products);
 
+                setSearchTerm('');
+                onSearch('');
+
 
 
             } catch (error) {
@@ -127,6 +130,9 @@ const Sidebar = ({
                 const data = await response.json();
                 setSelectedType(type);
                 setProducts(data.products);
+
+                setSearchTerm('');
+                onSearch('');
 
                 if (isSmallScreen) {
                     setShowSidebar(false);
