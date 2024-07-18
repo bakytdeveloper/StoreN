@@ -33,6 +33,13 @@ const Profile = ({ setShowSidebar }) => {
     const history = useHistory();
 
     useEffect(() => {
+        setShowSidebar(true);
+        return () => {
+            setShowSidebar(true);
+        };
+    }, [setShowSidebar]);
+
+    useEffect(() => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
