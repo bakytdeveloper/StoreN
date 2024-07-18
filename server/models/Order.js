@@ -82,6 +82,8 @@ const orderSchema = new mongoose.Schema({
             name: { type: String, required: true },
             brand: { type: String },
             type: { type: String },
+            category: { type: String },
+            description: { type: String },
             price: { type: Number, required: true },
             quantity: { type: Number, required: true },
             size: { type: String }, // Добавляем поле для хранения размера продукта

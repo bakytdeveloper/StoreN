@@ -10,6 +10,7 @@ const User = require("../models/User");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const mongoose = require("mongoose");
 
 
 // Защищённый маршрут для получения списка всех продавцов
@@ -268,34 +269,181 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
-router.get('/sales-history', authenticateToken,  checkRole(['seller']), async (req, res) => {
+// router.get('/sales-history', authenticateToken,  checkRole(['seller']), async (req, res) => {
+//     try {
+//         const { page = 1, perPage = 15 } = req.query;
+//         const sellerId = req.user.sellerId;
+//         const sellerProducts = await Product.find({ seller: sellerId });
+//
+//         const orders = await Order.aggregate([
+//             { $match: { 'products.product': { $in: sellerProducts.map(product => product._id) } } },
+//             { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+//             { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
+//             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
+//             { $addFields: { products: { $filter: { input: '$products', as: 'product', cond: { $in: ['$$product.product', sellerProducts.map(product => product._id)] } } } } },
+//             { $addFields: { products: { $map: { input: '$products', as: 'product', in: { $mergeObjects: ['$$product', { product: { $arrayElemAt: [{ $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } }, 0] } }] } } } } },
+//             { $addFields: { totalAmount: { $reduce: { input: '$products', initialValue: 0, in: { $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }] } } } } },
+//             { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 } } },
+//             { $sort: { date: -1 } }, // Сортировка по убыванию даты
+//             { $skip: (page - 1) * perPage },
+//             { $limit: parseInt(perPage, 10) }
+//         ]);
+//
+//         const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.map(product => product._id) } });
+//         res.json({ orders, totalOrders, page: parseInt(page, 15), perPage: parseInt(perPage, 15) });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+// router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
+//     try {
+//         const { page = 1, perPage = 15 } = req.query;
+//         const sellerId = req.user.sellerId;
+//
+//         console.log("req.user:", req.user);
+//
+//         // Проверяем, существует ли sellerId
+//         if (!mongoose.Types.ObjectId.isValid(sellerId)) {
+//             console.log("Invalid seller ID:", sellerId);
+//             return res.status(400).json({ message: "Invalid seller ID" });
+//         }
+//
+//         // Находим все продукты текущего продавца
+//         const sellerProducts = await Product.find({ seller: sellerId });
+//         console.log("sellerProducts:", sellerProducts);
+//
+//         // Проверяем, что sellerProducts - массив
+//         if (!Array.isArray(sellerProducts) || sellerProducts.length === 0) {
+//             console.log("No products found for the seller:", sellerId);
+//             return res.status(404).json({ message: "No products found for the seller" });
+//         }
+//
+//         // Получаем заказы, которые содержат продукты текущего продавца
+//         const orders = await Order.aggregate([
+//             { $match: { 'products.product': { $in: sellerProducts.map(product => product._id) } } },
+//             { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+//             { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
+//             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
+//             { $addFields: { products: { $filter: { input: '$products', as: 'product', cond: { $in: ['$$product.product', sellerProducts.map(product => product._id)] } } } } },
+//             { $addFields: { products: { $map: { input: '$products', as: 'product', in: { $mergeObjects: ['$$product', { product: { $arrayElemAt: [{ $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } }, 0] } }] } } } } },
+//             { $addFields: { totalAmount: { $reduce: { input: '$products', initialValue: 0, in: { $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }] } } } } },
+//             { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 } } },
+//             { $sort: { date: -1 } },
+//             { $skip: (page - 1) * perPage },
+//             { $limit: parseInt(perPage, 10) }
+//         ]);
+//
+//         console.log("orders:", orders);
+//
+//         // Считаем общее количество заказов для текущего продавца
+//         const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.map(product => product._id) } });
+//
+//         console.log("totalOrders:", totalOrders);
+//
+//         // Отправляем ответ клиенту
+//         res.json({ orders, totalOrders, page: parseInt(page, 10), perPage: parseInt(perPage, 10) });
+//     } catch (error) {
+//         console.error("Error fetching sales history:", error);
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+// router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
+//     try {
+//         const { page = 1, perPage = 15 } = req.query;
+//         const sellerId = req.user.sellerId;
+//
+//         console.log("req.user:", req.user);
+//
+//         // Проверяем, существует ли sellerId
+//         if (!mongoose.Types.ObjectId.isValid(sellerId)) {
+//             console.log("Invalid seller ID:", sellerId);
+//             return res.status(400).json({ message: "Invalid seller ID" });
+//         }
+//
+//         // Получаем заказы, содержащие продукты текущего продавца
+//         const orders = await Order.aggregate([
+//             // Присоединяем информацию о продуктах
+//             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
+//             // Фильтруем заказы, чтобы оставить только те, которые содержат продукты текущего продавца
+//             { $match: { 'productDetails.seller': mongoose.Types.ObjectId(sellerId) } },
+//             // Присоединяем информацию о пользователе, связанного с заказом
+//             { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+//             { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
+//             // Фильтруем продукты, чтобы оставить только те, которые принадлежат текущему продавцу
+//             { $addFields: { products: { $filter: { input: '$products', as: 'product', cond: { $in: ['$$product.product', { $map: { input: '$productDetails', as: 'pd', in: '$$pd._id' } }] } } } } },
+//             // Рассчитываем общую сумму заказа
+//             { $addFields: { totalAmount: { $reduce: { input: '$products', initialValue: 0, in: { $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }] } } } } },
+//             // Выбираем нужные поля для отображения
+//             { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 } } },
+//             // Сортируем заказы по убыванию даты
+//             { $sort: { date: -1 } },
+//             // Пропускаем заказы для пагинации
+//             { $skip: (page - 1) * perPage },
+//             // Ограничиваем количество заказов на странице
+//             { $limit: parseInt(perPage, 10) }
+//         ]);
+//
+//         console.log("orders:", orders);
+//
+//         // Считаем общее количество заказов для текущего продавца
+//         const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.map(product => product._id) } });
+//
+//         console.log("totalOrders:", totalOrders);
+//
+//         // Отправляем ответ клиенту
+//         res.json({ orders, totalOrders, page: parseInt(page, 10), perPage: parseInt(perPage, 10) });
+//     } catch (error) {
+//         console.error("Error fetching sales history:", error);
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+
+
+router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const { page = 1, perPage = 15 } = req.query;
         const sellerId = req.user.sellerId;
-        const sellerProducts = await Product.find({ seller: sellerId });
 
+        console.log("req.user:", req.user);
+
+        // Проверяем, существует ли sellerId
+        if (!mongoose.Types.ObjectId.isValid(sellerId)) {
+            console.log("Invalid seller ID:", sellerId);
+            return res.status(400).json({ message: "Invalid seller ID" });
+        }
+
+        // Получаем заказы, которые содержат продукты текущего продавца
         const orders = await Order.aggregate([
-            { $match: { 'products.product': { $in: sellerProducts.map(product => product._id) } } },
+            { $match: { 'products.product': { $in: (await Product.find({ seller: sellerId })).map(product => product._id) } } },
             { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
             { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
-            { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
-            { $addFields: { products: { $filter: { input: '$products', as: 'product', cond: { $in: ['$$product.product', sellerProducts.map(product => product._id)] } } } } },
-            { $addFields: { products: { $map: { input: '$products', as: 'product', in: { $mergeObjects: ['$$product', { product: { $arrayElemAt: [{ $filter: { input: '$productDetails', as: 'pd', cond: { $eq: ['$$pd._id', '$$product.product'] } } }, 0] } }] } } } } },
-            { $addFields: { totalAmount: { $reduce: { input: '$products', initialValue: 0, in: { $add: ['$$value', { $multiply: ['$$this.product.price', '$$this.quantity'] }] } } } } },
             { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 } } },
-            { $sort: { date: -1 } }, // Сортировка по убыванию даты
+            { $sort: { date: -1 } },
             { $skip: (page - 1) * perPage },
             { $limit: parseInt(perPage, 10) }
         ]);
 
-        const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.map(product => product._id) } });
-        res.json({ orders, totalOrders, page: parseInt(page, 15), perPage: parseInt(perPage, 15) });
+        console.log("orders:", orders);
+
+        // Считаем общее количество заказов для текущего продавца
+        const totalOrders = await Order.countDocuments({ 'products.product': { $in: (await Product.find({ seller: sellerId })).map(product => product._id) } });
+
+        console.log("totalOrders:", totalOrders);
+
+        // Отправляем ответ клиенту
+        res.json({ orders, totalOrders, page: parseInt(page, 10), perPage: parseInt(perPage, 10) });
     } catch (error) {
+        console.error("Error fetching sales history:", error);
         res.status(500).json({ message: error.message });
     }
 });
-
-
 
 
 router.put('/:id', authenticateToken, async (req, res) => {
