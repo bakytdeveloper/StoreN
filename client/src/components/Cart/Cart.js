@@ -197,53 +197,55 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     // };
 
     const handlePlaceOrder = async () => {
+        if (orderPlaced) return;
+
+        setOrderPlaced(true);
+
+        if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
+            toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
+            setOrderPlaced(false);
+            return;
+        }
+
+        const token = localStorage.getItem('token');
+        const orderData = {
+            user: token ? { firstName, email } : null,
+            guestInfo: token ? undefined : { name: firstName, email },
+            address,
+            phoneNumber,
+            products: cartItems.map(item => ({
+                product: item.productId,
+                quantity: item.quantity,
+                size: item.size,
+                color: item.color,
+            })),
+            totalAmount: totalPrice,
+            paymentMethod,
+            comments,
+            userName: userName || 'Гость',
+        };
+
         try {
-            if (orderPlaced) {
-                return;
-            }
-            setOrderPlaced(true);
-
-            if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
-                toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
-                return;
-            }
-
-            const token = localStorage.getItem('token');
-
-            const response = await fetch(`${apiUrl}/api/orders`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    user: token ? { firstName, email } : null,
-                    guestInfo: token ? undefined : { name: firstName, email },
-                    address,
-                    phoneNumber,
-                    products: cartItems.map((item) => ({
-                        product: item.productId,
-                        quantity: item.quantity,
-                        size: item.size,
-                        color: item.color,
-                    })),
-                    totalAmount: totalPrice,
-                    paymentMethod,
-                    comments,
-                    userName: userName || 'Гость',
+            const [orderResponse, emailResponse] = await Promise.all([
+                fetch(`${apiUrl}/api/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(orderData),
                 }),
-            });
+                sendOrderEmail()  // Отправляем email администратору
+            ]);
 
-            if (response.ok) {
-                const data = await response.json();
+            if (orderResponse.ok) {
+                const data = await orderResponse.json();
                 console.log('Order placed successfully:', data);
-                await sendOrderEmail();  // Отправляем email администратору
-
                 setCartItems([]);
                 history.push('/');
                 toast.success('Ваш заказ принят. Спасибо за покупку');
             } else {
-                const data = await response.json();
+                const data = await orderResponse.json();
                 if (data.message === 'Insufficient product quantities') {
                     toast.error(`Недостаточно запасов ${data.products.map(p => p.name).join(', ')}`);
                 } else {
