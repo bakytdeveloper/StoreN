@@ -84,9 +84,7 @@ const SalesHistory = ({ setShowSidebar }) => {
                     <th>Название товара</th>
                     <th>Цвет товара</th>
                     <th>Размер</th>
-
                     <th>Кол.</th>
-
                     <th>Цена товара</th>
                     <th>Сумма</th>
                 </tr>
