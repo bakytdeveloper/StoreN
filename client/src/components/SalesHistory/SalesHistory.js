@@ -93,25 +93,31 @@ const SalesHistory = ({ setShowSidebar }) => {
                 </thead>
                 <tbody>
                 {orders.map((order) => (
-                    order.products.map((item, index) => (
-                        <tr key={`${order._id}-${item.product ? item.product._id : index}`}>
-                            {index === 0 && (
-                                <>
-                                    <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
-                                    <td rowSpan={order.products.length}>{order.status}</td>
-                                </>
-                            )}
-                            <td>{item.product ? item.product.type : 'N/A'}</td>
-                            <td>{item.product ? item.product.name : 'N/A'}</td>
-                            <td>{item.color}</td>
-                            <td>{item.size}</td>
+                    Array.isArray(order.products) && order.products.length > 0 ? (
+                        order.products.map((item, index) => (
+                            <tr key={`${order._id}-${item.product ? item.product._id : index}`}>
+                                {index === 0 && (
+                                    <>
+                                        <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
+                                        <td rowSpan={order.products.length}>{order.status}</td>
+                                    </>
+                                )}
+                                <td>{item.type}</td>
+                                <td>{item.name}</td>
+                                <td>{item.color}</td>
+                                <td>{item.size}</td>
 
-                            <td style={{textAlign:"center"}}>{item.quantity}</td>
+                                <td style={{textAlign:"center"}}>{item.quantity}</td>
 
-                            <td>{item.product ? item.product.price : 'N/A'}</td>
-                            {index === 0 && <td rowSpan={order.products.length}>{order.totalAmount}</td>}
+                                <td>{item.price}</td>
+                                {index === 0 && <td rowSpan={order.products.length}>{order.totalAmount}</td>}
+                            </tr>
+                        ))
+                    ) : (
+                        <tr key={order._id}>
+                            <td colSpan="8">No products found</td>
                         </tr>
-                    ))
+                    )
                 ))}
                 </tbody>
             </table>
