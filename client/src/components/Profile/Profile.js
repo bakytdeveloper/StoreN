@@ -249,6 +249,8 @@ const Profile = ({ setShowSidebar }) => {
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
+    console.log("MY ORDERS:",userOrders)
+
     return (
         <div className="profile-container">
             <div className="side">
@@ -434,7 +436,7 @@ const Profile = ({ setShowSidebar }) => {
                                                 <ul>
                                                     {order.products.map(item => (
                                                         <li style={{padding:"5px", fontWeight:"600"}} key={item.product?._id}>
-                                                            {item.product?.name} - Количество: {item.quantity} - Цена: {item.product?.price}сом
+                                                            {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price}сом
                                                             {/*<hr />*/}
                                                         </li>
                                                     ))}
