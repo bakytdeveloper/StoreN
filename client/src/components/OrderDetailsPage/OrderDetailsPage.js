@@ -45,50 +45,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         history.goBack();
     };
 
-    // const updateQuantity = async (productId, newQuantity) => {
-    //     if (newQuantity < 0) {
-    //         console.error('Нельзя установить отрицательное количество товара');
-    //         return;
-    //     }
-    //
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //             },
-    //             body: JSON.stringify({ quantity: newQuantity }),
-    //         });
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             console.error('Failed to update quantity:', errorData);
-    //             return;
-    //         }
-    //         const updatedOrder = { ...order };
-    //         const updatedProducts = updatedOrder.products.map(item => {
-    //             if (item.product && item.product._id === productId) {
-    //                 const price = item.product.price || 0;
-    //                 return { ...item, quantity: newQuantity, price: price };
-    //             }
-    //             return item;
-    //         });
-    //         updatedOrder.products = updatedProducts;
-    //         updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
-    //         setOrder(updatedOrder);
-    //
-    //         const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
-    //             if (order._id === orderId) {
-    //                 return updatedOrder;
-    //             }
-    //             return order;
-    //         }) : [];
-    //         setOrders(updatedOrders);
-    //     } catch (error) {
-    //         console.error('Error updating quantity:', error);
-    //     }
-    // };
-
     const updateQuantity = async (productId, newQuantity) => {
         if (newQuantity < 0) {
             console.error('Нельзя установить отрицательное количество товара');
@@ -302,13 +258,14 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                         <li key={item.product ? item.product._id : index}>
                                             <h3>Инф. о продавце заказа</h3>
                                             <div>
-                                                <strong>Продавец:</strong> {item.product ? getSellerInfo(item.product).name : 'Не указано'}
+                                                <strong>Продавец:</strong> {item.product ? getSellerInfo(item.product).name : item.seller.name}
                                             </div>
                                             <div>
-                                                <strong>Email продавца:</strong> {item.product ? getSellerInfo(item.product).email : 'Не указано'}
+                                                <strong>Email продавца:</strong> {item.product ? getSellerInfo(item.product).email : item.seller.email}
+                                                {/*<strong>Email продавца:</strong> {item.product ? getSellerInfo(item.product).email : 'Не указано'}*/}
                                             </div>
                                             <div>
-                                                <strong>Номер телефона продавца:</strong> {item.product ? getSellerInfo(item.product).phoneNumber : 'Не указано'}
+                                                <strong>Номер телефона продавца:</strong> {item.product ? getSellerInfo(item.product).phoneNumber : item.seller.phoneNumber}
                                             </div>
                                             <hr />
                                             <div>
