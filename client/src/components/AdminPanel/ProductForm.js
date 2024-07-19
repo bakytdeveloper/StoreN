@@ -136,15 +136,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     const handleChange = async (e) => {
         const { name, value } = e.target;
 
-        // if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
-        //     // Prevent setting quantity below zero
-        //     const newValue = parseInt(value, 10);
-        //     if (newValue < 0) {
-        //         toast.error('Количество не может быть меньше нуля');
-        //         return; // Do not update state
-        //     }
-        // }
-
         if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
             // Prevent setting quantity below zero
             const newValue = parseInt(value, 10);
@@ -220,7 +211,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
     const handleFormSubmit = async (formData) => {
         setIsSubmitting(true); // Устанавливаем состояние отправки формы в true
 
-        if (formData.price >= formData.originalPrice) {
+        if (formData.originalPrice && formData.price >= formData.originalPrice) {
             toast.error('Цена не должна быть больше или равна Цене до скидки');
             setIsSubmitting(false);
             return;
@@ -339,7 +330,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             return;
         }
 
-        if (formData.price >= formData.originalPrice) {
+        if (formData.originalPrice && formData.price >= formData.originalPrice) {
             toast.error('Цена не должна быть больше или равна Цене до скидки');
             setIsSubmitting(false);
             return;
@@ -428,9 +419,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         }
     };
 
-
-
-
     const handleMoveImageUp = (index) => {
         if (index === 0) return;
         const newImages = [...formData.images];
@@ -449,11 +437,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         setFormData({ ...formData, images: newImages });
     };
 
-
-
-    // console.log(
-    //     "FORMADATA", {formData}
-    // )
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
               <span style={{background:"none"}} className="sellersListClose" type="button" onClick={handleClose}>
@@ -652,10 +635,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             <button className="newProductAdd" type="button" onClick={handleAddImageByUrl}>
                 Добавить изображение
             </button>
-
-            {/*<input className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />*/}
-            {/*{imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}*/}
-
 
             <div className="submitBtn">
                 {/*<button className="submit" type="submit" disabled={isSubmitting}>&#10004; Создать продукт</button>*/}
