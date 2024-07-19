@@ -152,6 +152,7 @@ router.post('/', async (req, res) => {
                 name: existingProduct.name,
                 brand: existingProduct.brand,
                 type: existingProduct.type,
+                description: existingProduct.description,
                 price: existingProduct.price,
                 quantity,
                 size,

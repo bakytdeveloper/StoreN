@@ -306,13 +306,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                             </div>
                                             <hr />
                                             <div>
-                                                <strong>Тип товара:</strong> {item.product ? item.product.type : 'Не указано'}
+                                                <strong>Тип товара:</strong> {item.type ? item.type : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Бренд:</strong> {item.product ? item.product.brand : 'Не указано'}
+                                                <strong>Бренд:</strong> {item.brand ? item.brand : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Название товара:</strong> {item.product ? item.product.name : 'Не указано'}
+                                                <strong>Название товара:</strong> {item.name ? item.name : 'Не указано'}
                                             </div>
                                             <div>
                                                 <strong>Цвет товара:</strong> {item.color ? item.color : 'Не указано'}
@@ -345,7 +345,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 )}
                                             </div>
                                             <div>
-                                                <strong>Цена за единицу:</strong> {item.product ? item.product.price : 'Не указано'} KGS
+                                                <strong>Цена за единицу:</strong> {item.price ? item.price : 'Не указано'} KGS
                                             </div>
                                             <hr />
                                         </li>
