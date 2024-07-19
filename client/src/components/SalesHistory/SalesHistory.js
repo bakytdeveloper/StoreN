@@ -63,6 +63,9 @@ const SalesHistory = ({ setShowSidebar }) => {
     const isPrevDisabled = page === 1;
     const isNextDisabled = (page - 1) * perPage + orders.length >= totalOrders;
 
+
+    console.log("orders", orders)
+
     return (
         <div className="order">
             <h2>История продаж</h2>
