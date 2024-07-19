@@ -321,7 +321,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 <strong>Размер:</strong> {item.size ? item.size : 'Не указано'}
                                             </div>
                                             <div>
-                                                <strong>Описание:</strong> {item.product ? item.product.description : 'Не указано'}
+                                                <strong>Описание:</strong> {item.description ? item.description : 'Не указано'}
                                             </div>
                                             <div className="quantityItem">
                                                 <strong>Количество:</strong> {item.quantity}
