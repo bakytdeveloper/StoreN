@@ -406,34 +406,102 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 
 
 
+// router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
+//     try {
+//         const { page = 1, perPage = 15 } = req.query;
+//         const sellerId = req.user.sellerId;
+//
+//         console.log("req.user:", req.user);
+//
+//         // Проверяем, существует ли sellerId
+//         if (!mongoose.Types.ObjectId.isValid(sellerId)) {
+//             console.log("Invalid seller ID:", sellerId);
+//             return res.status(400).json({ message: "Invalid seller ID" });
+//         }
+//
+//         // Находим все продукты текущего продавца
+//         const sellerProducts = await Product.find({ seller: sellerId }).select('_id');
+//         console.log("sellerProducts:", sellerProducts);
+//
+//         // Если нет продуктов у продавца, ищем заказы напрямую по данным в заказах
+//         let ordersQuery = Order.aggregate([
+//             { $match: { 'products.product': { $exists: true } } },
+//             { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
+//             { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
+//             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
+//             { $unwind: '$products' },
+//             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productInfo' } },
+//             { $addFields: { productInfo: { $arrayElemAt: ['$productInfo', 0] } } },
+//             { $match: sellerProducts.length ? { 'products.product': { $in: sellerProducts.map(product => product._id) } } : {} },
+//             { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 }, productInfo: 1 } },
+//             { $sort: { date: -1 } },
+//             { $skip: (page - 1) * perPage },
+//             { $limit: parseInt(perPage, 10) }
+//         ]);
+//
+//         const orders = await ordersQuery;
+//
+//         console.log("orders:", orders);
+//
+//         // Проверьте, что orders является массивом
+//         if (!Array.isArray(orders)) {
+//             console.error("Orders is not an array:", orders);
+//             return res.status(500).json({ message: "Internal server error" });
+//         }
+//
+//         // Проверьте тип данных для каждого заказа
+//         orders.forEach(order => {
+//             if (!Array.isArray(order.products)) {
+//                 console.error("Invalid products format for order:", order._id);
+//                 order.products = [order.products];
+//             }
+//         });
+//
+//         // Считаем общее количество заказов
+//         const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.length ? sellerProducts.map(product => product._id) : [] } });
+//
+//         console.log("totalOrders:", totalOrders);
+//
+//         // Отправляем ответ клиенту
+//         res.json({ orders, totalOrders, page: parseInt(page, 10), perPage: parseInt(perPage, 10) });
+//     } catch (error) {
+//         console.error("Error fetching sales history:", error);
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
 router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const { page = 1, perPage = 15 } = req.query;
         const sellerId = req.user.sellerId;
 
-        console.log("req.user:", req.user);
-
         // Проверяем, существует ли sellerId
         if (!mongoose.Types.ObjectId.isValid(sellerId)) {
-            console.log("Invalid seller ID:", sellerId);
             return res.status(400).json({ message: "Invalid seller ID" });
         }
 
         // Находим все продукты текущего продавца
-        const sellerProducts = await Product.find({ seller: sellerId }).select('_id');
-        console.log("sellerProducts:", sellerProducts);
+        const sellerProducts = await Product.find({ seller: new mongoose.Types.ObjectId(sellerId) }).select('_id');
+
+        console.log("sellerProducts", sellerProducts);
 
         // Если нет продуктов у продавца, ищем заказы напрямую по данным в заказах
         let ordersQuery = Order.aggregate([
             { $match: { 'products.product': { $exists: true } } },
-            { $lookup: { from: 'users', localField: 'user', foreignField: '_id', as: 'user' } },
-            { $addFields: { user: { $arrayElemAt: ['$user', 0] } } },
-            { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productDetails' } },
             { $unwind: '$products' },
             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productInfo' } },
-            { $addFields: { productInfo: { $arrayElemAt: ['$productInfo', 0] } } },
-            { $match: sellerProducts.length ? { 'products.product': { $in: sellerProducts.map(product => product._id) } } : {} },
-            { $project: { guestInfo: 1, cart: 1, products: 1, totalAmount: 1, status: 1, date: 1, address: 1, phoneNumber: 1, paymentMethod: 1, comments: 1, user: { name: 1, email: 1 }, productInfo: 1 } },
+            { $unwind: '$productInfo' },
+            { $match: { 'productInfo.seller': new mongoose.Types.ObjectId(sellerId) } },
+            { $group: {
+                    _id: '$_id',
+                    date: { $first: '$date' },
+                    status: { $first: '$status' },
+                    products: { $push: '$products' },
+                    totalAmount: { $sum: { $multiply: ['$products.quantity', '$productInfo.price'] } },
+                    user: { $first: '$user' }
+                } },
             { $sort: { date: -1 } },
             { $skip: (page - 1) * perPage },
             { $limit: parseInt(perPage, 10) }
@@ -441,26 +509,10 @@ router.get('/sales-history', authenticateToken, checkRole(['seller']), async (re
 
         const orders = await ordersQuery;
 
-        console.log("orders:", orders);
-
-        // Проверьте, что orders является массивом
-        if (!Array.isArray(orders)) {
-            console.error("Orders is not an array:", orders);
-            return res.status(500).json({ message: "Internal server error" });
-        }
-
-        // Проверьте тип данных для каждого заказа
-        orders.forEach(order => {
-            if (!Array.isArray(order.products)) {
-                console.error("Invalid products format for order:", order._id);
-                order.products = [order.products];
-            }
-        });
-
         // Считаем общее количество заказов
-        const totalOrders = await Order.countDocuments({ 'products.product': { $in: sellerProducts.length ? sellerProducts.map(product => product._id) : [] } });
-
-        console.log("totalOrders:", totalOrders);
+        const totalOrders = await Order.countDocuments({
+            'products.product': { $in: sellerProducts.map(product => product._id) }
+        });
 
         // Отправляем ответ клиенту
         res.json({ orders, totalOrders, page: parseInt(page, 10), perPage: parseInt(perPage, 10) });
