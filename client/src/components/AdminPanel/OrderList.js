@@ -83,31 +83,6 @@ const OrderList = ({ setShowSidebar }) => {
         }
     };
 
-    // const updateCommentsAdmin = async (orderId, commentsAdmin) => {
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-comments-admin/${orderId}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ commentsAdmin }),
-    //         });
-    //
-    //         if (response.ok) {
-    //             const updatedOrders = orders.map((order) => {
-    //                 if (order._id === orderId) {
-    //                     return { ...order, commentsAdmin };
-    //                 }
-    //                 return order;
-    //             });
-    //             setOrders(updatedOrders);
-    //         } else {
-    //             console.error('Failed to update comments admin');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error updating comments admin:', error);
-    //     }
-    // };
 
     const updateCommentsAdmin = async (orderId, commentsAdmin) => {
         try {
@@ -211,7 +186,7 @@ const OrderList = ({ setShowSidebar }) => {
                         <td className="orderDetailOneClient" onClick={() => handleOrderClick(order._id)}>
                             {order.products.map((item, itemIndex) => (
                                 <span key={itemIndex}>
-                                    {item.product?.type}: {item.quantity}шт; <br />
+                                    {item.product?.type || item.type}: {item.quantity}шт; <br />
                                 </span>
                             ))}
                         </td>
