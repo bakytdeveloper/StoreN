@@ -219,6 +219,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
+    const productsSeller = [];
 
     const getSellerInfo = (product) => {
         if (!Array.isArray(sellers)) {
@@ -226,6 +227,10 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             return { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
         }
         const seller = sellers.find((seller) => seller.products.includes(product._id));
+        productsSeller.push(seller)
+
+        console.log("SELLERS:",seller)
+
         return seller
             ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
             : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
@@ -255,6 +260,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     }, [setShowSidebar]);
 
     console.log("ORDER:", order)
+    // console.log("order.products:", order.products)
 
     return (
         <div className="order-details-page">

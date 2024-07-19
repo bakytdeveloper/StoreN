@@ -105,10 +105,124 @@ const {transporter} = require('../smtp/otpService');
 //     }
 // });
 
+// router.post('/', async (req, res) => {
+//     console.log('Received order creation request:', req.body);
+//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
+//     let userId;
+//     if (user) {
+//         let existingUser;
+//         try {
+//             existingUser = await User.findOne({ email: user.email });
+//         } catch (error) {
+//             console.error('Error finding user:', error);
+//             return res.status(500).json({ message: 'Internal Server Error' });
+//         }
+//         if (existingUser) {
+//             userId = existingUser._id;
+//         } else {
+//             const newUser = new User({
+//                 name: user.firstName,
+//                 email: user.email,
+//                 address: user.address
+//             });
+//             try {
+//                 const savedUser = await newUser.save();
+//                 userId = savedUser._id;
+//             } catch (error) {
+//                 console.error('Error creating new user:', error);
+//                 return res.status(500).json({ message: 'Internal Server Error' });
+//             }
+//         }
+//     }
+//
+//     // Check product quantities and update
+//     const insufficientProducts = [];
+//     const orderProducts = [];
+//
+//     for (const { product, quantity, size, color } of products) {
+//         const existingProduct = await Product.findById(product);
+//         if (!existingProduct) {
+//             return res.status(404).json({ message: `Product not found: ${product}` });
+//         }
+//         if (existingProduct.quantity < quantity) {
+//             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
+//         } else {
+//             orderProducts.push({
+//                 product: existingProduct._id,
+//                 name: existingProduct.name,
+//                 brand: existingProduct.brand,
+//                 type: existingProduct.type,
+//                 description: existingProduct.description,
+//                 price: existingProduct.price,
+//                 quantity,
+//                 size,
+//                 color,
+//                 seller: existingProduct.seller._id // Добавляем информацию о продавце
+//
+//             });
+//         }
+//     }
+//
+//     if (insufficientProducts.length > 0) {
+//         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
+//     }
+//
+//     // Deduct quantities from products and handle zero quantity products
+//     try {
+//         for (const { product, quantity } of products) {
+//             const updatedProduct = await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } }, { new: true });
+//             if (updatedProduct.quantity === 0) {
+//                 await deleteProductAndRelatedData(updatedProduct);
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Error updating product quantities:', error);
+//         return res.status(500).json({ message: 'Failed to update product quantities' });
+//     }
+//
+//     // Notify sellers about low product quantities
+//     try {
+//         await notifySellersAboutLowQuantity(products);
+//     } catch (error) {
+//         console.error('Error notifying sellers:', error);
+//     }
+//
+//     const order = new Order({
+//         user: userId || null,
+//         guestInfo: userId ? undefined : guestInfo,
+//         cart: [],
+//         products: orderProducts,
+//         totalAmount,
+//         firstName,
+//         address,
+//         phoneNumber,
+//         paymentMethod,
+//         comments,
+//     });
+//
+//     try {
+//         const newOrder = await order.save();
+//         if (userId) {
+//             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
+//         }
+//         res.status(201).json(newOrder);
+//     } catch (error) {
+//         console.error('Error placing order:', error);
+//         if (error.name === 'ValidationError' && error.errors && error.errors.password) {
+//             return res.status(400).json({ message: 'Password is required for registered users' });
+//         }
+//         res.status(400).json({ message: error.message });
+//     }
+// });
+
+
+
+
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
     let userId;
+
     if (user) {
         let existingUser;
         try {
@@ -135,12 +249,11 @@ router.post('/', async (req, res) => {
         }
     }
 
-    // Check product quantities and update
     const insufficientProducts = [];
     const orderProducts = [];
 
     for (const { product, quantity, size, color } of products) {
-        const existingProduct = await Product.findById(product);
+        const existingProduct = await Product.findById(product).populate('seller');
         if (!existingProduct) {
             return res.status(404).json({ message: `Product not found: ${product}` });
         }
@@ -156,7 +269,14 @@ router.post('/', async (req, res) => {
                 price: existingProduct.price,
                 quantity,
                 size,
-                color
+                color,
+                seller: {
+                    id: existingProduct.seller._id,
+                    name: existingProduct.seller.name,
+                    email: existingProduct.seller.email,
+                    companyName: existingProduct.seller.companyName,
+                    phoneNumber: existingProduct.seller.phoneNumber,
+                }
             });
         }
     }
@@ -165,7 +285,6 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
     }
 
-    // Deduct quantities from products and handle zero quantity products
     try {
         for (const { product, quantity } of products) {
             const updatedProduct = await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } }, { new: true });
@@ -178,7 +297,6 @@ router.post('/', async (req, res) => {
         return res.status(500).json({ message: 'Failed to update product quantities' });
     }
 
-    // Notify sellers about low product quantities
     try {
         await notifySellersAboutLowQuantity(products);
     } catch (error) {
@@ -212,7 +330,6 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
 
 
 
