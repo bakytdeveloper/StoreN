@@ -432,63 +432,6 @@ async function deleteProductAndRelatedData(product) {
 
 
 
-
-
-
-
-
-// // Функция для удаления товара и связанных данных, если количество товара равно нулю
-// async function deleteProductAndRelatedData(product) {
-//     try {
-//         // Удаление изображений товара из папки uploads
-//         if (product.images && product.images.length > 0) {
-//             for (const imageUrl of product.images) {
-//                 const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
-//                 fs.unlink(imagePath, (err) => {
-//                     if (err) {
-//                         console.error(`Error deleting image file ${imagePath}:`, err);
-//                     } else {
-//                         console.log(`Deleted image file ${imagePath}`);
-//                     }
-//                 });
-//             }
-//         }
-//         // Удаление записи о товаре из базы данных
-//         await Product.findByIdAndDelete(product._id);
-//         console.log(`Deleted product ${product._id}`);
-//     } catch (error) {
-//         console.error('Error deleting product and related data:', error);
-//     }
-// }
-
-
-
-
-
-
-// // Функция для отправки уведомлений продавцам о низком количестве товаров
-// async function notifySellersAboutLowQuantity(products) {
-//     for (const { product, quantity } of products) {
-//         const existingProduct = await Product.findById(product).populate('seller');
-//         if (existingProduct && existingProduct.quantity <= 3 && existingProduct.quantity >= 1) {
-//             const seller = existingProduct.seller;
-//             if (seller && seller.email) {
-//                 const mailOptions = {
-//                     from: process.env.EMAIL_USER,
-//                     to: seller.email,
-//                     subject: `Оповещение о низком уровне запаса товара: ${existingProduct.name}`,
-//                     text: `Дорогой ${seller.name},\n\nНастоящим сообщением, мы хотели сказать, что товара "${existingProduct.name}" осталось мало на складе, осталось всего ${existingProduct.quantity} шт..
-//
-//                    \nПожалуйста, пополните запасы как можно скорее.\n\nС уважением,\nВаш Магазин`,
-//                 };
-//                 await transporter.sendMail(mailOptions);
-//             }
-//         }
-//     }
-// }
-
-
-
 router.post('/add-to-cart', async (req, res) => {
     console.log('Received add-to-cart request:', req.body);
 

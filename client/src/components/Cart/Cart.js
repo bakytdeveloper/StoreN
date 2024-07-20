@@ -77,7 +77,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         setTotalItems(cartItems.reduce((acc, item) => acc + item.quantity, 0));
 
         // Если все товары удалены, очищаем корзину и показываем сообщение
-        if (cartItems.length > 0 && cartItems.every(item => item.quantity === 0)) {
+        if (cartItems.length === 0) {
+            history.push('/catalog'); // Перенаправление на страницу каталога при пустой корзине
+        } else if (cartItems.length > 0 && cartItems.every(item => item.quantity === 0)) {
             setCartItems([]);
         }
     }, [cartItems, setCartItems]);
@@ -228,11 +230,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 }),
             });
 
-            // if (response.ok) {
-            //     toast.success('Email sent to admin');
-            // } else {
-            //     toast.error('Failed to send email');
-            // }
             if (!response.ok) {
                 toast.error('Failed to send email');
             }
