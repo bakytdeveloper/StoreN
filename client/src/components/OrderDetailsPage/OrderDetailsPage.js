@@ -45,12 +45,55 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         history.goBack();
     };
 
+    // const updateQuantity = async (productId, newQuantity) => {
+    //     if (newQuantity < 0) {
+    //         console.error('Нельзя установить отрицательное количество товара');
+    //         return;
+    //     }
+    //
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
+    //             },
+    //             body: JSON.stringify({ quantity: newQuantity }),
+    //         });
+    //         const result = await response.json();
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             const updatedProducts = updatedOrder.products.map(item => {
+    //                 if (item.product && item.product._id === productId) {
+    //                     const price = item.product.price || 0;
+    //                     return { ...item, quantity: newQuantity, price: price };
+    //                 }
+    //                 return item;
+    //             });
+    //             updatedOrder.products = updatedProducts;
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+    //             setOrder(updatedOrder);
+    //
+    //             const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             }) : [];
+    //             setOrders(updatedOrders);
+    //         } else {
+    //             console.error('Failed to update quantity:', result);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating quantity:', error);
+    //     }
+    // };
+
     const updateQuantity = async (productId, newQuantity) => {
-        if (newQuantity < 0) {
+        if (!productId || newQuantity < 0) {
             console.error('Нельзя установить отрицательное количество товара');
             return;
         }
-
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
                 method: 'PUT',
@@ -65,15 +108,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                 const updatedOrder = { ...order };
                 const updatedProducts = updatedOrder.products.map(item => {
                     if (item.product && item.product._id === productId) {
-                        const price = item.product.price || 0;
-                        return { ...item, quantity: newQuantity, price: price };
+                        return { ...item, quantity: newQuantity };
                     }
                     return item;
                 });
                 updatedOrder.products = updatedProducts;
                 updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
                 setOrder(updatedOrder);
-
                 const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
                     if (order._id === orderId) {
                         return updatedOrder;
@@ -291,8 +332,8 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 {editMode[item.product ? item.product._id : index] ? (
                                                     <>
                                                         <div className="quantityButtons">
-                                                            <button className="minusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity - 1)}>-</button>
-                                                            <button className="plusQuantityButton" onClick={() => updateQuantity(item.product._id, item.quantity + 1)}>+</button>
+                                                            <button className="minusQuantityButton" onClick={() => updateQuantity(item.product ? item.product._id : '', item.quantity - 1)}>−</button>
+                                                            <button className="plusQuantityButton" onClick={() => updateQuantity(item.product ? item.product._id : '', item.quantity + 1)}>+</button>
                                                         </div>
                                                         {deleteConfirmation === (item.product && item.product ? item.product._id : index) ? (
                                                             <>

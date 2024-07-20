@@ -619,7 +619,29 @@ async function calculateTotalAmount(products) {
     return sum;
 }
 
-router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
+// router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
+//     const { orderId, productId } = req.params;
+//     const { quantity } = req.body;
+//     try {
+//         const order = await Order.findById(orderId);
+//         if (!order) {
+//             return res.status(404).json({ message: 'Order not found' });
+//         }
+//         const productIndex = order.products.findIndex(item => item.product && item.product.toString() === productId);
+//         if (productIndex === -1) {
+//             return res.status(404).json({ message: 'Product not found in order' });
+//         }
+//         order.products[productIndex].quantity = quantity;
+//         order.totalAmount = await calculateTotalAmount(order.products);
+//         await order.save();
+//         res.json(order);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+router.put('/update-quantity/:orderId/:productId', authenticateToken, checkRole(['admin']), async (req, res) => {
     const { orderId, productId } = req.params;
     const { quantity } = req.body;
     try {
@@ -630,6 +652,9 @@ router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole
         const productIndex = order.products.findIndex(item => item.product && item.product.toString() === productId);
         if (productIndex === -1) {
             return res.status(404).json({ message: 'Product not found in order' });
+        }
+        if (quantity < 0) {
+            return res.status(400).json({ message: 'Quantity cannot be negative' });
         }
         order.products[productIndex].quantity = quantity;
         order.totalAmount = await calculateTotalAmount(order.products);
