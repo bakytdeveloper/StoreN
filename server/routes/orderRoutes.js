@@ -11,213 +11,6 @@ const path = require('path');
 const {checkRole} = require("../middleware/authenticateToken");
 const {transporter} = require('../smtp/otpService');
 
-
-// // Создание нового заказа (для гостей и зарегистрированных пользователей)
-// router.post('/', async (req, res) => {
-//     console.log('Received order creation request:', req.body);
-//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
-//     let userId;
-//     if (user) {
-//         let existingUser;
-//         try {
-//             existingUser = await User.findOne({ email: user.email });
-//         } catch (error) {
-//             console.error('Error finding user:', error);
-//             return res.status(500).json({ message: 'Internal Server Error' });
-//         }
-//         if (existingUser) {
-//             userId = existingUser._id;
-//         } else {
-//             const newUser = new User({
-//                 name: user.firstName,
-//                 email: user.email,
-//                 address: user.address
-//             });
-//             try {
-//                 const savedUser = await newUser.save();
-//                 userId = savedUser._id;
-//             } catch (error) {
-//                 console.error('Error creating new user:', error);
-//                 return res.status(500).json({ message: 'Internal Server Error' });
-//             }
-//         }
-//     }
-//     // Check product quantities and update
-//     const insufficientProducts = [];
-//     for (const { product, quantity } of products) {
-//         const existingProduct = await Product.findById(product);
-//         if (!existingProduct) {
-//             return res.status(404).json({ message: `Product not found: ${product}` });
-//         }
-//         if (existingProduct.quantity < quantity) {
-//             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
-//         }
-//     }
-//     if (insufficientProducts.length > 0) {
-//         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
-//     }
-//     // Deduct quantities from products
-//     try {
-//         for (const { product, quantity } of products) {
-//             const updatedProduct = await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } }, { new: true });
-//
-//             // Check if product quantity is zero and delete if necessary
-//             if (updatedProduct.quantity === 0) {
-//                 await deleteProductAndRelatedData(updatedProduct);
-//             }
-//         }
-//     } catch (error) {
-//         console.error('Error updating product quantities:', error);
-//         return res.status(500).json({ message: 'Failed to update product quantities' });
-//     }
-//
-//     // Notify sellers about low product quantities
-//     try {
-//         await notifySellersAboutLowQuantity(products);
-//     } catch (error) {
-//         console.error('Error notifying sellers:', error);
-//     }
-//
-//     const order = new Order({
-//         user: userId || null,
-//         guestInfo: userId ? undefined : guestInfo,
-//         cart: [],
-//         products,
-//         totalAmount,
-//         firstName,
-//         address,
-//         phoneNumber,
-//         paymentMethod,
-//         comments,
-//     });
-//     try {
-//         const newOrder = await order.save();
-//         if (userId) {
-//             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
-//         }
-//         res.status(201).json(newOrder);
-//     } catch (error) {
-//         console.error('Error placing order:', error);
-//         if (error.name === 'ValidationError' && error.errors && error.errors.password) {
-//             return res.status(400).json({ message: 'Password is required for registered users' });
-//         }
-//         res.status(400).json({ message: error.message });
-//     }
-// });
-
-// router.post('/', async (req, res) => {
-//     console.log('Received order creation request:', req.body);
-//     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
-//     let userId;
-//     if (user) {
-//         let existingUser;
-//         try {
-//             existingUser = await User.findOne({ email: user.email });
-//         } catch (error) {
-//             console.error('Error finding user:', error);
-//             return res.status(500).json({ message: 'Internal Server Error' });
-//         }
-//         if (existingUser) {
-//             userId = existingUser._id;
-//         } else {
-//             const newUser = new User({
-//                 name: user.firstName,
-//                 email: user.email,
-//                 address: user.address
-//             });
-//             try {
-//                 const savedUser = await newUser.save();
-//                 userId = savedUser._id;
-//             } catch (error) {
-//                 console.error('Error creating new user:', error);
-//                 return res.status(500).json({ message: 'Internal Server Error' });
-//             }
-//         }
-//     }
-//
-//     // Check product quantities and update
-//     const insufficientProducts = [];
-//     const orderProducts = [];
-//
-//     for (const { product, quantity, size, color } of products) {
-//         const existingProduct = await Product.findById(product);
-//         if (!existingProduct) {
-//             return res.status(404).json({ message: `Product not found: ${product}` });
-//         }
-//         if (existingProduct.quantity < quantity) {
-//             insufficientProducts.push({ name: existingProduct.name, available: existingProduct.quantity });
-//         } else {
-//             orderProducts.push({
-//                 product: existingProduct._id,
-//                 name: existingProduct.name,
-//                 brand: existingProduct.brand,
-//                 type: existingProduct.type,
-//                 description: existingProduct.description,
-//                 price: existingProduct.price,
-//                 quantity,
-//                 size,
-//                 color,
-//                 seller: existingProduct.seller._id // Добавляем информацию о продавце
-//
-//             });
-//         }
-//     }
-//
-//     if (insufficientProducts.length > 0) {
-//         return res.status(400).json({ message: 'Insufficient product quantities', products: insufficientProducts });
-//     }
-//
-//     // Deduct quantities from products and handle zero quantity products
-//     try {
-//         for (const { product, quantity } of products) {
-//             const updatedProduct = await Product.findByIdAndUpdate(product, { $inc: { quantity: -quantity } }, { new: true });
-//             if (updatedProduct.quantity === 0) {
-//                 await deleteProductAndRelatedData(updatedProduct);
-//             }
-//         }
-//     } catch (error) {
-//         console.error('Error updating product quantities:', error);
-//         return res.status(500).json({ message: 'Failed to update product quantities' });
-//     }
-//
-//     // Notify sellers about low product quantities
-//     try {
-//         await notifySellersAboutLowQuantity(products);
-//     } catch (error) {
-//         console.error('Error notifying sellers:', error);
-//     }
-//
-//     const order = new Order({
-//         user: userId || null,
-//         guestInfo: userId ? undefined : guestInfo,
-//         cart: [],
-//         products: orderProducts,
-//         totalAmount,
-//         firstName,
-//         address,
-//         phoneNumber,
-//         paymentMethod,
-//         comments,
-//     });
-//
-//     try {
-//         const newOrder = await order.save();
-//         if (userId) {
-//             await User.findByIdAndUpdate(userId, { $push: { orders: newOrder._id } });
-//         }
-//         res.status(201).json(newOrder);
-//     } catch (error) {
-//         console.error('Error placing order:', error);
-//         if (error.name === 'ValidationError' && error.errors && error.errors.password) {
-//             return res.status(400).json({ message: 'Password is required for registered users' });
-//         }
-//         res.status(400).json({ message: error.message });
-//     }
-// });
-
-
-
-
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
@@ -606,40 +399,6 @@ router.put('/update-comments-admin/:orderId', authenticateToken,  checkRole(['ad
     }
 });
 
-// // Функция для пересчета общей суммы заказа
-// async function calculateTotalAmount(products) {
-//     let sum = 0;
-//     for (const item of products) {
-//         const product = await Product.findById(item.product); // Найдите объект товара по его ID
-//         if (product) {
-//             sum += product.price * item.quantity;
-//         }
-//     }
-//     // console.log("sum:", sum);
-//     return sum;
-// }
-
-// router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
-//     const { orderId, productId } = req.params;
-//     const { quantity } = req.body;
-//     try {
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: 'Order not found' });
-//         }
-//         const productIndex = order.products.findIndex(item => item.product && item.product.toString() === productId);
-//         if (productIndex === -1) {
-//             return res.status(404).json({ message: 'Product not found in order' });
-//         }
-//         order.products[productIndex].quantity = quantity;
-//         order.totalAmount = await calculateTotalAmount(order.products);
-//         await order.save();
-//         res.json(order);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 
 // Обновление количества товара в заказе
 router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
@@ -647,7 +406,7 @@ router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['a
     console.log('Request body:', req.body);
 
     const { orderId } = req.params;
-    const { productIndex, quantity } = req.body; // Получаем индекс товара вместо productId
+    const { productIndex, quantity } = req.body;
 
     try {
         const order = await Order.findById(orderId);
@@ -663,10 +422,10 @@ router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['a
         product.quantity = quantity;
         order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
 
-        // Если после изменения количество товаров в заказе равно 0, удалить заказ
+        // Если после обновления товаров в заказе их не осталось, удаляем заказ
         if (order.products.length === 0) {
-            await Order.deleteOne({ _id: orderId });
-            return res.status(200).json({ message: 'Order has been deleted as it is empty' });
+            await Order.findByIdAndDelete(orderId);
+            return res.json({ message: 'Order deleted as it has no products left' });
         }
 
         await order.save();
@@ -682,7 +441,7 @@ router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']
     console.log('Request body:', req.body);
 
     const { orderId } = req.params;
-    const { productIndex } = req.body; // Получаем индекс товара вместо productId
+    const { productIndex } = req.body;
 
     try {
         const order = await Order.findById(orderId);
@@ -697,10 +456,10 @@ router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']
         order.products.splice(productIndex, 1);
         order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
 
-        // Если после удаления количество товаров в заказе равно 0, удалить заказ
+        // Если после удаления товаров в заказе их не осталось, удаляем заказ
         if (order.products.length === 0) {
-            await Order.deleteOne({ _id: orderId });
-            return res.status(200).json({ message: 'Order has been deleted as it is empty' });
+            await Order.findByIdAndDelete(orderId);
+            return res.json({ message: 'Order deleted as it has no products left' });
         }
 
         await order.save();
