@@ -435,7 +435,8 @@ const Profile = ({ setShowSidebar }) => {
                                             <td>
                                                 <ul>
                                                     {order.products.map(item => (
-                                                        <li style={{padding:"5px", fontWeight:"600"}} key={item.product?._id}>
+                                                        <li key={`${item.product?._id}-${item}`}
+                                                            style={{padding:"5px", fontWeight:"600"}} >
                                                             {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price}сом
                                                             {/*<hr />*/}
                                                         </li>
