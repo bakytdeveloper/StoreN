@@ -606,18 +606,18 @@ router.put('/update-comments-admin/:orderId', authenticateToken,  checkRole(['ad
     }
 });
 
-// Функция для пересчета общей суммы заказа
-async function calculateTotalAmount(products) {
-    let sum = 0;
-    for (const item of products) {
-        const product = await Product.findById(item.product); // Найдите объект товара по его ID
-        if (product) {
-            sum += product.price * item.quantity;
-        }
-    }
-    // console.log("sum:", sum);
-    return sum;
-}
+// // Функция для пересчета общей суммы заказа
+// async function calculateTotalAmount(products) {
+//     let sum = 0;
+//     for (const item of products) {
+//         const product = await Product.findById(item.product); // Найдите объект товара по его ID
+//         if (product) {
+//             sum += product.price * item.quantity;
+//         }
+//     }
+//     // console.log("sum:", sum);
+//     return sum;
+// }
 
 // router.put('/update-quantity/:orderId/:productId', authenticateToken,  checkRole(['admin']), async (req, res) => {
 //     const { orderId, productId } = req.params;
@@ -641,6 +641,7 @@ async function calculateTotalAmount(products) {
 // });
 
 
+// Обновление количества товара в заказе
 router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
     console.log('Received request to update product quantity');
     console.log('Request body:', req.body);
@@ -662,6 +663,12 @@ router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['a
         product.quantity = quantity;
         order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
 
+        // Если после изменения количество товаров в заказе равно 0, удалить заказ
+        if (order.products.length === 0) {
+            await Order.deleteOne({ _id: orderId });
+            return res.status(200).json({ message: 'Order has been deleted as it is empty' });
+        }
+
         await order.save();
         res.json(order);
     } catch (error) {
@@ -669,7 +676,7 @@ router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['a
     }
 });
 
-
+// Удаление товара из заказа
 router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
     console.log('Received request to remove product');
     console.log('Request body:', req.body);
@@ -689,6 +696,12 @@ router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']
 
         order.products.splice(productIndex, 1);
         order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
+
+        // Если после удаления количество товаров в заказе равно 0, удалить заказ
+        if (order.products.length === 0) {
+            await Order.deleteOne({ _id: orderId });
+            return res.status(200).json({ message: 'Order has been deleted as it is empty' });
+        }
 
         await order.save();
         res.json(order);
