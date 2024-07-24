@@ -75,7 +75,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                 return;
             }
 
-            // Proceed with sending OTP if email does not exist for User or Seller
+            // Продолжите отправку OTP, если адрес электронной почты для Пользователя или Продавца не существует.
             const response = await fetch(sendOtpUrl, {
                 method: 'POST',
                 headers: {
@@ -86,9 +86,9 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
 
             if (response.ok) {
                 toast.success('OTP отправлен на ваш email');
-                setStep(2); // Move to the OTP verification step
-                setResendTimer(60); // Set timer for OTP resend
-                setOtpError(''); // Clear OTP error on success
+                setStep(2); // Переход к этапу проверки OTP
+                setResendTimer(60); // Установить таймер для повторной отправки OTP
+                setOtpError(''); // Удалить ошибку OTP в случае успеха
             } else {
                 const errorText = await response.text();
                 console.error('OTP send error response text:', errorText);
@@ -113,15 +113,15 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             });
             if (response.ok) {
                 toast.success('OTP успешно проверен');
-                setStep(3); // Move to the registration step
-                setOtpError(''); // Clear OTP error message on successful verification
+                setStep(3); // Переходим к этапу регистрации
+                setOtpError(''); //Удалить сообщение об ошибке OTP при успешной проверке
             } else {
                 const errorText = await response.text();
                 console.error('OTP verification error response text:', errorText);
-                setOtpError('Неверный OTP'); // Set OTP error message
+                setOtpError('Неверный OTP'); // Установить сообщение об ошибке OTP
             }
         } catch (error) {
-            console.error('OTP verification error:', error);
+            console.error('Ошибка проверки OTP:', error);
             toast.error('Произошла ошибка при проверке OTP');
         }
     };
