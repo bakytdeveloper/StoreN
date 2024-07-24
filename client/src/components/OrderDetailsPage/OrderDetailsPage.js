@@ -331,6 +331,7 @@ import './OrderDetailsPage.css';
 
 
 
+
 const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     const { orderId } = useParams();
     const [order, setOrder] = useState(null);
@@ -339,13 +340,10 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     const [sellers, setSellers] = useState([]);
     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
-    const history = useHistory();
-
     useEffect(() => {
         const fetchOrder = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`);
-                if (!response.ok) throw new Error('Failed to fetch order');
                 const data = await response.json();
                 setOrder(data);
                 setTotalAmount(data.totalAmount);
@@ -354,12 +352,12 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             }
         };
 
-        // Если заказ уже есть в пропсах, используем его, иначе запрашиваем
+        // Ensure orders is an array before calling find
         if (Array.isArray(orders)) {
             const currentOrder = orders.find(order => order._id === orderId);
             if (currentOrder) {
                 setOrder(currentOrder);
-                setTotalAmount(currentOrder.totalAmount);
+                setTotalAmount(currentOrder ? currentOrder.totalAmount : 0);
             } else {
                 fetchOrder();
             }
@@ -368,31 +366,48 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     }, [orders, orderId]);
 
+    const history = useHistory();
+
     const onClose = () => {
         history.goBack();
     };
 
     const updateQuantity = async (productId, newQuantity) => {
         if (!productId || newQuantity < 0) {
-            console.error('Invalid quantity');
+            console.error('Нельзя установить отрицательное количество товара');
             return;
         }
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-quantity/${orderId}/${productId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-product-quantity/${orderId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
                 },
-                body: JSON.stringify({ quantity: newQuantity }),
+                body: JSON.stringify({ productId, quantity: newQuantity }),
             });
-            if (!response.ok) throw new Error('Failed to update quantity');
-            const updatedOrder = { ...order };
-            const updatedProducts = updatedOrder.products.map(item => item.product._id === productId ? { ...item, quantity: newQuantity } : item);
-            updatedOrder.products = updatedProducts;
-            updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
-            setOrder(updatedOrder);
-            setOrders(orders.map(o => o._id === orderId ? updatedOrder : o));
+            const result = await response.json();
+            if (response.ok) {
+                const updatedOrder = { ...order };
+                const updatedProducts = updatedOrder.products.map(item => {
+                    if (item.product && item.product._id === productId) {
+                        return { ...item, quantity: newQuantity };
+                    }
+                    return item;
+                });
+                updatedOrder.products = updatedProducts;
+                updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+                setOrder(updatedOrder);
+                const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+                    if (order._id === orderId) {
+                        return updatedOrder;
+                    }
+                    return order;
+                }) : [];
+                setOrders(updatedOrders);
+            } else {
+                console.error('Failed to update quantity:', result);
+            }
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
@@ -400,19 +415,35 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
     const onDeleteItem = async (productId) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/delete-item/${orderId}/${productId}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/remove-product/${orderId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
                 },
+                body: JSON.stringify({ productId }),
             });
-            if (!response.ok) throw new Error('Failed to delete item');
-            const updatedOrder = { ...order };
-            updatedOrder.products = updatedOrder.products.filter(item => item.product._id !== productId);
-            updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
-            setOrder(updatedOrder);
-            setOrders(orders.map(o => o._id === orderId ? updatedOrder : o));
-            if (updatedOrder.products.length === 0) await deleteOrder(orderId);
+            if (response.ok) {
+                const updatedOrder = { ...order };
+                updatedOrder.products = updatedOrder.products.filter((item) => item.product && item.product._id !== productId);
+                updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
+                setOrder(updatedOrder);
+
+                const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+                    if (order._id === orderId) {
+                        return updatedOrder;
+                    }
+                    return order;
+                }) : [];
+                setOrders(updatedOrders);
+
+                if (updatedOrder.products.length === 0) {
+                    await deleteOrder(orderId);
+                }
+            } else {
+                const result = await response.json();
+                console.error('Failed to delete item:', result);
+            }
         } catch (error) {
             console.error('Error deleting item:', error);
         }
@@ -423,39 +454,64 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`, {
                 method: 'DELETE',
             });
-            if (!response.ok) throw new Error('Failed to delete order');
-            console.log('Order deleted successfully');
+            if (response.ok) {
+                console.log('Order deleted successfully');
+            } else {
+                console.error('Failed to delete order');
+            }
         } catch (error) {
             console.error('Error deleting order:', error);
         }
     };
 
     const calculateTotalAmountLocally = (products) => {
-        return products.reduce((sum, item) => item.product?.price ? sum + item.product.price * item.quantity : sum, 0);
+        let sum = 0;
+        for (const item of products) {
+            if (item.product && item.product.price) {
+                sum += item.product.price * item.quantity;
+            }
+        }
+        return sum;
     };
 
     useEffect(() => {
-        const fetchSellers = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                if (!response.ok) throw new Error('Failed to fetch sellers');
-                const data = await response.json();
-                setSellers(data);
-            } catch (error) {
-                console.error('Error fetching sellers:', error);
-            }
-        };
         fetchSellers();
     }, []);
 
+    const fetchSellers = async () => {
+        try {
+            const token = localStorage.getItem('token'); // Или используйте другой метод получения токена
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.status === 401) {
+                console.error('Unauthorized');
+                return;
+            }
+            const data = await response.json();
+            setSellers(data);
+        } catch (error) {
+            console.error('Error fetching sellers:', error);
+        }
+    };
+
+    const productsSeller = [];
+
     const getSellerInfo = (product) => {
-        const seller = sellers.find(seller => seller.products.includes(product._id));
-        return seller ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber } : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+        if (!Array.isArray(sellers)) {
+            console.error('sellers is not an array:', sellers);
+            return { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+        }
+        const seller = sellers.find((seller) => seller.products.includes(product._id));
+        productsSeller.push(seller)
+
+        console.log("SELLERS:", seller)
+
+        return seller
+            ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
+            : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
     };
 
     const toggleEditMode = (productId) => {
@@ -475,8 +531,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
     useEffect(() => {
         setShowSidebar(true);
-        return () => setShowSidebar(false);
+        return () => {
+            setShowSidebar(true);
+        };
     }, [setShowSidebar]);
+
+    console.log("ORDER:", order)
+    // console.log("order.products:", order.products)
 
     return (
         <div className="order-details-page">
@@ -489,57 +550,92 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                         <h2>Детали заказа</h2>
                         <div className="order-info">
                             <div className="client-order-info">
-                                <div><strong>ID заказа:</strong> {order._id}</div>
-                                <div><strong>Имя:</strong> {order.user ? order.user.name : order.guestInfo.name}</div>
-                                <div><strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}</div>
-                                <div><strong>Адрес:</strong> {order.address || 'Гость'}</div>
-                                <div><strong>Email:</strong> {order.user ? order.user.email : order.guestInfo.email}</div>
-                                <div><strong>Телефон №:</strong> {order.phoneNumber || 'Гость'}</div>
+                                <div>
+                                    <strong>ID заказа:</strong> {order._id}
+                                </div>
+                                <div>
+                                    <strong>Имя:</strong> {order.user ? order.user.name : order.guestInfo.name}
+                                </div>
+                                <div>
+                                    <strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}
+                                </div>
+                                <div>
+                                    <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}
+                                </div>
+                                <div>
+                                    <strong>Email:</strong> {order.user ? order.user.email : order.guestInfo.email}
+                                </div>
+                                <div>
+                                    <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}
+                                </div>
                             </div>
+
                             <div>
                                 <hr />
                                 <ul>
-                                    <h4 style={{ textAlign: "center" }}>Товары</h4>
-                                    {order.products.map((item, index) => (
+                                    <h4 style={{ textAlign: "center" }}> Товары</h4>
+                                    {order && order.products && order.products.map((item, index) => (
                                         <li key={item.product ? item.product._id : index}>
                                             <h3>Инф. о продавце заказа</h3>
-                                            <div><strong>Продавец:</strong> {item.product ? getSellerInfo(item.product).name : item.seller.name}</div>
-                                            <div><strong>Email продавца:</strong> {item.product ? getSellerInfo(item.product).email : item.seller.email}</div>
-                                            <div><strong>Номер телефона продавца:</strong> {item.product ? getSellerInfo(item.product).phoneNumber : item.seller.phoneNumber}</div>
-                                            <hr />
-                                            <div><strong>Тип товара:</strong> {item.type || 'Не указано'}</div>
-                                            <div><strong>Бренд:</strong> {item.brand || 'Не указано'}</div>
-                                            <div><strong>Название товара:</strong> {item.name || 'Не указано'}</div>
-                                            <div><strong>Цвет товара:</strong> {item.color || 'Не указано'}</div>
-                                            <div><strong>Размер:</strong> {item.size || 'Не указано'}</div>
-                                            <div><strong>Описание:</strong> {item.description || 'Не указано'}</div>
-                                            <div className="quantityItem">
-                                                <strong>Количество:</strong> {item.quantity}
+                                            <div>
+                                                <strong>Продавец:</strong> {item.product ? getSellerInfo(item.product).name : item.seller.name}
+                                            </div>
+                                            <div>
+                                                <strong>Имейл:</strong> {item.product ? getSellerInfo(item.product).email : item.seller.email}
+                                            </div>
+                                            <div>
+                                                <strong>Телефон:</strong> {item.product ? getSellerInfo(item.product).phoneNumber : item.seller.phoneNumber}
+                                            </div>
+                                            <div>
+                                                <img src={item.product ? item.product.image : ''} alt={item.product ? item.product.name : ''} />
+                                            </div>
+                                            <div>
+                                                <strong>Название:</strong> {item.product ? item.product.name : ''}
+                                            </div>
+                                            <div>
+                                                <strong>Цена:</strong> {item.product ? item.product.price : ''}
+                                            </div>
+                                            <div>
+                                                <strong>Количество:</strong> {editMode[item.product ? item.product._id : index] ? (
+                                                <input
+                                                    type="number"
+                                                    value={item.quantity}
+                                                    min="0"
+                                                    onChange={(e) => updateQuantity(item.product._id, parseInt(e.target.value, 10))}
+                                                />
+                                            ) : (
+                                                item.quantity
+                                            )}
+                                            </div>
+                                            <div>
                                                 {editMode[item.product ? item.product._id : index] ? (
-                                                    <>
-                                                        <div className="quantityButtons">
-                                                            <button className="minusQuantityButton" onClick={() => updateQuantity(item.product ? item.product._id : '', item.quantity - 1)}>−</button>
-                                                            <button className="plusQuantityButton" onClick={() => updateQuantity(item.product ? item.product._id : '', item.quantity + 1)}>+</button>
-                                                        </div>
-                                                        {deleteConfirmation === (item.product ? item.product._id : index) ? (
-                                                            <>
-                                                                <button className="cancelDeleteItemButton" onClick={cancelDeleteItem}>Отмена</button>
-                                                                <button className="confirmDeleteItemButton" onClick={() => onDeleteItem(item.product._id)}>Подтвердить удаление</button>
-                                                            </>
-                                                        ) : (
-                                                            <button className="deleteItemButton" onClick={() => confirmDeleteItem(item.product._id)}>Удалить товар</button>
-                                                        )}
-                                                    </>
+                                                    <button onClick={() => toggleEditMode(item.product ? item.product._id : index)}>
+                                                        Сохранить
+                                                    </button>
                                                 ) : (
-                                                    <button className="editQuantityButton" onClick={() => toggleEditMode(item.product ? item.product._id : index)}>Изменить количество</button>
+                                                    <button onClick={() => toggleEditMode(item.product ? item.product._id : index)}>
+                                                        Изменить количество
+                                                    </button>
+                                                )}
+                                                <button onClick={() => confirmDeleteItem(item.product ? item.product._id : index)}>
+                                                    Удалить
+                                                </button>
+                                                {deleteConfirmation === (item.product ? item.product._id : index) && (
+                                                    <div className="delete-confirmation">
+                                                        <p>Вы уверены, что хотите удалить этот товар?</p>
+                                                        <button onClick={() => onDeleteItem(item.product._id)}>Да</button>
+                                                        <button onClick={cancelDeleteItem}>Отмена</button>
+                                                    </div>
                                                 )}
                                             </div>
                                         </li>
                                     ))}
                                 </ul>
-                                <div className="order-total">
-                                    <h4>Итоговая сумма: ${totalAmount.toFixed(2)}</h4>
-                                </div>
+                            </div>
+                            <hr />
+                            <div className="total-amount">
+                                <h3>Итоговая сумма:</h3>
+                                <span>{totalAmount} ₽</span>
                             </div>
                         </div>
                     </div>
