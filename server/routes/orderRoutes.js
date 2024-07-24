@@ -642,65 +642,57 @@ async function calculateTotalAmount(products) {
 
 
 router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
+    console.log('Received request to update product quantity');
+    console.log('Request body:', req.body);
+
     const { orderId } = req.params;
-    const { productId, quantity } = req.body;
+    const { productIndex, quantity } = req.body; // Получаем индекс товара вместо productId
 
     try {
-        // Найти заказ по ID
         const order = await Order.findById(orderId);
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        // Найти товар в заказе
-        const productIndex = order.products.findIndex(item => item.product.toString() === productId);
-        if (productIndex === -1) {
+        const product = order.products[productIndex];
+        if (!product) {
             return res.status(404).json({ message: 'Product not found in order' });
         }
 
-        // Обновить количество товара и пересчитать сумму
-        const product = order.products[productIndex];
         product.quantity = quantity;
-        order.totalAmount = order.products.reduce((total, item) => total + item.price * item.quantity, 0);
+        order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
 
-        // Сохранить изменения
         await order.save();
-
         res.json(order);
     } catch (error) {
-        console.error('Error updating product quantity:', error);
         res.status(500).json({ message: error.message });
     }
 });
 
 
 router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
+    console.log('Received request to remove product');
+    console.log('Request body:', req.body);
+
     const { orderId } = req.params;
-    const { productId } = req.body;
+    const { productIndex } = req.body; // Получаем индекс товара вместо productId
 
     try {
-        // Найти заказ по ID
         const order = await Order.findById(orderId);
         if (!order) {
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        // Найти индекс товара в заказе
-        const productIndex = order.products.findIndex(item => item.product.toString() === productId);
-        if (productIndex === -1) {
+        if (productIndex < 0 || productIndex >= order.products.length) {
             return res.status(404).json({ message: 'Product not found in order' });
         }
 
-        // Удалить товар из заказа и пересчитать сумму
         order.products.splice(productIndex, 1);
-        order.totalAmount = order.products.reduce((total, item) => total + item.price * item.quantity, 0);
+        order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
 
-        // Сохранить изменения
         await order.save();
-
         res.json(order);
     } catch (error) {
-        console.error('Error removing product from order:', error);
         res.status(500).json({ message: error.message });
     }
 });

@@ -692,9 +692,91 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         history.goBack();
     };
 
-    const updateQuantity = async (productId, newQuantity) => {
-        if (!productId || newQuantity < 0) {
-            console.error('Нельзя установить отрицательное количество товара');
+    // const updateQuantity = async (productId, newQuantity) => {
+    //     if (newQuantity < 0) {
+    //         console.log('Нельзя установить отрицательное количество товара');
+    //         return;
+    //     }
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-product-quantity/${orderId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    //             },
+    //             body: JSON.stringify({ productId, quantity: newQuantity }), // Убедимся, что productId передан в теле запроса
+    //         });
+    //         const result = await response.json();
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             const updatedProducts = updatedOrder.products.map(item => {
+    //                 if (item.product && item.product._id === productId) {
+    //                     return { ...item, quantity: newQuantity };
+    //                 }
+    //                 return item;
+    //             });
+    //             updatedOrder.products = updatedProducts;
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+    //             setOrder(updatedOrder);
+    //             const updatedOrders = orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             });
+    //             setOrders(updatedOrders);
+    //         } else {
+    //             console.error('Failed to update quantity:', result);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error updating quantity:', error);
+    //     }
+    // };
+
+    // const onDeleteItem = async (productId) => {
+    //     console.log('Deleting item with productId:', productId);
+    //     if (!productId) {
+    //         console.log('Product ID is required');
+    //         return;
+    //     }
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/remove-product/${orderId}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    //             },
+    //             body: JSON.stringify({ productId }), // Убедимся, что productId передан в теле запроса
+    //         });
+    //         if (response.ok) {
+    //             const updatedOrder = { ...order };
+    //             updatedOrder.products = updatedOrder.products.filter((item) => item.product && item.product._id !== productId);
+    //             updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
+    //             setOrder(updatedOrder);
+    //             const updatedOrders = orders.map((order) => {
+    //                 if (order._id === orderId) {
+    //                     return updatedOrder;
+    //                 }
+    //                 return order;
+    //             });
+    //             setOrders(updatedOrders);
+    //
+    //             if (updatedOrder.products.length === 0) {
+    //                 await deleteOrder(orderId);
+    //             }
+    //         } else {
+    //             const result = await response.json();
+    //             console.error('Failed to delete item:', result);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error deleting item:', error);
+    //     }
+    // };
+
+
+    const updateQuantity = async (productIndex, newQuantity) => {
+        if (newQuantity < 0) {
+            console.log('Нельзя установить отрицательное количество товара');
             return;
         }
         try {
@@ -702,28 +784,22 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({ productId, quantity: newQuantity }),
+                body: JSON.stringify({ productIndex, quantity: newQuantity }), // Передаем индекс вместо productId
             });
             const result = await response.json();
             if (response.ok) {
                 const updatedOrder = { ...order };
-                const updatedProducts = updatedOrder.products.map(item => {
-                    if (item.product && item.product._id === productId) {
-                        return { ...item, quantity: newQuantity };
-                    }
-                    return item;
-                });
-                updatedOrder.products = updatedProducts;
-                updatedOrder.totalAmount = calculateTotalAmountLocally(updatedProducts);
+                updatedOrder.products[productIndex].quantity = newQuantity;
+                updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
                 setOrder(updatedOrder);
-                const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+                const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
                         return updatedOrder;
                     }
                     return order;
-                }) : [];
+                });
                 setOrders(updatedOrders);
             } else {
                 console.error('Failed to update quantity:', result);
@@ -733,9 +809,11 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
-    const onDeleteItem = async (productId) => {
-        if (!productId) {
-            console.error('Product ID is required');
+
+    const onDeleteItem = async (productIndex) => {
+        console.log('Deleting item at index:', productIndex);
+        if (productIndex === undefined || productIndex < 0) {
+            console.log('Product index is required');
             return;
         }
         try {
@@ -743,22 +821,21 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Добавьте токен аутентификации
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({ productId }),
+                body: JSON.stringify({ productIndex }), // Передаем индекс вместо productId
             });
             if (response.ok) {
                 const updatedOrder = { ...order };
-                updatedOrder.products = updatedOrder.products.filter((item) => item.product && item.product._id !== productId);
+                updatedOrder.products.splice(productIndex, 1);
                 updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
                 setOrder(updatedOrder);
-
-                const updatedOrders = Array.isArray(orders) ? orders.map((order) => {
+                const updatedOrders = orders.map((order) => {
                     if (order._id === orderId) {
                         return updatedOrder;
                     }
                     return order;
-                }) : [];
+                });
                 setOrders(updatedOrders);
 
                 if (updatedOrder.products.length === 0) {
@@ -772,6 +849,9 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             console.error('Error deleting item:', error);
         }
     };
+
+
+
 
     const deleteOrder = async (orderId) => {
         if (!orderId) {
@@ -903,16 +983,16 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                 <ul>
                                     <h4 style={{ textAlign: "center" }}> Товары</h4>
                                     {order && order.products && order.products.map((item, index) => (
-                                        <li key={item.product ? item.product._id : index}>
+                                        <li key={index}> {/* Используем индекс в качестве ключа */}
                                             <h3>Инф. о продавце заказа</h3>
                                             <div>
-                                                <strong>Продавец:</strong> {item.product ? getSellerInfo(item.product).name : item.seller?.name || 'Неизвестный продавец'}
+                                                <strong>Продавец:</strong> {item.seller?.name || 'Неизвестный продавец'}
                                             </div>
                                             <div>
-                                                <strong>Имейл:</strong> {item.product ? getSellerInfo(item.product).email : item.seller?.email || '-'}
+                                                <strong>Имейл:</strong> {item.seller?.email || '-'}
                                             </div>
                                             <div>
-                                                <strong>Телефон:</strong> {item.product ? getSellerInfo(item.product).phoneNumber : item.seller?.phoneNumber || '-'}
+                                                <strong>Телефон:</strong> {item.seller?.phoneNumber || '-'}
                                             </div>
                                             <div>
                                                 <img src={item.product ? item.product.image : ''} alt={item.product ? item.product.name : ''} />
@@ -924,40 +1004,41 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 <strong>Цена:</strong> {item.product ? item.product.price : ''}
                                             </div>
                                             <div>
-                                                <strong>Количество:</strong> {editMode[item.product ? item.product._id : index] ? (
+                                                <strong>Количество:</strong> {editMode[index] ? (
                                                 <input
                                                     type="number"
                                                     value={item.quantity}
                                                     min="0"
-                                                    onChange={(e) => updateQuantity(item.product ? item.product._id : null, parseInt(e.target.value, 10))}
+                                                    onChange={(e) => updateQuantity(index, parseInt(e.target.value, 10))} // Используем индекс
                                                 />
                                             ) : (
                                                 item.quantity
                                             )}
                                             </div>
                                             <div>
-                                                {editMode[item.product ? item.product._id : index] ? (
-                                                    <button onClick={() => toggleEditMode(item.product ? item.product._id : index)}>
+                                                {editMode[index] ? (
+                                                    <button onClick={() => toggleEditMode(index)}>
                                                         Сохранить
                                                     </button>
                                                 ) : (
-                                                    <button onClick={() => toggleEditMode(item.product ? item.product._id : index)}>
+                                                    <button onClick={() => toggleEditMode(index)}>
                                                         Изменить количество
                                                     </button>
                                                 )}
-                                                <button onClick={() => confirmDeleteItem(item.product ? item.product._id : index)}>
+                                                <button onClick={() => confirmDeleteItem(index)}>
                                                     Удалить
                                                 </button>
-                                                {deleteConfirmation === (item.product ? item.product._id : index) && (
+                                                {deleteConfirmation === index && (
                                                     <div className="delete-confirmation">
                                                         <p>Вы уверены, что хотите удалить этот товар?</p>
-                                                        <button onClick={() => onDeleteItem(item.product ? item.product._id : null)}>Да</button>
+                                                        <button onClick={() => onDeleteItem(index)}>Да</button>
                                                         <button onClick={cancelDeleteItem}>Отмена</button>
                                                     </div>
                                                 )}
                                             </div>
                                         </li>
                                     ))}
+
                                 </ul>
                             </div>
                             <hr />
