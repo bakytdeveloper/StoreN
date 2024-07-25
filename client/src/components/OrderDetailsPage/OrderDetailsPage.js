@@ -250,7 +250,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                             </div>
                                             <div>
                                                 <strong>Количество:</strong>
-                                                {item.product && editMode[item.product._id] ? (
+                                                {item?._id && editMode[item?._id] ? (
                                                     <input
                                                         type="number"
                                                         value={item.quantity}
@@ -261,17 +261,17 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                     item.quantity
                                                 )}
                                             </div>
-                                            {item.product && (
+                                            {item && (
                                                 <>
-                                                    <button onClick={() => toggleEditMode(item.product._id)}>
-                                                        {editMode[item.product._id] ? 'Сохранить' : 'Изменить'}
+                                                    <button onClick={() => toggleEditMode(item._id)}>
+                                                        {editMode[item._id] ? 'Сохранить' : 'Изменить'}
                                                     </button>
-                                                    <button onClick={() => confirmDeleteItem(item.product._id)}>
+                                                    <button onClick={() => confirmDeleteItem(item._id)}>
                                                         Удалить
                                                     </button>
                                                 </>
                                             )}
-                                            {deleteConfirmation === item.product?._id && (
+                                            {deleteConfirmation === item?._id && (
                                                 <div>
                                                     <p>Вы уверены, что хотите удалить этот товар?</p>
                                                     <button onClick={() => onDeleteItem(index)}>Да</button>
@@ -284,7 +284,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
                                 </ul>
                                 <hr />
-                                <h3 style={{ textAlign: "center" }}>Итоговая сумма: {totalAmount} р.</h3>
+                                <h3 style={{ textAlign: "center" }}>Итоговая сумма: {totalAmount} сом.</h3>
                                 <hr />
                                 <button className="delete-order-button" onClick={() => deleteOrder(orderId)}>
                                     Удалить заказ
