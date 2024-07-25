@@ -347,7 +347,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
     const calculateTotalAmountLocally = (products) => {
         return products.reduce((sum, item) =>
-                item.product && item.product.price ? sum + item.product.price * item.quantity : sum
+                item && item.price ? sum + item.price * item.quantity : sum
             , 0);
     };
 
@@ -564,7 +564,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 )}
                                             </div>
                                             <div>
-                                                <strong>Итого:</strong> {item.product ? item.price * item.quantity : '0 ₸'}
+                                                <strong>Итого:</strong> {item ? item.price * item.quantity : '0 ₸'}
                                             </div>
                                             <button onClick={() => confirmDeleteItem(index)}>Удалить товар</button>
                                             {deleteConfirmation === index && (
