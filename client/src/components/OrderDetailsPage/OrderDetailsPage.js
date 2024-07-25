@@ -231,12 +231,10 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                 <ul>
                                     <h4 style={{ textAlign: "center" }}> Товары</h4>
                                     {order && order.products && order.products.map((item, index) => (
-                                        <li key={index}> {/* Используем индекс в качестве ключа */}
+                                        <li key={index}>
                                             <h3>Инф. о продавце заказа</h3>
                                             <div>
-                                                {/*<strong>Продавец:</strong> {getSellerInfo(item.product).name}*/}
-                                                 <strong>Продавец:</strong> {item.seller?.name || 'Неизвестный продавец'}
-
+                                                <strong>Продавец:</strong> {item.seller?.name || 'Неизвестный продавец'}
                                             </div>
                                             <div>
                                                 <strong>Email:</strong> {item.seller?.email || '-'}
@@ -244,9 +242,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                             <div>
                                                 <strong>Телефон:</strong> {item.seller?.phoneNumber || '-'}
                                             </div>
-                                            {/*<div>*/}
-                                            {/*    <img src={item.product ? item.product.image : ''} alt={item.product ? item.product.name : 'Product'} />*/}
-                                            {/*</div>*/}
                                             <div>
                                                 <strong>Название товара:</strong> {item.product ? item.product.name : 'Неизвестный товар'}
                                             </div>
@@ -255,7 +250,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                             </div>
                                             <div>
                                                 <strong>Количество:</strong>
-                                                {editMode[item.product._id] ? (
+                                                {item.product && editMode[item.product._id] ? (
                                                     <input
                                                         type="number"
                                                         value={item.quantity}
@@ -266,13 +261,17 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                     item.quantity
                                                 )}
                                             </div>
-                                            <button onClick={() => toggleEditMode(item.product._id)}>
-                                                {editMode[item.product._id] ? 'Сохранить' : 'Изменить'}
-                                            </button>
-                                            <button onClick={() => confirmDeleteItem(item.product._id)}>
-                                                Удалить
-                                            </button>
-                                            {deleteConfirmation === item.product._id && (
+                                            {item.product && (
+                                                <>
+                                                    <button onClick={() => toggleEditMode(item.product._id)}>
+                                                        {editMode[item.product._id] ? 'Сохранить' : 'Изменить'}
+                                                    </button>
+                                                    <button onClick={() => confirmDeleteItem(item.product._id)}>
+                                                        Удалить
+                                                    </button>
+                                                </>
+                                            )}
+                                            {deleteConfirmation === item.product?._id && (
                                                 <div>
                                                     <p>Вы уверены, что хотите удалить этот товар?</p>
                                                     <button onClick={() => onDeleteItem(index)}>Да</button>
@@ -282,6 +281,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                             <hr />
                                         </li>
                                     ))}
+
                                 </ul>
                                 <hr />
                                 <h3 style={{ textAlign: "center" }}>Итоговая сумма: {totalAmount} р.</h3>
