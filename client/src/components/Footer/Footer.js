@@ -601,10 +601,10 @@ const Footer = ({
     };
 
     const handleCatalogClick = () => {
-        history.push('/catalog');
+        history.push('/catalog?page=1');
         setSelectedOption('catalog');
-        setShowSidebar(!showSidebar);
-        setIsFooterCatalog(false);
+        setShowSidebar(prevState => !prevState);
+        setIsFooterCatalog(prevState => !prevState);
         handleButtonClick('catalog', 'catalog');
     };
 

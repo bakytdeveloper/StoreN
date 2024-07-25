@@ -114,6 +114,18 @@ const ProductList = ({
     };
 
 
+    // Устанавливаем page=1 при переходе на страницу каталога
+    useEffect(() => {
+        if (location.pathname === '/catalog') {
+            const params = new URLSearchParams(location.search);
+            if (!params.get('page')) {
+                params.set('page', '1');
+                history.replace({ search: params.toString() });
+            }
+        }
+    }, [location.pathname, location.search, history]);
+
+
     // Обработка параметров фильтрации из URL-адреса при загрузке страницы
     useEffect(() => {
         const params = new URLSearchParams(location.search);
