@@ -43,6 +43,19 @@ const ProductList = ({
     const [searchEmptyResult, setSearchEmptyResult] = useState(false);
     const [sellerInfo, setSellerInfo] = useState(null);
 
+
+    // Сброс фильтров при возвращении на страницу каталога
+    useEffect(() => {
+        if (location.pathname === '/catalog') {
+            // Сбрасываем фильтры
+            setSelectedGender(null);
+            setSelectedCategory(null);
+            setSelectedType(null);
+            setSearchTerm(''); // Сбрасываем поисковый запрос
+        }
+    }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+
+
     // Обновление боковой панели при изменении ширины окна
     useEffect(() => {
         const updateSidebar = () => {
