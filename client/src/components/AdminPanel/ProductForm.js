@@ -549,6 +549,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
                         onChange={(e) => handleColorChange(index, 'name', e.target.value)}
                         placeholder="Название цвета"
+                        required
                     />
                     <input
                         type="color"
