@@ -243,10 +243,10 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 <strong>Телефон:</strong> {item.seller?.phoneNumber || '-'}
                                             </div>
                                             <div>
-                                                <strong>Название товара:</strong> {item.product ? item.product.name : 'Неизвестный товар'}
+                                                <strong>Название товара:</strong> {item.name ? item.name : 'Неизвестный товар'}
                                             </div>
                                             <div>
-                                                <strong>Цена:</strong> {item.product ? item.product.price : 'Неизвестная цена'}
+                                                <strong>Цена:</strong> {item.price ? item.price : 'Неизвестная цена'}
                                             </div>
                                             <div>
                                                 <strong>Количество:</strong>
