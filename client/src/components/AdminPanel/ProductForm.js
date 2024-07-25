@@ -324,8 +324,13 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         const hasValidCharacteristics = formData.characteristics.some(char => char.name.trim() !== '' && char.value.trim() !== '');
         const hasValidImages = formData.images.some(image => image.trim() !== '');
 
-        if (!hasValidCharacteristics || !hasValidImages) {
-            toast.error('Характеристики и изображения должны быть заполнены хотя бы одним значением');
+        if (!hasValidCharacteristics) {
+            toast.error('Характеристики должны быть заполнены хотя бы одним значением');
+            setIsSubmitting(false); // Устанавливаем состояние отправки формы обратно в false
+            return;
+        }
+        if (!hasValidImages) {
+            toast.error('Изображения должны быть заполнены хотя бы одним значением');
             setIsSubmitting(false); // Устанавливаем состояние отправки формы обратно в false
             return;
         }
