@@ -501,14 +501,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             <label>Описание:</label>
             <textarea name="description" value={formData.description} onChange={handleChange} required/>
 
-            <label>Цена:</label>
-            <input type="number"
-                   placeholder="0"
-                   name="price"
-                   min="0"
-                   value={formData.price}
-                   onChange={handleChange} required/>
-
 
             <label>Цена до скидки</label>
             <input
@@ -519,6 +511,16 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                 value={formData.originalPrice}
                 onChange={handleChange}
             />
+
+            <label>Цена:</label>
+            <input type="number"
+                   placeholder="0"
+                   name="price"
+                   min="0"
+                   value={formData.price}
+                   onChange={handleChange} required/>
+
+
 
             <label htmlFor="quantity">Количество</label>
             <input type="number"
