@@ -68,20 +68,6 @@ const NewestProducts = ({ apiUrl }) => {
         };
     }, []);
 
-    // Обновление количества колонок в зависимости от ширины окна
-    // useEffect(() => {
-    //     if (windowWidth >= 1800) {
-    //         setColumns(6);
-    //     } else if (windowWidth >= 1500) {
-    //         setColumns(5);
-    //     } else if (windowWidth >= 1200) {
-    //         setColumns(4);
-    //     } else if (windowWidth >= 900) {
-    //         setColumns(3);
-    //     } else {
-    //         setColumns(2);
-    //     }
-    // }, [windowWidth]);
 
     if (loading) {
         return <h2>Loading...</h2>;

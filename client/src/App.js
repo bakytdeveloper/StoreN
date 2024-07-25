@@ -163,7 +163,10 @@ const App = () => {
                                 <SellerListPage />
                             </Route>
                             <Route path="/seller/products">
-                                <SellerProductsPage />
+                                <SellerProductsPage
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/sellers-products">
                                 <ProductForm

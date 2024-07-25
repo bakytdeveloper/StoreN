@@ -13,7 +13,7 @@ import './SellerProductsPage.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SellerProductsPage = () => {
+const SellerProductsPage = ({setShowSidebar}) => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showForm, setShowForm] = useState(false);
@@ -32,6 +32,14 @@ const SellerProductsPage = () => {
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
 
     const history = useHistory();
+
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => {
+            setShowSidebar(true);
+        };
+    }, [setShowSidebar]);
 
     // Проверка, аутентифицирован ли пользователь
     useEffect(() => {
