@@ -132,7 +132,7 @@ router.get('/clients', async (req, res) => {
 
 
 // Удаление клиента
-router.delete('/clients/:id', async (req, res) => {
+router.delete('/clients/:id',  authenticateToken,  checkRole(['admin']), async (req, res) => {
     try {
         const clientId = req.params.id;
         await User.findByIdAndDelete(clientId);
