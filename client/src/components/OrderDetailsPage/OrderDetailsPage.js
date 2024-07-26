@@ -1397,29 +1397,44 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
+
     const deleteOrder = async (orderId) => {
         if (!orderId) {
             console.error('Order ID is required');
             return;
         }
         try {
+            const token = localStorage.getItem('token'); // Убедитесь, что токен сохранен в localStorage
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
             if (response.ok) {
                 console.log('Order deleted successfully');
                 setOrder(null);
-                setTotalAmount(0); // Сбросить общую сумму
-                const updatedOrders = orders.filter((order) => order._id !== orderId);
-                setOrders(updatedOrders);
-                history.goBack(); // Возврат на предыдущую страницу
+                setTotalAmount(0);
+                // Ensure orders is an array before filtering
+                if (Array.isArray(orders)) {
+                    const updatedOrders = orders.filter((order) => order._id !== orderId);
+                    setOrders(updatedOrders);
+                } else {
+                    console.error('Orders is not an array:', orders);
+                }
+
+                history.goBack();
+                history.push('/order/');
+
             } else {
-                console.error('Failed to delete order');
+                const result = await response.json();
+                console.error('Failed to delete order:', result);
             }
         } catch (error) {
             console.error('Error deleting order:', error);
         }
     };
+
 
     const fetchSellers = async () => {
         try {
