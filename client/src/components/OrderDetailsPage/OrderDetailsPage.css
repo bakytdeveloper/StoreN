@@ -131,6 +131,7 @@ button:hover {
 
 .quantity-input {
     display: flex;
+    justify-content: space-between;
 }
 
 .quantity-input button{
@@ -141,6 +142,49 @@ button:hover {
     /*text-align: center;*/
     justify-content: center;
 }
+
+
+.confirmation-dialog {
+    display: block;
+    position: relative;
+    border: 1px solid #aeabab;
+    text-align: center;
+    border-radius: 5px;
+    background: white;
+    padding: 10px;
+}
+
+.confirmation-dialog-buttons {
+    display: inline-flex;
+}
+
+
+.confirm-delete-button {
+    display: flex;
+    margin-right: 5px;
+    max-height: 40px;
+    padding: 0 17px;
+    align-items: center;
+}
+
+.cancel-delete-button {
+    display: flex;
+    margin-left: 5px;
+    max-height: 40px;
+    padding: 0 17px;
+    align-items: center;
+}
+
+.edit-quantity-buttons-input {
+    margin: 0 20px;
+    max-height: 40px;
+    adding: 0 17px;
+}
+
+.edit-quantity-buttons-delete-button {
+    margin-left: 22px;
+}
+
 
 
 /* Адаптивные стили */

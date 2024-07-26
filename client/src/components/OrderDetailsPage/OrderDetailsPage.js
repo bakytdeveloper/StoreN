@@ -1708,9 +1708,12 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
                                             {deleteConfirmation === index ? (
                                                 <div className="confirmation-dialog">
-                                                    <p>Вы уверены, что хотите удалить этот товар?</p>
-                                                    <button className="confirm-delete-button" onClick={() => { onDeleteItem(index); cancelDeleteItem(); toggleEditMode(item._id); }}>Удалить</button>
-                                                    <button className="cancel-delete-button" onClick={() => { cancelDeleteItem(); toggleEditMode(item._id); }}>Отмена</button>
+                                                    <div>Вы уверены, что хотите удалить этот товар?</div>
+                                                    <div className="confirmation-dialog-buttons">
+                                                        <button className="confirm-delete-button" onClick={() => { onDeleteItem(index); cancelDeleteItem(); toggleEditMode(item._id); }}>Да</button>
+                                                        <button className="cancel-delete-button" onClick={() => { cancelDeleteItem(); toggleEditMode(item._id); }}>Нет</button>
+
+                                                    </div>
                                                 </div>
                                             ) : (
                                                 <div className="edit-buttons">
@@ -1726,13 +1729,14 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                             <div className="quantity-input">
                                                                 <button onClick={() => decrementQuantity(index)}>-</button>
                                                                 <input
+                                                                    className="edit-quantity-buttons-input"
                                                                     type="number"
                                                                     value={item.quantity}
                                                                     onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
                                                                     min="0"
                                                                 />
                                                                 <button onClick={() => incrementQuantity(index)}>+</button>
-                                                                <button className="delete-button" onClick={() => confirmDeleteItem(index)}>Удалить</button>
+                                                                <button className="edit-quantity-buttons-delete-button" onClick={() => confirmDeleteItem(index)}>Удалить</button>
                                                             </div>
                                                         </label>
                                                     </div>
