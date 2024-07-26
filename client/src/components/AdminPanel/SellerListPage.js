@@ -6,10 +6,17 @@ import './SellerListPage.css';
 import SellerItem from "./SellerItem";
 import {toast} from "react-toastify";
 
-const SellerListPage = () => {
+const SellerListPage = ({setShowSidebar}) => {
     const [sellers, setSellers] = useState([]);
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const history = useHistory();
+
+    useEffect(() => {
+        setShowSidebar(true);
+        return () => {
+            setShowSidebar(true);
+        };
+    }, [setShowSidebar]);
 
 
     useEffect(() => {
@@ -42,12 +49,8 @@ const SellerListPage = () => {
     }, [history]);
 
 
-    // useEffect(() => {
-    //     fetchSellersFromDatabase();
-    // }, []);
 
     const handleClose = () => {
-        // history.push('/');
         history.goBack(); // Переход на предыдущую страницу
     };
 
@@ -79,6 +82,25 @@ const SellerListPage = () => {
         }
     };
 
+    const handleDeleteSeller = async (sellerId) => {
+        try {
+            const response = await fetch(`${apiUrl}/api/sellers/${sellerId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+
+            if (response.ok) {
+                setSellers(sellers.filter(seller => seller._id !== sellerId));
+            } else {
+                console.error('Error deleting seller:', await response.text());
+            }
+        } catch (error) {
+            console.error('Error deleting seller:', error);
+        }
+    };
+
     return (
         <div className="sellersListPage">
             <h2  className="sellerTitle">Список продавцов</h2>
@@ -97,13 +119,14 @@ const SellerListPage = () => {
                     <th>Время</th>
                     <th>Статус</th>
                     <th>Время изменения статуса</th>
+                    <th>Действия</th> {/* Новый столбец для кнопки удаления */}
 
                 </tr>
                 </thead>
                 <tbody>
                 {sellers.slice().reverse().map((seller, index) => (
                     <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td style={{fontWeight:"bold"}}>{index + 1}</td>
                         <td>{seller.companyName}</td>
                         <td>{seller.name}</td>
                         <td>{seller.email}</td>
@@ -116,6 +139,10 @@ const SellerListPage = () => {
                             {seller.statusHistory && seller.statusHistory.length > 0
                                 ? new Date(seller.statusHistory[seller.statusHistory.length - 1].time).toLocaleString()
                                 : '-'}
+                        </td>
+
+                        <td>
+                            <button className="delete-button" onClick={() => handleDeleteSeller(seller._id)}>Удалить</button>
                         </td>
 
                     </tr>

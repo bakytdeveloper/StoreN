@@ -160,7 +160,10 @@ const App = () => {
                                 />
                             </Route>
                             <Route path="/sellers">
-                                <SellerListPage />
+                                <SellerListPage
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
                             </Route>
                             <Route path="/seller/products">
                                 <SellerProductsPage

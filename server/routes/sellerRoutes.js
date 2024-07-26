@@ -269,58 +269,6 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
-// router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
-//     try {
-//         const { page = 1, perPage = 15 } = req.query;
-//         const sellerId = req.user.sellerId;
-//
-//         // Проверяем, существует ли sellerId
-//         if (!mongoose.Types.ObjectId.isValid(sellerId)) {
-//             return res.status(400).json({ message: "Invalid seller ID" });
-//         }
-//
-//         // Находим все продукты текущего продавца
-//         const sellerProducts = await Product.find({ seller: new mongoose.Types.ObjectId(sellerId) }).select('_id');
-//
-//         console.log("sellerProducts", sellerProducts);
-//
-//         // Если нет продуктов у продавца, ищем заказы напрямую по данным в заказах
-//         let ordersQuery = Order.aggregate([
-//             { $match: { 'products.product': { $exists: true } } },
-//             { $unwind: '$products' },
-//             { $lookup: { from: 'products', localField: 'products.product', foreignField: '_id', as: 'productInfo' } },
-//             { $unwind: '$productInfo' },
-//             { $match: { 'productInfo.seller': new mongoose.Types.ObjectId(sellerId) } },
-//             { $group: {
-//                     _id: '$_id',
-//                     date: { $first: '$date' },
-//                     status: { $first: '$status' },
-//                     products: { $push: '$products' },
-//                     totalAmount: { $sum: { $multiply: ['$products.quantity', '$productInfo.price'] } },
-//                     user: { $first: '$user' }
-//                 } },
-//             { $sort: { date: -1 } },
-//             { $skip: (page - 1) * perPage },
-//             { $limit: parseInt(perPage, 10) }
-//         ]);
-//
-//         const orders = await ordersQuery;
-//
-//         // Считаем общее количество заказов
-//         const totalOrders = await Order.countDocuments({
-//             'products.product': { $in: sellerProducts.map(product => product._id) }
-//         });
-//
-//         // Отправляем ответ клиенту
-//         res.json({ orders, totalOrders, page: parseInt(page, 10), perPage: parseInt(perPage, 10) });
-//     } catch (error) {
-//         console.error("Error fetching sales history:", error);
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-
 
 
 router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
@@ -401,6 +349,19 @@ router.get('/:sellerId', async (req, res) => {
         res.status(500).json({ message: 'Внутренняя ошибка сервера' });
     }
 });
+
+
+// Удаление продавца
+router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
+    try {
+        const sellerId = req.params.id;
+        await Seller.findByIdAndDelete(sellerId);
+        res.status(200).json({ message: 'Seller deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting seller', error });
+    }
+});
+
 
 
 module.exports = router;

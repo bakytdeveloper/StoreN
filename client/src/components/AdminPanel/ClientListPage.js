@@ -69,6 +69,7 @@ const ClientListPage = ({setShowSidebar}) => {
         }
     };
 
+    console.log("clients:",clients)
 
     return (
         <div className="client-list-page">
@@ -80,7 +81,7 @@ const ClientListPage = ({setShowSidebar}) => {
                     <th>Порядковый номер</th>
                     <th>Имя</th>
                     <th>Email</th>
-                    <th>Дата регистрации</th>
+                    {/*<th>Дата регистрации</th>*/}
                     <th>Действия</th>
                 </tr>
                 </thead>
@@ -90,7 +91,7 @@ const ClientListPage = ({setShowSidebar}) => {
                         <td style={{fontWeight: "bold"}}>{index + 1}</td>
                         <td>{client.name}</td>
                         <td>{client.email}</td>
-                        <td>{new Date(client.createdAt).toLocaleDateString()}</td>
+                        {/*<td>{new Date(client.createdAt).toLocaleString()}</td>*/}
                         <td>
                             <button className="delete-button" onClick={() => handleDeleteClient(client._id)}>Удалить</button>
                         </td>
