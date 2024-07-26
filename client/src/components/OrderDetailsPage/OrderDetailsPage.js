@@ -1759,9 +1759,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                 </div>
                                 {orderDeleteConfirmation ? (
                                     <div className="confirmation-buttons">
-                                        <p>Вы уверены, что хотите удалить этот заказ?</p>
-                                        <button onClick={() => deleteOrder(order._id)}>Да</button>
-                                        <button onClick={cancelDeleteOrder}>Отмена</button>
+                                        <div>Вы уверены, что хотите удалить этот заказ?</div>
+
+                                        <div className="confirmation-buttons-all-order">
+                                            <button className="confirmation-buttons-all-order-left" onClick={() => deleteOrder(order._id)}>Да</button>
+                                            <button className="confirmation-buttons-all-order-right" onClick={cancelDeleteOrder}>Отмена</button>
+                                        </div>
+
                                     </div>
                                 ) : (
                                     <button className="delete-button" onClick={confirmDeleteOrder}>

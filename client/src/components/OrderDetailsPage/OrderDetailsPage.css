@@ -185,6 +185,34 @@ button:hover {
     margin-left: 22px;
 }
 
+.confirmation-buttons {
+    display: block;
+    position: relative;
+    border: 1px solid #aeabab;
+    text-align: center;
+    border-radius: 5px;
+    background: white;
+    padding: 10px;
+}
+
+.confirmation-buttons-all-order {
+    display: inline-flex;
+}
+
+.confirmation-buttons-all-order-left {
+    margin-right: 10px;
+    max-height: 40px;
+    padding: 0 17px;
+    align-items: center;
+}
+
+.confirmation-buttons-all-order-right {
+    margin-left: 10px;
+    max-height: 40px;
+    padding: 0 17px;
+    align-items: center;
+}
+
 
 
 /* Адаптивные стили */
