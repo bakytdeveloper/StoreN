@@ -1,12 +1,23 @@
 
 .client-list-page {
-    margin-top: 75px;
+    margin-top: 140px;
+    margin-bottom: 33px;
 }
 
-.client-list-page button {
+.client-list-page-cross-button {
     font-size: 22px;
-    padding: 0;
-    margin-bottom: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
+    background: none;
+    color: black;
+    width: auto;
+    padding: 0 15px;
+    margin-left: 90%;
+    border-radius: 45%;
+}
+
+.client-list-page-cross-button:hover {
+    background: #dddddd;
 }
 
 

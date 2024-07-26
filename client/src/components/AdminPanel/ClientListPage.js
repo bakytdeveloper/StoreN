@@ -51,7 +51,7 @@ const ClientListPage = ({setShowSidebar}) => {
         <div className="client-list-page">
             {/*<div className="header">*/}
             <h2>Список клиентов</h2>
-            <button onClick={handleGoBack}>&times;</button> {/* Кнопка "крестик" */}
+            <button className="client-list-page-cross-button" onClick={handleGoBack}>&#10006;</button> {/* Кнопка "крестик" */}
             {/*</div>*/}
             <table>
                 <thead>
@@ -64,9 +64,10 @@ const ClientListPage = ({setShowSidebar}) => {
                 <tbody>
                 {Array.isArray(clients) && clients.slice().reverse().map((client, index) => (
                     <tr key={client._id}>
-                        <td>{index + 1}</td>
+                        <td style={{fontWeight:"bold"}}>{index + 1}</td>
                         <td>{client.name}</td>
                         <td>{client.email}</td>
+
                     </tr>
                 ))}
 
