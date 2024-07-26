@@ -1604,7 +1604,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
                                                    <div className="edit-quantity-add-end-delete">
                                                        <button className="save-button" onClick={() => toggleEditMode(index)}>Сохранить</button>
-                                                       <button className="delete-button" onClick={() => confirmDeleteItem(index)}>Удалить</button>
 
                                                    </div>
                                                 </div>
