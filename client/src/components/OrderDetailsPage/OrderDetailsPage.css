@@ -11,6 +11,7 @@
 
 .order-details-modal {
     position: relative;
+    font-family: Poppins;
     margin-top: 111px;
     background-color: #fff;
     border-radius: 10px;
@@ -116,6 +117,32 @@ button:hover {
     background-color: #0056b3;
 }
 
+.edit-quantity {
+    /*display: inline-flex;*/
+    position: relative;
+    width: 100%;
+}
+
+
+.edit-quantity-buttons {
+    display: flex;
+    position: center;
+}
+
+.quantity-input {
+    display: flex;
+}
+
+.quantity-input button{
+    display: flex;
+    height: 37px;
+    padding: 3px 10px;
+    align-items: center;
+    /*text-align: center;*/
+    justify-content: center;
+}
+
+
 /* Адаптивные стили */
 @media (max-width: 768px) {
     .order-details-page {
@@ -124,7 +151,8 @@ button:hover {
     .order-details-modal {
         margin-top: 10px;
         /*padding: 1px 1px 100px;*/
-        width: 100% !important;
+        max-width: 95%;
+
 
     }
 
