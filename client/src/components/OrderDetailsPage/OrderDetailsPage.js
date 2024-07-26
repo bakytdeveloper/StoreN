@@ -847,12 +847,12 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                             <div>
                                                 <strong>Email продавца:</strong> {item.seller?.email || 'Неизвестный email'}
                                             </div>
-                                            <h3>Инф. о товаре</h3>
+                                            <h3><u>Инф. о товаре</u></h3>
                                             <div>
                                                 <strong>Название товара:</strong> {item.name || 'Неизвестный товар'}
                                             </div>
                                             <div>
-                                                <strong>Цена за единицу:</strong> {item.price ? `${item.price} ₸` : 'Неизвестная цена'}
+                                                <strong>Цена за единицу:</strong> {item.price ? `${item.price} сом` : 'Неизвестная цена'}
                                             </div>
                                             <div>
                                                 <strong>Количество:</strong> {item.quantity}
@@ -870,7 +870,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 )}
                                             </div>
                                             <div>
-                                                <strong>Итого:</strong> {item ? item.price * item.quantity : '0 ₸'}
+                                                <strong>Итого:</strong> {item ? item.price * item.quantity : '0 сом'} <span>сом</span>
                                             </div>
                                             <button onClick={() => confirmDeleteItem(index)}>Удалить товар</button>
                                             {deleteConfirmation === index && (
@@ -886,7 +886,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                 <hr />
                                 <div>
                                     <h4>Итого:</h4>
-                                    <p>{totalAmount} ₸</p>
+                                    <p>{totalAmount} сом</p>
                                 </div>
                                 <button onClick={() => deleteOrder(orderId)}>Удалить весь заказ</button>
                             </div>
