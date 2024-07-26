@@ -1271,6 +1271,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     const [editMode, setEditMode] = useState({});
     const [sellers, setSellers] = useState([]);
     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+    const [orderDeleteConfirmation, setOrderDeleteConfirmation] = useState(false);
 
     const history = useHistory();
 
@@ -1465,6 +1466,14 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         setDeleteConfirmation(null);
     };
 
+    const confirmDeleteOrder = () => {
+        setOrderDeleteConfirmation(true);
+    };
+
+    const cancelDeleteOrder = () => {
+        setOrderDeleteConfirmation(false);
+    };
+
     const incrementQuantity = (index) => {
         const newQuantity = order.products[index].quantity + 1;
         updateQuantity(index, newQuantity);
@@ -1596,9 +1605,17 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                 <div>
                                     <strong>Статус заказа:</strong> {order.status}
                                 </div>
-                                <div className="delete-order-button-container">
-                                    <button className="delete-order-button" onClick={() => deleteOrder(orderId)}>Удалить заказ</button>
-                                </div>
+                                {orderDeleteConfirmation ? (
+                                    <div className="confirmation-buttons">
+                                        <p>Вы уверены, что хотите удалить этот заказ?</p>
+                                        <button onClick={() => deleteOrder(orderId)}>Да</button>
+                                        <button onClick={cancelDeleteOrder}>Отмена</button>
+                                    </div>
+                                ) : (
+                                    <button className="delete-button" onClick={confirmDeleteOrder}>
+                                        Удалить заказ
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
