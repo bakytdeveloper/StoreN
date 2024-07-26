@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
     address: { type: String }, // Добавлено поле для адреса
+    createdAt: { type: Date, default: Date.now },
     phoneNumber: { type: String } // Добавлено поле для номера телефона
 
 });

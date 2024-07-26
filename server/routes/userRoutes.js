@@ -130,4 +130,16 @@ router.get('/clients', async (req, res) => {
     }
 });
 
+
+// Удаление клиента
+router.delete('/clients/:id', async (req, res) => {
+    try {
+        const clientId = req.params.id;
+        await User.findByIdAndDelete(clientId);
+        res.status(200).json({ message: 'Client deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting client', error });
+    }
+});
+
 module.exports = router;
