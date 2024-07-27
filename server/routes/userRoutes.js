@@ -131,14 +131,42 @@ router.get('/clients', async (req, res) => {
 });
 
 
-// Удаление клиента
-router.delete('/clients/:id',  authenticateToken,  checkRole(['admin']), async (req, res) => {
+// // Удаление клиента
+// router.delete('/clients/:id',  authenticateToken,  checkRole(['admin']), async (req, res) => {
+//     try {
+//         const clientId = req.params.id;
+//         await User.findByIdAndDelete(clientId);
+//         res.status(200).json({ message: 'Client deleted successfully' });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error deleting client', error });
+//     }
+// });
+
+
+// Удаление клиента и его заказов
+
+// Удаление клиента и связанных заказов
+router.delete('/clients/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
         const clientId = req.params.id;
-        await User.findByIdAndDelete(clientId);
-        res.status(200).json({ message: 'Client deleted successfully' });
+
+        // Удаляем клиента
+        const deletedClient = await User.findByIdAndDelete(clientId);
+
+        if (!deletedClient) {
+            return res.status(404).json({ message: 'Client not found' });
+        }
+
+        // Удаляем заказы, связанные с этим клиентом
+       const deletedOrder = await Order.deleteMany({ user: clientId });
+
+        if (!deletedOrder) {
+            return res.status(404).json({ message: 'Client not found' });
+        }
+
+        res.status(200).json({ message: 'Client and associated orders deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting client', error });
+        res.status(500).json({ message: 'Error deleting client and associated orders', error });
     }
 });
 
