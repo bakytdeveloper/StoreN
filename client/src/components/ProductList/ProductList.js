@@ -108,6 +108,7 @@ const ProductList = ({
             const sellerId = params.get('sellerId');
             const productsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}${sellerId ? `&sellerId=${sellerId}` : ''}`, { timeout: 10000 });
             const productsData = await productsResponse.json();
+
             setProducts(productsData);
             setFilteredProducts(filterProducts(productsData));
 
@@ -172,13 +173,14 @@ const ProductList = ({
     // Фильтрация продуктов при получении нового списка продуктов с сервера или изменении текущей страницы пагинации
     useEffect(() => {
         if (products && products.length > 0) {
-            setFilteredProducts(filterProducts(products));
-
-            // setFilteredProducts(filterProducts(products, products.map(product => product.sellerId)));
+            const filtered = filterProducts(products);
+            setFilteredProducts(filtered);
+            console.log('Filtered products:', filtered);
         } else {
             fetchData();
         }
     }, [products, currentPage]);
+
 
     // Обновление ширины окна браузера при изменении размера окна
     useEffect(() => {
@@ -222,7 +224,9 @@ const ProductList = ({
             .filter(product => !selectedGender || product.gender === selectedGender)
             .filter(product => !selectedCategory || product.category === selectedCategory)
             .filter(product => !selectedType || product.type === selectedType)
-            .filter(product =>
+            .filter(product => !sellerId || product.seller === sellerId)
+
+    .filter(product =>
                 searchKeyword
                     ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
                     product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||

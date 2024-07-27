@@ -383,4 +383,30 @@ router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) 
 
 
 
+// Роут для изменения видимости товаров продавца
+router.put('/:id/toggle-products-visibility', async (req, res) => {
+    try {
+        const sellerId = req.params.id;
+        const seller = await Seller.findById(sellerId);
+
+        if (!seller) {
+            return res.status(404).json({ message: 'Seller not found' });
+        }
+
+        seller.isProductsVisible = !seller.isProductsVisible;
+        seller.lastVisibilityChange = new Date();
+
+        await seller.save();
+
+        res.json({
+            message: 'Products visibility updated',
+            isProductsVisible: seller.isProductsVisible,
+            lastVisibilityChange: seller.lastVisibilityChange
+        });
+    } catch (error) {
+        console.error('Error toggling products visibility:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 module.exports = router;

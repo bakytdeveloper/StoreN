@@ -26,6 +26,8 @@ const sellerSchema = new mongoose.Schema({
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }], // Ссылка на продукты продавца
     createdAt: { type: Date, default: Date.now },
     statusHistory: [statusHistorySchema], // Добавлено поле для хранения истории статусов
+    isProductsVisible: { type: Boolean, default: true }, // Добавлено поле для видимости товаров
+    lastVisibilityChange: { type: Date }, // Добавлено поле для хранения времени последнего изменения видимости товаров
 });
 
 const Seller = mongoose.model('Seller', sellerSchema);

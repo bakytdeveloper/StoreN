@@ -28,13 +28,35 @@ router.post('/add', authenticateToken, async (req, res) => {
     }
 });
 
-// Получение списка всех продуктов
+// // Получение списка всех продуктов
+// router.get('/', async (req, res) => {
+//     try {
+//         const products = await Product.find();
+//         res.json(products);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
+// Роут для получения всех товаров с учетом видимости продавца
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find();
-        res.json(products);
+        // Получаем все товары и подгружаем данные о продавце
+        const products = await Product.find()
+            .populate('seller');
+
+        // Фильтруем товары на основе видимости продавца
+        const filteredProducts = products.filter(product => {
+            // Проверяем, существует ли продавец и видимость товаров
+            return product.seller && product.seller.isProductsVisible;
+        });
+
+        res.json(filteredProducts);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 

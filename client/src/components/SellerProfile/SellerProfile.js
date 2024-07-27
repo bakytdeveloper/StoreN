@@ -18,6 +18,9 @@ const SellerProfile = ({ setShowSidebar }) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    // const [isProductsVisible, setIsProductsVisible] = useState(true);
+
     const history = useHistory();
 
     useEffect(() => {
@@ -56,6 +59,8 @@ const SellerProfile = ({ setShowSidebar }) => {
                     setEditedEmail(data.email || '');
                     setEditedAddress(data.address || '');
                     setEditedPhoneNumber(data.phoneNumber || '');
+                    // setIsProductsVisible(data.isProductsVisible);
+
                 } else {
                     console.error('Error fetching seller profile:', response.statusText);
                 }
@@ -170,6 +175,36 @@ const SellerProfile = ({ setShowSidebar }) => {
     };
 
 
+
+    const handleToggleProductsVisibility = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${seller._id}/toggle-products-visibility`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setSeller(prevSeller => ({
+                    ...prevSeller,
+                    isProductsVisible: data.isProductsVisible,
+                    lastVisibilityChange: data.lastVisibilityChange
+                }));
+                toast.success(`Товары ${data.isProductsVisible ? 'отображаются' : 'скрыты'}`, { position: toast.POSITION.BOTTOM_RIGHT });
+            } else {
+                const errorMessage = await response.text();
+                console.error('Error toggling products visibility:', errorMessage);
+                toast.error('Ошибка при изменении видимости товаров', { position: toast.POSITION.BOTTOM_RIGHT });
+            }
+        } catch (error) {
+            console.error('Error toggling products visibility:', error);
+            toast.error('Ошибка при изменении видимости товаров', { position: toast.POSITION.BOTTOM_RIGHT });
+        }
+    };
+
     return (
         <div className="profile-container">
             <div className="side">
@@ -185,6 +220,7 @@ const SellerProfile = ({ setShowSidebar }) => {
                 <div className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`} onClick={handleSellerOrders}>
                     История продаж
                 </div>
+
                 <div className="sidebar-item logout" onClick={handleLogout}>
                     На главную
                 </div>
@@ -194,6 +230,21 @@ const SellerProfile = ({ setShowSidebar }) => {
                 {seller ? (
                     <div>
                         <h3>Профиль Компании/ИП, "{seller.companyName}"</h3>
+                        <div className="visibility-toggle">
+                            <h2>Управление видимостью товаров</h2>
+                            <button onClick={handleToggleProductsVisibility}>
+                                {seller && seller.isProductsVisible ? (
+                                    <>
+                                        Скрыть товары <FaEyeSlash />
+                                    </>
+                                ) : (
+                                    <>
+                                        Показать товары <FaEye />
+                                    </>
+                                )}
+                            </button>
+                            <p>Последнее изменение: {seller && new Date(seller.lastVisibilityChange).toLocaleString()}</p>
+                        </div>
                         {activeTab === 'editProfile' && (
                             <div>
                                 <div>
