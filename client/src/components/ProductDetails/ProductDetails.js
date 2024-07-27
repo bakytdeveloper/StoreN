@@ -54,12 +54,55 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     // }, [productId]);
 
 
+    // useEffect(() => {
+    //     setSelectedSize(null);
+    //     setSelectedColor(null);
+    //     const fetchProductDetails = async () => {
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
+    //             const data = await response.json();
+    //             if (!data.product) {
+    //                 console.error('Product data is undefined or null');
+    //                 return;
+    //             }
+    //             const productData = data.product;
+    //             const images = productData.images ? productData.images.map(image => image.replace("images/W/MEDIAX_792452-T2/", "")) : [];
+    //             setProduct({
+    //                 ...productData,
+    //                 images: images
+    //             });
+    //             setSelectedImage(images[0]);
+    //
+    //             // Fetch seller name
+    //             const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products/product/${productData._id}/seller`);
+    //             console.log('sellerResponse:', sellerResponse)
+    //             const sellerData = await sellerResponse.json();
+    //             console.log('sellerData:', sellerData)
+    //             console.log('sellerData:', sellerData.companyName)
+    //             setSellerName(sellerData.companyName);
+    //
+    //         } catch (error) {
+    //             console.error('Ошибка при получении сведений о продукте:', error);
+    //         }
+    //     };
+    //     fetchProductDetails();
+    // }, [productId]);
+
     useEffect(() => {
         setSelectedSize(null);
         setSelectedColor(null);
         const fetchProductDetails = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
+                if (!response.ok) {
+                    if (response.status === 403) {
+                        history.push('/catalog')
+                        console.error('Product is not visible.');
+                        // Отобразите сообщение пользователю или перенаправьте его
+                        return;
+                    }
+                    throw new Error('Network response was not ok');
+                }
                 const data = await response.json();
                 if (!data.product) {
                     console.error('Product data is undefined or null');
@@ -75,16 +118,15 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
 
                 // Fetch seller name
                 const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products/product/${productData._id}/seller`);
-                console.log('sellerResponse:', sellerResponse)
                 const sellerData = await sellerResponse.json();
-                console.log('sellerData:', sellerData)
-                console.log('sellerData:', sellerData.companyName)
                 setSellerName(sellerData.companyName);
 
             } catch (error) {
                 console.error('Ошибка при получении сведений о продукте:', error);
+                // Отобразите сообщение пользователю или перенаправьте его
             }
         };
+
         fetchProductDetails();
     }, [productId]);
 
