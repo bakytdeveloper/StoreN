@@ -309,22 +309,53 @@ router.get('/:productId/seller/products', async (req, res) => {
     }
 });
 
+// // Получение всех товаров текущего типа
+// router.get('/related/:productId', async (req, res) => {
+//     try {
+//         const { productId } = req.params;
+//         const product = await Product.findById(productId);
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+//         const productType = product.type;
+//         const relatedProducts = await Product.find({ type: productType });
+//         res.json(relatedProducts);
+//     } catch (error) {
+//         console.error('Error fetching related products:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
 // Получение всех товаров текущего типа
 router.get('/related/:productId', async (req, res) => {
     try {
         const { productId } = req.params;
-        const product = await Product.findById(productId);
+        const product = await Product.findById(productId).populate('seller');
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
+
         const productType = product.type;
-        const relatedProducts = await Product.find({ type: productType });
-        res.json(relatedProducts);
+        const sellerId = product.seller._id;
+
+        // Получение всех продуктов текущего типа, исключая товары скрытых продавцов
+        const relatedProducts = await Product.find({
+            type: productType,
+            seller: { $ne: sellerId } // Исключение товаров от того же продавца
+        }).populate('seller');
+
+        // Фильтрация товаров скрытых продавцов
+        const visibleRelatedProducts = relatedProducts.filter(p => p.seller.isProductsVisible);
+
+        res.json(visibleRelatedProducts);
     } catch (error) {
         console.error('Error fetching related products:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
+
 
 // Получение аксессуаров по направлению
 router.get('/accessories/:direction', async (req, res) => {
