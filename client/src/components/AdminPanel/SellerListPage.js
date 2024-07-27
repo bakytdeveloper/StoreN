@@ -278,7 +278,7 @@ const SellerListPage = ({ setShowSidebar }) => {
                     <th>Имя Фам.</th>
                     <th>Email</th>
                     <th>Телефон</th>
-                    <th>Чем занимается компания</th>
+                    <th style={{ padding: '0 25px', width:"177px" }}>Направление компания</th>
                     <th>Время</th>
                     <th>Статус</th>
                     <th>Время изменения статуса</th>
@@ -294,7 +294,27 @@ const SellerListPage = ({ setShowSidebar }) => {
                         <td>{seller.name}</td>
                         <td>{seller.email}</td>
                         <td>{seller.phoneNumber}</td>
-                        <td>{seller.companyDescription}</td>
+                        {/*<td>{seller.companyDescription}</td>*/}
+
+                        <td style={{ padding: '5px', width:"177px" }}>
+    <textarea
+        value={seller.companyDescription}
+        // readOnly
+        style={{
+            display: "inline-flex",
+            width: '100%',
+            height: '100px', // Высота текстовой области, можно настроить
+            border: 'none',
+            resize: 'none', // Отключает изменение размера
+            backgroundColor: 'transparent',
+            overflow: 'auto',
+            overflowX:"auto",
+            fontSize: '14px',
+            lineHeight:"14px"
+        }}
+    />
+                        </td>
+
                         <td>{new Date(seller.createdAt).toLocaleString()}</td>
 
                         <SellerItem key={seller._id} seller={seller} onUpdateStatus={updateStatusSeller} />
@@ -309,13 +329,20 @@ const SellerListPage = ({ setShowSidebar }) => {
                             <button className="delete-button" onClick={() => handleDeleteClick(seller)}>Удалить</button>
                         </td>
 
-                        <td style={{ background: seller.isProductsVisible ? 'green' : 'red' , textAlign:"center"}}>
-                            {seller.isProductsVisible ?
-                                (/✔/) + new Date(seller.lastVisibilityChange).toLocaleString()
-                                :
-                                (/!/) + new Date(seller.lastVisibilityChange).toLocaleString()
-                            }
+                        <td style={{ background: seller.isProductsVisible ? 'green' : '#ee579e', textAlign: "center", color: 'white', padding: '5px' }}>
+                            {seller.isProductsVisible ? (
+                                <>
+                                    <span role="img" aria-label="checkmark" style={{ fontSize: '20px' }}>✔️</span>
+                                    {` ${new Date(seller.lastVisibilityChange).toLocaleString()}`}
+                                </>
+                            ) : (
+                                <>
+                                    <span role="img" aria-label="exclamation" style={{ fontSize: '20px' }}>❗</span>
+                                    {` ${new Date(seller.lastVisibilityChange).toLocaleString()}`}
+                                </>
+                            )}
                         </td>
+
 
                     </tr>
                 ))}
