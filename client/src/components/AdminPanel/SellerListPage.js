@@ -295,7 +295,10 @@ const SellerListPage = ({ setShowSidebar }) => {
                         <td>{seller.phoneNumber}</td>
                         <td>{seller.companyDescription}</td>
                         <td>{new Date(seller.createdAt).toLocaleString()}</td>
-                        <td>{seller.status}</td>
+
+                        <SellerItem key={seller._id} seller={seller} onUpdateStatus={updateStatusSeller} />
+
+                        {/*<td>{seller.status}</td>*/}
                         <td>
                             {seller.statusHistory && seller.statusHistory.length > 0
                                 ? new Date(seller.statusHistory[seller.statusHistory.length - 1].time).toLocaleString()
