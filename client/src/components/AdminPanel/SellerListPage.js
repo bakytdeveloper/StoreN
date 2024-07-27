@@ -283,6 +283,7 @@ const SellerListPage = ({ setShowSidebar }) => {
                     <th>Статус</th>
                     <th>Время изменения статуса</th>
                     <th>Действия</th>
+                    <th>Товары продавца</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -307,6 +308,15 @@ const SellerListPage = ({ setShowSidebar }) => {
                         <td>
                             <button className="delete-button" onClick={() => handleDeleteClick(seller)}>Удалить</button>
                         </td>
+
+                        <td style={{ background: seller.isProductsVisible ? 'green' : 'red' , textAlign:"center"}}>
+                            {seller.isProductsVisible ?
+                                (/✔/) + new Date(seller.lastVisibilityChange).toLocaleString()
+                                :
+                                (/!/) + new Date(seller.lastVisibilityChange).toLocaleString()
+                            }
+                        </td>
+
                     </tr>
                 ))}
                 </tbody>
