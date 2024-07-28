@@ -28,16 +28,27 @@ router.post('/add', authenticateToken, async (req, res) => {
     }
 });
 
-// // Получение списка всех продуктов
+
+
+// // Роут для получения всех товаров с учетом видимости продавца
 // router.get('/', async (req, res) => {
 //     try {
-//         const products = await Product.find();
-//         res.json(products);
+//         // Получаем все товары и подгружаем данные о продавце
+//         const products = await Product.find()
+//             .populate('seller');
+//
+//         // Фильтруем товары на основе видимости продавца
+//         const filteredProducts = products.filter(product => {
+//             // Проверяем, существует ли продавец и видимость товаров
+//             return product.seller && product.seller.isProductsVisible;
+//         });
+//
+//         res.json(filteredProducts);
 //     } catch (error) {
-//         res.status(500).json({ message: error.message });
+//         console.error('Error fetching products:', error);
+//         res.status(500).json({ message: 'Server error' });
 //     }
 // });
-
 
 
 // Роут для получения всех товаров с учетом видимости продавца
@@ -53,12 +64,21 @@ router.get('/', async (req, res) => {
             return product.seller && product.seller.isProductsVisible;
         });
 
-        res.json(filteredProducts);
+        // Разделяем товары на активные и неактивные
+        const activeProducts = filteredProducts.filter(product => product.isActive);
+        const inactiveProducts = filteredProducts.filter(product => !product.isActive);
+
+        // Объединяем активные и неактивные товары
+        const sortedProducts = [...activeProducts, ...inactiveProducts];
+
+        res.json(sortedProducts);
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
 
 
 // Роут для получения полов товаров
@@ -167,21 +187,6 @@ router.get('/newest', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-// // Получение информации о конкретном продукте по ID
-// router.get('/:id', async (req, res) => {
-//     try {
-//         const product = await Product.findById(req.params.id);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         res.json({ product });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 
 // Получение информации о конкретном продукте по ID
@@ -309,23 +314,6 @@ router.get('/:productId/seller/products', async (req, res) => {
     }
 });
 
-// // Получение всех товаров текущего типа
-// router.get('/related/:productId', async (req, res) => {
-//     try {
-//         const { productId } = req.params;
-//         const product = await Product.findById(productId);
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//         const productType = product.type;
-//         const relatedProducts = await Product.find({ type: productType });
-//         res.json(relatedProducts);
-//     } catch (error) {
-//         console.error('Error fetching related products:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
-
 // Получение всех товаров текущего типа
 router.get('/related/:productId', async (req, res) => {
     try {
@@ -353,21 +341,6 @@ router.get('/related/:productId', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-
-
-
-
-// // Получение аксессуаров по направлению
-// router.get('/accessories/:direction', async (req, res) => {
-//     try {
-//         const { direction } = req.params;
-//         const accessories = await Product.find({ direction });
-//         res.json(accessories);
-//     } catch (error) {
-//         console.error('Error fetching accessories by direction:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
 
 
 // Получение аксессуаров по направлению с учетом видимости товаров продавца
