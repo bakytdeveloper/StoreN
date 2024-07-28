@@ -221,6 +221,22 @@ const SellerProfile = ({ setShowSidebar }) => {
                     История продаж
                 </div>
 
+                <div className="visibility-toggle">
+                    {/*<h2>Управление видимостью товаров</h2>*/}
+                    <button onClick={handleToggleProductsVisibility}>
+                        {seller && seller.isProductsVisible ? (
+                            <>
+                                Скрыть товары <FaEyeSlash />
+                            </>
+                        ) : (
+                            <>
+                                Показать товары <FaEye />
+                            </>
+                        )}
+                    </button>
+                    <span>Последнее изменение: {seller && new Date(seller.lastVisibilityChange).toLocaleString()}</span>
+                </div>
+
                 <div className="sidebar-item logout" onClick={handleLogout}>
                     На главную
                 </div>
@@ -230,21 +246,7 @@ const SellerProfile = ({ setShowSidebar }) => {
                 {seller ? (
                     <div>
                         <h3>Профиль Компании/ИП, "{seller.companyName}"</h3>
-                        <div className="visibility-toggle">
-                            <h2>Управление видимостью товаров</h2>
-                            <button onClick={handleToggleProductsVisibility}>
-                                {seller && seller.isProductsVisible ? (
-                                    <>
-                                        Скрыть товары <FaEyeSlash />
-                                    </>
-                                ) : (
-                                    <>
-                                        Показать товары <FaEye />
-                                    </>
-                                )}
-                            </button>
-                            <p>Последнее изменение: {seller && new Date(seller.lastVisibilityChange).toLocaleString()}</p>
-                        </div>
+
                         {activeTab === 'editProfile' && (
                             <div>
                                 <div>
