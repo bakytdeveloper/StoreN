@@ -437,4 +437,43 @@ router.get('/seller/:sellerId/products', async (req, res) => {
 });
 
 
+
+// // Роут для изменения активности продукта
+// router.put('/:id/toggle-active', async (req, res) => {
+//     try {
+//         const product = await Product.findById(req.params.id);
+//         if (!product) {
+//             return res.status(404).send({ error: 'Product not found' });
+//         }
+//         product.isActive = !product.isActive;
+//         await product.save();
+//         res.send(product);
+//     } catch (error) {
+//         res.status(500).send({ error: 'Internal server error' });
+//     }
+// });
+
+
+
+// Маршрут для изменения активности продукта
+router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']), async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        product.isActive = !product.isActive;
+        await product.save();
+
+        res.status(200).json({ message: 'Product activity toggled successfully', product });
+    } catch (error) {
+        console.error('Error toggling product activity:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 module.exports = router;

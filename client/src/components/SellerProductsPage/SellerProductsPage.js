@@ -12,6 +12,7 @@ import './SellerProductsPage.css'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 const SellerProductsPage = ({setShowSidebar}) => {
     const [products, setProducts] = useState([]);
@@ -134,6 +135,34 @@ const SellerProductsPage = ({setShowSidebar}) => {
     };
 
 
+// SellerProductsPage.js
+    const handleToggleActive = async (productId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}/toggle-active`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const updatedProduct = await response.json();
+                setProducts(prevProducts =>
+                    prevProducts.map(product =>
+                        product._id === productId ? { ...product, isActive: updatedProduct.product.isActive } : product
+                    )
+                );
+            } else {
+                const errorData = await response.json();
+                console.error('Failed to toggle product activity:', errorData.message);
+            }
+        } catch (error) {
+            console.error('Failed to toggle product activity:', error);
+        }
+    };
+
 
     const handleFormCancel = () => {
         setShowForm(false);
@@ -177,11 +206,17 @@ const SellerProductsPage = ({setShowSidebar}) => {
 
             <div className="products-list my-products  seller-products-page-products-list">
                 {products.map((product) => (
-                    <div className="product-card product-card-seller" key={product._id}>
+                    <div
+                        className={`product-card product-card-seller ${!product.isActive ? 'inactive-product' : ''}`}
+                        // key={product._id}
+                        style={{ backgroundColor: product.isActive ? 'white' : '#f8d7da' }} // Цвет для неактивного продукта
+                    >
                         <div className="sellerEditDelete" >
                             <button className="seller-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
                             <button className="seller-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
-
+                            <button className="seller-btn-toggle-active" style={{ background: "none", color:"darkslateblue" }} onClick={() => handleToggleActive(product._id)}>
+                                {product.isActive ? <FaEyeSlash /> : <FaEye />}
+                            </button>
                         </div>
 
                         <Link to={`/products/${product._id}`}>

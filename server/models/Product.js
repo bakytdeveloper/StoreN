@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
     type: { type: String, required: true },
     direction: { type: String },
     brand: { type: String, required: true },
-    gender: { type: String, required: true },
+    gender: { type: String },
     characteristics: [characteristicSchema],
     sizes: [{ type: String }],
     colors: [{
@@ -27,7 +27,8 @@ const productSchema = new mongoose.Schema({
     // quantity: { type: Number }, // Новое поле для количества товара
     quantity: { type: Number, default: 10 }, // Новое поле для количества товара
     seller: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
-    createdAt: { type: Date, default: Date.now }  // Добавлено поле createdAt с датой по умолчанию
+    createdAt: { type: Date, default: Date.now },  // Добавлено поле createdAt с датой по умолчанию
+    isActive: { type: Boolean, default: true }  // Добавьте это поле
 });
 
 const Product = mongoose.model('Product', productSchema);

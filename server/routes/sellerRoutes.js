@@ -384,7 +384,7 @@ router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) 
 
 
 // Роут для изменения видимости товаров продавца
-router.put('/:id/toggle-products-visibility', async (req, res) => {
+router.put('/:id/toggle-products-visibility',  authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const sellerId = req.params.id;
         const seller = await Seller.findById(sellerId);
