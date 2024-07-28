@@ -57,6 +57,10 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         }
     };
 
+    const closeProductForm = () => {
+        history.goBack()
+    }
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -651,7 +655,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
                     {isSubmitting ? 'Отправка...' : productId ? 'Изменить продукт' : 'Создать продукт'}
                 </button>
 
-                <button className="cancel" type="button" onClick={onCancel}>&#10006; Отмена</button>
+                <button className="cancel" type="button" onClick={closeProductForm}>&#10006; Отмена</button>
             </div>
         </form>
     );
