@@ -267,9 +267,9 @@ const SellerListPage = ({ setShowSidebar }) => {
     return (
         <div className="sellersListPage">
             <h2 className="sellerTitle">Список продавцов</h2>
-            <span className="sellersListClose" type="button" onClick={handleClose}>
+            <div className="sellersListClose" type="button" onClick={handleClose}>
                 <span> &#10006;</span>
-            </span>
+            </div>
             <table>
                 <thead>
                 <tr>
