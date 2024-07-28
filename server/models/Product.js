@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
     type: { type: String, required: true },
     direction: { type: String },
     brand: { type: String, required: true },
-    gender: { type: String },
+    gender: { type: String, required: true },
     characteristics: [characteristicSchema],
     sizes: [{ type: String }],
     colors: [{

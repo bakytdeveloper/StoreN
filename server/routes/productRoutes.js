@@ -455,7 +455,28 @@ router.get('/seller/:sellerId/products', async (req, res) => {
 
 
 
-// Маршрут для изменения активности продукта
+// // Маршрут для изменения активности продукта
+// router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']), async (req, res) => {
+//     try {
+//         const productId = req.params.productId;
+//         const product = await Product.findById(productId);
+//
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+//
+//         product.isActive = !product.isActive;
+//         await product.save();
+//
+//         res.status(200).json({ message: 'Product activity toggled successfully', product });
+//     } catch (error) {
+//         console.error('Error toggling product activity:', error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
+
+
+
 router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const productId = req.params.productId;
@@ -466,7 +487,9 @@ router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']
         }
 
         product.isActive = !product.isActive;
-        await product.save();
+
+        // Используем метод `save` с опцией `validateModifiedOnly` чтобы избежать полной валидации
+        await product.save({ validateModifiedOnly: true });
 
         res.status(200).json({ message: 'Product activity toggled successfully', product });
     } catch (error) {
@@ -474,6 +497,8 @@ router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
 
 
 module.exports = router;
