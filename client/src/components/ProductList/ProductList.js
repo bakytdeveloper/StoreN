@@ -366,7 +366,7 @@ const ProductList = ({
                     <>
                         {displayedProducts.length ? (
                             displayedProducts.map(product => (
-                                <div className="product-card" onClick={clearSearch} key={product._id}>
+                                <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
                                     <Link to={`/products/${product._id}`}>
                                         <div className="product-card-images">
                                             {product.originalPrice && product.originalPrice > product.price && (
@@ -407,30 +407,26 @@ const ProductList = ({
                                             )}
                                         </div>
                                         <div className="actions">
-
-                                            {isInCart(product._id) ? (
+                                            {product.isActive ? (
                                                 <>
-                                                    <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                        {/*<strong>+</strong>*/}
-                                                        {/*<img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
-
-                                                       <div className="cart-in-cart"> В корзине</div>
-                                                    </button>
+                                                    {isInCart(product._id) ? (
+                                                        <>
+                                                            <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                                <div className="cart-in-cart">В корзине</div>
+                                                            </button>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                                <strong>+</strong>
+                                                                <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                                            </button>
+                                                        </>
+                                                    )}
                                                 </>
                                             ) : (
-                                                <>
-                                                    <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                        <strong>+</strong>
-                                                        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                                                    </button>
-                                                </>
+                                                <div className="product-unavailable">Не доступен</div>
                                             )}
-
-
-                                            {/*<button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>*/}
-                                            {/*    <strong>+</strong>*/}
-                                            {/*    <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
-                                            {/*</button>*/}
                                         </div>
                                     </div>
                                 </div>
