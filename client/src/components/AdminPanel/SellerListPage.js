@@ -296,23 +296,13 @@ const SellerListPage = ({ setShowSidebar }) => {
                         <td>{seller.phoneNumber}</td>
                         {/*<td>{seller.companyDescription}</td>*/}
 
-                        <td style={{ padding: '5px', width:"177px" }}>
-    <textarea
-        value={seller.companyDescription}
-        // readOnly
-        style={{
-            display: "inline-flex",
-            width: '100%',
-            height: '100px', // Высота текстовой области, можно настроить
-            border: 'none',
-            resize: 'none', // Отключает изменение размера
-            backgroundColor: 'transparent',
-            overflow: 'auto',
-            overflowX:"auto",
-            fontSize: '14px',
-            lineHeight:"14px"
-        }}
-    />
+                        <td>
+                        {/*<td style={{ padding: '0', width:"177px" }}>*/}
+                            <textarea className="seller-list-page-textarea"
+                                value={seller.companyDescription}
+                                readOnly
+
+                            />
                         </td>
 
                         <td>{new Date(seller.createdAt).toLocaleString()}</td>
@@ -329,7 +319,7 @@ const SellerListPage = ({ setShowSidebar }) => {
                             <button className="delete-button" onClick={() => handleDeleteClick(seller)}>Удалить</button>
                         </td>
 
-                        <td style={{ background: seller.isProductsVisible ? 'green' : '#ee579e', textAlign: "center", color: 'white', padding: '5px' }}>
+                        <td style={{ background: seller.isProductsVisible ? '#08a911' : '#ee579e', textAlign: "center", color: 'white', padding: '5px' }}>
                             {seller.isProductsVisible ? (
                                 <>
                                     <span role="img" aria-label="checkmark" style={{ fontSize: '20px' }}>✔️</span>
