@@ -452,6 +452,23 @@ const SellerProductsPage = ({setShowSidebar}) => {
         return Math.floor((originalPrice - price) / originalPrice * 100).toFixed();
     };
 
+    const handleToggleMenu = (e) => {
+        // Закрываем все открытые меню
+        document.querySelectorAll('.product-actions-menu.show').forEach(menu => {
+            if (menu !== e.currentTarget.nextElementSibling) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // Переключаем текущее меню
+        e.currentTarget.nextElementSibling.classList.toggle('show');
+    };
+
+    const handleCloseMenu = (e) => {
+        e.currentTarget.parentElement.classList.remove('show');
+    };
+
+
     return (
         <div className="seller-panel" >
             <h1>Мои товары</h1>
@@ -478,17 +495,17 @@ const SellerProductsPage = ({setShowSidebar}) => {
                         <div className="product-card-actions">
                             <button
                                 className="product-actions-btn"
-                                onClick={(e) => e.currentTarget.nextElementSibling.classList.toggle('show')}
+                                onClick={handleToggleMenu}
                             >
                                 <FaEllipsisV />
                             </button>
                             <div className="product-actions-menu">
-                                <button className="close-menu" onClick={(e) => e.currentTarget.parentElement.classList.remove('show')}>
+                                <button className="close-menu" onClick={handleCloseMenu}>
                                     &#10006;
                                 </button>
-                                <button onClick={() => handleEditProduct(product)}>&#128736; Edit</button>
-                                <button onClick={() => handleDeleteProduct(product._id)}>&#10006; Delete</button>
-                                <button onClick={() => handleToggleActive(product._id)}>
+                                <button className="product-actions-menu-edit" onClick={() => handleEditProduct(product)}>&#128736; Edit</button>
+                                <button className="product-actions-menu-edit" onClick={() => handleDeleteProduct(product._id)}>&#10006; Delete</button>
+                                <button className="product-actions-menu-edit" onClick={() => handleToggleActive(product._id)}>
                                     {product.isActive ? <FaEyeSlash /> : <FaEye />} {product.isActive ? 'Deactivate' : 'Activate'}
                                 </button>
                             </div>

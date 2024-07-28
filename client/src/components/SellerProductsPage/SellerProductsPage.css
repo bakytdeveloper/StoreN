@@ -131,6 +131,11 @@
     object-fit: contain;
 }
 
+.product-card {
+    position: relative;
+}
+
+
 .details {
     /*margin-left: 20px;*/
     /*margin-right: 25px;*/
@@ -342,7 +347,7 @@ body.modal_open {
 
 .inactive-product {
     background-color: #f5f5f5; /* Цвет для неактивного продукта */
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
 
@@ -367,7 +372,7 @@ body.modal_open {
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 1000;
+    z-index: 100;
 }
 
 .product-actions-menu.show {
@@ -384,6 +389,26 @@ body.modal_open {
     text-align: left;
     color: black;
     font-size: 15px;
+}
+
+.product-actions-menu.show button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    color: #090000;
+    font-size: 15px;
+}
+
+.product-actions-menu-edit {
+    opacity: 1;
+    color: black;
+    position: relative!important;
+    display: flex;
+    z-index: 911;
 }
 
 .product-actions-menu button:hover {
