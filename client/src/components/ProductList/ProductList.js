@@ -363,11 +363,172 @@ const ProductList = ({
                         </div>
                     </div>
                 ) : (
+                    // <>
+                    //     {displayedProducts.length ? (
+                    //         displayedProducts.map(product => (
+                    //             <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
+                    //                 <Link to={`/products/${product._id}`}>
+                    //                     <div className="product-card-images">
+                    //                         {product.originalPrice && product.originalPrice > product.price && (
+                    //                             <div className="discount-percentage-badge">
+                    //                                 - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                    //                             </div>
+                    //                         )}
+                    //                         <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                    //                     </div>
+                    //                 </Link>
+                    //                 <div className="product-content">
+                    //                     <Link to={`/products/${product._id}`}>
+                    //                         <div className="product-list-details">
+                    //                             <div className="product-list-details-brand-and-name">
+                    //                                 <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                    //                                 <div className="product-list-brand">{product.brand.length > 11 ? product.brand.substring(0, 11) + '.' : product.brand}</div>
+                    //                             </div>
+                    //                             <div className="discounted-price">
+                    //                                 {product.originalPrice ? (
+                    //                                     <div className="price-red">{product.price}<span className="price-som">сом</span></div>
+                    //                                 ) : (
+                    //                                     <div className="price">{product.price}<span style={{color:"black"}} className="price-som">сом</span></div>
+                    //                                 )}
+                    //                                 {product.originalPrice && product.originalPrice > product.price && (
+                    //                                     <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
+                    //                                 )}
+                    //                             </div>
+                    //                         </div>
+                    //                     </Link>
+                    //                     <div className="quantity-progress-bar">
+                    //                         {product.quantity <= 11 && (
+                    //                             <>
+                    //                                 <div className="product-list-quantity">Осталось {product.quantity} шт.</div>
+                    //                                 <div className="progress-bar-container">
+                    //                                     <div className={`progress-bar ${getProgressBarColor(product.quantity)}`} style={{ width: getProgressBarWidth(product.quantity) }} />
+                    //                                 </div>
+                    //                             </>
+                    //                         )}
+                    //                     </div>
+                    //                     <div className="actions">
+                    //                         {product.isActive ? (
+                    //                             <>
+                    //                                 {isInCart(product._id) ? (
+                    //                                     <>
+                    //                                         <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                    //                                             <div className="cart-in-cart">В корзине</div>
+                    //                                         </button>
+                    //                                     </>
+                    //                                 ) : (
+                    //                                     <>
+                    //                                         <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                    //                                             <strong>+</strong>
+                    //                                             <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                    //                                         </button>
+                    //                                     </>
+                    //                                 )}
+                    //                             </>
+                    //                         ) : (
+                    //                             <div className="product-unavailable">Не доступен</div>
+                    //                         )}
+                    //                     </div>
+                    //                 </div>
+                    //             </div>
+                    //         ))
+                    //     ) : (
+                    //         <>
+                    //             <div className="no-products">
+                    //                 <h2>Ничего не нашлось по запросу "{searchKeyword}"</h2>
+                    //                 <div>Попробуйте поискать по другому или сократите запрос</div>
+                    //                 <h1 style={{marginBottom:"-40px"}}>Возможно вам понравятся:</h1>
+                    //             </div>
+                    //             {products && products.map(product => (
+                    //                 <div className="product-card" onClick={clearSearch} key={product._id}>
+                    //                     <Link to={`/products/${product._id}`}>
+                    //                         <div className="product-card-images">
+                    //                             {product.originalPrice && product.originalPrice > product.price && (
+                    //                                 <div className="discount-percentage-badge">
+                    //                                     - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                    //                                 </div>
+                    //                             )}
+                    //                             <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                    //                         </div>
+                    //                     </Link>
+                    //                     <div style={{ background: 'none' }}>
+                    //                         <Link to={`/products/${product._id}`}>
+                    //                             <div className="product-list-details">
+                    //                                 <div className="product-list-details-brand-and-name">
+                    //                                     <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                    //                                     <div className="product-list-brand">{product.brand}</div>
+                    //                                 </div>
+                    //                                 <div className="discounted-price">
+                    //                                     {product.originalPrice ? (
+                    //                                         <div className="price-red">{product.price}сом</div>
+                    //                                     ) : (
+                    //                                         <div className="price">{product.price}сом</div>
+                    //                                     )}
+                    //                                     {product.originalPrice && product.originalPrice > product.price && (
+                    //                                         <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
+                    //                                     )}
+                    //                                 </div>
+                    //                             </div>
+                    //                         </Link>
+                    //
+                    //                         <div className="quantity-progress-bar">
+                    //                             {product.quantity <= 11 && (
+                    //                                 <>
+                    //                                     <div className="product-list-quantity">Осталось {product.quantity} шт.</div>
+                    //                                     <div className="progress-bar-container">
+                    //                                         <div className={`progress-bar ${getProgressBarColor(product.quantity)}`} style={{ width: getProgressBarWidth(product.quantity) }} />
+                    //                                     </div>
+                    //                                 </>
+                    //                             )}
+                    //                         </div>
+                    //
+                    //                         <div className="actions">
+                    //
+                    //
+                    //                             {isInCart(product._id) ? (
+                    //                                 <>
+                    //                                     <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                    //                                         <div>В корзине</div>
+                    //                                     </button>
+                    //                                 </>
+                    //                             ) : (
+                    //                                 <>
+                    //                                     <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                    //                                         <strong>+</strong>
+                    //                                         <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                    //                                     </button>
+                    //                                 </>
+                    //                             )}
+                    //
+                    //
+                    //                             {/*<button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>*/}
+                    //                             {/*    <strong>+</strong>*/}
+                    //                             {/*    <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
+                    //                             {/*</button>*/}
+                    //                         </div>
+                    //                     </div>
+                    //                 </div>
+                    //             ))}
+                    //         </>
+                    //     )}
+                    // </>
+
+
                     <>
                         {displayedProducts.length ? (
                             displayedProducts.map(product => (
                                 <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
-                                    <Link to={`/products/${product._id}`}>
+                                    {product.isActive ? (
+                                        <Link to={`/products/${product._id}`}>
+                                            <div className="product-card-images">
+                                                {product.originalPrice && product.originalPrice > product.price && (
+                                                    <div className="discount-percentage-badge">
+                                                        - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                                    </div>
+                                                )}
+                                                <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                            </div>
+                                        </Link>
+                                    ) : (
                                         <div className="product-card-images">
                                             {product.originalPrice && product.originalPrice > product.price && (
                                                 <div className="discount-percentage-badge">
@@ -376,26 +537,45 @@ const ProductList = ({
                                             )}
                                             <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
                                         </div>
-                                    </Link>
+                                    )}
                                     <div className="product-content">
-                                        <Link to={`/products/${product._id}`}>
+                                        {product.isActive ? (
+                                            <Link to={`/products/${product._id}`}>
+                                                <div className="product-list-details">
+                                                    <div className="product-list-details-brand-and-name">
+                                                        <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                                        <div className="product-list-brand">{product.brand.length > 11 ? product.brand.substring(0, 11) + '.' : product.brand}</div>
+                                                    </div>
+                                                    <div className="discounted-price">
+                                                        {product.originalPrice ? (
+                                                            <div className="price-red">{product.price}<span className="price-som">сом</span></div>
+                                                        ) : (
+                                                            <div className="price">{product.price}<span style={{ color: "black" }} className="price-som">сом</span></div>
+                                                        )}
+                                                        {product.originalPrice && product.originalPrice > product.price && (
+                                                            <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ) : (
                                             <div className="product-list-details">
                                                 <div className="product-list-details-brand-and-name">
                                                     <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
-                                                    <div className="product-list-brand">{product.brand.length > 11 ? product.brand.substring(0, 11) + '.' : product.brand}</div>
+                                                    <div className="product-list-brand">{product.brand}</div>
                                                 </div>
                                                 <div className="discounted-price">
                                                     {product.originalPrice ? (
                                                         <div className="price-red">{product.price}<span className="price-som">сом</span></div>
                                                     ) : (
-                                                        <div className="price">{product.price}<span style={{color:"black"}} className="price-som">сом</span></div>
+                                                        <div className="price">{product.price}<span style={{ color: "black" }} className="price-som">сом</span></div>
                                                     )}
                                                     {product.originalPrice && product.originalPrice > product.price && (
                                                         <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
                                                     )}
                                                 </div>
                                             </div>
-                                        </Link>
+                                        )}
                                         <div className="quantity-progress-bar">
                                             {product.quantity <= 11 && (
                                                 <>
@@ -410,18 +590,14 @@ const ProductList = ({
                                             {product.isActive ? (
                                                 <>
                                                     {isInCart(product._id) ? (
-                                                        <>
-                                                            <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                                <div className="cart-in-cart">В корзине</div>
-                                                            </button>
-                                                        </>
+                                                        <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                            <div className="cart-in-cart">В корзине</div>
+                                                        </button>
                                                     ) : (
-                                                        <>
-                                                            <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                                <strong>+</strong>
-                                                                <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                                                            </button>
-                                                        </>
+                                                        <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                            <strong>+</strong>
+                                                            <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                                        </button>
                                                     )}
                                                 </>
                                             ) : (
@@ -436,11 +612,22 @@ const ProductList = ({
                                 <div className="no-products">
                                     <h2>Ничего не нашлось по запросу "{searchKeyword}"</h2>
                                     <div>Попробуйте поискать по другому или сократите запрос</div>
-                                    <h1 style={{marginBottom:"-40px"}}>Возможно вам понравятся:</h1>
+                                    <h1 style={{ marginBottom: "-40px" }}>Возможно вам понравятся:</h1>
                                 </div>
                                 {products && products.map(product => (
-                                    <div className="product-card" onClick={clearSearch} key={product._id}>
-                                        <Link to={`/products/${product._id}`}>
+                                    <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
+                                        {product.isActive ? (
+                                            <Link to={`/products/${product._id}`}>
+                                                <div className="product-card-images">
+                                                    {product.originalPrice && product.originalPrice > product.price && (
+                                                        <div className="discount-percentage-badge">
+                                                            - {calculateDiscountPercentage(product.originalPrice, product.price)}%
+                                                        </div>
+                                                    )}
+                                                    <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                                </div>
+                                            </Link>
+                                        ) : (
                                             <div className="product-card-images">
                                                 {product.originalPrice && product.originalPrice > product.price && (
                                                     <div className="discount-percentage-badge">
@@ -449,9 +636,28 @@ const ProductList = ({
                                                 )}
                                                 <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
                                             </div>
-                                        </Link>
+                                        )}
                                         <div style={{ background: 'none' }}>
-                                            <Link to={`/products/${product._id}`}>
+                                            {product.isActive ? (
+                                                <Link to={`/products/${product._id}`}>
+                                                    <div className="product-list-details">
+                                                        <div className="product-list-details-brand-and-name">
+                                                            <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                                            <div className="product-list-brand">{product.brand}</div>
+                                                        </div>
+                                                        <div className="discounted-price">
+                                                            {product.originalPrice ? (
+                                                                <div className="price-red">{product.price}сом</div>
+                                                            ) : (
+                                                                <div className="price">{product.price}сом</div>
+                                                            )}
+                                                            {product.originalPrice && product.originalPrice > product.price && (
+                                                                <div className="original-price"><s style={{ display: "inline" }}>{product.originalPrice}сом</s></div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            ) : (
                                                 <div className="product-list-details">
                                                     <div className="product-list-details-brand-and-name">
                                                         <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
@@ -468,8 +674,7 @@ const ProductList = ({
                                                         )}
                                                     </div>
                                                 </div>
-                                            </Link>
-
+                                            )}
                                             <div className="quantity-progress-bar">
                                                 {product.quantity <= 11 && (
                                                     <>
@@ -480,30 +685,17 @@ const ProductList = ({
                                                     </>
                                                 )}
                                             </div>
-
                                             <div className="actions">
-
-
                                                 {isInCart(product._id) ? (
-                                                    <>
-                                                        <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                            <div>В корзине</div>
-                                                        </button>
-                                                    </>
+                                                    <button className="cart-button in-cart" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                        <div>В корзине</div>
+                                                    </button>
                                                 ) : (
-                                                    <>
-                                                        <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                            <strong>+</strong>
-                                                            <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
-                                                        </button>
-                                                    </>
+                                                    <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
+                                                        <strong>+</strong>
+                                                        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                                    </button>
                                                 )}
-
-
-                                                {/*<button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>*/}
-                                                {/*    <strong>+</strong>*/}
-                                                {/*    <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
-                                                {/*</button>*/}
                                             </div>
                                         </div>
                                     </div>
@@ -511,6 +703,7 @@ const ProductList = ({
                             </>
                         )}
                     </>
+
                 )}
             </div>
 
