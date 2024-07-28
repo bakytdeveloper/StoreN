@@ -12,7 +12,7 @@ import './SellerProductsPage.css'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {FaEye, FaEyeSlash} from "react-icons/fa";
+import {FaEllipsisV, FaEye, FaEyeSlash} from "react-icons/fa";
 //
 // const SellerProductsPage = ({setShowSidebar}) => {
 //     const [products, setProducts] = useState([]);
@@ -453,7 +453,7 @@ const SellerProductsPage = ({setShowSidebar}) => {
     };
 
     return (
-        <div className="seller-panel">
+        <div className="seller-panel" >
             <h1>Мои товары</h1>
             <div className='sellerButtons'>
                 <button className="openProfile"  onClick={handleGoBack}>
@@ -469,39 +469,47 @@ const SellerProductsPage = ({setShowSidebar}) => {
                 {/* Остальной код компонента */}
             </div>
 
-            <div className="products-list my-products  seller-products-page-products-list">
+            <div className="products-list my-products seller-products-page-products-list">
                 {products.map((product) => (
                     <div
                         className={`product-card product-card-seller ${!product.isActive ? 'inactive-product' : ''}`}
                         key={product._id}
                     >
-                        <div className="sellerEditDelete" >
-                            <button className="seller-btn-edit" style={{background: "none"}} onClick={() => handleEditProduct(product)}>&#128736;</button>
-                            <button className="seller-btn-delete" style={{background: "none"}}  onClick={() => handleDeleteProduct(product._id)}>&#10006;</button>
-                            <button className="seller-btn-toggle-active" style={{ background: "none", color:"darkslateblue" }} onClick={() => handleToggleActive(product._id)}>
-                                {product.isActive ? <FaEyeSlash /> : <FaEye />}
+                        <div className="product-card-actions">
+                            <button
+                                className="product-actions-btn"
+                                onClick={(e) => e.currentTarget.nextElementSibling.classList.toggle('show')}
+                            >
+                                <FaEllipsisV />
                             </button>
+                            <div className="product-actions-menu">
+                                <button className="close-menu" onClick={(e) => e.currentTarget.parentElement.classList.remove('show')}>
+                                    &#10006;
+                                </button>
+                                <button onClick={() => handleEditProduct(product)}>&#128736; Edit</button>
+                                <button onClick={() => handleDeleteProduct(product._id)}>&#10006; Delete</button>
+                                <button onClick={() => handleToggleActive(product._id)}>
+                                    {product.isActive ? <FaEyeSlash /> : <FaEye />} {product.isActive ? 'Deactivate' : 'Activate'}
+                                </button>
+                            </div>
                         </div>
 
                         <Link to={`/products/${product._id}`}>
-
                             <div className="product-card-images">
                                 {product.originalPrice && product.originalPrice > product.price && (
                                     <div className="discount-percentage-badge">
                                         -{calculateDiscountPercentage(product.originalPrice, product.price)}%
                                     </div>
                                 )}
-                            <img
-                                src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
-                                alt={product.name}
-                            />
+                                <img
+                                    src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
+                                    alt={product.name}
+                                />
                             </div>
                             <div className="details details-seller-products-page">
                                 <div className="type">{product.type}</div>
                                 <div className="brand">{product.brand}</div>
                                 <div className="name">{product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}</div>
-
-                                {/*<div className="name">{product.name}</div>*/}
                                 <div className="discounted-price">
                                     {product.isActive ? (
                                         <>
@@ -517,13 +525,12 @@ const SellerProductsPage = ({setShowSidebar}) => {
                                     ) : (
                                         <div className="price" style={{ fontSize: "17px" }}>Не доступен</div>
                                     )}
-                                </div>                            </div>
+                                </div>
+                            </div>
                         </Link>
-
                     </div>
                 ))}
             </div>
-
             {showConfirmationModal && (
                 <div className="modal-background">
                     <div className="confirmation-modal">
