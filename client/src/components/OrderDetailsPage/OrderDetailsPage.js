@@ -1692,7 +1692,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 <strong>Эл.адрес:</strong> {item.seller?.email || 'Неизвестный продавец'}
                                             </div>
                                             <div><h3>
-                                                <strong><u>Товары</u></strong>
+                                                <strong><u>Информация о товаре</u></strong>
                                             </h3></div>
                                             <div className="order-product-info">
                                                 <div className="order-product-details">
