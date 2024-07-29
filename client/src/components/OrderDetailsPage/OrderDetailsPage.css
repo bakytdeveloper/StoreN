@@ -30,7 +30,8 @@
 
 .modal-content {
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
+    text-align: start;
 }
 
 .order-details-page-close-button {
