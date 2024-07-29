@@ -596,8 +596,8 @@ const ProductList = ({
                         <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
                             <img className="arrowLImg" src={left} alt="Cart" />
                         </button>
-                        <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
-                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                        <span className="numStr">{`Страница ${currentPage} из ${totalPagesNoSearch}`}</span>
+                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPagesNoSearch}>
                             <img className="arrowRImg" src={right} alt="Cart" />
                         </button>
                     </div>
