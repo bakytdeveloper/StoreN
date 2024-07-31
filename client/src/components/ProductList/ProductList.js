@@ -27,11 +27,11 @@ const ProductList = ({
                          setSelectedCategory, // Функция для обновления выбранной категории продукта
                          setSelectedType, // Функция для обновления выбранного типа продукта
                          isFooterCatalog, // Флаг, указывающий, является ли это подвалом каталога
-                         // onSearch,
+                         onSearch,
                          setSearchTerm
                      }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [filteredProductsNoSearch, setFilteredProductsNoSearch] = useState([]);
+    // const [filteredProductsNoSearch, setFilteredProductsNoSearch] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [resizeTimer, setResizeTimer] = useState(null);
@@ -112,7 +112,7 @@ const ProductList = ({
 
             setProducts(productsData);
             setFilteredProducts(filterProducts(productsData));
-            setFilteredProductsNoSearch(filterProductsNoSearch(productsData));
+            // setFilteredProductsNoSearch(filterProductsNoSearch(productsData));
 
             if (sellerId) {
                 const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${sellerId}`);
@@ -176,9 +176,12 @@ const ProductList = ({
     useEffect(() => {
         if (products && products.length > 0) {
             const filtered = filterProducts(products);
-            const filteredNoSearch = filterProductsNoSearch(products);
+
+            console.log('filtered', filtered)
+
+            // const filteredNoSearch = filterProductsNoSearch(products);
             setFilteredProducts(filtered);
-            setFilteredProductsNoSearch(filteredNoSearch);
+            // setFilteredProductsNoSearch(filteredNoSearch);
             console.log('Filtered products:', filtered);
         } else {
             fetchData();
@@ -241,17 +244,17 @@ const ProductList = ({
             .filter(product => !sellerId || product.seller === sellerId);
     };
 
-    // Фильтрация продуктов по выбранным параметрам
-    const filterProductsNoSearch = (productsToFilter) => {
-        const params = new URLSearchParams(location.search);
-        const sellerId = params.get('sellerId');
-        return productsToFilter
-            .filter(product => !selectedGender || product.gender === selectedGender)
-            .filter(product => !selectedCategory || product.category === selectedCategory)
-            .filter(product => !selectedType || product.type === selectedType)
-            .filter(product => !sellerId || product.seller === sellerId)
-            .filter(product => !sellerId || product.seller === sellerId);
-    };
+    // // Фильтрация продуктов по выбранным параметрам
+    // const filterProductsNoSearch = (productsToFilter) => {
+    //     const params = new URLSearchParams(location.search);
+    //     const sellerId = params.get('sellerId');
+    //     return productsToFilter
+    //         .filter(product => !selectedGender || product.gender === selectedGender)
+    //         .filter(product => !selectedCategory || product.category === selectedCategory)
+    //         .filter(product => !selectedType || product.type === selectedType)
+    //         .filter(product => !sellerId || product.seller === sellerId)
+    //         .filter(product => !sellerId || product.seller === sellerId);
+    // };
 
 
     // Добавление продукта в корзину покупок
@@ -300,14 +303,14 @@ const ProductList = ({
 
     // Вычисление общего количества страниц для пагинации
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-    const totalPagesNoSearch = Math.ceil(filteredProductsNoSearch.length / productsPerPage);
+    // const totalPagesNoSearch = Math.ceil(filteredProductsNoSearch.length / productsPerPage);
 
     // Вычисление индекса начала отображаемых продуктов на текущей странице
     const startIndex = (currentPage - 1) * productsPerPage;
 
     // Выборка продуктов для текущей страницы
     const displayedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
-    const displayedProductsNoSearch = filteredProductsNoSearch.slice(startIndex, startIndex + productsPerPage);
+    // const displayedProductsNoSearch = filteredProductsNoSearch.slice(startIndex, startIndex + productsPerPage);
 
     // Формирование полного URL-адреса изображения с сервера
     const getFullImageUrl = (image) => {
@@ -482,7 +485,7 @@ const ProductList = ({
                                     <div>Попробуйте поискать по другому или сократите запрос</div>
                                     <h1 style={{ marginBottom: "-40px" }}>Возможно вам понравятся:</h1>
                                 </div>
-                                {displayedProductsNoSearch && displayedProductsNoSearch.map(product => (
+                                {products && products.map(product => (
                                     <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
                                         {product.isActive ? (
                                             <Link to={`/products/${product._id}`}>
@@ -575,7 +578,7 @@ const ProductList = ({
                 )}
             </div>
 
-            {!displayedProductsNoSearch && displayedProducts.length > 0 && (
+            { displayedProducts.length > 0 && (
                 <div className="pagination-container">
                     <div className="pagination">
                         <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
@@ -590,19 +593,19 @@ const ProductList = ({
             )}
 
 
-            { displayedProductsNoSearch.length > 0 && (
-                <div className="pagination-container">
-                    <div className="pagination">
-                        <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
-                            <img className="arrowLImg" src={left} alt="Cart" />
-                        </button>
-                        <span className="numStr">{`Страница ${currentPage} из ${totalPagesNoSearch}`}</span>
-                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPagesNoSearch}>
-                            <img className="arrowRImg" src={right} alt="Cart" />
-                        </button>
-                    </div>
-                </div>
-            )}
+            {/*{ displayedProductsNoSearch.length > 0 && (*/}
+            {/*    <div className="pagination-container">*/}
+            {/*        <div className="pagination">*/}
+            {/*            <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>*/}
+            {/*                <img className="arrowLImg" src={left} alt="Cart" />*/}
+            {/*            </button>*/}
+            {/*            <span className="numStr">{`Страница ${currentPage} из ${totalPagesNoSearch}`}</span>*/}
+            {/*            <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPagesNoSearch}>*/}
+            {/*                <img className="arrowRImg" src={right} alt="Cart" />*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*)}*/}
         </div>
     );
 

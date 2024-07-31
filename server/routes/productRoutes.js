@@ -145,10 +145,44 @@ router.get('/types/:category', async (req, res) => {
 });
 
 
-// Роут для фильтрации продуктов по полу, категории и типу
+// // Роут для фильтрации продуктов по полу, категории и типу
+// router.get('/products', async (req, res) => {
+//     try {
+//         const { gender, category, type, search } = req.query;
+//
+//         let query = {};
+//         if (gender) {
+//             query.gender = gender;
+//         }
+//         if (category) {
+//             query.category = category;
+//         }
+//         if (type) {
+//             query.type = type;
+//         }
+//         if (search) {
+//             query.$or = [
+//                 { name: new RegExp(search, 'i') },
+//                 { description: new RegExp(search, 'i') },
+//                 { brand: new RegExp(search, 'i') },
+//                 { type: new RegExp(search, 'i') }
+//             ];
+//         }
+//
+//
+//
+//         const products = await Product.find(query);
+//         res.json(products);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+// Роут для фильтрации продуктов по продавцу
 router.get('/products', async (req, res) => {
     try {
-        const { gender, category, type, search } = req.query;
+        const { gender, category, type, search, sellerId } = req.query;
 
         let query = {};
         if (gender) {
@@ -168,13 +202,38 @@ router.get('/products', async (req, res) => {
                 { type: new RegExp(search, 'i') }
             ];
         }
+        if (sellerId) {
+            query.seller = sellerId; // Добавляем фильтрацию по sellerId
+        }
 
-        const products = await Product.find(query);
-        res.json(products);
+        const products = await Product.find(query).populate('seller');
+
+        console.log("SELLER:", products);
+
+        if (!Array.isArray(products)) {
+            return res.status(500).json({ message: 'Error: Products is not an array' });
+        }
+
+        // Фильтруем товары на основе видимости продавца
+        const filteredProducts = products.filter(product => {
+            // Проверяем, существует ли продавец и видимость товаров
+            return product.seller && product.seller.isProductsVisible;
+        });
+
+        // Разделяем товары на активные и неактивные
+        const activeProducts = filteredProducts.filter(product => product.isActive);
+        const inactiveProducts = filteredProducts.filter(product => !product.isActive);
+
+        // Объединяем активные и неактивные товары
+        const sortedProducts = [...activeProducts, ...inactiveProducts];
+
+        res.json(sortedProducts);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 
 // Получение списка самых новых продуктов
@@ -192,15 +251,16 @@ router.get('/newest', async (req, res) => {
 // Получение информации о конкретном продукте по ID
 router.get('/:id', async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id).populate('seller');
+        const product = await Product.findById(req.params.id);
+        // const product = await Product.findById(req.params.id).populate('seller');
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        // Проверяем видимость товаров у продавца
-        if (!product.seller.isProductsVisible) {
-            return res.status(403).json({ message: 'Products from this seller are not visible' });
-        }
+        // // Проверяем видимость товаров у продавца
+        // if (!product.seller.isProductsVisible) {
+        //     return res.status(403).json({ message: 'Products from this seller are not visible' });
+        // }
 
         res.json({ product });
     } catch (error) {
@@ -408,46 +468,6 @@ router.get('/seller/:sellerId/products', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-// // Роут для изменения активности продукта
-// router.put('/:id/toggle-active', async (req, res) => {
-//     try {
-//         const product = await Product.findById(req.params.id);
-//         if (!product) {
-//             return res.status(404).send({ error: 'Product not found' });
-//         }
-//         product.isActive = !product.isActive;
-//         await product.save();
-//         res.send(product);
-//     } catch (error) {
-//         res.status(500).send({ error: 'Internal server error' });
-//     }
-// });
-
-
-
-// // Маршрут для изменения активности продукта
-// router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']), async (req, res) => {
-//     try {
-//         const productId = req.params.productId;
-//         const product = await Product.findById(productId);
-//
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//
-//         product.isActive = !product.isActive;
-//         await product.save();
-//
-//         res.status(200).json({ message: 'Product activity toggled successfully', product });
-//     } catch (error) {
-//         console.error('Error toggling product activity:', error);
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// });
-
 
 
 router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']), async (req, res) => {
