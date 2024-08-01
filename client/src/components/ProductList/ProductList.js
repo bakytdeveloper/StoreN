@@ -256,14 +256,14 @@ const ProductList = ({
             .filter(product => !selectedGender || product.gender === selectedGender)
             .filter(product => !selectedCategory || product.category === selectedCategory)
             .filter(product => !selectedType || product.type === selectedType)
-            // .filter(product =>
-            //     searchKeyword
-            //         ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            //         product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            //         product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            //         product.type.toLowerCase().includes(searchKeyword.toLowerCase())
-            //         : true
-            // )
+            .filter(product =>
+                searchKeyword
+                    ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                    product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                    product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                    product.type.toLowerCase().includes(searchKeyword.toLowerCase())
+                    : true
+            )
             .filter(product => !sellerId || product.seller && product.seller._id === sellerId);
     };
 
