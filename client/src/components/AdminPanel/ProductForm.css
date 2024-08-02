@@ -4,6 +4,25 @@
     box-sizing: border-box;
 }
 
+ /*Для вебkit-браузеров (Chrome, Safari) */
+/*Отключение стрелок для числовых инпутов*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Для Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    appearance: none; /* Modern browsers */
+}
+
 
 
 /* src/components/AdminPanel/ProductForm.css */

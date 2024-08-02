@@ -137,44 +137,44 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         fetchTypes();
     }, []);
 
-    const handleChange = async (e) => {
-        const { name, value } = e.target;
-
-        if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
-            // Prevent setting quantity below zero
-            const newValue = parseInt(value, 10);
-            if (newValue < 1) {
-                toast.error('Количество не может быть меньше нуля');
-                return; // Do not update state
-            }
-        }
-
-        setFormData({ ...formData, [name]: value });
-
-        if (name === 'category') {
-            if (value === 'Аксессуары') {
-                setDirection('');
-            }
-
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
-                if (!response.ok) {
-                    console.error('Failed to fetch products');
-                    return;
-                }
-                const data = await response.json();
-
-                let filteredTypes = data
-                    .filter(product => product.category === value)
-                    .map(product => product.type);
-
-                const uniqueTypes = [...new Set(filteredTypes)];
-                setTypes(uniqueTypes);
-            } catch (error) {
-                console.error('Error handling category change:', error);
-            }
-        }
-    };
+    // const handleChange = async (e) => {
+    //     const { name, value } = e.target;
+    //
+    //     if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
+    //         // Prevent setting quantity below zero
+    //         const newValue = parseInt(value, 10);
+    //         if (newValue < 1) {
+    //             toast.error('Количество не может быть меньше нуля');
+    //             return; // Do not update state
+    //         }
+    //     }
+    //
+    //     setFormData({ ...formData, [name]: value });
+    //
+    //     if (name === 'category') {
+    //         if (value === 'Аксессуары') {
+    //             setDirection('');
+    //         }
+    //
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
+    //             if (!response.ok) {
+    //                 console.error('Failed to fetch products');
+    //                 return;
+    //             }
+    //             const data = await response.json();
+    //
+    //             let filteredTypes = data
+    //                 .filter(product => product.category === value)
+    //                 .map(product => product.type);
+    //
+    //             const uniqueTypes = [...new Set(filteredTypes)];
+    //             setTypes(uniqueTypes);
+    //         } catch (error) {
+    //             console.error('Error handling category change:', error);
+    //         }
+    //     }
+    // };
 
     const handleCharacteristicChange = (index, field, value) => {
         const updatedCharacteristics = [...formData.characteristics];
@@ -445,6 +445,112 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         newImages[index] = temp;
         setFormData({ ...formData, images: newImages });
     };
+
+
+
+
+    // useEffect(() => {
+    //     const handleWheel = (e) => {
+    //         if (e.target.type === 'number') {
+    //             e.preventDefault(); // Prevent scrolling from changing the value
+    //         }
+    //     };
+    //
+    //     window.addEventListener('wheel', handleWheel, { passive: false });
+    //
+    //     return () => {
+    //         window.removeEventListener('wheel', handleWheel);
+    //     };
+    // }, []);
+
+
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.type === 'number') {
+                activeElement.blur(); // Remove focus from number inputs on scroll
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
+
+    const handleChange = async (e) => {
+        const { name, value } = e.target;
+
+        if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
+            // Prevent setting quantity below zero
+            const newValue = parseInt(value, 10);
+            if (newValue < 1) {
+                toast.error('Количество не может быть меньше нуля');
+                return; // Do not update state
+            }
+        }
+
+        setFormData({ ...formData, [name]: value });
+
+        if (name === 'category') {
+            if (value === 'Аксессуары') {
+                setDirection('');
+            }
+
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
+                if (!response.ok) {
+                    console.error('Failed to fetch products');
+                    return;
+                }
+                const data = await response.json();
+
+                let filteredTypes = data
+                    .filter(product => product.category === value)
+                    .map(product => product.type);
+
+                const uniqueTypes = [...new Set(filteredTypes)];
+                setTypes(uniqueTypes);
+            } catch (error) {
+                console.error('Error handling category change:', error);
+            }
+        }
+    };
+
+    // обработчик события wheel для инпутов с типом number
+    useEffect(() => {
+        const handleWheel = (e) => {
+            if (e.target.type === 'number') {
+                e.preventDefault(); // Prevent scrolling from changing the value
+            }
+        };
+
+        window.addEventListener('wheel', handleWheel, { passive: false });
+
+        return () => {
+            window.removeEventListener('wheel', handleWheel);
+        };
+    }, []);
+
+    // фокус должен сбрасываться при скролле
+    useEffect(() => {
+        const handleScroll = () => {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.type === 'number') {
+                activeElement.blur(); // Remove focus from number inputs on scroll
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <form className="sellerFormAdd" onSubmit={handleSubmit}>
