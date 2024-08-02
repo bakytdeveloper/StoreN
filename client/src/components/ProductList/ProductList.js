@@ -256,14 +256,14 @@ const ProductList = ({
             .filter(product => !selectedGender || product.gender === selectedGender)
             .filter(product => !selectedCategory || product.category === selectedCategory)
             .filter(product => !selectedType || product.type === selectedType)
-            .filter(product =>
-                searchKeyword
-                    ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                    product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                    product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-                    product.type.toLowerCase().includes(searchKeyword.toLowerCase())
-                    : true
-            )
+            // .filter(product =>
+            //     searchKeyword
+            //         ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+            //         product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+            //         product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+            //         product.type.toLowerCase().includes(searchKeyword.toLowerCase())
+            //         : true
+            // )
             .filter(product => !sellerId || product.seller && product.seller._id === sellerId);
     };
 
@@ -393,7 +393,7 @@ const ProductList = ({
                 ) : (
 
                     <>
-                        {displayedProducts.length ? (
+                        {displayedProductsNoSearch && displayedProducts.length ? (
                             displayedProducts.map(product => (
                                 <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
                                     {product.isActive ? (
@@ -586,7 +586,7 @@ const ProductList = ({
                 )}
             </div>
 
-            {!displayedProductsNoSearch && displayedProducts.length > 0 && (
+            {displayedProducts && displayedProducts.length > 0 && (
                 <div className="pagination-container">
                     <div className="pagination">
                         <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
@@ -601,7 +601,7 @@ const ProductList = ({
             )}
 
 
-            { displayedProductsNoSearch.length > 0 && (
+            {displayedProducts >= 0 && displayedProductsNoSearch.length > 0 && (
                 <div className="pagination-container">
                     <div className="pagination">
                         <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
