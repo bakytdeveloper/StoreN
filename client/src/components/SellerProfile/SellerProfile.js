@@ -19,9 +19,30 @@ const SellerProfile = ({ setShowSidebar }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+    const [modalAction, setModalAction] = useState(null); // 'hide' или 'show'
+
     // const [isProductsVisible, setIsProductsVisible] = useState(true);
 
     const history = useHistory();
+
+
+    const handleShowModal = (action) => {
+        setModalAction(action);
+        setShowModal(true);
+    };
+
+    const handleConfirm = async () => {
+        setShowModal(false);
+        if (modalAction) {
+            await handleToggleProductsVisibility();
+        }
+    };
+
+    const handleCancel = () => {
+        setShowModal(false);
+    };
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -222,8 +243,7 @@ const SellerProfile = ({ setShowSidebar }) => {
                 </div>
 
                 <div className="visibility-toggle">
-                    {/*<h2>Управление видимостью товаров</h2>*/}
-                    <button onClick={handleToggleProductsVisibility}>
+                    <button onClick={() => handleShowModal(seller && seller.isProductsVisible ? 'hide' : 'show')}>
                         {seller && seller.isProductsVisible ? (
                             <>
                                 Скрыть товары <FaEyeSlash />
@@ -340,6 +360,21 @@ const SellerProfile = ({ setShowSidebar }) => {
                     </div>
                 )}
             </div>
+
+            {/* Модальное окно */}
+            {showModal && (
+                <div className="modal-overlay-module">
+                    <div className="modal-content-modal">
+                        <h3>Подтверждение</h3>
+                        <div>Вы уверены, что хотите {modalAction === 'hide' ? 'скрыть' : 'показать'} товары?</div>
+                        <div className="modal-buttons">
+                            <button className="modal-buttons-left" onClick={handleConfirm}>Подтвердить</button>
+                            <button className="modal-buttons-right" onClick={handleCancel}>Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
