@@ -47,20 +47,6 @@
 /*    margin: 0 auto; !* Centering *!*/
 /*}*/
 
-/*.modal-buttons {*/
-/*    display: flex;*/
-/*    justify-content: flex-end;*/
-/*    margin-top: 20px;*/
-/*}*/
-
-/*.modal-buttons-left {*/
-/*    margin-right: 10px;*/
-/*}*/
-
-/*.modal-buttons-right {*/
-/*    margin-left: 10px;*/
-/*}*/
-
 
 
 .modal-overlay-module {
@@ -74,6 +60,7 @@
     align-items: center;
     justify-content: center;
     overflow: auto; /* Ensures scroll if needed */
+    font-family: Poppins;
 }
 
 .modal-content-module {
@@ -87,4 +74,19 @@
     text-align: center;
     box-sizing: border-box; /* Ensures padding is included in width and height calculations */
     margin: 0 auto; /* Centering */
+}
+
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-buttons-left {
+    margin-right: 10px;
+}
+
+.modal-buttons-right {
+    margin-left: 10px;
 }

@@ -30,8 +30,8 @@ const ConfirmationModal = ({ show, onClose, onConfirm, seller }) => {
                 <h2>Подтвердите удаление</h2>
                 <div>Вы уверены, что хотите удалить продавца <strong>{seller.name}</strong> из компании <strong>{seller.companyName}</strong>?</div>
                 <div className="modal-buttons">
-                    <button onClick={handleClose}>Отмена</button>
-                    <button onClick={() => onConfirm(seller._id)}>Удалить</button>
+                    <button className="modal-buttons-left" onClick={handleClose}>Отмена</button>
+                    <button className="modal-buttons-right" onClick={() => onConfirm(seller._id)}>Удалить</button>
                 </div>
             </div>
         </div>
