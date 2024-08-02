@@ -49,6 +49,7 @@
 
 
 
+
 .modal-overlay-module {
     position: fixed;
     top: 0;
@@ -61,6 +62,7 @@
     justify-content: center;
     overflow: auto; /* Ensures scroll if needed */
     font-family: Poppins;
+    z-index: 999;
 }
 
 .modal-content-module {

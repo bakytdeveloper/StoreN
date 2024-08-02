@@ -4,14 +4,23 @@ import './ConfirmationModal.css'; // Создайте этот файл для �
 
 const ConfirmationModal = ({ show, onClose, onConfirm, seller }) => {
     useEffect(() => {
-        // Отключаем скролл на фоне при открытии модального окна
         if (show) {
             document.body.style.overflow = 'hidden';
+            // Убедитесь, что прокрутка отключена только для фонового контента
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%'; // Чтобы предотвратить изменения ширины из-за отключения скролла
+        } else {
+            // Восстанавливаем исходное состояние скролла и позиции
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
 
-        // Восстанавливаем скролл, когда модальное окно закрыто
         return () => {
-            document.body.style.overflow = 'auto';
+            // Восстанавливаем скролл и другие стили, если модальное окно было закрыто
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         };
     }, [show]);
 
@@ -20,6 +29,7 @@ const ConfirmationModal = ({ show, onClose, onConfirm, seller }) => {
     const handleClose = () => {
         onClose();
     };
+
 
     return (
         <div className="modal-overlay-module" onClick={handleClose}>
