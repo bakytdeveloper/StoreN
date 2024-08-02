@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SellerProfile.css';
+import SellerProductsHide from "./SellerProductsHide";
 
 const SellerProfile = ({ setShowSidebar }) => {
     const [seller, setSeller] = useState(null);
@@ -362,18 +363,12 @@ const SellerProfile = ({ setShowSidebar }) => {
             </div>
 
             {/* Модальное окно */}
-            {showModal && (
-                <div className="modal-overlay-module">
-                    <div className="modal-content-modal">
-                        <h3>Подтверждение</h3>
-                        <div>Вы уверены, что хотите {modalAction === 'hide' ? 'скрыть' : 'показать'} товары?</div>
-                        <div className="modal-buttons">
-                            <button className="modal-buttons-left" onClick={handleConfirm}>Подтвердить</button>
-                            <button className="modal-buttons-right" onClick={handleCancel}>Отмена</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <SellerProductsHide
+                show={showModal}
+                actionText={modalAction === 'hide' ? 'скрыть товары' : 'показать товары'}
+                onConfirm={handleConfirm}
+                onCancel={handleCancel}
+            />
 
         </div>
     );

@@ -1,0 +1,44 @@
+
+
+.modal-overlay-module {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto; /* Ensures scroll if needed */
+    font-family: Poppins;
+    z-index: 999;
+}
+
+.modal-content-module {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%; /* Width should be responsive */
+    max-height: 90%; /* Ensures the modal does not exceed viewport height */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box; /* Ensures padding is included in width and height calculations */
+    margin: 0 auto; /* Centering */
+}
+
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-buttons-left {
+    margin-right: 10px;
+}
+
+.modal-buttons-right {
+    margin-left: 10px;
+}
