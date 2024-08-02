@@ -53,6 +53,7 @@ const ProductList = ({
             setSelectedCategory(null);
             setSelectedType(null);
             setSearchTerm(''); // Сбрасываем поисковый запрос
+           
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
 

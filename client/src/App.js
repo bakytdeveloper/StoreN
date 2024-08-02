@@ -127,7 +127,12 @@ const App = () => {
                             <Route path="/" exact>
                                 <Home
                                     setIsFooterCatalog={setIsFooterCatalog}
-                                    setShowSidebar={setShowSidebar} />
+                                    setShowSidebar={setShowSidebar}
+                                    setSelectedGender={setSelectedGender}
+                                setSelectedCategory={setSelectedCategory}
+                                setSelectedType={setSelectedType}
+                                setSearchTerm={setSearchTerm}
+                                />
                             </Route>
 
                             {!isLoading && (

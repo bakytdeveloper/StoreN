@@ -12,7 +12,7 @@ import unisex from './imgHome/unisex.png';
 import accessories from './imgHome/accessories.png';
 import allElectricalGoods from './imgHome/allElectricalGoods.png';
 import catalog_page from './imgHome/catalog-page.jpg';
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import ContactInfo from "../ContactInfo/ContactInfo";
 
 import './Home.css';
@@ -22,7 +22,8 @@ import NewestProducts from './NewestProducts/NewestProducts';
 import Footer from "../Footer/Footer";
 
 
-const Home = ({ setShowSidebar, setIsFooterCatalog }) => {
+const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm,
+                  setSelectedCategory , setSelectedType }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         { title: "ГОТОВЬСЯ К ЛЕТУ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
@@ -30,6 +31,19 @@ const Home = ({ setShowSidebar, setIsFooterCatalog }) => {
         { title: "ГОТОВЬСЯ К ЗИМЕ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЗИМНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne }
     ];
     const history = useHistory();
+    const location = useLocation();
+
+    // Сброс фильтров при возвращении на страницу каталога
+    useEffect(() => {
+        if (location.pathname === '/') {
+            // Сбрасываем фильтры
+            setSelectedGender(null);
+            setSelectedCategory(null);
+            setSelectedType(null);
+            setSearchTerm(''); // Сбрасываем поисковый запрос
+        }
+    }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+
 
     useEffect(() => {
         const interval = setInterval(() => {
