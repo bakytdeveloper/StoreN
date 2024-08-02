@@ -1,26 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './ConfirmationModal.css'; // Создайте этот файл для стилизации модального окна
 
+
 const ConfirmationModal = ({ show, onClose, onConfirm, seller }) => {
+    useEffect(() => {
+        // Отключаем скролл на фоне при открытии модального окна
+        if (show) {
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Восстанавливаем скролл, когда модальное окно закрыто
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [show]);
+
     if (!show) return null;
 
-
-    // Отключаем скролл на фоне при открытии модального окна
-    document.body.style.overflow = 'hidden';
-
-    // Восстанавливаем скролл, когда модальное окно закрыто
     const handleClose = () => {
-        document.body.style.overflow = 'auto';
         onClose();
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="modal-overlay-module" onClick={handleClose}>
+            <div
+                className="modal-content-module"
+                onClick={e => e.stopPropagation()} // Prevents click events from closing the modal when clicking inside it
+            >
                 <h2>Подтвердите удаление</h2>
                 <div>Вы уверены, что хотите удалить продавца <strong>{seller.name}</strong> из компании <strong>{seller.companyName}</strong>?</div>
                 <div className="modal-buttons">
-                    <button onClick={onClose}>Отмена</button>
+                    <button onClick={handleClose}>Отмена</button>
                     <button onClick={() => onConfirm(seller._id)}>Удалить</button>
                 </div>
             </div>
