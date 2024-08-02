@@ -153,7 +153,8 @@ const App = () => {
                                     setSelectedType={setSelectedType}
                                     isFooterCatalog={isFooterCatalog}
                                     setSearchTerm={setSearchTerm}
-
+                                    searchTerm={searchTerm}
+                                    onSearch={handleSearch}
 
                                 />
                             </Route>

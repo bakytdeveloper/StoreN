@@ -28,7 +28,8 @@ const ProductList = ({
                          setSelectedType, // Функция для обновления выбранного типа продукта
                          isFooterCatalog, // Флаг, указывающий, является ли это подвалом каталога
                          onSearch,
-                         setSearchTerm
+                         setSearchTerm,
+                         searchTerm
                      }) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [filteredProductsNoSearch, setFilteredProductsNoSearch] = useState([]);
@@ -43,20 +44,27 @@ const ProductList = ({
     const previousPathname = useRef(location.pathname);
     const [searchEmptyResult, setSearchEmptyResult] = useState(false);
     const [sellerInfo, setSellerInfo] = useState(null);
+    const [lastPath, setLastPath] = useState(location.pathname);
 
-
-    // Сброс фильтров при возвращении на страницу каталога
+    // Сброс фильтров и товаров при возвращении на страницу каталога
     useEffect(() => {
         if (location.pathname === '/catalog') {
-            // Сбрасываем фильтры
             setSelectedGender(null);
             setSelectedCategory(null);
             setSelectedType(null);
-            setSearchTerm(''); // Сбрасываем поисковый запрос
-           
+            setSearchTerm('');
+            onSearch('');
+            setCurrentPage(1); // Возвращаемся к первой странице
+            history.push(lastPath);
+            fetchData(); // Перезагружаем товары
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
 
+    useEffect(() => {
+        if (searchTerm === '') {
+            setLastPath(location.pathname);
+        }
+    }, [searchTerm, location.pathname]);
 
     // Обновление боковой панели при изменении ширины окна
     useEffect(() => {
