@@ -364,7 +364,7 @@
 
 
 
-    .modal-overlay, .profile-icon.active {
+    .modal-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -377,9 +377,9 @@
         align-items: center;
         z-index: 1000;
     }
- .profile-icon.active .profile-icon-img {
-       display: none;
-    }
+ /*.profile-icon.active .profile-icon-img {*/
+ /*      display: none;*/
+ /*   }*/
 
     .close-btn-modal {
         width: 32px;
