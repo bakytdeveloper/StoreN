@@ -119,7 +119,11 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
                     <img style={{ objectFit: "cover" }} className="info-block-img info-block-img-two" src={catalog_page} alt="Аксессуары" />
                 </div>
             </div>
-            <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+            <div>
+                <h2 className="newest-products-title">Самые Новые Товары</h2>
+                <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+            </div>
+
             {/*<div className="home-page-footer">*/}
             {/*    <ContactInfo />*/}
             {/*    /!*<Footer />*!/*/}

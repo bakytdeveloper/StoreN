@@ -31,7 +31,7 @@
     /*justify-content: start!important;*/
     justify-content: space-between;
 
-padding: 0 5px;
+    padding: 0 5px;
 }
 
 .new-brand {
@@ -52,15 +52,15 @@ padding: 0 5px;
         margin-left: 0;
         justify-content: space-between;
         margin-top: 12px !important;
-        padding: 0;
-
+        /*padding: 0!important;*/
+        margin-bottom: 80px !important;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
     }
     .newest-products-title {
         margin-top: 11px;
-    }
 
+    }
 
 
 

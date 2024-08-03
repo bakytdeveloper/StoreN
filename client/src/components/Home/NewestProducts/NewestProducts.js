@@ -27,7 +27,7 @@ const NewestProducts = ({ apiUrl }) => {
                 } else if (windowWidth >= 1200) {
                     limit = 15;
                 } else if (windowWidth >= 960) {
-                    limit = 15;
+                    limit = 12;
                 } else if (windowWidth >= 900) {
                     limit = 12;
                 } else {
@@ -88,7 +88,7 @@ const NewestProducts = ({ apiUrl }) => {
 
     return (
         <div className="newest-products">
-            <h2 className="newest-products-title">Самые Новые Товары</h2>
+            {/*<h2 className="newest-products-title">Самые Новые Товары</h2>*/}
             <div className="product-list new-product" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
                 {newestProducts.map((product) => (
                     <div className="product-card new-cards" key={product._id}>

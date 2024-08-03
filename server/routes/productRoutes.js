@@ -248,17 +248,42 @@ router.get('/products', async (req, res) => {
 // });
 
 
-// Получение списка самых новых продуктов
+// // Получение списка самых новых продуктов
+// router.get('/newest', async (req, res) => {
+//     try {
+//         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
+//         // Находим только активные продукты
+//         const newestProducts = await Product.find({ isActive: true }).sort({ createdAt: -1 }).limit(limit);
+//         res.json(newestProducts);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+// Получение списка самых новых продуктов с учетом активных статусов
 router.get('/newest', async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
-        // Находим только активные продукты
-        const newestProducts = await Product.find({ isActive: true }).sort({ createdAt: -1 }).limit(limit);
+
+        // Сначала получаем все продукты, отсортированные по дате создания
+        const allProducts = await Product.find().sort({ createdAt: -1 }).limit(limit);
+
+        // Фильтруем только активные продукты
+        const newestProducts = allProducts.filter(product => product.isActive);
+
+        // Если активных продуктов недостаточно, добавляем неактивные продукты, если такие есть
+        if (newestProducts.length < limit) {
+            const additionalProducts = allProducts.filter(product => !product.isActive).slice(0, limit - newestProducts.length);
+            newestProducts.push(...additionalProducts);
+        }
+
         res.json(newestProducts);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 // Получение информации о конкретном продукте по ID

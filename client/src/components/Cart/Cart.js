@@ -243,13 +243,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     return (
         <div className="cartAll">
             <div className="cart">
-                <span className="closeCart" onClick={handleBackToShopping}>
+                <div className="closeCart" onClick={handleBackToShopping}>
                     &#10006;
-                </span>
+                </div>
                 <h2>Корзина</h2>
                 {cartItems.length === 0 ? (
 
-                    <div>
+                    <div className="emptyCartEls-all">
                         <div className="emptyCartEls" onClick={handleBackToShopping}>
                             <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
                             <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
@@ -262,6 +262,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                             </div>
                         </div>
                         <div className="empty-cart-products">
+                            <h2 className="newest-products-title">Наши новинки</h2>
                             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
                         </div>
                     </div>
