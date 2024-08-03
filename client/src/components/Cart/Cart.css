@@ -61,6 +61,7 @@ h5 {
     display: block;
     text-align: center;
     cursor: pointer;
+    font-family: Poppins;
 }
 
 .emptyCart {
@@ -226,6 +227,25 @@ h5 {
     display: none;
 }
 
+.empty-cart-login {
+    width: auto;
+    margin-top: 10px;
+    font-family: Poppins;
+}
+
+.empty-cart-login-button {
+    width: auto;
+    margin-top: 10px;
+}
+
+.empty-cart-products {
+    background: white;
+    border-radius: 7px;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 0;
+}
+
 /* Адаптивные стили */
 @media (max-width: 768px) {
 
@@ -361,5 +381,7 @@ h5 {
     .buy_next_big_monitor {
         display: none;
     }
+
+
 
 }

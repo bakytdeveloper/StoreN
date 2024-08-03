@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CartSummary from './CartSummary';
 import emptyCart from './emptyCart.png'
+import NewestProducts from "../Home/NewestProducts/NewestProducts";
 
 const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) => {
     const [totalPrice, setTotalPrice] = useState(0);
@@ -77,11 +78,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         setTotalItems(cartItems.reduce((acc, item) => acc + item.quantity, 0));
 
         // Если все товары удалены, очищаем корзину и показываем сообщение
-        if (cartItems.length === 0) {
-            history.push('/catalog'); // Перенаправление на страницу каталога при пустой корзине
-        } else if (cartItems.length > 0 && cartItems.every(item => item.quantity === 0)) {
-            setCartItems([]);
-        }
+        // if (cartItems.length === 0) {
+        //     history.push('/catalog'); // Перенаправление на страницу каталога при пустой корзине
+        // } else if (cartItems.length > 0 && cartItems.every(item => item.quantity === 0)) {
+        //     setCartItems([]);
+        // }
     }, [cartItems, setCartItems]);
 
     const handleCheckout = () => {
@@ -96,7 +97,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
     const handleQuantityChange = (productId, newQuantity) => {
 
-        // Ensure newQuantity is within available stock
+        // Убедитесь, что newQuantity находится в пределах имеющегося запаса
         const existingItem = cartItems.find(item => item.productId === productId);
         if (existingItem && existingItem.quantity + newQuantity > existingItem.available) {
             toast.error(`Недостаточно запасов ${existingItem.name}`);
@@ -247,10 +248,24 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 </span>
                 <h2>Корзина</h2>
                 {cartItems.length === 0 ? (
-                    <div className="emptyCartEls" onClick={handleBackToShopping}>
-                        <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
-                        <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
+
+                    <div>
+                        <div className="emptyCartEls" onClick={handleBackToShopping}>
+                            <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
+                            <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
+
+                            <div className="empty-cart-login">
+                                <div>Или вводите через свой аккаунт</div>
+                                <button className="empty-cart-login-button">
+                                    Ввойти
+                                </button>
+                            </div>
+                        </div>
+                        <div className="empty-cart-products">
+                            <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+                        </div>
                     </div>
+
                 ) : (
                     <div className="allSection">
                         <div className="sectionOne">
