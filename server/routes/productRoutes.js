@@ -71,7 +71,10 @@ router.get('/', async (req, res) => {
             // Проверяем, существует ли продавец, его статус и видимость товаров
             return product.seller &&
                 product.seller.isProductsVisible &&
-                product.seller.status !== 'suspend';
+                product.seller.status !== 'suspend'
+                // Если убрать эту часть фильтрации, то будут отображаться
+                // не активными заблокированные товары
+                && product.isActive;
         });
 
         // Разделяем товары на активные и неактивные
