@@ -121,15 +121,70 @@ router.get('/genders', async (req, res) => {
     }
 });
 
+// // Получение списка всех категорий
+// router.get('/categories', async (req, res) => {
+//     try {
+//         const { gender } = req.query;
+//         let query = {};
+//         if (gender) {
+//             query.gender = gender;
+//         }
+//         const categories = await Product.distinct('category', query);
+//         res.json({ categories });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+//
+// // Получение списка всех типов товаров по категории
+// router.get('/types', async (req, res) => {
+//     try {
+//         const { gender, category } = req.query;
+//         let query = {};
+//         if (gender) {
+//             query.gender = gender;
+//         }
+//         if (category) {
+//             query.category = category;
+//         }
+//         const types = await Product.distinct('type', query);
+//         res.json({ types });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+//
+//
+//
+// // Получение всех типов товаров по категории
+// router.get('/types/:category', async (req, res) => {
+//     try {
+//         const { category } = req.params;
+//         const { type } = req.query;
+//         let query = { category };
+//         if (type) {
+//             query = { ...query, type };
+//         }
+//         const types = await Product.distinct('type', { category });
+//         const products = await Product.find(query);
+//         res.json({ types, products });
+//     } catch (error) {
+//         console.error('Error fetching products by category:', error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// });
+
+
+
 // Получение списка всех категорий
 router.get('/categories', async (req, res) => {
     try {
         const { gender } = req.query;
-        let query = {};
-        if (gender) {
-            query.gender = gender;
-        }
-        const categories = await Product.distinct('category', query);
+        let query = { gender };
+        // Фильтруем товары на основе статуса продавца
+        const products = await Product.find(query).populate('seller');
+        const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+        const categories = [...new Set(validProducts.map(product => product.category))];
         res.json({ categories });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -140,21 +195,16 @@ router.get('/categories', async (req, res) => {
 router.get('/types', async (req, res) => {
     try {
         const { gender, category } = req.query;
-        let query = {};
-        if (gender) {
-            query.gender = gender;
-        }
-        if (category) {
-            query.category = category;
-        }
-        const types = await Product.distinct('type', query);
+        let query = { gender, category };
+        // Фильтруем товары на основе статуса продавца
+        const products = await Product.find(query).populate('seller');
+        const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+        const types = [...new Set(validProducts.map(product => product.type))];
         res.json({ types });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
-
 
 // Получение всех типов товаров по категории
 router.get('/types/:category', async (req, res) => {
@@ -165,9 +215,11 @@ router.get('/types/:category', async (req, res) => {
         if (type) {
             query = { ...query, type };
         }
-        const types = await Product.distinct('type', { category });
-        const products = await Product.find(query);
-        res.json({ types, products });
+        // Фильтруем товары на основе статуса продавца
+        const products = await Product.find(query).populate('seller');
+        const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+        const types = [...new Set(validProducts.map(product => product.type))];
+        res.json({ types, products: validProducts });
     } catch (error) {
         console.error('Error fetching products by category:', error);
         res.status(500).json({ message: 'Internal Server Error' });
