@@ -17,6 +17,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [contactButtonColor, setContactButtonColor] = useState('initial');
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const isAuthenticated = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
     const history = useHistory();
     const profileRef = useRef(null);
     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
@@ -58,6 +59,13 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        // Проверяем, если пользователь администратор и имеет токен
+        if (isAuthenticated && userRole === 'admin') {
+            history.push("/admin"); // Перенаправляем на страницу админа
+        }
+    }, [isAuthenticated, userRole, history]);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -119,7 +127,11 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const handleLoginClick = () => {
         setActivePage('login');
         if (isAuthenticated) {
-            history.push("/profile");
+            if (userRole === 'admin') {
+                history.push("/admin");
+            } else {
+                history.push("/profile");
+            }
         } else {
             history.push("/login");
         }
@@ -128,6 +140,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
     const handleLogoutClick = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         setActivePage('home');
         history.push("/");
         setIsProfileOpen(false);
