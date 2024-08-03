@@ -763,6 +763,7 @@ const Footer = ({
     useEffect(() => {
         function handleClickOutside(event) {
             if (profileRef.current && !profileRef.current.contains(event.target)) {
+                setActiveComponent(null);
                 setIsProfileOpen(false);
             }
         }
@@ -779,6 +780,7 @@ const Footer = ({
             } else {
                 history.push("/login");
             }
+
             setIsProfileOpen(false);
         } else if (buttonClick === 'logout') {
             localStorage.removeItem('token');
@@ -788,6 +790,7 @@ const Footer = ({
             setIsProfileOpen(false);
             history.push("/sellers/register");
         }
+        setActiveComponent(null);
         setButtonClick(null);
     }, [buttonClick, isAuthenticated, history]);
 
