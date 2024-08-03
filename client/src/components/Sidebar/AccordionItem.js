@@ -24,7 +24,7 @@ const AccordionItem = ({
     const handleGenderClick = async () => {
         history.push('/catalog')
         if (isGenderExpanded && selectedGender === gender) {
-            onGenderClick(null); // Reset selected gender
+            onGenderClick(null); // Сбросить выбранный пол
             setIsGenderExpanded(false);
 
 
@@ -38,7 +38,7 @@ const AccordionItem = ({
 
     const handleCategoryClick = async (category) => {
         if (isCategoryExpanded && selectedCategory === category) {
-            onCategoryClick(null); // Reset selected category
+            onCategoryClick(null); //Сбросить выбранную категорию
             setIsCategoryExpanded(false);
 
 
@@ -50,13 +50,13 @@ const AccordionItem = ({
 
     const handleTypeClick = async (type) => {
         if (expandedType === type) {
-            onTypeClick(null); // Reset selected type
+            onTypeClick(null); // Сбросить выбранный тип
             setExpandedType(null);
         } else {
             await onTypeClick(type);
             setExpandedType(type);
             if (isSmallScreen) {
-                setShowSidebar(true); // Close sidebar on small screens
+                setShowSidebar(true); // Закрыть боковую панель на маленьких экранах
             }
         }
     };
