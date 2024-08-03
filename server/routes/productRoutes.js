@@ -69,9 +69,9 @@ router.get('/', async (req, res) => {
         // Фильтруем товары на основе видимости продавца и статуса продавца
         const filteredProducts = products.filter(product => {
             // Проверяем, существует ли продавец, его статус и видимость товаров
-            return product.seller &&
-                product.seller.isProductsVisible &&
-                product.seller.status !== 'suspend'
+            return product.seller
+                && product.seller.isProductsVisible
+                && product.seller.status !== 'suspend'
                 // Если убрать эту часть фильтрации, то будут отображаться
                 // не активными заблокированные товары
                 && product.isActive;
