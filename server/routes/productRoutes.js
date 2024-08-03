@@ -29,27 +29,6 @@ router.post('/add', authenticateToken, async (req, res) => {
 });
 
 
-
-// // Роут для получения всех товаров с учетом видимости продавца
-// router.get('/', async (req, res) => {
-//     try {
-//         // Получаем все товары и подгружаем данные о продавце
-//         const products = await Product.find()
-//             .populate('seller');
-//
-//         // Фильтруем товары на основе видимости продавца
-//         const filteredProducts = products.filter(product => {
-//             // Проверяем, существует ли продавец и видимость товаров
-//             return product.seller && product.seller.isProductsVisible;
-//         });
-//
-//         res.json(filteredProducts);
-//     } catch (error) {
-//         console.error('Error fetching products:', error);
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
-
 //
 // // Роут для получения всех товаров с учетом видимости продавца
 // router.get('/', async (req, res) => {
@@ -404,25 +383,48 @@ router.get('/newest', async (req, res) => {
 
 
 
+// // Получение информации о конкретном продукте по ID
+// router.get('/:id', async (req, res) => {
+//     try {
+//         const product = await Product.findById(req.params.id);
+//         // const product = await Product.findById(req.params.id).populate('seller');
+//         if (!product) {
+//             return res.status(404).json({ message: 'Product not found' });
+//         }
+//
+//         // // Проверяем видимость товаров у продавца
+//         // if (!product.seller.isProductsVisible) {
+//         //     return res.status(403).json({ message: 'Products from this seller are not visible' });
+//         // }
+//
+//         res.json({ product });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 // Получение информации о конкретном продукте по ID
 router.get('/:id', async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
-        // const product = await Product.findById(req.params.id).populate('seller');
+        const product = await Product.findById(req.params.id).populate('seller');
+
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        // // Проверяем видимость товаров у продавца
-        // if (!product.seller.isProductsVisible) {
-        //     return res.status(403).json({ message: 'Products from this seller are not visible' });
-        // }
+        // Проверяем статус товара и статус его продавца
+        if (product.seller.status === 'suspend' || !product.isActive) {
+            return res.status(403).json({ message: 'Product is not available' });
+        }
 
         res.json({ product });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 
 // Создание нового продукта (только для администратора)
