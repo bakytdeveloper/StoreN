@@ -50,6 +50,35 @@ router.post('/add', authenticateToken, async (req, res) => {
 //     }
 // });
 
+//
+// // Роут для получения всех товаров с учетом видимости продавца
+// router.get('/', async (req, res) => {
+//     try {
+//         // Получаем все товары и подгружаем данные о продавце
+//         const products = await Product.find()
+//             .populate('seller');
+//
+//         // Фильтруем товары на основе видимости продавца
+//         const filteredProducts = products.filter(product => {
+//             // Проверяем, существует ли продавец и видимость товаров
+//             return product.seller && product.seller.isProductsVisible;
+//         });
+//
+//         // Разделяем товары на активные и неактивные
+//         const activeProducts = filteredProducts.filter(product => product.isActive);
+//         const inactiveProducts = filteredProducts.filter(product => !product.isActive);
+//
+//         // Объединяем активные и неактивные товары
+//         const sortedProducts = [...activeProducts, ...inactiveProducts];
+//
+//         res.json(sortedProducts);
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// });
+//
+
 
 // Роут для получения всех товаров с учетом видимости продавца
 router.get('/', async (req, res) => {
@@ -58,10 +87,12 @@ router.get('/', async (req, res) => {
         const products = await Product.find()
             .populate('seller');
 
-        // Фильтруем товары на основе видимости продавца
+        // Фильтруем товары на основе видимости продавца и статуса продавца
         const filteredProducts = products.filter(product => {
-            // Проверяем, существует ли продавец и видимость товаров
-            return product.seller && product.seller.isProductsVisible;
+            // Проверяем, существует ли продавец, его статус и видимость товаров
+            return product.seller &&
+                product.seller.isProductsVisible &&
+                product.seller.status !== 'suspend';
         });
 
         // Разделяем товары на активные и неактивные
@@ -77,7 +108,6 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 
 
@@ -260,6 +290,30 @@ router.get('/products', async (req, res) => {
 //     }
 // });
 
+//
+// // Получение списка самых новых продуктов с учетом активных статусов
+// router.get('/newest', async (req, res) => {
+//     try {
+//         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
+//
+//         // Сначала получаем все продукты, отсортированные по дате создания
+//         const allProducts = await Product.find().sort({ createdAt: -1 }).limit(limit);
+//
+//         // Фильтруем только активные продукты
+//         const newestProducts = allProducts.filter(product => product.isActive);
+//
+//         // Если активных продуктов недостаточно, добавляем неактивные продукты, если такие есть
+//         if (newestProducts.length < limit) {
+//             const additionalProducts = allProducts.filter(product => !product.isActive).slice(0, limit - newestProducts.length);
+//             newestProducts.push(...additionalProducts);
+//         }
+//
+//         res.json(newestProducts);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
 
 // Получение списка самых новых продуктов с учетом активных статусов
 router.get('/newest', async (req, res) => {
@@ -267,14 +321,25 @@ router.get('/newest', async (req, res) => {
         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
 
         // Сначала получаем все продукты, отсортированные по дате создания
-        const allProducts = await Product.find().sort({ createdAt: -1 }).limit(limit);
+        const allProducts = await Product.find().populate('seller').sort({ createdAt: -1 }).limit(limit * 2); // Увеличиваем лимит для замены
 
-        // Фильтруем только активные продукты
-        const newestProducts = allProducts.filter(product => product.isActive);
+        // Фильтруем товары по статусу продавца и активному статусу товара
+        const validProducts = allProducts.filter(product =>
+            product.seller &&
+            product.seller.status !== 'suspend' &&
+            product.isActive
+        );
 
-        // Если активных продуктов недостаточно, добавляем неактивные продукты, если такие есть
+        // Если количество подходящих товаров меньше лимита, добавляем неактивные товары с подходящим статусом
+        let newestProducts = validProducts.slice(0, limit);
+
         if (newestProducts.length < limit) {
-            const additionalProducts = allProducts.filter(product => !product.isActive).slice(0, limit - newestProducts.length);
+            const additionalProducts = allProducts.filter(product =>
+                product.seller &&
+                product.seller.status !== 'suspend' &&
+                !product.isActive
+            ).slice(0, limit - newestProducts.length);
+
             newestProducts.push(...additionalProducts);
         }
 
@@ -283,6 +348,7 @@ router.get('/newest', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 
 
