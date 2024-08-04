@@ -171,6 +171,10 @@
         filter: brightness(62%) saturate(10%) invert(10%) sepia(0%) saturate(30%) hue-rotate(10deg) brightness(10%) contrast(15%);
     }
 
+    .profile-icon-img {
+        margin-bottom: 3px;
+    }
+
     .cart-icon-img {
         margin-bottom: -7px!important;
         padding: 0!important;
