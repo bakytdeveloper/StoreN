@@ -201,6 +201,8 @@ const SellerProfile = ({ setShowSidebar }) => {
     const handleToggleProductsVisibility = async () => {
         try {
             const token = localStorage.getItem('token');
+            console.log('Token:', token); // Добавьте эту строку
+            console.log('Seller ID:', seller._id); // Добавьте эту строку
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${seller._id}/toggle-products-visibility`, {
                 method: 'PUT',
                 headers: {

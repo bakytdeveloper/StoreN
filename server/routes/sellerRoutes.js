@@ -387,7 +387,9 @@ router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) 
 router.put('/:id/toggle-products-visibility',  authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const sellerId = req.params.id;
+        console.log('Seller ID:', sellerId); // Добавьте эту строку
         const seller = await Seller.findById(sellerId);
+        console.log('Seller found:', seller); // Добавьте эту строку
 
         if (!seller) {
             return res.status(404).json({ message: 'Seller not found' });

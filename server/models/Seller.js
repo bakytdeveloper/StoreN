@@ -9,7 +9,7 @@ const characteristicSchema = new mongoose.Schema({
 });
 
 const statusHistorySchema = new mongoose.Schema({
-    status: { type: String, enum: ['pending', 'approved'], required: true },
+    status: { type: String, enum: ['pending', 'approved','suspend'], required: true },
     time: { type: Date, default: Date.now },
 });
 
