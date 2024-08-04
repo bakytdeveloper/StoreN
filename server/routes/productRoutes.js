@@ -76,35 +76,85 @@ router.get('/genders', async (req, res) => {
 
 
 
+// // Получение списка всех категорий
+// router.get('/categories', async (req, res) => {
+//     try {
+//         const { gender } = req.query;
+//         let query = { gender };
+//         // Фильтруем товары на основе статуса продавца
+//         const products = await Product.find(query).populate('seller');
+//         const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+//         const categories = [...new Set(validProducts.map(product => product.category))];
+//         res.json({ categories });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
+
 // Получение списка всех категорий
 router.get('/categories', async (req, res) => {
     try {
         const { gender } = req.query;
-        let query = { gender };
+
+        let query = {};
+        if (gender) {
+            query.gender = gender;
+        }
+
         // Фильтруем товары на основе статуса продавца
         const products = await Product.find(query).populate('seller');
         const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
         const categories = [...new Set(validProducts.map(product => product.category))];
-        res.json({ categories });
+        res.json({ categories });  // Обратите внимание на это поле
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
+
+
+
+// // Получение списка всех типов товаров по категории
+// router.get('/types', async (req, res) => {
+//     try {
+//         const { gender, category } = req.query;
+//         let query = { gender, category };
+//         // Фильтруем товары на основе статуса продавца
+//         const products = await Product.find(query).populate('seller');
+//         const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+//         const types = [...new Set(validProducts.map(product => product.type))];
+//         res.json({ types });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+
 // Получение списка всех типов товаров по категории
 router.get('/types', async (req, res) => {
     try {
         const { gender, category } = req.query;
-        let query = { gender, category };
+        let query = {};
+        if (gender) {
+            query.gender = gender;
+        }
+        if (category) {
+            query.category = category;
+        }
+
         // Фильтруем товары на основе статуса продавца
         const products = await Product.find(query).populate('seller');
         const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
         const types = [...new Set(validProducts.map(product => product.type))];
-        res.json({ types });
+        res.json({ types });  // Отправляем поле types
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 // Получение всех типов товаров по категории
 router.get('/types/:category', async (req, res) => {

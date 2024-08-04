@@ -120,22 +120,42 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         fetchCategories();
     }, []);
 
+    // useEffect(() => {
+    //     const fetchTypes = async () => {
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setTypes(data.types);
+    //             } else {
+    //                 console.error('Failed to fetch types');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching types:', error);
+    //         }
+    //     };
+    //     fetchTypes();
+    // }, []);
+
+
     useEffect(() => {
         const fetchTypes = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
                 if (response.ok) {
                     const data = await response.json();
-                    setTypes(data.types);
+                    setTypes(data.types);  // Исправьте поле здесь
                 } else {
-                    console.error('Failed to fetch types');
+                    console.error('Failed to fetch types');  // Сообщение об ошибке
                 }
             } catch (error) {
-                console.error('Error fetching types:', error);
+                console.error('Error fetching types:', error);  // Сообщение об ошибке
             }
         };
         fetchTypes();
     }, []);
+
+
 
     // const handleChange = async (e) => {
     //     const { name, value } = e.target;
@@ -353,22 +373,41 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
+    // useEffect(() => {
+    //     const fetchAllCategories = async () => {
+    //         try {
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
+    //             if (response.ok) {
+    //                 const data = await response.json();
+    //                 setAllCategories(data.types);
+    //             } else {
+    //                 console.error('Failed to fetch types');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching types:', error);
+    //         }
+    //     };
+    //     fetchAllCategories();
+    // }, []);
+
+
     useEffect(() => {
         const fetchAllCategories = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
                 if (response.ok) {
                     const data = await response.json();
-                    setAllCategories(data.types);
+                    setAllCategories(data.categories);  // Исправьте поле здесь
                 } else {
-                    console.error('Failed to fetch types');
+                    console.error('Failed to fetch categories');  // Исправьте сообщение об ошибке
                 }
             } catch (error) {
-                console.error('Error fetching types:', error);
+                console.error('Error fetching categories:', error);  // Исправьте сообщение об ошибке
             }
         };
         fetchAllCategories();
     }, []);
+
 
     const handleColorChange = (index, field, value) => {
         const updatedColors = [...formData.colors];
