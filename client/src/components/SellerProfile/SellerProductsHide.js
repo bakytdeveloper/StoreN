@@ -29,13 +29,14 @@ const SellerProductsHide = ({ show, actionText, onConfirm, onCancel }) => {
 
     if (!show) return null;
 
-    const handleClose = () => {
-        history.goBack();
-    };
+    // const handleClose = () => {
+    //     history.goBack();
+    // };
 
 
     return (
-        <div className="modal-overlay-module"  onClick={handleClose}>
+        <div className="modal-overlay-module">
+        {/*<div className="modal-overlay-module"  onClick={handleClose}>*/}
             <div className="modal-content-module">
                 <h3>Подтверждение</h3>
                 <div>Вы уверены, что хотите {actionText}?</div>
