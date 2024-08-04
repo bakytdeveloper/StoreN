@@ -362,7 +362,14 @@ router.get('/newest', async (req, res) => {
             product.seller &&
             product.seller.status !== 'suspend' &&
             product.isActive
+            && product.seller.isProductsVisible
         );
+
+        //
+        // && product.seller.status !== 'suspend'
+        // // Если убрать эту часть фильтрации, то будут отображаться
+        // // не активными заблокированные товары
+        // && product.isActive;
 
         // Если количество подходящих товаров меньше лимита, добавляем неактивные товары с подходящим статусом
         let newestProducts = validProducts.slice(0, limit);
