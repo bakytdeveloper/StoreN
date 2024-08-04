@@ -2,6 +2,7 @@
 .sellersListPage {
     margin-top: 11%;
     margin-bottom: 50px;
+    overflow: auto;
 }
 
 .sellerTitle {
