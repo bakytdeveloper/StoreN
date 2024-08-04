@@ -29,35 +29,6 @@ router.post('/add', authenticateToken, async (req, res) => {
 });
 
 
-//
-// // Роут для получения всех товаров с учетом видимости продавца
-// router.get('/', async (req, res) => {
-//     try {
-//         // Получаем все товары и подгружаем данные о продавце
-//         const products = await Product.find()
-//             .populate('seller');
-//
-//         // Фильтруем товары на основе видимости продавца
-//         const filteredProducts = products.filter(product => {
-//             // Проверяем, существует ли продавец и видимость товаров
-//             return product.seller && product.seller.isProductsVisible;
-//         });
-//
-//         // Разделяем товары на активные и неактивные
-//         const activeProducts = filteredProducts.filter(product => product.isActive);
-//         const inactiveProducts = filteredProducts.filter(product => !product.isActive);
-//
-//         // Объединяем активные и неактивные товары
-//         const sortedProducts = [...activeProducts, ...inactiveProducts];
-//
-//         res.json(sortedProducts);
-//     } catch (error) {
-//         console.error('Error fetching products:', error);
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
-//
-
 
 // Роут для получения всех товаров с учетом видимости продавца
 router.get('/', async (req, res) => {
@@ -102,59 +73,6 @@ router.get('/genders', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-// // Получение списка всех категорий
-// router.get('/categories', async (req, res) => {
-//     try {
-//         const { gender } = req.query;
-//         let query = {};
-//         if (gender) {
-//             query.gender = gender;
-//         }
-//         const categories = await Product.distinct('category', query);
-//         res.json({ categories });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-//
-// // Получение списка всех типов товаров по категории
-// router.get('/types', async (req, res) => {
-//     try {
-//         const { gender, category } = req.query;
-//         let query = {};
-//         if (gender) {
-//             query.gender = gender;
-//         }
-//         if (category) {
-//             query.category = category;
-//         }
-//         const types = await Product.distinct('type', query);
-//         res.json({ types });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-//
-//
-//
-// // Получение всех типов товаров по категории
-// router.get('/types/:category', async (req, res) => {
-//     try {
-//         const { category } = req.params;
-//         const { type } = req.query;
-//         let query = { category };
-//         if (type) {
-//             query = { ...query, type };
-//         }
-//         const types = await Product.distinct('type', { category });
-//         const products = await Product.find(query);
-//         res.json({ types, products });
-//     } catch (error) {
-//         console.error('Error fetching products by category:', error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
 
 
 
@@ -207,40 +125,6 @@ router.get('/types/:category', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-
-
-// // Роут для фильтрации продуктов по полу, категории и типу
-// router.get('/products', async (req, res) => {
-//     try {
-//         const { gender, category, type, search } = req.query;
-//
-//         let query = {};
-//         if (gender) {
-//             query.gender = gender;
-//         }
-//         if (category) {
-//             query.category = category;
-//         }
-//         if (type) {
-//             query.type = type;
-//         }
-//         if (search) {
-//             query.$or = [
-//                 { name: new RegExp(search, 'i') },
-//                 { description: new RegExp(search, 'i') },
-//                 { brand: new RegExp(search, 'i') },
-//                 { type: new RegExp(search, 'i') }
-//             ];
-//         }
-//
-//
-//
-//         const products = await Product.find(query);
-//         res.json(products);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 
 // Роут для фильтрации продуктов по продавцу
@@ -300,55 +184,6 @@ router.get('/products', async (req, res) => {
 
 
 
-// Получение списка самых новых продуктов
-// router.get('/newest', async (req, res) => {
-//     try {
-//         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
-//         const newestProducts = await Product.find().sort({ createdAt: -1 }).limit(limit);
-//         res.json(newestProducts);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
-// // Получение списка самых новых продуктов
-// router.get('/newest', async (req, res) => {
-//     try {
-//         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
-//         // Находим только активные продукты
-//         const newestProducts = await Product.find({ isActive: true }).sort({ createdAt: -1 }).limit(limit);
-//         res.json(newestProducts);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-//
-// // Получение списка самых новых продуктов с учетом активных статусов
-// router.get('/newest', async (req, res) => {
-//     try {
-//         const limit = parseInt(req.query.limit) || 18; // Получаем limit из запроса, либо используем значение 18 по умолчанию
-//
-//         // Сначала получаем все продукты, отсортированные по дате создания
-//         const allProducts = await Product.find().sort({ createdAt: -1 }).limit(limit);
-//
-//         // Фильтруем только активные продукты
-//         const newestProducts = allProducts.filter(product => product.isActive);
-//
-//         // Если активных продуктов недостаточно, добавляем неактивные продукты, если такие есть
-//         if (newestProducts.length < limit) {
-//             const additionalProducts = allProducts.filter(product => !product.isActive).slice(0, limit - newestProducts.length);
-//             newestProducts.push(...additionalProducts);
-//         }
-//
-//         res.json(newestProducts);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
-
 // Получение списка самых новых продуктов с учетом активных статусов
 router.get('/newest', async (req, res) => {
     try {
@@ -389,30 +224,6 @@ router.get('/newest', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-
-// // Получение информации о конкретном продукте по ID
-// router.get('/:id', async (req, res) => {
-//     try {
-//         const product = await Product.findById(req.params.id);
-//         // const product = await Product.findById(req.params.id).populate('seller');
-//         if (!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-//
-//         // // Проверяем видимость товаров у продавца
-//         // if (!product.seller.isProductsVisible) {
-//         //     return res.status(403).json({ message: 'Products from this seller are not visible' });
-//         // }
-//
-//         res.json({ product });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 
 // Получение информации о конкретном продукте по ID
 router.get('/:id', async (req, res) => {
