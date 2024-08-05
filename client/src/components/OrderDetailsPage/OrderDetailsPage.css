@@ -215,6 +215,18 @@ button:hover {
     align-items: center;
 }
 
+.details-order-edit {
+    display: flex;
+}
+
+.ok-button {
+    margin-right: 10px;
+}
+
+.delete-button {
+    margin-left: 10px;
+}
+
 
 
 /* Адаптивные стили */
