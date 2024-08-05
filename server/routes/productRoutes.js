@@ -105,7 +105,10 @@ router.get('/categories', async (req, res) => {
 
         // Фильтруем товары на основе статуса продавца
         const products = await Product.find(query).populate('seller');
-        const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+        const validProducts = products.filter(product => product.seller
+            && product.isActive
+            && product.seller.isProductsVisible
+            && product.seller.status !== 'suspend');
         const categories = [...new Set(validProducts.map(product => product.category))];
         res.json({ categories });  // Обратите внимание на это поле
     } catch (error) {
