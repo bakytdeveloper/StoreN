@@ -44,13 +44,12 @@ const Profile = ({ setShowSidebar }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    setUser(null);
+                    history.push('/login');
                     return;
                 }
 
                 const decodedToken = jwtDecode(token);
                 const userRole = decodedToken.role;
-
                 if (userRole === 'seller') {
                     history.push('/sellerProfile');
                     return;
@@ -62,10 +61,14 @@ const Profile = ({ setShowSidebar }) => {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                const profileData = await profileResponse.json();
+
                 if (!profileResponse.ok) {
-                    console.error(profileData.message);
-                    toast.error('Ошибка загрузки профиля', { position: toast.POSITION.BOTTOM_RIGHT });
+                    throw new Error('Ошибка загрузки профиля');
+                }
+
+                const profileData = await profileResponse.json();
+                if (!profileData) {
+                    history.push('/login');
                     return;
                 }
 
@@ -73,45 +76,50 @@ const Profile = ({ setShowSidebar }) => {
                 setEditedName(profileData.name || '');
                 setEditedEmail(profileData.email || '');
 
-                // Fetch last order details
                 const lastOrderResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/last-order/${profileData._id}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                const lastOrderData = await lastOrderResponse.json();
+
                 if (lastOrderResponse.ok) {
+                    const lastOrderData = await lastOrderResponse.json();
                     setEditedAddress(lastOrderData.lastOrder?.address || '');
                     setEditedPhoneNumber(lastOrderData.lastOrder?.phoneNumber || '');
                 } else {
-                    console.error('Ошибка загрузки последнего заказа:', lastOrderData.message);
-                    // toast.error('Ошибка загрузки последнего заказа', { position: toast.POSITION.BOTTOM_RIGHT });
+                    console.error('Ошибка загрузки последнего заказа:', await lastOrderResponse.json().message);
                 }
             } catch (error) {
                 console.error('Ошибка загрузки профиля:', error);
                 toast.error('Ошибка загрузки профиля', { position: toast.POSITION.BOTTOM_RIGHT });
+                history.push('/login');
             }
         };
 
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
+                if (!token) {
+                    history.push('/login');
+                    return;
+                }
+
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
+
                 if (response.ok) {
                     const data = await response.json();
                     setOrders(data);
                 } else {
-                    // const data = await response.json();
-                    // console.error(data.message);
+                    console.error('Ошибка загрузки заказов:', await response.json().message);
                 }
             } catch (error) {
-                console.error('Error fetching user orders:', error);
+                console.error('Ошибка загрузки заказов:', error);
             }
         };
 
@@ -119,25 +127,26 @@ const Profile = ({ setShowSidebar }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    setUser(null);
+                    history.push('/login');
                     return;
                 }
+
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/my-orders?page=${page}&perPage=${pageSize}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
                 });
+
                 if (response.ok) {
                     const data = await response.json();
                     setUserOrders(data.orders);
                     setTotalPages(data.totalPages);
                 } else {
-                    const data = await response.json();
-                    console.error(data.message);
+                    console.error('Ошибка загрузки истории покупок:', await response.json().message);
                 }
             } catch (error) {
-                console.error('Error fetching purchase history:', error);
+                console.error('Ошибка загрузки истории покупок:', error);
             }
         };
 
@@ -162,17 +171,18 @@ const Profile = ({ setShowSidebar }) => {
                     phoneNumber: editedPhoneNumber || '',
                 }),
             });
+
             if (response.ok) {
                 const data = await response.json();
                 setUser(data.user);
                 toast.success('Профиль успешно обновлен', { position: toast.POSITION.BOTTOM_RIGHT });
             } else {
                 const errorMessage = await response.text();
-                console.error('Error updating profile:', errorMessage);
+                console.error('Ошибка при обновлении профиля:', errorMessage);
                 toast.error('Ошибка при обновлении профиля', { position: toast.POSITION.BOTTOM_RIGHT });
             }
         } catch (error) {
-            console.error('Error updating profile:', error);
+            console.error('Ошибка при обновлении профиля:', error);
             toast.error('Ошибка при обновлении профиля', { position: toast.POSITION.BOTTOM_RIGHT });
         } finally {
             setEditPassword(false);
@@ -212,6 +222,7 @@ const Profile = ({ setShowSidebar }) => {
                     newPassword,
                 }),
             });
+
             if (response.ok) {
                 toast.success('Пароль успешно обновлен', { position: toast.POSITION.BOTTOM_RIGHT });
             } else {
@@ -220,7 +231,7 @@ const Profile = ({ setShowSidebar }) => {
                 toast.error('Ошибка при обновлении пароля', { position: toast.POSITION.BOTTOM_RIGHT });
             }
         } catch (error) {
-            console.error('Error updating password:', error);
+            console.error('Ошибка при обновлении пароля:', error);
             toast.error('Ошибка при обновлении пароля', { position: toast.POSITION.BOTTOM_RIGHT });
         } finally {
             setEditPassword(false);
@@ -249,7 +260,9 @@ const Profile = ({ setShowSidebar }) => {
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
-    console.log("MY ORDERS:",userOrders)
+
+    console.log("MY user:",user)
+
 
     return (
         <div className="profile-container">
@@ -426,27 +439,6 @@ const Profile = ({ setShowSidebar }) => {
                                         <th>Общая сумма</th>
                                     </tr>
                                     </thead>
-                                    {/*<tbody>*/}
-                                    {/*{userOrders.map((order, index) => (*/}
-                                    {/*    <tr key={order._id}>*/}
-                                    {/*        <td>{(page - 1) * pageSize + index + 1}</td>*/}
-                                    {/*        <td>{new Date(order.date).toLocaleDateString()}</td>*/}
-                                    {/*        <td>{order.status}</td>*/}
-                                    {/*        <td>*/}
-                                    {/*            <ul>*/}
-                                    {/*                {order.products.map(item => (*/}
-                                    {/*                    <li key={`${item.product?._id}-${item}`}*/}
-                                    {/*                        style={{padding:"5px", fontWeight:"600"}} >*/}
-                                    {/*                        {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price}сом*/}
-                                    {/*                        /!*<hr />*!/*/}
-                                    {/*                    </li>*/}
-                                    {/*                ))}*/}
-                                    {/*            </ul>*/}
-                                    {/*        </td>*/}
-                                    {/*        <td>{order.totalAmount}сом</td>*/}
-                                    {/*    </tr>*/}
-                                    {/*))}*/}
-                                    {/*</tbody>*/}
 
                                     <tbody>
                                     {userOrders.map((order, index) => {
