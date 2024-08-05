@@ -93,7 +93,7 @@ const RelatedAccessories = ({ direction }) => {
 
     return (
         <div className="related-accessories">
-            <h2>Аксессуары</h2>
+            {!!accessories.length && <h2>Аксессуары</h2>}
             <div className="products-list-related-accessories"  ref={containerRef} onScroll={handleScroll}>
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>

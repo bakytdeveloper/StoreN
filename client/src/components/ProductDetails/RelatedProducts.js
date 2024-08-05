@@ -96,7 +96,7 @@ const RelatedProducts = ({ productId }) => {
 
     return (
         <div className="related-products">
-            <h2>Схожие товары</h2>
+            {!!relatedProducts.length && <h2>Схожие товары</h2>}
             <div className="product-list-related-products"  ref={containerRef} onScroll={handleScroll}>
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>
