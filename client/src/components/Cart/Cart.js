@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
-import { useHistory } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import PaymentForm from '../Payment/PaymentForm';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -240,6 +240,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         }
     };
 
+    const goToLogin = (event) => {
+        event.preventDefault(); // Предотвращаем выполнение дефолтного поведения
+        event.stopPropagation(); // Останавливаем дальнейшее распространение события
+        history.push("/login");
+    };
+
     return (
         <div className="cartAll">
             <div className="cart">
@@ -256,9 +262,14 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
                             <div className="empty-cart-login">
                                 <div>Или вводите через свой аккаунт</div>
-                                <button className="empty-cart-login-button">
+                                <button className="empty-cart-login-button" onClick={goToLogin}>
                                     Ввойти
                                 </button>
+
+                                {/*<Link to="/login" className="empty-cart-login-button">*/}
+                                {/*    Ввойти*/}
+                                {/*</Link>*/}
+
                             </div>
                         </div>
                         <div className="empty-cart-products">
