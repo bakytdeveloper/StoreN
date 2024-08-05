@@ -144,9 +144,19 @@ router.get('/types', async (req, res) => {
             query.category = category;
         }
 
+    // && product.seller.isProductsVisible
+    //     && product.seller.status !== 'suspend'
+    //     // Если убрать эту часть фильтрации, то будут отображаться
+    //     // не активными заблокированные товары
+    //     && product.isActive;
+
         // Фильтруем товары на основе статуса продавца
         const products = await Product.find(query).populate('seller');
-        const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
+        const validProducts = products.filter(product => product.seller
+            && product.seller.status !== 'suspend'
+            && product.seller.isProductsVisible
+            && product.isActive
+        );
         const types = [...new Set(validProducts.map(product => product.type))];
         res.json({ types });  // Отправляем поле types
     } catch (error) {
