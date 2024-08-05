@@ -77,6 +77,14 @@ const SellerProfile = ({ setShowSidebar }) => {
                     if (!data) {
                         throw new Error('Профиль не найден');
                     }
+
+                    console.log("DATA:",data)
+
+                    if (data.status === 'suspend') {
+                        toast.error('Ваш аккаунт приостановлен');
+                        history.push('/login');
+                        return;
+                    }
                     setSeller(data);
                     setEditedCompanyName(data.companyName || '');
                     setEditedName(data.name || '');
