@@ -35,6 +35,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const handleBackToShopping = () => {
         setActiveComponent(null);  // Убираем активный компонент при закрытии корзины
         history.goBack();
+        // history.goBack();
     };
 
     useEffect(() => {
@@ -214,6 +215,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+    const goToCatalog = () => {
+        history.push('/catalog')
+    }
+
     const sendOrderEmail = async () => {
         try {
             const response = await fetch(`${apiUrl}/api/orders/send-email`, {
@@ -256,22 +261,24 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 {cartItems.length === 0 ? (
 
                     <div className="emptyCartEls-all">
-                        <div className="emptyCartEls" onClick={handleBackToShopping}>
-                            <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
-                            <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
+                       <div className="emptyCartEls" >
+                           <div onClick={goToCatalog}>
+                               <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
+                               <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
+                           </div>
+                           <div className="empty-cart-login">
+                               <div>Или вводите через свой аккаунт</div>
+                               <button className="empty-cart-login-button" onClick={goToLogin}>
+                                   Ввойти
+                               </button>
 
-                            <div className="empty-cart-login">
-                                <div>Или вводите через свой аккаунт</div>
-                                <button className="empty-cart-login-button" onClick={goToLogin}>
-                                    Ввойти
-                                </button>
+                               {/*<Link to="/login" className="empty-cart-login-button">*/}
+                               {/*    Ввойти*/}
+                               {/*</Link>*/}
 
-                                {/*<Link to="/login" className="empty-cart-login-button">*/}
-                                {/*    Ввойти*/}
-                                {/*</Link>*/}
 
-                            </div>
-                        </div>
+                           </div>
+                       </div>
                         <div className="empty-cart-products">
                             <h2 className="newest-products-title">Наши новинки</h2>
                             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
