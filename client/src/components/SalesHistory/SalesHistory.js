@@ -44,7 +44,11 @@ const SalesHistory = ({ setShowSidebar }) => {
         fetchSalesHistory(page);
     }, [page, perPage]);
 
-    const formatDate = (date) => new Date(date).toLocaleDateString();
+    const formatDate = (date) => {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        return new Date(date).toLocaleDateString('ru-RU', options);
+    };
+
 
     const handleGoBack = () => history.goBack();
 
