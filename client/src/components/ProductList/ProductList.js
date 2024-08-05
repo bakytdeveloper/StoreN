@@ -52,8 +52,8 @@ const ProductList = ({
             setSelectedGender(null);
             setSelectedCategory(null);
             setSelectedType(null);
-            setSearchTerm('');
-            onSearch('');
+            // setSearchTerm('');
+            // onSearch('');
             setCurrentPage(1); // Возвращаемся к первой странице
             history.push(lastPath);
             fetchData(); // Перезагружаем товары
