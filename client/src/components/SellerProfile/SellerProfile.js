@@ -58,13 +58,12 @@ const SellerProfile = ({ setShowSidebar }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
-        // Проверяем наличие токена и роль пользователя
         if (!token || role !== 'seller') {
             toast.error('Ваш аккаунт еще не подтвержден');
-            history.push('/login'); // Перенаправляем на страницу входа
+            history.push('/login');
             return;
         }
-        // Получаем данные профиля продавца
+
         const fetchProfile = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/seller/profile`, {
@@ -75,23 +74,31 @@ const SellerProfile = ({ setShowSidebar }) => {
                 });
                 if (response.ok) {
                     const data = await response.json();
+                    if (!data) {
+                        throw new Error('Профиль не найден');
+                    }
                     setSeller(data);
                     setEditedCompanyName(data.companyName || '');
                     setEditedName(data.name || '');
                     setEditedEmail(data.email || '');
                     setEditedAddress(data.address || '');
                     setEditedPhoneNumber(data.phoneNumber || '');
-                    // setIsProductsVisible(data.isProductsVisible);
-
+                } else if (response.status === 404) {
+                    // Профиль не найден, возможный случай удаления
+                    toast.error('Ваш аккаунт был удален');
+                    history.push('/login');
                 } else {
                     console.error('Error fetching seller profile:', response.statusText);
                 }
             } catch (error) {
                 console.error('Error fetching seller profile:', error);
+                toast.error('Ошибка при загрузке профиля');
+                history.push('/login');
             }
         };
         fetchProfile();
     }, [history]);
+
 
     const handleEditProfile = async () => {
         // Обновляем профиль продавца
