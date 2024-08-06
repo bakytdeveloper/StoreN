@@ -305,7 +305,7 @@ const Profile = ({ setShowSidebar }) => {
                         {activeTab === 'editProfile' && (
                             <>
                                 <div className="profile-input">
-                                    <label>Name:</label>
+                                    <label>Имя:</label>
                                     {editPassword ? (
                                         <input
                                             type="text"
@@ -337,7 +337,7 @@ const Profile = ({ setShowSidebar }) => {
                                     )}
                                 </div>
                                 {!!editedAddress.length && (<div className="profile-input">
-                                    <label>Address:</label>
+                                    <label>Адерс доставки:</label>
                                     {editPassword ? (
                                         <input
                                             type="text"
@@ -353,7 +353,7 @@ const Profile = ({ setShowSidebar }) => {
                                     )}
                                 </div>)}
                                 {!!editedPhoneNumber.length && (<div className="profile-input">
-                                    <label>Phone Number:</label>
+                                    <label>№ Телефона:</label>
                                     {editPassword ? (
                                         <input
                                             type="text"
