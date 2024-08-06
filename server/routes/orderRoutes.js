@@ -252,48 +252,6 @@ async function notifySellersAboutLowQuantity(products) {
     }
 }
 
-// // // Функция для удаления товара и связанных данных, если количество товара равно нулю
-// async function deleteProductAndRelatedData(product) {
-//     try {
-//         // Удаление изображений товара из папки uploads
-//         if (product.images && product.images.length > 0) {
-//             for (const imageUrl of product.images) {
-//                 const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
-//                 fs.unlink(imagePath, (err) => {
-//                     if (err) {
-//                         console.error(`Error deleting image file ${imagePath}:`, err);
-//                     } else {
-//                         console.log(`Deleted image file ${imagePath}`);
-//                     }
-//                 });
-//             }
-//         }
-//         // Удаление записи о товаре из базы данных
-//
-//         const existingProduct = await Product.findById(product).populate('seller');
-//
-//         if (existingProduct && existingProduct.quantity == 0) {
-//             const seller = existingProduct.seller;
-//             if (seller && seller.email) {
-//                 const mailOptions = {
-//                     from: process.env.EMAIL_USER,
-//                     to: seller.email,
-//                     subject: `Удаление товара: ${product.name}`,
-//                     text: `Дорогой ${seller.name},\n\nТовар "${product.name}" был удалён из-за нулевого количества на складе.\n\nС уважением,\nВаш Магазин`,
-//                 };
-//                 await transporter.sendMail(mailOptions);
-//             }
-//             await Product.findByIdAndDelete(product._id);
-//         }
-//
-//
-//         console.log(`Deleted product ${product._id}`);
-//     } catch (error) {
-//         console.error('Error deleting product and related data:', error);
-//     }
-// }
-
-
 async function deleteProductAndRelatedData(product) {
     try {
         // Удаление изображений товара из папки uploads
