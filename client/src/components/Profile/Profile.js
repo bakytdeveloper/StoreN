@@ -488,7 +488,7 @@ const Profile = ({ setShowSidebar }) => {
                                             const month = months[d.getMonth()]; // Получаем название месяца
                                             const year = d.getFullYear();
 
-                                            return `${day} ${month} ${year}год`;
+                                            return `${day} ${month} ${year}г.`;
                                         };
 
                                         return (
