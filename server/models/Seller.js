@@ -28,6 +28,7 @@ const sellerSchema = new mongoose.Schema({
     statusHistory: [statusHistorySchema], // Добавлено поле для хранения истории статусов
     isProductsVisible: { type: Boolean, default: true }, // Добавлено поле для видимости товаров
     lastVisibilityChange: { type: Date, default: Date.now  }, // Добавлено поле для хранения времени последнего изменения видимости товаров
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }] // Добавлено поле для хранения заказов
 });
 
 const Seller = mongoose.model('Seller', sellerSchema);
