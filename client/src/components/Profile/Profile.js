@@ -300,7 +300,7 @@ const Profile = ({ setShowSidebar }) => {
             <div className="profile-content">
                 {user ? (
                     <div>
-                        <h3 style={{ textAlign: "center" }}>Здравствуйте, {user.name} 👋 ! </h3>
+                        <h3 style={{ textAlign: "center" }}>Здравствуйте, {user.name} ! </h3>
 
                         {activeTab === 'editProfile' && (
                             <>
@@ -336,7 +336,7 @@ const Profile = ({ setShowSidebar }) => {
                                         />
                                     )}
                                 </div>
-                                <div className="profile-input">
+                                {!!editedAddress.length && (<div className="profile-input">
                                     <label>Address:</label>
                                     {editPassword ? (
                                         <input
@@ -351,8 +351,8 @@ const Profile = ({ setShowSidebar }) => {
                                             readOnly
                                         />
                                     )}
-                                </div>
-                                <div className="profile-input">
+                                </div>)}
+                                {!!editedPhoneNumber.length && (<div className="profile-input">
                                     <label>Phone Number:</label>
                                     {editPassword ? (
                                         <input
@@ -367,7 +367,7 @@ const Profile = ({ setShowSidebar }) => {
                                             readOnly
                                         />
                                     )}
-                                </div>
+                                </div>)}
                                 <div className="profile-buttons">
                                     {editPassword ? (
                                         <>
