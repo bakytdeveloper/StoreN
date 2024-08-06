@@ -44,9 +44,26 @@ const SalesHistory = ({ setShowSidebar }) => {
         fetchSalesHistory(page);
     }, [page, perPage]);
 
+    // const formatDate = (date) => {
+    //     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    //     return new Date(date).toLocaleDateString('ru-RU', options);
+    // };
+
     const formatDate = (date) => {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        return new Date(date).toLocaleDateString('ru-RU', options);
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        const formattedDate = new Date(date).toLocaleDateString('ru-RU', options);
+
+        // Ручное форматирование дня числом
+        const parts = formattedDate.split(' ');
+        if (parts.length === 3) {
+            const day = parts[0];
+            const month = parts[1];
+            const year = parts[2];
+            return `${day}/${month}/${year}`;
+        } else {
+            // В случае, если что-то пошло не так (хотя такого быть не должно)
+            return formattedDate;
+        }
     };
 
 
