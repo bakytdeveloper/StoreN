@@ -398,7 +398,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     <strong>ID заказа:</strong> {order._id}
                                 </div>
                                 <div>
-                                    <strong>Имя:</strong> {order.user ? order.user.name : order.guestInfo.name}
+                                    <strong>Имя:</strong> {order.user ? order.user?.name : order.guestInfo?.name}
                                 </div>
                                 <div>
                                     <strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}
@@ -407,7 +407,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}
                                 </div>
                                 <div>
-                                    <strong>Email:</strong> {order.user ? order.user.email : order.guestInfo.email}
+                                    <strong>Email:</strong> {order.user ? order.user?.email : order.guestInfo?.email}
                                 </div>
                                 <div>
                                     <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}
