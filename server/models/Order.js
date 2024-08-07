@@ -136,7 +136,7 @@ const orderSchema = new mongoose.Schema({
         name: { type: String },
         email: { type: String },
     },
-    role: { type: String, enum: ['guest', 'customer', 'seller'], default: 'guest' }, // Добавлено поле role
+    // role: { type: String, enum: ['guest', 'customer', 'seller'], default: 'guest' }, // Добавлено поле role
     cart: [cartItemSchema],
     products: [
         {

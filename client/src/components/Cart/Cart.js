@@ -152,9 +152,22 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     //     }
     //
     //     const token = localStorage.getItem('token');
+    //     let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
+    //     if (token) {
+    //         // Определяем роль пользователя по токену
+    //         const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
+    //
+    //         console.log("decodedToken", decodedToken)
+    //
+    //         role = decodedToken.role; // Роль можно получить из декодированного токена
+    //         const {sellerId} = decodedToken;
+    //         console.log("role", role)
+    //         console.log("sellerId", sellerId)
+    //     }
+    //
     //     const orderData = {
-    //         user: token ? { firstName, email } : null,
-    //         guestInfo: token ? undefined : { name: firstName, email },
+    //         user: role === 'customer' || role === 'seller' ? { firstName, email } : null,
+    //         guestInfo: role === 'guest' ? { name: firstName, email } : undefined,
     //         address,
     //         phoneNumber,
     //         products: cartItems.map(item => ({
@@ -167,6 +180,82 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     //         paymentMethod,
     //         comments,
     //         userName: userName || 'Гость',
+    //     };
+    //
+    //     try {
+    //         const [orderResponse, emailResponse] = await Promise.all([
+    //             fetch(`${apiUrl}/api/orders`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${token}`,
+    //                 },
+    //                 body: JSON.stringify(orderData),
+    //             }),
+    //             sendOrderEmail()  // Отправляем email администратору
+    //         ]);
+    //
+    //         if (orderResponse.ok) {
+    //             const data = await orderResponse.json();
+    //             console.log('Order placed successfully:', data);
+    //             setCartItems([]);
+    //             history.push('/');
+    //             toast.success('Ваш заказ принят. Спасибо за покупку');
+    //         } else {
+    //             const data = await orderResponse.json();
+    //             if (data.message === 'Insufficient product quantities') {
+    //                 toast.error(`Недостаточно запасов ${data.products.map(p => p.name).join(', ')}`);
+    //             } else {
+    //                 console.error('Failed to place order:', data.message);
+    //             }
+    //             setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
+    //         }
+    //     } catch (error) {
+    //         console.error('Error placing order:', error);
+    //         setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
+    //     }
+    // };
+
+
+    // const handlePlaceOrder = async () => {
+    //     if (orderPlaced) return;
+    //
+    //     setOrderPlaced(true);
+    //
+    //     if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
+    //         toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
+    //         setOrderPlaced(false);
+    //         return;
+    //     }
+    //
+    //     const token = localStorage.getItem('token');
+    //     let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
+    //     let sellerId = null;
+    //     if (token) {
+    //         // Определяем роль пользователя по токену
+    //         const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
+    //         role = decodedToken.role; // Роль можно получить из декодированного токена
+    //         sellerId = decodedToken.sellerId || null;
+    //
+    //         console.log(sellerId)
+    //     }
+    //
+    //     const orderData = {
+    //         user: role === 'customer' || role === 'seller' ? { firstName, email } : null,
+    //         guestInfo: role === 'guest' ? { name: firstName, email } : undefined,
+    //         address,
+    //         phoneNumber,
+    //         products: cartItems.map(item => ({
+    //             product: item.productId,
+    //             quantity: item.quantity,
+    //             size: item.size,
+    //             color: item.color,
+    //         })),
+    //         totalAmount: totalPrice,
+    //         paymentMethod,
+    //         comments,
+    //         userName: userName || 'Гость',
+    //         sellerId
     //     };
     //
     //     try {
@@ -217,18 +306,16 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
         const token = localStorage.getItem('token');
         let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
+        let sellerId = null;
         if (token) {
             // Определяем роль пользователя по токену
             const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
-
-            console.log("decodedToken", decodedToken)
-
             role = decodedToken.role; // Роль можно получить из декодированного токена
-            console.log("role", role)
+            sellerId = decodedToken.role === 'seller' ? decodedToken.sellerId : null;
         }
 
         const orderData = {
-            user: role === 'customer' || role === 'seller' ? { firstName, email } : null,
+            user: role === 'customer' ? { firstName, email } : null,
             guestInfo: role === 'guest' ? { name: firstName, email } : undefined,
             address,
             phoneNumber,
