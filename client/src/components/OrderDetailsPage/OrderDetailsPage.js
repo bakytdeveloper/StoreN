@@ -14,16 +14,38 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     const [sellers, setSellers] = useState([]);
     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
     const [orderDeleteConfirmation, setOrderDeleteConfirmation] = useState(false);
+    const [sellerInfo, setSellerInfo] = useState(null);
 
     const history = useHistory();
 
     useEffect(() => {
+        const fetchSellerInfo = async (sellerId) => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${sellerId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setSellerInfo(data);
+                } else {
+                    console.error('Failed to fetch seller info');
+                }
+            } catch (error) {
+                console.error('Error fetching seller info:', error);
+            }
+        };
+
         const fetchOrder = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`);
                 const data = await response.json();
                 setOrder(data);
                 setTotalAmount(data.totalAmount);
+
+                // Проверяем, является ли клиент продавцом
+                if (data.seller) {
+                    fetchSellerInfo(data.seller);
+                } else {
+                    setSellerInfo(null);
+                }
             } catch (error) {
                 console.error('Error fetching order:', error);
             }
@@ -34,6 +56,11 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             if (currentOrder) {
                 setOrder(currentOrder);
                 setTotalAmount(currentOrder.totalAmount);
+                if (currentOrder.seller) {
+                    fetchSellerInfo(currentOrder.seller);
+                } else {
+                    setSellerInfo(null);
+                }
             } else {
                 fetchOrder();
             }
@@ -41,6 +68,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             fetchOrder();
         }
     }, [orders, orderId]);
+
 
     useEffect(() => {
         setShowSidebar(true);
@@ -180,35 +208,35 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     };
 
 
-    const fetchSellers = async () => {
-        try {
-            const token = localStorage.getItem('token'); // Или используйте другой метод получения токена
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            if (response.status === 401) {
-                console.error('Unauthorized');
-                return;
-            }
-            const data = await response.json();
-            setSellers(data);
-        } catch (error) {
-            console.error('Error fetching sellers:', error);
-        }
-    };
-
-    const getSellerInfo = (product) => {
-        if (!Array.isArray(sellers)) {
-            console.error('sellers is not an array:', sellers);
-            return { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
-        }
-        const seller = sellers.find((seller) => seller.products.includes(product._id));
-        return seller
-            ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
-            : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
-    };
+    // const fetchSellers = async () => {
+    //     try {
+    //         const token = localStorage.getItem('token'); // Или используйте другой метод получения токена
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${token}`
+    //             }
+    //         });
+    //         if (response.status === 401) {
+    //             console.error('Unauthorized');
+    //             return;
+    //         }
+    //         const data = await response.json();
+    //         setSellers(data);
+    //     } catch (error) {
+    //         console.error('Error fetching sellers:', error);
+    //     }
+    // };
+    //
+    // const getSellerInfo = (product) => {
+    //     if (!Array.isArray(sellers)) {
+    //         console.error('sellers is not an array:', sellers);
+    //         return { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+    //     }
+    //     const seller = sellers.find((seller) => seller.products.includes(product._id));
+    //     return seller
+    //         ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
+    //         : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
+    // };
 
     const toggleEditMode = (productId) => {
         setEditMode(prevState => ({
@@ -245,6 +273,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
+    console.log("sellerInfo", sellerInfo)
 
     return (
         <div className="order-details-page">
@@ -256,26 +285,53 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                         </button>
                         <h2>Детали заказа</h2>
                         <div className="order-info">
+                            {/*<div className="client-order-info">*/}
+                            {/*    <div>*/}
+                            {/*        <strong>ID заказа:</strong> {order._id}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Имя:</strong> {order.user || order.user?.name || order.guestInfo?.name || sellerInfo?.name}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Клиент:</strong> {order.user || order.user?.role || sellerInfo?.role || 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Email:</strong> {order.user || order.user?.email || order.guestInfo?.email || sellerInfo?.email}*/}
+                            {/*    </div>*/}
+                            {/*    <div>*/}
+                            {/*        <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+
                             <div className="client-order-info">
                                 <div>
                                     <strong>ID заказа:</strong> {order._id}
                                 </div>
                                 <div>
-                                    <strong>Имя:</strong> {order.user ? order.user?.name : order.guestInfo?.name}
+                                    <strong>Имя:</strong>
+                                    {order.user ? order.user.name : order.guestInfo ? order.guestInfo.name : sellerInfo?.name || 'Неизвестно'}
                                 </div>
                                 <div>
-                                    <strong>Клиент:</strong> {order.user ? order.user.role : 'Гость'}
+                                    <strong>Клиент:</strong>
+                                    {order.user ? order.user.role : sellerInfo?.role || 'Гость'}
                                 </div>
                                 <div>
-                                    <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}
+                                    <strong>Адрес:</strong>
+                                    {order.address || 'Не указан'}
                                 </div>
                                 <div>
-                                    <strong>Email:</strong> {order.user ? order.user?.email : order.guestInfo?.email}
+                                    <strong>Email:</strong>
+                                    {order.user ? order.user.email : order.guestInfo ? order.guestInfo.email : sellerInfo?.email || 'Неизвестно'}
                                 </div>
                                 <div>
-                                    <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}
+                                    <strong>Телефон №:</strong>
+                                    {order.phoneNumber || 'Не указан'}
                                 </div>
                             </div>
+
 
                             <div>
                                 <hr />
