@@ -8,6 +8,7 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
     const [orders, setOrders] = useState([]);
     const history = useHistory();
 
+
     useEffect(() => {
         setShowSidebar(true);
         return () => setShowSidebar(true);
@@ -41,37 +42,16 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
         fetchPurchaseHistory();
     }, []);
 
-    // return (
-    //     <div className="purchase-history-container">
-    //         <h3 style={{marginTop:"200px"}}>История покупок</h3>
-    //         {orders.length === 0 ? (
-    //             <p>Нет покупок.</p>
-    //         ) : (
-    //             <ul>
-    //                 {orders.map(order => (
-    //                     <li key={order._id}>
-    //                         <h4>Заказ №{order._id}</h4>
-    //                         <p>Дата: {new Date(order.date).toLocaleDateString()}</p>
-    //                         <p>Сумма: ${order.totalAmount}</p>
-    //                         <ul>
-    //                             {order.products.map(product => (
-    //                                 <li key={product.product._id}>
-    //                                     <p>Продукт: {product.name}</p>
-    //                                     <p>Цена: ${product.price}</p>
-    //                                     <p>Количество: {product.quantity}</p>
-    //                                 </li>
-    //                             ))}
-    //                         </ul>
-    //                     </li>
-    //                 ))}
-    //             </ul>
-    //         )}
-    //     </div>
-    // );
+    const handleGoBack = () => history.goBack();
+
 
     return (
         <div className="purchase-history-container">
+
             <h2>История покупок</h2>
+            <span className="sellers-list-close" type="button" onClick={handleGoBack}>
+                <span> &#10006;</span>
+            </span>
             {orders.length === 0 ? (
                 <p>Нет покупок.</p>
             ) : (
