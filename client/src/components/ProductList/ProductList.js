@@ -12,6 +12,130 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // import {Spinner} from "react-bootstrap";
 
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+import { Button } from '@mui/material';
+
+
+// const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
+//     const pageRange = 3; // Количество отображаемых страниц
+//     const range = [];
+//
+//     // Создание списка страниц для отображения
+//     const createPageRange = () => {
+//         const start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
+//         const end = Math.min(start + pageRange - 1, totalPages);
+//
+//         for (let i = start; i <= end; i++) {
+//             range.push(i);
+//         }
+//     };
+//
+//     createPageRange();
+//
+//     return (
+//         <Pagination
+//             count={totalPages}
+//             page={currentPage}
+//             onChange={onPageChange}
+//             renderItem={(item) => {
+//                 if (item.type === 'page') {
+//                     return range.includes(item.page) ? (
+//                         <PaginationItem {...item} />
+//                     ) : (
+//                         <PaginationItem
+//                             {...item}
+//                             component="span"
+//                             className="pagination-ellipsis"
+//                             slots={{ previous: null, next: null }}
+//                         />
+//                     );
+//                 }
+//                 return <PaginationItem {...item} />;
+//             }}
+//             siblingCount={0}
+//             boundaryCount={0}
+//             showFirstButton
+//             showLastButton
+//         />
+//     );
+// };
+
+
+
+const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
+    const pageRange = 3; // Количество отображаемых страниц до и после текущей
+    const range = [];
+
+    // Создание списка страниц для отображения
+    const createPageRange = () => {
+        let start = Math.max(currentPage - pageRange, 1);
+        let end = Math.min(currentPage + pageRange, totalPages);
+
+        if (currentPage <= pageRange + 1) {
+            end = Math.min(pageRange * 2 + 1, totalPages);
+        } else if (currentPage >= totalPages - pageRange) {
+            start = Math.max(totalPages - pageRange * 2 - 1, 1);
+        }
+
+        // Вставляем точки, если требуется
+        if (start > 1) {
+            range.push(1);
+            if (start > 2) {
+                range.push('...');
+            }
+        }
+
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
+
+        if (end < totalPages) {
+            if (end < totalPages - 1) {
+                range.push('...');
+            }
+            range.push(totalPages);
+        }
+    };
+
+    createPageRange();
+
+    return (
+        <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={onPageChange}
+            renderItem={(item) => {
+                if (item.type === 'page') {
+                    return range.includes(item.page) || typeof item.page === 'string' ? (
+                        <PaginationItem
+                            {...item}
+                            component={item.page === '...' ? 'span' : 'button'}
+                            className={item.page === '...' ? 'pagination-ellipsis' : ''}
+                        />
+                    ) : null;
+                }
+                return <PaginationItem {...item} />;
+            }}
+            renderItem={(item) => (
+                <PaginationItem
+                    {...item}
+                    slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                />
+            )}
+            siblingCount={1}
+            boundaryCount={1}
+            showFirstButton
+            showLastButton
+        />
+    );
+};
+
+
+
 const ProductList = ({
                          searchKeyword, // Поисковый запрос для фильтрации продуктов
                          cartItems, // Элементы корзины покупок
@@ -221,16 +345,27 @@ const ProductList = ({
 // Обновление количества отображаемых продуктов на странице при изменении размера окна
     useEffect(() => {
         const updateProductsPerPage = () => {
+            // if (windowWidth >= 1340) {
+            //     setProductsPerPage(18);
+            // } else if (windowWidth >= 1200) {
+            //     setProductsPerPage(15);
+            // } else if (windowWidth < 960) {
+            //     setProductsPerPage(12);
+            // } else if (windowWidth <= 900) {
+            //     setProductsPerPage(8);
+            // } else {
+            //     setProductsPerPage(12);
+            // }
             if (windowWidth >= 1340) {
-                setProductsPerPage(18);
+                setProductsPerPage(1);
             } else if (windowWidth >= 1200) {
-                setProductsPerPage(15);
+                setProductsPerPage(1);
             } else if (windowWidth < 960) {
-                setProductsPerPage(12);
+                setProductsPerPage(1);
             } else if (windowWidth <= 900) {
-                setProductsPerPage(8);
+                setProductsPerPage(1);
             } else {
-                setProductsPerPage(12);
+                setProductsPerPage(1);
             }
         };
         updateProductsPerPage();
@@ -372,6 +507,15 @@ const ProductList = ({
         setSearchTerm('');
         // onSearch('');
     }
+
+    const handlePageChange = (event, value) => {
+        const params = new URLSearchParams(location.search);
+        params.set('page', value);
+        history.push({ search: params.toString() });
+        setCurrentPage(value);
+    };
+
+
 
 
 
@@ -595,17 +739,28 @@ const ProductList = ({
                 )}
             </div>
 
+            {/*{displayedProducts && displayedProducts.length > 0 && (*/}
+            {/*    <div className="pagination-container">*/}
+            {/*        <div className="pagination">*/}
+            {/*            <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>*/}
+            {/*                <img className="arrowLImg" src={left} alt="Cart" />*/}
+            {/*            </button>*/}
+            {/*            <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>*/}
+            {/*            <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>*/}
+            {/*                <img className="arrowRImg" src={right} alt="Cart" />*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*)}*/}
+
+
             {displayedProducts && displayedProducts.length > 0 && (
                 <div className="pagination-container">
-                    <div className="pagination">
-                        <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
-                            <img className="arrowLImg" src={left} alt="Cart" />
-                        </button>
-                        <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>
-                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>
-                            <img className="arrowRImg" src={right} alt="Cart" />
-                        </button>
-                    </div>
+                    <CustomPagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                    />
                 </div>
             )}
 
