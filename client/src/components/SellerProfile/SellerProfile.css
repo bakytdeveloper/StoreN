@@ -1,5 +1,9 @@
 
-
+.side {
+    margin-bottom: 77px;
+    top: 0;
+    bottom: 5px;
+}
 
 
 @media only screen and (max-width: 768px) {
