@@ -440,10 +440,45 @@
 
 
 
-.pagination-ellipsis {
-    font-size: 16px;
-    font-weight: bold;
-    color: #999;
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0 2px;
+    padding: 1px 3px!important;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.pagination-item.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.pagination-item:hover {
+    background-color: #e9ecef;
+}
+
+.pagination-item.disabled {
+    cursor: not-allowed;
+    color: #6c757d;
+    background-color: #f8f9fa;
+}
+
+.pagination .MuiPaginationItem-root {
+    border: none;
+    padding: 0;
+}
+
+.pagination .MuiPaginationItem-previousNext {
+    font-size: 18px;
 }
 
 

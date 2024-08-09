@@ -20,17 +20,39 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button } from '@mui/material';
 
 
+
 // const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
-//     const pageRange = 3; // Количество отображаемых страниц
+//     const pageRange = 3; // Количество отображаемых страниц до и после текущей
 //     const range = [];
 //
 //     // Создание списка страниц для отображения
 //     const createPageRange = () => {
-//         const start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
-//         const end = Math.min(start + pageRange - 1, totalPages);
+//         let start = Math.max(currentPage - pageRange, 1);
+//         let end = Math.min(currentPage + pageRange, totalPages);
+//
+//         if (currentPage <= pageRange + 1) {
+//             end = Math.min(pageRange * 2 + 1, totalPages);
+//         } else if (currentPage >= totalPages - pageRange) {
+//             start = Math.max(totalPages - pageRange * 2 - 1, 1);
+//         }
+//
+//         // Вставляем точки, если требуется
+//         if (start > 1) {
+//             range.push(1);
+//             if (start > 2) {
+//                 range.push('...');
+//             }
+//         }
 //
 //         for (let i = start; i <= end; i++) {
 //             range.push(i);
+//         }
+//
+//         if (end < totalPages) {
+//             if (end < totalPages - 1) {
+//                 range.push('...');
+//             }
+//             range.push(totalPages);
 //         }
 //     };
 //
@@ -43,21 +65,24 @@ import { Button } from '@mui/material';
 //             onChange={onPageChange}
 //             renderItem={(item) => {
 //                 if (item.type === 'page') {
-//                     return range.includes(item.page) ? (
-//                         <PaginationItem {...item} />
-//                     ) : (
+//                     return range.includes(item.page) || typeof item.page === 'string' ? (
 //                         <PaginationItem
 //                             {...item}
-//                             component="span"
-//                             className="pagination-ellipsis"
-//                             slots={{ previous: null, next: null }}
+//                             component={item.page === '...' ? 'span' : 'button'}
+//                             className={item.page === '...' ? 'pagination-ellipsis' : ''}
 //                         />
-//                     );
+//                     ) : null;
 //                 }
 //                 return <PaginationItem {...item} />;
 //             }}
-//             siblingCount={0}
-//             boundaryCount={0}
+//             renderItem={(item) => (
+//                 <PaginationItem
+//                     {...item}
+//                     slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+//                 />
+//             )}
+//             siblingCount={1}
+//             boundaryCount={1}
 //             showFirstButton
 //             showLastButton
 //         />
@@ -65,39 +90,25 @@ import { Button } from '@mui/material';
 // };
 
 
-
 const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
-    const pageRange = 3; // Количество отображаемых страниц до и после текущей
+    const pageRange = 3; // Количество отображаемых страниц
     const range = [];
 
     // Создание списка страниц для отображения
     const createPageRange = () => {
-        let start = Math.max(currentPage - pageRange, 1);
-        let end = Math.min(currentPage + pageRange, totalPages);
+        let start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
+        let end = Math.min(start + pageRange - 1, totalPages);
 
-        if (currentPage <= pageRange + 1) {
-            end = Math.min(pageRange * 2 + 1, totalPages);
-        } else if (currentPage >= totalPages - pageRange) {
-            start = Math.max(totalPages - pageRange * 2 - 1, 1);
+        // Корректировка, если текущая страница близка к началу или концу
+        if (currentPage <= 2) {
+            end = Math.min(pageRange, totalPages);
         }
-
-        // Вставляем точки, если требуется
-        if (start > 1) {
-            range.push(1);
-            if (start > 2) {
-                range.push('...');
-            }
+        if (currentPage >= totalPages - 1) {
+            start = Math.max(totalPages - pageRange + 1, 1);
         }
 
         for (let i = start; i <= end; i++) {
             range.push(i);
-        }
-
-        if (end < totalPages) {
-            if (end < totalPages - 1) {
-                range.push('...');
-            }
-            range.push(totalPages);
         }
     };
 
@@ -109,23 +120,15 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
             page={currentPage}
             onChange={onPageChange}
             renderItem={(item) => {
-                if (item.type === 'page') {
-                    return range.includes(item.page) || typeof item.page === 'string' ? (
-                        <PaginationItem
-                            {...item}
-                            component={item.page === '...' ? 'span' : 'button'}
-                            className={item.page === '...' ? 'pagination-ellipsis' : ''}
-                        />
-                    ) : null;
-                }
-                return <PaginationItem {...item} />;
+                const isActive = item.page === currentPage;
+
+                return (
+                    <PaginationItem
+                        {...item}
+                        className={`pagination-item ${isActive ? 'active' : ''}`}
+                    />
+                );
             }}
-            renderItem={(item) => (
-                <PaginationItem
-                    {...item}
-                    slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                />
-            )}
             siblingCount={1}
             boundaryCount={1}
             showFirstButton
@@ -133,7 +136,6 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
         />
     );
 };
-
 
 
 const ProductList = ({
