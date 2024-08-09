@@ -28,6 +28,7 @@ import Footer from "./components/Footer/Footer";
 import ContactInfo from "./components/ContactInfo/ContactInfo";
 import ContactInfoFooter from "./components/Footer/ContactInfoFooter";
 import LoadingSpinner from "./components/LoadingSpinner";
+import PurchaseBuyHistory from "./components/SellerProfile/PurchaseBuyHistory";
 
 
 
@@ -198,6 +199,15 @@ const App = () => {
                                     setShowSidebar={setShowSidebar}
                                 />
                             </Route>
+
+
+                            <Route path="/seller/purchase-history">
+                                <PurchaseBuyHistory
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
+                            </Route>
+
                             <Route path="/products/:productId">
                                 <ProductDetails
                                     setShowSidebar={setShowSidebar}

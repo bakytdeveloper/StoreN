@@ -8,6 +8,7 @@ const Seller = require("../models/Seller");
 const Product = require("../models/Product");
 const fs = require('fs');
 const path = require('path');
+const {getSellerPurchaseHistory} = require("../controllers/orders");
 const {jwtDecode} = require("jwt-decode");
 const {checkRole} = require("../middleware/authenticateToken");
 const {transporter} = require('../smtp/otpService');
@@ -856,6 +857,10 @@ router.post('/send-email', async (req, res) => {
     }
 });
 
+
+
+// Получить историю покупок для текущего продавца
+router.get('/seller/purchase-history', authenticateToken, checkRole('seller'), getSellerPurchaseHistory);
 
 
 

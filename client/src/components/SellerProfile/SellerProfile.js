@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SellerProfile.css';
 import SellerProductsHide from "./SellerProductsHide";
+import PurchaseBuyHistory from "./PurchaseBuyHistory";
 
 const SellerProfile = ({ setShowSidebar }) => {
     const [seller, setSeller] = useState(null);
@@ -244,6 +245,10 @@ const SellerProfile = ({ setShowSidebar }) => {
         }
     };
 
+    const handleSellerPurchaseHistory = () => {
+        history.push('/seller/purchase-history');
+    };
+
     return (
         <div className="profile-container">
             <div className="side">
@@ -258,6 +263,11 @@ const SellerProfile = ({ setShowSidebar }) => {
                 </div>
                 <div className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`} onClick={handleSellerOrders}>
                     История продаж
+                </div>
+
+
+                <div className={`sidebar-item ${activeTab === 'purchaseBuyHistory' ? 'active' : ''}`} onClick={handleSellerPurchaseHistory}>
+                    История покупок
                 </div>
 
                 <div className="visibility-toggle">
@@ -386,6 +396,15 @@ const SellerProfile = ({ setShowSidebar }) => {
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
             />
+
+            {/*<div className="profile-content">*/}
+            {/*    {seller ? (*/}
+            {/*        <div>*/}
+            {/*            /!* существующий код *!/*/}
+            {/*            {activeTab === 'purchaseHistory' && <PurchaseBuyHistory />} /!* Отображаем компонент истории покупок *!/*/}
+            {/*        </div>*/}
+            {/*    ) : null}*/}
+            {/*</div>*/}
 
         </div>
     );
