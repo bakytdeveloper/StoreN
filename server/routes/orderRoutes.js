@@ -860,7 +860,7 @@ router.post('/send-email', async (req, res) => {
 
 
 // Получить историю покупок для текущего продавца
-router.get('/seller/purchase-history', authenticateToken, checkRole('seller'), getSellerPurchaseHistory);
+router.get('/seller/purchase-history', authenticateToken, checkRole(['seller']), getSellerPurchaseHistory);
 
 
 
