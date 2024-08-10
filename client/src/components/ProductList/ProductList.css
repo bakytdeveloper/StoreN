@@ -1,5 +1,9 @@
 /* src/components/ProductList/ProductList.css */
-
+.product-list-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Занимает всю высоту экрана */
+}
 
 .product-list {
     display: grid;
@@ -10,6 +14,9 @@
     margin-top: 103px !important;
     margin-left: 230px;
     /*margin-bottom: 90px !important; !* Добавленный отступ снизу, чтобы не перекрывать pagination *!*/
+
+    flex: 1; /* Заставляет этот блок занимать доступное пространство */
+
 }
 
 /*.product-card {*/
@@ -296,7 +303,7 @@
     width: 100%;
     /*left: 50%;*/
     margin: 0 auto;
-    margin-bottom: 70px;
+    /*margin-bottom: 70px;*/
     font-family: Poppins;
 
 }
@@ -443,19 +450,35 @@
 
 
 
+.pagination-container-block {
+    margin-top: auto; /* Сдвигает блок пагинации вниз */
+    height: 50px;
+}
 
 
+
+/*.pagination-container {*/
+/*    display: flex;*/
+/*    !*justify-content: center;*!*/
+/*    bottom: 10px!important;*/
+/*    !*margin: 20px ;*!*/
+/*    height: 40px; !* Установите фиксированную высоту *!*/
+/*    position: relative;*/
+/*}*/
 
 .pagination-container {
     display: flex;
-    /*justify-content: center;*/
-    bottom: 10px!important;
-    /*margin: 20px ;*/
-    height: 40px; /* Установите фиксированную высоту */
     position: relative;
-
-
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 70px;
+    font-family: Poppins;
 }
+
+
 
 .pagination-item {
     border: 1px solid #ddd;
