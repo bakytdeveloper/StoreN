@@ -18,6 +18,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { Button } from '@mui/material';
+import CustomPagination from "./CustomPagination";
 
 
 
@@ -90,52 +91,52 @@ import { Button } from '@mui/material';
 // };
 
 
-const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
-    const pageRange = 3; // Количество отображаемых страниц
-    const range = [];
-
-    // Создание списка страниц для отображения
-    const createPageRange = () => {
-        let start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
-        let end = Math.min(start + pageRange - 1, totalPages);
-
-        // Корректировка, если текущая страница близка к началу или концу
-        if (currentPage <= 2) {
-            end = Math.min(pageRange, totalPages);
-        }
-        if (currentPage >= totalPages - 1) {
-            start = Math.max(totalPages - pageRange + 1, 1);
-        }
-
-        for (let i = start; i <= end; i++) {
-            range.push(i);
-        }
-    };
-
-    createPageRange();
-
-    return (
-        <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={onPageChange}
-            renderItem={(item) => {
-                const isActive = item.page === currentPage;
-
-                return (
-                    <PaginationItem
-                        {...item}
-                        className={`pagination-item ${isActive ? 'active' : ''}`}
-                    />
-                );
-            }}
-            siblingCount={1}
-            boundaryCount={1}
-            showFirstButton
-            showLastButton
-        />
-    );
-};
+// const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
+//     const pageRange = 3; // Количество отображаемых страниц
+//     const range = [];
+//
+//     // Создание списка страниц для отображения
+//     const createPageRange = () => {
+//         let start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
+//         let end = Math.min(start + pageRange - 1, totalPages);
+//
+//         // Корректировка, если текущая страница близка к началу или концу
+//         if (currentPage <= 2) {
+//             end = Math.min(pageRange, totalPages);
+//         }
+//         if (currentPage >= totalPages - 1) {
+//             start = Math.max(totalPages - pageRange + 1, 1);
+//         }
+//
+//         for (let i = start; i <= end; i++) {
+//             range.push(i);
+//         }
+//     };
+//
+//     createPageRange();
+//
+//     return (
+//         <Pagination
+//             count={totalPages}
+//             page={currentPage}
+//             onChange={onPageChange}
+//             renderItem={(item) => {
+//                 const isActive = item.page === currentPage;
+//
+//                 return (
+//                     <PaginationItem
+//                         {...item}
+//                         className={`pagination-item ${isActive ? 'active' : ''}`}
+//                     />
+//                 );
+//             }}
+//             siblingCount={1}
+//             boundaryCount={1}
+//             showFirstButton
+//             showLastButton
+//         />
+//     );
+// };
 
 
 const ProductList = ({
@@ -756,30 +757,38 @@ const ProductList = ({
             {/*)}*/}
 
 
-            {displayedProducts && displayedProducts.length > 0 && (
-                <div className="pagination-container">
-                    <CustomPagination
-                        totalPages={totalPages}
-                        currentPage={currentPage}
-                        onPageChange={handlePageChange}
-                    />
-                </div>
-            )}
+           <div className="pagination-container-block">
+               <div className="pagination-container-block-one">
+                   {displayedProducts && displayedProducts.length > 0 && (
+                       <div className="pagination-container">
+                           <CustomPagination
+                               totalPages={totalPages}
+                               currentPage={currentPage}
+                               onPageChange={handlePageChange}
+                           />
+                       </div>
+                   )}
+               </div>
 
 
-            {displayedProducts >= 0 && displayedProductsNoSearch.length > 0 && (
-                <div className="pagination-container">
-                    <div className="pagination">
-                        <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
-                            <img className="arrowLImg" src={left} alt="Cart" />
-                        </button>
-                        <span className="numStr">{`Страница ${currentPage} из ${totalPagesNoSearch}`}</span>
-                        <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPagesNoSearch}>
-                            <img className="arrowRImg" src={right} alt="Cart" />
-                        </button>
-                    </div>
-                </div>
-            )}
+               <div className="pagination-container-block-two">
+                   {displayedProducts >= 0 && displayedProductsNoSearch.length > 0 && (
+                       <div className="pagination-container">
+                           <div className="pagination">
+                               <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>
+                                   <img className="arrowLImg" src={left} alt="Cart" />
+                               </button>
+                               <span className="numStr">{`Страница ${currentPage} из ${totalPagesNoSearch}`}</span>
+                               <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPagesNoSearch}>
+                                   <img className="arrowRImg" src={right} alt="Cart" />
+                               </button>
+                           </div>
+                       </div>
+                   )}
+               </div>
+           </div>
+
+
         </div>
     );
 
