@@ -348,28 +348,28 @@ const ProductList = ({
 // Обновление количества отображаемых продуктов на странице при изменении размера окна
     useEffect(() => {
         const updateProductsPerPage = () => {
-            if (windowWidth >= 1340) {
-                setProductsPerPage(18);
-            } else if (windowWidth >= 1200) {
-                setProductsPerPage(15);
-            } else if (windowWidth < 960) {
-                setProductsPerPage(12);
-            } else if (windowWidth <= 900) {
-                setProductsPerPage(8);
-            } else {
-                setProductsPerPage(12);
-            }
             // if (windowWidth >= 1340) {
-            //     setProductsPerPage(1);
+            //     setProductsPerPage(18);
             // } else if (windowWidth >= 1200) {
-            //     setProductsPerPage(1);
+            //     setProductsPerPage(15);
             // } else if (windowWidth < 960) {
-            //     setProductsPerPage(1);
+            //     setProductsPerPage(12);
             // } else if (windowWidth <= 900) {
-            //     setProductsPerPage(1);
+            //     setProductsPerPage(8);
             // } else {
-            //     setProductsPerPage(1);
+            //     setProductsPerPage(12);
             // }
+            if (windowWidth >= 1340) {
+                setProductsPerPage(1);
+            } else if (windowWidth >= 1200) {
+                setProductsPerPage(1);
+            } else if (windowWidth < 960) {
+                setProductsPerPage(1);
+            } else if (windowWidth <= 900) {
+                setProductsPerPage(1);
+            } else {
+                setProductsPerPage(1);
+            }
         };
         updateProductsPerPage();
     }, [windowWidth]);
