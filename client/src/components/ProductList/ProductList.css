@@ -17,6 +17,7 @@
 
     flex: 1; /* Заставляет этот блок занимать доступное пространство */
 
+    scroll-behavior: smooth;
 }
 
 /*.product-card {*/
@@ -306,6 +307,7 @@
     /*margin-bottom: 70px;*/
     font-family: Poppins;
 
+
 }
 
 /*.pagination {*/
@@ -453,6 +455,7 @@
 .pagination-container-block {
     margin-top: auto; /* Сдвигает блок пагинации вниз */
     height: 50px;
+    margin-left: 260px;
 }
 
 
@@ -649,6 +652,7 @@
 
     .pagination-container-block {
         margin-bottom: 60px;
+        margin-left: 0;
 
     }
 
