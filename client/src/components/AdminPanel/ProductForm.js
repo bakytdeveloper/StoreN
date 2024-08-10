@@ -120,22 +120,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         fetchCategories();
     }, []);
 
-    // useEffect(() => {
-    //     const fetchTypes = async () => {
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setTypes(data.types);
-    //             } else {
-    //                 console.error('Failed to fetch types');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching types:', error);
-    //         }
-    //     };
-    //     fetchTypes();
-    // }, []);
 
 
     useEffect(() => {
@@ -157,44 +141,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
 
 
-    // const handleChange = async (e) => {
-    //     const { name, value } = e.target;
-    //
-    //     if (name === 'quantity' || name === 'originalPrice' || name === 'price') {
-    //         // Prevent setting quantity below zero
-    //         const newValue = parseInt(value, 10);
-    //         if (newValue < 1) {
-    //             toast.error('Количество не может быть меньше нуля');
-    //             return; // Do not update state
-    //         }
-    //     }
-    //
-    //     setFormData({ ...formData, [name]: value });
-    //
-    //     if (name === 'category') {
-    //         if (value === 'Аксессуары') {
-    //             setDirection('');
-    //         }
-    //
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`);
-    //             if (!response.ok) {
-    //                 console.error('Failed to fetch products');
-    //                 return;
-    //             }
-    //             const data = await response.json();
-    //
-    //             let filteredTypes = data
-    //                 .filter(product => product.category === value)
-    //                 .map(product => product.type);
-    //
-    //             const uniqueTypes = [...new Set(filteredTypes)];
-    //             setTypes(uniqueTypes);
-    //         } catch (error) {
-    //             console.error('Error handling category change:', error);
-    //         }
-    //     }
-    // };
 
     const handleCharacteristicChange = (index, field, value) => {
         const updatedCharacteristics = [...formData.characteristics];
@@ -234,8 +180,8 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
 
     const handleFormSubmit = async (formData) => {
         setIsSubmitting(true); // Устанавливаем состояние отправки формы в true
-
-        if (formData.originalPrice && formData.price >= formData.originalPrice) {
+        console.log(typeof formData.price, typeof formData.originalPrice)
+        if (formData.originalPrice && Number(formData.price) >= Number(formData.originalPrice)) {
             toast.error('Цена не должна быть больше или равна Цене до скидки');
             setIsSubmitting(false);
             return;
@@ -359,11 +305,24 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             return;
         }
 
-        if (formData.originalPrice && formData.price >= formData.originalPrice) {
+        // if (formData.originalPrice && formData.price >= formData.originalPrice) {
+        //     toast.error('Цена не должна быть больше или равна Цене до скидки');
+        //     setIsSubmitting(false);
+        //     return;
+        // }
+
+        // Преобразуем значения в числа
+        const originalPrice = parseFloat(formData.originalPrice);
+        const price = parseFloat(formData.price);
+
+        // Проверка на корректность чисел и значения цен
+        if (!isNaN(originalPrice) && !isNaN(price) && price >= originalPrice) {
             toast.error('Цена не должна быть больше или равна Цене до скидки');
             setIsSubmitting(false);
             return;
         }
+
+
 
         handleFormSubmit(formData);
     };
@@ -631,10 +590,11 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             />
 
             <label>Цена:</label>
-            <input type="number"
+            <input
+                   min="0"
+                   type="number"
                    placeholder="0"
                    name="price"
-                   min="0"
                    value={formData.price}
                    onChange={handleChange} required/>
 
