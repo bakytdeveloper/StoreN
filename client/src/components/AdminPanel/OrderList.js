@@ -495,7 +495,7 @@ const OrderList = ({ setShowSidebar }) => {
                         <td onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
                         <td onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
                         <td onClick={() => handleOrderClick(order._id)}>
-                            {order.user ? order.paymentMethod : '-'}
+                            {order.paymentMethod ? order.paymentMethod : '-'}
                         </td>
                         <td>
                 <textarea
