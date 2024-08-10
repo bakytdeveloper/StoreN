@@ -28,6 +28,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const [userName, setUserName] = useState('');
     const [deliveryType, setDeliveryType] = useState('delivery');
     const [orderPlaced, setOrderPlaced] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const history = useHistory();
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
@@ -297,10 +298,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         if (orderPlaced) return;
 
         setOrderPlaced(true);
+        setIsLoading(true); // Показать спиннер
 
         if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
             toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
             setOrderPlaced(false);
+            setIsLoading(false); // Скрыть спиннер
+
             return;
         }
 
@@ -363,6 +367,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             console.error('Error placing order:', error);
             setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
         }
+        setIsLoading(false); // Скрыть спиннер
     };
 
 
@@ -617,13 +622,26 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                         {section2Filled && item === 2}
                     </span>
                 ))}
+                {/*<button*/}
+                {/*    className="buy_next buy_next_big_monitor"*/}
+                {/*    onClick={section === 3 ? handlePlaceOrder : handleContinue}*/}
+                {/*    disabled={orderPlaced}*/}
+                {/*>*/}
+                {/*    {section === 3 ? 'Закрыть' : 'Продолжить'}*/}
+                {/*</button>*/}
+
                 <button
                     className="buy_next buy_next_big_monitor"
                     onClick={section === 3 ? handlePlaceOrder : handleContinue}
-                    disabled={orderPlaced}
+                    disabled={orderPlaced || isLoading}
                 >
-                    {section === 3 ? 'Закрыть' : 'Продолжить'}
+                    {isLoading ? (
+                        <div className="spinner"></div>
+                    ) : (
+                        section === 3 ? 'Закрыть' : 'Продолжить'
+                    )}
                 </button>
+
             </div>
         </div>
     );
