@@ -373,23 +373,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         history.goBack(); // Переход на предыдущую страницу
     };
 
-    // useEffect(() => {
-    //     const fetchAllCategories = async () => {
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories`);
-    //             if (response.ok) {
-    //                 const data = await response.json();
-    //                 setAllCategories(data.types);
-    //             } else {
-    //                 console.error('Failed to fetch types');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching types:', error);
-    //         }
-    //     };
-    //     fetchAllCategories();
-    // }, []);
-
 
     useEffect(() => {
         const fetchAllCategories = async () => {
@@ -484,25 +467,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         newImages[index] = temp;
         setFormData({ ...formData, images: newImages });
     };
-
-
-
-
-    // useEffect(() => {
-    //     const handleWheel = (e) => {
-    //         if (e.target.type === 'number') {
-    //             e.preventDefault(); // Prevent scrolling from changing the value
-    //         }
-    //     };
-    //
-    //     window.addEventListener('wheel', handleWheel, { passive: false });
-    //
-    //     return () => {
-    //         window.removeEventListener('wheel', handleWheel);
-    //     };
-    // }, []);
-
-
 
     useEffect(() => {
         const handleScroll = () => {
@@ -635,7 +599,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             <input type="text" name="type" value={formData.type} onChange={handleChange} required/>
 
             <label>Пол:</label>
-            <select name="gender" value={formData.gender} onChange={handleChange}>
+            <select name="gender" value={formData.gender} onChange={handleChange} required>
                 <option value="">Выберите пол</option>
                 <option value="Мужская одежда">Мужская одежда</option>
                 <option value="Женская одежда">Женская одежда</option>
