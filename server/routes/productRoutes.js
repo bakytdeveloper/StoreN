@@ -363,9 +363,48 @@ router.get('/newest', async (req, res) => {
             newestProducts.push(...additionalProducts);
         }
 
-        res.json(newestProducts);
+
+        // Удаляем товары с нулевым количеством и отправляем уведомления
+        for (const product of newestProducts) {
+            if (product.quantity === 0) {
+                // Удаляем изображения товара с сервера
+                if (product.images && product.images.length > 0) {
+                    for (const imageUrl of product.images) {
+                        const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
+                        if (fs.existsSync(imagePath)) {
+                            fs.unlinkSync(imagePath);
+                        }
+                    }
+                }
+
+                // Находим продавца для отправки уведомления
+                const seller = await Seller.findById(product.seller._id);
+                if (seller) {
+                    await notifySellerAboutProductDeletion(seller, product.name);
+                }
+
+                // Удаляем товар из базы данных
+                await Product.findByIdAndDelete(product._id);
+
+                // Удаляем ссылку на товар у продавца
+                await Seller.findByIdAndUpdate(
+                    product.seller._id,
+                    { $pull: { products: product._id } },
+                    { new: true }
+                );
+            }
+        }
+
+        // Обновляем список продуктов после удаления товаров с нулевым количеством
+        const updatedProducts = await Product.find()
+            .populate('seller')
+            .sort({ createdAt: -1 })
+            .limit(limit);
+
+        res.json(updatedProducts);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
