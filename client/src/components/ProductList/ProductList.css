@@ -642,8 +642,8 @@
         /*border: 1px solid #ddd;*/
         border-radius: 4px;
         margin: 0 2px;
-        padding: 1px 2px!important;
-        font-size: 13px;
+        padding: 1px 3px!important;
+        font-size: 15px;
         cursor: pointer;
         text-align: center;
     }
@@ -672,7 +672,7 @@
     }
 
     .pagination .MuiPaginationItem-previousNext {
-        font-size: 16px;
+        font-size: 19px;
 
         padding: 0;
     }
@@ -683,7 +683,17 @@
 
     }
 
+    .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.pagination-item.active.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
+        font-size: 22px;
+    }
 
+    .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.pagination-item.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
+        font-size: 22px;
+    }
+
+    .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon {
+        font-size: 33px;
+    }
 
 
     .arrowL {
