@@ -5,6 +5,7 @@ const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
 const path = require("path");
 const {checkRole} = require("../middleware/authenticateToken");
+const {transporter} = require('../smtp/otpService');
 
 const fs = require('fs');
 
@@ -66,6 +67,20 @@ router.post('/add', authenticateToken, async (req, res) => {
 
 
 
+// Функция для отправки уведомлений продавцам о удалении товара
+async function notifySellerAboutProductDeletion(seller, productName) {
+    if (seller && seller.email) {
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: seller.email,
+            subject: `Удаление товара: ${productName}`,
+            text: `Дорогой ${seller.name},\n\nТовар "${productName}" был удалён из-за нулевого количества на складе.\n\nС уважением,\nВаш Магазин`,
+        };
+        await transporter.sendMail(mailOptions);
+    }
+}
+
+
 // Роут для получения всех товаров с учетом видимости продавца
 router.get('/', async (req, res) => {
     try {
@@ -94,6 +109,12 @@ router.get('/', async (req, res) => {
                 if (fs.existsSync(imagePath)) {
                     fs.unlinkSync(imagePath);
                 }
+            }
+
+            // Находим продавца для отправки уведомления
+            const seller = await Seller.findById(product.seller._id);
+            if (seller) {
+                await notifySellerAboutProductDeletion(seller, product.name);
             }
 
             // Удаляем товар из базы данных

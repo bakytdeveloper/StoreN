@@ -353,6 +353,7 @@ const {transporter} = require('../smtp/otpService');
 // });
 
 
+
 router.post('/', async (req, res) => {
     console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
