@@ -593,8 +593,8 @@ const ProductList = ({
                                             <Link to={`/products/${product._id}`}>
                                                 <div className="product-list-details">
                                                     <div className="product-list-details-brand-and-name">
-                                                        <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
-                                                        <div className="product-list-brand">{product.brand.length > 11 ? product.brand.substring(0, 11) + '.' : product.brand}</div>
+                                                        <div className="product-list-type">{product.type.length > 10 ? product.type.substring(0, 10) + '...' : product.type}</div>
+                                                        <div className="product-list-brand">{product.brand.length > 10 ? product.brand.substring(0, 10) + '...' : product.brand}</div>
                                                     </div>
                                                     <div className="discounted-price">
                                                         {product.originalPrice ? (

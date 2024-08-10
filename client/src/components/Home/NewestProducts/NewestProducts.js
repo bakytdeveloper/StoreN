@@ -110,8 +110,8 @@ const NewestProducts = ({ apiUrl }) => {
                             <div className="details-new-product">
 
                                 <div className="brand-and-name-new">
-                                    <div className="type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
-                                    <div className="brand new-brand">{product.brand.length > 7 ? product.brand.substring(0, 7) + '.' : product.brand}</div>
+                                    <div className="type">{product.type.length > 10 ? product.type.substring(0, 10) + '...' : product.type}</div>
+                                    <div className="brand new-brand">{product.brand.length > 7 ? product.brand.substring(0, 7) + '...' : product.brand}</div>
                                 </div>
 
                                <div className="discounted-price-new">
