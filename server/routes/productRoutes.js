@@ -3,8 +3,10 @@ const router = express.Router();
 const Product = require('../models/Product');
 const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
+const path = require("path");
 const {checkRole} = require("../middleware/authenticateToken");
 
+const fs = require('fs');
 
 
 
@@ -30,6 +32,40 @@ router.post('/add', authenticateToken, async (req, res) => {
 
 
 
+// // Роут для получения всех товаров с учетом видимости продавца
+// router.get('/', async (req, res) => {
+//     try {
+//         // Получаем все товары и подгружаем данные о продавце
+//         const products = await Product.find()
+//             .populate('seller');
+//
+//         // Фильтруем товары на основе видимости продавца и статуса продавца
+//         const filteredProducts = products.filter(product => {
+//             // Проверяем, существует ли продавец, его статус и видимость товаров
+//             return product.seller
+//                 && product.seller.isProductsVisible
+//                 && product.seller.status !== 'suspend'
+//                 // Если убрать эту часть фильтрации, то будут отображаться
+//                 // не активными заблокированные товары
+//                 && product.isActive;
+//         });
+//
+//         // Разделяем товары на активные и неактивные
+//         const activeProducts = filteredProducts.filter(product => product.isActive);
+//         const inactiveProducts = filteredProducts.filter(product => !product.isActive);
+//
+//         // Объединяем активные и неактивные товары
+//         const sortedProducts = [...activeProducts, ...inactiveProducts];
+//
+//         res.json(sortedProducts);
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// });
+
+
+
 // Роут для получения всех товаров с учетом видимости продавца
 router.get('/', async (req, res) => {
     try {
@@ -43,14 +79,33 @@ router.get('/', async (req, res) => {
             return product.seller
                 && product.seller.isProductsVisible
                 && product.seller.status !== 'suspend'
-                // Если убрать эту часть фильтрации, то будут отображаться
-                // не активными заблокированные товары
                 && product.isActive;
         });
 
         // Разделяем товары на активные и неактивные
-        const activeProducts = filteredProducts.filter(product => product.isActive);
-        const inactiveProducts = filteredProducts.filter(product => !product.isActive);
+        const activeProducts = filteredProducts.filter(product => product.quantity > 0); // Проверяем количество товаров
+        const inactiveProducts = filteredProducts.filter(product => product.quantity === 0); // Проверяем количество товаров
+
+        // Удаляем неактивные товары и их изображения
+        for (const product of inactiveProducts) {
+            // Удаляем изображения товара с сервера
+            for (const imageUrl of product.images) {
+                const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                }
+            }
+
+            // Удаляем товар из базы данных
+            await Product.findByIdAndDelete(product._id);
+
+            // Удаляем ссылку на товар у продавца
+            await Seller.findByIdAndUpdate(
+                product.seller._id,
+                { $pull: { products: product._id } },
+                { new: true }
+            );
+        }
 
         // Объединяем активные и неактивные товары
         const sortedProducts = [...activeProducts, ...inactiveProducts];
@@ -61,6 +116,11 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+
+
+
 
 
 

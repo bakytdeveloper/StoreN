@@ -351,18 +351,6 @@ router.get('/:sellerId', async (req, res) => {
 });
 
 
-// // Удаление продавца
-// router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
-//     try {
-//         const sellerId = req.params.id;
-//         await Seller.findByIdAndDelete(sellerId);
-//         res.status(200).json({ message: 'Seller deleted successfully' });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Error deleting seller', error });
-//     }
-// });
-
-
 // Удаление продавца и его товаров
 router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
