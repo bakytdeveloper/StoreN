@@ -28,7 +28,7 @@ router.get('/active', authenticateToken, checkRole(['admin']), async (req, res) 
 });
 
 
-// Get all sellers (accessible only to admins)
+// Получить всех продавцов (доступно только администраторам)
 router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
         const sellers = await Seller.find();
