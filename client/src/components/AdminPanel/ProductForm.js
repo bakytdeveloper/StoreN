@@ -178,6 +178,7 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
         }
     };
 
+    
     const handleFormSubmit = async (formData) => {
         setIsSubmitting(true); // Устанавливаем состояние отправки формы в true
         console.log(typeof formData.price, typeof formData.originalPrice)
