@@ -81,6 +81,7 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
 
     return (
         <Pagination
+            style={{background:"none"}}
             count={totalPages}
             page={currentPage}
             onChange={onPageChange}

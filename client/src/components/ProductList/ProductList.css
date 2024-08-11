@@ -510,6 +510,14 @@
     background-color: #f8f9fa!important;
 }
 
+Pagination ul {
+
+}
+
+Pagination ul li {
+   background: none;
+}
+
 .pagination .MuiPaginationItem-root {
     border: none!important;
     padding: 0!important;
@@ -527,7 +535,7 @@
     background: none !important;
 
 }
-
+                                                                                                                                                                                                        css-1oj2twp-MuiPagination-root
 .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.pagination-item.active.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
     font-size: 22px!important;
 
@@ -733,8 +741,8 @@
     /*}*/
 
     .pagination span {
-        margin-left: 16px;
-        margin-right: 16px;
+        margin-left: 16px!important;
+        margin-right: 16px!important;
 
     }
 
