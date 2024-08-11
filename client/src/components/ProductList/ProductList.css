@@ -511,11 +511,11 @@
 }
 
 Pagination ul {
-
+    background: none!important;
 }
 
 Pagination ul li {
-   background: none;
+   background: none!important;
 }
 
 .pagination .MuiPaginationItem-root {
