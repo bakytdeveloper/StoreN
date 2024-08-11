@@ -81,7 +81,8 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
 
     return (
         <Pagination
-            style={{background:"none"}}
+            className="pagination-container-block-one"
+
             count={totalPages}
             page={currentPage}
             onChange={onPageChange}
@@ -90,6 +91,7 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
 
                 return (
                     <PaginationItem
+                        classes="pagination-container-block-two"
                         {...item}
                         className={`pagination-item ${isActive ? 'active' : ''}`}
                     />
