@@ -10,7 +10,7 @@ import {faArrowLeft, faArrowRight, faBan} from "@fortawesome/free-solid-svg-icon
 
 
 
-import {jwtDecode} from 'jwt-decode'; // Ensure you have jwt-decode installed
+import {jwtDecode} from 'jwt-decode'; // Убедитесь, что у вас установлен jwt-decode
 
 
 const Profile = ({ setShowSidebar }) => {
@@ -440,39 +440,6 @@ const Profile = ({ setShowSidebar }) => {
                                     </tr>
                                     </thead>
 
-                                    {/*<tbody>*/}
-                                    {/*{userOrders.map((order, index) => {*/}
-                                    {/*    // Функция для форматирования даты*/}
-                                    {/*    const formatDate = (date) => {*/}
-                                    {/*        const d = new Date(date);*/}
-                                    {/*        const day = d.getDate().toString().padStart(2, '0');*/}
-                                    {/*        const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Месяцы начинаются с 0*/}
-                                    {/*        const year = d.getFullYear();*/}
-                                    {/*        return `${day}/${month}/${year}`;*/}
-                                    {/*    };*/}
-
-                                    {/*    return (*/}
-                                    {/*        <tr key={order._id}>*/}
-                                    {/*            <td>{(page - 1) * pageSize + index + 1}</td>*/}
-                                    {/*            <td>{formatDate(order.date)}</td>*/}
-                                    {/*            <td>{order.status}</td>*/}
-                                    {/*            <td>*/}
-                                    {/*                <ul>*/}
-                                    {/*                    {order.products.map(item => (*/}
-                                    {/*                        <li key={`${item.product?._id}-${item}`}*/}
-                                    {/*                            style={{ padding: "5px", fontWeight: "600" }} >*/}
-                                    {/*                            {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price}сом*/}
-                                    {/*                            /!*<hr />*!/*/}
-                                    {/*                        </li>*/}
-                                    {/*                    ))}*/}
-                                    {/*                </ul>*/}
-                                    {/*            </td>*/}
-                                    {/*            <td>{order.totalAmount}сом</td>*/}
-                                    {/*        </tr>*/}
-                                    {/*    );*/}
-                                    {/*})}*/}
-                                    {/*</tbody>*/}
-
                                     <tbody>
                                     {userOrders.map((order, index) => {
                                         // Функция для форматирования даты
@@ -489,6 +456,7 @@ const Profile = ({ setShowSidebar }) => {
                                             const year = d.getFullYear();
 
                                             return `${day} ${month} ${year}г.`;
+
                                         };
 
                                         return (
