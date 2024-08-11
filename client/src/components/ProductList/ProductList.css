@@ -495,9 +495,9 @@
 
 .pagination-item.active {
     /*background-color: #439bfa !important;*/
-    color: #1087ac;
+    color: #1087ac!important;
     /*border: 1px solid #007bff;*/
-    font-weight: bold;
+    font-weight: bold!important;
 }
 
 .pagination-item:hover {
@@ -505,40 +505,40 @@
 }
 
 .pagination-item.disabled {
-    cursor: not-allowed;
-    color: #6c757d;
-    background-color: #f8f9fa;
+    cursor: not-allowed!important;
+    color: #6c757d!important;
+    background-color: #f8f9fa!important;
 }
 
 .pagination .MuiPaginationItem-root {
-    border: none;
-    padding: 0;
+    border: none!important;
+    padding: 0!important;
 
 }
 
 .pagination .MuiPaginationItem-previousNext {
-    font-size: 18px;
+    font-size: 18px!important;
 
-    padding: 0;
+    padding: 0!important;
 }
 
 .MuiPagination-ul.css-wjh20t-MuiPagination-ul li {
-    padding: 0;
-    background: none;
+    padding: 0!important;
+    background: none !important;
 
 }
 
 .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.pagination-item.active.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
-    font-size: 22px;
+    font-size: 22px!important;
 
 }
 
 .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.pagination-item.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
-    font-size: 22px;
+    font-size: 22px!important;
 }
 
 .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon {
-    font-size: 33px;
+    font-size: 33px!important;
 }
 
 
@@ -685,33 +685,33 @@
     }
 
     .pagination .MuiPaginationItem-root {
-        border: none;
-        padding: 0;
+        border: none!important;
+        padding: 0!important;
 
     }
 
     .pagination .MuiPaginationItem-previousNext {
-        font-size: 19px;
+        font-size: 19px!important;
 
-        padding: 0;
+        padding: 0!important;
     }
 
     .MuiPagination-ul.css-wjh20t-MuiPagination-ul li {
-        padding: 0;
-        background: none;
+        padding: 0!important;
+        background: none!important;
 
     }
 
     .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.pagination-item.active.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
-        font-size: 22px;
+        font-size: 22px!important;
     }
 
     .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.pagination-item.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
-        font-size: 22px;
+        font-size: 22px!important;
     }
 
     .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon {
-        font-size: 33px;
+        font-size: 33px!important;
     }
 
 
