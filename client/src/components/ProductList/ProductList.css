@@ -510,14 +510,6 @@
     background-color: #f8f9fa!important;
 }
 
-Pagination ul {
-    background: none!important;
-}
-
-Pagination ul li {
-   background: none!important;
-}
-
 .pagination .MuiPaginationItem-root {
     border: none!important;
     padding: 0!important;
@@ -549,6 +541,17 @@ Pagination ul li {
     font-size: 33px!important;
 }
 
+
+
+Pagination ul {
+    background: none!important;
+    font-size: 22px!important;
+}
+
+Pagination ul li {
+    background: none!important;
+    font-size: 22px!important;
+}
 
 
 
