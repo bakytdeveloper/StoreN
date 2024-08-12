@@ -69,7 +69,7 @@
 
 .profile-content {
     padding: 20px;
-    background: #f5f6f8;
+    background: #ffffff;
     margin: 130px 0 0 240px;
     width: 90% !important;
 }
@@ -274,6 +274,15 @@ label {
  .registration-notification-span {
      color: #05619f;
  }
+
+
+
+
+
+
+
+
+
 
  /* Медиа-запрос для адаптивного дизайна */
  @media screen and (max-width: 768px) {

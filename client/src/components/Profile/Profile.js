@@ -468,7 +468,8 @@ const Profile = ({ setShowSidebar }) => {
                                                     <ul>
                                                         {order.products.map(item => (
                                                             <li key={`${item.product?._id}-${item}`}
-                                                                style={{ padding: "5px", fontWeight: "600" }} >
+                                                                style={{ padding: "5px", fontWeight: "600", background:"none" }}
+                                                            >
                                                                 {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price} сом
                                                                 {/*<hr />*/}
                                                             </li>

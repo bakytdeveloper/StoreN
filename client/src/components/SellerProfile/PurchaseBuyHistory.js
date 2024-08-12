@@ -46,6 +46,7 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
 
 
     return (
+        <div className="purchase-history">
         <div className="purchase-history-container">
 
             <h2>История покупок</h2>
@@ -55,7 +56,7 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
             {orders.length === 0 ? (
                 <p>Нет покупок.</p>
             ) : (
-                <table>
+                <table className="order-history-table">
                     <thead>
                     <tr>
                         <th>Дата</th>
@@ -94,6 +95,7 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
                     </tbody>
                 </table>
             )}
+        </div>
         </div>
     );
 };
