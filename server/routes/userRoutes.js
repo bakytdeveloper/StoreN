@@ -131,21 +131,34 @@ router.get('/clients', async (req, res) => {
 });
 
 
-// // Удаление клиента
-// router.delete('/clients/:id',  authenticateToken,  checkRole(['admin']), async (req, res) => {
+
+// // Удаление клиента и связанных заказов
+// router.delete('/clients/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
 //     try {
 //         const clientId = req.params.id;
-//         await User.findByIdAndDelete(clientId);
-//         res.status(200).json({ message: 'Client deleted successfully' });
+//
+//         // Удаляем клиента
+//         const deletedClient = await User.findByIdAndDelete(clientId);
+//
+//         if (!deletedClient) {
+//             return res.status(404).json({ message: 'Client not found' });
+//         }
+//
+//        //  // Удаляем заказы, связанные с этим клиентом
+//        // const deletedOrder = await Order.deleteMany({ user: clientId });
+//        //
+//        //  if (!deletedOrder) {
+//        //      return res.status(404).json({ message: 'Client not found' });
+//        //  }
+//
+//         res.status(200).json({ message: 'Client and associated orders deleted successfully' });
 //     } catch (error) {
-//         res.status(500).json({ message: 'Error deleting client', error });
+//         res.status(500).json({ message: 'Error deleting client and associated orders', error });
 //     }
 // });
 
 
-// Удаление клиента и его заказов
-
-// Удаление клиента и связанных заказов
+// Удаление клиента и обновление связанных заказов
 router.delete('/clients/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
         const clientId = req.params.id;
@@ -157,17 +170,25 @@ router.delete('/clients/:id', authenticateToken, checkRole(['admin']), async (re
             return res.status(404).json({ message: 'Client not found' });
         }
 
-        // Удаляем заказы, связанные с этим клиентом
-       const deletedOrder = await Order.deleteMany({ user: clientId });
+        // Обновляем заказы, связанные с этим клиентом
+        await Order.updateMany(
+            { user: clientId },
+            {
+                $set: {
+                    "guestInfo.name": deletedClient.name,
+                    "guestInfo.email": deletedClient.email
+                },
+                $unset: { user: "" } // Удаляем поле user, чтобы не было связи с удаленным клиентом
+            }
+        );
 
-        if (!deletedOrder) {
-            return res.status(404).json({ message: 'Client not found' });
-        }
-
-        res.status(200).json({ message: 'Client and associated orders deleted successfully' });
+        res.status(200).json({ message: 'Client deleted successfully and orders updated' });
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting client and associated orders', error });
+        res.status(500).json({ message: 'Error deleting client and updating orders', error });
     }
 });
+
+
+
 
 module.exports = router;
