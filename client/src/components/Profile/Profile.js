@@ -264,6 +264,262 @@ const Profile = ({ setShowSidebar }) => {
     console.log("MY user:",user)
 
 
+    // return (
+    //     <div className="profile-container">
+    //         <div className="side">
+    //             <div
+    //                 style={{ fontWeight: "bold" }}
+    //                 className={`sidebar-item ${activeTab === 'editProfile' ? 'active' : ''}`}
+    //                 onClick={() => setActiveTab('editProfile')}
+    //             >
+    //                 Редактировать профиль
+    //             </div>
+    //             <div
+    //                 style={{ fontWeight: "bold" }}
+    //                 className={`sidebar-item ${activeTab === 'editPassword' ? 'active' : ''}`}
+    //                 onClick={() => setActiveTab('editPassword')}
+    //             >
+    //                 Редактировать пароль
+    //             </div>
+    //             <div
+    //                 style={{ fontWeight: "bold" }}
+    //                 className={`sidebar-item ${activeTab === 'purchaseHistory' ? 'active' : ''}`}
+    //                 onClick={() => setActiveTab('purchaseHistory')}
+    //             >
+    //                 История покупок
+    //             </div>
+    //             <div
+    //                 style={{ fontWeight: "bold" }}
+    //                 className="sidebar-item logout"
+    //                 onClick={handleLogout}
+    //             >
+    //                 На главную
+    //             </div>
+    //         </div>
+    //
+    //         <div className="profile-content">
+    //             {user ? (
+    //                 <div>
+    //                     <h3 style={{ textAlign: "center" }}>Здравствуйте, {user.name} ! </h3>
+    //
+    //                     {activeTab === 'editProfile' && (
+    //                         <>
+    //                             <div className="profile-input">
+    //                                 <label>Имя:</label>
+    //                                 {editPassword ? (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={editedName}
+    //                                         onChange={(e) => setEditedName(e.target.value)}
+    //                                     />
+    //                                 ) : (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={user.name}
+    //                                         readOnly
+    //                                     />
+    //                                 )}
+    //                             </div>
+    //                             <div className="profile-input">
+    //                                 <label>Email:</label>
+    //                                 {editPassword ? (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={editedEmail}
+    //                                         onChange={(e) => setEditedEmail(e.target.value)}
+    //                                     />
+    //                                 ) : (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={user.email}
+    //                                         readOnly
+    //                                     />
+    //                                 )}
+    //                             </div>
+    //                             {!!editedAddress.length && (<div className="profile-input">
+    //                                 <label>Адерс доставки:</label>
+    //                                 {editPassword ? (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={editedAddress}
+    //                                         onChange={(e) => setEditedAddress(e.target.value)}
+    //                                     />
+    //                                 ) : (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={editedAddress}
+    //                                         readOnly
+    //                                     />
+    //                                 )}
+    //                             </div>)}
+    //                             {!!editedPhoneNumber.length && (<div className="profile-input">
+    //                                 <label>№ Телефона:</label>
+    //                                 {editPassword ? (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={editedPhoneNumber}
+    //                                         onChange={(e) => setEditedPhoneNumber(e.target.value)}
+    //                                     />
+    //                                 ) : (
+    //                                     <input
+    //                                         type="text"
+    //                                         value={editedPhoneNumber}
+    //                                         readOnly
+    //                                     />
+    //                                 )}
+    //                             </div>)}
+    //                             <div className="profile-buttons">
+    //                                 {editPassword ? (
+    //                                     <>
+    //                                         <button className="addProfile" onClick={handleEditProfile}>Изменить</button>
+    //                                         <button className="noAdd" onClick={handleCancelEditProfile}>Отменить</button>
+    //                                     </>
+    //                                 ) : (
+    //                                     <button className="updateProfile" onClick={() => setEditPassword(true)}>Редактировать профиль</button>
+    //                                 )}
+    //                             </div>
+    //                         </>
+    //                     )}
+    //                     {activeTab === 'editPassword' && (
+    //                         <>
+    //                             <div className="profile-input">
+    //                                 <label>Current Password:</label>
+    //                                 <div className="password-input-container">
+    //                                     <input
+    //                                         type={showPassword ? 'text' : 'password'}
+    //                                         value={currentPassword}
+    //                                         onChange={(e) => setCurrentPassword(e.target.value)}
+    //                                     />
+    //                                     <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+    //                                         {showPassword ? <FaEyeSlash /> : <FaEye />}
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                             <div className="profile-input">
+    //                                 <label>New Password:</label>
+    //                                 <div className="password-input-container">
+    //                                     <input
+    //                                         type={showPassword ? 'text' : 'password'}
+    //                                         value={newPassword}
+    //                                         onChange={(e) => setNewPassword(e.target.value)}
+    //                                     />
+    //                                     <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+    //                                         {showPassword ? <FaEyeSlash /> : <FaEye />}
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                             <div className="profile-input">
+    //                                 <label>Confirm Password:</label>
+    //                                 <div className="password-input-container">
+    //                                     <input
+    //                                         type={showPassword ? 'text' : 'password'}
+    //                                         value={confirmPassword}
+    //                                         onChange={(e) => setConfirmPassword(e.target.value)}
+    //                                     />
+    //                                     <div className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+    //                                         {showPassword ? <FaEyeSlash /> : <FaEye />}
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                             <div className="profile-buttons">
+    //                                 <button className="addProfile" onClick={handleSavePassword}>Изменить</button>
+    //                                 <button className="noAdd" onClick={handleCancelEditPassword}>Отменить</button>
+    //                             </div>
+    //                         </>
+    //                     )}
+    //                     {activeTab === 'purchaseHistory' && (
+    //                         <div className="purchase-history">
+    //                             <table className="order-history-table">
+    //                                 <thead>
+    //                                 <tr>
+    //                                     <th>№</th>
+    //                                     <th>Дата создания</th>
+    //                                     <th>Статус</th>
+    //                                     <th>Продукты</th>
+    //                                     <th>Общая сумма</th>
+    //                                 </tr>
+    //                                 </thead>
+    //
+    //                                 <tbody>
+    //                                 {userOrders.map((order, index) => {
+    //                                     // Функция для форматирования даты
+    //                                     const formatDate = (date) => {
+    //                                         const d = new Date(date);
+    //                                         const day = d.getDate().toString().padStart(2, '0');
+    //
+    //                                         // Названия месяцев на русском языке
+    //                                         const months = [
+    //                                             'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
+    //                                             'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
+    //                                         ];
+    //                                         const month = months[d.getMonth()]; // Получаем название месяца
+    //                                         const year = d.getFullYear();
+    //
+    //                                         return `${day} ${month} ${year}г.`;
+    //
+    //                                     };
+    //
+    //                                     return (
+    //                                         <tr key={order._id}>
+    //                                             <td>{(page - 1) * pageSize + index + 1}</td>
+    //                                             <td>{formatDate(order.date)}</td>
+    //                                             <td>{order.status}</td>
+    //                                             <td>
+    //                                                 <ul>
+    //                                                     {order.products.map(item => (
+    //                                                         <li key={`${item.product?._id}-${item}`}
+    //                                                             style={{ padding: "5px", fontWeight: "600", background:"none" }}
+    //                                                         >
+    //                                                             {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price} сом
+    //                                                             {/*<hr />*/}
+    //                                                         </li>
+    //                                                     ))}
+    //                                                 </ul>
+    //                                             </td>
+    //                                             <td>{order.totalAmount} сом</td>
+    //                                         </tr>
+    //                                     );
+    //                                 })}
+    //                                 </tbody>
+    //
+    //
+    //
+    //                             </table>
+    //                             <div className="pagination-my-history">
+    //                                 <button
+    //                                     className={`pagination-my-history-prev ${!hasPrevPage ? 'disabled' : ''}`}
+    //                                     onClick={handlePrevPage}
+    //                                     disabled={!hasPrevPage}
+    //                                 >
+    //                                     Назад
+    //                                 </button>
+    //                                 <span className="pagination-my-history-pages">Страница {page} из {totalPages}</span>
+    //                                 <button
+    //                                     className={`pagination-my-history-next ${!hasNextPage ? 'disabled' : ''}`}
+    //                                     onClick={handleNextPage}
+    //                                     disabled={!hasNextPage}
+    //                                 >
+    //                                     Вперёд
+    //                                 </button>
+    //                             </div>
+    //                         </div>
+    //                     )}
+    //                 </div>
+    //             ) : (
+    //                 <div className="registration-notification" style={{ marginTop: "130px", textAlign: "center" }}>
+    //                     {/*<span>*/}
+    //                         Для получения своего личного профиля.{' '}
+    //                         <Link to="/login">
+    //                             <span className="registration-notification-span">Нужно Залогиниться, после регистрации "Здесь"</span>
+    //                             {/*<p>Нужно Залогиниться, после регистрации "Здесь"</p>*/}
+    //                         </Link>.
+    //                     {/*</span>*/}
+    //                 </div>
+    //             )}
+    //         </div>
+    //     </div>
+    // );
+
     return (
         <div className="profile-container">
             <div className="side">
@@ -300,7 +556,7 @@ const Profile = ({ setShowSidebar }) => {
             <div className="profile-content">
                 {user ? (
                     <div>
-                        <h3 style={{ textAlign: "center" }}>Здравствуйте, {user.name} ! </h3>
+                        <h3 style={{ textAlign: "center" }}>Здравствуйте, {user.name}!</h3>
 
                         {activeTab === 'editProfile' && (
                             <>
@@ -336,38 +592,42 @@ const Profile = ({ setShowSidebar }) => {
                                         />
                                     )}
                                 </div>
-                                {!!editedAddress.length && (<div className="profile-input">
-                                    <label>Адерс доставки:</label>
-                                    {editPassword ? (
-                                        <input
-                                            type="text"
-                                            value={editedAddress}
-                                            onChange={(e) => setEditedAddress(e.target.value)}
-                                        />
-                                    ) : (
-                                        <input
-                                            type="text"
-                                            value={editedAddress}
-                                            readOnly
-                                        />
-                                    )}
-                                </div>)}
-                                {!!editedPhoneNumber.length && (<div className="profile-input">
-                                    <label>№ Телефона:</label>
-                                    {editPassword ? (
-                                        <input
-                                            type="text"
-                                            value={editedPhoneNumber}
-                                            onChange={(e) => setEditedPhoneNumber(e.target.value)}
-                                        />
-                                    ) : (
-                                        <input
-                                            type="text"
-                                            value={editedPhoneNumber}
-                                            readOnly
-                                        />
-                                    )}
-                                </div>)}
+                                {!!editedAddress.length && (
+                                    <div className="profile-input">
+                                        <label>Адрес доставки:</label>
+                                        {editPassword ? (
+                                            <input
+                                                type="text"
+                                                value={editedAddress}
+                                                onChange={(e) => setEditedAddress(e.target.value)}
+                                            />
+                                        ) : (
+                                            <input
+                                                type="text"
+                                                value={editedAddress}
+                                                readOnly
+                                            />
+                                        )}
+                                    </div>
+                                )}
+                                {!!editedPhoneNumber.length && (
+                                    <div className="profile-input">
+                                        <label>№ Телефона:</label>
+                                        {editPassword ? (
+                                            <input
+                                                type="text"
+                                                value={editedPhoneNumber}
+                                                onChange={(e) => setEditedPhoneNumber(e.target.value)}
+                                            />
+                                        ) : (
+                                            <input
+                                                type="text"
+                                                value={editedPhoneNumber}
+                                                readOnly
+                                            />
+                                        )}
+                                    </div>
+                                )}
                                 <div className="profile-buttons">
                                     {editPassword ? (
                                         <>
@@ -456,7 +716,6 @@ const Profile = ({ setShowSidebar }) => {
                                             const year = d.getFullYear();
 
                                             return `${day} ${month} ${year}г.`;
-
                                         };
 
                                         return (
@@ -468,10 +727,9 @@ const Profile = ({ setShowSidebar }) => {
                                                     <ul>
                                                         {order.products.map(item => (
                                                             <li key={`${item.product?._id}-${item}`}
-                                                                style={{ padding: "5px", fontWeight: "600", background:"none" }}
+                                                                style={{ padding: "0 5px", background:"none" }}
                                                             >
                                                                 {item.product?.name || item.name} - Количество: {item.quantity} - Цена: {item.product?.price || item.price} сом
-                                                                {/*<hr />*/}
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -481,9 +739,6 @@ const Profile = ({ setShowSidebar }) => {
                                         );
                                     })}
                                     </tbody>
-
-
-
                                 </table>
                                 <div className="pagination-my-history">
                                     <button
@@ -507,18 +762,18 @@ const Profile = ({ setShowSidebar }) => {
                     </div>
                 ) : (
                     <div className="registration-notification" style={{ marginTop: "130px", textAlign: "center" }}>
-                        {/*<span>*/}
-                            Для получения своего личного профиля.{' '}
-                            <Link to="/login">
-                                <span className="registration-notification-span">Нужно Залогиниться, после регистрации "Здесь"</span>
-                                {/*<p>Нужно Залогиниться, после регистрации "Здесь"</p>*/}
-                            </Link>.
-                        {/*</span>*/}
+                        Для получения своего личного профиля.{' '}
+                        <Link to="/login">
+                            <span className="registration-notification-span">Нужно Залогиниться, после регистрации "Здесь"</span>
+                        </Link>.
                     </div>
                 )}
             </div>
         </div>
     );
+
+
+
 };
 
 export default Profile;
