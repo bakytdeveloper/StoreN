@@ -399,4 +399,23 @@ router.put('/:id/toggle-products-visibility',  authenticateToken, checkRole(['se
     }
 });
 
+
+// Добавьте новый маршрут для получения статуса продавца
+router.get('/seller-status/:sellerId', async (req, res) => {
+    const { sellerId } = req.params;
+
+    try {
+        const seller = await Seller.findById(sellerId);
+        if (seller) {
+            res.json({ status: seller.status });
+        } else {
+            res.status(404).json({ message: 'Seller not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
 module.exports = router;

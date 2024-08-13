@@ -9,6 +9,7 @@ import './SellerRegistrationForm/SellerRegistrationForm.css'
 import search_header from './search.png';
 import cross from "./../Footer/cross.png";
 import './Header.css';
+import {jwtDecode} from "jwt-decode";
 
 
 // const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
@@ -252,13 +253,34 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [activePage, setActivePage] = useState('');
     const [lastPath, setLastPath] = useState(location.pathname);
     const [searchResultMessage, setSearchResultMessage] = useState('');
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+
+    // useEffect(() => {
+    //     // Здесь можно добавить логику для получения статуса пользователя от сервера
+    //     // Пример: fetchUserStatus().then(status => setUserStatus(status));
+    //     const status = localStorage.getItem('status'); // Пример получения статуса из localStorage
+    //     setUserStatus(status);
+    // }, []);
 
     useEffect(() => {
-        // Здесь можно добавить логику для получения статуса пользователя от сервера
-        // Пример: fetchUserStatus().then(status => setUserStatus(status));
-        const status = localStorage.getItem('status'); // Пример получения статуса из localStorage
-        setUserStatus(status);
+        // Получите ID продавца из токена, если это продавец
+        const fetchUserStatus = async () => {
+            const token = localStorage.getItem('token');
+            const sellerId = token ? jwtDecode(token).sellerId : null;
+            if (sellerId) {
+                try {
+                    const response = await fetch(`${apiUrl}/api/sellers/seller-status/${sellerId}`);
+                    const data = await response.json();
+                    setUserStatus(data.status);
+                } catch (error) {
+                    console.error('Error fetching seller status:', error);
+                }
+            }
+        };
+
+        fetchUserStatus();
     }, []);
+
 
     useEffect(() => {
         const path = location.pathname;
@@ -412,17 +434,39 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
             </div>
             <div className="header-right">
                 <div className="auth-buttons">
+                    {/*<div className="profileIcon" ref={profileRef}>*/}
+                    {/*    <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>*/}
+                    {/*    {isProfileOpen && (*/}
+                    {/*        <div className="dropdown-menu">*/}
+                    {/*            <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>*/}
+                    {/*            <button onClick={handleLoginClick}>{isAuthenticated ? (userStatus === 'suspend' ? "Логин" : "Профиль") : "Логин"}</button>*/}
+                    {/*            {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}*/}
+                    {/*            {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}*/}
+                    {/*        </div>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
+
                     <div className="profileIcon" ref={profileRef}>
                         <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>
                         {isProfileOpen && (
                             <div className="dropdown-menu">
                                 <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
-                                <button onClick={handleLoginClick}>{isAuthenticated ? (userStatus === 'suspend' ? "Логин" : "Профиль") : "Логин"}</button>
-                                {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
-                                {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                                {userStatus === 'suspend' ? (
+                                    <>
+                                        <button onClick={handleLoginClick}>Логин</button>
+                                        <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                                        {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                                        {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>
+
                     {showSellerRegistration && (
                         <SellerRegistrationForm />
                     )}
