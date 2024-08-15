@@ -68,6 +68,10 @@ const AdminPanel = ({ setShowSidebar }) => {
         history.push('/users/clients');
     };
 
+    const handleHomeImages = () => {
+        history.push('/homepage-images');
+    };
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -179,6 +183,7 @@ const AdminPanel = ({ setShowSidebar }) => {
                 <button className="customerOrdersBtnOne" onClick={handleViewOrders}>Список заказов</button>
                 <button className="customerOrdersBtnTwo" onClick={handleViewClients}>Список клиентов</button>
                 <button className="customerOrdersBtnThree" onClick={handleViewSellers}>Список продавцов</button>
+                <button className="customerOrdersBtnFour" onClick={handleHomeImages}>Список продавцов</button>
             </div>
 
             <div className="admin-product-list">

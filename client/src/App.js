@@ -29,6 +29,7 @@ import ContactInfo from "./components/ContactInfo/ContactInfo";
 // import ContactInfoFooter from "./components/Footer/ContactInfoFooter";
 import LoadingSpinner from "./components/LoadingSpinner";
 import PurchaseBuyHistory from "./components/SellerProfile/PurchaseBuyHistory";
+import AdminHomepage from "./components/AdminPanel/AdminHomepage/AdminHomepage";
 
 
 
@@ -259,6 +260,14 @@ const App = () => {
                                     setShowSidebar={setShowSidebar}
                                 />
                             </Route>
+
+                            <Route path="/homepage-images">
+                                <AdminHomepage
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
+                            </Route>
+
                             <Route path="/users/clients">
                                 <ClientListPage
                                     showSidebar={showSidebar}
