@@ -22,16 +22,438 @@ import NewestProducts from './NewestProducts/NewestProducts';
 import Footer from "../Footer/Footer";
 
 
-const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm,
-                  setSelectedCategory , setSelectedType }) => {
+// const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm,
+//                   setSelectedCategory , setSelectedType }) => {
+//     const [currentSlide, setCurrentSlide] = useState(0);
+//     const slides = [
+//         { title: "ГОТОВЬСЯ К ЛЕТУ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
+//         { title: "ГОТОВЬСЯ К ОСЕНИ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ОСЕННЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne2 },
+//         { title: "ГОТОВЬСЯ К ЗИМЕ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЗИМНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne }
+//     ];
+//     const history = useHistory();
+//     const location = useLocation();
+//
+//     // Сброс фильтров при возвращении на страницу каталога
+//     useEffect(() => {
+//         if (location.pathname === '/') {
+//             // Сбрасываем фильтры
+//             setSelectedGender(null);
+//             setSelectedCategory(null);
+//             setSelectedType(null);
+//             setSearchTerm(''); // Сбрасываем поисковый запрос
+//         }
+//     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+//
+//
+//     useEffect(() => {
+//         const interval = setInterval(() => {
+//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+//         }, 5000); // Переключаем слайд каждые 5 секунд
+//         return () => clearInterval(interval);
+//     }, [slides.length]);
+//
+//     const handleImageClick = (gender) => {
+//         setIsFooterCatalog(true)
+//         history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+//     };
+//
+//     const catalogPage = () => {
+//         history.push("/catalog");
+//     };
+//
+//     useEffect(() => {
+//         setShowSidebar(true);
+//         document.body.classList.remove('no-scroll');
+//         return () => setShowSidebar(true);
+//     }, [setShowSidebar]);
+//
+//
+//     return (
+//         <div className="home-container">
+//             <div className="carousel">
+//                 <div className="carousel-track">
+//                     {slides.map((slide, index) => (
+//                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
+//                             <div className="text-container">
+//                                 <h1 className="title slide-title">{slide.title}</h1>
+//                                 <h2 className="subtitle">{slide.subtitle}</h2>
+//                                 <h3 className="description-home">{slide.description}</h3>
+//                             </div>
+//                             <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
+//                             {/*<div className="slide-button">ПОСМОТРЕТЬ СЕЙЧАС</div>*/}
+//                         </div>
+//                     ))}
+//                 </div>
+//             </div>
+//             <div className="info-blocks">
+//                 <div className="info-block" onClick={() => handleImageClick('Мужская одежда')}>
+//                     <span>Мужская одежда</span>
+//                     <img className="info-block-img" src={menProducts} alt="Мужская одежда" />
+//                 </div>
+//                 <div className="info-block" onClick={() => handleImageClick('Женская одежда')}>
+//                     <span>Женская одежда</span>
+//                     <img className="info-block-img" src={womenProducts} alt="Женская одежда" />
+//                 </div>
+//                 <div className="info-block" onClick={() => handleImageClick('Детская одежда')}>
+//                     <span>Детская одежда</span>
+//                     <img className="info-block-img" src={childrenProducts} alt="Детская одежда" />
+//                 </div>
+//                 <div className="info-block" onClick={() => handleImageClick('Гаджеты')}>
+//                     <span>Гаджеты</span>
+//                     <img className="info-block-img" src={gadgets} alt="Гаджеты" />
+//                 </div>
+//                 <div className="info-block" onClick={() => handleImageClick('Унисекс')}>
+//                     <span>Унисекс одежда</span>
+//                     <img className="info-block-img" src={unisex} alt="Унисекс одежда" />
+//                 </div>
+//                 <div className="info-block" onClick={() => handleImageClick('Аксессуары')}>
+//                     <span>Аксессуары</span>
+//                     <img className="info-block-img" src={accessories} alt="Аксессуары" />
+//                 </div>
+//                 <div className="info-block info-all one-all" onClick={() => handleImageClick('Бытовая эл.техника')}>
+//                     <span>Бытовая эл.техника</span>
+//                     <img className="info-block-img info-all-img" src={allElectricalGoods} alt="Бытовая эл.техника" />
+//                 </div>
+//                 <div className="info-block info-all two-all" onClick={catalogPage}>
+//                     <span>Товары для всех</span>
+//                     <img style={{ objectFit: "cover" }} className="info-block-img info-block-img-two" src={catalog_page} alt="Аксессуары" />
+//                 </div>
+//             </div>
+//             <div>
+//                 <h2 className="newest-products-title">Самые Новые Товары</h2>
+//                 <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+//             </div>
+//
+//             {/*<div className="home-page-footer">*/}
+//             {/*    <ContactInfo />*/}
+//             {/*    /!*<Footer />*!/*/}
+//             {/*</div>*/}
+//         </div>
+//     );
+// };
+//
+// export default Home;
+
+
+
+
+// const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm,
+//                   setSelectedCategory , setSelectedType }) => {
+//     const [currentSlide, setCurrentSlide] = useState(0);
+//     const [slides, setSlides] = useState([]);
+//     const [genderImages, setGenderImages] = useState([]);
+//
+//     const history = useHistory();
+//     const location = useLocation();
+//
+//     useEffect(() => {
+//         // Fetch homepage data
+//         fetch(`${process.env.REACT_APP_API_URL}/api/homepage`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 setSlides(data.sliderImages);
+//                 setGenderImages(data.genderImages);
+//             })
+//             .catch(error => console.error('Error fetching homepage data:', error));
+//     }, []);
+//
+//     // Сброс фильтров при возвращении на страницу каталога
+//     useEffect(() => {
+//         if (location.pathname === '/') {
+//             // Сбрасываем фильтры
+//             setSelectedGender(null);
+//             setSelectedCategory(null);
+//             setSelectedType(null);
+//             setSearchTerm(''); // Сбрасываем поисковый запрос
+//         }
+//     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+//
+//     useEffect(() => {
+//         const interval = setInterval(() => {
+//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+//         }, 5000); // Переключаем слайд каждые 5 секунд
+//         return () => clearInterval(interval);
+//     }, [slides.length]);
+//
+//     const handleImageClick = (gender) => {
+//         setIsFooterCatalog(true);
+//         history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+//     };
+//
+//     const catalogPage = () => {
+//         history.push("/catalog");
+//     };
+//
+//     useEffect(() => {
+//         setShowSidebar(true);
+//         document.body.classList.remove('no-scroll');
+//         return () => setShowSidebar(true);
+//     }, [setShowSidebar]);
+//
+//     return (
+//         <div className="home-container">
+//             <div className="carousel">
+//                 <div className="carousel-track">
+//                     {slides.map((image, index) => (
+//                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
+//                             <div className="text-container">
+//                                 <h1 className="title slide-title">ГОТОВЬСЯ К ЛЕТУ</h1> {/* Placeholder title */}
+//                                 <h2 className="subtitle">НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ</h2> {/* Placeholder subtitle */}
+//                                 <h3 className="description-home">НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ</h3> {/* Placeholder description */}
+//                             </div>
+//                             <img className="slide-image" src={image} alt={`Slide ${index + 1}`} />
+//                         </div>
+//                     ))}
+//                 </div>
+//             </div>
+//             <div className="info-blocks">
+//                 {genderImages.map((image, index) => (
+//                     <div className="info-block" key={index} onClick={() => handleImageClick('Мужская одежда')}>
+//                         <span>Мужская одежда</span> {/* Placeholder text */}
+//                         <img className="info-block-img" src={image} alt="Мужская одежда" />
+//                     </div>
+//                 ))}
+//             </div>
+//             <div>
+//                 <h2 className="newest-products-title">Самые Новые Товары</h2>
+//                 <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default Home;
+
+
+
+
+// const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm,
+//                   setSelectedCategory , setSelectedType }) => {
+//     const [currentSlide, setCurrentSlide] = useState(0);
+//     const [slides, setSlides] = useState([]);
+//     const [genderImages, setGenderImages] = useState([]);
+//
+//     const history = useHistory();
+//     const location = useLocation();
+//
+//     const titles = [
+//         "Мужская одежда",
+//         "Женская одежда",
+//         "Детская одежда",
+//         "Гаджеты",
+//         "Унисекс",
+//         "Аксессуары",
+//         "Бытовая эл.техника",
+//         "Товары для всех"
+//     ];
+//
+//     useEffect(() => {
+//         // Fetch homepage data
+//         fetch(`${process.env.REACT_APP_API_URL}/api/homepage`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 setSlides(data.sliderImages);
+//                 setGenderImages(data.genderImages);
+//             })
+//             .catch(error => console.error('Error fetching homepage data:', error));
+//     }, []);
+//
+//     // Сброс фильтров при возвращении на страницу каталога
+//     useEffect(() => {
+//         if (location.pathname === '/') {
+//             // Сбрасываем фильтры
+//             setSelectedGender(null);
+//             setSelectedCategory(null);
+//             setSelectedType(null);
+//             setSearchTerm(''); // Сбрасываем поисковый запрос
+//         }
+//     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+//
+//     useEffect(() => {
+//         const interval = setInterval(() => {
+//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+//         }, 5000); // Переключаем слайд каждые 5 секунд
+//         return () => clearInterval(interval);
+//     }, [slides.length]);
+//
+//     const handleImageClick = (gender) => {
+//         setIsFooterCatalog(true);
+//         history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+//     };
+//
+//     useEffect(() => {
+//         setShowSidebar(true);
+//         document.body.classList.remove('no-scroll');
+//         return () => setShowSidebar(true);
+//     }, [setShowSidebar]);
+//
+//     return (
+//         <div className="home-container">
+//             <div className="carousel">
+//                 <div className="carousel-track">
+//                     {slides.map((image, index) => (
+//                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
+//                             <div className="text-container">
+//                                 <h1 className="title slide-title">ГОТОВЬСЯ К ЛЕТУ</h1> {/* Placeholder title */}
+//                                 <h2 className="subtitle">НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ</h2> {/* Placeholder subtitle */}
+//                                 <h3 className="description-home">НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ</h3> {/* Placeholder description */}
+//                             </div>
+//                             <img className="slide-image" src={image} alt={`Slide ${index + 1}`} />
+//                         </div>
+//                     ))}
+//                 </div>
+//             </div>
+//             <div className="info-blocks">
+//                 {genderImages.map((image, index) => (
+//                     <div className="info-block" key={index} onClick={() => handleImageClick(titles[index])}>
+//                         <span>{titles[index]}</span>
+//                         <img className="info-block-img" src={image} alt={titles[index]} />
+//                     </div>
+//                 ))}
+//             </div>
+//             <div>
+//                 <h2 className="newest-products-title">Самые Новые Товары</h2>
+//                 <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default Home;
+
+
+
+
+// const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm, setSelectedCategory, setSelectedType }) => {
+//     const [currentSlide, setCurrentSlide] = useState(0);
+//     const [slides, setSlides] = useState([]);
+//     const [genderImages, setGenderImages] = useState([]);
+//
+//     const history = useHistory();
+//     const location = useLocation();
+//
+//     const genderTitles = [
+//         'Мужская одежда',
+//         'Женская одежда',
+//         'Детская одежда',
+//         'Гаджеты',
+//         'Унисекс',
+//         'Аксессуары',
+//         'Бытовая эл.техника',
+//         'Товары для всех'
+//     ];
+//
+//     useEffect(() => {
+//         // Fetch homepage data
+//         fetch(`${process.env.REACT_APP_API_URL}/api/homepage`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 setSlides(data.sliderImages);
+//                 setGenderImages(data.genderImages);
+//             })
+//             .catch(error => console.error('Error fetching homepage data:', error));
+//     }, []);
+//
+//     // Сброс фильтров при возвращении на страницу каталога
+//     useEffect(() => {
+//         if (location.pathname === '/') {
+//             // Сбрасываем фильтры
+//             setSelectedGender(null);
+//             setSelectedCategory(null);
+//             setSelectedType(null);
+//             setSearchTerm(''); // Сбрасываем поисковый запрос
+//         }
+//     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+//
+//     useEffect(() => {
+//         const interval = setInterval(() => {
+//             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+//         }, 5000); // Переключаем слайд каждые 5 секунд
+//         return () => clearInterval(interval);
+//     }, [slides.length]);
+//
+//     const handleImageClick = (gender) => {
+//         setIsFooterCatalog(true);
+//         history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+//     };
+//
+//     const catalogPage = () => {
+//         history.push("/catalog");
+//     };
+//
+//     useEffect(() => {
+//         setShowSidebar(true);
+//         document.body.classList.remove('no-scroll');
+//         return () => setShowSidebar(true);
+//     }, [setShowSidebar]);
+//
+//     return (
+//         <div className="home-container">
+//             <div className="carousel">
+//                 <div className="carousel-track">
+//                     {slides.map((image, index) => (
+//                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
+//                             <div className="text-container">
+//                                 <h1 className="title slide-title">ГОТОВЬСЯ К ЛЕТУ</h1> {/* Placeholder title */}
+//                                 <h2 className="subtitle">НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ</h2> {/* Placeholder subtitle */}
+//                                 <h3 className="description-home">НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ</h3> {/* Placeholder description */}
+//                             </div>
+//                             <img className="slide-image" src={image} alt={`Slide ${index + 1}`} />
+//                         </div>
+//                     ))}
+//                 </div>
+//             </div>
+//             <div className="info-blocks">
+//                 {genderImages.map((image, index) => (
+//                     <div className="info-block" key={index} onClick={() => handleImageClick(genderTitles[index])}>
+//                         <span>{genderTitles[index]}</span>
+//                         <img className="info-block-img" src={image} alt={genderTitles[index]} />
+//                     </div>
+//                 ))}
+//             </div>
+//             <div>
+//                 <h2 className="newest-products-title">Самые Новые Товары</h2>
+//                 <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default Home;
+
+
+
+
+
+const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm, setSelectedCategory, setSelectedType }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const slides = [
-        { title: "ГОТОВЬСЯ К ЛЕТУ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne1 },
-        { title: "ГОТОВЬСЯ К ОСЕНИ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ОСЕННЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne2 },
-        { title: "ГОТОВЬСЯ К ЗИМЕ", subtitle: "НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ", description: "НОВОЕ ПОСТУПЛЕНИЕ ЗИМНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ", image: imgHomeOne }
-    ];
+    const [slides, setSlides] = useState([]);
+    const [genderImages, setGenderImages] = useState([]);
+
     const history = useHistory();
     const location = useLocation();
+
+    const genderTitles = [
+        'Мужская одежда',
+        'Женская одежда',
+        'Детская одежда',
+        'Гаджеты',
+        'Унисекс',
+        'Аксессуары',
+        'Бытовая эл.техника',
+        'Товары для всех'
+    ];
+
+    useEffect(() => {
+        // Fetch homepage data
+        fetch(`${process.env.REACT_APP_API_URL}/api/homepage`)
+            .then(response => response.json())
+            .then(data => {
+                setSlides(data.sliderImages);
+                setGenderImages(data.genderImages);
+            })
+            .catch(error => console.error('Error fetching homepage data:', error));
+    }, []);
 
     // Сброс фильтров при возвращении на страницу каталога
     useEffect(() => {
@@ -44,7 +466,6 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
 
-
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -53,8 +474,12 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
     }, [slides.length]);
 
     const handleImageClick = (gender) => {
-        setIsFooterCatalog(true)
-        history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+        setIsFooterCatalog(true);
+        if (gender === 'Товары для всех') {
+            catalogPage();
+        } else {
+            history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+        }
     };
 
     const catalogPage = () => {
@@ -67,67 +492,34 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
-
     return (
         <div className="home-container">
             <div className="carousel">
                 <div className="carousel-track">
-                    {slides.map((slide, index) => (
+                    {slides.map((image, index) => (
                         <div className="slide" key={index} style={{ display: index === currentSlide ? 'block' : 'none' }}>
                             <div className="text-container">
-                                <h1 className="title slide-title">{slide.title}</h1>
-                                <h2 className="subtitle">{slide.subtitle}</h2>
-                                <h3 className="description-home">{slide.description}</h3>
+                                <h1 className="title slide-title">ГОТОВЬСЯ К ЛЕТУ</h1> {/* Placeholder title */}
+                                <h2 className="subtitle">НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ</h2> {/* Placeholder subtitle */}
+                                <h3 className="description-home">НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ</h3> {/* Placeholder description */}
                             </div>
-                            <img className="slide-image" src={slide.image} alt={`Slide ${index + 1}`} />
-                            {/*<div className="slide-button">ПОСМОТРЕТЬ СЕЙЧАС</div>*/}
+                            <img className="slide-image" src={image} alt={`Slide ${index + 1}`} />
                         </div>
                     ))}
                 </div>
             </div>
             <div className="info-blocks">
-                <div className="info-block" onClick={() => handleImageClick('Мужская одежда')}>
-                    <span>Мужская одежда</span>
-                    <img className="info-block-img" src={menProducts} alt="Мужская одежда" />
-                </div>
-                <div className="info-block" onClick={() => handleImageClick('Женская одежда')}>
-                    <span>Женская одежда</span>
-                    <img className="info-block-img" src={womenProducts} alt="Женская одежда" />
-                </div>
-                <div className="info-block" onClick={() => handleImageClick('Детская одежда')}>
-                    <span>Детская одежда</span>
-                    <img className="info-block-img" src={childrenProducts} alt="Детская одежда" />
-                </div>
-                <div className="info-block" onClick={() => handleImageClick('Гаджеты')}>
-                    <span>Гаджеты</span>
-                    <img className="info-block-img" src={gadgets} alt="Гаджеты" />
-                </div>
-                <div className="info-block" onClick={() => handleImageClick('Унисекс')}>
-                    <span>Унисекс одежда</span>
-                    <img className="info-block-img" src={unisex} alt="Унисекс одежда" />
-                </div>
-                <div className="info-block" onClick={() => handleImageClick('Аксессуары')}>
-                    <span>Аксессуары</span>
-                    <img className="info-block-img" src={accessories} alt="Аксессуары" />
-                </div>
-                <div className="info-block info-all one-all" onClick={() => handleImageClick('Бытовая эл.техника')}>
-                    <span>Бытовая эл.техника</span>
-                    <img className="info-block-img info-all-img" src={allElectricalGoods} alt="Бытовая эл.техника" />
-                </div>
-                <div className="info-block info-all two-all" onClick={catalogPage}>
-                    <span>Товары для всех</span>
-                    <img style={{ objectFit: "cover" }} className="info-block-img info-block-img-two" src={catalog_page} alt="Аксессуары" />
-                </div>
+                {genderImages.map((image, index) => (
+                    <div className="info-block" key={index} onClick={() => handleImageClick(genderTitles[index])}>
+                        <span>{genderTitles[index]}</span>
+                        <img className="info-block-img" src={image} alt={genderTitles[index]} />
+                    </div>
+                ))}
             </div>
             <div>
                 <h2 className="newest-products-title">Самые Новые Товары</h2>
                 <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
             </div>
-
-            {/*<div className="home-page-footer">*/}
-            {/*    <ContactInfo />*/}
-            {/*    /!*<Footer />*!/*/}
-            {/*</div>*/}
         </div>
     );
 };
