@@ -407,6 +407,34 @@ const AdminHomepage = () => {
         'Товары для всех': ''
     });
 
+    // useEffect(() => {
+    //     axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
+    //         .then(response => {
+    //             const { sliderImages, genderImages, promotions } = response.data;
+    //             setSliderImages(sliderImages || []);
+    //             setGenderImages(genderImages || []);
+    //             setPromotion(promotions || {});
+    //             // Устанавливаем дефолтные значения для полей промоакций
+    //             if (sliderImages.length > 0) {
+    //                 const firstImage = sliderImages[0];
+    //                 setSelectedSliderImage(firstImage.url);
+    //                 if (firstImage.promotions.length > 0) {
+    //                     const defaultPromotion = firstImage.promotions[0];
+    //                     setPromotionTitle(defaultPromotion.title || '');
+    //                     setPromotionDescription(defaultPromotion.description || '');
+    //                     setPromotionStartDate(defaultPromotion.startDate ? new Date(defaultPromotion.startDate).toISOString().split('T')[0] : '');
+    //                     setPromotionEndDate(defaultPromotion.endDate ? new Date(defaultPromotion.endDate).toISOString().split('T')[0] : '');
+    //                 }
+    //             }
+    //             // Устанавливаем дефолтные значения для изображений по категориям
+    //             const defaultGenderImageUrls = {};
+    //             genderImages.forEach(img => defaultGenderImageUrls[img.category] = img.url);
+    //             setGenderImageUrls(defaultGenderImageUrls);
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }, []);
+
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
             .then(response => {
@@ -428,11 +456,13 @@ const AdminHomepage = () => {
                 }
                 // Устанавливаем дефолтные значения для изображений по категориям
                 const defaultGenderImageUrls = {};
-                genderImages.forEach(img => defaultGenderImageUrls[img.category] = img.url);
+                genderImages.forEach(img => defaultGenderImageUrls[img.url] = img.url); // Используем URL как ключ
                 setGenderImageUrls(defaultGenderImageUrls);
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
+
+
 
     const handleAddSliderImage = () => {
         const updatedImages = [...sliderImages, { url: newSliderImage, promotions: [] }];
@@ -487,6 +517,8 @@ const AdminHomepage = () => {
             .then(response => console.log('Data saved successfully:', response))
             .catch(error => console.error('Error saving data:', error));
     };
+
+    console.log("genderImageUrls", genderImageUrls)
 
     return (
         <div className="homepage-images">
@@ -563,7 +595,7 @@ const AdminHomepage = () => {
                 <h2>Gender Images</h2>
                 {Object.keys(genderImageUrls).map((category) => (
                     <div key={category} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
-                        <h3>{category}</h3>
+                        {/*<h3>{category}</h3>*/}
                         <input
                             type="text"
                             value={genderImageUrls[category]}

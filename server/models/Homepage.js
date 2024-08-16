@@ -36,9 +36,14 @@ const sliderImageSchema = new mongoose.Schema({
     promotions: [promotionSchema]
 });
 
+const genderImageSchema = new mongoose.Schema({
+    url: String,
+    _id: mongoose.Schema.Types.ObjectId
+});
+
 const homepageSchema = new mongoose.Schema({
     sliderImages: [sliderImageSchema],
-    genderImages: [String]
+    genderImages: [genderImageSchema]
 });
 
 const Homepage = mongoose.model('Homepage', homepageSchema);
