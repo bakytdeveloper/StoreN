@@ -166,6 +166,225 @@ import './AdminHomepage.css';
 
 
 
+// const AdminHomepage = () => {
+//     const [sliderImages, setSliderImages] = useState([]);
+//     const [genderImages, setGenderImages] = useState([]);
+//     const [promotion, setPromotion] = useState({});
+//     const [newSliderImage, setNewSliderImage] = useState('');
+//     const [newGenderImage, setNewGenderImage] = useState('');
+//     const [promotionTitle, setPromotionTitle] = useState('');
+//     const [promotionDescription, setPromotionDescription] = useState('');
+//     const [promotionStartDate, setPromotionStartDate] = useState('');
+//     const [promotionEndDate, setPromotionEndDate] = useState('');
+//
+//     // New states for gender images
+//     const [genderImageUrls, setGenderImageUrls] = useState({
+//         'Мужская одежда': '',
+//         'Женская одежда': '',
+//         'Детская одежда': '',
+//         'Гаджеты': '',
+//         'Унисекс': '',
+//         'Аксессуары': '',
+//         'Бытовая эл.техника': '',
+//         'Товары для всех': ''
+//     });
+//
+//     // useEffect(() => {
+//     //     axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
+//     //         .then(response => {
+//     //             const { sliderImages, genderImages, promotions } = response.data;
+//     //             setSliderImages(sliderImages || []);
+//     //             setGenderImages(genderImages || []);
+//     //             setPromotion(promotions || {});
+//     //         })
+//     //         .catch(error => console.error('Error fetching data:', error));
+//     // }, []);
+//
+//
+//     useEffect(() => {
+//         axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
+//             .then(response => {
+//                 const { sliderImages, genderImages, promotions } = response.data;
+//                 setSliderImages(sliderImages || []);
+//                 setGenderImages(genderImages || []);
+//
+//                 // Заполнение значений по умолчанию
+//                 setGenderImageUrls(genderImages.reduce((acc, image) => {
+//                     const category = image.category;
+//                     acc[category] = image.url;
+//                     return acc;
+//                 }, {}));
+//
+//                 // Установка значений для акции
+//                 if (sliderImages.length > 0) {
+//                     const promo = sliderImages[0].promotions[0] || {};
+//                     setPromotionTitle(promo.title || '');
+//                     setPromotionDescription(promo.description || '');
+//                     setPromotionStartDate(promo.startDate ? promo.startDate.slice(0, 10) : '');
+//                     setPromotionEndDate(promo.endDate ? promo.endDate.slice(0, 10) : '');
+//                 }
+//             })
+//             .catch(error => console.error('Error fetching data:', error));
+//     }, []);
+//
+//
+//
+//     const handleAddSliderImage = () => {
+//         setSliderImages([...sliderImages, newSliderImage]);
+//         setNewSliderImage('');
+//         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages: [...sliderImages, newSliderImage], genderImages, promotions: promotion })
+//             .catch(error => console.error('Error updating slider images:', error));
+//     };
+//
+//     const handleRemoveSliderImage = (imageUrl) => {
+//         const updatedImages = sliderImages.filter(url => url !== imageUrl);
+//         setSliderImages(updatedImages);
+//         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages: updatedImages, genderImages, promotions: promotion })
+//             .catch(error => console.error('Error updating slider images:', error));
+//     };
+//
+//     const handleGenderImageChange = (category, url) => {
+//         setGenderImageUrls(prevState => ({
+//             ...prevState,
+//             [category]: url
+//         }));
+//     };
+//
+//     const handleGenderImageSubmit = () => {
+//         setGenderImages(Object.values(genderImageUrls));
+//         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages, genderImages: Object.values(genderImageUrls), promotions: promotion })
+//             .catch(error => console.error('Error updating gender images:', error));
+//     };
+//
+//     const handleRemoveGenderImage = (imageUrl) => {
+//         const updatedImages = genderImages.filter(url => url !== imageUrl);
+//         setGenderImages(updatedImages);
+//         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages, genderImages: updatedImages, promotions: promotion })
+//             .catch(error => console.error('Error updating gender images:', error));
+//     };
+//
+//     const handlePromotionUpdate = () => {
+//         const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
+//         const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
+//         setSliderImages(updatedSliderImages);
+//         axios.patch(`${process.env.REACT_APP_API_URL}/api/homepage/promotion`, { imageUrl: selectedSliderImage, promotion: newPromotion })
+//             .catch(error => console.error('Error updating promotion:', error));
+//     };
+//
+//
+//     const handleSaveAll = () => {
+//         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, {
+//             sliderImages,
+//             genderImages: Object.values(genderImageUrls),
+//             promotions: promotion
+//         })
+//             .then(response => console.log('Data saved successfully:', response))
+//             .catch(error => console.error('Error saving data:', error));
+//     };
+//
+//     return (
+//         <div className="homepage-images">
+//             <h1>Admin Homepage Management</h1>
+//             <section>
+//                 <h2>Slider Images</h2>
+//                 <input
+//                     type="text"
+//                     value={newSliderImage}
+//                     onChange={(e) => setNewSliderImage(e.target.value)}
+//                     placeholder="Enter slider image URL"
+//                 />
+//                 <button onClick={handleAddSliderImage}>Add Slider Image</button>
+//                 <div>
+//                     {sliderImages.map((image, index) => (
+//                         <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
+//                             <img src={image} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+//                             <button onClick={() => handleRemoveSliderImage(image)}>Remove</button>
+//                         </div>
+//                     ))}
+//                 </div>
+//             </section>
+//             <section>
+//                 <h2>Promotion</h2>
+//                 <select
+//                     value={selectedSliderImage}
+//                     onChange={(e) => setSelectedSliderImage(e.target.value)}
+//                 >
+//                     <option value="">Select an image</option>
+//                     {sliderImages.map(img => (
+//                         <option key={img.url} value={img.url}>{img.url}</option>
+//                     ))}
+//                 </select>
+//                 <div>
+//                     <input
+//                         type="text"
+//                         value={promotionTitle}
+//                         onChange={(e) => setPromotionTitle(e.target.value)}
+//                         placeholder="Promotion Title"
+//                     />
+//                     <input
+//                         type="text"
+//                         value={promotionDescription}
+//                         onChange={(e) => setPromotionDescription(e.target.value)}
+//                         placeholder="Promotion Description"
+//                     />
+//                     <input
+//                         type="date"
+//                         value={promotionStartDate}
+//                         onChange={(e) => setPromotionStartDate(e.target.value)}
+//                     />
+//                     <input
+//                         type="date"
+//                         value={promotionEndDate}
+//                         onChange={(e) => setPromotionEndDate(e.target.value)}
+//                     />
+//                 </div>
+//                 <button onClick={handlePromotionUpdate}>Update Promotion</button>
+//                 {promotionTitle && (
+//                     <div>
+//                         <h3>{promotionTitle}</h3>
+//                         <p>{promotionDescription}</p>
+//                         <p>{`From: ${new Date(promotionStartDate).toLocaleDateString()} To: ${new Date(promotionEndDate).toLocaleDateString()}`}</p>
+//                     </div>
+//                 )}
+//             </section>
+//             <section>
+//                 <h2>Gender Images</h2>
+//                 {Object.keys(genderImageUrls).map((category) => (
+//                     <div key={category} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
+//                         <h3>{category}</h3>
+//                         <input
+//                             type="text"
+//                             value={genderImageUrls[category]}
+//                             onChange={(e) => handleGenderImageChange(category, e.target.value)}
+//                             placeholder={`Enter URL for ${category}`}
+//                         />
+//                         {genderImageUrls[category] && (
+//                             <div style={{ display: 'inline-block', margin: '10px' }}>
+//                                 <img src={genderImageUrls[category]} alt={category} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+//                                 <button onClick={() => handleRemoveGenderImage(genderImageUrls[category])}>Remove</button>
+//                             </div>
+//                         )}
+//                     </div>
+//                 ))}
+//             </section>
+//             <section>
+//                 <h2>Save All</h2>
+//                 <button onClick={handleSaveAll}>Save All Images</button>
+//             </section>
+//
+//         </div>
+//     );
+// };
+//
+// export default AdminHomepage;
+
+
+
+
+
+
+
+
 const AdminHomepage = () => {
     const [sliderImages, setSliderImages] = useState([]);
     const [genderImages, setGenderImages] = useState([]);
@@ -176,8 +395,7 @@ const AdminHomepage = () => {
     const [promotionDescription, setPromotionDescription] = useState('');
     const [promotionStartDate, setPromotionStartDate] = useState('');
     const [promotionEndDate, setPromotionEndDate] = useState('');
-
-    // New states for gender images
+    const [selectedSliderImage, setSelectedSliderImage] = useState('');
     const [genderImageUrls, setGenderImageUrls] = useState({
         'Мужская одежда': '',
         'Женская одежда': '',
@@ -196,22 +414,39 @@ const AdminHomepage = () => {
                 setSliderImages(sliderImages || []);
                 setGenderImages(genderImages || []);
                 setPromotion(promotions || {});
+                // Устанавливаем дефолтные значения для полей промоакций
+                if (sliderImages.length > 0) {
+                    const firstImage = sliderImages[0];
+                    setSelectedSliderImage(firstImage.url);
+                    if (firstImage.promotions.length > 0) {
+                        const defaultPromotion = firstImage.promotions[0];
+                        setPromotionTitle(defaultPromotion.title || '');
+                        setPromotionDescription(defaultPromotion.description || '');
+                        setPromotionStartDate(defaultPromotion.startDate ? new Date(defaultPromotion.startDate).toISOString().split('T')[0] : '');
+                        setPromotionEndDate(defaultPromotion.endDate ? new Date(defaultPromotion.endDate).toISOString().split('T')[0] : '');
+                    }
+                }
+                // Устанавливаем дефолтные значения для изображений по категориям
+                const defaultGenderImageUrls = {};
+                genderImages.forEach(img => defaultGenderImageUrls[img.category] = img.url);
+                setGenderImageUrls(defaultGenderImageUrls);
             })
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
     const handleAddSliderImage = () => {
-        setSliderImages([...sliderImages, newSliderImage]);
+        const updatedImages = [...sliderImages, { url: newSliderImage, promotions: [] }];
+        setSliderImages(updatedImages);
         setNewSliderImage('');
-        axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages: [...sliderImages, newSliderImage], genderImages, promotions: promotion })
+        axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages: updatedImages, genderImages, promotions: promotion })
             .catch(error => console.error('Error updating slider images:', error));
     };
 
     const handleRemoveSliderImage = (imageUrl) => {
-        const updatedImages = sliderImages.filter(url => url !== imageUrl);
+        const updatedImages = sliderImages.filter(img => img.url !== imageUrl);
         setSliderImages(updatedImages);
-        axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages: updatedImages, genderImages, promotions: promotion })
-            .catch(error => console.error('Error updating slider images:', error));
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/homepage/slider/${encodeURIComponent(imageUrl)}`)
+            .catch(error => console.error('Error removing slider image:', error));
     };
 
     const handleGenderImageChange = (category, url) => {
@@ -222,22 +457,24 @@ const AdminHomepage = () => {
     };
 
     const handleGenderImageSubmit = () => {
-        setGenderImages(Object.values(genderImageUrls));
-        axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages, genderImages: Object.values(genderImageUrls), promotions: promotion })
+        const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
+        setGenderImages(updatedGenderImages);
+        axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages, genderImages: updatedGenderImages, promotions: promotion })
             .catch(error => console.error('Error updating gender images:', error));
     };
 
-    const handleRemoveGenderImage = (imageUrl) => {
-        const updatedImages = genderImages.filter(url => url !== imageUrl);
+    const handleRemoveGenderImage = (url) => {
+        const updatedImages = genderImages.filter(img => img.url !== url);
         setGenderImages(updatedImages);
-        axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, { sliderImages, genderImages: updatedImages, promotions: promotion })
-            .catch(error => console.error('Error updating gender images:', error));
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/homepage/gender/${encodeURIComponent(url)}`)
+            .catch(error => console.error('Error removing gender image:', error));
     };
 
     const handlePromotionUpdate = () => {
-        const updatedPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
-        setPromotion(updatedPromotion);
-        axios.patch(`${process.env.REACT_APP_API_URL}/api/homepage/promotion`, updatedPromotion)
+        const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
+        const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [...img.promotions, newPromotion] } : img);
+        setSliderImages(updatedSliderImages);
+        axios.patch(`${process.env.REACT_APP_API_URL}/api/homepage/promotion`, { imageUrl: selectedSliderImage, promotions: updatedSliderImages.find(img => img.url === selectedSliderImage).promotions })
             .catch(error => console.error('Error updating promotion:', error));
     };
 
@@ -266,11 +503,61 @@ const AdminHomepage = () => {
                 <div>
                     {sliderImages.map((image, index) => (
                         <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
-                            <img src={image} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-                            <button onClick={() => handleRemoveSliderImage(image)}>Remove</button>
+                            <img src={image.url} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                            <button onClick={() => handleRemoveSliderImage(image.url)}>Remove</button>
+                            <button onClick={() => {
+                                setSelectedSliderImage(image.url);
+                                const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
+                                setPromotionTitle(promotionData.title || '');
+                                setPromotionDescription(promotionData.description || '');
+                                setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
+                                setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
+                            }}>Add Promotion</button>
                         </div>
                     ))}
                 </div>
+            </section>
+            <section>
+                <h2>Promotion</h2>
+                <select
+                    value={selectedSliderImage}
+                    onChange={(e) => setSelectedSliderImage(e.target.value)}
+                >
+                    <option value="">Select an image</option>
+                    {sliderImages.map(img => (
+                        <option key={img.url} value={img.url}>{img.url}</option>
+                    ))}
+                </select>
+                <input
+                    type="text"
+                    value={promotionTitle}
+                    onChange={(e) => setPromotionTitle(e.target.value)}
+                    placeholder="Promotion Title"
+                />
+                <input
+                    type="text"
+                    value={promotionDescription}
+                    onChange={(e) => setPromotionDescription(e.target.value)}
+                    placeholder="Promotion Description"
+                />
+                <input
+                    type="date"
+                    value={promotionStartDate}
+                    onChange={(e) => setPromotionStartDate(e.target.value)}
+                />
+                <input
+                    type="date"
+                    value={promotionEndDate}
+                    onChange={(e) => setPromotionEndDate(e.target.value)}
+                />
+                <button onClick={handlePromotionUpdate}>Update Promotion</button>
+                {promotion.title && (
+                    <div>
+                        <h3>{promotion.title}</h3>
+                        <p>{promotion.description}</p>
+                        <p>{`From: ${new Date(promotion.startDate).toLocaleDateString()} To: ${new Date(promotion.endDate).toLocaleDateString()}`}</p>
+                    </div>
+                )}
             </section>
             <section>
                 <h2>Gender Images</h2>
@@ -291,51 +578,14 @@ const AdminHomepage = () => {
                         )}
                     </div>
                 ))}
-                <button onClick={handleGenderImageSubmit}>Update Gender Images</button>
+                <button onClick={handleGenderImageSubmit}>Save Gender Images</button>
             </section>
             <section>
-                <h2>Save All</h2>
-                <button onClick={handleSaveAll}>Save All Images</button>
-            </section>
-            <section>
-                <h2>Promotion</h2>
-                <input
-                    type="text"
-                    value={promotionTitle}
-                    onChange={(e) => setPromotionTitle(e.target.value)}
-                    placeholder="Promotion Title"
-                />
-                <input
-                    type="text"
-                    value={promotionDescription}
-                    onChange={(e) => setPromotionDescription(e.target.value)}
-                    placeholder="Promotion Description"
-                />
-                <input
-                    type="date"
-                    value={promotionStartDate}
-                    onChange={(e) => setPromotionStartDate(e.target.value)}
-                    placeholder="Promotion Start Date"
-                />
-                <input
-                    type="date"
-                    value={promotionEndDate}
-                    onChange={(e) => setPromotionEndDate(e.target.value)}
-                    placeholder="Promotion End Date"
-                />
-                <button onClick={handlePromotionUpdate}>Update Promotion</button>
-                {promotion.title && (
-                    <div>
-                        <h3>{promotion.title}</h3>
-                        <p>{promotion.description}</p>
-                        <p>{`From: ${new Date(promotion.startDate).toLocaleDateString()} To: ${new Date(promotion.endDate).toLocaleDateString()}`}</p>
-                    </div>
-                )}
+                <button onClick={handleSaveAll}>Save All Changes</button>
             </section>
         </div>
     );
 };
 
 export default AdminHomepage;
-
 
