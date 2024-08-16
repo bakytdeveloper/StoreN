@@ -605,7 +605,7 @@ const AdminHomepage = () => {
                         {genderImageUrls[category] && (
                             <div style={{ display: 'inline-block', margin: '10px' }}>
                                 <img src={genderImageUrls[category]} alt={category} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-                                <button onClick={() => handleRemoveGenderImage(genderImageUrls[category])}>Remove</button>
+                                {/*<button onClick={() => handleRemoveGenderImage(genderImageUrls[category])}>Remove</button>*/}
                             </div>
                         )}
                     </div>
