@@ -407,6 +407,18 @@ const AdminHomepage = () => {
         'Товары для всех': ''
     });
 
+    const genderTitles = [
+        'Мужская одежда',
+        'Женская одежда',
+        'Детская одежда',
+        'Гаджеты',
+        'Унисекс',
+        'Аксессуары',
+        'Бытовая эл.техника',
+        'Товары для всех'
+    ];
+
+
     // useEffect(() => {
     //     axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
     //         .then(response => {
@@ -593,21 +605,25 @@ const AdminHomepage = () => {
             </section>
             <section>
                 <h2>Gender Images</h2>
-                {Object.keys(genderImageUrls).map((category) => (
+                {Object.keys(genderImageUrls).map((category, index) => (
                     <div key={category} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
                         {/*<h3>{category}</h3>*/}
-                        <input
-                            type="text"
-                            value={genderImageUrls[category]}
-                            onChange={(e) => handleGenderImageChange(category, e.target.value)}
-                            placeholder={`Enter URL for ${category}`}
-                        />
+                        <span>{genderTitles[index]}</span>
                         {genderImageUrls[category] && (
                             <div style={{ display: 'inline-block', margin: '10px' }}>
                                 <img src={genderImageUrls[category]} alt={category} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
                                 {/*<button onClick={() => handleRemoveGenderImage(genderImageUrls[category])}>Remove</button>*/}
                             </div>
                         )}
+
+
+                        <input
+                            type="text"
+                            value={genderImageUrls[category]}
+                            style={{width: "300px"}}
+                            onChange={(e) => handleGenderImageChange(category, e.target.value)}
+                            placeholder={`Enter URL for ${category}`}
+                        />
                     </div>
                 ))}
                 <button onClick={handleGenderImageSubmit}>Save Gender Images</button>
