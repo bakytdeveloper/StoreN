@@ -819,6 +819,8 @@ import './AdminHomepage.css';
 // export default AdminHomepage;
 
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ConfirmationModal from './ConfirmationModal'; // Импортируем модальное окно
 
@@ -883,20 +885,40 @@ const AdminHomepage = () => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
+    // const handleSaveAll = () => {
+    //     const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
+    //     const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
+    //     // const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
+    //
+    //     // const updatedSliderImages = sliderImages.map(img =>
+    //     //     img.url === selectedSliderImage ?
+    //     //         { ...img,promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
+    //     //         img
+    //     // );
+    //
+    //     const updatedSliderImages = sliderImages.map(img =>
+    //         img.url === selectedSliderImage ?
+    //             { ...img, promotions: [newPromotion] } :
+    //             img
+    //     );
+
+    //     axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, {
+    //         sliderImages: updatedSliderImages,
+    //         genderImages: updatedGenderImages,
+    //         promotions: newPromotion
+    //     })
+    //         .then(response => console.log('Data saved successfully:', response))
+    //         .catch(error => console.error('Error saving data:', error));
+    // };
+
     const handleSaveAll = () => {
         const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
         const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
-        // const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
-
-        // const updatedSliderImages = sliderImages.map(img =>
-        //     img.url === selectedSliderImage ?
-        //         { ...img,promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
-        //         img
-        // );
 
         const updatedSliderImages = sliderImages.map(img =>
             img.url === selectedSliderImage ?
-                { ...img, promotions: [newPromotion] } :
+                { ...img, promotions: [newPromotion]} :
+                // { ...img, promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
                 img
         );
 
@@ -905,9 +927,19 @@ const AdminHomepage = () => {
             genderImages: updatedGenderImages,
             promotions: newPromotion
         })
-            .then(response => console.log('Data saved successfully:', response))
-            .catch(error => console.error('Error saving data:', error));
+            .then(response => {
+                toast.success('Все обновления успешно сохранены!');
+                // Обновляем состояние компонента с новыми данными
+                setSliderImages(updatedSliderImages);
+                setGenderImages(updatedGenderImages);
+                setPromotion(newPromotion);
+            })
+            .catch(error => {
+                toast.error('Произошла ошибка при сохранении данных.');
+                console.error('Error saving data:', error);
+            });
     };
+
 
     const handleReset = () => {
         window.location.reload(); // Перезагружает страницу, чтобы вернуть все данные к исходному состоянию
@@ -1049,7 +1081,6 @@ const AdminHomepage = () => {
                 <div style={{display:"flex", margin:"0 auto", width:"80%", marginBottom:"30px" }}>
                     <button onClick={handleSaveAll}>Сохранить все обновления</button>
                     <button onClick={handleReset} style={{ marginLeft: '10px' }}>Сбросить</button>
-
                 </div>
             </section>
             <ConfirmationModal
@@ -1058,6 +1089,7 @@ const AdminHomepage = () => {
                 onConfirm={confirmRemoveSliderImage} // Передаем функцию подтверждения удаления
                 message="Вы уверены, что хотите удалить этот элемент из слайдера??"
             />
+            <ToastContainer />
         </div>
     );
 };
