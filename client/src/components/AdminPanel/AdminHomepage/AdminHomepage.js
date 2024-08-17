@@ -844,6 +844,7 @@ const AdminHomepage = () => {
         'Бытовая эл.техника': '',
         'Товары для всех': ''
     });
+    const [showPromotionSection, setShowPromotionSection] = useState(false); // Для управления видимостью секции
 
     const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
     const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
@@ -971,6 +972,15 @@ const AdminHomepage = () => {
     };
 
 
+    const handleUpdatePromotion = (image) => {
+        setSelectedSliderImage(image.url);
+        const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
+        setPromotionTitle(promotionData.title || '');
+        setPromotionDescription(promotionData.description || '');
+        setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
+        setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
+        setShowPromotionSection(true); // Показываем секцию информации об акции
+    };
 
 
     return (
@@ -1005,54 +1015,65 @@ const AdminHomepage = () => {
                                 }}
                             />
                             <div style={{display:"flex", height:"33px", fontSize:"13px"}}>
-                                <button onClick={() => handleRemoveSliderImage(image.url)}>Удалить</button>
-                                <button onClick={() => {
-                                    setSelectedSliderImage(image.url);
-                                    const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
-                                    setPromotionTitle(promotionData.title || '');
-                                    setPromotionDescription(promotionData.description || '');
-                                    setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
-                                    setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
-                                }}>Обновить акцию</button>
+                                <div style={{display:"flex", height:"33px", fontSize:"13px"}}>
+                                    <button onClick={() => handleRemoveSliderImage(image.url)}>Удалить</button>
+                                    <button onClick={() => handleUpdatePromotion(image)}>Обновить акцию</button>
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
-            <section>
-                <h2>Информаци об акции, на слайдере</h2>
-                <select
-                    value={selectedSliderImage}
-                    onChange={(e) => setSelectedSliderImage(e.target.value)}
-                >
-                    <option value="">Select an image</option>
-                    {sliderImages.map(img => (
-                        <option key={img.url} value={img.url}>{img.url}</option>
-                    ))}
-                </select>
-                <input
-                    type="text"
-                    value={promotionTitle}
-                    onChange={(e) => setPromotionTitle(e.target.value)}
-                    placeholder="Заголовок акции"
-                />
-                <input
-                    type="text"
-                    value={promotionDescription}
-                    onChange={(e) => setPromotionDescription(e.target.value)}
-                    placeholder="Описание акции"
-                />
-                <input
-                    type="date"
-                    value={promotionStartDate}
-                    onChange={(e) => setPromotionStartDate(e.target.value)}
-                />
-                <input
-                    type="date"
-                    value={promotionEndDate}
-                    onChange={(e) => setPromotionEndDate(e.target.value)}
-                />
-            </section>
+            {showPromotionSection && (
+                <section>
+                    <h2>Информация об акции, на слайдере</h2>
+                    <select
+                        value={selectedSliderImage}
+                        onChange={(e) => setSelectedSliderImage(e.target.value)}
+                    >
+                        <option value="">Select an image</option>
+                        {sliderImages.map(img => (
+                            <option key={img.url} value={img.url}>{img.url}</option>
+                        ))}
+                    </select>
+                    <input
+                        type="text"
+                        value={promotionTitle}
+                        onChange={(e) => setPromotionTitle(e.target.value)}
+                        placeholder="Заголовок акции"
+                    />
+                    <input
+                        type="text"
+                        value={promotionDescription}
+                        onChange={(e) => setPromotionDescription(e.target.value)}
+                        placeholder="Описание акции"
+                    />
+                    <input
+                        type="date"
+                        value={promotionStartDate}
+                        onChange={(e) => setPromotionStartDate(e.target.value)}
+                    />
+                    <input
+                        type="date"
+                        value={promotionEndDate}
+                        onChange={(e) => setPromotionEndDate(e.target.value)}
+                    />
+                    <button onClick={() => {
+                        const updatedSliderImages = sliderImages.map(img =>
+                            img.url === selectedSliderImage ?
+                                {
+                                    ...img,
+                                    promotions: [{ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate }]
+                                } :
+                                img
+                        );
+                        setSliderImages(updatedSliderImages);
+                        setPromotion({ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate });
+                        toast.success('Все обновления успешно сохранены!');
+                        setShowPromotionSection(false);
+                    }}>Обновить</button>
+                </section>
+            )}
             <section>
                 <h2>Картинки по пренадлежнасти</h2>
                 {Object.keys(genderImageUrls).map((category, index) => (
