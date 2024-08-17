@@ -642,6 +642,186 @@ import './AdminHomepage.css';
 
 
 
+// const AdminHomepage = () => {
+//     const [sliderImages, setSliderImages] = useState([]);
+//     const [genderImages, setGenderImages] = useState([]);
+//     const [promotion, setPromotion] = useState({});
+//     const [newSliderImage, setNewSliderImage] = useState('');
+//     const [promotionTitle, setPromotionTitle] = useState('');
+//     const [promotionDescription, setPromotionDescription] = useState('');
+//     const [promotionStartDate, setPromotionStartDate] = useState('');
+//     const [promotionEndDate, setPromotionEndDate] = useState('');
+//     const [selectedSliderImage, setSelectedSliderImage] = useState('');
+//     const [genderImageUrls, setGenderImageUrls] = useState({
+//         'Мужская одежда': '',
+//         'Женская одежда': '',
+//         'Детская одежда': '',
+//         'Гаджеты': '',
+//         'Унисекс': '',
+//         'Аксессуары': '',
+//         'Бытовая эл.техника': '',
+//         'Товары для всех': ''
+//     });
+//
+//     const genderTitles = [
+//         'Мужская одежда',
+//         'Женская одежда',
+//         'Детская одежда',
+//         'Гаджеты',
+//         'Унисекс',
+//         'Аксессуары',
+//         'Бытовая эл.техника',
+//         'Товары для всех'
+//     ];
+//
+//     useEffect(() => {
+//         axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
+//             .then(response => {
+//                 const { sliderImages, genderImages, promotions } = response.data;
+//                 setSliderImages(sliderImages || []);
+//                 setGenderImages(genderImages || []);
+//                 setPromotion(promotions || {});
+//                 if (sliderImages.length > 0) {
+//                     const firstImage = sliderImages[0];
+//                     setSelectedSliderImage(firstImage.url);
+//                     if (firstImage.promotions.length > 0) {
+//                         const defaultPromotion = firstImage.promotions[0];
+//                         setPromotionTitle(defaultPromotion.title || '');
+//                         setPromotionDescription(defaultPromotion.description || '');
+//                         setPromotionStartDate(defaultPromotion.startDate ? new Date(defaultPromotion.startDate).toISOString().split('T')[0] : '');
+//                         setPromotionEndDate(defaultPromotion.endDate ? new Date(defaultPromotion.endDate).toISOString().split('T')[0] : '');
+//                     }
+//                 }
+//                 const defaultGenderImageUrls = {};
+//                 genderImages.forEach(img => defaultGenderImageUrls[img.url] = img.url);
+//                 setGenderImageUrls(defaultGenderImageUrls);
+//             })
+//             .catch(error => console.error('Error fetching data:', error));
+//     }, []);
+//
+//     const handleSaveAll = () => {
+//         const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
+//         const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
+//         const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
+//
+//         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, {
+//             sliderImages: updatedSliderImages,
+//             genderImages: updatedGenderImages,
+//             promotions: newPromotion
+//         })
+//             .then(response => console.log('Data saved successfully:', response))
+//             .catch(error => console.error('Error saving data:', error));
+//     };
+//
+//     const handleReset = () => {
+//         window.location.reload(); // Перезагружает страницу, чтобы вернуть все данные к исходному состоянию
+//     };
+//
+//     return (
+//         <div className="homepage-images">
+//             <h1>Admin Homepage Management</h1>
+//             <section>
+//                 <h2>Slider Images</h2>
+//                 <input
+//                     type="text"
+//                     value={newSliderImage}
+//                     onChange={(e) => setNewSliderImage(e.target.value)}
+//                     placeholder="Enter slider image URL"
+//                 />
+//                 <button onClick={() => {
+//                     setSliderImages([...sliderImages, { url: newSliderImage, promotions: [] }]);
+//                     setNewSliderImage('');
+//                 }}>Add Slider Image</button>
+//                 <div>
+//                     {sliderImages.map((image, index) => (
+//                         <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
+//                             <div>
+//                                 <img src={image.url} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+//                             </div>
+//                             <button onClick={() => setSliderImages(sliderImages.filter(img => img.url !== image.url))}>Remove</button>
+//                             <button onClick={() => {
+//                                 setSelectedSliderImage(image.url);
+//                                 const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
+//                                 setPromotionTitle(promotionData.title || '');
+//                                 setPromotionDescription(promotionData.description || '');
+//                                 setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
+//                                 setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
+//                             }}>Add Promotion</button>
+//                         </div>
+//                     ))}
+//                 </div>
+//             </section>
+//             <section>
+//                 <h2>Promotion</h2>
+//                 <select
+//                     value={selectedSliderImage}
+//                     onChange={(e) => setSelectedSliderImage(e.target.value)}
+//                 >
+//                     <option value="">Select an image</option>
+//                     {sliderImages.map(img => (
+//                         <option key={img.url} value={img.url}>{img.url}</option>
+//                     ))}
+//                 </select>
+//                 <input
+//                     type="text"
+//                     value={promotionTitle}
+//                     onChange={(e) => setPromotionTitle(e.target.value)}
+//                     placeholder="Promotion Title"
+//                 />
+//                 <input
+//                     type="text"
+//                     value={promotionDescription}
+//                     onChange={(e) => setPromotionDescription(e.target.value)}
+//                     placeholder="Promotion Description"
+//                 />
+//                 <input
+//                     type="date"
+//                     value={promotionStartDate}
+//                     onChange={(e) => setPromotionStartDate(e.target.value)}
+//                 />
+//                 <input
+//                     type="date"
+//                     value={promotionEndDate}
+//                     onChange={(e) => setPromotionEndDate(e.target.value)}
+//                 />
+//             </section>
+//             <section>
+//                 <h2>Gender Images</h2>
+//                 {Object.keys(genderImageUrls).map((category, index) => (
+//                     <div key={category} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
+//                         <span>{genderTitles[index]}</span>
+//                         {genderImageUrls[category] && (
+//                             <div style={{ display: 'inline-block', margin: '10px' }}>
+//                                 <img src={genderImageUrls[category]} alt={category} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+//                             </div>
+//                         )}
+//                         <input
+//                             type="text"
+//                             value={genderImageUrls[category]}
+//                             style={{ width: '300px' }}
+//                             onChange={(e) => setGenderImageUrls(prevState => ({
+//                                 ...prevState,
+//                                 [category]: e.target.value
+//                             }))}
+//                             placeholder={`Enter URL for ${category}`}
+//                         />
+//                     </div>
+//                 ))}
+//             </section>
+//             <section>
+//                 <button onClick={handleSaveAll}>Save All Changes</button>
+//                 <button onClick={handleReset} style={{ marginLeft: '10px' }}>Reset</button>
+//             </section>
+//         </div>
+//     );
+// };
+//
+// export default AdminHomepage;
+
+
+
+import ConfirmationModal from './ConfirmationModal'; // Импортируем модальное окно
+
 const AdminHomepage = () => {
     const [sliderImages, setSliderImages] = useState([]);
     const [genderImages, setGenderImages] = useState([]);
@@ -662,6 +842,9 @@ const AdminHomepage = () => {
         'Бытовая эл.техника': '',
         'Товары для всех': ''
     });
+
+    const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
+    const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
 
     const genderTitles = [
         'Мужская одежда',
@@ -717,26 +900,53 @@ const AdminHomepage = () => {
         window.location.reload(); // Перезагружает страницу, чтобы вернуть все данные к исходному состоянию
     };
 
+    const handleRemoveSliderImage = (imageUrl) => {
+        setImageToRemove(imageUrl);
+        setShowModal(true);
+    };
+
+    const confirmRemoveSliderImage = () => {
+        setSliderImages(sliderImages.filter(img => img.url !== imageToRemove));
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/homepage/slider/${encodeURIComponent(imageToRemove)}`)
+            .catch(error => console.error('Error removing slider image:', error));
+        setShowModal(false);
+    };
+
+    const handleRemoveGenderImage = (url) => {
+        setImageToRemove(url);
+        setShowModal(true);
+    };
+
+    const confirmRemoveGenderImage = () => {
+        const updatedImages = genderImages.filter(img => img.url !== imageToRemove);
+        setGenderImages(updatedImages);
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/homepage/gender/${encodeURIComponent(imageToRemove)}`)
+            .catch(error => console.error('Error removing gender image:', error));
+        setShowModal(false);
+    };
+
     return (
         <div className="homepage-images">
-            <h1>Admin Homepage Management</h1>
+            <h1 style={{textAlign:"center"}}>Управления главной страницей</h1>
             <section>
-                <h2>Slider Images</h2>
+                <h2>Картинка для слайдера</h2>
                 <input
                     type="text"
                     value={newSliderImage}
                     onChange={(e) => setNewSliderImage(e.target.value)}
-                    placeholder="Enter slider image URL"
+                    placeholder="Введите URL картинки"
                 />
                 <button onClick={() => {
                     setSliderImages([...sliderImages, { url: newSliderImage, promotions: [] }]);
                     setNewSliderImage('');
-                }}>Add Slider Image</button>
+                }}>Добавить слайдер</button>
                 <div>
                     {sliderImages.map((image, index) => (
                         <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
-                            <img src={image.url} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-                            <button onClick={() => setSliderImages(sliderImages.filter(img => img.url !== image.url))}>Remove</button>
+                            <div className="slider-img-background">
+                                <img src={image.url} alt={`Slider ${index}`} style={{marginLeft:"50%", width: '100px', height: '100px', objectFit: 'cover' }} />
+                            </div>
+                            <button onClick={() => handleRemoveSliderImage(image.url)}>Удалить</button>
                             <button onClick={() => {
                                 setSelectedSliderImage(image.url);
                                 const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
@@ -744,7 +954,7 @@ const AdminHomepage = () => {
                                 setPromotionDescription(promotionData.description || '');
                                 setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
                                 setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
-                            }}>Add Promotion</button>
+                            }}>Обновить акцию</button>
                         </div>
                     ))}
                 </div>
@@ -764,13 +974,13 @@ const AdminHomepage = () => {
                     type="text"
                     value={promotionTitle}
                     onChange={(e) => setPromotionTitle(e.target.value)}
-                    placeholder="Promotion Title"
+                    placeholder="Заголовок акции"
                 />
                 <input
                     type="text"
                     value={promotionDescription}
                     onChange={(e) => setPromotionDescription(e.target.value)}
-                    placeholder="Promotion Description"
+                    placeholder="Описание акции"
                 />
                 <input
                     type="date"
@@ -801,18 +1011,24 @@ const AdminHomepage = () => {
                                 ...prevState,
                                 [category]: e.target.value
                             }))}
-                            placeholder={`Enter URL for ${category}`}
+                            placeholder={`Введите URL картинки ${category}`}
                         />
+                        {/*<button onClick={() => handleRemoveGenderImage(genderImageUrls[category])}>Remove Image</button>*/}
                     </div>
                 ))}
             </section>
             <section>
-                <button onClick={handleSaveAll}>Save All Changes</button>
-                <button onClick={handleReset} style={{ marginLeft: '10px' }}>Reset</button>
+                <button onClick={handleSaveAll}>Сохранить все обновления</button>
+                <button onClick={handleReset} style={{ marginLeft: '10px' }}>Сбросить</button>
             </section>
+            <ConfirmationModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                onConfirm={confirmRemoveSliderImage} // Передаем функцию подтверждения удаления
+                message="Вы уверены, что хотите удалить этот элемент из слайдера??"
+            />
         </div>
     );
 };
 
 export default AdminHomepage;
-
