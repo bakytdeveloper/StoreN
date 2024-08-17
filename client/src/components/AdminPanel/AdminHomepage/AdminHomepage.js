@@ -845,7 +845,7 @@ const AdminHomepage = () => {
 
     const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
     const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
-
+    const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
     const genderTitles = [
         'Мужская одежда',
         'Женская одежда',
@@ -867,6 +867,7 @@ const AdminHomepage = () => {
                 if (sliderImages.length > 0) {
                     const firstImage = sliderImages[0];
                     setSelectedSliderImage(firstImage.url);
+                    setSelectedBackgroundColor(firstImage.colorBackground || '#ffffff');
                     if (firstImage.promotions.length > 0) {
                         const defaultPromotion = firstImage.promotions[0];
                         setPromotionTitle(defaultPromotion.title || '');
@@ -885,7 +886,13 @@ const AdminHomepage = () => {
     const handleSaveAll = () => {
         const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
         const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
-        const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
+        // const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
+
+        const updatedSliderImages = sliderImages.map(img =>
+            img.url === selectedSliderImage ?
+                { ...img,promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
+                img
+        );
 
         axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, {
             sliderImages: updatedSliderImages,
@@ -937,24 +944,36 @@ const AdminHomepage = () => {
                     placeholder="Введите URL картинки"
                 />
                 <button onClick={() => {
-                    setSliderImages([...sliderImages, { url: newSliderImage, promotions: [] }]);
+                    setSliderImages([...sliderImages, { url: newSliderImage, promotions: [], colorBackground: '#ffffff' }]);
                     setNewSliderImage('');
                 }}>Добавить слайдер</button>
                 <div>
                     {sliderImages.map((image, index) => (
                         <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
-                            <div className="slider-img-background">
+                            <div className="slider-img-background" style={{ backgroundColor: image.colorBackground || '#ffffff' }}>
                                 <img src={image.url} alt={`Slider ${index}`} style={{marginLeft:"50%", width: '100px', height: '100px', objectFit: 'cover' }} />
                             </div>
-                            <button onClick={() => handleRemoveSliderImage(image.url)}>Удалить</button>
-                            <button onClick={() => {
-                                setSelectedSliderImage(image.url);
-                                const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
-                                setPromotionTitle(promotionData.title || '');
-                                setPromotionDescription(promotionData.description || '');
-                                setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
-                                setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
-                            }}>Обновить акцию</button>
+                            <input
+                                type="color"
+                                value={image.colorBackground || '#ffffff'}
+                                onChange={(e) => {
+                                    const updatedSliderImages = sliderImages.map((img, i) =>
+                                        i === index ? { ...img, colorBackground: e.target.value } : img
+                                    );
+                                    setSliderImages(updatedSliderImages);
+                                }}
+                            />
+                            <div style={{display:"flex", height:"33px", fontSize:"13px"}}>
+                                <button onClick={() => handleRemoveSliderImage(image.url)}>Удалить</button>
+                                <button onClick={() => {
+                                    setSelectedSliderImage(image.url);
+                                    const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
+                                    setPromotionTitle(promotionData.title || '');
+                                    setPromotionDescription(promotionData.description || '');
+                                    setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
+                                    setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
+                                }}>Обновить акцию</button>
+                            </div>
                         </div>
                     ))}
                 </div>

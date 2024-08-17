@@ -34,7 +34,7 @@ const promotionSchema = new mongoose.Schema({
 const sliderImageSchema = new mongoose.Schema({
     url: String,
     promotions: [promotionSchema],
-    colorBackground: [{ type: String }],
+    colorBackground: { type: String },  // Изменено на один цвет вместо массива
 });
 
 const genderImageSchema = new mongoose.Schema({
