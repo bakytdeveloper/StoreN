@@ -904,14 +904,29 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
                         </div>
                     ))}
                 </div>
+                {/*<button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">*/}
+                {/*    <span className="carousel-control-prev-icon carousel-control-prev-icon-prev" aria-hidden="true"></span>*/}
+                {/*    <span className="visually-hidden">Previous</span>*/}
+                {/*</button>*/}
+                {/*<button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">*/}
+                {/*    <span className="carousel-control-next-icon" aria-hidden="true"></span>*/}
+                {/*    <span className="visually-hidden">Next</span>*/}
+                {/*</button>*/}
+
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="carousel-control-prev-icon carousel-control-prev-icon-prev" aria-hidden="true">
+                            &#x2190; {/* Левая стрелка */}
+                        </span>
                     <span className="visually-hidden">Previous</span>
                 </button>
                 <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="carousel-control-next-icon" aria-hidden="true">
+                            &#x2192; {/* Правая стрелка */}
+                        </span>
                     <span className="visually-hidden">Next</span>
                 </button>
+
+
             </div>
 
 
