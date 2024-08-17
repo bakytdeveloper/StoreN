@@ -20,6 +20,7 @@
     margin: 0 auto;
     overflow: hidden; /* Скрываем все, что выходит за пределы карусели */
     position: relative;
+    /*background: #f8efe5;*/
     background: #f8efe5;
     border-radius: 20px;
 
