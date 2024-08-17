@@ -31,42 +31,6 @@ router.post('/add', authenticateToken, async (req, res) => {
     }
 });
 
-
-
-// // Роут для получения всех товаров с учетом видимости продавца
-// router.get('/', async (req, res) => {
-//     try {
-//         // Получаем все товары и подгружаем данные о продавце
-//         const products = await Product.find()
-//             .populate('seller');
-//
-//         // Фильтруем товары на основе видимости продавца и статуса продавца
-//         const filteredProducts = products.filter(product => {
-//             // Проверяем, существует ли продавец, его статус и видимость товаров
-//             return product.seller
-//                 && product.seller.isProductsVisible
-//                 && product.seller.status !== 'suspend'
-//                 // Если убрать эту часть фильтрации, то будут отображаться
-//                 // не активными заблокированные товары
-//                 && product.isActive;
-//         });
-//
-//         // Разделяем товары на активные и неактивные
-//         const activeProducts = filteredProducts.filter(product => product.isActive);
-//         const inactiveProducts = filteredProducts.filter(product => !product.isActive);
-//
-//         // Объединяем активные и неактивные товары
-//         const sortedProducts = [...activeProducts, ...inactiveProducts];
-//
-//         res.json(sortedProducts);
-//     } catch (error) {
-//         console.error('Error fetching products:', error);
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
-
-
-
 // Функция для отправки уведомлений продавцам о удалении товара
 async function notifySellerAboutProductDeletion(seller, productName) {
     if (seller && seller.email) {
@@ -139,12 +103,6 @@ router.get('/', async (req, res) => {
 });
 
 
-
-
-
-
-
-
 // Роут для получения полов товаров
 router.get('/genders', async (req, res) => {
     try {
@@ -154,24 +112,6 @@ router.get('/genders', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-// // Получение списка всех категорий
-// router.get('/categories', async (req, res) => {
-//     try {
-//         const { gender } = req.query;
-//         let query = { gender };
-//         // Фильтруем товары на основе статуса продавца
-//         const products = await Product.find(query).populate('seller');
-//         const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
-//         const categories = [...new Set(validProducts.map(product => product.category))];
-//         res.json({ categories });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
-
 
 
 // Получение списка всех категорий
@@ -196,24 +136,6 @@ router.get('/categories', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
-
-
-// // Получение списка всех типов товаров по категории
-// router.get('/types', async (req, res) => {
-//     try {
-//         const { gender, category } = req.query;
-//         let query = { gender, category };
-//         // Фильтруем товары на основе статуса продавца
-//         const products = await Product.find(query).populate('seller');
-//         const validProducts = products.filter(product => product.seller && product.seller.status !== 'suspend');
-//         const types = [...new Set(validProducts.map(product => product.type))];
-//         res.json({ types });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 
 
 // Получение списка всех типов товаров по категории
@@ -325,7 +247,6 @@ router.get('/products', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 
 // Получение списка самых новых продуктов с учетом активных статусов

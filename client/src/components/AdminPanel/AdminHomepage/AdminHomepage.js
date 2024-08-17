@@ -960,7 +960,7 @@ const AdminHomepage = () => {
                 </div>
             </section>
             <section>
-                <h2>Promotion</h2>
+                <h2>Информаци об акции, на слайдере</h2>
                 <select
                     value={selectedSliderImage}
                     onChange={(e) => setSelectedSliderImage(e.target.value)}
@@ -994,7 +994,7 @@ const AdminHomepage = () => {
                 />
             </section>
             <section>
-                <h2>Gender Images</h2>
+                <h2>Картинки по пренадлежнасти</h2>
                 {Object.keys(genderImageUrls).map((category, index) => (
                     <div key={category} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
                         <span>{genderTitles[index]}</span>

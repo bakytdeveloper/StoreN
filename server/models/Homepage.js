@@ -33,7 +33,8 @@ const promotionSchema = new mongoose.Schema({
 
 const sliderImageSchema = new mongoose.Schema({
     url: String,
-    promotions: [promotionSchema]
+    promotions: [promotionSchema],
+    colorBackground: [{ type: String }],
 });
 
 const genderImageSchema = new mongoose.Schema({

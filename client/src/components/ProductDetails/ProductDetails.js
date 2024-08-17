@@ -229,9 +229,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                         <img  className="main-image-center" src={getFullImageUrl(selectedImage)} alt={product.name} />
                     </div>
                 </div>
-                    {/*<div className="main-picture-detail">*/}
-                    {/*    <img  className="main-image" src={getFullImageUrl(selectedImage)} alt={product.name} />*/}
-                    {/*</div>*/}
+
 
                 <div className="details">
                     <div className="details-names">
