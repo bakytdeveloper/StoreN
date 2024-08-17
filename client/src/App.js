@@ -31,6 +31,8 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import PurchaseBuyHistory from "./components/SellerProfile/PurchaseBuyHistory";
 import AdminHomepage from "./components/AdminPanel/AdminHomepage/AdminHomepage";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
 const App = () => {

@@ -823,28 +823,98 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
+    // Обработчик клика по индикаторам
+    const handleIndicatorClick = (index) => {
+        setCurrentSlide(index);
+        if (slides[index]) {
+            setCarouselBgColor(slides[index].colorBackground || '#ffffff');
+        }
+    };
+
+
     return (
         <div className="home-container">
-            <div className="carousel" style={{ backgroundColor: carouselBgColor }}>
-                <div className="carousel-track">
+            {/*<div id="carouselExampleCaptions" className="carousel slide" style={{ backgroundColor: carouselBgColor }}>*/}
+            {/*    <div className="carousel-indicators">*/}
+            {/*        {slides.map((_, index) => (*/}
+            {/*            <button*/}
+            {/*                key={index}*/}
+            {/*                type="button"*/}
+            {/*                data-bs-target="#carouselExampleCaptions"*/}
+            {/*                data-bs-slide-to={index}*/}
+            {/*                className={index === currentSlide ? 'active' : ''}*/}
+            {/*                aria-current={index === currentSlide ? 'true' : 'false'}*/}
+            {/*                aria-label={`Slide ${index + 1}`}*/}
+            {/*                onClick={() => handleIndicatorClick(index)}*/}
+            {/*            ></button>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*    <div className="carousel-inner">*/}
+            {/*        {slides.map((slide, index) => (*/}
+            {/*            <div*/}
+            {/*                key={index}*/}
+            {/*                className={`carousel-item ${index === currentSlide ? 'active' : ''}`}*/}
+            {/*                style={{ height: '100%' }} // Задает высоту карусели*/}
+            {/*            >*/}
+            {/*                <img src={slide.url} className="d-block w-100" alt={`Slide ${index + 1}`} />*/}
+            {/*                <div className="carousel-caption d-none d-md-block carousel-caption-title-description">*/}
+            {/*                    <div className="carousel-caption-title">{slide.promotions[0]?.title || 'ГОТОВЬСЯ К ЛЕТУ'}</div>*/}
+            {/*                    <div className="carousel-caption-description">{slide.promotions[0]?.description || 'НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ'}</div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">*/}
+            {/*        <span className="carousel-control-prev-icon" aria-hidden="true"></span>*/}
+            {/*        <span className="visually-hidden">Previous</span>*/}
+            {/*    </button>*/}
+            {/*    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">*/}
+            {/*        <span className="carousel-control-next-icon" aria-hidden="true"></span>*/}
+            {/*        <span className="visually-hidden">Next</span>*/}
+            {/*    </button>*/}
+            {/*</div>*/}
+
+            <div id="carouselExampleCaptions" className="carousel slide" style={{ backgroundColor: carouselBgColor }}>
+                <div className="carousel-indicators">
+                    {slides.map((_, index) => (
+                        <button
+                            key={index}
+                            type="button"
+                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide-to={index}
+                            className={index === currentSlide ? 'active' : ''}
+                            aria-current={index === currentSlide ? 'true' : 'false'}
+                            aria-label={`Slide ${index + 1}`}
+                            onClick={() => handleIndicatorClick(index)}
+                        ></button>
+                    ))}
+                </div>
+                <div className="carousel-inner">
                     {slides.map((slide, index) => (
                         <div
-                            className="slide"
                             key={index}
-                            style={{
-                                display: index === currentSlide ? 'block' : 'none',
-                            }}
+                            className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
+                            style={{ height: '100%' }} // Высота карусели
                         >
-                            <div className="text-container">
-                                <h1 className="title slide-title">{slide.promotions[0]?.title || 'ГОТОВЬСЯ К ЛЕТУ'}</h1>
-                                <h2 className="subtitle">{slide.promotions[0]?.description || 'НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ'}</h2>
-                                <h3 className="description-home">{slide.promotions[0]?.description || 'НОВОЕ ПОСТУПЛЕНИЕ ЛЕТНЕЙ КОЛЛЕКЦИИ ОДЕЖДЫ'}</h3>
+                            <img src={slide.url} className="d-block w-100" alt={`Slide ${index + 1}`} />
+                            <div className="carousel-caption d-none d-md-block carousel-caption-title-description">
+                                <div className="carousel-caption-title">{slide.promotions[0]?.title || 'ГОТОВЬСЯ К ЛЕТУ'}</div>
+                                <div className="carousel-caption-description">{slide.promotions[0]?.description || 'НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ'}</div>
                             </div>
-                            <img className="slide-image" src={slide.url} alt={`Slide ${index + 1}`} />
                         </div>
                     ))}
                 </div>
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
             </div>
+
+
             <div className="info-blocks">
                 {genderImages.map((image, index) => (
                     <div className="info-block" key={index} onClick={() => handleImageClick(genderTitles[index])}>
