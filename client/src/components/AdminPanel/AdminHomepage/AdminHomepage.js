@@ -888,9 +888,15 @@ const AdminHomepage = () => {
         const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
         // const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
 
+        // const updatedSliderImages = sliderImages.map(img =>
+        //     img.url === selectedSliderImage ?
+        //         { ...img,promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
+        //         img
+        // );
+
         const updatedSliderImages = sliderImages.map(img =>
             img.url === selectedSliderImage ?
-                { ...img,promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
+                { ...img, promotions: [newPromotion] } :
                 img
         );
 
@@ -931,6 +937,9 @@ const AdminHomepage = () => {
             .catch(error => console.error('Error removing gender image:', error));
         setShowModal(false);
     };
+
+
+
 
     return (
         <div className="homepage-images">
@@ -1037,8 +1046,11 @@ const AdminHomepage = () => {
                 ))}
             </section>
             <section>
-                <button onClick={handleSaveAll}>Сохранить все обновления</button>
-                <button onClick={handleReset} style={{ marginLeft: '10px' }}>Сбросить</button>
+                <div style={{display:"flex", margin:"0 auto", width:"80%", marginBottom:"30px" }}>
+                    <button onClick={handleSaveAll}>Сохранить все обновления</button>
+                    <button onClick={handleReset} style={{ marginLeft: '10px' }}>Сбросить</button>
+
+                </div>
             </section>
             <ConfirmationModal
                 isOpen={showModal}
