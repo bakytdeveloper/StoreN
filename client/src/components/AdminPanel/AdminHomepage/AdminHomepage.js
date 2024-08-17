@@ -822,7 +822,8 @@ import './AdminHomepage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import ConfirmationModal from './ConfirmationModal'; // Импортируем модальное окно
+import ConfirmationModal from './ConfirmationModal';
+import {useHistory} from "react-router-dom"; // Импортируем модальное окно
 
 const AdminHomepage = () => {
     const [sliderImages, setSliderImages] = useState([]);
@@ -845,7 +846,7 @@ const AdminHomepage = () => {
         'Товары для всех': ''
     });
     const [showPromotionSection, setShowPromotionSection] = useState(false); // Для управления видимостью секции
-
+    const history = useHistory();
     const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
     const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
     const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
@@ -944,6 +945,7 @@ const AdminHomepage = () => {
 
     const handleReset = () => {
         window.location.reload(); // Перезагружает страницу, чтобы вернуть все данные к исходному состоянию
+
     };
 
     const handleRemoveSliderImage = (imageUrl) => {
