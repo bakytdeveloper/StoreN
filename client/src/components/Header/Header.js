@@ -375,8 +375,10 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     };
 
     const handleProfileClick = () => {
+        console.log("Profile button clicked");
         setIsProfileOpen(!isProfileOpen);
     };
+
 
     const handleLoginClick = () => {
         setActivePage('login');
@@ -449,7 +451,23 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                     <div className="profileIcon" ref={profileRef}>
                         <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>
                         {isProfileOpen && (
-                            <div className="dropdown-menu">
+                            // <div className="dropdown-menu">
+                            //     <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
+                            //     {userStatus === 'suspend' ? (
+                            //         <>
+                            //             <button onClick={handleLoginClick}>Логин</button>
+                            //             <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
+                            //         </>
+                            //     ) : (
+                            //         <>
+                            //             <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                            //             {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                            //             {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+                            //         </>
+                            //     )}
+                            // </div>
+
+                            <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
                                 <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
                                 {userStatus === 'suspend' ? (
                                     <>
@@ -464,7 +482,11 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                                     </>
                                 )}
                             </div>
+
+
+
                         )}
+
                     </div>
 
                     {showSellerRegistration && (
