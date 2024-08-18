@@ -37,6 +37,10 @@ const sliderImageSchema = new mongoose.Schema({
     colorBackground: { type: String },  // Изменено на один цвет вместо массива
     colorTitle: { type: String },  // Изменено на один цвет вместо массива
     colorDescription: { type: String },  // Изменено на один цвет вместо массива
+    fontFamilleTitle: { type: String },  // Изменено на один цвет вместо массива
+    fontFamilleDescription: { type: String },  // Изменено на один цвет вместо массива
+    fontSizeTitle: { type: String },  // Изменено на один цвет вместо массива
+    fontSizeDescription: { type: String },  // Изменено на один цвет вместо массива
 });
 
 const genderImageSchema = new mongoose.Schema({

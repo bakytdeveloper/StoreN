@@ -852,6 +852,8 @@ const AdminHomepage = () => {
     const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
     const [titleColor, setTitleColor] = useState('#000000'); // Цвет заголовка по умолчанию
     const [descriptionColor, setDescriptionColor] = useState('#000000'); // Цвет описания по умолчанию
+    const [fontSizeTitle, setFontSizeTitle] = useState('16px');  // Размер шрифта заголовка по умолчанию
+    const [fontSizeDescription, setFontSizeDescription] = useState('14px');  // Размер шрифта описания по умолчанию
     const genderTitles = [
         'Мужская одежда',
         'Женская одежда',
@@ -876,6 +878,8 @@ const AdminHomepage = () => {
                     setSelectedBackgroundColor(firstImage.colorBackground || '#ffffff');
                     setTitleColor(firstImage.colorTitle || '#000000'); // Установка цвета заголовка
                     setDescriptionColor(firstImage.colorDescription || '#000000'); // Установка цвета описания
+                    setFontSizeTitle(firstImage.fontSizeTitle || '16px');  // Установка размера шрифта заголовка
+                    setFontSizeDescription(firstImage.fontSizeDescription || '14px');  // Установка размера шрифта описания
                     if (firstImage.promotions.length > 0) {
                         const defaultPromotion = firstImage.promotions[0];
                         setPromotionTitle(defaultPromotion.title || '');
@@ -891,31 +895,6 @@ const AdminHomepage = () => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    // const handleSaveAll = () => {
-    //     const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
-    //     const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
-    //     // const updatedSliderImages = sliderImages.map(img => img.url === selectedSliderImage ? { ...img, promotions: [newPromotion] } : img);
-    //
-    //     // const updatedSliderImages = sliderImages.map(img =>
-    //     //     img.url === selectedSliderImage ?
-    //     //         { ...img,promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
-    //     //         img
-    //     // );
-    //
-    //     const updatedSliderImages = sliderImages.map(img =>
-    //         img.url === selectedSliderImage ?
-    //             { ...img, promotions: [newPromotion] } :
-    //             img
-    //     );
-
-    //     axios.post(`${process.env.REACT_APP_API_URL}/api/homepage`, {
-    //         sliderImages: updatedSliderImages,
-    //         genderImages: updatedGenderImages,
-    //         promotions: newPromotion
-    //     })
-    //         .then(response => console.log('Data saved successfully:', response))
-    //         .catch(error => console.error('Error saving data:', error));
-    // };
 
     const handleSaveAll = () => {
         const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
@@ -932,7 +911,9 @@ const AdminHomepage = () => {
                     ...img,
                     promotions: [newPromotion],
                     colorTitle: titleColor,  // Сохранение цвета заголовка
-                    colorDescription: descriptionColor  // Сохранение цвета описания
+                    colorDescription: descriptionColor,  // Сохранение цвета описания
+                    fontSizeTitle: fontSizeTitle,  // Сохранение размера шрифта заголовка
+                    fontSizeDescription: fontSizeDescription  // Сохранение размера шрифта описания
 
                 } :
                 img
@@ -997,6 +978,8 @@ const AdminHomepage = () => {
         setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
         setTitleColor(image.colorTitle || '#000000'); // Установка цвета заголовка
         setDescriptionColor(image.colorDescription || '#000000'); // Установка цвета описания
+        setFontSizeTitle(image.fontSizeTitle || '16px');  // Установка размера шрифта заголовка
+        setFontSizeDescription(image.fontSizeDescription || '14px');  // Установка размера шрифта описания
         setShowPromotionSection(true); // Показываем секцию информации об акции
     };
 
@@ -1020,7 +1003,7 @@ const AdminHomepage = () => {
                     {sliderImages.map((image, index) => (
                         <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
                             <div className="slider-img-background" style={{ backgroundColor: image.colorBackground || '#ffffff' }}>
-                                <img src={image.url} alt={`Slider ${index}`} style={{marginLeft:"50%", width: '100px', height: '100px', objectFit: 'cover' }} />
+                                <img src={image.url} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
                             </div>
                             <input
                                 type="color"
@@ -1043,55 +1026,6 @@ const AdminHomepage = () => {
                 </div>
             </section>
             {showPromotionSection && (
-                // <section>
-                //     <h2>Информация об акции, на слайдере</h2>
-                //     <select
-                //         value={selectedSliderImage}
-                //         onChange={(e) => setSelectedSliderImage(e.target.value)}
-                //     >
-                //         <option value="">Select an image</option>
-                //         {sliderImages.map(img => (
-                //             <option key={img.url} value={img.url}>{img.url}</option>
-                //         ))}
-                //     </select>
-                //     <input
-                //         type="text"
-                //         value={promotionTitle}
-                //         onChange={(e) => setPromotionTitle(e.target.value)}
-                //         placeholder="Заголовок акции"
-                //     />
-                //     <input
-                //         type="text"
-                //         value={promotionDescription}
-                //         onChange={(e) => setPromotionDescription(e.target.value)}
-                //         placeholder="Описание акции"
-                //     />
-                //     <input
-                //         type="date"
-                //         value={promotionStartDate}
-                //         onChange={(e) => setPromotionStartDate(e.target.value)}
-                //     />
-                //     <input
-                //         type="date"
-                //         value={promotionEndDate}
-                //         onChange={(e) => setPromotionEndDate(e.target.value)}
-                //     />
-                //     <button onClick={() => {
-                //         const updatedSliderImages = sliderImages.map(img =>
-                //             img.url === selectedSliderImage ?
-                //                 {
-                //                     ...img,
-                //                     promotions: [{ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate }]
-                //                 } :
-                //                 img
-                //         );
-                //         setSliderImages(updatedSliderImages);
-                //         setPromotion({ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate });
-                //         toast.success('Все обновления успешно сохранены!');
-                //         setShowPromotionSection(false);
-                //     }}>Обновить</button>
-                // </section>
-
                 <section>
                     <h2>Информация об акции, на слайдере</h2>
                     <select
@@ -1108,7 +1042,13 @@ const AdminHomepage = () => {
                         value={promotionTitle}
                         onChange={(e) => setPromotionTitle(e.target.value)}
                         placeholder="Заголовок акции"
-                        style={{ color: titleColor }} // Применение цвета заголовка
+                        style={{ color: titleColor, fontSize: fontSizeTitle }} // Применение цвета заголовка
+                    />
+                    <input
+                        type="number"
+                        value={fontSizeTitle.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"
+                        onChange={(e) => setFontSizeTitle(`${e.target.value}px`)}
+                        placeholder="Размер шрифта заголовка"
                     />
                     <input
                         type="color"
@@ -1120,7 +1060,13 @@ const AdminHomepage = () => {
                         value={promotionDescription}
                         onChange={(e) => setPromotionDescription(e.target.value)}
                         placeholder="Описание акции"
-                        style={{ color: descriptionColor }} // Применение цвета описания
+                        style={{ color: descriptionColor, fontSize: fontSizeDescription }} // Применение цвета описания
+                    />
+                    <input
+                        type="number"
+                        value={fontSizeDescription.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"
+                        onChange={(e) => setFontSizeDescription(`${e.target.value}px`)}
+                        placeholder="Размер шрифта описания"
                     />
                     <input
                         type="color"

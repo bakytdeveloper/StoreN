@@ -104,13 +104,6 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
-    // // Обработчик клика по индикаторам
-    // const handleIndicatorClick = (index) => {
-    //     setCurrentSlide(index);
-    //     if (slides[index]) {
-    //         setCarouselBgColor(slides[index].colorBackground || '#ffffff');
-    //     }
-    // };
 
     // Обработчик клика по индикаторам
     const handleIndicatorClick = (index) => {
