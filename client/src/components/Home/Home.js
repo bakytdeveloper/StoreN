@@ -28,7 +28,7 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
     const [slides, setSlides] = useState([]);
     const [genderImages, setGenderImages] = useState([]);
     const [carouselBgColor, setCarouselBgColor] = useState('#ffffff'); // Состояние для цвета фона
-    const [isManualSwitch, setIsManualSwitch] = useState(false); // Состояние для ручного переключения
+     const [isManualSwitch, setIsManualSwitch] = useState(false); // Состояние для ручного переключения
 
     const history = useHistory();
     const location = useLocation();
@@ -166,8 +166,8 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
                         >
                             <img src={slide.url} className="d-block w-100" alt={`Slide ${index + 1}`} />
                             <div className="carousel-caption d-none d-md-block carousel-caption-title-description">
-                                <div className="carousel-caption-title">{slide.promotions[0]?.title || 'ГОТОВЬСЯ К ЛЕТУ'}</div>
-                                <div className="carousel-caption-description">{slide.promotions[0]?.description || 'НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ'}</div>
+                                <div className="carousel-caption-title" style={{ color: slide.colorTitle || '#000000' }}>{slide.promotions[0]?.title || 'ГОТОВЬСЯ К ЛЕТУ'}</div>
+                                <div className="carousel-caption-description" style={{ color: slide.colorDescription || '#000000' }}>{slide.promotions[0]?.description || 'НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ'}</div>
                             </div>
                         </div>
                     ))}
