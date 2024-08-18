@@ -202,7 +202,7 @@ router.delete('/gender/:imageUrl', async (req, res) => {
     }
 });
 
-// Обновление акции
+// Обновление акции в каруселе на главной странице
 router.patch('/promotion', async (req, res) => {
     try {
         const { imageUrl, promotions } = req.body;
