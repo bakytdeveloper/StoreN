@@ -68,19 +68,6 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setCurrentSlide((prevSlide) => {
-    //             const newSlide = (prevSlide + 1) % slides.length;
-    //             if (slides[newSlide]) {
-    //                 setCarouselBgColor(slides[newSlide].colorBackground || '#ffffff'); // Обновляем цвет фона для нового слайда
-    //             }
-    //             return newSlide;
-    //         });
-    //     }, 5000); // Переключаем слайд каждые 5 секунд
-    //     return () => clearInterval(interval);
-    // }, [slides.length]);
-
     useEffect(() => {
         const interval = setInterval(() => {
             if (!isManualSwitch) { // Проверяем, что автоматическое переключение не приостановлено
@@ -155,7 +142,7 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
 
     return (
         <div className="home-container">
-            <div id="carouselExampleCaptions" className="carousel slide" style={{ backgroundColor: carouselBgColor }}>
+            <div id="carouselExampleCaptions" className="carousel slide" style={{ backgroundColor: carouselBgColor, borderRadius:"10px" }}>
                 <div className="carousel-indicators">
                     {slides.map((_, index) => (
                         <button
@@ -170,12 +157,12 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
                         ></button>
                     ))}
                 </div>
-                <div className="carousel-inner">
+                <div className="carousel-inner" >
                     {slides.map((slide, index) => (
                         <div
                             key={index}
                             className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
-                            style={{ height: '100%' }} // Высота карусели
+                            style={{ height: '100%', border:"none" }} // Высота карусели
                         >
                             <img src={slide.url} className="d-block w-100" alt={`Slide ${index + 1}`} />
                             <div className="carousel-caption d-none d-md-block carousel-caption-title-description">
