@@ -1001,6 +1001,38 @@ const AdminHomepage = () => {
     };
 
 
+    // обработчик события wheel для инпутов с типом number
+    useEffect(() => {
+        const handleWheel = (e) => {
+            if (e.target.type === 'number') {
+                e.preventDefault(); // Prevent scrolling from changing the value
+            }
+        };
+
+        window.addEventListener('wheel', handleWheel, { passive: false });
+
+        return () => {
+            window.removeEventListener('wheel', handleWheel);
+        };
+    }, []);
+
+    // фокус должен сбрасываться при скролле
+    useEffect(() => {
+        const handleScroll = () => {
+            const activeElement = document.activeElement;
+            if (activeElement && activeElement.type === 'number') {
+                activeElement.blur(); // Remove focus from number inputs on scroll
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
     return (
         <div className="homepage-images">
             <h1 style={{textAlign:"center"}}>Управления главной страницей</h1>
