@@ -272,7 +272,8 @@
     background-color: #f6f6f3;
     justify-content: center;
     align-items: center;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
+    font-family: Wingdings !important;
     font-size: 20px;
     text-align: center;
     cursor: pointer;
@@ -330,6 +331,7 @@
 }
 
 .info-block-img-two {
+
     border-radius: 0 0 12px 12px;
 }
 
