@@ -854,6 +854,8 @@ const AdminHomepage = () => {
     const [descriptionColor, setDescriptionColor] = useState('#000000'); // Цвет описания по умолчанию
     const [fontSizeTitle, setFontSizeTitle] = useState('16px');  // Размер шрифта заголовка по умолчанию
     const [fontSizeDescription, setFontSizeDescription] = useState('14px');  // Размер шрифта описания по умолчанию
+    const [fontFamilleTitle, setFontFamilleTitle] = useState('Arial');  // Добавлено для выбора шрифта заголовка
+    const [fontFamilleDescription, setFontFamilleDescription] = useState('Arial');  // Добавлено для выбора шрифта описания
     const genderTitles = [
         'Мужская одежда',
         'Женская одежда',
@@ -863,6 +865,17 @@ const AdminHomepage = () => {
         'Аксессуары',
         'Бытовая эл.техника',
         'Товары для всех'
+    ];
+
+    const fontFamilies = [
+        'Arial',
+        'Verdana',
+        'Times New Roman',
+        'Georgia',
+        'Courier New',
+        'Tahoma',
+        'Trebuchet MS',
+        'Impact'
     ];
 
     useEffect(() => {
@@ -880,6 +893,8 @@ const AdminHomepage = () => {
                     setDescriptionColor(firstImage.colorDescription || '#000000'); // Установка цвета описания
                     setFontSizeTitle(firstImage.fontSizeTitle || '16px');  // Установка размера шрифта заголовка
                     setFontSizeDescription(firstImage.fontSizeDescription || '14px');  // Установка размера шрифта описания
+                    setFontFamilleTitle(firstImage.fontFamilleTitle || 'Arial');
+                    setFontFamilleDescription(firstImage.fontFamilleDescription || 'Arial');
                     if (firstImage.promotions.length > 0) {
                         const defaultPromotion = firstImage.promotions[0];
                         setPromotionTitle(defaultPromotion.title || '');
@@ -913,7 +928,9 @@ const AdminHomepage = () => {
                     colorTitle: titleColor,  // Сохранение цвета заголовка
                     colorDescription: descriptionColor,  // Сохранение цвета описания
                     fontSizeTitle: fontSizeTitle,  // Сохранение размера шрифта заголовка
-                    fontSizeDescription: fontSizeDescription  // Сохранение размера шрифта описания
+                    fontSizeDescription: fontSizeDescription,  // Сохранение размера шрифта описания
+                    fontFamilleTitle: fontFamilleTitle,  // Сохранение шрифта заголовка
+                    fontFamilleDescription: fontFamilleDescription,  // Сохранение шрифта описания
 
                 } :
                 img
@@ -1042,7 +1059,7 @@ const AdminHomepage = () => {
                         value={promotionTitle}
                         onChange={(e) => setPromotionTitle(e.target.value)}
                         placeholder="Заголовок акции"
-                        style={{ color: titleColor, fontSize: fontSizeTitle }} // Применение цвета заголовка
+                        style={{ color: titleColor, fontSize: fontSizeTitle, fontFamily: fontFamilleTitle }} // Применение цвета заголовка
                     />
                     <input
                         type="number"
@@ -1050,6 +1067,14 @@ const AdminHomepage = () => {
                         onChange={(e) => setFontSizeTitle(`${e.target.value}px`)}
                         placeholder="Размер шрифта заголовка"
                     />
+                    <select
+                        value={fontFamilleTitle}
+                        onChange={(e) => setFontFamilleTitle(e.target.value)}
+                    >
+                        {fontFamilies.map((font, index) => (
+                            <option key={index} value={font}>{font}</option>
+                        ))}
+                    </select>
                     <input
                         type="color"
                         value={titleColor}
@@ -1060,7 +1085,7 @@ const AdminHomepage = () => {
                         value={promotionDescription}
                         onChange={(e) => setPromotionDescription(e.target.value)}
                         placeholder="Описание акции"
-                        style={{ color: descriptionColor, fontSize: fontSizeDescription }} // Применение цвета описания
+                        style={{ color: descriptionColor, fontSize: fontSizeDescription, fontFamily: fontFamilleDescription }} // Применение цвета описания
                     />
                     <input
                         type="number"
@@ -1068,6 +1093,14 @@ const AdminHomepage = () => {
                         onChange={(e) => setFontSizeDescription(`${e.target.value}px`)}
                         placeholder="Размер шрифта описания"
                     />
+                    <select
+                        value={fontFamilleDescription}
+                        onChange={(e) => setFontFamilleDescription(e.target.value)}
+                    >
+                        {fontFamilies.map((font, index) => (
+                            <option key={index} value={font}>{font}</option>
+                        ))}
+                    </select>
                     <input
                         type="color"
                         value={descriptionColor}
