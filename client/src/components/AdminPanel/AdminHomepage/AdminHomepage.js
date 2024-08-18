@@ -850,6 +850,8 @@ const AdminHomepage = () => {
     const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
     const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
     const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
+    const [titleColor, setTitleColor] = useState('#000000'); // Цвет заголовка по умолчанию
+    const [descriptionColor, setDescriptionColor] = useState('#000000'); // Цвет описания по умолчанию
     const genderTitles = [
         'Мужская одежда',
         'Женская одежда',
@@ -872,6 +874,8 @@ const AdminHomepage = () => {
                     const firstImage = sliderImages[0];
                     setSelectedSliderImage(firstImage.url);
                     setSelectedBackgroundColor(firstImage.colorBackground || '#ffffff');
+                    setTitleColor(firstImage.colorTitle || '#000000'); // Установка цвета заголовка
+                    setDescriptionColor(firstImage.colorDescription || '#000000'); // Установка цвета описания
                     if (firstImage.promotions.length > 0) {
                         const defaultPromotion = firstImage.promotions[0];
                         setPromotionTitle(defaultPromotion.title || '');
@@ -915,12 +919,22 @@ const AdminHomepage = () => {
 
     const handleSaveAll = () => {
         const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
-        const newPromotion = { title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate };
+        const newPromotion = {
+            title: promotionTitle,
+            description: promotionDescription,
+            startDate: promotionStartDate,
+            endDate: promotionEndDate
+        };
 
         const updatedSliderImages = sliderImages.map(img =>
             img.url === selectedSliderImage ?
-                { ...img, promotions: [newPromotion]} :
-                // { ...img, promotions: [newPromotion], colorBackground: selectedBackgroundColor } :
+                {
+                    ...img,
+                    promotions: [newPromotion],
+                    colorTitle: titleColor,  // Сохранение цвета заголовка
+                    colorDescription: descriptionColor  // Сохранение цвета описания
+
+                } :
                 img
         );
 
@@ -981,6 +995,8 @@ const AdminHomepage = () => {
         setPromotionDescription(promotionData.description || '');
         setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
         setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
+        setTitleColor(image.colorTitle || '#000000'); // Установка цвета заголовка
+        setDescriptionColor(image.colorDescription || '#000000'); // Установка цвета описания
         setShowPromotionSection(true); // Показываем секцию информации об акции
     };
 
@@ -1027,6 +1043,55 @@ const AdminHomepage = () => {
                 </div>
             </section>
             {showPromotionSection && (
+                // <section>
+                //     <h2>Информация об акции, на слайдере</h2>
+                //     <select
+                //         value={selectedSliderImage}
+                //         onChange={(e) => setSelectedSliderImage(e.target.value)}
+                //     >
+                //         <option value="">Select an image</option>
+                //         {sliderImages.map(img => (
+                //             <option key={img.url} value={img.url}>{img.url}</option>
+                //         ))}
+                //     </select>
+                //     <input
+                //         type="text"
+                //         value={promotionTitle}
+                //         onChange={(e) => setPromotionTitle(e.target.value)}
+                //         placeholder="Заголовок акции"
+                //     />
+                //     <input
+                //         type="text"
+                //         value={promotionDescription}
+                //         onChange={(e) => setPromotionDescription(e.target.value)}
+                //         placeholder="Описание акции"
+                //     />
+                //     <input
+                //         type="date"
+                //         value={promotionStartDate}
+                //         onChange={(e) => setPromotionStartDate(e.target.value)}
+                //     />
+                //     <input
+                //         type="date"
+                //         value={promotionEndDate}
+                //         onChange={(e) => setPromotionEndDate(e.target.value)}
+                //     />
+                //     <button onClick={() => {
+                //         const updatedSliderImages = sliderImages.map(img =>
+                //             img.url === selectedSliderImage ?
+                //                 {
+                //                     ...img,
+                //                     promotions: [{ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate }]
+                //                 } :
+                //                 img
+                //         );
+                //         setSliderImages(updatedSliderImages);
+                //         setPromotion({ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate });
+                //         toast.success('Все обновления успешно сохранены!');
+                //         setShowPromotionSection(false);
+                //     }}>Обновить</button>
+                // </section>
+
                 <section>
                     <h2>Информация об акции, на слайдере</h2>
                     <select
@@ -1043,12 +1108,24 @@ const AdminHomepage = () => {
                         value={promotionTitle}
                         onChange={(e) => setPromotionTitle(e.target.value)}
                         placeholder="Заголовок акции"
+                        style={{ color: titleColor }} // Применение цвета заголовка
+                    />
+                    <input
+                        type="color"
+                        value={titleColor}
+                        onChange={(e) => setTitleColor(e.target.value)}
                     />
                     <input
                         type="text"
                         value={promotionDescription}
                         onChange={(e) => setPromotionDescription(e.target.value)}
                         placeholder="Описание акции"
+                        style={{ color: descriptionColor }} // Применение цвета описания
+                    />
+                    <input
+                        type="color"
+                        value={descriptionColor}
+                        onChange={(e) => setDescriptionColor(e.target.value)}
                     />
                     <input
                         type="date"
@@ -1060,21 +1137,9 @@ const AdminHomepage = () => {
                         value={promotionEndDate}
                         onChange={(e) => setPromotionEndDate(e.target.value)}
                     />
-                    <button onClick={() => {
-                        const updatedSliderImages = sliderImages.map(img =>
-                            img.url === selectedSliderImage ?
-                                {
-                                    ...img,
-                                    promotions: [{ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate }]
-                                } :
-                                img
-                        );
-                        setSliderImages(updatedSliderImages);
-                        setPromotion({ title: promotionTitle, description: promotionDescription, startDate: promotionStartDate, endDate: promotionEndDate });
-                        toast.success('Все обновления успешно сохранены!');
-                        setShowPromotionSection(false);
-                    }}>Обновить</button>
                 </section>
+
+
             )}
             <section>
                 <h2>Картинки по пренадлежнасти</h2>
