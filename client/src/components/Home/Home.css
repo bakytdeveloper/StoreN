@@ -322,7 +322,7 @@
     align-items: center;
     text-align: center;
     /*object-fit: cover;*/
-    object-fit: cover;
+    /*object-fit: cover;*/
     padding: 0;
     border-radius: 0 0 12px 12px;
 }
