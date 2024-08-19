@@ -391,6 +391,15 @@
 
     .carousel {
         margin-top: 110px;
+        height: 202px;
+    }
+
+    .carousel-item.active {
+        height: 202px!important;
+    }
+
+    .carousel-item-img {
+        height: 202px!important;
     }
 
     .text-container {
