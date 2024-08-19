@@ -192,8 +192,8 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
             <div className="info-blocks">
                 {genderImages.map((image, index) => (
                     <div className="info-block" key={index} onClick={() => handleImageClick(genderTitles[index])}>
-                        <div>{genderTitles[index]}</div>
-                        <div>
+                        <div className="info-block-title">{genderTitles[index]}</div>
+                        <div className="info-block-image">
                             <img className="info-block-img" src={image.url} alt={genderTitles[index]} />
                         </div>
                     </div>
