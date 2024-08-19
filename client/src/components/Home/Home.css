@@ -271,6 +271,7 @@
 
 .info-block {
     display: block;
+    position: relative;
     width: 23%;
     height: 200px;
     margin: 10px 0;
@@ -306,7 +307,13 @@
 /*    margin-left: 10px;*/
 /*}*/
 
+.info-block-title {
+    font-family: Sathu;
+    /*font-family: Avenir;*/
+}
+
 .info-block-image {
+    position: absolute;
     width: 100%;
     height: 100%;
     padding: 0;
@@ -480,6 +487,10 @@
         border-radius: 12px;
         font-size: 16PX;
 
+    }
+
+    .info-block-img {
+        height: 170px;
     }
 
     .home-page-footer {
