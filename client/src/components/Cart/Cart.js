@@ -79,13 +79,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         setTotalPrice(total);
         setTotalItems(cartItems.reduce((acc, item) => acc + item.quantity, 0));
-
-        // Если все товары удалены, очищаем корзину и показываем сообщение
-        // if (cartItems.length === 0) {
-        //     history.push('/catalog'); // Перенаправление на страницу каталога при пустой корзине
-        // } else if (cartItems.length > 0 && cartItems.every(item => item.quantity === 0)) {
-        //     setCartItems([]);
-        // }
     }, [cartItems, setCartItems]);
 
     const handleCheckout = () => {
@@ -122,11 +115,113 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         setCartItems(updatedCart);
     };
 
+    // const handleContinue = () => {
+    //     if (orderPlaced) {
+    //         return;
+    //     }
+    //     if (section === 1) {
+    //         setSection1Filled(true);
+    //         setSection(2);
+    //     } else if (section === 2) {
+    //         if (firstName.trim() !== '' && address.trim() !== '' && phoneNumber.trim() !== '') {
+    //             setSection2Filled(true);
+    //             setUserName(firstName);
+    //             setSection(3);
+    //         } else {
+    //             toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
+    //         }
+    //     }
+    // };
+
+
+
+    // const handlePlaceOrder = async () => {
+    //     if (orderPlaced) return;
+    //
+    //     setOrderPlaced(true);
+    //     setIsLoading(true); // Показать спиннер
+    //
+    //     if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
+    //         toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
+    //         setOrderPlaced(false);
+    //         setIsLoading(false); // Скрыть спиннер
+    //
+    //         return;
+    //     }
+    //
+    //     const token = localStorage.getItem('token');
+    //     let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
+    //     let sellerId = null;
+    //     if (token) {
+    //         // Определяем роль пользователя по токену
+    //         const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
+    //         role = decodedToken.role; // Роль можно получить из декодированного токена
+    //         sellerId = decodedToken.role === 'seller' ? decodedToken.sellerId : null;
+    //     }
+    //
+    //     const orderData = {
+    //         user: role === 'customer' ? { firstName, email } : null,
+    //         guestInfo: role === 'guest' ? { name: firstName, email } : undefined,
+    //         address,
+    //         phoneNumber,
+    //         products: cartItems.map(item => ({
+    //             product: item.productId,
+    //             quantity: item.quantity,
+    //             size: item.size,
+    //             color: item.color,
+    //         })),
+    //         totalAmount: totalPrice,
+    //         paymentMethod,
+    //         comments,
+    //         userName: userName || 'Гость',
+    //     };
+    //
+    //     try {
+    //         const [orderResponse, emailResponse] = await Promise.all([
+    //             fetch(`${apiUrl}/api/orders`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${token}`,
+    //                 },
+    //                 body: JSON.stringify(orderData),
+    //             }),
+    //             sendOrderEmail()  // Отправляем email администратору
+    //         ]);
+    //
+    //         if (orderResponse.ok) {
+    //             const data = await orderResponse.json();
+    //             console.log('Order placed successfully:', data);
+    //             setCartItems([]);
+    //             history.push('/');
+    //             toast.success('Ваш заказ принят. Спасибо за покупку');
+    //         } else {
+    //             const data = await orderResponse.json();
+    //             if (data.message === 'Insufficient product quantities') {
+    //                 toast.error(`Недостаточно запасов ${data.products.map(p => p.name).join(', ')}`);
+    //             } else {
+    //                 console.error('Failed to place order:', data.message);
+    //             }
+    //             setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
+    //         }
+    //     } catch (error) {
+    //         console.error('Error placing order:', error);
+    //         setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
+    //     }
+    //     setIsLoading(false); // Скрыть спиннер
+    // };
+
+
     const handleContinue = () => {
         if (orderPlaced) {
             return;
         }
         if (section === 1) {
+            // Проверка, что корзина не пуста и общая сумма больше нуля
+            if (totalItems === 0 || totalPrice === 0) {
+                toast.error('Ваша корзина пуста или общая сумма равна нулю. Пожалуйста, добавьте товары в корзину.');
+                return;
+            }
             setSection1Filled(true);
             setSection(2);
         } else if (section === 2) {
@@ -140,171 +235,24 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         }
     };
 
-
-    // const handlePlaceOrder = async () => {
-    //     if (orderPlaced) return;
-    //
-    //     setOrderPlaced(true);
-    //
-    //     if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
-    //         toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
-    //         setOrderPlaced(false);
-    //         return;
-    //     }
-    //
-    //     const token = localStorage.getItem('token');
-    //     let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
-    //     if (token) {
-    //         // Определяем роль пользователя по токену
-    //         const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
-    //
-    //         console.log("decodedToken", decodedToken)
-    //
-    //         role = decodedToken.role; // Роль можно получить из декодированного токена
-    //         const {sellerId} = decodedToken;
-    //         console.log("role", role)
-    //         console.log("sellerId", sellerId)
-    //     }
-    //
-    //     const orderData = {
-    //         user: role === 'customer' || role === 'seller' ? { firstName, email } : null,
-    //         guestInfo: role === 'guest' ? { name: firstName, email } : undefined,
-    //         address,
-    //         phoneNumber,
-    //         products: cartItems.map(item => ({
-    //             product: item.productId,
-    //             quantity: item.quantity,
-    //             size: item.size,
-    //             color: item.color,
-    //         })),
-    //         totalAmount: totalPrice,
-    //         paymentMethod,
-    //         comments,
-    //         userName: userName || 'Гость',
-    //     };
-    //
-    //     try {
-    //         const [orderResponse, emailResponse] = await Promise.all([
-    //             fetch(`${apiUrl}/api/orders`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${token}`,
-    //                 },
-    //                 body: JSON.stringify(orderData),
-    //             }),
-    //             sendOrderEmail()  // Отправляем email администратору
-    //         ]);
-    //
-    //         if (orderResponse.ok) {
-    //             const data = await orderResponse.json();
-    //             console.log('Order placed successfully:', data);
-    //             setCartItems([]);
-    //             history.push('/');
-    //             toast.success('Ваш заказ принят. Спасибо за покупку');
-    //         } else {
-    //             const data = await orderResponse.json();
-    //             if (data.message === 'Insufficient product quantities') {
-    //                 toast.error(`Недостаточно запасов ${data.products.map(p => p.name).join(', ')}`);
-    //             } else {
-    //                 console.error('Failed to place order:', data.message);
-    //             }
-    //             setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
-    //         }
-    //     } catch (error) {
-    //         console.error('Error placing order:', error);
-    //         setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
-    //     }
-    // };
-
-
-    // const handlePlaceOrder = async () => {
-    //     if (orderPlaced) return;
-    //
-    //     setOrderPlaced(true);
-    //
-    //     if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
-    //         toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
-    //         setOrderPlaced(false);
-    //         return;
-    //     }
-    //
-    //     const token = localStorage.getItem('token');
-    //     let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
-    //     let sellerId = null;
-    //     if (token) {
-    //         // Определяем роль пользователя по токену
-    //         const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
-    //         role = decodedToken.role; // Роль можно получить из декодированного токена
-    //         sellerId = decodedToken.sellerId || null;
-    //
-    //         console.log(sellerId)
-    //     }
-    //
-    //     const orderData = {
-    //         user: role === 'customer' || role === 'seller' ? { firstName, email } : null,
-    //         guestInfo: role === 'guest' ? { name: firstName, email } : undefined,
-    //         address,
-    //         phoneNumber,
-    //         products: cartItems.map(item => ({
-    //             product: item.productId,
-    //             quantity: item.quantity,
-    //             size: item.size,
-    //             color: item.color,
-    //         })),
-    //         totalAmount: totalPrice,
-    //         paymentMethod,
-    //         comments,
-    //         userName: userName || 'Гость',
-    //         sellerId
-    //     };
-    //
-    //     try {
-    //         const [orderResponse, emailResponse] = await Promise.all([
-    //             fetch(`${apiUrl}/api/orders`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${token}`,
-    //                 },
-    //                 body: JSON.stringify(orderData),
-    //             }),
-    //             sendOrderEmail()  // Отправляем email администратору
-    //         ]);
-    //
-    //         if (orderResponse.ok) {
-    //             const data = await orderResponse.json();
-    //             console.log('Order placed successfully:', data);
-    //             setCartItems([]);
-    //             history.push('/');
-    //             toast.success('Ваш заказ принят. Спасибо за покупку');
-    //         } else {
-    //             const data = await orderResponse.json();
-    //             if (data.message === 'Insufficient product quantities') {
-    //                 toast.error(`Недостаточно запасов ${data.products.map(p => p.name).join(', ')}`);
-    //             } else {
-    //                 console.error('Failed to place order:', data.message);
-    //             }
-    //             setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
-    //         }
-    //     } catch (error) {
-    //         console.error('Error placing order:', error);
-    //         setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
-    //     }
-    // };
-
-
     const handlePlaceOrder = async () => {
         if (orderPlaced) return;
 
         setOrderPlaced(true);
         setIsLoading(true); // Показать спиннер
 
+        // Проверка, что корзина не пуста и общая сумма больше нуля
+        if (totalItems === 0 || totalPrice === 0) {
+            toast.error('Ваша корзина пуста или общая сумма равна нулю. Невозможно оформить заказ.');
+            setOrderPlaced(false);
+            setIsLoading(false); // Скрыть спиннер
+            return;
+        }
+
         if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
             toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
             setOrderPlaced(false);
             setIsLoading(false); // Скрыть спиннер
-
             return;
         }
 
@@ -312,7 +260,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
         let sellerId = null;
         if (token) {
-            // Определяем роль пользователя по токену
             const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
             role = decodedToken.role; // Роль можно получить из декодированного токена
             sellerId = decodedToken.role === 'seller' ? decodedToken.sellerId : null;
