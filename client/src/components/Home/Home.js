@@ -158,7 +158,7 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
                             style={{ height: '100%', border:"none" }} // Высота карусели
                         >
                             <img src={slide.url} className="d-block w-100 carousel-item-img" alt={`Slide ${index + 1}`} />
-                            <div className="carousel-caption d-none d-md-block carousel-caption-title-description">
+                            <div className="carousel-caption d-md-block carousel-caption-title-description">
                                 <div className="carousel-caption-title" style={{ color: slide.colorTitle || '#000000', fontSize: slide.fontSizeTitle, fontFamily: slide.fontFamilleTitle || 'Arial' }}>{slide.promotions[0]?.title || 'ГОТОВЬСЯ К ЛЕТУ'}</div>
                                 <div className="carousel-caption-description" style={{ color: slide.colorDescription || '#000000', fontSize: slide.fontSizeDescription, fontFamily: slide.fontFamilleDescription || 'Arial' }}>{slide.promotions[0]?.description || 'НОВАЯ КОЛЛЕКЦИЯ ВОШЛА В ЧАТ'}</div>
                             </div>

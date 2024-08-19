@@ -502,6 +502,22 @@
         height: 170px;
     }
 
+    .carousel-caption-title-description {
+        display: block!important;
+        top: 5px!important;
+
+    }
+
+    .carousel-caption-title {
+        font-size: 22px!important;
+        margin-bottom: 15px;
+    }
+
+    .carousel-caption-description {
+        font-size: 17px!important;
+        line-height: 20px;
+    }
+
     .home-page-footer {
         display: none;
     }
