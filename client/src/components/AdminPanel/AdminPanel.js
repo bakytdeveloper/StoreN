@@ -183,7 +183,7 @@ const AdminPanel = ({ setShowSidebar }) => {
                 <button className="customerOrdersBtnOne" onClick={handleViewOrders}>Список заказов</button>
                 <button className="customerOrdersBtnTwo" onClick={handleViewClients}>Список клиентов</button>
                 <button className="customerOrdersBtnThree" onClick={handleViewSellers}>Список продавцов</button>
-                <button className="customerOrdersBtnFour" onClick={handleHomeImages}>Список продавцов</button>
+                <button className="customerOrdersBtnFour" onClick={handleHomeImages}>Управление главной страницей</button>
             </div>
 
             <div className="admin-product-list">
