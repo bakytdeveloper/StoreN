@@ -152,9 +152,10 @@
 
 .carousel-control-prev,
 .carousel-control-next {
+    position: absolute;
     width: 5%;
 
-    color: black!important;
+    /*color: black!important;*/
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
@@ -186,6 +187,7 @@
 .carousel-control-next {
     right: 0; /* Расположение кнопки по правому краю */
     width: 5%; /* Ширина кнопки */
+    z-index: 999999;
 }
 
 
@@ -223,6 +225,7 @@
     margin-left: 25%;
     margin-bottom: 5%;
     object-fit: contain;
+    z-index: 1;
 
 
 
