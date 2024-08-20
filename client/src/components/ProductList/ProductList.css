@@ -310,48 +310,6 @@
 
 }
 
-/*.pagination {*/
-/*    display: inline-flex;*/
-/*    position: absolute;*/
-/*    transform: translateX(-50%);*/
-/*    !*align-items: center;*!*/
-/*    !*text-align: center!important;*!*/
-/*    justify-content: center!important;*/
-/*    !*justify-content: space-between;*!*/
-/*    margin: 0 auto;*/
-/*    margin-left: 18% !important;*/
-
-/*    margin-bottom: 30px!important;*/
-
-/*}*/
-
-/*.pagination span {*/
-/*    margin-left: 27px;*/
-/*    margin-right: 27px;*/
-/*}*/
-
-/*.pagination button {*/
-/*    background: none;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    padding: 1px;*/
-/*    cursor: pointer;*/
-/*    font-size: 16px;*/
-/*    width: 100px;*/
-/*    border-radius: 7px;*/
-/*}*/
-/*.pagination button:hover {*/
-/*    background: #e0f5f1;*/
-/*}*/
-
-/*.pagination button:disabled {*/
-/*    background: #d4d0d0;*/
-/*    color: #666;*/
-/*    cursor: not-allowed;*/
-/*}*/
-
-
-
 
 .numStr {
     font-size: 16px;
@@ -645,14 +603,32 @@
 
     .pagination-item.active {
         /*background-color: #439bfa !important;*/
-        color: #1c0606;
+        color: #faf7f7!important;
         /*border: 1px solid #007bff;*/
         font-weight: bold;
+        background: #5ca9f5 !important;
+
     }
 
     .pagination-item:hover {
         background-color: #e9ecef;
     }
+
+    .pagination-item {
+        margin: 0 3px!important; /* Добавляем отступ в 3px между элементами */
+        /* Другие стили для элементов пагинации */
+    }
+
+
+    /*.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {*/
+    /*    background: #c3eaf6 !important;*/
+    /*    border-radius: 0 0 0 0!important;*/
+    /*    !*margin-right: 5px!important;*!*/
+    /*    !*margin-left: 5px!important;*!*/
+    /*    border: 1px solid #4ecae0 !important;*/
+
+
+    /*}*/
 
     .pagination-item.disabled {
         cursor: not-allowed;

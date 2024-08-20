@@ -111,8 +111,213 @@ import React, {useEffect, useState} from "react";
 
 
 
+// const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
+//     const pageRange = 5; // Количество отображаемых страниц
+//     const range = [];
+//     const [isSmallScreen, setIsSmallScreen] = useState(false);
+//
+//     useEffect(() => {
+//         const handleResize = () => {
+//             setIsSmallScreen(window.innerWidth <= 768);
+//         };
+//
+//         // Устанавливаем начальное значение
+//         handleResize();
+//
+//         // Слушаем изменения размера окна
+//         window.addEventListener('resize', handleResize);
+//
+//         // Очищаем слушателя при размонтировании компонента
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+//
+//     const createPageRange = () => {
+//         let start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
+//         let end = Math.min(start + pageRange - 1, totalPages);
+//
+//         if (currentPage <= 2) {
+//             end = Math.min(pageRange, totalPages);
+//         }
+//         if (currentPage >= totalPages - 1) {
+//             start = Math.max(totalPages - pageRange + 1, 1);
+//         }
+//
+//         for (let i = start; i <= end; i++) {
+//             range.push(i);
+//         }
+//     };
+//
+//     createPageRange();
+//
+//     return (
+//         <Pagination
+//             count={totalPages}
+//             page={currentPage}
+//             onChange={onPageChange}
+//             renderItem={(item) => {
+//                 const isActive = item.page === currentPage;
+//                 const isFirstOrLast = item.type === 'first' || item.type === 'last';
+//
+//                 return (
+//                     <PaginationItem
+//                         {...item}
+//                         className={`pagination-item ${isActive ? 'active' : ''} ${isFirstOrLast ? (item.type === 'first' ? 'pagination-item-first' : 'pagination-item-last') : ''}`}
+//                     />
+//                 );
+//             }}
+//             siblingCount={3}
+//             boundaryCount={1}
+//             showFirstButton={!isSmallScreen} // Показываем кнопки только если экран не маленький
+//             showLastButton={!isSmallScreen} // Показываем кнопки только если экран не маленький
+//         />
+//     );
+// };
+//
+// export default CustomPagination;
+
+
+//
+// const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
+//     const pageRange = 5; // Количество отображаемых страниц
+//     const range = [];
+//     const [isSmallScreen, setIsSmallScreen] = useState(false);
+//
+//     useEffect(() => {
+//         const handleResize = () => {
+//             setIsSmallScreen(window.innerWidth <= 768);
+//         };
+//
+//         // Устанавливаем начальное значение
+//         handleResize();
+//
+//         // Слушаем изменения размера окна
+//         window.addEventListener('resize', handleResize);
+//
+//         // Очищаем слушателя при размонтировании компонента
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+//
+//     const createPageRange = () => {
+//         let start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
+//         let end = Math.min(start + pageRange - 1, totalPages);
+//
+//         if (currentPage <= 2) {
+//             end = Math.min(pageRange, totalPages);
+//         }
+//         if (currentPage >= totalPages - 1) {
+//             start = Math.max(totalPages - pageRange + 1, 1);
+//         }
+//
+//         for (let i = start; i <= end; i++) {
+//             range.push(i);
+//         }
+//     };
+//
+//     createPageRange();
+//
+//     return (
+//         <Pagination
+//             count={totalPages}
+//             page={currentPage}
+//             onChange={onPageChange}
+//             renderItem={(item) => {
+//                 const isActive = item.page === currentPage;
+//                 const isFirstOrLast = item.type === 'first' || item.type === 'last';
+//
+//                 return (
+//                     <PaginationItem
+//                         {...item}
+//                         className={`pagination-item ${isActive ? 'active' : ''} ${isFirstOrLast ? (item.type === 'first' ? 'pagination-item-first' : 'pagination-item-last') : ''}`}
+//                     />
+//                 );
+//             }}
+//             siblingCount={isSmallScreen ? 1 : 3} // Меняем siblingCount в зависимости от размера экрана
+//             boundaryCount={1}
+//             showFirstButton={!isSmallScreen} // Показываем кнопки только если экран не маленький
+//             showLastButton={!isSmallScreen} // Показываем кнопки только если экран не маленький
+//         />
+//     );
+// };
+//
+// export default CustomPagination;
+
+
+
+
+// const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
+//     const pageRange = 5; // Количество отображаемых страниц
+//     const range = [];
+//     const [isSmallScreen, setIsSmallScreen] = useState(false);
+//
+//     useEffect(() => {
+//         const handleResize = () => {
+//             setIsSmallScreen(window.innerWidth <= 768);
+//         };
+//
+//         // Устанавливаем начальное значение
+//         handleResize();
+//
+//         // Слушаем изменения размера окна
+//         window.addEventListener('resize', handleResize);
+//
+//         // Очищаем слушателя при размонтировании компонента
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+//
+//     const createPageRange = () => {
+//         let start = Math.max(currentPage - Math.floor(pageRange / 2), 1);
+//         let end = Math.min(start + pageRange - 1, totalPages);
+//
+//         if (currentPage <= 2) {
+//             end = Math.min(pageRange, totalPages);
+//         }
+//         if (currentPage >= totalPages - 1) {
+//             start = Math.max(totalPages - pageRange + 1, 1);
+//         }
+//
+//         for (let i = start; i <= end; i++) {
+//             range.push(i);
+//         }
+//     };
+//
+//     createPageRange();
+//
+//     return (
+//         <Pagination
+//             count={totalPages}
+//             page={currentPage}
+//             onChange={onPageChange}
+//             renderItem={(item) => {
+//                 const isActive = item.page === currentPage;
+//
+//                 return (
+//                     <PaginationItem
+//                         {...item}
+//                         className={`pagination-item ${isActive ? 'active' : ''}`}
+//                     />
+//                 );
+//             }}
+//             siblingCount={isSmallScreen ? 1 : 3} // Уменьшаем siblingCount на маленьком экране
+//             boundaryCount={1}
+//             hidePrevButton={isSmallScreen} // Скрываем кнопку "Назад" на маленьком экране
+//             hideNextButton={isSmallScreen} // Скрываем кнопку "Вперед" на маленьком экране
+//         />
+//     );
+// };
+//
+// export default CustomPagination;
+
+
+
+
 const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
-    const pageRange = 3; // Количество отображаемых страниц
+    const pageRange = 5; // Количество отображаемых страниц
     const range = [];
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -158,22 +363,24 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
             onChange={onPageChange}
             renderItem={(item) => {
                 const isActive = item.page === currentPage;
-                const isFirstOrLast = item.type === 'first' || item.type === 'last';
 
                 return (
                     <PaginationItem
                         {...item}
-                        className={`pagination-item ${isActive ? 'active' : ''} ${isFirstOrLast ? (item.type === 'first' ? 'pagination-item-first' : 'pagination-item-last') : ''}`}
+                        className={`pagination-item ${isActive ? 'active' : ''}`}
                     />
                 );
             }}
-            siblingCount={1}
+            siblingCount={isSmallScreen ? 1 : 3} // Уменьшаем siblingCount на маленьком экране
             boundaryCount={1}
-            showFirstButton={!isSmallScreen} // Показываем кнопки только если экран не маленький
-            showLastButton={!isSmallScreen} // Показываем кнопки только если экран не маленький
+            hidePrevButton={isSmallScreen} // Скрываем кнопку "Назад" на маленьком экране
+            hideNextButton={isSmallScreen} // Скрываем кнопку "Вперед" на маленьком экране
         />
     );
 };
 
 export default CustomPagination;
+
+
+
 
