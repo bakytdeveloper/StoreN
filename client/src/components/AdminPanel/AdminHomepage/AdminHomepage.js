@@ -279,18 +279,106 @@ const AdminHomepage = () => {
                     ))}
                 </div>
             </section>
+            {/*{showPromotionSection && (*/}
+            {/*    <section>*/}
+            {/*        <h2>Информация об акции, на слайдере</h2>*/}
+            {/*        <select*/}
+            {/*            value={selectedSliderImage}*/}
+            {/*            onChange={(e) => setSelectedSliderImage(e.target.value)}*/}
+            {/*        >*/}
+            {/*            <option value="">Select an image</option>*/}
+            {/*            {sliderImages.map(img => (*/}
+            {/*                <option key={img.url} value={img.url}>{img.url}</option>*/}
+            {/*            ))}*/}
+            {/*        </select>*/}
+            {/*        <input*/}
+            {/*            type="text"*/}
+            {/*            value={promotionTitle}*/}
+            {/*            onChange={(e) => setPromotionTitle(e.target.value)}*/}
+            {/*            placeholder="Заголовок акции"*/}
+            {/*            style={{ marginBottom:"10px", marginTop:"10px", color: titleColor, fontSize: fontSizeTitle, fontFamily: fontFamilleTitle }} // Применение цвета заголовка*/}
+            {/*        />*/}
+            {/*        <input*/}
+            {/*            type="number"*/}
+            {/*            value={fontSizeTitle.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"*/}
+            {/*            onChange={(e) => setFontSizeTitle(`${e.target.value}px`)}*/}
+            {/*            placeholder="Размер шрифта заголовка"*/}
+            {/*        />*/}
+            {/*        <select*/}
+            {/*            style={{marginBottom:"10px", marginTop:"10px"}}*/}
+            {/*            value={fontFamilleTitle}*/}
+            {/*            onChange={(e) => setFontFamilleTitle(e.target.value)}*/}
+            {/*        >*/}
+            {/*            {fontFamilies.map((font, index) => (*/}
+            {/*                <option key={index} value={font}>{font}</option>*/}
+            {/*            ))}*/}
+            {/*        </select>*/}
+            {/*        <input*/}
+            {/*            type="color"*/}
+            {/*            value={titleColor}*/}
+            {/*            onChange={(e) => setTitleColor(e.target.value)}*/}
+            {/*        />*/}
+            {/*        <input*/}
+            {/*            type="text"*/}
+            {/*            value={promotionDescription}*/}
+            {/*            onChange={(e) => setPromotionDescription(e.target.value)}*/}
+            {/*            placeholder="Описание акции"*/}
+            {/*            style={{ color: descriptionColor, marginBottom:"10px", marginTop:"10px", fontSize: fontSizeDescription, fontFamily: fontFamilleDescription }} // Применение цвета описания*/}
+            {/*        />*/}
+            {/*        <input*/}
+            {/*            type="number"*/}
+            {/*            value={fontSizeDescription.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"*/}
+            {/*            onChange={(e) => setFontSizeDescription(`${e.target.value}px`)}*/}
+            {/*            placeholder="Размер шрифта описания"*/}
+            {/*        />*/}
+            {/*        <select*/}
+            {/*            style={{marginBottom:"10px", marginTop:"10px"}}*/}
+            {/*            value={fontFamilleDescription}*/}
+            {/*            onChange={(e) => setFontFamilleDescription(e.target.value)}*/}
+            {/*        >*/}
+            {/*            {fontFamilies.map((font, index) => (*/}
+            {/*                <option key={index} value={font}>{font}</option>*/}
+            {/*            ))}*/}
+            {/*        </select>*/}
+            {/*        <input*/}
+            {/*            type="color"*/}
+            {/*            value={descriptionColor}*/}
+            {/*            onChange={(e) => setDescriptionColor(e.target.value)}*/}
+            {/*        />*/}
+            {/*        <input*/}
+            {/*            style={{marginBottom:"10px", marginTop:"10px"}}*/}
+            {/*            type="date"*/}
+            {/*            value={promotionStartDate}*/}
+            {/*            onChange={(e) => setPromotionStartDate(e.target.value)}*/}
+            {/*        />*/}
+            {/*        <input*/}
+            {/*            type="date"*/}
+            {/*            value={promotionEndDate}*/}
+            {/*            onChange={(e) => setPromotionEndDate(e.target.value)}*/}
+            {/*        />*/}
+            {/*    </section>*/}
+
+
+            {/*)}*/}
+
             {showPromotionSection && (
                 <section>
-                    <h2>Информация об акции, на слайдере</h2>
-                    <select
+                    <h2>Информация об акции на слайдере</h2>
+
+                    {/* Инпут для выбора и редактирования URL изображения */}
+                    <input
+                        type="text"
                         value={selectedSliderImage}
-                        onChange={(e) => setSelectedSliderImage(e.target.value)}
-                    >
-                        <option value="">Select an image</option>
-                        {sliderImages.map(img => (
-                            <option key={img.url} value={img.url}>{img.url}</option>
-                        ))}
-                    </select>
+                        onChange={(e) => {
+                            setSelectedSliderImage(e.target.value);
+                            const updatedImages = sliderImages.map(img =>
+                                img.url === selectedSliderImage ? { ...img, url: e.target.value } : img
+                            );
+                            setSliderImages(updatedImages);
+                        }}
+                        placeholder="Введите URL изображения для редактирования"
+                    />
+
                     <input
                         type="text"
                         value={promotionTitle}
@@ -298,12 +386,14 @@ const AdminHomepage = () => {
                         placeholder="Заголовок акции"
                         style={{ marginBottom:"10px", marginTop:"10px", color: titleColor, fontSize: fontSizeTitle, fontFamily: fontFamilleTitle }} // Применение цвета заголовка
                     />
+
                     <input
                         type="number"
                         value={fontSizeTitle.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"
                         onChange={(e) => setFontSizeTitle(`${e.target.value}px`)}
                         placeholder="Размер шрифта заголовка"
                     />
+
                     <select
                         style={{marginBottom:"10px", marginTop:"10px"}}
                         value={fontFamilleTitle}
@@ -313,11 +403,13 @@ const AdminHomepage = () => {
                             <option key={index} value={font}>{font}</option>
                         ))}
                     </select>
+
                     <input
                         type="color"
                         value={titleColor}
                         onChange={(e) => setTitleColor(e.target.value)}
                     />
+
                     <input
                         type="text"
                         value={promotionDescription}
@@ -325,12 +417,14 @@ const AdminHomepage = () => {
                         placeholder="Описание акции"
                         style={{ color: descriptionColor, marginBottom:"10px", marginTop:"10px", fontSize: fontSizeDescription, fontFamily: fontFamilleDescription }} // Применение цвета описания
                     />
+
                     <input
                         type="number"
                         value={fontSizeDescription.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"
                         onChange={(e) => setFontSizeDescription(`${e.target.value}px`)}
                         placeholder="Размер шрифта описания"
                     />
+
                     <select
                         style={{marginBottom:"10px", marginTop:"10px"}}
                         value={fontFamilleDescription}
@@ -340,26 +434,29 @@ const AdminHomepage = () => {
                             <option key={index} value={font}>{font}</option>
                         ))}
                     </select>
+
                     <input
                         type="color"
                         value={descriptionColor}
                         onChange={(e) => setDescriptionColor(e.target.value)}
                     />
+
                     <input
                         style={{marginBottom:"10px", marginTop:"10px"}}
                         type="date"
                         value={promotionStartDate}
                         onChange={(e) => setPromotionStartDate(e.target.value)}
                     />
+
                     <input
                         type="date"
                         value={promotionEndDate}
                         onChange={(e) => setPromotionEndDate(e.target.value)}
                     />
                 </section>
-
-
             )}
+
+
             <section>
                 <h2>Картинки по пренадлежнасти</h2>
                 {Object.keys(genderImageUrls).map((category, index) => (
