@@ -188,13 +188,19 @@
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-    opacity: 1; /* Показать кнопку и иконку полностью при наведении */
+    opacity: 0.6!important; /* Показать кнопку и иконку полностью при наведении */
 }
 
 .carousel-control-prev:hover .carousel-control-prev-icon,
 .carousel-control-next:hover .carousel-control-next-icon {
-    opacity: 1; /* Показать иконку полностью при наведении */
+    opacity: 1!important; /* Показать иконку полностью при наведении */
 }
+
+ .carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    opacity: 1!important; /* Показать иконку полностью при наведении */
+}
+
 
 
 
