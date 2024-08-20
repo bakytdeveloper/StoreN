@@ -153,56 +153,54 @@
 .carousel-control-prev,
 .carousel-control-next {
     position: absolute;
-    width: 5%;
-
-    /*color: black!important;*/
-}
-
-.carousel-control-prev-icon, .carousel-control-next-icon {
-    width: 3rem; /* Размер области иконки */
-    height: 3rem;
+    width: 80px!important; /* Фиксированная ширина для каждой кнопки */
+    height: 100%; /* Высота кнопок */
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem; /* Размер стрелок */
-    opacity: 0; /* Скрываем по умолчанию */
-    transition: opacity 0.3s ease-in-out; /* Плавное появление */
-    color: white; /* Цвет стрелок */
-}
-
-.carousel-control-prev-icon-prev {
-    margin-left: 10px;
-}
-
-.carousel-control-prev:hover .carousel-control-prev-icon,
-.carousel-control-next:hover .carousel-control-next-icon {
-    opacity: 1; /* Показать стрелку при наведении */
+    z-index: 1; /* Убедитесь, что кнопки поверх слайдов */
+    opacity: 0.5; /* Полупрозрачность кнопки и иконки по умолчанию */
+    transition: opacity 0.3s ease-in-out; /* Плавный переход */
 }
 
 .carousel-control-prev {
-    left: 0; /* Расположение кнопки по левому краю */
-    width: 5%; /* Ширина кнопки */
+    left: 0;
 }
 
 .carousel-control-next {
-    right: 0; /* Расположение кнопки по правому краю */
-    width: 5%; /* Ширина кнопки */
-    z-index: 999999;
-}
-
-
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-    width: 5%;
-    padding-right: 50px!important;
-    padding-left: 50px!important;
-    opacity: 0.4!important;
+    right: 0;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    opacity: 0.5; /* Полупрозрачность иконки по умолчанию */
+    transition: opacity 0.3s ease-in-out; /* Плавное появление */
+    color: white;
     background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для кнопок */
 }
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1; /* Показать кнопку и иконку полностью при наведении */
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+    opacity: 1; /* Показать иконку полностью при наведении */
+}
+
+
+
+
+
+
 
 .carousel-indicators {
     bottom: 10px; /* Положение индикаторов */
@@ -263,12 +261,6 @@
 
 }
 
-/*.info-block span {*/
-/*    display: block;*/
-/*    margin-top: 0!important;*/
-
-/*}*/
-
 .info-block {
     display: block;
     position: relative;
@@ -293,19 +285,6 @@
     box-shadow: 2px 4px 8px rgba(7, 0, 0, 0.3);
 
 }
-
-
-/*.info-all {*/
-/*    width: 49%;*/
-
-/*}*/
-/*.one-all {*/
-/*    margin-right: 10px;*/
-/*}*/
-
-/*.two-all {*/
-/*    margin-left: 10px;*/
-/*}*/
 
 .info-block-title {
     font-family: Sathu;
@@ -372,9 +351,6 @@
 
 
 @media (max-width: 768px) {
-
-
-
     .home-container {
         margin-top: 0!important;
         padding: 0 10px;
