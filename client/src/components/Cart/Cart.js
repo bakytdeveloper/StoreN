@@ -33,7 +33,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const history = useHistory();
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
-
+    const [tokenUser, setTokenUser] = useState('')
     const handleBackToShopping = () => {
         setActiveComponent(null);  // Убираем активный компонент при закрытии корзины
         history.goBack();
@@ -52,6 +52,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
+                    setTokenUser(token)
                     const response = await fetch(`${apiUrl}/api/auth/profile`, {
                         method: 'GET',
                         headers: {
@@ -235,6 +236,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         }
     };
 
+
+
     const handlePlaceOrder = async () => {
         if (orderPlaced) return;
 
@@ -257,6 +260,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         }
 
         const token = localStorage.getItem('token');
+
         let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
         let sellerId = null;
         if (token) {
@@ -368,6 +372,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         history.push("/login");
     };
 
+    console.log("USER:",tokenUser)
+
     return (
         <div className="cartAll">
             <div className="cart">
@@ -376,32 +382,35 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 </div>
                 <h2>Корзина</h2>
                 {cartItems.length === 0 ? (
-
                     <div className="emptyCartEls-all">
-                       <div className="emptyCartEls" >
-                           <div onClick={goToCatalog}>
-                               <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
-                               <p className="emptyCart">Ваша корзина пока пуста, кликне сюда, чтобы преобрести товар</p>
-                           </div>
-                           <div className="empty-cart-login">
-                               <div>Или вводите через свой аккаунт</div>
-                               <button className="empty-cart-login-button" onClick={goToLogin}>
-                                   Ввойти
-                               </button>
-
-                               {/*<Link to="/login" className="empty-cart-login-button">*/}
-                               {/*    Ввойти*/}
-                               {/*</Link>*/}
-
-
-                           </div>
-                       </div>
+                        <div className="emptyCartEls">
+                            <div onClick={goToCatalog}>
+                                <img className="emptyCart" src={emptyCart} alt="Ваша корзина пока пуста" />
+                                <p className="emptyCart">Ваша корзина пока пуста, кликните сюда, чтобы преобрести товар</p>
+                            </div>
+                            {tokenUser ? (
+                                // Если пользователь залогинен
+                                <div className="empty-cart-login">
+                                    <div>Приступить к покупкам</div>
+                                    <button className="empty-cart-login-button" onClick={goToCatalog}>
+                                        Каталог
+                                    </button>
+                                </div>
+                            ) : (
+                                // Если пользователь не залогинен
+                                <div className="empty-cart-login">
+                                    <div>Или входите через свой аккаунт</div>
+                                    <button className="empty-cart-login-button" onClick={goToLogin}>
+                                        Войти
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                         <div className="empty-cart-products">
                             <h2 className="newest-products-title">Наши новинки</h2>
                             <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />
                         </div>
                     </div>
-
                 ) : (
                     <div className="allSection">
                         <div className="sectionOne">
@@ -546,8 +555,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                </div>
 
                             )}
-                            {/*<hr />*/}
-
                         </div>
 
                     </div>
@@ -569,13 +576,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                         {section2Filled && item === 2}
                     </span>
                 ))}
-                {/*<button*/}
-                {/*    className="buy_next buy_next_big_monitor"*/}
-                {/*    onClick={section === 3 ? handlePlaceOrder : handleContinue}*/}
-                {/*    disabled={orderPlaced}*/}
-                {/*>*/}
-                {/*    {section === 3 ? 'Закрыть' : 'Продолжить'}*/}
-                {/*</button>*/}
 
                 <button
                     className="buy_next buy_next_big_monitor"
