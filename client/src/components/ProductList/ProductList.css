@@ -3,40 +3,26 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Занимает всю высоту экрана */
+    width: 100%!important;
+    position: relative!important;
 }
 
 .product-list {
     display: grid;
-    position: relative;
+    position: center!important;
     grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; /* Изменено */
     gap: 20px;
     padding: 20px;
     margin-top: 103px !important;
     margin-left: 230px;
     /*margin-bottom: 90px !important; !* Добавленный отступ снизу, чтобы не перекрывать pagination *!*/
+    width: 100% !important;
 
-    flex: 1; /* Заставляет этот блок занимать доступное пространство */
+    flex: 1!important; /* Заставляет этот блок занимать доступное пространство */
 
     scroll-behavior: smooth;
 }
 
-/*.product-card {*/
-/*    border: 1px solid #fdfbfb;*/
-/*    border-radius: 9px;*/
-/*    overflow: hidden;*/
-/*    !*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*!*/
-/*    transition: transform 0.3s;*/
-/*    cursor: pointer;*/
-/*    !*text-align: center;*!*/
-/*    !*padding-top: 3px;*!*/
-/*    !*max-height: 300px;*!*/
-/*    padding: 0;*/
-/*    !*background: red;*!*/
-
-
-
-/*    height: auto;*/
-/*}*/
 
 .product-card {
     min-height: 300px; /* Добавить минимальную высоту, чтобы карточки были одинакового размера */
@@ -220,24 +206,6 @@
     margin-left: -7px;
 }
 
-/*.buy-button {*/
-/*    background-color: #dedede;*/
-/*    color: #160101;*/
-/*    padding: 5px 10px;*/
-/*    border: none;*/
-/*    !*border-radius: 0 4px 4px 0;*!*/
-/*    cursor: pointer;*/
-/*    font-size: 22px;*/
-/*    box-shadow: 3px 7px 7px grey;*/
-/*}*/
-
-/*.buy-button:hover {*/
-/*    background-color: #a7fcf8;*/
-/*    box-shadow: 1px 3px 3px #5a5959;*/
-
-/*}*/
-
-
 .cart-button {
     position: relative;
     background-color: #04c4b4 !important;
@@ -339,15 +307,6 @@
 .pagination span {
     text-align: center;
 }
-
-.product-list-plinth {
-    /*width: 100%;*/
-    /*height: 20px;*/
-    /*margin-bottom: 40px;*/
-    /*background-color: #1f1c1c;*/
-
-}
-
 
 .quantity-progress-bar {
     height: 30px; /* Задаем фиксированную высоту для прогресс-бара */
@@ -553,11 +512,6 @@
         display: block;
     }
 
-    /*.cart-button {*/
-    /*    height: 42px;*/
-    /*    !*width: ;*!*/
-    /*}*/
-
     /* Add this to your CSS file */
     body.no-scroll {
         overflow: hidden;
@@ -569,19 +523,6 @@
     .discount-percentage-badge {
         z-index: 0;
     }
-
-    /*.pagination {*/
-    /*    display: inline-flex;*/
-    /*    margin-left: 10%!important;*/
-    /*    width: auto;*/
-    /*    margin-bottom: 144px!important;*/
-    /*}*/
-    /*.pagination span {*/
-    /*    margin-left: 30px;*/
-    /*    margin-right: 30px;*/
-    /*    text-align: center;*/
-    /*}*/
-
     .pagination-container-block {
         margin-bottom: 77px;
         margin-left: 0;

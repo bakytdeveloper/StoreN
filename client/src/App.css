@@ -18,8 +18,8 @@ body, html {
   flex-direction: column;
   /* Добавьте остальные стили для .app по вашему усмотрению */
   min-height: 100vh;
-
 }
+
 .app .header {
   top: 0!important;
   margin: 0;
@@ -153,8 +153,9 @@ span {
 
 
 .content {
-  display: flex;
-  max-width: 1200px;
+  display: flex!important;
+  width: 100%;
+  max-width: 1200px!important;
   margin: 0 auto;
   flex-grow: 1;
   padding: 0;
