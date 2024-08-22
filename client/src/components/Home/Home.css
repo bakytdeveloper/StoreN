@@ -117,8 +117,9 @@
 
 .carousel {
     position: relative;
-    width: 100%;
+    max-width: 1200px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .carousel-inner {
@@ -147,7 +148,7 @@
 
 .carousel-item-image {
     width: 25% !important;
-    height: 330px;
+    height: 380px;
 
 }
 
