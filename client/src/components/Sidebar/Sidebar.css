@@ -9,10 +9,10 @@
     height: 100vh;
     padding: 15px 5px;
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     border-radius: 0;
     padding-bottom: 222px;
-    position: fixed;
+    flex: 0 0 250px; /* Ширина сайтбара */
 }
 
 .sidebar.permanent {
@@ -80,6 +80,8 @@
 @media (max-width: 768px) {
     .sidebar {
         width: 80%;
+        left: 0;
+
     }
 
     .show {
@@ -115,7 +117,7 @@
 .sidebar {
     position: fixed;
     margin-top: 170px;
-    left: 0;
+    /*left: 0;*/
     top: 0;
     bottom: 0;
     width: 240px;

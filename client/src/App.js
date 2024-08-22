@@ -112,6 +112,7 @@ const App = () => {
                                 searchTerm={searchTerm}
                             />
                         )}
+                        <div className="content">
                         <Sidebar
                             setProducts={setProducts}
                             showSidebar={showSidebar}
@@ -277,6 +278,7 @@ const App = () => {
                                 />
                             </Route>
                         </Switch>
+                        </div>
                         <Footer
                             cartItems={cartItems}
                             showSidebar={showSidebar}
