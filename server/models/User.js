@@ -10,8 +10,9 @@ const userSchema = new mongoose.Schema({
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
     address: { type: String }, // Добавлено поле для адреса
     createdAt: { type: Date, default: Date.now },
-    phoneNumber: { type: String } // Добавлено поле для номера телефона
-
+    phoneNumber: { type: String }, // Добавлено поле для номера телефона
+    // Другие поля пользователя (например, email, пароль, имя и т.д.)
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }]
 });
 
 const User = mongoose.model('User', userSchema);
