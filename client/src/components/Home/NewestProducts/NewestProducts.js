@@ -21,9 +21,9 @@ const NewestProducts = ({ apiUrl }) => {
             try {
                 let limit;
                 if (windowWidth >= 1800) {
-                    limit = 18;
+                    limit = 20;
                 } else if (windowWidth >= 1500) {
-                    limit = 18;
+                    limit = 15;
                 } else if (windowWidth >= 1200) {
                     limit = 15;
                 } else if (windowWidth >= 960) {
