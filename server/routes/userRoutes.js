@@ -237,55 +237,58 @@ router.delete('/clients/:id', authenticateToken, checkRole(['admin']), async (re
 
 
 
-// Middleware для проверки наличия пользователя
-async function findUserById(req, res, next) {
+router.post('/:userId/favorites', authenticateToken, async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
         if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
-        req.user = user;
-        next();
-    } catch (error) {
-        res.status(500).json({ message: 'Ошибка сервера при поиске пользователя' });
-    }
-}
 
-router.post('/:userId/favorites', authenticateToken, findUserById, async (req, res) => {
-    try {
         const productId = req.body.productId;
+        if (!productId) return res.status(400).json({ message: 'Товар не указан' });
 
-        // Проверка существования продукта
         const product = await Product.findById(productId);
-        if (!product) return res.status(404).json({ message: 'Продукт не найден' });
+        if (!product) return res.status(404).json({ message: 'Товар не найден' });
 
-        if (!req.user.favorites.includes(productId)) {
-            req.user.favorites.push(productId);
-            await req.user.save();
+        if (!user.favorites.includes(productId)) {
+            user.favorites.push(productId);
+            await user.save();
         }
-        res.status(200).json(req.user.favorites);
+        res.status(200).json(user.favorites);
     } catch (error) {
-        res.status(500).json({ message: 'Ошибка сервера при добавлении в избранное' });
+        console.error(error);
+        res.status(500).json({ message: 'Ошибка сервера' });
     }
 });
 
-router.delete('/:userId/favorites/:productId', authenticateToken, findUserById, async (req, res) => {
+router.delete('/:userId/favorites/:productId', authenticateToken, async (req, res) => {
     try {
-        req.user.favorites = req.user.favorites.filter(id => id.toString() !== req.params.productId);
-        await req.user.save();
+        const user = await User.findById(req.params.userId);
+        if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
 
-        res.status(200).json(req.user.favorites);
+        const productId = req.params.productId;
+        if (!user.favorites.includes(productId)) return res.status(404).json({ message: 'Товар не найден в избранном' });
+
+        user.favorites = user.favorites.filter(id => id.toString() !== productId);
+        await user.save();
+
+        res.status(200).json(user.favorites);
     } catch (error) {
-        res.status(500).json({ message: 'Ошибка сервера при удалении из избранного' });
+        console.error(error);
+        res.status(500).json({ message: 'Ошибка сервера' });
     }
 });
 
-router.get('/:userId/favorites', authenticateToken, findUserById, async (req, res) => {
+router.get('/:userId/favorites', authenticateToken, async (req, res) => {
     try {
-        const userWithFavorites = await req.user.populate('favorites');
-        res.status(200).json(userWithFavorites.favorites);
+        const user = await User.findById(req.params.userId).populate('favorites');
+        if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+
+        res.status(200).json(user.favorites);
     } catch (error) {
-        res.status(500).json({ message: 'Ошибка сервера при получении избранного' });
+        console.error(error);
+        res.status(500).json({ message: 'Ошибка сервера' });
     }
 });
+
 
 
 
