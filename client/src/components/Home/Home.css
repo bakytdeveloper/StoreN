@@ -13,108 +13,6 @@
     overflow-y: auto; /* Это позволяет вертикальный скроллинг */
 }
 
-/*.carousel {*/
-/*    width: 100%;*/
-/*    !*width: 1920px;*!*/
-/*    height: 350px;*/
-/*    margin: 0 auto;*/
-/*    overflow: hidden; !* Скрываем все, что выходит за пределы карусели *!*/
-/*    position: relative;*/
-/*    !*background: #f8efe5;*!*/
-/*    background: #f8efe5;*/
-/*    border-radius: 20px;*/
-
-/*}*/
-
-/*.carousel-track {*/
-/*    display: flex;*/
-/*    transition: transform 0.5s ease-in-out;*/
-/*}*/
-
-/*.slide {*/
-/*    min-width: 100%; !* Каждая слайд занимает всю ширину карусели *!*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-
-/*    transition: transform 0.5s ease-in-out;*/
-/*}*/
-
-/*.text-container {*/
-/*    text-align: left;*/
-/*    position: absolute;*/
-/*    align-items: flex-start;*/
-/*    top: 85px;*/
-/*    left: 180px;*/
-/*}*/
-
-/*.text-container h1 {*/
-/*    cursor: text;*/
-/*}*/
-
-/*.title {*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*    font-size: 40px;*/
-/*    font-weight: 600;*/
-/*    line-height: 60px;*/
-/*    letter-spacing: 0.05em;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.subtitle {*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*    font-size: 24px;*/
-/*    line-height: 36px;*/
-/*    margin: 10px 0;*/
-/*    text-align: left;*/
-
-/*}*/
-
-/*.description-home {*/
-/*    font-family: 'Poppins', sans-serif;*/
-/*    font-size: 16px;*/
-/*    font-weight: 275;*/
-/*    line-height: 24px;*/
-/*    letter-spacing: 0.05em;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.slide-image {*/
-/*    width: 462px;*/
-/*    height: 98%;*/
-/*    position: absolute;*/
-/*    !*top: 216px;*!*/
-/*    top: 6px;*/
-/*    left: 705px;*/
-/*    object-fit: contain;*/
-/*}*/
-
-/*.slide-button {*/
-/*    width: 210px;*/
-/*    !*width: 176px;*!*/
-/*    height: auto;*/
-/*    font-family: Poppins;*/
-/*    !*font-size: 194px;*!*/
-/*    font-size: 14px;*/
-/*    font-weight: 400;*/
-/*    line-height: 18px;*/
-/*    letter-spacing: 0.1em;*/
-/*    !*text-align: left;*!*/
-/*    background: rgb(252, 249, 249);*/
-/*    text-align: center;*/
-/*    color: black;*/
-/*    gap: 3px;*/
-/*    margin-top: 280px;*/
-/*    margin-left: 180px;*/
-/*    padding: 5px;*/
-/*    border-radius: 13px;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.slide-button:hover {*/
-/*    background: #9b9b9b;*/
-/*}*/
-
 .carousel {
     position: relative;
     max-width: 1340px;
@@ -283,7 +181,7 @@
     display: block;
     position: relative;
     width: 23%;
-    height: 200px;
+    height: 250px;
     margin: 10px 0;
     background-color: #f6f6f3;
     justify-content: center;
@@ -319,7 +217,7 @@
 
 .info-block-img {
     width: 100%;
-    height: 160px;
+    height: 210px;
     margin: 10px 0;
     display: flex;
     justify-content: center;
