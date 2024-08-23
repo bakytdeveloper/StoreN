@@ -10,7 +10,7 @@
 .product-list {
     display: grid;
     position: center!important;
-    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6 - 20px), 1fr)) !important; /* Изменено */
+    grid-template-columns: repeat(auto-fill, minmax(calc(100% / 5 - 20px), 1fr)) !important; /* Изменено */
     gap: 20px;
     padding: 20px;
     margin-top: 103px !important;
@@ -218,8 +218,9 @@
     height: 40px!important;
     margin-bottom: 5px;
     margin-top: -5px;
-    width: 98% !important;
-    margin-left: auto;
+
+    max-width: 91% !important;
+    margin-left: 2px;
     /*box-sizing: border-box!important;*/
 
 
