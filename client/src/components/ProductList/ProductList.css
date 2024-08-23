@@ -533,6 +533,9 @@
 
     .product-card {
         display: block;
+
+        border: none;
+        /*border: 1px solid green;*/
     }
 
     .cart-button {

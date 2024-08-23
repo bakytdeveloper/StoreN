@@ -16,7 +16,7 @@
     flex: 0 0 250px; /* Ширина сайтбара */
     /*margin-right: 20px!important;*/
 
-    border: 3px solid black;
+    /*border: 3px solid black;*/
 
 }
 
@@ -179,6 +179,7 @@ ul {
     transition: background-color 0.2s;
     font-size: 16px;
 
+
 }
 
 .sbLi:hover {
@@ -205,6 +206,7 @@ ul {
     font-family: Poppins;
     font-weight: 600;
     color: #3b3a3a;
+    width: 70%;
 }
 
 .sb-li-type {
@@ -213,6 +215,7 @@ ul {
 
     font-family: Poppins;
     font-weight: 600;
+    width: 66%;
 }
 
 .accordionContent {
@@ -221,14 +224,14 @@ ul {
     width: 250px!important;
     transition: max-height 0.3s ease-in-out;
     margin-left: 0;
-display: none!important;
+/*display: none!important;*/
 }
 
 .accordionContent.expanded {
     max-height: 250px;
     width: 250px!important;
     margin-left: 0;
-    display: none!important;
+    /*display: none!important;*/
     overflow-y: auto;
 }
 
