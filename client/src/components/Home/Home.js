@@ -105,6 +105,8 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
     }, [setShowSidebar]);
 
 
+
+
     // Обработчик клика по индикаторам
     const handleIndicatorClick = (index) => {
         setIsManualSwitch(true); // Приостанавливаем автоматическое переключение
@@ -132,6 +134,8 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
 
         setTimeout(() => setIsManualSwitch(false), 5000); // Возобновляем автоматическое переключение через 5 секунд
     };
+
+
 
     return (
         <div className="home-container">
