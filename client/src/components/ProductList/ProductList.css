@@ -25,7 +25,7 @@
 
 
 .product-card {
-    min-height: 300px; /* Добавить минимальную высоту, чтобы карточки были одинакового размера */
+    max-height: 440px; /* Добавить минимальную высоту, чтобы карточки были одинакового размера */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -35,6 +35,8 @@
     transition: transform 0.3s;
     cursor: pointer;
     margin-bottom: 20px; /* Отступ между карточками */
+
+    /*border: 1px solid red;*/
 }
 
 
@@ -320,9 +322,9 @@
     flex-direction: column;
     justify-content: center; /* Выравниваем содержимое по центру */
     /*margin-bottom: 10px;*/
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
-    padding: 0 10px 0 0;
+    padding: 0;
 }
 
 .product-list-quantity {
