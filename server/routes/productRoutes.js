@@ -193,21 +193,69 @@ router.get('/types/:category', async (req, res) => {
 });
 
 
-// Роут для фильтрации продуктов по продавцу
+// // Роут для фильтрации продуктов по продавцу
+// router.get('/products', async (req, res) => {
+//     try {
+//         const { gender, category, type, search, sellerId } = req.query;
+//
+//         let query = {};
+//         if (gender) {
+//             query.gender = gender;
+//         }
+//         if (category) {
+//             query.category = category;
+//         }
+//         if (type) {
+//             query.type = type;
+//         }
+//         if (search) {
+//             query.$or = [
+//                 { name: new RegExp(search, 'i') },
+//                 { description: new RegExp(search, 'i') },
+//                 { brand: new RegExp(search, 'i') },
+//                 { type: new RegExp(search, 'i') }
+//             ];
+//         }
+//         if (sellerId) {
+//             query.seller = sellerId; // Добавляем фильтрацию по sellerId
+//         }
+//
+//         const products = await Product.find(query).populate('seller');
+//
+//         console.log("SELLER:", products);
+//
+//         if (!Array.isArray(products)) {
+//             return res.status(500).json({ message: 'Error: Products is not an array' });
+//         }
+//
+//         // Фильтруем товары на основе видимости продавца
+//         const filteredProducts = products.filter(product => {
+//             // Проверяем, существует ли продавец и видимость товаров
+//             return product.seller && product.seller.isProductsVisible;
+//         });
+//
+//         // Разделяем товары на активные и неактивные
+//         const activeProducts = filteredProducts.filter(product => product.isActive);
+//         const inactiveProducts = filteredProducts.filter(product => !product.isActive);
+//
+//         // Объединяем активные и неактивные товары
+//         const sortedProducts = [...activeProducts, ...inactiveProducts];
+//
+//         res.json(sortedProducts);
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// });
+
+
 router.get('/products', async (req, res) => {
     try {
-        const { gender, category, type, search, sellerId } = req.query;
-
+        const { gender, category, type, search, sellerId, page = 1, limit = 15 } = req.query;
         let query = {};
-        if (gender) {
-            query.gender = gender;
-        }
-        if (category) {
-            query.category = category;
-        }
-        if (type) {
-            query.type = type;
-        }
+        if (gender) query.gender = gender;
+        if (category) query.category = category;
+        if (type) query.type = type;
         if (search) {
             query.$or = [
                 { name: new RegExp(search, 'i') },
@@ -216,37 +264,29 @@ router.get('/products', async (req, res) => {
                 { type: new RegExp(search, 'i') }
             ];
         }
-        if (sellerId) {
-            query.seller = sellerId; // Добавляем фильтрацию по sellerId
-        }
+        if (sellerId) query.seller = sellerId;
 
-        const products = await Product.find(query).populate('seller');
-
-        console.log("SELLER:", products);
+        const skip = (page - 1) * limit;
+        const products = await Product.find(query)
+            .populate('seller')
+            .skip(skip)
+            .limit(parseInt(limit));
 
         if (!Array.isArray(products)) {
             return res.status(500).json({ message: 'Error: Products is not an array' });
         }
 
-        // Фильтруем товары на основе видимости продавца
         const filteredProducts = products.filter(product => {
-            // Проверяем, существует ли продавец и видимость товаров
             return product.seller && product.seller.isProductsVisible;
         });
 
-        // Разделяем товары на активные и неактивные
-        const activeProducts = filteredProducts.filter(product => product.isActive);
-        const inactiveProducts = filteredProducts.filter(product => !product.isActive);
-
-        // Объединяем активные и неактивные товары
-        const sortedProducts = [...activeProducts, ...inactiveProducts];
-
-        res.json(sortedProducts);
+        res.json(filteredProducts);
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 
 // Получение списка самых новых продуктов с учетом активных статусов

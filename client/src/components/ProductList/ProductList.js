@@ -126,18 +126,51 @@ const ProductList = ({
         }
     }, [location.search]);
 
-    // Функция для получения данных с сервера
+    // // Функция для получения данных с сервера
+    // const fetchData = async () => {
+    //     setLoading(true);
+    //     try {
+    //         const params = new URLSearchParams(location.search);
+    //         const sellerId = params.get('sellerId');
+    //         const productsResponse = await fetch(
+    //             `${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}${sellerId ? `&sellerId=${sellerId}` : ''}`,
+    //             { timeout: 10000 }
+    //         );
+    //         const productsData = await productsResponse.json();
+    //
+    //         setProducts(productsData);
+    //         setFilteredProducts(filterProducts(productsData));
+    //         setFilteredProductsNoSearch(filterProductsNoSearch(productsData));
+    //
+    //         if (sellerId) {
+    //             const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${sellerId}`);
+    //             const sellerData = await sellerResponse.json();
+    //             setSellerInfo(sellerData);
+    //         } else {
+    //             setSellerInfo(null); // Если нет sellerId, сбросить информацию о продавце
+    //         }
+    //
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+
     const fetchData = async () => {
         setLoading(true);
         try {
             const params = new URLSearchParams(location.search);
             const sellerId = params.get('sellerId');
+            const page = params.get('page') || 1;
+            const limit = productsPerPage;
+
             const productsResponse = await fetch(
-                `${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}${sellerId ? `&sellerId=${sellerId}` : ''}`,
+                `${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}&page=${page}&limit=${limit}${sellerId ? `&sellerId=${sellerId}` : ''}`,
                 { timeout: 10000 }
             );
             const productsData = await productsResponse.json();
-
             setProducts(productsData);
             setFilteredProducts(filterProducts(productsData));
             setFilteredProductsNoSearch(filterProductsNoSearch(productsData));
@@ -147,15 +180,16 @@ const ProductList = ({
                 const sellerData = await sellerResponse.json();
                 setSellerInfo(sellerData);
             } else {
-                setSellerInfo(null); // Если нет sellerId, сбросить информацию о продавце
+                setSellerInfo(null);
             }
-
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
             setLoading(false);
         }
     };
+
+
 
 // Устанавливаем page=1 при переходе на страницу каталога
     useEffect(() => {
@@ -299,14 +333,6 @@ const ProductList = ({
             .filter(product => !selectedGender || product.gender === selectedGender)
             .filter(product => !selectedCategory || product.category === selectedCategory)
             .filter(product => !selectedType || product.type === selectedType)
-            // .filter(product =>
-            //     searchKeyword
-            //         ? product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            //         product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            //         product.brand.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-            //         product.type.toLowerCase().includes(searchKeyword.toLowerCase())
-            //         : true
-            // )
             .filter(product => !sellerId || product.seller && product.seller._id === sellerId);
     };
 
@@ -337,21 +363,21 @@ const ProductList = ({
         }
     };
 
-// Переход на следующую страницу пагинации
-    const handleNextPage = () => {
-        const params = new URLSearchParams(location.search);
-        params.set('page', currentPage + 1);
-        history.push({ search: params.toString() });
-        setCurrentPage(currentPage + 1);
-    };
-
-// Переход на предыдущую страницу пагинации
-    const handlePrevPage = () => {
-        const params = new URLSearchParams(location.search);
-        params.set('page', currentPage - 1);
-        history.push({ search: params.toString() });
-        setCurrentPage(currentPage - 1);
-    };
+// // Переход на следующую страницу пагинации
+//     const handleNextPage = () => {
+//         const params = new URLSearchParams(location.search);
+//         params.set('page', currentPage + 1);
+//         history.push({ search: params.toString() });
+//         setCurrentPage(currentPage + 1);
+//     };
+//
+// // Переход на предыдущую страницу пагинации
+//     const handlePrevPage = () => {
+//         const params = new URLSearchParams(location.search);
+//         params.set('page', currentPage - 1);
+//         history.push({ search: params.toString() });
+//         setCurrentPage(currentPage - 1);
+//     };
 
 // Вычисление общего количества страниц для пагинации
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
@@ -406,6 +432,29 @@ const ProductList = ({
         setSearchTerm('');
         // onSearch('');
     }
+
+    // const handlePageChange = (event, value) => {
+    //     const params = new URLSearchParams(location.search);
+    //     params.set('page', value);
+    //     history.push({ search: params.toString() });
+    //     setCurrentPage(value);
+    // };
+
+    const handleNextPage = () => {
+        const params = new URLSearchParams(location.search);
+        const nextPage = currentPage + 1;
+        params.set('page', nextPage);
+        history.push({ search: params.toString() });
+        setCurrentPage(nextPage);
+    };
+
+    const handlePrevPage = () => {
+        const params = new URLSearchParams(location.search);
+        const prevPage = currentPage - 1;
+        params.set('page', prevPage);
+        history.push({ search: params.toString() });
+        setCurrentPage(prevPage);
+    };
 
     const handlePageChange = (event, value) => {
         const params = new URLSearchParams(location.search);
@@ -632,21 +681,6 @@ const ProductList = ({
 
                 )}
             </div>
-
-            {/*{displayedProducts && displayedProducts.length > 0 && (*/}
-            {/*    <div className="pagination-container">*/}
-            {/*        <div className="pagination">*/}
-            {/*            <button className="arrowL" onClick={handlePrevPage} disabled={currentPage === 1}>*/}
-            {/*                <img className="arrowLImg" src={left} alt="Cart" />*/}
-            {/*            </button>*/}
-            {/*            <span className="numStr">{`Страница ${currentPage} из ${totalPages}`}</span>*/}
-            {/*            <button className="arrowR" onClick={handleNextPage} disabled={currentPage === totalPages}>*/}
-            {/*                <img className="arrowRImg" src={right} alt="Cart" />*/}
-            {/*            </button>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*)}*/}
-
 
            <div className="pagination-container-block">
                <div className="pagination-container-block-one">
