@@ -424,110 +424,112 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     }, [searchTerm, location.pathname]);
 
     return (
-        <div className="header">
-            <div className="header-left">
-                <div className="title" onClick={handleTitleClick}>
-                    <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
-                </div>
-                <nav className="nav-links">
-                    <Link to="/" className={`nav-link ${activePage === 'home' ? 'active-title' : ''}`}>Главная</Link>
-                    <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>
-                </nav>
-            </div>
-            <div className="header-right">
-                <div className="auth-buttons">
-                    {/*<div className="profileIcon" ref={profileRef}>*/}
-                    {/*    <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>*/}
-                    {/*    {isProfileOpen && (*/}
-                    {/*        <div className="dropdown-menu">*/}
-                    {/*            <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>*/}
-                    {/*            <button onClick={handleLoginClick}>{isAuthenticated ? (userStatus === 'suspend' ? "Логин" : "Профиль") : "Логин"}</button>*/}
-                    {/*            {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}*/}
-                    {/*            {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}*/}
-                    {/*        </div>*/}
-                    {/*    )}*/}
-                    {/*</div>*/}
+       <div className="header-container">
+           <div className="header">
+               <div className="header-left">
+                   <div className="title" onClick={handleTitleClick}>
+                       <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
+                   </div>
+                   <nav className="nav-links">
+                       <Link to="/" className={`nav-link ${activePage === 'home' ? 'active-title' : ''}`}>Главная</Link>
+                       <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>
+                   </nav>
+               </div>
+               <div className="header-right">
+                   <div className="auth-buttons">
+                       {/*<div className="profileIcon" ref={profileRef}>*/}
+                       {/*    <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>*/}
+                       {/*    {isProfileOpen && (*/}
+                       {/*        <div className="dropdown-menu">*/}
+                       {/*            <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>*/}
+                       {/*            <button onClick={handleLoginClick}>{isAuthenticated ? (userStatus === 'suspend' ? "Логин" : "Профиль") : "Логин"}</button>*/}
+                       {/*            {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}*/}
+                       {/*            {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}*/}
+                       {/*        </div>*/}
+                       {/*    )}*/}
+                       {/*</div>*/}
 
-                    <div className="profileIcon" ref={profileRef}>
-                        <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>
-                        {isProfileOpen && (
-                            // <div className="dropdown-menu">
-                            //     <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
-                            //     {userStatus === 'suspend' ? (
-                            //         <>
-                            //             <button onClick={handleLoginClick}>Логин</button>
-                            //             <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
-                            //         </>
-                            //     ) : (
-                            //         <>
-                            //             <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
-                            //             {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
-                            //             {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
-                            //         </>
-                            //     )}
-                            // </div>
+                       <div className="profileIcon" ref={profileRef}>
+                           <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>
+                           {isProfileOpen && (
+                               // <div className="dropdown-menu">
+                               //     <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
+                               //     {userStatus === 'suspend' ? (
+                               //         <>
+                               //             <button onClick={handleLoginClick}>Логин</button>
+                               //             <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
+                               //         </>
+                               //     ) : (
+                               //         <>
+                               //             <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                               //             {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                               //             {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+                               //         </>
+                               //     )}
+                               // </div>
 
-                            <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
-                                <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
-                                {userStatus === 'suspend' ? (
-                                    <>
-                                        <button onClick={handleLoginClick}>Логин</button>
-                                        <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
-                                        {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
-                                        {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
-                                    </>
-                                )}
-                            </div>
+                               <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
+                                   <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
+                                   {userStatus === 'suspend' ? (
+                                       <>
+                                           <button onClick={handleLoginClick}>Логин</button>
+                                           <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
+                                       </>
+                                   ) : (
+                                       <>
+                                           <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                                           {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                                           {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+                                       </>
+                                   )}
+                               </div>
 
 
 
-                        )}
+                           )}
 
-                    </div>
+                       </div>
 
-                    {showSellerRegistration && (
-                        <SellerRegistrationForm />
-                    )}
-                </div>
-                <Link to="/cart" className={`auth-button btn ${activePage === 'cart' ? 'active-title' : ''}`} onClick={handleCartClick}>
+                       {showSellerRegistration && (
+                           <SellerRegistrationForm />
+                       )}
+                   </div>
+                   <Link to="/cart" className={`auth-button btn ${activePage === 'cart' ? 'active-title' : ''}`} onClick={handleCartClick}>
                     <span className="cartIcon">
                         {totalItemsCount > 0 && (
                             <span className="totalItems">{totalItemsCount}</span>
                         )}
                         <span className="total-items-title">Корзина</span>
                     </span>
-                </Link>
-                <div className="search">
-                    <form className="form-search" onSubmit={handleSearchSubmit}>
-                        <input
-                            className="search-input"
-                            type="text"
-                            placeholder="Поиск..."
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                        />
-                        <button className="search-cross" type="button" onClick={handleClearSearch}>
-                            <img src={cross}/>
-                        </button>
-                        <button className="search-button" type="submit">
-                            <img className="search-button-img" src={search_header}/>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div className="mobile-buttons">
-                <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
-                    <Link style={{color:"white"}} to="/catalog" className="btn">Каталог товаров</Link>
-                </div>
-                <div className={`btn2 ${contactButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleContactClick} style={{ backgroundColor: contactButtonColor }}>
-                    <Link style={{color:"white"}} to="/contact" className="btn">Контакты</Link>
-                </div>
-            </div>
-        </div>
+                   </Link>
+                   <div className="search">
+                       <form className="form-search" onSubmit={handleSearchSubmit}>
+                           <input
+                               className="search-input"
+                               type="text"
+                               placeholder="Поиск..."
+                               value={searchTerm}
+                               onChange={handleSearchChange}
+                           />
+                           <button className="search-cross" type="button" onClick={handleClearSearch}>
+                               <img src={cross}/>
+                           </button>
+                           <button className="search-button" type="submit">
+                               <img className="search-button-img" src={search_header}/>
+                           </button>
+                       </form>
+                   </div>
+               </div>
+               <div className="mobile-buttons">
+                   <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
+                       <Link style={{color:"white"}} to="/catalog" className="btn">Каталог товаров</Link>
+                   </div>
+                   <div className={`btn2 ${contactButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleContactClick} style={{ backgroundColor: contactButtonColor }}>
+                       <Link style={{color:"white"}} to="/contact" className="btn">Контакты</Link>
+                   </div>
+               </div>
+           </div>
+       </div>
     );
 };
 
