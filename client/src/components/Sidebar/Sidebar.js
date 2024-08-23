@@ -142,16 +142,16 @@ const Sidebar = ({
 
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
-            <div className="titleShow">
+            {/*<div className="titleShow">*/}
 
-            </div>
+            {/*</div>*/}
             <ul>
                 {selectedOption === 'contact' ? (
                     <ContactsInfo />
                 ) : (
                     <>
                         <h2 style={{ marginTop: "0", marginBottom: "5px" }}>Товары</h2>
-                        <hr />
+                        <hr style={{height:"2px", border:"1px solid red", width:"100%"}} />
                         {genders && genders.map((gender) => (
                             <AccordionItem
                                 key={gender}

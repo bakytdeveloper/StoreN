@@ -2,22 +2,27 @@
 
 /*!* src/components/Sidebar/Sidebar.css *!*/
 .sidebar {
+    display: flex;
     margin-top: 22px;
     position: fixed;
     /*width: 100%;*/
     /*width: 250px!important;*/
     height: 100vh;
-    padding: 15px 5px;
+    padding: 15px 30px 20px 0;
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
     /*margin-left: 10px;*/
     border-radius: 0;
     padding-bottom: 222px;
     flex: 0 0 250px; /* Ширина сайтбара */
+    /*margin-right: 20px!important;*/
+
+    border: 3px solid black;
 
 }
 
 .sidebar.permanent {
     margin-top: 120px;
+
 }
 
 .contacts-info {
@@ -65,7 +70,7 @@
         z-index: 1;
         background: white;
         font-size: 26px;
-        margin-left: 0;
+        margin-right: 0;
 
         overflow: hidden;
     }
@@ -213,12 +218,17 @@ ul {
 .accordionContent {
     max-height: 0;
     overflow: hidden;
+    width: 250px!important;
     transition: max-height 0.3s ease-in-out;
+    margin-left: 0;
+display: none!important;
 }
 
 .accordionContent.expanded {
     max-height: 250px;
-
+    width: 250px!important;
+    margin-left: 0;
+    display: none!important;
     overflow-y: auto;
 }
 

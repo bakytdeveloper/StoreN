@@ -14,7 +14,7 @@
     gap: 20px;
     padding: 20px;
     margin-top: 103px !important;
-    margin-left: 230px;
+    margin-left: 250px;
     /*margin-bottom: 90px !important; !* Добавленный отступ снизу, чтобы не перекрывать pagination *!*/
     max-width: 100% !important;
 
@@ -218,9 +218,9 @@
     height: 40px!important;
     margin-bottom: 5px;
     margin-top: -5px;
+    margin-left: 11px;
+    max-width: 100% !important;
 
-    max-width: 91% !important;
-    margin-left: 2px;
     /*box-sizing: border-box!important;*/
 
 
@@ -259,6 +259,11 @@
     box-shadow: 1px 3px 3px #5a5959;
 
 }
+
+/*.accordionContent {*/
+/*    display: none!important;*/
+/*    width: 250px!important;*/
+/*}*/
 
 .pagination-container {
     display: flex;
@@ -432,6 +437,23 @@
 
 /*!!!!!!!!!*/
 
+.sidebar {
+    display: block;
+    width: 250px;
+
+}
+.show {
+    width: 250px;
+    display: block;
+
+}
+
+.permanent {
+    width: 250px;
+    display: block;
+}
+
+/*sidebar show permanent*/
 
 @media only screen and (max-width: 1340px) {
     .product-list {
@@ -513,6 +535,12 @@
         display: block;
     }
 
+    .cart-button {
+        /*margin-left: 2px;*/
+        width: 91%;
+        margin: 0 auto;
+    }
+
     /* Add this to your CSS file */
     body.no-scroll {
         overflow: hidden;
@@ -559,52 +587,12 @@
         /* Другие стили для элементов пагинации */
     }
 
-
-    /*.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {*/
-    /*    background: #c3eaf6 !important;*/
-    /*    border-radius: 0 0 0 0!important;*/
-    /*    !*margin-right: 5px!important;*!*/
-    /*    !*margin-left: 5px!important;*!*/
-    /*    border: 1px solid #4ecae0 !important;*/
-
-
-    /*}*/
-
     .pagination-item.disabled {
         cursor: not-allowed;
         color: #6c757d;
         background-color: #f8f9fa;
     }
 
-    /*.pagination .MuiPaginationItem-root {*/
-    /*    border: none!important;*/
-    /*    padding: 0!important;*/
-
-    /*}*/
-
-    /*.pagination .MuiPaginationItem-previousNext {*/
-    /*    font-size: 19px!important;*/
-
-    /*    padding: 0!important;*/
-    /*}*/
-
-    /*.MuiPagination-ul.css-wjh20t-MuiPagination-ul li {*/
-    /*    padding: 0!important;*/
-    /*    background: none!important;*/
-
-    /*}*/
-
-    /*.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.Mui-selected.MuiPaginationItem-page.pagination-item.active.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {*/
-    /*    font-size: 22px!important;*/
-    /*}*/
-
-    /*.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.pagination-item.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {*/
-    /*    font-size: 22px!important;*/
-    /*}*/
-
-    /*.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon {*/
-    /*    font-size: 33px!important;*/
-    /*}*/
 
 
     .arrowL {
@@ -617,12 +605,6 @@
         padding: 4px 11px!important;
     }
 
-
-    /*.pagination {*/
-    /*    text-align: center;*/
-    /*    right: 25% !important;*/
-    /*    width: auto;*/
-    /*}*/
 
     .pagination span {
         margin-left: 16px!important;
