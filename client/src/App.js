@@ -33,6 +33,7 @@ import AdminHomepage from "./components/AdminPanel/AdminHomepage/AdminHomepage";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import FavoritesPage from "./components/FavoritesPage/FavoritesPage";
 
 
 const App = () => {
@@ -184,6 +185,13 @@ const App = () => {
                             </Route>
                             <Route path="/sellers-products">
                                 <ProductForm
+                                    showSidebar={showSidebar}
+                                    setShowSidebar={setShowSidebar}
+                                />
+                            </Route>
+
+                            <Route path="/favorites">
+                                <FavoritesPage
                                     showSidebar={showSidebar}
                                     setShowSidebar={setShowSidebar}
                                 />
