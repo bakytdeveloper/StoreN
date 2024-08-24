@@ -237,21 +237,69 @@ router.delete('/clients/:id', authenticateToken, checkRole(['admin']), async (re
 
 
 
+// router.post('/:userId/favorites', authenticateToken, async (req, res) => {
+//     try {
+//         const user = await User.findById(req.params.userId);
+//         if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+//
+//         const productId = req.body.productId;
+//         if (!productId) return res.status(400).json({ message: 'Товар не указан' });
+//
+//         const product = await Product.findById(productId);
+//         if (!product) return res.status(404).json({ message: 'Товар не найден' });
+//
+//         if (!user.favorites.includes(productId)) {
+//             user.favorites.push(productId);
+//             await user.save();
+//         }
+//         res.status(200).json(user.favorites);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Ошибка сервера' });
+//     }
+// });
+//
+// router.delete('/:userId/favorites/:productId', authenticateToken, async (req, res) => {
+//     try {
+//         const user = await User.findById(req.params.userId);
+//         if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+//
+//         const productId = req.params.productId;
+//         if (!user.favorites.includes(productId)) return res.status(404).json({ message: 'Товар не найден в избранном' });
+//
+//         user.favorites = user.favorites.filter(id => id.toString() !== productId);
+//         await user.save();
+//
+//         res.status(200).json(user.favorites);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Ошибка сервера' });
+//     }
+// });
+
+
+
+// Добавление товара в избранное
 router.post('/:userId/favorites', authenticateToken, async (req, res) => {
+    const { userId } = req.params;
+    const { productId } = req.body;
+
+    if (!productId) {
+        return res.status(400).json({ message: 'Товар не указан' });
+    }
+
     try {
-        const user = await User.findById(req.params.userId);
-        if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+        // Используйте findOneAndUpdate для атомарного обновления
+        const user = await User.findOneAndUpdate(
+            { _id: userId, favorites: { $ne: productId } },
+            { $push: { favorites: productId } },
+            { new: true, runValidators: true }
+        );
 
-        const productId = req.body.productId;
-        if (!productId) return res.status(400).json({ message: 'Товар не указан' });
-
-        const product = await Product.findById(productId);
-        if (!product) return res.status(404).json({ message: 'Товар не найден' });
-
-        if (!user.favorites.includes(productId)) {
-            user.favorites.push(productId);
-            await user.save();
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден или товар уже в избранном' });
         }
+
         res.status(200).json(user.favorites);
     } catch (error) {
         console.error(error);
@@ -259,16 +307,22 @@ router.post('/:userId/favorites', authenticateToken, async (req, res) => {
     }
 });
 
+// Удаление товара из избранного
 router.delete('/:userId/favorites/:productId', authenticateToken, async (req, res) => {
+    const { userId } = req.params;
+    const { productId } = req.params;
+
     try {
-        const user = await User.findById(req.params.userId);
-        if (!user) return res.status(404).json({ message: 'Пользователь не найден' });
+        // Используйте findOneAndUpdate для атомарного обновления
+        const user = await User.findOneAndUpdate(
+            { _id: userId, favorites: productId },
+            { $pull: { favorites: productId } },
+            { new: true }
+        );
 
-        const productId = req.params.productId;
-        if (!user.favorites.includes(productId)) return res.status(404).json({ message: 'Товар не найден в избранном' });
-
-        user.favorites = user.favorites.filter(id => id.toString() !== productId);
-        await user.save();
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден или товар не в избранном' });
+        }
 
         res.status(200).json(user.favorites);
     } catch (error) {
@@ -276,6 +330,7 @@ router.delete('/:userId/favorites/:productId', authenticateToken, async (req, re
         res.status(500).json({ message: 'Ошибка сервера' });
     }
 });
+
 
 router.get('/:userId/favorites', authenticateToken, async (req, res) => {
     try {
