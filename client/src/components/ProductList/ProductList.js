@@ -126,36 +126,6 @@ const ProductList = ({
         }
     }, [location.search]);
 
-    // // Функция для получения данных с сервера
-    // const fetchData = async () => {
-    //     setLoading(true);
-    //     try {
-    //         const params = new URLSearchParams(location.search);
-    //         const sellerId = params.get('sellerId');
-    //         const productsResponse = await fetch(
-    //             `${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}${sellerId ? `&sellerId=${sellerId}` : ''}`,
-    //             { timeout: 10000 }
-    //         );
-    //         const productsData = await productsResponse.json();
-    //
-    //         setProducts(productsData);
-    //         setFilteredProducts(filterProducts(productsData));
-    //         setFilteredProductsNoSearch(filterProductsNoSearch(productsData));
-    //
-    //         if (sellerId) {
-    //             const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers/${sellerId}`);
-    //             const sellerData = await sellerResponse.json();
-    //             setSellerInfo(sellerData);
-    //         } else {
-    //             setSellerInfo(null); // Если нет sellerId, сбросить информацию о продавце
-    //         }
-    //
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
 
 
     const fetchData = async () => {
@@ -202,6 +172,7 @@ const ProductList = ({
         }
     }, [location.pathname, location.search, history]);
 
+
 // Обработка параметров фильтрации из URL-адреса при загрузке страницы
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -213,13 +184,6 @@ const ProductList = ({
         setCurrentPage(page);
     }, [location.search, setSelectedGender]);
 
-
-
-
-// // Прокрутка страницы в начало при изменении текущей страницы пагинации
-//     useEffect(() => {
-//         window.scrollTo(0, 0);
-//     }, [currentPage]);
 
 
     useEffect(() => {
