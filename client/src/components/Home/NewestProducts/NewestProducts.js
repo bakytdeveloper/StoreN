@@ -14,6 +14,7 @@ const NewestProducts = ({ apiUrl }) => {
     const [columns, setColumns] = useState(6); // начальное значение колонок
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
 
+    // const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
 
 
     useEffect(() => {
