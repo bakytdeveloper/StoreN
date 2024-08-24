@@ -423,6 +423,33 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         }
     }, [searchTerm, location.pathname]);
 
+    const [favoritesCount, setFavoritesCount] = useState(0);
+
+
+    useEffect(() => {
+        const fetchFavoritesCount = async () => {
+            const token = localStorage.getItem('token');
+            const userId = jwtDecode(token)?.userId;
+            if (userId) {
+                try {
+                    const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    });
+                    const favorites = await response.json();
+                    setFavoritesCount(favorites.length);
+                } catch (error) {
+                    console.error('Error fetching favorites:', error);
+                }
+            }
+        };
+
+        fetchFavoritesCount();
+    }, []);
+
+    console.log("favoritesCount:", favoritesCount)
+
     return (
        <div className="header-container">
            <div className="header">
