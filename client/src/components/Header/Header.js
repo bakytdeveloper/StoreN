@@ -255,13 +255,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [searchResultMessage, setSearchResultMessage] = useState('');
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
 
-    // useEffect(() => {
-    //     // Здесь можно добавить логику для получения статуса пользователя от сервера
-    //     // Пример: fetchUserStatus().then(status => setUserStatus(status));
-    //     const status = localStorage.getItem('status'); // Пример получения статуса из localStorage
-    //     setUserStatus(status);
-    // }, []);
-
     useEffect(() => {
         // Получите ID продавца из токена, если это продавец
         const fetchUserStatus = async () => {
@@ -426,27 +419,32 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [favoritesCount, setFavoritesCount] = useState(0);
 
 
-    useEffect(() => {
-        const fetchFavoritesCount = async () => {
-            const token = localStorage.getItem('token');
-            const userId = jwtDecode(token)?.userId;
-            if (userId) {
-                try {
-                    const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                        },
-                    });
-                    const favorites = await response.json();
-                    setFavoritesCount(favorites.length);
-                } catch (error) {
-                    console.error('Error fetching favorites:', error);
-                }
+    const fetchFavoritesCount = async () => {
+        const token = localStorage.getItem('token');
+        const userId = jwtDecode(token)?.userId;
+        if (userId) {
+            try {
+                const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                const favorites = await response.json();
+                setFavoritesCount(favorites.length);
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
             }
-        };
+        }
+    };
 
-        fetchFavoritesCount();
+    useEffect(() => {
+        fetchFavoritesCount(); // Initial fetch
+        const intervalId = setInterval(fetchFavoritesCount, 100); // Fetch every 5 seconds
+
+        return () => clearInterval(intervalId); // Clear interval on component unmount
     }, []);
+
+
 
     console.log("favoritesCount:", favoritesCount)
 
@@ -464,36 +462,11 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                </div>
                <div className="header-right">
                    <div className="auth-buttons">
-                       {/*<div className="profileIcon" ref={profileRef}>*/}
-                       {/*    <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>*/}
-                       {/*    {isProfileOpen && (*/}
-                       {/*        <div className="dropdown-menu">*/}
-                       {/*            <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>*/}
-                       {/*            <button onClick={handleLoginClick}>{isAuthenticated ? (userStatus === 'suspend' ? "Логин" : "Профиль") : "Логин"}</button>*/}
-                       {/*            {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}*/}
-                       {/*            {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}*/}
-                       {/*        </div>*/}
-                       {/*    )}*/}
-                       {/*</div>*/}
+
 
                        <div className="profileIcon" ref={profileRef}>
                            <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>
                            {isProfileOpen && (
-                               // <div className="dropdown-menu">
-                               //     <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
-                               //     {userStatus === 'suspend' ? (
-                               //         <>
-                               //             <button onClick={handleLoginClick}>Логин</button>
-                               //             <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
-                               //         </>
-                               //     ) : (
-                               //         <>
-                               //             <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
-                               //             {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
-                               //             {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
-                               //         </>
-                               //     )}
-                               // </div>
 
                                <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
                                    <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
