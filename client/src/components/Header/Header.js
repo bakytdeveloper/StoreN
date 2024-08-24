@@ -10,6 +10,7 @@ import search_header from './search.png';
 import cross from "./../Footer/cross.png";
 import './Header.css';
 import {jwtDecode} from "jwt-decode";
+import {FaHeart, FaRegHeart} from "react-icons/fa";
 
 
 // const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
@@ -445,6 +446,11 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     }, []);
 
 
+    const handleFavoritesClick = () => {
+        history.push('/favorites');
+    };
+
+
 
     console.log("favoritesCount:", favoritesCount)
 
@@ -502,6 +508,14 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                         <span className="total-items-title">Корзина</span>
                     </span>
                    </Link>
+
+                   <div className="favorites" onClick={handleFavoritesClick}>
+                       {favoritesCount > 0 && <span className="favorites-count">{favoritesCount}</span>}
+                       <div>
+                           {favoritesCount > 0 ? <FaRegHeart color="red" style={{width:"24px", height:"24px"}} /> : <FaRegHeart color="grey" style={{width:"24px", height:"24px"}} />}
+                       </div>
+                   </div>
+
                    <div className="search">
                        <form className="form-search" onSubmit={handleSearchSubmit}>
                            <input
