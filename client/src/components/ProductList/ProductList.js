@@ -18,6 +18,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button } from '@mui/material';
 import CustomPagination from "./CustomPagination";
+import {jwtDecode} from "jwt-decode";
+import {FaHeart, FaRegHeart} from "react-icons/fa";
 
 
 const ProductList = ({
@@ -53,6 +55,7 @@ const ProductList = ({
     const [searchEmptyResult, setSearchEmptyResult] = useState(false);
     const [sellerInfo, setSellerInfo] = useState(null);
     const [lastPath, setLastPath] = useState(location.pathname);
+    const [favorites, setFavorites] = useState([]);
 
     // Сброс фильтров и товаров при возвращении на страницу каталога
     useEffect(() => {
@@ -427,6 +430,68 @@ const ProductList = ({
         setCurrentPage(value);
     };
 
+    const token = localStorage.getItem('token');
+    let userId;
+
+    if (token) {
+        const decodedToken = jwtDecode(token);
+        userId = decodedToken.userId; // или decodedToken.id в зависимости от структуры вашего токена
+    }
+
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+
+
+
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                const data = await response.json();
+                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            }
+        };
+
+        fetchFavorites();
+    }, [userId, token]);
+
+
+    const handleFavoriteToggle = async (productId) => {
+        try {
+
+            if (favorites.includes(productId)) {
+                // Удаление из избранного
+                await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                setFavorites(favorites.filter(id => id !== productId));
+            } else {
+                // Добавление в избранное
+                await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                setFavorites([...favorites, productId]);
+            }
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
+    };
+
+
+
 
     return (
         <div className="product-list-container">
@@ -465,6 +530,11 @@ const ProductList = ({
                                                     </div>
                                                 )}
                                                 <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+
+                                                <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
+                                                    {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
+                                                </div>
+
                                             </div>
                                         </Link>
                                     ) : (
@@ -475,6 +545,11 @@ const ProductList = ({
                                                 </div>
                                             )}
                                             <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+
+                                            <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
+                                                {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
+                                            </div>
+
                                         </div>
                                     )}
                                     <div className="product-content">
