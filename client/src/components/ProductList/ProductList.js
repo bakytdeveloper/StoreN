@@ -522,21 +522,28 @@ const ProductList = ({
                             displayedProducts.map(product => (
                                 <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
                                     {product.isActive ? (
-                                        <Link to={`/products/${product._id}`}>
+                                        // <Link to={`/products/${product._id}`}>
                                             <div className="product-card-images">
                                                 {product.originalPrice && product.originalPrice > product.price && (
                                                     <div className="discount-percentage-badge">
                                                         - {calculateDiscountPercentage(product.originalPrice, product.price)}%
                                                     </div>
                                                 )}
-                                                <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
-
                                                 <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
                                                     {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
                                                 </div>
 
+                                                <Link to={`/products/${product._id}`}>
+
+                                                    <div>
+                                                        <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+
+                                                    </div>
+
+                                                </Link>
+
                                             </div>
-                                        </Link>
+
                                     ) : (
                                         <div className="product-card-images">
                                             {product.originalPrice && product.originalPrice > product.price && (
