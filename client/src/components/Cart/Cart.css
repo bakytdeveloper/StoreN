@@ -2,6 +2,8 @@
 .cartAll {
     display: flex;
     flex-direction: column;
+    position: relative;
+    width: 100%;
     align-items: center;
     padding: 7px;
     font-family: Poppins;
@@ -59,6 +61,7 @@ h5 {
 
 .emptyCartEls-all {
     background: white;
+
 }
 
 
