@@ -478,7 +478,13 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
 
     const handleFavoritesClick = () => {
-        history.push('/favorites');
+        if (favoritesCount > 0) {
+            history.push('/favorites');
+        } else {
+            // Можно либо перенаправить пользователя на другую страницу, либо показать сообщение
+            history.push('/');
+            alert('У вас нет избранных товаров.');
+        }
     };
 
     console.log("favoritesCount:", favoritesCount)

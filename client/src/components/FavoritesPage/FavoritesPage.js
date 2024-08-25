@@ -451,11 +451,18 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
     return (
         <div className="product-list-container ">
             <h2 className="product-list-container-title favorites-title">Избранные товары</h2>
-            <div className="product-list favorite-page-content">
-                {/*{loading ? (*/}
-                {/*    <h2 className="favorite-page-content-loading">Загрузка...</h2>*/}
-                {/*) : favorites.length === 0 ? (*/}
-                {favorites.length === 0 ? (
+            <div className="product-list favorite-page-content ">
+                {loading ? (
+
+                    <div className="d-flex justify-content-center" style={{margin: "0 auto"}}>
+                        <div className="spinner-border" role="status" style={{margin: "0 auto", textAlign:"center"}}>
+                            {/*<span className="visually-hidden">Loading...</span>*/}
+                        </div>
+                    </div>
+
+                    // <div className="favorite-page-content-loading">Загрузка...</div>
+                ) : favorites.length === 0 ? (
+                // {favorites.length === 0 ? (
                     <div className="emptyCartEls-all favorite-page-content-empty">
                         <div className="emptyCartEls favorite-page-content-empty-text">
                             <div className="emptyCart">Ваша страница избранных товаров пока пуста, кликните сюда, чтобы преобрести товар</div>

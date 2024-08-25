@@ -10,12 +10,15 @@
 }
 
 .favorite-page-content {
-    margin-top: 0!important;
+
+    margin: 20px 50px auto 50px!important;
+
+
 }
 
 .favorite-page-content-loading {
-    position: relative!important;
-    text-align: center!important;
+    position: absolute!important;
+    /*text-align: center!important;*/
     margin: 0 auto!important;
     color: #0956ef;
 }
