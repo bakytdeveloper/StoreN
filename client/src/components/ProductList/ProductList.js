@@ -450,6 +450,9 @@ const ProductList = ({
 
     const handleFavoriteToggle = async (productId) => {
         try {
+            if (!token) {
+                history.push('/login')
+            }
 
             if (favorites.includes(productId)) {
                 // Удаление из избранного
