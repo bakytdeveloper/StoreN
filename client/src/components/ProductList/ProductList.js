@@ -9,7 +9,7 @@ import right from "./arrowsR.png";
 import './ProductList.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import bag from './basket2.png';
 // import {Spinner} from "react-bootstrap";
 
 import Pagination from '@mui/material/Pagination';
@@ -342,8 +342,17 @@ const ProductList = ({
     const displayedProductsNoSearch = filteredProductsNoSearch.slice(startIndex, startIndex + productsPerPage);
 
 // Формирование полного URL-адреса изображения с сервера
+//     const getFullImageUrl = (image) => {
+//         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+//     };
+
     const getFullImageUrl = (image) => {
-        return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
+        // Проверяем, начинается ли путь изображения с '/uploads' и формируем полный URL
+        if (image.startsWith('/uploads')) {
+            return `${imageBaseUrl}${image}`;
+        }
+        // Если изображение недоступно, возвращаем путь к изображению по умолчанию
+        return image || bag;
     };
 
 // Вычисление процента скидки между оригинальной и текущей ценами продукта
@@ -384,12 +393,6 @@ const ProductList = ({
         // onSearch('');
     }
 
-    // const handlePageChange = (event, value) => {
-    //     const params = new URLSearchParams(location.search);
-    //     params.set('page', value);
-    //     history.push({ search: params.toString() });
-    //     setCurrentPage(value);
-    // };
 
     const handleNextPage = () => {
         const params = new URLSearchParams(location.search);
@@ -520,7 +523,7 @@ const ProductList = ({
                                                 <Link to={`/products/${product._id}`}>
 
                                                     <div>
-                                                        <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                                        <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : bag} alt={product.name} />
 
                                                     </div>
 
@@ -535,7 +538,7 @@ const ProductList = ({
                                                     - {calculateDiscountPercentage(product.originalPrice, product.price)}%
                                                 </div>
                                             )}
-                                            <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                            <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : bag} alt={product.name} />
 
                                             <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
                                                 {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
@@ -548,8 +551,8 @@ const ProductList = ({
                                             <Link to={`/products/${product._id}`}>
                                                 <div className="product-list-details">
                                                     <div className="product-list-details-brand-and-name">
-                                                        <div className="product-list-type">{product.type.length > 10 ? product.type.substring(0, 10) + '...' : product.type}</div>
-                                                        <div className="product-list-brand">{product.brand.length > 10 ? product.brand.substring(0, 10) + '...' : product.brand}</div>
+                                                        <div className="product-list-type">{product.type.length > 9 ? product.type.substring(0, 9) + '...' : product.type}</div>
+                                                        <div className="product-list-brand">{product.brand.length > 9 ? product.brand.substring(0, 9) + '...' : product.brand}</div>
                                                     </div>
                                                     <div className="discounted-price">
                                                         {product.originalPrice ? (
@@ -566,7 +569,7 @@ const ProductList = ({
                                         ) : (
                                             <div className="product-list-details">
                                                 <div className="product-list-details-brand-and-name">
-                                                    <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                                    <div className="product-list-type">{product.type.length > 9 ? product.type.substring(0, 9) + '...' : product.type}</div>
                                                     <div className="product-list-brand">{product.brand}</div>
                                                 </div>
                                                 <div className="discounted-price">
@@ -629,7 +632,7 @@ const ProductList = ({
                                                             - {calculateDiscountPercentage(product.originalPrice, product.price)}%
                                                         </div>
                                                     )}
-                                                    <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                                    <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : bag} alt={product.name} />
                                                 </div>
                                             </Link>
                                         ) : (
@@ -639,7 +642,7 @@ const ProductList = ({
                                                         - {calculateDiscountPercentage(product.originalPrice, product.price)}%
                                                     </div>
                                                 )}
-                                                <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'} alt={product.name} />
+                                                <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : bag} alt={product.name} />
                                             </div>
                                         )}
                                         <div style={{ background: 'none' }}>
@@ -647,7 +650,7 @@ const ProductList = ({
                                                 <Link to={`/products/${product._id}`}>
                                                     <div className="product-list-details">
                                                         <div className="product-list-details-brand-and-name">
-                                                            <div className="product-list-type">{product.type.length > 11 ? product.type.substring(0, 11) + '.' : product.type}</div>
+                                                            <div className="product-list-type">{product.type.length > 9 ? product.type.substring(0, 9) + '...' : product.type}</div>
                                                             <div className="product-list-brand">{product.brand}</div>
                                                         </div>
                                                         <div className="discounted-price">
