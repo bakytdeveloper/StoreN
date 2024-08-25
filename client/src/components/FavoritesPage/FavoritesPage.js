@@ -390,7 +390,18 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
-                setFavorites(favorites.filter(item => item._id !== productId));
+                const updatedFavorites = favorites.filter(item => item._id !== productId);
+
+                // Если больше нет избранных товаров, возвращаемся на предыдущую страницу
+                if (updatedFavorites.length === 0) {
+                    history.push('/catalog');
+                    // history.push(previousPathname.current);
+                }
+
+
+                setFavorites(updatedFavorites);
+
+
             } else {
                 await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
                     method: 'POST',
@@ -405,18 +416,6 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
         }
     };
 
-    // const handleAddToCart = (product) => {
-    //     const existingItem = cartItems.find(item => item._id === product._id);
-    //     if (existingItem) {
-    //         setCartItems(
-    //             cartItems.map(item =>
-    //                 item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
-    //             )
-    //         );
-    //     } else {
-    //         setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    //     }
-    // };
 
     const handleAddToCart = (product) => {
         const itemInCart = cartItems.find(item => item.productId === product._id);
