@@ -420,23 +420,51 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [favoritesCount, setFavoritesCount] = useState(0);
 
 
+    // const fetchFavoritesCount = async () => {
+    //     const token = localStorage.getItem('token');
+    //     const userId = jwtDecode(token)?.userId;
+    //     if (userId) {
+    //         try {
+    //             const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+    //                 headers: {
+    //                     'Authorization': `Bearer ${token}`,
+    //                 },
+    //             });
+    //             const favorites = await response.json();
+    //             setFavoritesCount(favorites.length);
+    //         } catch (error) {
+    //             console.error('Error fetching favorites:', error);
+    //         }
+    //     }
+    // };
+
+
     const fetchFavoritesCount = async () => {
         const token = localStorage.getItem('token');
-        const userId = jwtDecode(token)?.userId;
-        if (userId) {
+
+        if (token) {  // Убедитесь, что токен существует
             try {
-                const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
-                const favorites = await response.json();
-                setFavoritesCount(favorites.length);
+                const userId = jwtDecode(token)?.userId;
+                if (userId) {
+                    const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    });
+                    const favorites = await response.json();
+                    setFavoritesCount(favorites.length);
+                } else {
+                    console.error('Invalid token: userId not found');
+                }
             } catch (error) {
                 console.error('Error fetching favorites:', error);
             }
+        } else {
+            // Если токен отсутствует, вы можете установить счетчик в 0 или выполнить другие действия
+            setFavoritesCount(0);
         }
     };
+
 
     useEffect(() => {
         fetchFavoritesCount(); // Initial fetch
@@ -449,8 +477,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const handleFavoritesClick = () => {
         history.push('/favorites');
     };
-
-
 
     console.log("favoritesCount:", favoritesCount)
 
@@ -489,9 +515,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                                        </>
                                    )}
                                </div>
-
-
-
                            )}
 
                        </div>
@@ -508,13 +531,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                         <span className="total-items-title">Корзина</span>
                     </span>
                    </Link>
-
-                   {/*<div className="favorites" onClick={handleFavoritesClick}>*/}
-                   {/*    <div className="favorites-header" >*/}
-                   {/*        {favoritesCount > 0 ? <FaRegHeart color="red" className="fa-red-header" /> : <FaRegHeart className="fa-red-header" color="grey" />}*/}
-                   {/*        {favoritesCount > 0 && <span className="favorites-count">{favoritesCount}</span>}*/}
-                   {/*    </div>*/}
-                   {/*</div>*/}
 
                    <div className="favorites" onClick={handleFavoritesClick}>
                        <div className="favorites-header">
