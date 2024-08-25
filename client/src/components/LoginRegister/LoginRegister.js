@@ -450,7 +450,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         onChange={(e) => setEmail(e.target.value)}
                         onKeyPress={handleKeyPress}
                     />
-                    <button type="button" onClick={handleSendOtp}>
+                    <button className="Login-register-button" type="button" onClick={handleSendOtp}>
                         Продолжить
                     </button>
                 </div>
@@ -477,7 +477,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                         onKeyPress={handleKeyPress}
                     />
                     {otpError && <span className="otp-error">{otpError}</span>}
-                    <button type="button" onClick={handleVerifyOtp}>
+                    <button className="Login-register-button" type="button" onClick={handleVerifyOtp}>
                         Подтвердите
                     </button>
                     <div className="timer-login">
@@ -546,7 +546,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                     {passwordMatchError && (
                         <span className="otp-error">Пароли не совпадают. Пожалуйста, проверьте введенные данные.</span>
                     )}
-                    <button type="button" onClick={handleLoginRegister}>
+                    <button className="Login-register-button" type="button" onClick={handleLoginRegister}>
                         Зарегистрировать
                     </button>
                 </div>
@@ -581,7 +581,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
                     </div>
-                    <button type="button" onClick={handleLoginRegister}>
+                    <button className="Login-register-button" type="button" onClick={handleLoginRegister}>
                         Login
                     </button>
                    <div className="text-login-or-register-block newPassword">
@@ -621,7 +621,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 onKeyPress={handleKeyPress}
                             />
-                            <button type="button" onClick={handleSendOtpForgotPassword}>
+                            <button className="Login-register-button" type="button" onClick={handleSendOtpForgotPassword}>
                                 Отправить OTP
                             </button>
                         </div>
@@ -647,7 +647,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                                 onKeyPress={handleKeyPress}
                             />
                             {otpErrorForgotPassword && <span className="otp-error">{otpErrorForgotPassword}</span>}
-                            <button type="button" onClick={handleVerifyOtpForgotPassword}>
+                            <button className="Login-register-button" type="button" onClick={handleVerifyOtpForgotPassword}>
                                 Подтвердите OTP
                             </button>
                             <div className="timer-login">
@@ -702,7 +702,7 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
                             {passwordMatchError && (
                                 <span className="otp-error">Пароли не совпадают. Пожалуйста, проверьте введенные данные.</span>
                             )}
-                            <button type="button" onClick={handleForgotPassword}>
+                            <button className="Login-register-button" type="button" onClick={handleForgotPassword}>
                                 Обновить пароль
                             </button>
                         </div>

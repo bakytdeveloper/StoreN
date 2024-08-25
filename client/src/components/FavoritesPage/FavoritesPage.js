@@ -265,7 +265,7 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
                 {loading ? (
                     <h2 className="favorite-page-content-loading">Загрузка...</h2>
                 ) : favorites.length === 0 ? (
-                    <p>В избранных товарах ничего нет.</p>
+                    <div className="favorite-page-content-loading-text">В избранных товарах ничего нет.</div>
                 ) : (
                     favorites.map(item => (
                         <div className={`product-card ${!item.isActive ? 'inactive-product' : ''}`} key={item._id}>
