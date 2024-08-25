@@ -404,6 +404,30 @@
 
 
 
+.favorites-header {
+    display: inline-flex; /* Выравниваем элементы в одну строку */
+    align-items: center;  /* Центрируем элементы по вертикали */
+}
+
+.favorites-count {
+    margin-left: 5px;    /* Отступ между сердечком и счётчиком */
+    width: 25px;         /* Фиксированная ширина для счётчика */
+    text-align: center;  /* Выравнивание текста по центру */
+    visibility: visible; /* Видимый по умолчанию */
+}
+
+.favorites-count.hidden {
+    visibility: hidden;  /* Скрывает текст, но сохраняет место */
+}
+
+.fa-red-header {
+    width: 23px;
+    height: 23px;
+}
+
+
+
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .header-container {

@@ -3,7 +3,7 @@ import {jwtDecode} from 'jwt-decode';
 
 const FavoritesPage = () => {
     const [favorites, setFavorites] = useState([]);
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -26,6 +26,8 @@ const FavoritesPage = () => {
 
         fetchFavorites();
     }, []);
+
+    console.log("favorites", ...favorites)
 
     return (
         <div className="favorites-page">

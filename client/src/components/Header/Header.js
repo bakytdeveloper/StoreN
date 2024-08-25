@@ -440,7 +440,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
     useEffect(() => {
         fetchFavoritesCount(); // Initial fetch
-        const intervalId = setInterval(fetchFavoritesCount, 100); // Fetch every 5 seconds
+        const intervalId = setInterval(fetchFavoritesCount, 1000); // Fetch every 5 seconds
 
         return () => clearInterval(intervalId); // Clear interval on component unmount
     }, []);
@@ -509,12 +509,20 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                     </span>
                    </Link>
 
+                   {/*<div className="favorites" onClick={handleFavoritesClick}>*/}
+                   {/*    <div className="favorites-header" >*/}
+                   {/*        {favoritesCount > 0 ? <FaRegHeart color="red" className="fa-red-header" /> : <FaRegHeart className="fa-red-header" color="grey" />}*/}
+                   {/*        {favoritesCount > 0 && <span className="favorites-count">{favoritesCount}</span>}*/}
+                   {/*    </div>*/}
+                   {/*</div>*/}
+
                    <div className="favorites" onClick={handleFavoritesClick}>
-                       {favoritesCount > 0 && <span className="favorites-count">{favoritesCount}</span>}
-                       <div>
-                           {favoritesCount > 0 ? <FaRegHeart color="red" style={{width:"24px", height:"24px"}} /> : <FaRegHeart color="grey" style={{width:"24px", height:"24px"}} />}
+                       <div className="favorites-header">
+                           <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="fa-red-header" />
+                           <span className={`favorites-count ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>
                        </div>
                    </div>
+
 
                    <div className="search">
                        <form className="form-search" onSubmit={handleSearchSubmit}>

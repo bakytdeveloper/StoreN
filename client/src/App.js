@@ -192,8 +192,8 @@ const App = () => {
 
                             <Route path="/favorites">
                                 <FavoritesPage
-                                    showSidebar={showSidebar}
-                                    setShowSidebar={setShowSidebar}
+                                    // showSidebar={showSidebar}
+                                    // setShowSidebar={setShowSidebar}
                                 />
                             </Route>
                             <Route path="/product-form/:productId">
