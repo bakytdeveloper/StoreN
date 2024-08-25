@@ -1,0 +1,24 @@
+.product-list-container {
+    font-family: Poppins;
+}
+.favorites-title {
+    margin: 0 auto;
+    margin-top: 120px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.favorite-page-content {
+    margin-top: 0!important;
+}
+
+.favorite-page-content-loading {
+    position: relative!important;
+    text-align: center!important;
+    margin: 0 auto!important;
+    color: #0956ef;
+}
+.add-to-cart-button {
+    background-color: #04c471 !important;
+
+}

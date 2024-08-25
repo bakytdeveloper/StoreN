@@ -127,6 +127,7 @@ h5 {
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
+    padding: 5px;
 }
 
 .item-quantity {

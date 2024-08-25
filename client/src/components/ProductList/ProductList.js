@@ -19,7 +19,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button } from '@mui/material';
 import CustomPagination from "./CustomPagination";
 import {jwtDecode} from "jwt-decode";
-import {FaHeart, FaRegHeart} from "react-icons/fa";
+import {FaCartPlus, FaHeart, FaRegHeart} from "react-icons/fa";
 
 
 const ProductList = ({
@@ -603,8 +603,9 @@ const ProductList = ({
                                                         </button>
                                                     ) : (
                                                         <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                            <strong>+</strong>
-                                                            <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                                            {/*<strong>+</strong>*/}
+                                                            <FaCartPlus style={{ width: '22px', height: '22px' }} /> В корзину
+                                                            {/*<img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
                                                         </button>
                                                     )}
                                                 </>
@@ -700,8 +701,9 @@ const ProductList = ({
                                                     </button>
                                                 ) : (
                                                     <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                        <strong>+</strong>
-                                                        <img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />
+                                                        {/*<strong>+</strong>*/}
+                                                        {/*<img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
+                                                        <FaCartPlus style={{ width: '22px', height: '22px' }} /> В корзину
                                                     </button>
                                                 )}
                                             </div>

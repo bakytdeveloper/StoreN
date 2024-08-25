@@ -213,14 +213,14 @@
     align-items: center;
     margin-top: auto; /* Разместить внизу контейнера */
     width: 100% !important;
-    padding: 0;
+    padding: 7px 0 0 0!important;
     min-width: 200px;
     margin-left: -7px;
 }
 
 .cart-button {
     position: relative;
-    background-color: #04c4b4 !important;
+    background-color: #04c471 !important;
     /*color: #fff;*/
     padding: 0 10px;
     border: none;

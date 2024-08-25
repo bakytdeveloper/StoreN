@@ -151,6 +151,7 @@ import { toast } from 'react-toastify';
 //
 // export default FavoritesPage;
 
+import './FavoritesPage.css';
 
 
 
@@ -259,10 +260,10 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
 
     return (
         <div className="product-list-container">
-            <h2 className="product-list-container-title">Избранные товары</h2>
+            <h2 className="product-list-container-title favorites-title">Избранные товары</h2>
             <div className="product-list favorite-page-content">
                 {loading ? (
-                    <p>Загрузка...</p>
+                    <h2 className="favorite-page-content-loading">Загрузка...</h2>
                 ) : favorites.length === 0 ? (
                     <p>В избранных товарах ничего нет.</p>
                 ) : (
