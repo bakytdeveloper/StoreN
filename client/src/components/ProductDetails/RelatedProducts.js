@@ -1,11 +1,13 @@
 
 
 import React, {useState, useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import './RelatedProducts.css';
 
 import sliderLeft from './sliderLeft.png';
 import sliderRight from './sliderRight.png';
+import {jwtDecode} from "jwt-decode";
+import {FaHeart, FaRegHeart} from "react-icons/fa";
 
 const RelatedProducts = ({ productId }) => {
     const [relatedProducts, setRelatedProducts] = useState([]);
@@ -14,6 +16,9 @@ const RelatedProducts = ({ productId }) => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
+    const [favorites, setFavorites] = useState([]);
+    const history = useHistory();
+
 
     useEffect(() => {
         const fetchRelatedProducts = async () => {
@@ -94,6 +99,70 @@ const RelatedProducts = ({ productId }) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+    const token = localStorage.getItem('token');
+    let userId;
+
+    if (token) {
+        const decodedToken = jwtDecode(token);
+        userId = decodedToken.userId; // или decodedToken.id в зависимости от структуры вашего токена
+    }
+
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+
+
+
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                const data = await response.json();
+                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            }
+        };
+
+        fetchFavorites();
+    }, [userId, token]);
+
+
+    const handleFavoriteToggle = async (productId) => {
+        try {
+            if (!token) {
+                history.push('/login')
+            }
+
+            if (favorites.includes(productId)) {
+                // Удаление из избранного
+                await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                setFavorites(favorites.filter(id => id !== productId));
+            } else {
+                // Добавление в избранное
+                await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                setFavorites([...favorites, productId]);
+            }
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
+    };
+
+
     return (
         <div className="related-products">
             {!!relatedProducts.length && <h2>Схожие товары</h2>}
@@ -105,6 +174,9 @@ const RelatedProducts = ({ productId }) => {
                 </button>
                 {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="product-cards-related-products" key={product._id}>
+                        <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
+                            {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
+                        </div>
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
                                 src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}

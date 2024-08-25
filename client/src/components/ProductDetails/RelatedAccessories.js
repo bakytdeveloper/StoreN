@@ -2,11 +2,13 @@
 
 
 import React, {useState, useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import './RelatedAccessories.css';
 
 import sliderLeft from './sliderLeft.png';
 import sliderRight from './sliderRight.png';
+import {jwtDecode} from "jwt-decode";
+import {FaHeart, FaRegHeart} from "react-icons/fa";
 
 
 
@@ -17,6 +19,8 @@ const RelatedAccessories = ({ direction }) => {
     const containerRef = useRef(null);
     const [scrollPosition, setScrollPosition] = useState(0);
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
+    const [favorites, setFavorites] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         const fetchAccessories = async () => {
@@ -91,6 +95,71 @@ const RelatedAccessories = ({ direction }) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
+
+    const token = localStorage.getItem('token');
+    let userId;
+
+    if (token) {
+        const decodedToken = jwtDecode(token);
+        userId = decodedToken.userId; // или decodedToken.id в зависимости от структуры вашего токена
+    }
+
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+
+
+
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                const data = await response.json();
+                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            }
+        };
+
+        fetchFavorites();
+    }, [userId, token]);
+
+
+    const handleFavoriteToggle = async (productId) => {
+        try {
+            if (!token) {
+                history.push('/login')
+            }
+
+            if (favorites.includes(productId)) {
+                // Удаление из избранного
+                await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites/${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                setFavorites(favorites.filter(id => id !== productId));
+            } else {
+                // Добавление в избранное
+                await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId })
+                });
+                setFavorites([...favorites, productId]);
+            }
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+        }
+    };
+
+
     return (
         <div className="related-accessories">
             {!!accessories.length && <h2>Аксессуары</h2>}
@@ -102,6 +171,9 @@ const RelatedAccessories = ({ direction }) => {
                 </button>
                 {accessories.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="product-card-related-accessories" key={product._id}>
+                        <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
+                            {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
+                        </div>
                         <Link to={`/products/${product._id}`} onClick={handleCardClick}>
                             <img
                                 src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
