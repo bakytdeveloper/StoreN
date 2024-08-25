@@ -236,6 +236,9 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     };
 
     const getFullImageUrl = (image) => {
+        if (!image) {
+            return './../bag.jpg'; // Или любой другой вариант обработки, например, путь к изображению-заглушке
+        }
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 

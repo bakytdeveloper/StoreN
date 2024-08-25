@@ -330,22 +330,6 @@ const ProductList = ({
         }
     };
 
-// // Переход на следующую страницу пагинации
-//     const handleNextPage = () => {
-//         const params = new URLSearchParams(location.search);
-//         params.set('page', currentPage + 1);
-//         history.push({ search: params.toString() });
-//         setCurrentPage(currentPage + 1);
-//     };
-//
-// // Переход на предыдущую страницу пагинации
-//     const handlePrevPage = () => {
-//         const params = new URLSearchParams(location.search);
-//         params.set('page', currentPage - 1);
-//         history.push({ search: params.toString() });
-//         setCurrentPage(currentPage - 1);
-//     };
-
 // Вычисление общего количества страниц для пагинации
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
     const totalPagesNoSearch = Math.ceil(filteredProductsNoSearch.length / productsPerPage);

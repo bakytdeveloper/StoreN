@@ -454,12 +454,15 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                     const favorites = await response.json();
                     setFavoritesCount(favorites.length);
                 } else {
+
                     console.error('Invalid token: userId not found');
                 }
             } catch (error) {
+
                 console.error('Error fetching favorites:', error);
             }
         } else {
+
             // Если токен отсутствует, вы можете установить счетчик в 0 или выполнить другие действия
             setFavoritesCount(0);
         }
