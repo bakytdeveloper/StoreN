@@ -420,25 +420,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [favoritesCount, setFavoritesCount] = useState(0);
 
 
-    // const fetchFavoritesCount = async () => {
-    //     const token = localStorage.getItem('token');
-    //     const userId = jwtDecode(token)?.userId;
-    //     if (userId) {
-    //         try {
-    //             const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
-    //                 headers: {
-    //                     'Authorization': `Bearer ${token}`,
-    //                 },
-    //             });
-    //             const favorites = await response.json();
-    //             setFavoritesCount(favorites.length);
-    //         } catch (error) {
-    //             console.error('Error fetching favorites:', error);
-    //         }
-    //     }
-    // };
-
-
     const fetchFavoritesCount = async () => {
         const token = localStorage.getItem('token');
 
