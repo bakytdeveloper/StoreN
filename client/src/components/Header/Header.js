@@ -469,7 +469,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     };
 
     console.log("favoritesCount:", favoritesCount)
-
+    const token = localStorage.getItem('token');
     return (
        <div className="header-container">
            <div className="header">
@@ -487,7 +487,10 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
 
                        <div className="profileIcon" ref={profileRef}>
-                           <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>
+                                <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>
+                                    {!!token ? 'Войти' : 'Логин'}
+                                </span>
+                           {/*<span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>*/}
                            {isProfileOpen && (
 
                                <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
