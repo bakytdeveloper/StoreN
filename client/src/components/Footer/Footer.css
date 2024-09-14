@@ -151,14 +151,14 @@
 
     .total-items-count {
         position: absolute;
-        top: 12px;
+        top: 15px;
         /*right: 3px;*/
         left: 33px;
         background-color: red; /* Фон для счетчика, вы можете изменить цвет */
         color: white!important; /* Цвет текста счетчика */
         border-radius: 50%; /* Закругленные углы для создания круга */
-        padding: 4px 9px; /* Внутренние отступы */
-        font-size: 12px; /* Размер шрифта */
+        padding: 1px 7px; /* Внутренние отступы */
+        font-size: 16px; /* Размер шрифта */
         transform: translate(50%, -50%); /* Сместить на 50% вправо и вверх для нахлёстывания */
         font-weight: bold;
     }
@@ -176,15 +176,15 @@
     }
 
     .cart-icon-img {
-        margin-bottom: -7px!important;
+        margin-bottom: 2px!important;
         padding: 0!important;
-        margin-top: 5px;
+        margin-top: 1px;
     }
 
     .footer-totalItems {
         padding: 0!important;
-        /*margin-top: 3px!important;*/
-        /*margin-bottom: 10px!important;*/
+        margin-top: -9px!important;
+        bottom: 10px!important;
     }
 
     .footer-dropdown-menu {
@@ -355,6 +355,25 @@
 
     }
 
+    .footer-favorites {
+        width: 22px;
+        height: 22px;
+        margin-left: 12px;
+    }
+
+    .footer-total {
+        top: 3px;
+        padding: 7px 7px;
+        font-size: 16px;
+    }
+
+    .contact-icon {
+        margin-top: 14px;
+    }
+
+    .cart-icon {
+        margin-top: 1px;
+    }
 
 
 

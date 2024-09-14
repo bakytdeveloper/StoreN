@@ -58,3 +58,209 @@
     display: block;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+    .product-list-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Занимает всю высоту экрана */
+        padding: 0!important;
+        padding-bottom: 70px!important;
+    }
+
+    .favorites-title {
+        margin-top: 0;
+        margin-bottom: 22px!important;
+    }
+
+    .product-list {
+        margin: 0 1px 10px 1px !important;
+        padding-bottom: 0 !important;
+        gap: 3px!important;
+        padding: 0 5px 5px 5px !important;
+        min-width: 380px!important;
+        /*flex-wrap: wrap;*/
+        /*flex: auto;*/
+
+    }
+
+    .product-card {
+        display: block;
+
+        border: none;
+        /*border: 1px solid green;*/
+    }
+
+    .cart-button {
+        /*margin-left: 2px;*/
+        width: 91%;
+        margin: 0 auto;
+    }
+
+    /* Add this to your CSS file */
+    body.no-scroll {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    .discount-percentage-badge {
+        z-index: 0;
+    }
+    .pagination-container-block {
+        margin-bottom: 77px;
+        margin-left: 0;
+
+
+    }
+
+    .pagination-item {
+        /*border: 1px solid #ddd;*/
+        border-radius: 4px;
+        margin: 0 2px;
+        padding: 1px 3px!important;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .pagination-item.active {
+        /*background-color: #439bfa !important;*/
+        color: #faf7f7!important;
+        /*border: 1px solid #007bff;*/
+        font-weight: bold;
+        background: #5ca9f5 !important;
+
+    }
+
+    .pagination-item:hover {
+        background-color: #e9ecef;
+    }
+
+    .pagination-item {
+        margin: 0 3px!important; /* Добавляем отступ в 3px между элементами */
+        /* Другие стили для элементов пагинации */
+    }
+
+    .pagination-item.disabled {
+        cursor: not-allowed;
+        color: #6c757d;
+        background-color: #f8f9fa;
+    }
+
+
+
+    .arrowL {
+        font-size: 35px;
+        padding: 4px 11px!important;
+    }
+
+    .arrowR {
+        font-size: 35px;
+        padding: 4px 11px!important;
+    }
+
+
+    .pagination span {
+        margin-left: 16px!important;
+        margin-right: 16px!important;
+
+    }
+
+    .numStr {
+        text-align: center;
+    }
+
+    .original-price {
+        color: black!important;
+        font-size: 16px!important;
+        margin-top: 5px;
+    }
+
+
+
+
+
+
+    .quantity-progress-bar {
+        height: 30px; /* Задаем фиксированную высоту для прогресс-бара */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Выравниваем содержимое по центру */
+        margin-bottom: 3px;
+        margin-top: -5px;
+        width: 95%;
+        padding-right: 3px;
+
+    }
+
+    .product-list-quantity {
+        font-size: 13px;
+        font-weight: bold;
+        color: #5d5c5c;
+    }
+
+
+
+    /* New styles for no-products */
+    .no-products {
+        grid-column: 1 / -1;
+        text-align: center;
+        /*background-color: #f8d7da;*/
+        /*color: #721c24;*/
+        padding: 20px;
+        /*border: 1px solid #f5c6cb;*/
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+
+    .progress-bar-container {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        margin-top: 1px;
+        overflow: hidden;
+
+    }
+
+    .progress-bar {
+        height: 8px;
+        border-radius: 4px;
+    }
+
+    .progress-bar.blue {
+        background-color: blue;
+    }
+
+
+    .progress-bar.orange {
+        background-color: #ffd500;
+    }
+
+    .progress-bar.red {
+        background-color: red;
+    }
+
+    .price {
+        font-size: 21px!important;
+    }
+    .price-red {
+        font-size: 21px!important;
+    }
+
+}

@@ -11,6 +11,8 @@ import contactIcon from './contact.png'
 import ContactInfoModal from "./ContactInfoFooter";
 import ContactInfoFooter from "./ContactInfoFooter";
 import cross from './cross.png';
+import {jwtDecode} from "jwt-decode";
+import {FaRegHeart} from "react-icons/fa";
 
 const Footer = ({
                     onSearch,
@@ -38,6 +40,8 @@ const Footer = ({
 
     const isAuthenticated = !!localStorage.getItem('token');
     const userRole = localStorage.getItem('role');
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+    const [favoritesCount, setFavoritesCount] = useState(0);
 
     useEffect(() => {
         // Перенаправление на страницу админа, если администратор
@@ -192,6 +196,62 @@ const Footer = ({
         setActiveComponent(null);
     };
 
+
+
+
+
+
+    const fetchFavoritesCount = async () => {
+        const token = localStorage.getItem('token');
+
+        if (token) {  // Убедитесь, что токен существует
+            try {
+                const userId = jwtDecode(token)?.userId;
+                if (userId) {
+                    const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    });
+                    const favorites = await response.json();
+                    setFavoritesCount(favorites.length);
+                } else {
+
+                    console.error('Invalid token: userId not found');
+                }
+            } catch (error) {
+
+                console.error('Error fetching favorites:', error);
+            }
+        } else {
+
+            // Если токен отсутствует, вы можете установить счетчик в 0 или выполнить другие действия
+            setFavoritesCount(0);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchFavoritesCount(); // Initial fetch
+        const intervalId = setInterval(fetchFavoritesCount, 1000); // Fetch every 5 seconds
+
+        return () => clearInterval(intervalId); // Clear interval on component unmount
+    }, []);
+
+
+    const handleFavoritesClick = () => {
+        if (favoritesCount > 0) {
+            history.push('/favorites');
+        } else {
+            // Можно либо перенаправить пользователя на другую страницу, либо показать сообщение
+            history.push('/');
+            alert('У вас нет избранных товаров.');
+        }
+    };
+
+    console.log("favoritesCount:", favoritesCount)
+    const token = localStorage.getItem('token');
+
     return (
         <div className="footer-page">
             <div className={`home-icon ${activeComponent === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home', 'home')}>
@@ -222,12 +282,25 @@ const Footer = ({
                 </Link>
             </div>
 
-            <div className={`contact-icon ${activeComponent === 'contact' ? 'active' : ''}`} onClick={handleContactClick}>
-                <img className="contact-icon-img" src={contactIcon} />
-                <div>
-                    <span className="footer-btn">Контакты</span>
-                </div>
+            {/*<div className={`contact-icon ${activeComponent === 'contact' ? 'active' : ''}`} onClick={handleContactClick}>*/}
+            {/*    <img className="contact-icon-img" src={contactIcon} />*/}
+            {/*    <div>*/}
+            {/*        <span className="footer-btn">Контакты</span>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+
+
+            <div className={`contact-icon ${activeComponent === 'contact' ? 'active' : ''}`} onClick={handleFavoritesClick}>
+                        {/*<span className="cartIcon">*/}
+                            <FaRegHeart className="contact-icon-img footer-favorites"  color={favoritesCount > 0 ? "red" : "grey"} />
+
+                            {favoritesCount > 0 && <div className="total-items-count footer-total">{favoritesCount}</div>}
+
+                            <span className="footer-btn">Избранные</span>
+                            {/*<span className={`button-label ${activePage === 'favorites' ? 'active-title' : ''}`}>Избранные</span>*/}
+                        {/*</span>*/}
             </div>
+
 
             <div className={`profile-icon ${activeComponent === 'profile' ? 'active' : ''}`} onClick={handleProfileClick}>
                 <img className="profile-icon-img" src={profileIcon} />

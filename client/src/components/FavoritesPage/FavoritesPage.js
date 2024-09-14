@@ -448,7 +448,7 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
     };
 
     return (
-        <div className="product-list-container ">
+        <div className="product-list-container">
             <h2 className="product-list-container-title favorites-title">Избранные товары</h2>
             <div className="product-list favorite-page-content ">
                 {loading ? (
