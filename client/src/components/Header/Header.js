@@ -58,6 +58,8 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
             setActivePage('contact');
         } else if (path === '/cart') {
             setActivePage('cart');
+        }  else if (path === '/favorites') {
+            setActivePage('favorites');
         } else if (path === '/login' || path === '/profile') {
             setActivePage('login');
         }
@@ -260,7 +262,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                         <div className="profileIcon" ref={profileRef}>
                         <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>
                             <FaUser color="grey" className="icon" /> {/* Иконка пользователя */}
-                            <span className="button-label">{!!token ? 'Войти' : 'Логин'}</span>
+                            <span className={`button-label ${activePage === 'login' ? 'active-title' : ''}`}>{!!token ? 'Войти' : 'Логин'}</span>
                         </span>
                             {isProfileOpen && (
                                 <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
@@ -282,11 +284,11 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                         </div>
                         {showSellerRegistration && <SellerRegistrationForm />}
                     </div>
-                    <Link to="/cart" className={`auth-button btn ${activePage === 'cart' ? 'active-title' : ''}`} onClick={handleCartClick}>
+                    <Link to="/cart" className="auth-button btn" onClick={handleCartClick}>
                     <span className="cartIcon cartOnly">
                         <FaShoppingCart color="grey" className="icon" /> {/* Иконка корзины */}
                         {totalItemsCount > 0 && <span className="totalItems">{totalItemsCount}</span>}
-                        <span className="button-label">Корзина</span>
+                        <span className={`button-label ${activePage === 'cart' ? 'active-title' : ''}`}>Корзина</span>
                     </span>
                     </Link>
                     <div className="favorites" onClick={handleFavoritesClick}>
@@ -295,7 +297,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
                             {favoritesCount > 0 && <span className="totalItems favorites-count-check">{favoritesCount}</span>}
 
-                             <span className="button-label">Избранные</span>
+                             <span className={`button-label ${activePage === 'favorites' ? 'active-title' : ''}`}>Избранные</span>
                         </span>
                     </div>
                     <div className="search">
