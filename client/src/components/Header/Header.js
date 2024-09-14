@@ -484,13 +484,10 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                </div>
                <div className="header-right">
                    <div className="auth-buttons">
-
-
                        <div className="profileIcon" ref={profileRef}>
                                 <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>
                                     {!!token ? 'Войти' : 'Логин'}
                                 </span>
-                           {/*<span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>Войти</span>*/}
                            {isProfileOpen && (
 
                                <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
@@ -527,7 +524,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
                    <div className="favorites" onClick={handleFavoritesClick}>
                        <div className="favorites-header">
-                           <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="fa-red-header" />
+                           <FaRegHeart color={favoritesCount > 0 ? "grey" : "grey"} className="fa-red-header" />
                            <span className={`favorites-count ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>
                        </div>
                    </div>
