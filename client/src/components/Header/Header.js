@@ -524,7 +524,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
                    <div className="favorites" onClick={handleFavoritesClick}>
                        <div className="favorites-header">
-                           <FaRegHeart color={favoritesCount > 0 ? "grey" : "grey"} className="fa-red-header" />
+                           <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="fa-red-header" />
                            <span className={`favorites-count ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>
                        </div>
                    </div>
