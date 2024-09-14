@@ -132,6 +132,8 @@
 .header-right {
     display: flex;
     align-items: center;
+
+
 }
 
 .auth-buttons, .search {
@@ -171,14 +173,12 @@
 .search input {
     padding: 5px 10px;
     font-size: 18px;
-    /*margin-right: 70px;*/
 }
 
 
 
 .desktop-contact-info .contact-info{
     display: inline-flex;
-    /*background: #a49f9f;*/
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -501,6 +501,10 @@
         display: none;
     }
 
+    .cartIcon {
+        display: none!important;
+    }
+
 
     .auth-buttons, .totalItems {
         display: none;
@@ -601,6 +605,7 @@
 .button-label {
     display: block;
     text-align: center;
+    margin: 0 auto!important;
     margin-top: 4px;
     font-size: 14px; /* Размер текста под иконкой */
 }
@@ -614,6 +619,16 @@
     justify-content: center;
 }
 
+.cartOnly {
+    display: block!important;
+    margin: 0 15px 0 25px;
+
+}
+
+.button-label {
+    color: grey;
+}
+
 .totalItems {
     position: absolute;
     top: -5px;
@@ -625,6 +640,22 @@
     font-size: 12px;
 }
 
+.favorites {
+    margin-right: 20px;
+    margin-left: 0px;
+    color: grey;
+}
+
+.favorites-count-check {
+    top: -5px;
+    right: 0!important;
+}
+
 .favorites-header .fa-red-header {
     margin-bottom: 5px;
+}
+
+svg.icon {
+    width: 20px!important;
+    height: 20px!important;
 }
