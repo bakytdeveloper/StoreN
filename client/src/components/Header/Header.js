@@ -10,7 +10,7 @@ import search_header from './search.png';
 import cross from "./../Footer/cross.png";
 import './Header.css';
 import {jwtDecode} from "jwt-decode";
-import {FaHeart, FaRegHeart} from "react-icons/fa";
+import {FaHeart, FaRegHeart, FaShoppingCart, FaUser} from "react-icons/fa";
 
 
 // const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
@@ -470,95 +470,180 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
     console.log("favoritesCount:", favoritesCount)
     const token = localStorage.getItem('token');
+    // return (
+    //    <div className="header-container">
+    //        <div className="header">
+    //            <div className="header-left">
+    //                <div className="title" onClick={handleTitleClick}>
+    //                    <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
+    //                </div>
+    //                <nav className="nav-links">
+    //                    <Link to="/" className={`nav-link ${activePage === 'home' ? 'active-title' : ''}`}>Главная</Link>
+    //                    <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>
+    //                </nav>
+    //            </div>
+    //            <div className="header-right">
+    //                <div className="auth-buttons">
+    //                    <div className="profileIcon" ref={profileRef}>
+    //                             <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>
+    //                                 {!!token ? 'Войти' : 'Логин'}
+    //                             </span>
+    //                        {isProfileOpen && (
+    //
+    //                            <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
+    //                                <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
+    //                                {userStatus === 'suspend' ? (
+    //                                    <>
+    //                                        <button onClick={handleLoginClick}>Логин</button>
+    //                                        <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
+    //                                    </>
+    //                                ) : (
+    //                                    <>
+    //                                        <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+    //                                        {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+    //                                        {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+    //                                    </>
+    //                                )}
+    //                            </div>
+    //                        )}
+    //
+    //                    </div>
+    //
+    //                    {showSellerRegistration && (
+    //                        <SellerRegistrationForm />
+    //                    )}
+    //                </div>
+    //                <Link to="/cart" className={`auth-button btn ${activePage === 'cart' ? 'active-title' : ''}`} onClick={handleCartClick}>
+    //                 <span className="cartIcon">
+    //                     {totalItemsCount > 0 && (
+    //                         <span className="totalItems">{totalItemsCount}</span>
+    //                     )}
+    //                     <span className="total-items-title">Корзина</span>
+    //                 </span>
+    //                </Link>
+    //
+    //                <div className="favorites" onClick={handleFavoritesClick}>
+    //                    <div className="favorites-header">
+    //                        <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="fa-red-header" />
+    //                        <span className={`favorites-count ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>
+    //                    </div>
+    //                </div>
+    //
+    //
+    //                <div className="search">
+    //                    <form className="form-search" onSubmit={handleSearchSubmit}>
+    //                        <input
+    //                            className="search-input"
+    //                            type="text"
+    //                            placeholder="Поиск..."
+    //                            value={searchTerm}
+    //                            onChange={handleSearchChange}
+    //                        />
+    //                        <button className="search-cross" type="button" onClick={handleClearSearch}>
+    //                            <img src={cross}/>
+    //                        </button>
+    //                        <button className="search-button" type="submit">
+    //                            <img className="search-button-img" src={search_header}/>
+    //                        </button>
+    //                    </form>
+    //                </div>
+    //            </div>
+    //            <div className="mobile-buttons">
+    //                <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
+    //                    <Link style={{color:"white"}} to="/catalog" className="btn">Каталог товаров</Link>
+    //                </div>
+    //                <div className={`btn2 ${contactButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleContactClick} style={{ backgroundColor: contactButtonColor }}>
+    //                    <Link style={{color:"white"}} to="/contact" className="btn">Контакты</Link>
+    //                </div>
+    //            </div>
+    //        </div>
+    //    </div>
+    // );
+
+
     return (
-       <div className="header-container">
-           <div className="header">
-               <div className="header-left">
-                   <div className="title" onClick={handleTitleClick}>
-                       <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
-                   </div>
-                   <nav className="nav-links">
-                       <Link to="/" className={`nav-link ${activePage === 'home' ? 'active-title' : ''}`}>Главная</Link>
-                       <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>
-                   </nav>
-               </div>
-               <div className="header-right">
-                   <div className="auth-buttons">
-                       <div className="profileIcon" ref={profileRef}>
-                                <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>
-                                    {!!token ? 'Войти' : 'Логин'}
-                                </span>
-                           {isProfileOpen && (
-
-                               <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
-                                   <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
-                                   {userStatus === 'suspend' ? (
-                                       <>
-                                           <button onClick={handleLoginClick}>Логин</button>
-                                           <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
-                                       </>
-                                   ) : (
-                                       <>
-                                           <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
-                                           {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
-                                           {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
-                                       </>
-                                   )}
-                               </div>
-                           )}
-
-                       </div>
-
-                       {showSellerRegistration && (
-                           <SellerRegistrationForm />
-                       )}
-                   </div>
-                   <Link to="/cart" className={`auth-button btn ${activePage === 'cart' ? 'active-title' : ''}`} onClick={handleCartClick}>
+        <div className="header-container">
+            <div className="header">
+                <div className="header-left">
+                    <div className="title" onClick={handleTitleClick}>
+                        <h1 className="titleH">kiosk<span className="titleN">.kg</span></h1>
+                    </div>
+                    <nav className="nav-links">
+                        <Link to="/" className={`nav-link ${activePage === 'home' ? 'active-title' : ''}`}>Главная</Link>
+                        <Link to="/catalog" className={`nav-link ${activePage === 'catalog' ? 'active-title' : ''}`}>Каталог</Link>
+                    </nav>
+                </div>
+                <div className="header-right">
+                    <div className="auth-buttons">
+                        <div className="profileIcon" ref={profileRef}>
+                        <span className={`profileIcon-text ${activePage === 'login' ? 'active-title' : ''}`} onClick={handleProfileClick}>
+                            <FaUser className="icon" /> {/* Иконка пользователя */}
+                            <span className="button-label">{!!token ? 'Войти' : 'Логин'}</span>
+                        </span>
+                            {isProfileOpen && (
+                                <div className={`dropdown-menu ${isProfileOpen ? 'show' : ''}`}>
+                                    <span className="dropdown-menu-close" onClick={dropdownMenuClose}>&#10006;</span>
+                                    {userStatus === 'suspend' ? (
+                                        <>
+                                            <button onClick={handleLoginClick}>Логин</button>
+                                            <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button onClick={handleLoginClick}>{isAuthenticated ? "Профиль" : "Логин"}</button>
+                                            {isAuthenticated && <button className="dropdown-menu-logout" onClick={handleLogoutClick}>Выход</button>}
+                                            {!isAuthenticated && <button className="dropdown-menu-partner" onClick={handlePartnerClick}>Партнёр</button>}
+                                        </>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                        {showSellerRegistration && <SellerRegistrationForm />}
+                    </div>
+                    <Link to="/cart" className={`auth-button btn ${activePage === 'cart' ? 'active-title' : ''}`} onClick={handleCartClick}>
                     <span className="cartIcon">
-                        {totalItemsCount > 0 && (
-                            <span className="totalItems">{totalItemsCount}</span>
-                        )}
-                        <span className="total-items-title">Корзина</span>
+                        <FaShoppingCart className="icon" /> {/* Иконка корзины */}
+                        {totalItemsCount > 0 && <span className="totalItems">{totalItemsCount}</span>}
+                        <span className="button-label">Корзина</span>
                     </span>
-                   </Link>
+                    </Link>
+                    <div className="favorites" onClick={handleFavoritesClick}>
+                        <span className="cartIcon">
+                            <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="icon" />
 
-                   <div className="favorites" onClick={handleFavoritesClick}>
-                       <div className="favorites-header">
-                           <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="fa-red-header" />
-                           <span className={`favorites-count ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>
-                       </div>
-                   </div>
+                            {favoritesCount > 0 && <span className="totalItems favorites-count-check">{favoritesCount}</span>}
 
-
-                   <div className="search">
-                       <form className="form-search" onSubmit={handleSearchSubmit}>
-                           <input
-                               className="search-input"
-                               type="text"
-                               placeholder="Поиск..."
-                               value={searchTerm}
-                               onChange={handleSearchChange}
-                           />
-                           <button className="search-cross" type="button" onClick={handleClearSearch}>
-                               <img src={cross}/>
-                           </button>
-                           <button className="search-button" type="submit">
-                               <img className="search-button-img" src={search_header}/>
-                           </button>
-                       </form>
-                   </div>
-               </div>
-               <div className="mobile-buttons">
-                   <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
-                       <Link style={{color:"white"}} to="/catalog" className="btn">Каталог товаров</Link>
-                   </div>
-                   <div className={`btn2 ${contactButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleContactClick} style={{ backgroundColor: contactButtonColor }}>
-                       <Link style={{color:"white"}} to="/contact" className="btn">Контакты</Link>
-                   </div>
-               </div>
-           </div>
-       </div>
+                            {/*<span className={`totalItems ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>*/}
+                            {/*<span className={`favorites-count ${favoritesCount === 0 ? 'hidden' : ''}`}>{favoritesCount}</span>*/}
+                            <span className="button-label">Избранные</span>
+                        </span>
+                    </div>
+                    <div className="search">
+                        <form className="form-search" onSubmit={handleSearchSubmit}>
+                            <input className="search-input" type="text" placeholder="Поиск..." value={searchTerm} onChange={handleSearchChange} />
+                            <button className="search-cross" type="button" onClick={handleClearSearch}>
+                                <img src={cross} alt="Clear search" />
+                            </button>
+                            <button className="search-button" type="submit">
+                                <img className="search-button-img" src={search_header} alt="Search" />
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div className="mobile-buttons">
+                    <div className={`btn1 ${catalogButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleCatalogClick} style={{ backgroundColor: catalogButtonColor }}>
+                        <Link style={{ color: "white" }} to="/catalog" className="btn">Каталог товаров</Link>
+                    </div>
+                    <div className={`btn2 ${contactButtonColor === 'lightblue' ? 'blueText' : ''}`} onClick={handleContactClick} style={{ backgroundColor: contactButtonColor }}>
+                        <Link style={{ color: "white" }} to="/contact" className="btn">Контакты</Link>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
+
+
+
 };
 
 export default Header;

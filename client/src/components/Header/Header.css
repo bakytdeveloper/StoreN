@@ -64,14 +64,6 @@
     font-size: 18px;
 }
 
-/*.dropdown-menu {*/
-/*    border: 1px solid #d7d5d5;*/
-/*    border-radius: 3px;*/
-/*    padding: 0;*/
-/*    margin-right: 40px;*/
-
-/*}*/
-
 
 .dropdown-menu {
     display: none; /* Скрыто по умолчанию */
@@ -87,10 +79,6 @@
 .dropdown-menu.show {
     display: block; /* Показывает меню при активации */
 }
-
-
-
-
 
 
 
@@ -416,6 +404,7 @@
 .favorites-header {
     display: inline-flex; /* Выравниваем элементы в одну строку */
     align-items: center;  /* Центрируем элементы по вертикали */
+
 }
 
 .favorites-count {
@@ -432,6 +421,10 @@
 .fa-red-header {
     width: 23px;
     height: 23px;
+}
+
+.favorites-count-check {
+    top: 5px;
 }
 
 
@@ -505,17 +498,11 @@
     }
 
     .nav-links {
-        /*flex-direction: column;*/
         display: none;
     }
 
-    /*.nav-link {*/
-    /*    margin-bottom: 10px;*/
-    /*}*/
 
     .auth-buttons, .totalItems {
-        /*margin-left: 0;*/
-        /*margin-top: 10px;*/
         display: none;
     }
 
@@ -523,39 +510,8 @@
 
     .mobile-buttons {
         display: none;
-        /*display: inline-flex;*/
-        /*background: #08a7e7;*/
-        /*width: 100%;*/
-        /*font-size: 18px;*/
-        /*font-weight: bold;*/
-        /*font-family: Poppins;*/
-        /*font-weight: 600;*/
-
-
     }
 
-    /*.phone {*/
-    /*    font-size: 17px;*/
-    /*}*/
-
-    /*.btn1 {*/
-    /*    text-align: center;*/
-    /*    border: 1px solid #aac3f8;*/
-    /*    width: 50%;*/
-    /*    padding: 3px 0;*/
-    /*    background: #023062 !important;*/
-    /*    color: white!important;*/
-    /*}*/
-
-
-
-    /*.btn2 {*/
-    /*    text-align: center;*/
-    /*    border: 1px solid #aac3f8;*/
-    /*    width: 50%;*/
-    /*    padding: 3px 0;*/
-    /*    background: #131111 !important;*/
-    /*}*/
 
 
     .social-icons img {
@@ -634,7 +590,41 @@
         font-weight: 400;
     }
 
+}
 
+.header-right .icon {
+    display: block;
+    margin: 0 auto;
+    font-size: 24px; /* Размер иконки */
+}
 
+.button-label {
+    display: block;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 14px; /* Размер текста под иконкой */
+}
 
+.auth-buttons .profileIcon-text,
+.cartIcon,
+.favorites-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.totalItems {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+
+.favorites-header .fa-red-header {
+    margin-bottom: 5px;
 }
