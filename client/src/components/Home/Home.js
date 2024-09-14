@@ -206,29 +206,6 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
                 ))}
             </div>
 
-            {/*<div className="info-blocks">*/}
-            {/*    {genderImages.map((image, index) => {*/}
-            {/*        // Применяем разные классы для последних двух карточек*/}
-            {/*        let blockClass = "info-block";*/}
-            {/*        let imgClass = "info-block-img";*/}
-
-            {/*        if (index === genderImages.length - 2) {*/}
-            {/*            blockClass = "info-block info-all one-all";*/}
-            {/*            imgClass = "info-block-img info-all-img";*/}
-            {/*        } else if (index === genderImages.length - 1) {*/}
-            {/*            blockClass = "info-block info-all two-all";*/}
-            {/*            imgClass = "info-block-img info-block-img-two";*/}
-            {/*        }*/}
-
-            {/*        return (*/}
-            {/*            <div className={blockClass} key={index} onClick={() => handleImageClick(genderTitles[index])}>*/}
-            {/*                <span>{genderTitles[index]}</span>*/}
-            {/*                <img className={imgClass} src={image.url} alt={genderTitles[index]} style={index === genderImages.length - 1 ? { objectFit: "cover" } : {}} />*/}
-            {/*            </div>*/}
-            {/*        );*/}
-            {/*    })}*/}
-            {/*</div>*/}
-
             <div>
                 <h2 className="newest-products-title">Самые Новые Товары</h2>
                 <NewestProducts apiUrl={process.env.REACT_APP_API_URL} />

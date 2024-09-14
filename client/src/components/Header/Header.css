@@ -323,6 +323,7 @@
     color: #2bc3f1 !important;
     /*color: #0355a7 !important;*/
     width: auto!important;
+
 }
 
 
@@ -656,6 +657,6 @@
 }
 
 svg.icon {
-    width: 23px!important;
+    width: 25px!important;
     height: 23px!important;
 }

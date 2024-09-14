@@ -362,7 +362,7 @@ const NewestProducts = ({ apiUrl }) => {
                                 </div>
                             )}
                             <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
-                                {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
+                                {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart color="grey" />}
                             </div>
                             <Link to={`/products/${product._id}`}>
                                 <img
