@@ -8,7 +8,7 @@ import './ContactInfo.css';
 
 const ContactInfo = () => {
     return (
-        <div className="contact-info footer-contact-info">
+        <div className="contact-info footer-contact-info new-footer-adaptive">
            <div className="contact-info-all-context">
                <div className="phone">
                    <a className="phone-link" href="tel:+996508100777"  target="_blank">0(508) 100 777</a>

@@ -31,3 +31,45 @@
     margin-left: 30%;
 }
 
+@media (max-width: 768px) {
+
+    .new-footer-adaptive {
+        display: flex!important;
+        width: 100%;
+        top: 0!important;
+        margin-bottom: 70px!important;
+        z-index: 0;
+        justify-content: space-around;
+        margin-top: -70px;
+    }
+
+    .contact-info-all-context {
+        display: flex;
+        width: 95% !important;
+    }
+    .phone {
+        margin-left: -110px!important;
+        font-size: 14px!important;
+        margin-right: 10px;
+    }
+
+    .social-icons {
+        width: 50%;
+        margin-left: 0;
+    }
+
+    .icon {
+        margin-left: 4px;
+        margin-right: 4px;
+        padding: 0!important;
+    }
+
+    .workingTime {
+        display: flex;
+        margin-left: 0;
+        font-size: 12px;
+        width: 30%;
+        line-height: 20px;
+    }
+
+}

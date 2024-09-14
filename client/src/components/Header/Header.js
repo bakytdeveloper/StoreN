@@ -284,13 +284,13 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                         </div>
                         {showSellerRegistration && <SellerRegistrationForm />}
                     </div>
-                    <Link to="/cart" className="auth-button btn" onClick={handleCartClick}>
-                    <span className="cartIcon cartOnly">
-                        <FaShoppingCart color="grey" className="icon" /> {/* Иконка корзины */}
-                        {totalItemsCount > 0 && <span className="totalItems">{totalItemsCount}</span>}
-                        <span className={`button-label ${activePage === 'cart' ? 'active-title' : ''}`}>Корзина</span>
-                    </span>
-                    </Link>
+                    {/*<Link to="/cart" className="auth-button btn" onClick={handleCartClick}>*/}
+                    {/*<span className="cartIcon cartOnly">*/}
+                    {/*    <FaShoppingCart color="grey" className="icon" /> /!* Иконка корзины *!/*/}
+                    {/*    {totalItemsCount > 0 && <span className="totalItems">{totalItemsCount}</span>}*/}
+                    {/*    <span className={`button-label ${activePage === 'cart' ? 'active-title' : ''}`}>Корзина</span>*/}
+                    {/*</span>*/}
+                    {/*</Link>*/}
                     <div className="favorites" onClick={handleFavoritesClick}>
                         <span className="cartIcon">
                             <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="icon" />
@@ -300,6 +300,13 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                              <span className={`button-label ${activePage === 'favorites' ? 'active-title' : ''}`}>Избранные</span>
                         </span>
                     </div>
+                    <Link to="/cart" className="auth-button btn" onClick={handleCartClick}>
+                    <span className="cartIcon cartOnly">
+                        <FaShoppingCart color="grey" className="icon" /> {/* Иконка корзины */}
+                        {totalItemsCount > 0 && <span className="totalItems">{totalItemsCount}</span>}
+                        <span className={`button-label ${activePage === 'cart' ? 'active-title' : ''}`}>Корзина</span>
+                    </span>
+                    </Link>
                     <div className="search">
                         <form className="form-search" onSubmit={handleSearchSubmit}>
                             <input className="search-input" type="text" placeholder="Поиск..." value={searchTerm} onChange={handleSearchChange} />

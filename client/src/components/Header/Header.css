@@ -285,7 +285,7 @@
 
 .btn {
     margin-right: 22px;
-    margin-left: 15px;
+    margin-left: 5px;
 
 }
 
@@ -595,6 +595,10 @@
         font-weight: 400;
     }
 
+    .cartIcon.cartIcon {
+        display: none!important;
+    }
+
 }
 
 .header-right .icon {
@@ -642,8 +646,7 @@
 }
 
 .favorites {
-    margin-right: 20px;
-    margin-left: 0px;
+    margin: 0 0 0 40px;
     color: grey;
 }
 

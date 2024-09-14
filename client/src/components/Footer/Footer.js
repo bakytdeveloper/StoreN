@@ -182,7 +182,10 @@ const Footer = ({
         setIsProfileOpen(false);
     };
 
-    const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    // const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const totalItemsCount = cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+
+    console.log("totalItemsCount", totalItemsCount)
 
     const closeContactModal = () => {
         setIsContactModalOpen(false);
