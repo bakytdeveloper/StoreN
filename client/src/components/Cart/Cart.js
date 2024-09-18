@@ -29,13 +29,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const [deliveryType, setDeliveryType] = useState('delivery');
     const [orderPlaced, setOrderPlaced] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
     const history = useHistory();
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const [tokenUser, setTokenUser] = useState('')
-
-
 
 
     const handleBackToShopping = () => {

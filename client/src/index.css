@@ -26,3 +26,11 @@ code {
 .product-list-details-brand-and-name {
   text-decoration: none!important;
 }
+
+
+@media only screen and (max-width: 768px) {
+
+.cart {
+  overflow-y: auto!important;
+}
+}

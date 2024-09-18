@@ -84,8 +84,6 @@ const Sidebar = ({
                 setSelectedType(null);
                 setProducts(data.products);
 
-
-
             } catch (error) {
                 console.error('Error fetching categories by gender:', error);
             }

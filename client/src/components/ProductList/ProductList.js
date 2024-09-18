@@ -357,6 +357,17 @@ const ProductList = ({
         }
     }, [showSidebar, windowWidth, location.pathname]);
 
+
+    useEffect(() => {
+        document.body.style.overflow = showSidebar ? 'hidden' : 'auto';
+        return () => {
+            document.body.style.overflow = 'auto'; // Восстанавливаем прокрутку при закрытии сайтбара
+        };
+    }, [showSidebar]);
+
+
+
+
 // Определение цвета и ширины прогресс-бара в зависимости от количества товара
     const getProgressBarColor = (quantity) => {
         if (quantity <= 3) return 'red';
