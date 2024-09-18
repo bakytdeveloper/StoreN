@@ -256,17 +256,7 @@ const ProductList = ({
             } else {
                 setProductsPerPage(12);
             }
-            // if (windowWidth >= 1340) {
-            //     setProductsPerPage(1);
-            // } else if (windowWidth >= 1200) {
-            //     setProductsPerPage(1);
-            // } else if (windowWidth < 960) {
-            //     setProductsPerPage(1);
-            // } else if (windowWidth <= 900) {
-            //     setProductsPerPage(1);
-            // } else {
-            //     setProductsPerPage(1);
-            // }
+
         };
         updateProductsPerPage();
     }, [windowWidth]);
