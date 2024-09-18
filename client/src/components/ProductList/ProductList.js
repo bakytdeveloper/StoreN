@@ -423,22 +423,41 @@ const ProductList = ({
     }
 
 
+    // useEffect(() => {
+    //     const fetchFavorites = async () => {
+    //         try {
+    //
+    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+    //                 headers: {
+    //                     'Authorization': `Bearer ${token}`,
+    //                 }
+    //             });
+    //             const data = await response.json();
+    //             setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+    //         } catch (error) {
+    //             console.error('Error fetching favorites:', error);
+    //         }
+    //     };
+    //
+    //     fetchFavorites();
+    // }, [userId, token]);
+
+
     useEffect(() => {
         const fetchFavorites = async () => {
+            if (!token) return;  // Проверка на наличие токена
             try {
-
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                    }
+                    },
                 });
                 const data = await response.json();
-                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+                setFavorites(data.map(item => item._id));  // Получаем идентификаторы избранных товаров
             } catch (error) {
                 console.error('Error fetching favorites:', error);
             }
         };
-
         fetchFavorites();
     }, [userId, token]);
 
@@ -460,21 +479,56 @@ const ProductList = ({
 
 
 
+    // const handleFavoriteToggle = async (productId) => {
+    //     try {
+    //         if (!token) {
+    //             history.push('/login')
+    //         }
+    //
+    //         if (favorites.includes(productId)) {
+    //             // Удаление из избранного
+    //             await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites/${productId}`, {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Authorization': `Bearer ${token}`,
+    //                 }
+    //             });
+    //             setFavorites(favorites.filter(id => id !== productId));
+    //         } else {
+    //             // Добавление в избранное
+    //             await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Authorization': `Bearer ${token}`,
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({ productId })
+    //             });
+    //             setFavorites([...favorites, productId]);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error toggling favorite:', error);
+    //     }
+    // };
+
+
     const handleFavoriteToggle = async (productId) => {
         try {
             if (!token) {
-                history.push('/login')
+                history.push('/login');
+                return; // Если нет токена, перенаправляем на страницу входа
             }
 
+            let updatedFavorites;
             if (favorites.includes(productId)) {
                 // Удаление из избранного
                 await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites/${productId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                    }
+                    },
                 });
-                setFavorites(favorites.filter(id => id !== productId));
+                updatedFavorites = favorites.filter(id => id !== productId);
             } else {
                 // Добавление в избранное
                 await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
@@ -483,15 +537,16 @@ const ProductList = ({
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ productId })
+                    body: JSON.stringify({ productId }),
                 });
-                setFavorites([...favorites, productId]);
+                updatedFavorites = [...favorites, productId];
             }
+
+            setFavorites(updatedFavorites);  // Обновляем состояние избранных товаров
         } catch (error) {
             console.error('Error toggling favorite:', error);
         }
     };
-
 
 
 

@@ -22,57 +22,106 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
 
+    // useEffect(() => {
+    //     const fetchFavorites = async () => {
+    //         if (userId) {
+    //             try {
+    //                 const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+    //                     headers: { 'Authorization': `Bearer ${token}` },
+    //                 });
+    //                 const data = await response.json();
+    //                 setFavorites(data);
+    //             } catch (error) {
+    //                 console.error('Error fetching favorites:', error);
+    //             } finally {
+    //                 setLoading(false);
+    //             }
+    //         }
+    //     };
+    //     fetchFavorites();
+    // }, [userId, token, apiUrl]);
+
+
     useEffect(() => {
         const fetchFavorites = async () => {
-            if (userId) {
-                try {
-                    const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
-                        headers: { 'Authorization': `Bearer ${token}` },
-                    });
-                    const data = await response.json();
-                    setFavorites(data);
-                } catch (error) {
-                    console.error('Error fetching favorites:', error);
-                } finally {
-                    setLoading(false);
-                }
+            if (!userId) return;  // Проверка на наличие пользователя
+            try {
+                const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+                    headers: { 'Authorization': `Bearer ${token}` },
+                });
+                const data = await response.json();
+                setFavorites(data);  // Устанавливаем избранные товары
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchFavorites();
     }, [userId, token, apiUrl]);
 
+
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${apiUrl}${image}` : image;
     };
 
+    // const handleFavoriteToggle = async (productId) => {
+    //     try {
+    //         if (favorites.some(item => item._id === productId)) {
+    //             await fetch(`${apiUrl}/api/users/${userId}/favorites/${productId}`, {
+    //                 method: 'DELETE',
+    //                 headers: { 'Authorization': `Bearer ${token}` },
+    //             });
+    //             const updatedFavorites = favorites.filter(item => item._id !== productId);
+    //
+    //             // Если больше нет избранных товаров, возвращаемся на предыдущую страницу
+    //             if (updatedFavorites.length === 0) {
+    //                 history.push('/catalog');
+    //                 // history.push(previousPathname.current);
+    //             }
+    //
+    //
+    //             setFavorites(updatedFavorites);
+    //
+    //
+    //         } else {
+    //             await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
+    //                 method: 'POST',
+    //                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify({ productId }),
+    //             });
+    //             const product = await fetch(`${apiUrl}/api/products/${productId}`).then(res => res.json());
+    //             setFavorites([...favorites, product]);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error toggling favorite:', error);
+    //     }
+    // };
+
     const handleFavoriteToggle = async (productId) => {
+        if (!token) return history.push('/login');  // Если нет токена, перенаправляем на страницу входа
+
         try {
+            let updatedFavorites;
             if (favorites.some(item => item._id === productId)) {
+                // Удаление из избранного
                 await fetch(`${apiUrl}/api/users/${userId}/favorites/${productId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
-                const updatedFavorites = favorites.filter(item => item._id !== productId);
-
-                // Если больше нет избранных товаров, возвращаемся на предыдущую страницу
-                if (updatedFavorites.length === 0) {
-                    history.push('/catalog');
-                    // history.push(previousPathname.current);
-                }
-
-
-                setFavorites(updatedFavorites);
-
-
+                updatedFavorites = favorites.filter(item => item._id !== productId);
             } else {
+                // Добавление в избранное
                 await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ productId }),
                 });
                 const product = await fetch(`${apiUrl}/api/products/${productId}`).then(res => res.json());
-                setFavorites([...favorites, product]);
+                updatedFavorites = [...favorites, product];
             }
+
+            setFavorites(updatedFavorites);  // Обновляем состояние избранных товаров
         } catch (error) {
             console.error('Error toggling favorite:', error);
         }
