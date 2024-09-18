@@ -427,8 +427,6 @@ const ProductList = ({
         const fetchFavorites = async () => {
             try {
 
-
-
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -448,7 +446,7 @@ const ProductList = ({
 
     // Загрузка корзины из localStorage при загрузке компонента
     useEffect(() => {
-        const savedCart = JSON.parse(localStorage.getItem('cartItems'));
+        const savedCart = JSON.parse(sessionStorage.getItem('cartItems'));
         if (savedCart) {
             setCartItems(savedCart);
         }
@@ -456,7 +454,7 @@ const ProductList = ({
 
     // Сохранение корзины в localStorage при изменении cartItems
     useEffect(() => {
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
 
 
@@ -620,9 +618,7 @@ const ProductList = ({
                                                         </button>
                                                     ) : (
                                                         <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                            {/*<strong>+</strong>*/}
                                                             <FaCartPlus style={{ width: '22px', height: '22px' }} /> В корзину
-                                                            {/*<img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
                                                         </button>
                                                     )}
                                                 </>
@@ -718,9 +714,7 @@ const ProductList = ({
                                                     </button>
                                                 ) : (
                                                     <button className="cart-button" title="Add to Cart" onClick={() => handleAddToCart(product)}>
-                                                        {/*<strong>+</strong>*/}
-                                                        {/*<img style={{ width: '26px', height: '26px' }} src={bas} alt="Cart" />*/}
-                                                        <FaCartPlus style={{ width: '22px', height: '22px' }} /> В корзину
+                                                       <FaCartPlus style={{ width: '22px', height: '22px' }} /> В корзину
                                                     </button>
                                                 )}
                                             </div>

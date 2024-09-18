@@ -37,6 +37,8 @@ import FavoritesPage from "./components/FavoritesPage/FavoritesPage";
 
 
 const App = () => {
+    const pathname = useLocation().pathname;
+    console.log(pathname)
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
@@ -114,30 +116,30 @@ const App = () => {
                             />
                         )}
                         <div className="content">
-                        <Sidebar
-                            setProducts={setProducts}
-                            showSidebar={showSidebar}
-                            setShowSidebar={setShowSidebar}
-                            selectedOption={selectedOption}
-                            selectedGender={selectedGender}
-                            selectedCategory={selectedCategory}
-                            selectedType={selectedType}
-                            setSelectedGender={setSelectedGender}
-                            setSelectedCategory={setSelectedCategory}
-                            setSelectedType={setSelectedType}
-                            setSearchTerm={setSearchTerm}
+                            { pathname !== '/' && <Sidebar
+                                setProducts={setProducts}
+                                showSidebar={showSidebar}
+                                setShowSidebar={setShowSidebar}
+                                selectedOption={selectedOption}
+                                selectedGender={selectedGender}
+                                selectedCategory={selectedCategory}
+                                selectedType={selectedType}
+                                setSelectedGender={setSelectedGender}
+                                setSelectedCategory={setSelectedCategory}
+                                setSelectedType={setSelectedType}
+                                setSearchTerm={setSearchTerm}
 
-                            onSearch={handleSearch}
-                        />
+                                onSearch={handleSearch}
+                            />}
                         <Switch>
                             <Route path="/" exact>
                                 <Home
                                     setIsFooterCatalog={setIsFooterCatalog}
                                     setShowSidebar={setShowSidebar}
                                     setSelectedGender={setSelectedGender}
-                                setSelectedCategory={setSelectedCategory}
-                                setSelectedType={setSelectedType}
-                                setSearchTerm={setSearchTerm}
+                                    setSelectedCategory={setSelectedCategory}
+                                    setSelectedType={setSelectedType}
+                                    setSearchTerm={setSearchTerm}
 
                                     setCartItems={setCartItems}
                                 />
@@ -215,7 +217,6 @@ const App = () => {
                                     setShowSidebar={setShowSidebar}
                                 />
                             </Route>
-
 
                             <Route path="/seller/purchase-history">
                                 <PurchaseBuyHistory

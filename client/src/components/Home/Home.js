@@ -137,7 +137,7 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
 
     // Загрузка корзины из localStorage при загрузке компонента
     useEffect(() => {
-        const savedCart = JSON.parse(localStorage.getItem('cartItems'));
+        const savedCart = JSON.parse(sessionStorage.getItem('cartItems'));
         if (savedCart) {
             setCartItems(savedCart);
         }
