@@ -103,7 +103,7 @@
     opacity: 1!important; /* Показать иконку полностью при наведении */
 }
 
- .carousel-control-prev-icon:hover,
+.carousel-control-prev-icon:hover,
 .carousel-control-next-icon:hover {
     opacity: 1!important; /* Показать иконку полностью при наведении */
 }
@@ -461,16 +461,3 @@
 
 
 
-
-
-
-
-
-
-
-/*!* Global styles to remove horizontal scrolling *!*/
-/*body, html {*/
-/*    overflow-x: hidden;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/

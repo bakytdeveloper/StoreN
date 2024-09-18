@@ -87,7 +87,6 @@
     .sidebar {
         width: 80%;
         left: 0;
-
     }
 
     .show {
@@ -131,7 +130,7 @@
     max-width: 100%;
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    transform: translateX(-210%);
+    transform: translateX(-510%);
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
     overflow-y: auto;

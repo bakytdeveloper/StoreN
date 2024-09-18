@@ -27,8 +27,6 @@ const AccordionItem = ({
             onGenderClick(null); // Сбросить выбранный пол
             setIsGenderExpanded(false);
 
-
-
         } else {
 
             await onGenderClick(gender);
