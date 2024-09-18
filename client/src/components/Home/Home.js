@@ -23,7 +23,7 @@ import Footer from "../Footer/Footer";
 
 
 
-const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearchTerm, setSelectedCategory, setSelectedType }) => {
+const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGender, setSearchTerm, setSelectedCategory, setSelectedType }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [slides, setSlides] = useState([]);
     const [genderImages, setGenderImages] = useState([]);
@@ -134,6 +134,14 @@ const Home = ({ setShowSidebar, setIsFooterCatalog, setSelectedGender, setSearch
 
         setTimeout(() => setIsManualSwitch(false), 5000); // Возобновляем автоматическое переключение через 5 секунд
     };
+
+    // Загрузка корзины из localStorage при загрузке компонента
+    useEffect(() => {
+        const savedCart = JSON.parse(localStorage.getItem('cartItems'));
+        if (savedCart) {
+            setCartItems(savedCart);
+        }
+    }, [setCartItems]);
 
 
 

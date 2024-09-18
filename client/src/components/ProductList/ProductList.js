@@ -341,10 +341,6 @@ const ProductList = ({
     const displayedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
     const displayedProductsNoSearch = filteredProductsNoSearch.slice(startIndex, startIndex + productsPerPage);
 
-// Формирование полного URL-адреса изображения с сервера
-//     const getFullImageUrl = (image) => {
-//         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
-//     };
 
     const getFullImageUrl = (image) => {
         // Проверяем, начинается ли путь изображения с '/uploads' и формируем полный URL
@@ -446,6 +442,23 @@ const ProductList = ({
 
         fetchFavorites();
     }, [userId, token]);
+
+
+
+    // Загрузка корзины из localStorage при загрузке компонента
+    useEffect(() => {
+        const savedCart = JSON.parse(localStorage.getItem('cartItems'));
+        if (savedCart) {
+            setCartItems(savedCart);
+        }
+    }, [setCartItems]);
+
+    // Сохранение корзины в localStorage при изменении cartItems
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
+
+
 
 
     const handleFavoriteToggle = async (productId) => {

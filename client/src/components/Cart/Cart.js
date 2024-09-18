@@ -34,10 +34,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const [tokenUser, setTokenUser] = useState('')
+
+
+
+
     const handleBackToShopping = () => {
         setActiveComponent(null);  // Убираем активный компонент при закрытии корзины
         history.goBack();
-        // history.goBack();
     };
 
     useEffect(() => {

@@ -138,6 +138,8 @@ const App = () => {
                                 setSelectedCategory={setSelectedCategory}
                                 setSelectedType={setSelectedType}
                                 setSearchTerm={setSearchTerm}
+
+                                    setCartItems={setCartItems}
                                 />
                             </Route>
 
