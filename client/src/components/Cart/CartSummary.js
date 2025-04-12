@@ -3,7 +3,6 @@
 // src/components/Cart/CartSummary.js
 
 import React from 'react';
-import "./CartSummary.css"
 
 const CartSummary = ({ totalPrice, totalItems }) => {
     return (

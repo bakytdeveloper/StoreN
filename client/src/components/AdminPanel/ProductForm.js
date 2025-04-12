@@ -7,7 +7,7 @@ import './ProductForm.css';
 import ImageManager from "./ImageManager";
 
 
-const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
+const ProductForm = ({ setShowSidebar }) => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [products, setProducts] = useState([]);
     const {productId} = useParams();
@@ -305,12 +305,6 @@ const ProductForm = ({ setShowSidebar, onSubmit, onCancel }) => {
             setIsSubmitting(false); // Устанавливаем состояние отправки формы обратно в false
             return;
         }
-
-        // if (formData.originalPrice && formData.price >= formData.originalPrice) {
-        //     toast.error('Цена не должна быть больше или равна Цене до скидки');
-        //     setIsSubmitting(false);
-        //     return;
-        // }
 
         // Преобразуем значения в числа
         const originalPrice = parseFloat(formData.originalPrice);

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
-import {Link, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import PaymentForm from '../Payment/PaymentForm';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

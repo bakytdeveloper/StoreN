@@ -5,13 +5,6 @@ import React, { useState } from 'react';
 
 const OrderItem = ({ order, onUpdateStatus }) => {
     const [selectedStatus, setSelectedStatus] = useState(order.status);
-
-
-    const handleStatusChange = () => {
-        // Выполняем обновление статуса на сервере и в локальном состоянии
-        onUpdateStatus(order._id, selectedStatus);
-    };
-
     const handleChange = (e) => {
         // Обновляем локальное состояние при изменении значения в select
         setSelectedStatus(e.target.value);
@@ -32,8 +25,6 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
 
     return (
-        // <tr key={order._id}>
-        //     <td>
                 <select
                     value={selectedStatus}
                     onChange={handleChange}
@@ -45,8 +36,6 @@ const OrderItem = ({ order, onUpdateStatus }) => {
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
-        //     </td>
-        // </tr>
     );
 };
 

@@ -1,46 +1,24 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
-import {FaCartPlus, FaHeart, FaPlus, FaRegHeart, FaShoppingCart} from 'react-icons/fa';
+import {FaCartPlus, FaHeart, FaPlus, FaRegHeart} from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import './FavoritesPage.css';
 
 
 const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
     const [favorites, setFavorites] = useState([]);
-    // const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('token');
     const userId = token ? jwtDecode(token).userId : null;
     const history = useHistory();
     const location = useLocation();
-    const previousPathname = useRef(location.pathname);
 
     useEffect(() => {
         setShowSidebar(true);
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
-
-    // useEffect(() => {
-    //     const fetchFavorites = async () => {
-    //         if (userId) {
-    //             try {
-    //                 const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
-    //                     headers: { 'Authorization': `Bearer ${token}` },
-    //                 });
-    //                 const data = await response.json();
-    //                 setFavorites(data);
-    //             } catch (error) {
-    //                 console.error('Error fetching favorites:', error);
-    //             } finally {
-    //                 setLoading(false);
-    //             }
-    //         }
-    //     };
-    //     fetchFavorites();
-    // }, [userId, token, apiUrl]);
-
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -64,39 +42,6 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${apiUrl}${image}` : image;
     };
-
-    // const handleFavoriteToggle = async (productId) => {
-    //     try {
-    //         if (favorites.some(item => item._id === productId)) {
-    //             await fetch(`${apiUrl}/api/users/${userId}/favorites/${productId}`, {
-    //                 method: 'DELETE',
-    //                 headers: { 'Authorization': `Bearer ${token}` },
-    //             });
-    //             const updatedFavorites = favorites.filter(item => item._id !== productId);
-    //
-    //             // Если больше нет избранных товаров, возвращаемся на предыдущую страницу
-    //             if (updatedFavorites.length === 0) {
-    //                 history.push('/catalog');
-    //                 // history.push(previousPathname.current);
-    //             }
-    //
-    //
-    //             setFavorites(updatedFavorites);
-    //
-    //
-    //         } else {
-    //             await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
-    //                 method: 'POST',
-    //                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-    //                 body: JSON.stringify({ productId }),
-    //             });
-    //             const product = await fetch(`${apiUrl}/api/products/${productId}`).then(res => res.json());
-    //             setFavorites([...favorites, product]);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error toggling favorite:', error);
-    //     }
-    // };
 
     const handleFavoriteToggle = async (productId) => {
         if (!token) return history.push('/login');  // Если нет токена, перенаправляем на страницу входа
