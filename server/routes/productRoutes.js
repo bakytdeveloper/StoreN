@@ -150,12 +150,6 @@ router.get('/types', async (req, res) => {
             query.category = category;
         }
 
-    // && product.seller.isProductsVisible
-    //     && product.seller.status !== 'suspend'
-    //     // Если убрать эту часть фильтрации, то будут отображаться
-    //     // не активными заблокированные товары
-    //     && product.isActive;
-
         // Фильтруем товары на основе статуса продавца
         const products = await Product.find(query).populate('seller');
         const validProducts = products.filter(product => product.seller
@@ -191,62 +185,6 @@ router.get('/types/:category', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-
-
-// // Роут для фильтрации продуктов по продавцу
-// router.get('/products', async (req, res) => {
-//     try {
-//         const { gender, category, type, search, sellerId } = req.query;
-//
-//         let query = {};
-//         if (gender) {
-//             query.gender = gender;
-//         }
-//         if (category) {
-//             query.category = category;
-//         }
-//         if (type) {
-//             query.type = type;
-//         }
-//         if (search) {
-//             query.$or = [
-//                 { name: new RegExp(search, 'i') },
-//                 { description: new RegExp(search, 'i') },
-//                 { brand: new RegExp(search, 'i') },
-//                 { type: new RegExp(search, 'i') }
-//             ];
-//         }
-//         if (sellerId) {
-//             query.seller = sellerId; // Добавляем фильтрацию по sellerId
-//         }
-//
-//         const products = await Product.find(query).populate('seller');
-//
-//         console.log("SELLER:", products);
-//
-//         if (!Array.isArray(products)) {
-//             return res.status(500).json({ message: 'Error: Products is not an array' });
-//         }
-//
-//         // Фильтруем товары на основе видимости продавца
-//         const filteredProducts = products.filter(product => {
-//             // Проверяем, существует ли продавец и видимость товаров
-//             return product.seller && product.seller.isProductsVisible;
-//         });
-//
-//         // Разделяем товары на активные и неактивные
-//         const activeProducts = filteredProducts.filter(product => product.isActive);
-//         const inactiveProducts = filteredProducts.filter(product => !product.isActive);
-//
-//         // Объединяем активные и неактивные товары
-//         const sortedProducts = [...activeProducts, ...inactiveProducts];
-//
-//         res.json(sortedProducts);
-//     } catch (error) {
-//         console.error('Error fetching products:', error);
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
 
 
 router.get('/products', async (req, res) => {
@@ -296,6 +234,8 @@ router.get('/newest', async (req, res) => {
 
         // Сначала получаем все продукты, отсортированные по дате создания
         const allProducts = await Product.find().populate('seller').sort({ createdAt: -1 }).limit(limit * 2); // Увеличиваем лимит для замены
+
+        console.log("Фаил productRoutes.js , allProducts: ", allProducts)
 
         // Фильтруем товары по статусу продавца и активному статусу товара
         const validProducts = allProducts.filter(product =>
@@ -593,6 +533,7 @@ router.get('/seller/:sellerId/products', async (req, res) => {
 });
 
 
+// router.put('/:productId/toggle-active', checkRole(['seller']), async (req, res) => {
 router.put('/:productId/toggle-active',  authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const productId = req.params.productId;

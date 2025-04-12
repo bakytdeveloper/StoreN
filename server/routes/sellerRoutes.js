@@ -238,6 +238,7 @@ router.get('/products', authenticateToken, async (req, res) => {
 
 
 // Получение информации о конкретном товаре продавца
+// router.get('/products/:productId', async (req, res) => {
 router.get('/products/:productId', authenticateToken, async (req, res) => {
     try {
         const { productId } = req.params;
@@ -271,6 +272,7 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 
 
 
+// router.get('/sales-history', checkRole(['seller']), async (req, res) => {
 router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const { page = 1, perPage = 15 } = req.query;

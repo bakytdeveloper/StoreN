@@ -80,6 +80,7 @@ router.put('/update-profile/:userId', authenticateToken, async (req, res) => {
 
 
 // Получение истории заказов текущего пользователя
+// router.get('/orders',  checkRole(['customer']), async (req, res) => {
 router.get('/orders', authenticateToken,  checkRole(['customer']), async (req, res) => {
     try {
         const orders = await Order.find({ user: req.user._id }).populate('products.product');
@@ -332,6 +333,7 @@ router.delete('/:userId/favorites/:productId', authenticateToken, async (req, re
 });
 
 
+// router.get('/:userId/favorites', async (req, res) => {
 router.get('/:userId/favorites', authenticateToken, async (req, res) => {
     try {
         const user = await User.findById(req.params.userId).populate('favorites');

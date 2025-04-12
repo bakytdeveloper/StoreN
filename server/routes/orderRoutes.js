@@ -377,6 +377,7 @@ router.post('/add-to-cart', async (req, res) => {
 });
 
 
+// router.get('/my-orders', checkRole(['customer']), async (req, res) => {
 router.get('/my-orders', authenticateToken, checkRole(['customer']), async (req, res) => {
     if (!req.user || req.user.role === 'guest') {
         return res.status(403).json({ message: 'Permission denied' });
@@ -409,8 +410,7 @@ router.get('/my-orders', authenticateToken, checkRole(['customer']), async (req,
 
 
 // // Получение списка всех заказов для администратора
-router.get('/', authenticateToken, checkRole(['admin']), async (req, res) => {
-// router.get('/', authenticateToken, checkRole(['admin']),  async (req, res) => {
+router.get('/', checkRole(['admin']), async (req, res) => {
     try {
         const { page = 1, perPage = 20 } = req.query;
         const orders = await Order.find()

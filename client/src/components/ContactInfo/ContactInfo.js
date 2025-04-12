@@ -29,8 +29,6 @@ const ContactInfo = () => {
                </div>
                <div className="workingTime">с ПН по ВС - с 10:00 до 21:00</div>
            </div>
-            {/* Не показывать кнопку закрытия на больших экранах */}
-            {/*<button className="close-btn">Закрыть</button>*/}
         </div>
     );
 };

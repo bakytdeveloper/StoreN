@@ -143,6 +143,7 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
         }
     }, [setCartItems]);
 
+    console.log("Fail Home.js process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL)
 
 
     return (

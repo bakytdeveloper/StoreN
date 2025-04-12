@@ -147,7 +147,7 @@ const Homepage = require('../models/Homepage');
 // module.exports = router;
 
 
-
+//
 // Получение данных о главной странице
 router.get('/', async (req, res) => {
     try {

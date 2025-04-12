@@ -204,6 +204,7 @@ router.post('/login/admin', async (req, res) => {
 
 
 // Получение информации о текущем пользователе
+// router.get('/profile',  checkRole(['customer']), async (req, res) => {
 router.get('/profile', authenticateToken,  checkRole(['customer']), async (req, res) => {
     try {
         const user = await User.findById(req.user.userId).select('-password');
@@ -236,6 +237,7 @@ router.put('/profile/:userId', authenticateToken,  checkRole(['customer']), asyn
 
 
 // Получение информации о текущем продавце
+// router.get('/seller/profile',  checkRole(['seller']), async (req, res) => {
 router.get('/seller/profile', authenticateToken,  checkRole(['seller']), async (req, res) => {
     try {
         const seller = await Seller.findById(req.user.sellerId).select('-password');

@@ -6,13 +6,12 @@ const dotenv = require('dotenv');
 // const helmet = require('helmet');
 const compression = require('compression');
 const router = express.Router();
-
-
 const apiRoutes = require('./routes/index');
 const path = require("path");
 const multer = require("multer");
 const fs = require("fs");
 const sharp = require("sharp");
+const Product = require("./models/Product");
 const {sendOTP} = require("./smtp/otpService");
 dotenv.config();
 
@@ -39,9 +38,6 @@ app.use('/api', apiRoutes);
 app.use(compression());
 app.use(router);
 
-
-
-
 const uploadDir = 'uploads';
 
 // Инициализация хранилища Multer
@@ -56,6 +52,29 @@ const storage = multer.diskStorage({
 
 // Инициализация Multer с хранилищем
 const upload = multer({ storage: storage });
+
+
+
+
+// Добавьте этот тестовый роут в server.js
+app.get('/api/products/debug', (req, res) => {
+        console.log("=== Debug Products Request ===");
+        console.log("Headers:", req.headers);
+        console.log("Query params:", req.query);
+
+        Product.find().limit(2) // Ограничиваем для теста
+            .then(products => {
+                    console.log("First product:", products[0]?.name);
+                    res.json({ success: true, count: products.length, sample: products[0] });
+            })
+            .catch(err => {
+                    console.error("DB Error:", err);
+                    res.status(500).json({ error: err.message });
+            });
+});
+
+
+
 
 // Обработка POST запроса на загрузку изображения
 app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {

@@ -144,6 +144,9 @@ const ProductList = ({
                 { timeout: 10000 }
             );
             const productsData = await productsResponse.json();
+
+            console.log("Фаил ProductList.js productsData", productsData)
+
             setProducts(productsData);
             setFilteredProducts(filterProducts(productsData));
             setFilteredProductsNoSearch(filterProductsNoSearch(productsData));
@@ -475,41 +478,6 @@ const ProductList = ({
     useEffect(() => {
         sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
-
-
-
-
-    // const handleFavoriteToggle = async (productId) => {
-    //     try {
-    //         if (!token) {
-    //             history.push('/login')
-    //         }
-    //
-    //         if (favorites.includes(productId)) {
-    //             // Удаление из избранного
-    //             await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites/${productId}`, {
-    //                 method: 'DELETE',
-    //                 headers: {
-    //                     'Authorization': `Bearer ${token}`,
-    //                 }
-    //             });
-    //             setFavorites(favorites.filter(id => id !== productId));
-    //         } else {
-    //             // Добавление в избранное
-    //             await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Authorization': `Bearer ${token}`,
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify({ productId })
-    //             });
-    //             setFavorites([...favorites, productId]);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error toggling favorite:', error);
-    //     }
-    // };
 
 
     const handleFavoriteToggle = async (productId) => {
