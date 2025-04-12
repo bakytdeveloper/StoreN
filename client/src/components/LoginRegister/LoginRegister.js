@@ -2,7 +2,7 @@
 // src/components/LoginRegister/LoginRegister.js
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './LoginRegister.css';
 import {FaEye, FaEyeSlash} from "react-icons/fa";
@@ -12,7 +12,7 @@ import {FaEye, FaEyeSlash} from "react-icons/fa";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
+const LoginRegister = ({ setShowSidebar, setShowHeader }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -179,8 +179,6 @@ const LoginRegister = ({ showSidebar, setShowSidebar, setShowHeader }) => {
             }
             return;
         }
-        // Логин пользователя или администратора
-        // Логин администратора
 // Логин администратора
         if (email.toLowerCase() === 'a' && password === 'a') {
             const adminUrl = `${process.env.REACT_APP_API_URL}/api/auth/login/admin`;

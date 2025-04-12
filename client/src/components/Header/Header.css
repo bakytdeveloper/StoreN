@@ -9,14 +9,11 @@
 
 .header {
     display: flex;
-    /*position: fixed;*/
     justify-content: space-between;
     align-items: center;
     padding: 1px 20px;
     background-color: #fff;
-    /*position: fixed;*/
     max-width: 1340px;
-    /*width: 100%;*/
     z-index: 111;
     height: 120px;
     margin: 0 auto!important;
@@ -46,7 +43,6 @@
 
 .title {
     cursor: pointer;
-    /*font-size: 24px;*/
     font-weight: bold;
     margin-right: 20px;
     padding: 0;
@@ -106,12 +102,10 @@
 .active-title {
     border: 1px solid #bcbaba;
     border-bottom-color: #2bc3f1;
-    /*border-bottom-color: #0355a7;*/
     border-top: none !important;
     border-right: none!important;
     border-left: none!important;
     color: #2bc3f1!important;
-    /*color: #0355a7!important;*/
 }
 
 
@@ -125,7 +119,6 @@
     font-size: 18px;
     text-decoration: none;
     color: #4f4e4e;
-    /*background: rgba(113, 113, 113, 1);*/
 
 }
 
@@ -534,18 +527,6 @@
     .workingTime {
         display: none;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     .search-cross {
         width: auto;

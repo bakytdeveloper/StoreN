@@ -1,5 +1,3 @@
-
-
 // src/components/Header/Header.js
 import React, {useEffect, useRef, useState} from 'react';
 import './Header.css';
@@ -10,7 +8,7 @@ import search_header from './search.png';
 import cross from "./../Footer/cross.png";
 import './Header.css';
 import {jwtDecode} from "jwt-decode";
-import {FaHeart, FaRegHeart, FaShoppingCart, FaUser} from "react-icons/fa";
+import {FaRegHeart, FaShoppingCart, FaUser} from "react-icons/fa";
 
 const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
     const [catalogButtonColor, setCatalogButtonColor] = useState('initial');

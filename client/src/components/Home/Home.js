@@ -1,25 +1,7 @@
-
-
 import React, { useState, useEffect } from 'react';
-import imgHomeOne from './imgHome/imgHomeOne.png';
-import imgHomeOne1 from './imgHome/imgHomeOne11.png';
-import imgHomeOne2 from './imgHome/imgHomeOne2.png';
-import menProducts from './imgHome/men-products.png';
-import womenProducts from './imgHome/women-products.png';
-import childrenProducts from './imgHome/children-products.png';
-import gadgets from './imgHome/gadgets.png';
-import unisex from './imgHome/unisex.png';
-import accessories from './imgHome/accessories.png';
-import allElectricalGoods from './imgHome/allElectricalGoods.png';
-import catalog_page from './imgHome/catalog-page.jpg';
 import {useHistory, useLocation} from "react-router-dom";
-import ContactInfo from "../ContactInfo/ContactInfo";
-
 import './Home.css';
-
-
 import NewestProducts from './NewestProducts/NewestProducts';
-import Footer from "../Footer/Footer";
 
 
 

@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import SellerRegistrationForm from '../Header/SellerRegistrationForm/SellerRegistrationForm';
 import './Footer.css';
 import homeIcon from './home-icon.png';
 import catalogPageIcon from './bucklet-icon.png';
 import cartIcon from './cart-icon.png';
 import profileIcon from './priffile-icon.png';
-import contactIcon from './contact.png'
-// import ContactInfo from "../Header/ContactInfo";
-import ContactInfoModal from "./ContactInfoFooter";
 import ContactInfoFooter from "./ContactInfoFooter";
 import cross from './cross.png';
 import {jwtDecode} from "jwt-decode";
@@ -19,7 +15,6 @@ const Footer = ({
                     cartItems = [],
                     showSidebar,
                     setShowSidebar,
-                    selectedOption,
                     setSelectedOption,
                     resetFilter,
                     setCurrentPage,
@@ -32,7 +27,6 @@ const Footer = ({
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const history = useHistory();
     const profileRef = useRef(null);
-    const [showSellerRegistration, setShowSellerRegistration] = useState(false);
     const location = useLocation();
     const [activeButton, setActiveButton] = useState(null);
     const [prevPath, setPrevPath] = useState(null);
@@ -196,11 +190,6 @@ const Footer = ({
         setActiveComponent(null);
     };
 
-
-
-
-
-
     const fetchFavoritesCount = async () => {
         const token = localStorage.getItem('token');
 
@@ -282,14 +271,6 @@ const Footer = ({
                 </Link>
             </div>
 
-            {/*<div className={`contact-icon ${activeComponent === 'contact' ? 'active' : ''}`} onClick={handleContactClick}>*/}
-            {/*    <img className="contact-icon-img" src={contactIcon} />*/}
-            {/*    <div>*/}
-            {/*        <span className="footer-btn">Контакты</span>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
-
             <div className={`contact-icon ${activeComponent === 'contact' ? 'active' : ''}`} onClick={handleFavoritesClick}>
                         {/*<span className="cartIcon">*/}
                             <FaRegHeart className="contact-icon-img footer-favorites"  color={favoritesCount > 0 ? "red" : "grey"} />
@@ -297,8 +278,7 @@ const Footer = ({
                             {favoritesCount > 0 && <div className="total-items-count footer-total">{favoritesCount}</div>}
 
                             <span className="footer-btn">Избранные</span>
-                            {/*<span className={`button-label ${activePage === 'favorites' ? 'active-title' : ''}`}>Избранные</span>*/}
-                        {/*</span>*/}
+
             </div>
 
 
