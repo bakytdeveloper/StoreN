@@ -4,7 +4,6 @@
     margin: 0 auto;
     padding: 20px;
     max-width: 100%;
-    /*max-width: 1200px;*/
     overflow: auto;
 }
 
@@ -34,42 +33,3 @@ thead {
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-
-/*@media (max-width: 768px) {*/
-/*    .purchase-history-container {*/
-/*        width: 100%;*/
-/*    }*/
-/*    thead {*/
-/*        display: none;*/
-/*    }*/
-
-/*    table, tbody, tr, td {*/
-/*        display: block;*/
-/*        width: 100%;*/
-/*    }*/
-
-/*    td {*/
-/*        text-align: right;*/
-/*        padding-left: 50%;*/
-/*        position: relative;*/
-/*    }*/
-
-/*    td::before {*/
-/*        content: attr(data-label);*/
-/*        position: absolute;*/
-/*        left: 0;*/
-/*        width: 45%;*/
-/*        padding-right: 10px;*/
-/*        white-space: nowrap;*/
-/*        font-weight: bold;*/
-/*    }*/
-
-/*    td:nth-of-type(1)::before { content: "Дата"; }*/
-/*    td:nth-of-type(2)::before { content: "Статус"; }*/
-/*    td:nth-of-type(3)::before { content: "Название товара"; }*/
-/*    td:nth-of-type(4)::before { content: "Цвет"; }*/
-/*    td:nth-of-type(5)::before { content: "Размер"; }*/
-/*    td:nth-of-type(6)::before { content: "Кол."; }*/
-/*    td:nth-of-type(7)::before { content: "Цена"; }*/
-/*    td:nth-of-type(8)::before { content: "Сумма"; }*/
-/*}*/

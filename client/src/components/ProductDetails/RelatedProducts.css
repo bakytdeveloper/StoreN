@@ -2,7 +2,6 @@
 
 .related-products {
     max-width: 100%; /* Выберите подходящее значение ширины */
-    /*border: 1px solid #efeeee;*/
     overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
 
 }
@@ -25,8 +24,6 @@
 }
 
 .product-cards-related-products {
-    /*position: absolute;*/
-    /*position: relative;*/
     display: flex;
     flex-direction: row;
     max-width: 96%;
@@ -127,8 +124,6 @@
     .product-cards-related-products {
         flex-direction: column;
         margin-top: 20px;
-        /*margin-right: 10px;*/
-        /*width: 200px;*/
         padding: 2px;
         text-align: center!important;
         scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */

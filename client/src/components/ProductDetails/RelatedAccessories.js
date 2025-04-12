@@ -1,10 +1,6 @@
-
-
-
 import React, {useState, useEffect, useRef} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import './RelatedAccessories.css';
-
 import sliderLeft from './sliderLeft.png';
 import sliderRight from './sliderRight.png';
 import {jwtDecode} from "jwt-decode";
@@ -85,11 +81,6 @@ const RelatedAccessories = ({ direction }) => {
     const handleCardClick = () => {
         document.documentElement.scrollTop = 0;
     };
-
-    const fixImagePath = (imagePath) => {
-        return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
-    };
-
 
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;

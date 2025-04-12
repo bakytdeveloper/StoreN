@@ -273,11 +273,6 @@
 
 }
 
-/*.accordionContent {*/
-/*    display: none!important;*/
-/*    width: 250px!important;*/
-/*}*/
-
 .pagination-container {
     display: flex;
     position: relative;
@@ -438,17 +433,12 @@
 }
 
 
-/*!!!!!!!!*/
-
-
-
 .pagination-container-block-one li {
     background: none!important;
     padding: 0!important;
 
 }
 
-/*!!!!!!!!!*/
 
 .sidebar {
     display: block;
@@ -576,7 +566,6 @@
     }
 
     .pagination-item {
-        /*border: 1px solid #ddd;*/
         border-radius: 4px;
         margin: 0 2px;
         padding: 1px 3px!important;
@@ -600,7 +589,6 @@
 
     .pagination-item {
         margin: 0 3px!important; /* Добавляем отступ в 3px между элементами */
-        /* Другие стили для элементов пагинации */
     }
 
     .pagination-item.disabled {

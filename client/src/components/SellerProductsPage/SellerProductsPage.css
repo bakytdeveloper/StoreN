@@ -137,9 +137,6 @@
 
 
 .details {
-    /*margin-left: 20px;*/
-    /*margin-right: 25px;*/
-    /*flex: 1;*/
     text-decoration: none;
     padding: 11px;
 }
@@ -174,8 +171,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 6px;
-    /*background-color: #e3dbdb !important;*/
-
 }
 
 .buy-button {
@@ -552,10 +547,6 @@ body.modal_open {
     }
 
 }
-
-
-
-
 
 @media only screen and (width: 280px) {
     .pagination {

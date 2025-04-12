@@ -1,5 +1,3 @@
-
-
 import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import './SalesHistory.css';
@@ -43,11 +41,6 @@ const SalesHistory = ({ setShowSidebar }) => {
 
         fetchSalesHistory(page);
     }, [page, perPage]);
-
-    // const formatDate = (date) => {
-    //     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    //     return new Date(date).toLocaleDateString('ru-RU', options);
-    // };
 
     const formatDate = (date) => {
         const options = { day: '2-digit', month: 'long', year: 'numeric' };

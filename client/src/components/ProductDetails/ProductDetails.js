@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import './ProductDetails.css';
 import {useParams, useHistory, Link} from 'react-router-dom';
@@ -6,10 +5,6 @@ import RelatedSellerProducts from "./RelatedSellerProducts";
 import RelatedProducts from "./RelatedProducts";
 import RelatedAccessories from "./RelatedAccessories";
 import ProductTabs from "./ProductTabs/ProductTabs";
-import ContactInfo from "../ContactInfo/ContactInfo";
-
-
-
 
 const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const { productId } = useParams();
@@ -26,67 +21,6 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
         setShowSidebar(true);
         return () => setShowSidebar(true);
     }, [setShowSidebar]);
-
-    // useEffect(() => {
-    //     setSelectedSize(null);
-    //     setSelectedColor(null);
-    //     const fetchProductDetails = async () => {
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
-    //             const data = await response.json();
-    //             if (!data.product) {
-    //                 console.error('Product data is undefined or null');
-    //                 return;
-    //             }
-    //             const productData = data.product;
-    //             const images = productData.images ? productData.images.map(image => image.replace("images/W/MEDIAX_792452-T2/", "")) : [];
-    //             setProduct({
-    //                 ...productData,
-    //                 images: images
-    //             });
-    //             setSelectedImage(images[0]);
-    //         } catch (error) {
-    //             console.error('Ошибка при получении сведений о продукте:', error);
-    //         }
-    //     };
-    //
-    //     fetchProductDetails();
-    // }, [productId]);
-
-
-    // useEffect(() => {
-    //     setSelectedSize(null);
-    //     setSelectedColor(null);
-    //     const fetchProductDetails = async () => {
-    //         try {
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
-    //             const data = await response.json();
-    //             if (!data.product) {
-    //                 console.error('Product data is undefined or null');
-    //                 return;
-    //             }
-    //             const productData = data.product;
-    //             const images = productData.images ? productData.images.map(image => image.replace("images/W/MEDIAX_792452-T2/", "")) : [];
-    //             setProduct({
-    //                 ...productData,
-    //                 images: images
-    //             });
-    //             setSelectedImage(images[0]);
-    //
-    //             // Fetch seller name
-    //             const sellerResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/products/product/${productData._id}/seller`);
-    //             console.log('sellerResponse:', sellerResponse)
-    //             const sellerData = await sellerResponse.json();
-    //             console.log('sellerData:', sellerData)
-    //             console.log('sellerData:', sellerData.companyName)
-    //             setSellerName(sellerData.companyName);
-    //
-    //         } catch (error) {
-    //             console.error('Ошибка при получении сведений о продукте:', error);
-    //         }
-    //     };
-    //     fetchProductDetails();
-    // }, [productId]);
 
     useEffect(() => {
         setSelectedSize(null);

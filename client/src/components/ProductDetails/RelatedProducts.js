@@ -1,9 +1,6 @@
-
-
 import React, {useState, useEffect, useRef} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import './RelatedProducts.css';
-
 import sliderLeft from './sliderLeft.png';
 import sliderRight from './sliderRight.png';
 import {jwtDecode} from "jwt-decode";
@@ -83,16 +80,8 @@ const RelatedProducts = ({ productId }) => {
         setCurrentIndex(prevIndex => Math.min(relatedProducts.length - cardCount, prevIndex + cardCount));
     };
 
-    // const handleCardClick = () => {
-    //     window.scrollTo({ top: 0, behavior: 'smooth' }); // Прокрутка к верху страницы с плавным эффектом
-    // };
-
     const handleCardClick = () => {
         document.documentElement.scrollTop = 0;
-    };
-
-    const fixImagePath = (imagePath) => {
-        return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
     };
 
     const getFullImageUrl = (image) => {

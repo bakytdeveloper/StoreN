@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SellerProfile.css';
 import SellerProductsHide from "./SellerProductsHide";
-import PurchaseBuyHistory from "./PurchaseBuyHistory";
 
 const SellerProfile = ({ setShowSidebar }) => {
     const [seller, setSeller] = useState(null);
@@ -20,12 +19,8 @@ const SellerProfile = ({ setShowSidebar }) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
     const [showModal, setShowModal] = useState(false);
     const [modalAction, setModalAction] = useState(null); // 'hide' или 'show'
-
-    // const [isProductsVisible, setIsProductsVisible] = useState(true);
-
     const history = useHistory();
 
 
@@ -187,10 +182,6 @@ const SellerProfile = ({ setShowSidebar }) => {
     };
 
     const handleLogout = () => {
-        // Реализуйте функциональность выхода
-        // Например, очистка localStorage и перенаправление на главную страницу
-        // localStorage.removeItem('token');
-        // setSeller(null);
         history.push('/');
     };
 
@@ -396,15 +387,6 @@ const SellerProfile = ({ setShowSidebar }) => {
                 onConfirm={handleConfirm}
                 onCancel={handleCancel}
             />
-
-            {/*<div className="profile-content">*/}
-            {/*    {seller ? (*/}
-            {/*        <div>*/}
-            {/*            /!* существующий код *!/*/}
-            {/*            {activeTab === 'purchaseHistory' && <PurchaseBuyHistory />} /!* Отображаем компонент истории покупок *!/*/}
-            {/*        </div>*/}
-            {/*    ) : null}*/}
-            {/*</div>*/}
 
         </div>
     );

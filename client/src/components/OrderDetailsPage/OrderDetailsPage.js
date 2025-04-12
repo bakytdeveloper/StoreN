@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import './OrderDetailsPage.css';
@@ -207,37 +205,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
-
-    // const fetchSellers = async () => {
-    //     try {
-    //         const token = localStorage.getItem('token'); // Или используйте другой метод получения токена
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sellers`, {
-    //             headers: {
-    //                 'Authorization': `Bearer ${token}`
-    //             }
-    //         });
-    //         if (response.status === 401) {
-    //             console.error('Unauthorized');
-    //             return;
-    //         }
-    //         const data = await response.json();
-    //         setSellers(data);
-    //     } catch (error) {
-    //         console.error('Error fetching sellers:', error);
-    //     }
-    // };
-    //
-    // const getSellerInfo = (product) => {
-    //     if (!Array.isArray(sellers)) {
-    //         console.error('sellers is not an array:', sellers);
-    //         return { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
-    //     }
-    //     const seller = sellers.find((seller) => seller.products.includes(product._id));
-    //     return seller
-    //         ? { name: seller.name, email: seller.email, phoneNumber: seller.phoneNumber }
-    //         : { name: 'Неизвестный продавец', email: '-', phoneNumber: '-' };
-    // };
-
     const toggleEditMode = (productId) => {
         setEditMode(prevState => ({
             ...prevState,
@@ -285,27 +252,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                         </button>
                         <h2>Детали заказа</h2>
                         <div className="order-info">
-                            {/*<div className="client-order-info">*/}
-                            {/*    <div>*/}
-                            {/*        <strong>ID заказа:</strong> {order._id}*/}
-                            {/*    </div>*/}
-                            {/*    <div>*/}
-                            {/*        <strong>Имя:</strong> {order.user || order.user?.name || order.guestInfo?.name || sellerInfo?.name}*/}
-                            {/*    </div>*/}
-                            {/*    <div>*/}
-                            {/*        <strong>Клиент:</strong> {order.user || order.user?.role || sellerInfo?.role || 'Гость'}*/}
-                            {/*    </div>*/}
-                            {/*    <div>*/}
-                            {/*        <strong>Адрес:</strong> {order.address ? order.address : 'Гость'}*/}
-                            {/*    </div>*/}
-                            {/*    <div>*/}
-                            {/*        <strong>Email:</strong> {order.user || order.user?.email || order.guestInfo?.email || sellerInfo?.email}*/}
-                            {/*    </div>*/}
-                            {/*    <div>*/}
-                            {/*        <strong>Телефон №:</strong> {order.phoneNumber ? order.phoneNumber : 'Гость'}*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-
                             <div className="client-order-info">
                                 <div>
                                     <strong>ID заказа:</strong> {order._id}
@@ -445,12 +391,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             )}
         </div>
     );
-
-
-
-
-
-
 
 };
 

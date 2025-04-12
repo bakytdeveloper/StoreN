@@ -1,5 +1,4 @@
 .product-tabs {
-    /*border: 1px solid #ccc;*/
     border-radius: 5px;
     margin-top: 10px;
     width: 60%;
@@ -8,7 +7,6 @@
 
 .tab-header {
     display: flex;
-    /*justify-content: space-between;*/
     align-items: flex-start;
     padding: 10px;
     border-bottom: 1px solid #ccc;
@@ -28,7 +26,6 @@
 
 .tab-item.active {
     color: #0160c8;
-    /*border-bottom: 2px solid #007bff;*/
     border-bottom-color: #1f1c1c;
     border-right: none;
     border-left: none;
@@ -90,8 +87,6 @@
         font-family: Poppins;
         font-weight: 400;
     }
-
-    /*.characteristics-content.show*/
     .show {
         width: 100% !important;
         margin-top: 0;

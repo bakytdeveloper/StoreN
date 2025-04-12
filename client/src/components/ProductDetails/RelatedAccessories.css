@@ -4,7 +4,6 @@
 /* src/components/ProductDetails/ProductDetails.css */
 .related-accessories {
     max-width: 100%; /* Выберите подходящее значение ширины */
-    /*border: 1px solid #efeeee;*/
     overflow-x: auto; /* Добавьте горизонтальную прокрутку при необходимости */
     margin-top: 0;
 }
@@ -89,15 +88,6 @@
     margin-top: 10px;
 }
 
-
-
-/*.price {*/
-/*    text-align: center;*/
-/*    color: #055486;*/
-/*}*/
-
-
-
 /* Обновленные стили */
 .product-card-related-accessories {
     flex: 1; /* Равномерное распределение карточек */
@@ -114,7 +104,6 @@
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory; /* Для обеспечения прокрутки по горизонтали */
-        /*height: 555px;*/
         margin-bottom: 22px;
     }
 
@@ -127,8 +116,6 @@
     .product-card-related-accessories {
         flex-direction: column;
         margin-top: 20px;
-        /*margin-right: 10px;*/
-        /*width: 200px;*/
         padding: 2px;
         text-align: center!important;
         scroll-snap-align: start; /* Для прокрутки к началу каждой карточки */

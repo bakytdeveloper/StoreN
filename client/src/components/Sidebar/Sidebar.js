@@ -24,7 +24,6 @@ const Sidebar = ({
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-    const history = useHistory();
 
     useEffect(() => {
         const fetchGenders = async () => {

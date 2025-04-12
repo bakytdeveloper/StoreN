@@ -16,7 +16,6 @@ body, html {
 .app {
   display: flex;
   flex-direction: column;
-  /* Добавьте остальные стили для .app по вашему усмотрению */
   min-height: 100vh;
 }
 
@@ -31,11 +30,6 @@ body, html {
   align-items: flex-start; /* Выравнивание по верхнему краю */
 }
 
-/* Стили для Sidebar */
-.sidebar {
-  /* Добавьте необходимые стили для вашего Sidebar */
-}
-
 /* Стили для ProductList */
 .product-list {
   display: grid;
@@ -44,8 +38,6 @@ body, html {
 
   padding: 20px;
   flex: 1; /* Растягиваем карточки на всю доступную ширину */
-
-  /* Добавьте необходимые стили для вашего ProductList */
 }
 a {
   text-decoration: none;
@@ -148,10 +140,6 @@ span {
   }
 
 }
-
-
-
-
 
 .content {
   display: flex!important;

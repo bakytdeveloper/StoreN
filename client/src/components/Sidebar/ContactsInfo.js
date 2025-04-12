@@ -7,10 +7,7 @@ import ins from "../Header/instagram.png";
 import tel from "../Header/telegram.png";
 
 
-const ContactsInfo = ({ setShowSidebar }) => {
-
-
-
+const ContactsInfo = () => {
     return (
         <div className="contacts-info">
             <h2 style={{marginTop:"11px", color:"black"}}>Наши контакты</h2>

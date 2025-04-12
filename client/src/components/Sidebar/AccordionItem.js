@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {useHistory} from "react-router-dom";
 
@@ -14,7 +13,6 @@ const AccordionItem = ({
                            onTypeClick,
                            isSmallScreen,
                            setShowSidebar,
-                           setSearchTerm
                        }) => {
     const [isGenderExpanded, setIsGenderExpanded] = useState(false);
     const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);

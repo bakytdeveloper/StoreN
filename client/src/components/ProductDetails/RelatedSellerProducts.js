@@ -174,7 +174,6 @@ const RelatedSellerProducts = ({ productId }) => {
                 <button className={`slider-control-one-right ${currentIndex + cardCount >= sellerProducts.length ? 'disabled' : ''}`}
                         onClick={handleNextClick}
                         disabled={currentIndex + cardCount >= sellerProducts.length}>
-                    {/*Вперёд &#8594;*/}
                     <img src={sliderRight}/>
                 </button>
             </div>

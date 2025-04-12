@@ -9,7 +9,6 @@ const SellerProductsHide = ({ show, actionText, onConfirm, onCancel }) => {
     useEffect(() => {
         if (show) {
             document.body.style.overflow = 'hidden';
-            // Убедитесь, что прокрутка отключена только для фонового контента
             document.body.style.position = 'fixed';
             document.body.style.width = '100%'; // Чтобы предотвратить изменения ширины из-за отключения скролла
         } else {
@@ -29,14 +28,8 @@ const SellerProductsHide = ({ show, actionText, onConfirm, onCancel }) => {
 
     if (!show) return null;
 
-    // const handleClose = () => {
-    //     history.goBack();
-    // };
-
-
     return (
         <div className="modal-overlay-module">
-        {/*<div className="modal-overlay-module"  onClick={handleClose}>*/}
             <div className="modal-content-module">
                 <h3>Подтверждение</h3>
                 <div>Вы уверены, что хотите {actionText}?</div>

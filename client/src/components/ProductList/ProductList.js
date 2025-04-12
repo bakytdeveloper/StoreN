@@ -1,7 +1,6 @@
 
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import './ProductList.css';
-import bas from './basket.png';
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import Sidebar from "../Sidebar/Sidebar";
 import left from "./arrowsL.png";
@@ -10,13 +9,6 @@ import './ProductList.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import bag from './basket2.png';
-// import {Spinner} from "react-bootstrap";
-
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Button } from '@mui/material';
 import CustomPagination from "./CustomPagination";
 import {jwtDecode} from "jwt-decode";
 import {FaCartPlus, FaHeart, FaRegHeart} from "react-icons/fa";
@@ -424,27 +416,6 @@ const ProductList = ({
         const decodedToken = jwtDecode(token);
         userId = decodedToken.userId; // или decodedToken.id в зависимости от структуры вашего токена
     }
-
-
-    // useEffect(() => {
-    //     const fetchFavorites = async () => {
-    //         try {
-    //
-    //             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
-    //                 headers: {
-    //                     'Authorization': `Bearer ${token}`,
-    //                 }
-    //             });
-    //             const data = await response.json();
-    //             setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
-    //         } catch (error) {
-    //             console.error('Error fetching favorites:', error);
-    //         }
-    //     };
-    //
-    //     fetchFavorites();
-    // }, [userId, token]);
-
 
     useEffect(() => {
         const fetchFavorites = async () => {

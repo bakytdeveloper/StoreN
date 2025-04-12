@@ -15,7 +15,6 @@ import OrderList from "./components/AdminPanel/OrderList";
 import ClientListPage from './components/AdminPanel/ClientListPage'; // Добавляем новый компонент
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import * as PropTypes from "prop-types";
 import SellerRegistrationForm from "./components/Header/SellerRegistrationForm/SellerRegistrationForm";
 import SellerListPage from "./components/AdminPanel/SellerListPage";
 import SellerProfile from "./components/SellerProfile/SellerProfile";
@@ -26,7 +25,6 @@ import OrderDetailsPage from "./components/OrderDetailsPage/OrderDetailsPage";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import ContactInfo from "./components/ContactInfo/ContactInfo";
-// import ContactInfoFooter from "./components/Footer/ContactInfoFooter";
 import LoadingSpinner from "./components/LoadingSpinner";
 import PurchaseBuyHistory from "./components/SellerProfile/PurchaseBuyHistory";
 import AdminHomepage from "./components/AdminPanel/AdminHomepage/AdminHomepage";
@@ -64,7 +62,6 @@ const App = () => {
 
     const setToken = (token) => {
         localStorage.setItem('token', token);
-        // fetchOrders(token); // Передаем токен в fetchOrders
     };
 
     useEffect(() => {

@@ -5,19 +5,11 @@
     display: flex;
     margin-top: 22px;
     position: fixed;
-    /*width: 100%;*/
-    /*width: 250px!important;*/
     height: 100vh;
     padding: 15px 30px 20px 0;
     overflow-y: auto; /* Добавлено, чтобы обеспечить прокрутку, если содержимое не помещается */
-    /*margin-left: 10px;*/
     border-radius: 0;
     padding-bottom: 222px;
-    flex: 0 0 250px; /* Ширина сайтбара */
-    /*margin-right: 20px!important;*/
-
-    /*border: 3px solid black;*/
-
 }
 
 .sidebar.permanent {
@@ -228,9 +220,6 @@ ul {
 
 .accordionContent.expanded {
     max-height: 250px;
-    /*width: 250px!important;*/
-    /*margin-left: 0;*/
-    /*display: none!important;*/
     overflow-y: auto;
 }
 
@@ -240,7 +229,6 @@ ul {
         width: 100%;
         padding-top: 50px;
         margin-top: 16%!important;
-        /*margin-bottom: 10%;*/
         z-index: 1;
     }
 
@@ -280,12 +268,7 @@ ul {
     text-decoration: underline;
 }
 
-
-
-/* Добавьте другие стили по вашему усмотрению */
-
 .sbLi.sb-li-type.selected-type {
-    /*border-bottom: 2px solid #000; !* Или другой цвет на ваш вкус *!*/
     background: #2bc3f1;
     border-radius: 8px;
     color: white;
