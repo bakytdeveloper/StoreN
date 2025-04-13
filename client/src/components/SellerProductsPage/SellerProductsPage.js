@@ -23,7 +23,7 @@ const SellerProductsPage = ({setShowSidebar}) => {
         characteristics: [],
         images: [],
     });
-    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
+    const imageBaseUrl = process.env.REACT_APP_API_URL;
 
     const history = useHistory();
 
@@ -41,7 +41,6 @@ const SellerProductsPage = ({setShowSidebar}) => {
         const role = localStorage.getItem('role');
         if (!token || role !== 'seller') {
             toast.error('Ваш аккаунт еще не подтвержден');
-            // Если отсутствует токен или роль не является "seller", перенаправляем на страницу входа
             history.push('/login');
         }
     }, [history]);
@@ -97,10 +96,7 @@ const SellerProductsPage = ({setShowSidebar}) => {
                 },
             });
             if (response.ok) {
-                // Remove the product from the local state
                 setProducts(prevProducts => prevProducts.filter(product => product._id !== selectedProduct));
-
-                // Also remove associated images from the state
                 const deletedProduct = products.find(product => product._id === selectedProduct);
                 if (deletedProduct && deletedProduct.images) {
                     for (const imageUrl of deletedProduct.images) {
@@ -121,14 +117,12 @@ const SellerProductsPage = ({setShowSidebar}) => {
             console.error('Error deleting product:', error);
             toast.error('Ошибка при удалении продукта');
         } finally {
-            setShowConfirmationModal(false); // Close the confirmation modal
-            setSelectedProduct(null); // Reset selected product
-            document.body.classList.remove('modal_open'); // Remove class to unlock scroll
+            setShowConfirmationModal(false);
+            setSelectedProduct(null);
+            document.body.classList.remove('modal_open');
         }
     };
 
-
-// SellerProductsPage.js
     const handleToggleActive = async (productId) => {
         try {
             const token = localStorage.getItem('token');
@@ -155,13 +149,6 @@ const SellerProductsPage = ({setShowSidebar}) => {
             console.error('Failed to toggle product activity:', error);
         }
     };
-
-
-    // const handleFormCancel = () => {
-    //     setShowForm(false);
-    //     setSelectedProduct(null);
-    // };
-
 
     const handleGoBack = () => {
         history.goBack();

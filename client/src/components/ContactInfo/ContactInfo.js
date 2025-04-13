@@ -1,4 +1,3 @@
-// src/components/Header/ContactInfo.js
 import React from 'react';
 import ins from "../Header/instagram1.png";
 import tel from "../Header/telegram1.png";

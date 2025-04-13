@@ -8,9 +8,6 @@ const Homepage = require('../models/Homepage');
 router.get('/', async (req, res) => {
     try {
         const homepage = await Homepage.findOne();
-
-        console.log("homepage", homepage)
-
         res.json(homepage);
     } catch (error) {
         res.status(500).json({ message: error.message });

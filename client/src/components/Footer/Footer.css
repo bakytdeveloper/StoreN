@@ -91,18 +91,6 @@
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 768px) {
     .footer-page {
         display: inline-flex;
@@ -253,12 +241,6 @@
         color: #5d5c5c;
     }
 
-    /*.footer-totalItems {*/
-    /*    color: #5d5c5c;*/
-    /*    align-items: center;*/
-    /*    margin-bottom: 3;*/
-    /*}*/
-
     .footer-dropdown-menu button {
         display: block;
         width: 50%;
@@ -375,18 +357,6 @@
         margin-top: 1px;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -394,15 +364,11 @@
         width: 100%;
         height: 100%;
         background: none;
-        /*background-color: rgba(26, 15, 15, 0.5);*/
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 1000;
     }
- /*.profile-icon.active .profile-icon-img {*/
- /*      display: none;*/
- /*   }*/
 
     .close-btn-modal {
         width: 32px;
@@ -425,14 +391,13 @@
 
     }
 
-    /* Добавьте следующие стили в ваш файл CSS */
 
     .cart-icon.active Link {
-        outline: none!important; /* Убирает голубую рамку при активации кнопки корзины */
+        outline: none!important;
     }
 
     .total-items-count span {
-        color: white!important; /* Устанавливает белый цвет для цифры в счётчике */
+        color: white!important;
     }
 
 

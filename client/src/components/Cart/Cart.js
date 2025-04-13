@@ -31,12 +31,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
-    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
+    const imageBaseUrl = process.env.REACT_APP_API_URL;
     const [tokenUser, setTokenUser] = useState('')
 
 
     const handleBackToShopping = () => {
-        setActiveComponent(null);  // Убираем активный компонент при закрытии корзины
+        setActiveComponent(null);
         history.goBack();
     };
 
@@ -145,31 +145,29 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         if (orderPlaced) return;
 
         setOrderPlaced(true);
-        setIsLoading(true); // Показать спиннер
+        setIsLoading(true);
 
-        // Проверка, что корзина не пуста и общая сумма больше нуля
         if (totalItems === 0 || totalPrice === 0) {
             toast.error('Ваша корзина пуста или общая сумма равна нулю. Невозможно оформить заказ.');
             setOrderPlaced(false);
-            setIsLoading(false); // Скрыть спиннер
+            setIsLoading(false);
             return;
         }
 
         if (firstName.trim() === '' || address.trim() === '' || phoneNumber.trim() === '') {
             toast.error('Пожалуйста, заполните все обязательные поля (Имя, Адрес, Номер телефона)');
             setOrderPlaced(false);
-            setIsLoading(false); // Скрыть спиннер
+            setIsLoading(false);
             return;
         }
 
         const token = localStorage.getItem('token');
 
-        let role = 'guest'; // Устанавливаем роль по умолчанию как 'guest'
-        let sellerId = null;
+        let role = 'guest';
         if (token) {
-            const decodedToken = jwtDecode(token); // Используем jwt_decode для декодирования токена
-            role = decodedToken.role; // Роль можно получить из декодированного токена
-            sellerId = decodedToken.role === 'seller' ? decodedToken.sellerId : null;
+            const decodedToken = jwtDecode(token);
+            role = decodedToken.role;
+
         }
 
         const orderData = {
@@ -199,7 +197,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                     },
                     body: JSON.stringify(orderData),
                 }),
-                sendOrderEmail()  // Отправляем email администратору
+                sendOrderEmail()
             ]);
 
             if (orderResponse.ok) {
@@ -215,13 +213,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 } else {
                     console.error('Failed to place order:', data.message);
                 }
-                setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
+                setOrderPlaced(false);
             }
         } catch (error) {
             console.error('Error placing order:', error);
-            setOrderPlaced(false); // Сбрасываем флаг для возможности повторного размещения заказа
+            setOrderPlaced(false);
         }
-        setIsLoading(false); // Скрыть спиннер
+        setIsLoading(false);
     };
 
 
@@ -237,7 +235,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
 
     const getFullImageUrl = (image) => {
         if (!image) {
-            return './../bag.jpg'; // Или любой другой вариант обработки, например, путь к изображению-заглушке
+            return './../bag.jpg';
         }
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
@@ -273,12 +271,10 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     };
 
     const goToLogin = (event) => {
-        event.preventDefault(); // Предотвращаем выполнение дефолтного поведения
-        event.stopPropagation(); // Останавливаем дальнейшее распространение события
+        event.preventDefault();
+        event.stopPropagation();
         history.push("/login");
     };
-
-    console.log("USER:",tokenUser)
 
     return (
         <div className="cartAll">
@@ -303,7 +299,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                     </button>
                                 </div>
                             ) : (
-                                // Если пользователь не залогинен
                                 <div className="empty-cart-login">
                                     <div>Или входите через свой аккаунт</div>
                                     <button className="empty-cart-login-button" onClick={goToLogin}>

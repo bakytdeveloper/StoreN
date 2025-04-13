@@ -3,7 +3,7 @@ import PaginationItem from "@mui/material/PaginationItem";
 import React, {useEffect, useState} from "react";
 
 const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
-    const pageRange = 5; // Количество отображаемых страниц
+    const pageRange = 5;
     const range = [];
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -12,13 +12,10 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
             setIsSmallScreen(window.innerWidth <= 768);
         };
 
-        // Устанавливаем начальное значение
         handleResize();
 
         // Слушаем изменения размера окна
         window.addEventListener('resize', handleResize);
-
-        // Очищаем слушателя при размонтировании компонента
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -57,10 +54,10 @@ const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
                     />
                 );
             }}
-            siblingCount={isSmallScreen ? 1 : 3} // Уменьшаем siblingCount на маленьком экране
+            siblingCount={isSmallScreen ? 1 : 3}
             boundaryCount={1}
-            hidePrevButton={isSmallScreen} // Скрываем кнопку "Назад" на маленьком экране
-            hideNextButton={isSmallScreen} // Скрываем кнопку "Вперед" на маленьком экране
+            hidePrevButton={isSmallScreen}
+            hideNextButton={isSmallScreen}
         />
     );
 };

@@ -4,12 +4,12 @@ import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import '../Header.css';
-import { toast } from 'react-toastify'; // Импортируем библиотеку react-toastify
+import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import './SellerRegistrationForm.css';
 
-const SellerRegistrationForm = ({ onSubmit, setShowSidebar }) => {
+const SellerRegistrationForm = ({ setShowSidebar }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',

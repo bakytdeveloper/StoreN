@@ -13,7 +13,6 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
     const token = localStorage.getItem('token');
     const userId = token ? jwtDecode(token).userId : null;
     const history = useHistory();
-    const location = useLocation();
 
     useEffect(() => {
         setShowSidebar(true);
@@ -22,7 +21,7 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            if (!userId) return;  // Проверка на наличие пользователя
+            if (!userId) return;
             try {
                 const response = await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
                     headers: { 'Authorization': `Bearer ${token}` },
@@ -44,19 +43,16 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
     };
 
     const handleFavoriteToggle = async (productId) => {
-        if (!token) return history.push('/login');  // Если нет токена, перенаправляем на страницу входа
-
+        if (!token) return history.push('/login');
         try {
             let updatedFavorites;
             if (favorites.some(item => item._id === productId)) {
-                // Удаление из избранного
                 await fetch(`${apiUrl}/api/users/${userId}/favorites/${productId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` },
                 });
                 updatedFavorites = favorites.filter(item => item._id !== productId);
             } else {
-                // Добавление в избранное
                 await fetch(`${apiUrl}/api/users/${userId}/favorites`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -66,7 +62,7 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
                 updatedFavorites = [...favorites, product];
             }
 
-            setFavorites(updatedFavorites);  // Обновляем состояние избранных товаров
+            setFavorites(updatedFavorites);
         } catch (error) {
             console.error('Error toggling favorite:', error);
         }
@@ -115,9 +111,7 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
                         </div>
                     </div>
 
-                    // <div className="favorite-page-content-loading">Загрузка...</div>
                 ) : favorites.length === 0 ? (
-                // {favorites.length === 0 ? (
                     <div className="emptyCartEls-all favorite-page-content-empty">
                         <div className="emptyCartEls favorite-page-content-empty-text">
                             <div className="emptyCart">Ваша страница избранных товаров пока пуста, кликните сюда, чтобы преобрести товар</div>

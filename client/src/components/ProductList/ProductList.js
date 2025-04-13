@@ -1,12 +1,12 @@
 
-import React, {useState, useEffect, useCallback, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './ProductList.css';
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import Sidebar from "../Sidebar/Sidebar";
 import left from "./arrowsL.png";
 import right from "./arrowsR.png";
 import './ProductList.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import bag from './basket2.png';
 import CustomPagination from "./CustomPagination";
@@ -49,7 +49,6 @@ const ProductList = ({
     const [lastPath, setLastPath] = useState(location.pathname);
     const [favorites, setFavorites] = useState([]);
 
-    // Сброс фильтров и товаров при возвращении на страницу каталога
     useEffect(() => {
         if (location.pathname === '/catalog') {
             setSelectedGender(null);
@@ -57,9 +56,9 @@ const ProductList = ({
             setSelectedType(null);
             setSearchTerm('');
             onSearch('');
-            setCurrentPage(1); // Возвращаемся к первой странице
+            setCurrentPage(1);
             history.push(lastPath);
-            fetchData(); // Перезагружаем товары
+            fetchData();
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
 
@@ -72,9 +71,7 @@ const ProductList = ({
     // Обновление боковой панели при изменении ширины окна
     useEffect(() => {
         const updateSidebar = () => {
-            if (windowWidth >= 1200) {
-                setShowSidebar(false);
-            } else if (windowWidth >= 768) {
+            if (windowWidth >= 768) {
                 setShowSidebar(false);
             } else {
                 setShowSidebar(isFooterCatalog);
@@ -91,8 +88,6 @@ const ProductList = ({
             const sellerId = params.get('sellerId');
             if (sellerId && windowWidth <= 768) {
                 setShowSidebar(true);
-            } else if (windowWidth >= 1200) {
-                setShowSidebar(true);
             } else if (windowWidth >= 768) {
                 setShowSidebar(false);
             } else {
@@ -101,7 +96,6 @@ const ProductList = ({
         };
         updateSidebar();
     }, [windowWidth, setShowSidebar, isFooterCatalog, location.search]);
-
 
     // Сброс выбранных параметров фильтрации при изменении пути URL-адреса
     useEffect(() => {
@@ -185,7 +179,6 @@ const ProductList = ({
 
 
     useEffect(() => {
-        // Плавная прокрутка страницы в начало при изменении currentPage
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -193,9 +186,6 @@ const ProductList = ({
     }, [currentPage]);
 
 
-
-
-// Запрос данных с сервера при изменении параметров фильтрации
     useEffect(() => {
         fetchData();
     }, [searchKeyword, selectedGender, windowWidth, selectedCategory, selectedType, location.search]);
@@ -328,11 +318,9 @@ const ProductList = ({
 
 
     const getFullImageUrl = (image) => {
-        // Проверяем, начинается ли путь изображения с '/uploads' и формируем полный URL
         if (image.startsWith('/uploads')) {
             return `${imageBaseUrl}${image}`;
         }
-        // Если изображение недоступно, возвращаем путь к изображению по умолчанию
         return image || bag;
     };
 
@@ -382,7 +370,6 @@ const ProductList = ({
 
     const clearSearch = () => {
         setSearchTerm('');
-        // onSearch('');
     }
 
 
@@ -414,12 +401,12 @@ const ProductList = ({
 
     if (token) {
         const decodedToken = jwtDecode(token);
-        userId = decodedToken.userId; // или decodedToken.id в зависимости от структуры вашего токена
+        userId = decodedToken.userId;
     }
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            if (!token) return;  // Проверка на наличие токена
+            if (!token) return;
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
                     headers: {
@@ -436,8 +423,6 @@ const ProductList = ({
     }, [userId, token]);
 
 
-
-    // Загрузка корзины из localStorage при загрузке компонента
     useEffect(() => {
         const savedCart = JSON.parse(sessionStorage.getItem('cartItems'));
         if (savedCart) {
@@ -491,13 +476,11 @@ const ProductList = ({
 
     return (
         <div className="product-list-container">
-            {/* Заголовок с информацией о продавце, если есть sellerInfo */}
             {sellerInfo && (
                 <div className="product-list-seller-info">
                     <div className="seller-info" >
                         <h3>Приветствую Вас в магазине</h3>
                         <h2>{sellerInfo.companyName}</h2>
-                        {/* Дополнительная информация о продавце, если нужно */}
                     </div>
                 </div>
             )}
@@ -508,7 +491,6 @@ const ProductList = ({
                 {loading ? (
                     <div className="d-flex justify-content-center">
                         <div className="spinner-border" role="status">
-                            {/*<span className="visually-hidden">Loading...</span>*/}
                         </div>
                     </div>
                 ) : (

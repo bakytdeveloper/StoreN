@@ -54,7 +54,6 @@ const SalesHistory = ({ setShowSidebar }) => {
             const year = parts[2];
             return `${day}/${month}/${year}`;
         } else {
-            // В случае, если что-то пошло не так (хотя такого быть не должно)
             return formattedDate;
         }
     };

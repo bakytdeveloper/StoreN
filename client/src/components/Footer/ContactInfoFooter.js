@@ -3,13 +3,10 @@ import tik from './../Header/tik-tok1.png';
 import what from './../Header/whatsapp1.png';
 import ins from './../Header/instagram1.png';
 import tel from './../Header/telegram1.png';
-import {useHistory} from "react-router-dom";
 import './Footer.css';
 import cross from './cross.png';
 
 const ContactInfoFooter = ({setShowSidebar, onClose}) => {
-    const history = useHistory();
-
     const handleGoBack = () => {
         onClose();
     };
@@ -32,9 +29,6 @@ const ContactInfoFooter = ({setShowSidebar, onClose}) => {
             </button> {/* Кнопка "крестик" */}
 
             <h2 className="contact-info-modal-title">Наши контакты</h2>
-            {/*<div className="close-btn-modal" onClick={handleCloseModal}>Закрыть</div>*/}
-            {/*<button onClick={handleCloseModal}>&times;</button> /!* Кнопка "крестик" *!/*/}
-
             <div className="phone-modal">
                 <a className="phone-link-modal" href="tel:+996508100777"  target="_blank">0(508) 100 777</a>
             </div>

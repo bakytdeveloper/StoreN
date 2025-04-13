@@ -1,4 +1,3 @@
-// src/components/AdminPanel/ProductForm.js
 import React, { useState, useEffect } from 'react';
 import {toast} from "react-toastify";
 import {useHistory, useLocation, useParams} from "react-router-dom";
@@ -19,16 +18,16 @@ const ProductForm = ({ setShowSidebar }) => {
         description: '',
         direction: "",
         price: '',
-        originalPrice: '', // Новое поле для цены до скидки
+        originalPrice: '',
         category: '',
         type: '',
         brand: '',
-        gender: '', // Добавляем поле gender
+        gender: '',
         characteristics: [],
         images: [],
-        sizes: [], // Добавляем поле для размеров
-        colors: [], // Добавляем поле для цветов
-        quantity: 10, // Добавляем поле для количества
+        sizes: [],
+        colors: [],
+        quantity: 10,
 
     });
 
@@ -146,12 +145,6 @@ const ProductForm = ({ setShowSidebar }) => {
         const updatedCharacteristics = [...formData.characteristics];
         updatedCharacteristics[index][field] = value;
         setFormData({...formData, characteristics: updatedCharacteristics});
-    };
-
-    const handleImageChange = (index, value) => {
-        const updatedImages = [...formData.images];
-        updatedImages[index] = value;
-        setFormData({...formData, images: updatedImages});
     };
 
     const handleFileChange = async (e) => {
@@ -273,7 +266,7 @@ const ProductForm = ({ setShowSidebar }) => {
             name: '',
             description: '',
             price: '',
-            originalPrice: '', // Очищаем новое поле
+            originalPrice: '',
             category: '',
             type: '',
             brand: '',
@@ -288,7 +281,7 @@ const ProductForm = ({ setShowSidebar }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isSubmitting) {
-            return; // Если уже отправляется, выходим
+            return;
         }
         setIsSubmitting(true); // Устанавливаем состояние отправки формы в true
 
@@ -306,11 +299,8 @@ const ProductForm = ({ setShowSidebar }) => {
             return;
         }
 
-        // Преобразуем значения в числа
         const originalPrice = parseFloat(formData.originalPrice);
         const price = parseFloat(formData.price);
-
-        // Проверка на корректность чисел и значения цен
         if (!isNaN(originalPrice) && !isNaN(price) && price >= originalPrice) {
             toast.error('Цена не должна быть больше или равна Цене до скидки');
             setIsSubmitting(false);
@@ -324,7 +314,7 @@ const ProductForm = ({ setShowSidebar }) => {
 
 
     const handleClose = () => {
-        history.goBack(); // Переход на предыдущую страницу
+        history.goBack();
     };
 
 

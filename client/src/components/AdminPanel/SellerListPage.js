@@ -48,7 +48,7 @@ const SellerListPage = ({ setShowSidebar }) => {
     }, [history]);
 
     const handleClose = () => {
-        history.goBack(); // Переход на предыдущую страницу
+        history.goBack();
     };
 
     const updateStatusSeller = async (sellerId, newStatus) => {

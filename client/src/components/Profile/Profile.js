@@ -6,7 +6,7 @@ import { FaEye, FaEyeSlash} from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import {jwtDecode} from 'jwt-decode'; // Убедитесь, что у вас установлен jwt-decode
+import {jwtDecode} from 'jwt-decode';
 
 
 const Profile = ({ setShowSidebar }) => {
@@ -184,10 +184,6 @@ const Profile = ({ setShowSidebar }) => {
             setEditPassword(false);
         }
     };
-
-    // const handleEditPassword = () => {
-    //     setEditPassword(true);
-    // };
 
     const handleCancelEditPassword = () => {
         setEditPassword(false);

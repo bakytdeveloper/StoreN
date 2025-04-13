@@ -150,7 +150,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         setActivePage('login');
         if (isAuthenticated) {
             if (userStatus === 'suspend') {
-                // Пользователь с статусом "suspend" считается не залогиненным
                 history.push("/login");
             } else if (userRole === 'admin') {
                 history.push("/admin");
