@@ -92,7 +92,7 @@ const ProductList = ({
             if (sellerId && windowWidth <= 768) {
                 setShowSidebar(true);
             } else if (windowWidth >= 1200) {
-                setShowSidebar(false);
+                setShowSidebar(true);
             } else if (windowWidth >= 768) {
                 setShowSidebar(false);
             } else {

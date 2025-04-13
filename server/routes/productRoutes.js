@@ -235,8 +235,6 @@ router.get('/newest', async (req, res) => {
         // Сначала получаем все продукты, отсортированные по дате создания
         const allProducts = await Product.find().populate('seller').sort({ createdAt: -1 }).limit(limit * 2); // Увеличиваем лимит для замены
 
-        console.log("Фаил productRoutes.js , allProducts: ", allProducts)
-
         // Фильтруем товары по статусу продавца и активному статусу товара
         const validProducts = allProducts.filter(product =>
             product.seller &&
@@ -244,12 +242,6 @@ router.get('/newest', async (req, res) => {
             product.isActive
             && product.seller.isProductsVisible
         );
-
-        //
-        // && product.seller.status !== 'suspend'
-        // // Если убрать эту часть фильтрации, то будут отображаться
-        // // не активными заблокированные товары
-        // && product.isActive;
 
         // Если количество подходящих товаров меньше лимита, добавляем неактивные товары с подходящим статусом
         let newestProducts = validProducts.slice(0, limit);
