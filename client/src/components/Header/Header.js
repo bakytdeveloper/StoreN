@@ -10,11 +10,11 @@ import './Header.css';
 import {jwtDecode} from "jwt-decode";
 import {FaRegHeart, FaShoppingCart, FaUser} from "react-icons/fa";
 
-const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, selectedOption, setSelectedOption, resetFilter, setCurrentPage }) => {
+const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartItems = [], showSidebar, setShowSidebar, setSelectedOption, resetFilter, setCurrentPage }) => {
     const [catalogButtonColor, setCatalogButtonColor] = useState('initial');
     const [contactButtonColor, setContactButtonColor] = useState('initial');
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const [userStatus, setUserStatus] = useState(null); // Новое состояние для хранения статуса пользователя
+    const [userStatus, setUserStatus] = useState(null);
     const isAuthenticated = localStorage.getItem('token');
     const userRole = localStorage.getItem('role');
     const history = useHistory();
@@ -27,7 +27,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
 
     useEffect(() => {
-        // Получите ID продавца из токена, если это продавец
         const fetchUserStatus = async () => {
             const token = localStorage.getItem('token');
             const sellerId = token ? jwtDecode(token).sellerId : null;
@@ -165,7 +164,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const handleLogoutClick = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
-        localStorage.removeItem('status'); // Очистите статус при выходе
+        localStorage.removeItem('status');
         setActivePage('home');
         history.push("/");
         setIsProfileOpen(false);
@@ -194,7 +193,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const fetchFavoritesCount = async () => {
         const token = localStorage.getItem('token');
 
-        if (token) {  // Убедитесь, что токен существует
+        if (token) {
             try {
                 const userId = jwtDecode(token)?.userId;
                 if (userId) {
@@ -214,18 +213,16 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                 console.error('Error fetching favorites:', error);
             }
         } else {
-
-            // Если токен отсутствует, вы можете установить счетчик в 0 или выполнить другие действия
             setFavoritesCount(0);
         }
     };
 
 
     useEffect(() => {
-        fetchFavoritesCount(); // Initial fetch
-        const intervalId = setInterval(fetchFavoritesCount, 1000); // Fetch every 5 seconds
+        fetchFavoritesCount();
+        const intervalId = setInterval(fetchFavoritesCount, 1000);
 
-        return () => clearInterval(intervalId); // Clear interval on component unmount
+        return () => clearInterval(intervalId);
     }, []);
 
 
@@ -233,13 +230,11 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         if (favoritesCount > 0) {
             history.push('/favorites');
         } else {
-            // Можно либо перенаправить пользователя на другую страницу, либо показать сообщение
             history.push('/');
             alert('У вас нет избранных товаров.');
         }
     };
 
-    console.log("favoritesCount:", favoritesCount)
     const token = localStorage.getItem('token');
 
     return (

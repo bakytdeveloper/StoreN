@@ -31,7 +31,6 @@ const Footer = ({
     const [activeButton, setActiveButton] = useState(null);
     const [prevPath, setPrevPath] = useState(null);
     const [buttonClick, setButtonClick] = useState(null);
-
     const isAuthenticated = !!localStorage.getItem('token');
     const userRole = localStorage.getItem('role');
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
@@ -142,10 +141,8 @@ const Footer = ({
 
     const handleCatalogClick = () => {
         // Сброс фильтров и текущей страницы
-        resetFilter(); // вызов функции сброса фильтров
-        setCurrentPage(1); // сброс страницы на первую
-
-        // Обновление состояния и переход на страницу каталога
+        resetFilter();
+        setCurrentPage(1);
         history.push('/catalog?page=1');
         setSelectedOption('catalog');
         setShowSidebar(prevState => !prevState);
@@ -180,10 +177,7 @@ const Footer = ({
         setIsProfileOpen(false);
     };
 
-    // const totalItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalItemsCount = cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
-
-    console.log("totalItemsCount", totalItemsCount)
 
     const closeContactModal = () => {
         setIsContactModalOpen(false);
@@ -193,7 +187,7 @@ const Footer = ({
     const fetchFavoritesCount = async () => {
         const token = localStorage.getItem('token');
 
-        if (token) {  // Убедитесь, что токен существует
+        if (token) {
             try {
                 const userId = jwtDecode(token)?.userId;
                 if (userId) {
@@ -213,8 +207,6 @@ const Footer = ({
                 console.error('Error fetching favorites:', error);
             }
         } else {
-
-            // Если токен отсутствует, вы можете установить счетчик в 0 или выполнить другие действия
             setFavoritesCount(0);
         }
     };
@@ -222,9 +214,8 @@ const Footer = ({
 
     useEffect(() => {
         fetchFavoritesCount(); // Initial fetch
-        const intervalId = setInterval(fetchFavoritesCount, 1000); // Fetch every 5 seconds
-
-        return () => clearInterval(intervalId); // Clear interval on component unmount
+        const intervalId = setInterval(fetchFavoritesCount, 1000);
+        return () => clearInterval(intervalId);
     }, []);
 
 
@@ -232,20 +223,16 @@ const Footer = ({
         if (favoritesCount > 0) {
             history.push('/favorites');
         } else {
-            // Можно либо перенаправить пользователя на другую страницу, либо показать сообщение
             history.push('/');
             alert('У вас нет избранных товаров.');
         }
     };
 
-    console.log("favoritesCount:", favoritesCount)
-    const token = localStorage.getItem('token');
-
     return (
         <div className="footer-page">
             <div className={`home-icon ${activeComponent === 'home' ? 'active' : ''}`} onClick={() => handleButtonClick('home', 'home')}>
                 <Link to="/" >
-                    <img className="home-icon-img" src={homeIcon} />
+                    <img className="home-icon-img" src={homeIcon} alt="" />
                     <div>
                         <span className="home-icon-link">Главная</span>
                     </div>
@@ -253,7 +240,7 @@ const Footer = ({
             </div>
 
             <div className={`catalog-icon ${!showSidebar ? 'active' : ''}`} onClick={handleCatalogClick}>
-                <img className="catalog-icon-img" src={catalogPageIcon} />
+                <img className="catalog-icon-img" src={catalogPageIcon} alt="" />
                 <div>
                     <span className="catalog-icon-link catalog-header">Каталог</span>
                 </div>
@@ -261,7 +248,7 @@ const Footer = ({
 
             <div className={`cart-icon ${activeComponent === 'cart' ? 'active' : ''}`} onClick={handleCartClick}>
                 <Link to="/cart" className="footer-auth-button btn">
-                    <img className="cart-icon-img" src={cartIcon} />
+                    <img className="cart-icon-img" src={cartIcon} alt="" />
                     {totalItemsCount > 0 && (
                         <div className="total-items-count"><span>{totalItemsCount}</span></div>
                     )}
@@ -283,19 +270,17 @@ const Footer = ({
 
 
             <div className={`profile-icon ${activeComponent === 'profile' ? 'active' : ''}`} onClick={handleProfileClick}>
-                <img className="profile-icon-img" src={profileIcon} />
+                <img className="profile-icon-img" src={profileIcon} alt="" />
                 <div className="footer-profileIcon" ref={profileRef}>
-
                     {!isProfileOpen && (
                         <span className="profile-icon-link">
                             {isAuthenticated ? 'Войти' : "Логин"}
                         </span>
                     )}
-
                     {isProfileOpen && (
                         <div className="footer-dropdown-menu">
                             <span className="footer-dropdown-menu-close" onClick={closeDropoutLogin}>
-                                 <img className="profile-footer-dropdown-menu" src={cross}/>
+                                 <img className="profile-footer-dropdown-menu" alt="" src={cross}/>
                             </span>
                             {!isAuthenticated && <div className="footer-dropdown-menu-text">
                                 При регистрации и логине ты сможешь стать нашим Клиентом или Партнёром

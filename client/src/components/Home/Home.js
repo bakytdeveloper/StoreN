@@ -9,8 +9,8 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
     const [currentSlide, setCurrentSlide] = useState(0);
     const [slides, setSlides] = useState([]);
     const [genderImages, setGenderImages] = useState([]);
-    const [carouselBgColor, setCarouselBgColor] = useState('#ffffff'); // Состояние для цвета фона
-     const [isManualSwitch, setIsManualSwitch] = useState(false); // Состояние для ручного переключения
+    const [carouselBgColor, setCarouselBgColor] = useState('#ffffff');
+     const [isManualSwitch, setIsManualSwitch] = useState(false);
 
     const history = useHistory();
     const location = useLocation();
@@ -46,13 +46,13 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
             setSelectedGender(null);
             setSelectedCategory(null);
             setSelectedType(null);
-            setSearchTerm(''); // Сбрасываем поисковый запрос
+            setSearchTerm('');
         }
     }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            if (!isManualSwitch) { // Проверяем, что автоматическое переключение не приостановлено
+            if (!isManualSwitch) {
                 setCurrentSlide((prevSlide) => {
                     const newSlide = (prevSlide + 1) % slides.length;
                     if (slides[newSlide]) {
@@ -61,7 +61,7 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
                     return newSlide;
                 });
             }
-        }, 5000); // Переключаем слайд каждые 5 секунд
+        }, 5000);
 
         return () => clearInterval(interval);
     }, [slides.length, isManualSwitch]);
@@ -87,11 +87,8 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
     }, [setShowSidebar]);
 
 
-
-
-    // Обработчик клика по индикаторам
     const handleIndicatorClick = (index) => {
-        setIsManualSwitch(true); // Приостанавливаем автоматическое переключение
+        setIsManualSwitch(true);
         setCurrentSlide(index);
         if (slides[index]) {
             setCarouselBgColor(slides[index].colorBackground || '#ffffff');
@@ -114,19 +111,14 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
             return newSlide;
         });
 
-        setTimeout(() => setIsManualSwitch(false), 5000); // Возобновляем автоматическое переключение через 5 секунд
+        setTimeout(() => setIsManualSwitch(false), 5000);
     };
-
-    // Загрузка корзины из localStorage при загрузке компонента
     useEffect(() => {
         const savedCart = JSON.parse(sessionStorage.getItem('cartItems'));
         if (savedCart) {
             setCartItems(savedCart);
         }
     }, [setCartItems]);
-
-    console.log("Fail Home.js process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL)
-
 
     return (
         <div className="home-container">
@@ -179,7 +171,7 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
                     onClick={() => handleControlClick('next')}
                 >
                     <span className="carousel-control-next-icon" aria-hidden="true">
-                        &#x2192; {/* Правая стрелка */}
+                        &#x2192;
                     </span>
                     <span className="visually-hidden">Next</span>
                 </button>

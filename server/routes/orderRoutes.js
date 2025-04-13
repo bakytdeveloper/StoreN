@@ -13,12 +13,10 @@ const {checkRole} = require("../middleware/authenticateToken");
 const {transporter} = require('../smtp/otpService');
 
 router.post('/', async (req, res) => {
-    console.log('Received order creation request:', req.body);
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
     let userId;
-    let sellerId = null;  // Идентификатор продавца
+    let sellerId = null;
 
-    // Обработка токена только для авторизованных пользователей
     const token = req.headers.authorization?.split(' ')[1];
     if (token) {
         try {
@@ -26,7 +24,6 @@ router.post('/', async (req, res) => {
             sellerId = decodedToken.role === 'seller' ? decodedToken.sellerId : null;
         } catch (error) {
             console.error('Token decoding error:', error);
-            // Если токен некорректен, продолжайте обработку без sellerId
         }
     }
 
@@ -51,7 +48,6 @@ router.post('/', async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 
-    // Обработка продуктов
     let insufficientProducts = [];
     let orderProducts = [];
     try {

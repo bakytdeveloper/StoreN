@@ -107,7 +107,7 @@ router.post('/products', authenticateToken, checkRole(['seller']), async (req, r
             name,
             description,
             price,
-            originalPrice, // Новое поле учитывается при создании товара
+            originalPrice,
             category,
             direction,
             type,
@@ -123,7 +123,6 @@ router.post('/products', authenticateToken, checkRole(['seller']), async (req, r
 
         await newProduct.save();
 
-        // Добавление ID нового продукта к массиву продуктов продавца
         const updatedSeller = await Seller.findByIdAndUpdate(
             sellerId,
             { $push: { products: newProduct._id } }, // Добавление только ID продукта
@@ -141,9 +140,7 @@ router.post('/products', authenticateToken, checkRole(['seller']), async (req, r
 router.delete('/remove-image', authenticateToken, async (req, res) => {
     const { imageUrl } = req.body;
     try {
-        // Путь к файлу
         const filePath = path.join(__dirname, '..', 'uploads', path.basename(imageUrl));
-        // Проверка существования файла
         if (fs.existsSync(filePath)) {
             // Удаление файла
             fs.unlinkSync(filePath);
@@ -164,7 +161,6 @@ router.delete('/products/:productId', authenticateToken, checkRole(['seller']), 
     try {
         const { productId } = req.params;
 
-        // Находим товар в базе данных
         const product = await Product.findById(productId);
         if (!product) {
             return res.status(404).json({ message: 'Товар не найден' });
@@ -187,8 +183,6 @@ router.delete('/products/:productId', authenticateToken, checkRole(['seller']), 
             { $pull: { products: productId } },
             { new: true }
         );
-
-        // Возвращаем обновленный список продуктов продавца
         res.json({ message: 'Товар и его изображения успешно удалены' });
     } catch (error) {
         console.error('Ошибка при удалении товара:', error);
@@ -238,7 +232,6 @@ router.get('/products', authenticateToken, async (req, res) => {
 
 
 // Получение информации о конкретном товаре продавца
-// router.get('/products/:productId', async (req, res) => {
 router.get('/products/:productId', authenticateToken, async (req, res) => {
     try {
         const { productId } = req.params;
@@ -270,9 +263,6 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 });
 
 
-
-
-// router.get('/sales-history', checkRole(['seller']), async (req, res) => {
 router.get('/sales-history', authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const { page = 1, perPage = 15 } = req.query;
@@ -377,9 +367,7 @@ router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) 
 router.put('/:id/toggle-products-visibility',  authenticateToken, checkRole(['seller']), async (req, res) => {
     try {
         const sellerId = req.params.id;
-        console.log('Seller ID:', sellerId); // Добавьте эту строку
         const seller = await Seller.findById(sellerId);
-        console.log('Seller found:', seller); // Добавьте эту строку
 
         if (!seller) {
             return res.status(404).json({ message: 'Seller not found' });

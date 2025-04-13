@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import {Link, useHistory} from 'react-router-dom';
-
 import './NewestProducts.css';
 import {jwtDecode} from "jwt-decode";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
@@ -47,8 +46,6 @@ const NewestProducts = ({ apiUrl }) => {
                 if (Array.isArray(data)) {
                     setNewestProducts(data);
 
-                    console.log("Фаил NewestProducts.js newestProducts", newestProducts)
-
                 } else {
                     throw new Error('Unexpected response format');
                 }
@@ -93,10 +90,6 @@ const NewestProducts = ({ apiUrl }) => {
 
         fetchFavorites();
     }, [userId, token]);
-
-    const fixImagePath = (imagePath) => {
-        return imagePath.replace("images/W/MEDIAX_792452-T2/", "");
-    };
 
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;

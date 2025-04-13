@@ -1,13 +1,10 @@
-/* Home.css */
 .home-container {
     width: 100%;
     margin-top: 96px;
-    /*padding: 20px;*/
     justify-content: center;
     align-items: center;
     padding: 25px;
-
-    overflow-y: auto; /* Это позволяет вертикальный скроллинг */
+    overflow-y: auto;
 }
 
 .carousel {
@@ -27,10 +24,9 @@
 .carousel-item {
     position: relative;
     display: none;
-    /*display: flex;*/
-    align-items: center; /* Центрирование по вертикали */
-    justify-content: center; /* Центрирование по горизонтали */
-    max-height: 40%; /* Задает высоту карусели */
+    align-items: center;
+    justify-content: center;
+    max-height: 40%;
     -webkit-transition: -webkit-transform 0.6s ease-in-out;
     -o-transition: -o-transform 0.6s ease-in-out;
     transition: transform 0.6s ease-in-out;
@@ -51,21 +47,20 @@
 .carousel-item-img {
     width: 100%;
     height: 100%;
-    /*object-fit: contain;*/
 }
 
 .carousel-control-prev,
 .carousel-control-next {
     position: absolute;
-    width: 80px!important; /* Фиксированная ширина для каждой кнопки */
-    height: 100%; /* Высота кнопок */
+    width: 80px!important;
+    height: 100%;
     top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1; /* Убедитесь, что кнопки поверх слайдов */
-    opacity: 0.5; /* Полупрозрачность кнопки и иконки по умолчанию */
-    transition: opacity 0.3s ease-in-out; /* Плавный переход */
+    z-index: 1;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .carousel-control-prev {
@@ -84,49 +79,41 @@
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    opacity: 0.5; /* Полупрозрачность иконки по умолчанию */
-    transition: opacity 0.3s ease-in-out; /* Плавное появление */
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для кнопок */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-    opacity: 0.6!important; /* Показать кнопку и иконку полностью при наведении */
+    opacity: 0.6!important;
 }
 
 .carousel-control-prev:hover .carousel-control-prev-icon,
 .carousel-control-next:hover .carousel-control-next-icon {
-    opacity: 1!important; /* Показать иконку полностью при наведении */
+    opacity: 1!important;
 }
 
 .carousel-control-prev-icon:hover,
 .carousel-control-next-icon:hover {
-    opacity: 1!important; /* Показать иконку полностью при наведении */
+    opacity: 1!important;
 }
 
-
-
-
-
-
-
-
 .carousel-indicators {
-    bottom: 10px; /* Положение индикаторов */
+    bottom: 10px;
 }
 
 .carousel-indicators button {
-    background-color: rgba(0, 0, 0, 0.5); /* Цвет индикаторов */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .carousel-indicators .active {
-    background-color: #fff; /* Цвет активного индикатора */
+    background-color: #fff;
 }
 
 .carousel-caption-title-description {
     display: flex;
-    /*position: absolute;*/
     width: 60%;
     max-height: 70%;
     background: none;
@@ -142,9 +129,7 @@
 
 .carousel-caption-title {
     display: flex;
-    /*justify-content: start;*/
     justify-content: center;
-    /*font-size: 33px;*/
     max-width: 90%;
     line-height: 50px;
     margin-bottom: 20px;
@@ -183,7 +168,6 @@
     background-color: #f6f6f3;
     justify-content: center;
     align-items: center;
-    /*font-family: 'Poppins', sans-serif;*/
     font-family: Wingdings !important;
     font-size: 20px;
     text-align: center;
@@ -201,7 +185,6 @@
 
 .info-block-title {
     font-family: Sathu;
-    /*font-family: Avenir;*/
 }
 
 .info-block-image {
@@ -221,7 +204,6 @@
     align-items: center;
     text-align: center;
     object-fit: cover;
-    /*object-fit: cover;*/
     padding: 0;
     border-radius: 0 0 12px 12px;
 }
@@ -234,7 +216,6 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    /*left: 0;*/
    position: absolute;
     padding: 0;
 }
@@ -272,17 +253,15 @@
 
     .carousel {
         width: 100%;
-        /*width: 1920px;*/
         height: 222px;
         margin: 0 auto;
-        overflow: hidden; /* Скрываем все, что выходит за пределы карусели */
+        overflow: hidden;
         position: relative;
         background: #f8efe5;
         border-radius: 20px;
         margin-top: 0!important;
 
     }
-/*///*/
 
     .carousel {
         margin-top: 110px;
@@ -347,7 +326,6 @@
         width: 100px;
         height: 98%;
         position: absolute;
-        /*top: 216px;*/
         top: 6px;
         left: 67%;
         object-fit: contain;
@@ -363,7 +341,6 @@
         font-weight: 400;
         line-height: 18px;
         letter-spacing: 0.1em;
-        /*text-align: left;*/
         background: rgb(252, 249, 249);
         text-align: center;
         color: black;
@@ -385,7 +362,6 @@
         justify-content: center;
         align-items: center;
         font-family: 'Poppins', sans-serif;
-        /*font-size: 20px;*/
         text-align: center;
         cursor: pointer;
         border-radius: 12px;
@@ -413,7 +389,6 @@
 
     .carousel-caption-description {
         font-size: 17px!important;
-        /*line-height: 20px;*/
         margin-left: 14px;
         line-height: 25px;
     }

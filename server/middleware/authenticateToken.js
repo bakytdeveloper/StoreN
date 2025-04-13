@@ -8,7 +8,6 @@ const authenticateToken = (req, res, next) => {
 
     // Проверка наличия заголовка
     if (!authHeader) {
-        console.log('Authorization header is missing');
         return res.status(401).json({ message: 'Authorization header is required' });
     }
 
@@ -20,9 +19,7 @@ const authenticateToken = (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
 
-    // Проверка наличия токена
     if (!token) {
-        console.log('Token is missing after "Bearer"');
         return res.status(401).json({ message: 'Token is required' });
     }
 
@@ -32,11 +29,9 @@ const authenticateToken = (req, res, next) => {
             console.log('JWT verification failed:', err.message);
             return res.status(401).json({
                 message: 'Invalid token',
-                error: err.message // Для отладки
+                error: err.message
             });
         }
-
-        console.log('Authenticated user:', decoded);
         req.user = decoded;
         next();
     });

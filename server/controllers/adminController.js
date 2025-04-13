@@ -1,4 +1,3 @@
-// server/controllers/adminController.js
 const Product = require('../models/Product');
 
 // Получение списка всех продуктов
@@ -8,7 +7,6 @@ const getAllProducts = async (req, res) => {
 
         res.json(products);
     } catch (error) {
-
         res.status(500).json({ message: "Something went wrong!" });
     }
 };

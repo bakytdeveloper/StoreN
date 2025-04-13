@@ -81,7 +81,6 @@ const ProductList = ({
     }, [windowWidth, setShowSidebar, isFooterCatalog]);
 
 
-    // Обновление боковой панели при изменении ширины окна и наличии параметров в URL-адресе
     useEffect(() => {
         const updateSidebar = () => {
             const params = new URLSearchParams(location.search);
@@ -97,7 +96,6 @@ const ProductList = ({
         updateSidebar();
     }, [windowWidth, setShowSidebar, isFooterCatalog, location.search]);
 
-    // Сброс выбранных параметров фильтрации при изменении пути URL-адреса
     useEffect(() => {
         if (location.pathname !== previousPathname.current) {
             setSelectedGender(null);
@@ -130,8 +128,6 @@ const ProductList = ({
                 { timeout: 10000 }
             );
             const productsData = await productsResponse.json();
-
-            console.log("Фаил ProductList.js productsData", productsData)
 
             setProducts(productsData);
             setFilteredProducts(filterProducts(productsData));

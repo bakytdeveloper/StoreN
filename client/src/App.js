@@ -36,7 +36,6 @@ import FavoritesPage from "./components/FavoritesPage/FavoritesPage";
 
 const App = () => {
     const pathname = useLocation().pathname;
-    console.log(pathname)
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);

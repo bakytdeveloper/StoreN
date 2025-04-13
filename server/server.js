@@ -18,8 +18,6 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 const PORT = process.env.PORT || 5506;
 
 
@@ -27,9 +25,6 @@ const PORT = process.env.PORT || 5506;
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('И БАЗА ДАННЫХ MONGODB ПОДКЛЮЧЕННА!!!'));
 
-// Middleware
-// app.use(cors());
-// app.use(helmet());
 app.use(bodyParser.json());
 app.use(express.json());
 
@@ -52,9 +47,6 @@ const storage = multer.diskStorage({
 
 // Инициализация Multer с хранилищем
 const upload = multer({ storage: storage });
-
-
-
 
 // Добавьте этот тестовый роут в server.js
 app.get('/api/products/debug', (req, res) => {
@@ -79,7 +71,6 @@ app.get('/api/products/debug', (req, res) => {
 // Обработка POST запроса на загрузку изображения
 app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
         try {
-                // Путь к загруженному файлу
                 const originalImagePath = path.join(uploadDir, req.file.filename);
 
                 // Получение информации о загруженном изображении
@@ -89,7 +80,6 @@ app.post('/api/sellers/upload', upload.single('image'), async (req, res) => {
                 let resizedImage;
                 let resizedImagePath;
 
-                // Проверка формата изображения
                 if (metadata.format === 'png') {
                         // Если изображение в формате PNG, просто изменить его размер
                         resizedImage = await image
@@ -129,6 +119,3 @@ app.use('/uploads', express.static(uploadDir));
 app.listen(PORT, () => {
         console.log(`СЕРВЕР РАБОТАЕТ НА ${PORT} ПОРТУ!!!`);
 });
-
-
-// "nodemon": "^3.0.2"

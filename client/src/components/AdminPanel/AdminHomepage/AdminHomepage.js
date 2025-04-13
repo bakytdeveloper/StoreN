@@ -1,14 +1,9 @@
-// src/components/AdminHomepage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminHomepage.css';
-
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import ConfirmationModal from './ConfirmationModal';
-import {useHistory} from "react-router-dom"; // Импортируем модальное окно
 
 const AdminHomepage = () => {
     const [sliderImages, setSliderImages] = useState([]);
@@ -31,7 +26,6 @@ const AdminHomepage = () => {
         'Товары для всех': ''
     });
     const [showPromotionSection, setShowPromotionSection] = useState(false); // Для управления видимостью секции
-    const history = useHistory();
     const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
     const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
     const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
@@ -93,10 +87,10 @@ const AdminHomepage = () => {
                     const firstImage = sliderImages[0];
                     setSelectedSliderImage(firstImage.url);
                     setSelectedBackgroundColor(firstImage.colorBackground || '#ffffff');
-                    setTitleColor(firstImage.colorTitle || '#000000'); // Установка цвета заголовка
-                    setDescriptionColor(firstImage.colorDescription || '#000000'); // Установка цвета описания
-                    setFontSizeTitle(firstImage.fontSizeTitle || '16px');  // Установка размера шрифта заголовка
-                    setFontSizeDescription(firstImage.fontSizeDescription || '14px');  // Установка размера шрифта описания
+                    setTitleColor(firstImage.colorTitle || '#000000');
+                    setDescriptionColor(firstImage.colorDescription || '#000000');
+                    setFontSizeTitle(firstImage.fontSizeTitle || '16px');
+                    setFontSizeDescription(firstImage.fontSizeDescription || '14px');
                     setFontFamilleTitle(firstImage.fontFamilleTitle || 'Arial');
                     setFontFamilleDescription(firstImage.fontFamilleDescription || 'Arial');
                     if (firstImage.promotions.length > 0) {
@@ -129,12 +123,12 @@ const AdminHomepage = () => {
                 {
                     ...img,
                     promotions: [newPromotion],
-                    colorTitle: titleColor,  // Сохранение цвета заголовка
-                    colorDescription: descriptionColor,  // Сохранение цвета описания
-                    fontSizeTitle: fontSizeTitle,  // Сохранение размера шрифта заголовка
-                    fontSizeDescription: fontSizeDescription,  // Сохранение размера шрифта описания
-                    fontFamilleTitle: fontFamilleTitle,  // Сохранение шрифта заголовка
-                    fontFamilleDescription: fontFamilleDescription,  // Сохранение шрифта описания
+                    colorTitle: titleColor,
+                    colorDescription: descriptionColor,
+                    fontSizeTitle: fontSizeTitle,
+                    fontSizeDescription: fontSizeDescription,
+                    fontFamilleTitle: fontFamilleTitle,
+                    fontFamilleDescription: fontFamilleDescription,
 
                 } :
                 img
@@ -147,7 +141,6 @@ const AdminHomepage = () => {
         })
             .then(response => {
                 toast.success('Все обновления успешно сохранены!');
-                // Обновляем состояние компонента с новыми данными
                 setSliderImages(updatedSliderImages);
                 setGenderImages(updatedGenderImages);
                 setPromotion(newPromotion);
@@ -160,8 +153,7 @@ const AdminHomepage = () => {
 
 
     const handleReset = () => {
-        window.location.reload(); // Перезагружает страницу, чтобы вернуть все данные к исходному состоянию
-
+        window.location.reload();
     };
 
     const handleRemoveSliderImage = (imageUrl) => {
@@ -176,19 +168,6 @@ const AdminHomepage = () => {
         setShowModal(false);
     };
 
-    const handleRemoveGenderImage = (url) => {
-        setImageToRemove(url);
-        setShowModal(true);
-    };
-
-    const confirmRemoveGenderImage = () => {
-        const updatedImages = genderImages.filter(img => img.url !== imageToRemove);
-        setGenderImages(updatedImages);
-        axios.delete(`${process.env.REACT_APP_API_URL}/api/homepage/gender/${encodeURIComponent(imageToRemove)}`)
-            .catch(error => console.error('Error removing gender image:', error));
-        setShowModal(false);
-    };
-
 
     const handleUpdatePromotion = (image) => {
         setSelectedSliderImage(image.url);
@@ -197,19 +176,18 @@ const AdminHomepage = () => {
         setPromotionDescription(promotionData.description || '');
         setPromotionStartDate(promotionData.startDate ? new Date(promotionData.startDate).toISOString().split('T')[0] : '');
         setPromotionEndDate(promotionData.endDate ? new Date(promotionData.endDate).toISOString().split('T')[0] : '');
-        setTitleColor(image.colorTitle || '#000000'); // Установка цвета заголовка
-        setDescriptionColor(image.colorDescription || '#000000'); // Установка цвета описания
-        setFontSizeTitle(image.fontSizeTitle || '16px');  // Установка размера шрифта заголовка
-        setFontSizeDescription(image.fontSizeDescription || '14px');  // Установка размера шрифта описания
-        setShowPromotionSection(true); // Показываем секцию информации об акции
+        setTitleColor(image.colorTitle || '#000000');
+        setDescriptionColor(image.colorDescription || '#000000');
+        setFontSizeTitle(image.fontSizeTitle || '16px');
+        setFontSizeDescription(image.fontSizeDescription || '14px');
+        setShowPromotionSection(true);
     };
 
 
-    // обработчик события wheel для инпутов с типом number
     useEffect(() => {
         const handleWheel = (e) => {
             if (e.target.type === 'number') {
-                e.preventDefault(); // Prevent scrolling from changing the value
+                e.preventDefault();
             }
         };
 
@@ -220,12 +198,11 @@ const AdminHomepage = () => {
         };
     }, []);
 
-    // фокус должен сбрасываться при скролле
     useEffect(() => {
         const handleScroll = () => {
             const activeElement = document.activeElement;
             if (activeElement && activeElement.type === 'number') {
-                activeElement.blur(); // Remove focus from number inputs on scroll
+                activeElement.blur();
             }
         };
 
@@ -282,8 +259,6 @@ const AdminHomepage = () => {
             {showPromotionSection && (
                 <section>
                     <h2>Информация об акции на слайдере</h2>
-
-                    {/* Инпут для выбора и редактирования URL изображения */}
                     <input
                         type="text"
                         value={selectedSliderImage}
@@ -395,7 +370,6 @@ const AdminHomepage = () => {
                             }))}
                             placeholder={`Введите URL картинки ${category}`}
                         />
-                        {/*<button onClick={() => handleRemoveGenderImage(genderImageUrls[category])}>Remove Image</button>*/}
                     </div>
                 ))}
             </section>
