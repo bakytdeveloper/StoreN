@@ -98,19 +98,31 @@ const RelatedAccessories = ({ direction }) => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
+            // Если нет userId или token, пропускаем запрос
+            if (!userId || !token) {
+                setFavorites([]); // Устанавливаем пустой массив избранного
+                return;
+            }
+
             try {
-
-
-
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     }
                 });
+
+                // Проверяем успешность ответа
+                if (!response.ok) {
+                    throw new Error('Failed to fetch favorites');
+                }
+
                 const data = await response.json();
-                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+
+                // Проверяем, что data существует и является массивом
+                setFavorites(Array.isArray(data) ? data.map(item => item._id) : []);
             } catch (error) {
                 console.error('Error fetching favorites:', error);
+                setFavorites([]); // Устанавливаем пустой массив в случае ошибки
             }
         };
 

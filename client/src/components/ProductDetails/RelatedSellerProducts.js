@@ -93,24 +93,58 @@ const RelatedSellerProducts = ({ productId }) => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
+            // 1. Проверяем наличие необходимых данных для запроса
+            if (!userId || !token) {
+                setFavorites([]); // Сбрасываем избранное если нет авторизации
+                return;
+            }
+
             try {
-
-
-
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
+                // 2. Выполняем запрос с обработкой возможных ошибок сети
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
                     }
-                });
+                );
+
+                // 3. Проверяем статус ответа
+                if (!response.ok) {
+                    // Если 401 - пользователь не авторизован
+                    if (response.status === 401) {
+                        console.warn('User not authorized');
+                    }
+                    setFavorites([]);
+                    return;
+                }
+
+                // 4. Парсим ответ и проверяем его структуру
                 const data = await response.json();
-                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+
+                // 5. Обрабатываем разные форматы ответа
+                if (Array.isArray(data)) {
+                    // Если массив объектов с _id
+                    if (data.length > 0 && data[0]._id) {
+                        setFavorites(data.map(item => item._id));
+                    }
+                    // Если массив строк (ID)
+                    else {
+                        setFavorites(data);
+                    }
+                } else {
+                    console.warn('Unexpected favorites data format:', data);
+                    setFavorites([]);
+                }
             } catch (error) {
                 console.error('Error fetching favorites:', error);
+                setFavorites([]); // Всегда сбрасываем при ошибках
             }
         };
 
         fetchFavorites();
-    }, [userId, token]);
+    }, [userId, token]); // Зависимости для повторного запроса
 
 
     const handleFavoriteToggle = async (productId) => {

@@ -99,19 +99,41 @@ const RelatedProducts = ({ productId }) => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
+            // 1. Проверяем, есть ли userId и token (пользователь авторизован)
+            if (!userId || !token) {
+                setFavorites([]); // Если нет - избранных товаров нет
+                return;
+            }
+
             try {
-
-
-
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
                     }
-                });
+                );
+
+                // 2. Проверяем, что запрос успешен (200-299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
                 const data = await response.json();
-                setFavorites(data.map(item => item._id)); // Предполагается, что данные содержат только идентификаторы
+
+                // 3. Проверяем, что data - массив, прежде чем вызывать .map()
+                if (!Array.isArray(data)) {
+                    console.warn('Favorites data is not an array:', data);
+                    setFavorites([]);
+                    return;
+                }
+
+                // 4. Безопасно извлекаем _id из каждого элемента
+                setFavorites(data.map((item) => item._id || item)); // Если item._id нет, берем сам item
             } catch (error) {
                 console.error('Error fetching favorites:', error);
+                setFavorites([]); // При ошибке сбрасываем избранное
             }
         };
 

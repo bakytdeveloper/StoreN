@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     phoneNumber: { type: String }, // Добавлено поле для номера телефона
     // Другие поля пользователя (например, email, пароль, имя и т.д.)
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }]
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: false }]
 });
 
 const User = mongoose.model('User', userSchema);
