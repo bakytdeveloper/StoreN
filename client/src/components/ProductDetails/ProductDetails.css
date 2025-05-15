@@ -73,10 +73,16 @@
     display: none;
 }
 
+.main-picture-detail-one {
+    display: flex;
+}
+
+
 .main-picture-detail-one-discount-percentage-badge {
+
     position: absolute;
     top: 60px;
-    left: 122px;
+    left: 222px;
     background-color: red;
     color: white;
     padding: 5px 11px;
@@ -84,6 +90,16 @@
     font-weight: bold;
     border-radius: 5px;
     z-index: 1;
+}
+
+.main-image-center-img{
+    width: auto;
+    /*background: #0b9dca;*/
+    padding-left: 0!important;
+}
+
+.main-picture-detail-one-img {
+    margin-left: 0!important;
 }
 
 
@@ -119,7 +135,7 @@
 
 .thumbnail-gallery {
     margin-left: 20px;
-    margin-right: 25px;
+    margin-right: 5px;
     flex: 1;
     width: 66px;
     border-radius: 3px;
@@ -329,6 +345,16 @@ strong {
         line-height: 12px;
     }
 
+    .main-picture-detail-two {
+        display: inline-flex;
+        text-align: center;
+        align-items: center;
+        margin-top: 60px;
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 0!important;
+
+    }
 
     .main-picture-detail-two-discount-percentage-badge {
         position: absolute;
@@ -342,6 +368,26 @@ strong {
         border-radius: 5px;
         z-index: 1;
     }
+
+    .main-image-center {
+        display: inline-flex;
+        padding: 3px;
+        margin: 0 auto;
+        position: relative;
+        width: 93%;
+        height: 447px;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        margin-left: 0!important;
+
+    }
+
+    .main-image-center-img {
+        width: 100%;
+    }
+
+
 
     .details-names-price {
 
@@ -419,29 +465,7 @@ strong {
         margin-top: -10px;
     }
 
-    .main-picture-detail-two {
-        display: inline-flex;
-        text-align: center;
-        align-items: center;
-        margin-top: 77px;
-        width: 100%;
-        margin-bottom: 20px;
-        padding: 0!important;
 
-    }
-
-    .main-image-center {
-        display: inline-flex;
-        padding: 0;
-        margin: 0 auto;
-        position: relative;
-        width: 345px;
-        height: 447px;
-        justify-content: center;
-        text-align: center;
-        align-items: center;
-
-    }
     .thumbnail-gallery {
         display: flex;
         height: 40px;

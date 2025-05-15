@@ -136,7 +136,9 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                         </div>
                     )}
 
-                    <img  className="main-image-center" src={getFullImageUrl(selectedImage)} alt={product.name} />
+                    <div className="main-image-center-img">
+                        <img  className="main-image-center" src={getFullImageUrl(selectedImage)} alt={product.name} />
+                    </div>
                 </div>
                 <div className="image-gallery">
                     <div className="thumbnail-gallery">
@@ -160,7 +162,10 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
                             </div>
                         )}
 
-                        <img  className="main-image-center" src={getFullImageUrl(selectedImage)} alt={product.name} />
+                        <div className="main-picture-detail-one-img">
+                            <img  className="main-image-center" src={getFullImageUrl(selectedImage)} alt={product.name} />
+
+                        </div>
                     </div>
                 </div>
 
