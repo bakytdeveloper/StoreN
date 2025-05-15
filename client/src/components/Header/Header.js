@@ -24,7 +24,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [activePage, setActivePage] = useState('');
     const [lastPath, setLastPath] = useState(location.pathname);
     const [searchResultMessage, setSearchResultMessage] = useState('');
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5506';
 
     useEffect(() => {
         const fetchUserStatus = async () => {
@@ -276,13 +276,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
                         </div>
                         {showSellerRegistration && <SellerRegistrationForm />}
                     </div>
-                    {/*<Link to="/cart" className="auth-button btn" onClick={handleCartClick}>*/}
-                    {/*<span className="cartIcon cartOnly">*/}
-                    {/*    <FaShoppingCart color="grey" className="icon" /> /!* Иконка корзины *!/*/}
-                    {/*    {totalItemsCount > 0 && <span className="totalItems">{totalItemsCount}</span>}*/}
-                    {/*    <span className={`button-label ${activePage === 'cart' ? 'active-title' : ''}`}>Корзина</span>*/}
-                    {/*</span>*/}
-                    {/*</Link>*/}
                     <div className="favorites" onClick={handleFavoritesClick}>
                         <span className="cartIcon">
                             <FaRegHeart color={favoritesCount > 0 ? "red" : "grey"} className="icon" />

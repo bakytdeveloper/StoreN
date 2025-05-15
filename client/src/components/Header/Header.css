@@ -423,7 +423,6 @@
 
 
 
-
 /* Адаптивность */
 @media (max-width: 768px) {
     .header-container {
@@ -443,9 +442,14 @@
         padding-bottom: 0!important;
     }
 
+    .title {
+        margin-right: 20px;
+    }
+
     .titleH {
         align-items: center;
-        font-size: 40px;
+        font-size: 35px;
+
     }
 
     .total-items-title {
@@ -487,7 +491,7 @@
     .search {
         display: inline-flex;
         position: absolute;
-        margin-top: -80px!important;
+        margin-top: -65px!important;
         margin-left: 49%;
     }
 
