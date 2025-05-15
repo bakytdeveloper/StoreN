@@ -141,7 +141,7 @@ const NewestProducts = ({ apiUrl }) => {
 
     return (
         <div className="newest-products">
-            <div className="product-list new-product" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+            <div className="product-list new-product new-product-cards" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
                 {newestProducts.map((product) => (
                     <div className="product-card new-cards" key={product._id}>
                         <div className="product-card-images">

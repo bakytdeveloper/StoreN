@@ -43,25 +43,38 @@
     justify-content: space-between;
 }
 
+
 @media (max-width: 768px) {
-
     .newest-products {
-        margin-bottom: 60px;
+        overflow: hidden; /* Запрещает выход контента за границы */
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Центрирует элементы по вертикали */
+        padding: 0 10px; /* Добавляет немного отступов */
+        margin-bottom: 76px;
     }
 
-    .new-product {
-        display: inline-grid;
-        width: 100% !important;
-        margin-left: 0;
-        justify-content: space-between;
-        margin-top: 12px;
-        margin-bottom: 80px !important;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 10px;
-    }
-    .newest-products-title {
-        margin-top: 11px;
-
+    .new-product-cards {
+        display: grid;
+        gap: 5px!important; /* Уменьшает расстояние между строками и колонками */        width: 100%;
+        justify-content: center;
     }
 
+    .product-card.new-cards {
+        width: 100%;
+        max-width: 88%;
+        margin: auto;
+    }
+
+    .product-card-images img {
+        width: 100%;
+        height: auto;
+        object-fit: contain; /* Гарантирует полное отображение изображений */
+    }
 }
+
+
+
+
+
+
