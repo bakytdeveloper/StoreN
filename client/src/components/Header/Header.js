@@ -134,7 +134,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const handleCatalogClick = () => {
         setActivePage('catalog');
         setSelectedOption('catalog');
-        setShowSidebar(!showSidebar);
+        setShowSidebar(true); // Всегда показывать сайдбар при клике на каталог
         setCatalogButtonColor('lightblue');
         setContactButtonColor('initial');
     };

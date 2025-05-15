@@ -112,7 +112,7 @@ const App = () => {
                             />
                         )}
                         <div className="content">
-                            { pathname !== '/' && <Sidebar
+                            <Sidebar
                                 setProducts={setProducts}
                                 showSidebar={showSidebar}
                                 setShowSidebar={setShowSidebar}
@@ -126,7 +126,7 @@ const App = () => {
                                 setSearchTerm={setSearchTerm}
 
                                 onSearch={handleSearch}
-                            />}
+                            />
                         <Switch>
                             <Route path="/" exact>
                                 <Home
