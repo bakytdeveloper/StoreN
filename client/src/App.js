@@ -91,6 +91,10 @@ const App = () => {
         setProducts([]);
     };
 
+    useEffect(() => {
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
+
     return (
         <Router>
             <div className="app">

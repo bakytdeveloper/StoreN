@@ -112,8 +112,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     };
 
     const handleRemoveItem = (productId) => {
-        const updatedCart = cartItems.filter((item) => item.productId !== productId);
-        setCartItems(updatedCart);
+        if (window.confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
+            const updatedCart = cartItems.filter((item) => item.productId !== productId);
+            setCartItems(updatedCart);
+            toast.success('Товар удален из корзины');
+        }
     };
 
     const handleContinue = () => {
