@@ -153,12 +153,14 @@ const NewestProducts = ({ apiUrl }) => {
                             <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
                                 {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart color="grey" />}
                             </div>
-                            <Link to={`/products/${product._id}`}>
-                                <img
-                                    src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
-                                    alt={product.name}
-                                />
-                            </Link>
+                           <div className="new-product-img-card">
+                               <Link to={`/products/${product._id}`}>
+                                   <img
+                                       src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
+                                       alt={product.name}
+                                   />
+                               </Link>
+                           </div>
                         </div>
                         <div className="details-new-product">
                             <div className="brand-and-name-new">
