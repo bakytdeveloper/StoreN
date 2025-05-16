@@ -206,8 +206,13 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             if (orderResponse.ok) {
                 const data = await orderResponse.json();
                 console.log('Order placed successfully:', data);
-                setCartItems([]);
-                history.push('/');
+
+                setCartItems([]); // Очистка корзины
+
+                setTimeout(() => {
+                    history.push('/'); // Редирект на главную
+                }, 500);
+
                 toast.success('Ваш заказ принят. Спасибо за покупку');
             } else {
                 const data = await orderResponse.json();
@@ -218,6 +223,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 }
                 setOrderPlaced(false);
             }
+
         } catch (error) {
             console.error('Error placing order:', error);
             setOrderPlaced(false);

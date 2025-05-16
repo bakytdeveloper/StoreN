@@ -165,9 +165,15 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.removeItem('status');
+
         setActivePage('home');
         history.push("/");
         setIsProfileOpen(false);
+
+        // Перезагрузка страницы
+        setTimeout(() => {
+            window.location.reload();
+        }, 300); // Короткая пауза для плавного обновления
     };
 
     const handlePartnerClick = () => {
