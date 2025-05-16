@@ -79,38 +79,40 @@ const ClientListPage = ({ setShowSidebar }) => {
 
     return (
         <div className="client-list-page">
-            <h2>Список клиентов</h2>
-            <button className="client-list-page-cross-button" onClick={handleGoBack}>&#10006;</button>
-            <table>
-                <thead>
-                <tr>
-                    <th>Порядковый номер</th>
-                    <th>Имя</th>
-                    <th>Email</th>
-                    <th>Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                {Array.isArray(clients) && clients.slice().reverse().map((client, index) => (
-                    <tr key={client._id}>
-                        <td style={{fontWeight: "bold"}}>{index + 1}</td>
-                        <td>{client.name}</td>
-                        <td>{client.email}</td>
-                        <td>
-                            <button className="delete-button" onClick={() => handleDeleteClick(client)}>Удалить</button>
-                        </td>
+            <div className="client-list-page-admin">
+                <h2>Список клиентов</h2>
+                <button className="client-list-page-cross-button" onClick={handleGoBack}>&#10006;</button>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Порядковый номер</th>
+                        <th>Имя</th>
+                        <th>Email</th>
+                        <th>Действия</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
-            {selectedClient && (
-                <ClientConfirmationModal
-                    show={showModal}
-                    onClose={handleModalClose}
-                    onConfirm={handleDeleteClient}
-                    client={selectedClient}
-                />
-            )}
+                    </thead>
+                    <tbody>
+                    {Array.isArray(clients) && clients.slice().reverse().map((client, index) => (
+                        <tr key={client._id}>
+                            <td style={{fontWeight: "bold"}}>{index + 1}</td>
+                            <td>{client.name}</td>
+                            <td>{client.email}</td>
+                            <td>
+                                <button className="delete-button" onClick={() => handleDeleteClick(client)}>Удалить</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                {selectedClient && (
+                    <ClientConfirmationModal
+                        show={showModal}
+                        onClose={handleModalClose}
+                        onConfirm={handleDeleteClient}
+                        client={selectedClient}
+                    />
+                )}
+            </div>
         </div>
     );
 };

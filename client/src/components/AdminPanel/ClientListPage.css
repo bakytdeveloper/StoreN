@@ -2,6 +2,13 @@
 .client-list-page {
     margin-top: 140px;
     margin-bottom: 33px;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.client-list-page-admin {
+    width: 90%;
+    margin: auto;
 }
 
 .client-list-page-cross-button {

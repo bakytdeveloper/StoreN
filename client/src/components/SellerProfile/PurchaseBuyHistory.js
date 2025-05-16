@@ -74,10 +74,12 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
                     <tbody>
                     {orders.map((order) => (
                         order.products.map((item, index) => (
-                            <tr key={`${order._id}-${item.product ? item.product._id : index}`}>
+                            <tr key={`${order._id}-${item._id || index}`}>
                                 {index === 0 && (
                                     <>
-                                        <td rowSpan={order.products.length}>{new Date(order.date).toLocaleDateString()}</td>
+                                        <td rowSpan={order.products.length}>
+                                            {new Date(order.date).toLocaleDateString()}
+                                        </td>
                                         <td rowSpan={order.products.length}>{order.status}</td>
                                     </>
                                 )}
