@@ -219,11 +219,20 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
 
 
     useEffect(() => {
-        fetchFavoritesCount();
-        const intervalId = setInterval(fetchFavoritesCount, 1000);
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
 
-        return () => clearInterval(intervalId);
-    }, []);
+        // Если токен есть и пользователь не админ
+        if (token && role !== 'admin') {
+            fetchFavoritesCount(); // Первый вызов
+            const intervalId = setInterval(fetchFavoritesCount, 2000); // Увеличил интервал до 5 сек
+
+            return () => clearInterval(intervalId);
+        } else {
+            // Если токена нет или пользователь админ
+            setFavoritesCount([]); // Сброс счетчика
+        }
+    }, [localStorage.getItem('token'), localStorage.getItem('role')]); // Зависимости
 
 
     const handleFavoritesClick = () => {
