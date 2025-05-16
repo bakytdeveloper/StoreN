@@ -487,17 +487,19 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                     </span>
                 ))}
 
-                <button
-                    className="buy_next buy_next_big_monitor"
-                    onClick={section === 3 ? handlePlaceOrder : handleContinue}
-                    disabled={orderPlaced || isLoading}
-                >
-                    {isLoading ? (
-                        <div className="spinner"></div>
-                    ) : (
-                        section === 3 ? 'Закрыть' : 'Продолжить'
-                    )}
-                </button>
+               <div className="section-indicator-button">
+                   <button
+                       className="buy_next buy_next_big_monitor"
+                       onClick={section === 3 ? handlePlaceOrder : handleContinue}
+                       disabled={orderPlaced || isLoading}
+                   >
+                       {isLoading ? (
+                           <div className="spinner"></div>
+                       ) : (
+                           section === 3 ? 'Закрыть' : 'Продолжить'
+                       )}
+                   </button>
+               </div>
 
             </div>
         </div>

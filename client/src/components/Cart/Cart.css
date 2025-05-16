@@ -210,7 +210,8 @@ h5 {
 .buy_next {
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #1f1e1e;
+    background-color: #02436e;
+    /*background-color: #1f1e1e;*/
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -414,7 +415,8 @@ h5 {
 
     .buy_next_small_monitor {
         display: block;
-        background: #211f1f;
+        /*background: #211f1f;*/
+        background-color: #02436e;
     }
 
     .buy_next_big_monitor {
