@@ -96,26 +96,32 @@ const Profile = ({ setShowSidebar }) => {
         const fetchUserOrders = async () => {
             try {
                 const token = localStorage.getItem('token');
+                const role = localStorage.getItem('role');
+
                 if (!token) {
                     history.push('/login');
                     return;
                 }
 
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
+                // Используем правильный эндпоинт в зависимости от роли
+                const endpoint = role === 'customer'
+                    ? '/api/orders/my-orders'
+                    : '/api/orders/seller-orders';
+
+                const response = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    setOrders(data);
-                } else {
-                    console.error('Ошибка загрузки заказов:', await response.json().message);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Ошибка загрузки заказов');
                 }
+
+                const data = await response.json();
+                setOrders(data);
             } catch (error) {
-                console.error('Ошибка загрузки заказов:', error);
+                console.error('Ошибка загрузки заказов:', error.message);
+                toast.error(error.message || 'Ошибка загрузки заказов');
             }
         };
 
@@ -127,22 +133,24 @@ const Profile = ({ setShowSidebar }) => {
                     return;
                 }
 
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/my-orders?page=${page}&perPage=${pageSize}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/orders/my-orders?page=${page}&perPage=${pageSize}`,
+                    {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    }
+                );
 
-                if (response.ok) {
-                    const data = await response.json();
-                    setUserOrders(data.orders);
-                    setTotalPages(data.totalPages);
-                } else {
-                    console.error('Ошибка загрузки истории покупок:', await response.json().message);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Ошибка загрузки истории покупок');
                 }
+
+                const data = await response.json();
+                setUserOrders(data.orders);
+                setTotalPages(data.totalPages);
             } catch (error) {
-                console.error('Ошибка загрузки истории покупок:', error);
+                console.error('Ошибка загрузки истории покупок:', error.message);
+                toast.error(error.message || 'Ошибка загрузки истории покупок');
             }
         };
 
