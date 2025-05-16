@@ -9,6 +9,9 @@
 .order {
     margin-top: 80px;
     padding: 20px;
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 120px;
 }
 
 h2 {

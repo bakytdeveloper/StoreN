@@ -64,23 +64,37 @@ const App = () => {
     };
 
     useEffect(() => {
-        const fetchOrders = async (token) => {
+        const fetchOrders = async () => {
+            const token = localStorage.getItem('token');
+            const role = localStorage.getItem('role');
+
+            // Запрос только для авторизованных покупателей или админов
+            if (!token || (role !== 'customer' && role !== 'admin')) {
+                setIsLoading(false);
+                return;
+            }
+
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                    headers: { Authorization: `Bearer ${token}` }
                 });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
                 const data = await response.json();
                 setOrders(data);
-                setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки
             } catch (error) {
                 console.error('Fetch error:', error);
-                setIsLoading(false); // Устанавливаем isLoading в false даже при ошибке
+                setOrders([]); // Сбрасываем заказы при ошибке
+            } finally {
+                setIsLoading(false);
             }
         };
+
         fetchOrders();
-    }, []);
+    }, []); // Убрал зависимости, чтобы не вызывать лишние ререндеры
 
     const handleSearch = (keyword) => {
         setSearchKeyword(keyword);

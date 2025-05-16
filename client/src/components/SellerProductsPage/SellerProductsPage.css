@@ -3,6 +3,7 @@
 .seller-panel {
     margin-top: 100px;
     font-family: Poppins;
+    width: 100%;
 }
 
 .seller-panel h1 {
@@ -494,6 +495,13 @@ body.modal_open {
         text-align: center;
         gap: 5px;
 
+    }
+
+    .sales-history-pagination {
+        position: relative;
+        margin-top: 5px;
+        margin-bottom: 135px;
+        display: flex;
     }
 
     .product-card.product-card-seller {

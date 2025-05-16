@@ -217,7 +217,7 @@ const Footer = ({
         const role = localStorage.getItem('role');
 
         // Если токен есть и пользователь не админ
-        if (token && role !== 'admin') {
+        if (token && role !== 'admin' && role !== 'seller') {
             fetchFavoritesCount(); // Первый вызов
             const intervalId = setInterval(fetchFavoritesCount, 2000); // Увеличил интервал до 5 сек
 
