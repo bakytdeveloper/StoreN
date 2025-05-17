@@ -65,6 +65,11 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                         },
                     });
 
+                    if (response.status === 403) {
+                        console.error('Доступ запрещён: возможно, неправильная роль');
+                        return;
+                    }
+
                     if (response.ok) {
                         const data = await response.json();
                         setUser(data);
