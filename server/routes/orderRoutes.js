@@ -284,7 +284,7 @@ router.get('/my-orders', authenticateToken, checkRole(['customer']), async (req,
 
 
 // // Получение списка всех заказов для администратора
-router.get('/', checkRole(['admin']), async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const { page = 1, perPage = 20 } = req.query;
         const orders = await Order.find()
