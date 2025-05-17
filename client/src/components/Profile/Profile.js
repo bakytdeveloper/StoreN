@@ -133,6 +133,12 @@ const Profile = ({ setShowSidebar }) => {
         const fetchPurchaseHistory = async () => {
             try {
                 const token = localStorage.getItem('token');
+                const role = localStorage.getItem('role');
+
+                if (role === 'seller') {
+                    return;
+                }
+
                 if (!token) {
                     history.push('/login');
                     return;

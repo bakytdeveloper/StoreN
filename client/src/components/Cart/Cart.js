@@ -52,20 +52,31 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    setTokenUser(token)
-                    const response = await fetch(`${apiUrl}/api/auth/profile`, {
+                    setTokenUser(token);
+                    const decodedToken = jwtDecode(token);
+
+                    // Определяем правильный эндпоинт в зависимости от роли
+                    const endpoint = decodedToken.role === 'customer' ? '/api/auth/profile' : '/api/auth/seller/profile';
+
+                    const response = await fetch(`${apiUrl}${endpoint}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         },
                     });
-                    const data = await response.json();
-                    if (response.ok && data) {
+
+                    if (response.ok) {
+                        const data = await response.json();
                         setUser(data);
-                        setFirstName(data.name);
-                        setEmail(data.email);
-                    } else if (!response.ok && data) {
-                        console.error(data.message);
+                        setFirstName(data.name || '');
+                        setEmail(data.email || '');
+
+                        // Для продавца устанавливаем адрес компании
+                        if (decodedToken.role === 'seller' && data.address) {
+                            setAddress(data.address);
+                        }
+                    } else {
+                        console.error('Error fetching profile:', await response.text());
                     }
                 }
             } catch (error) {
