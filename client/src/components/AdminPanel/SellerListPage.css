@@ -3,6 +3,13 @@
     margin-top: 11%;
     margin-bottom: 50px;
     overflow: auto;
+    width: 100%;
+
+}
+
+.sellers-list-page-table {
+    width: 90%;
+    margin: auto;
 }
 
 .sellerTitle {
@@ -47,11 +54,21 @@ table {
 }
 
 td {
-    padding: 0;
     text-align: center!important;
     align-items: center;
     justify-content: center;
+
+    padding: 0 3px!important;
 }
+
+.checkmark-button {
+    text-align: center;
+    color: whitesmoke;
+    align-items: center!important;
+    padding: 0!important;
+}
+
+/*textAlign: "center", color: 'white', padding: '5px'*/
 
 @media screen and (max-width: 768px) {
 

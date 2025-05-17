@@ -30,26 +30,27 @@ h2 {
 }
 
 .customerOrdersBtnOne {
-    background: #3c32d9;
-    border: 2px solid #c6e739;
+    /*background: #3c32d9;*/
+    /*border: 2px solid #c6e739;*/
     border-radius: 5px 0 0 5px;
-    box-shadow: 4px 6px 6px dimgray;
+    /*box-shadow: 4px 6px 6px dimgray;*/
+    border: 1px solid #969694;
     font-weight: bold;
     font-size: 17px;
 }
 
 .customerOrdersBtnOne:hover {
-    background: #447ab5;
-    border: 2px solid #2ae509;
+    /*background: #447ab5;*/
+    /*border: 2px solid #2ae509;*/
     box-shadow: 1px 3px 3px #5b5b5b;
 
 }
 
 .customerOrdersBtnTwo {
-    background: #3c32d9;
-    border: 2px solid #c6e739;
-    border-radius: 0 5px 5px 0;
-    box-shadow: 4px 6px 6px dimgray;
+    /*background: #3c32d9;*/
+    border: 1px solid #969694;
+    /*border-radius: 0 5px 5px 0;*/
+    /*box-shadow: 4px 6px 6px dimgray;*/
     font-weight: bold;
     font-size: 17px;
 
@@ -57,26 +58,47 @@ h2 {
 
 
 .customerOrdersBtnTwo:hover {
-    background: #447ab5;
-    border: 2px solid #2ae509;
+    /*background: #447ab5;*/
+    /*border: 2px solid #2ae509;*/
     box-shadow: 1px 3px 3px #5b5b5b;
 }
 
 
 .customerOrdersBtnThree {
-    background: #3c32d9;
-    border: 2px solid #c6e739;
-    border-radius: 0 5px 5px 0;
-    box-shadow: 4px 6px 6px dimgray;
+    /*background: #3c32d9;*/
+    /*border: 2px solid #c6e739;*/
+    /*border-radius: 0 5px 5px 0;*/
+    /*box-shadow: 4px 6px 6px dimgray;*/
     font-weight: bold;
+    border: 1px solid #969694;
     font-size: 17px;
 
 }
 
 
 .customerOrdersBtnThree:hover {
-    background: #447ab5;
-    border: 2px solid #2ae509;
+    /*background: #447ab5;*/
+    /*border: 2px solid #2ae509;*/
+    box-shadow: 1px 3px 3px #5b5b5b;
+}
+
+
+
+.customerOrdersBtnFour {
+    /*background: #3c32d9;*/
+    /*border: 2px solid #c6e739;*/
+    border-radius: 0 5px 5px 0;
+    /*box-shadow: 4px 6px 6px dimgray;*/
+    font-weight: bold;
+    border: 1px solid #969694;
+    font-size: 17px;
+
+}
+
+
+.customerOrdersBtnFour:hover {
+    /*background: #447ab5;*/
+    /*border: 2px solid #2ae509;*/
     box-shadow: 1px 3px 3px #5b5b5b;
 }
 
