@@ -463,8 +463,9 @@ router.get('/last-order/:userId', authenticateToken, async (req, res) => {
 
         const lastOrder = await Order.findOne({ user: userId }).sort({ date: -1 });
         if (!lastOrder) {
-            return res.status(404).json({ message: 'No orders found for this user' });
+            return res.json({ lastOrder: null });
         }
+
 
         res.json({
             profile: {

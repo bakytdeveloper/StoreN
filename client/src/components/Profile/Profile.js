@@ -83,9 +83,14 @@ const Profile = ({ setShowSidebar }) => {
                     const lastOrderData = await lastOrderResponse.json();
                     setEditedAddress(lastOrderData.lastOrder?.address || '');
                     setEditedPhoneNumber(lastOrderData.lastOrder?.phoneNumber || '');
+                } else if (lastOrderResponse.status === 404) {
+                    console.log('У пользователя нет заказов');
+                    setEditedAddress('');
+                    setEditedPhoneNumber('');
                 } else {
                     console.error('Ошибка загрузки последнего заказа:', await lastOrderResponse.json().message);
                 }
+
             } catch (error) {
                 console.error('Ошибка загрузки профиля:', error);
                 toast.error('Ошибка загрузки профиля', { position: toast.POSITION.BOTTOM_RIGHT });
@@ -106,7 +111,7 @@ const Profile = ({ setShowSidebar }) => {
                 // Используем правильный эндпоинт в зависимости от роли
                 const endpoint = role === 'customer'
                     ? '/api/orders/my-orders'
-                    : '/api/orders/seller-orders';
+                    : '/api/orders/seller/purchase-history';
 
                 const response = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
