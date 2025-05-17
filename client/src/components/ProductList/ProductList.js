@@ -392,17 +392,28 @@ const ProductList = ({
         setCurrentPage(value);
     };
 
+    // const token = localStorage.getItem('token');
+    // let userId;
+    //
+    // if (token) {
+    //     const decodedToken = jwtDecode(token);
+    //     userId = decodedToken.userId;
+    // }
+
     const token = localStorage.getItem('token');
     let userId;
+    let userRole;
 
     if (token) {
         const decodedToken = jwtDecode(token);
-        userId = decodedToken.userId;
+        userId = decodedToken.userId; // Только для покупателей
+        userRole = decodedToken.role;
     }
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            if (!token) return;
+            const token = localStorage.getItem('token');
+            if (!token || userRole !== 'customer') return;
             try {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/${userId}/favorites`, {
                     headers: {
@@ -410,7 +421,7 @@ const ProductList = ({
                     },
                 });
                 const data = await response.json();
-                setFavorites(data.map(item => item._id));  // Получаем идентификаторы избранных товаров
+                setFavorites(data?.map(item => item._id));  // Получаем идентификаторы избранных товаров
             } catch (error) {
                 console.error('Error fetching favorites:', error);
             }
@@ -438,6 +449,13 @@ const ProductList = ({
                 history.push('/login');
                 return; // Если нет токена, перенаправляем на страницу входа
             }
+
+            // Проверяем, что пользователь - покупатель
+            if (userRole !== 'customer') {
+                toast.info('Функция избранного доступна только покупателям');
+                return;
+            }
+
 
             let updatedFavorites;
             if (favorites.includes(productId)) {
@@ -503,8 +521,20 @@ const ProductList = ({
                                                         - {calculateDiscountPercentage(product.originalPrice, product.price)}%
                                                     </div>
                                                 )}
-                                                <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
-                                                    {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart  color="grey" />}
+
+                                                <div className="favorite-icon"
+                                                     onClick={(e) => {
+                                                         e.stopPropagation();
+                                                         if (userRole === 'customer') {
+                                                             handleFavoriteToggle(product._id);
+                                                         } else {
+                                                             toast.info('Функция избранного доступна только покупателям');
+                                                         }
+                                                     }}>
+                                                    {userRole === 'customer' && favorites.includes(product._id) ?
+                                                        <FaHeart color="red" /> :
+                                                        <FaRegHeart color={userRole === 'customer' ? "grey" : "#ccc"} />
+                                                    }
                                                 </div>
 
                                                 <Link to={`/products/${product._id}`}>

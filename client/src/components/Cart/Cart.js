@@ -30,7 +30,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const [orderPlaced, setOrderPlaced] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5505';
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5506';
     const imageBaseUrl = process.env.REACT_APP_API_URL;
     const [tokenUser, setTokenUser] = useState('')
 
