@@ -516,6 +516,18 @@ const ProductForm = ({ setShowSidebar }) => {
         </span>
             <h2>Создание товара</h2>
 
+            <label>Пол:</label>
+            <select name="gender" value={formData.gender} onChange={handleChange} required>
+                <option value="">Выберите пол</option>
+                <option value="Мужская одежда">Мужская одежда</option>
+                <option value="Женская одежда">Женская одежда</option>
+                <option value="Детская одежда">Детская одежда</option>
+                <option value="Гаджеты">Гаджеты</option>
+                <option value="Унисекс">Унисекс</option>
+                <option value="Аксессуары">Аксессуары</option>
+                <option value="Бытовая эл.техника">Бытовая эл.техника</option>
+            </select>
+
             <label className="seller-form-add-once">Категория:</label>
             <select name="category" value={formData.category} onChange={handleChange}>
                 <option value="">Выберите категорию</option>
@@ -538,7 +550,9 @@ const ProductForm = ({ setShowSidebar }) => {
                         disabled={!formData.category || formData.category !== 'Аксессуары'}
                     >
                         <option value="">Выберите направление</option>
-                        {categories.map((category, index) => (
+                        {categories
+                            .filter(category => category !== "Аксессуары")
+                            .map((category, index) => (
                             <option key={index} value={category}>{category}</option>
                         ))}
                     </select>
@@ -553,18 +567,6 @@ const ProductForm = ({ setShowSidebar }) => {
                 ))}
             </select>
             <input type="text" name="type" value={formData.type} onChange={handleChange} required/>
-
-            <label>Пол:</label>
-            <select name="gender" value={formData.gender} onChange={handleChange} required>
-                <option value="">Выберите пол</option>
-                <option value="Мужская одежда">Мужская одежда</option>
-                <option value="Женская одежда">Женская одежда</option>
-                <option value="Детская одежда">Детская одежда</option>
-                <option value="Гаджеты">Гаджеты</option>
-                <option value="Унисекс">Унисекс</option>
-                <option value="Аксессуары">Аксессуары</option>
-                <option value="Бытовая эл.техника">Бытовая эл.техника</option>
-            </select>
 
             <label>Бренд:</label>
             <input type="text" name="brand" value={formData.brand} onChange={handleChange} required/>

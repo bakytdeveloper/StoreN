@@ -21,6 +21,9 @@ input[type="number"] {
     appearance: none; /* Modern browsers */
 }
 
+.gender {
+    margin-bottom: 10px;
+}
 
 
 /* src/components/AdminPanel/ProductForm.css */
@@ -41,7 +44,7 @@ label {
 }
 
 .seller-form-add-once {
-    margin-top: -11px;
+    margin-top: 10px;
 }
 
 input,
