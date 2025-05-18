@@ -47,6 +47,10 @@ const ProductForm = ({ setShowSidebar }) => {
     }, [setShowSidebar]);
 
     const handleAddImageByUrl = () => {
+        if (formData.images.length >= 5) {
+            toast.error('Можно добавить не более 5 изображений');
+            return;
+        }
         if (imageUrl.trim()) {
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -148,6 +152,12 @@ const ProductForm = ({ setShowSidebar }) => {
     };
 
     const handleFileChange = async (e) => {
+
+        if (formData.images.length >= 5) {
+            toast.error('Можно добавить не более 5 изображений');
+            return;
+        }
+
         const file = e.target.files[0];
         const newFormData = new FormData();
         newFormData.append('image', file);
@@ -691,7 +701,7 @@ const ProductForm = ({ setShowSidebar }) => {
             <label>Выберите подходящую картинку:</label>
             <input style={{marginTop:"0" , marginBottom:"22px"}} className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />
             {/*{imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}*/}
-<label style={{ textDecoration:"none", cursor:"text"}}>Или введите URL:</label>
+              <label style={{ textDecoration:"none", cursor:"text"}}>Или введите URL:</label>
             <input
                 className="w-full px-3 py-2 border rounded"
                 id="imageUrl"
@@ -700,8 +710,13 @@ const ProductForm = ({ setShowSidebar }) => {
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
             />
-            <button className="newProductAdd" type="button" onClick={handleAddImageByUrl}>
-                Добавить изображение
+            <button
+                className="newProductAdd"
+                type="button"
+                onClick={handleAddImageByUrl}
+                disabled={formData.images.length >= 5}
+            >
+                {formData.images.length >= 5 ? 'Достигнут лимит (5)' : 'Добавить изображение'}
             </button>
 
             <div className="submitBtn">
