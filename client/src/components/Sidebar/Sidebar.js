@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Sidebar.css';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ContactsInfo from './ContactsInfo';
-import './Sidebar.css';
 import AccordionItem from "./AccordionItem";
-
 
 const Sidebar = ({
                      setProducts,
@@ -24,107 +22,131 @@ const Sidebar = ({
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([]);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+    const history = useHistory();
+
+    // Функция для загрузки полов с сервера
+    const fetchGenders = useCallback(async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/genders`);
+            const data = await response.json();
+            const genderOrder = [
+                "Мужская одежда",
+                "Женская одежда",
+                "Детская одежда",
+                "Унисекс",
+                "Гаджеты",
+                "Бытовая эл.техника",
+                "Аксессуары"
+            ];
+            const sortedGenders = data.genders.sort((a, b) => genderOrder.indexOf(a) - genderOrder.indexOf(b));
+            setGenders(sortedGenders);
+        } catch (error) {
+            console.error('Error fetching genders:', error);
+        }
+    }, []);
 
     useEffect(() => {
-        const fetchGenders = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/genders`);
-                const data = await response.json();
-                const genderOrder = [
-                    "Мужская одежда",
-                    "Женская одежда",
-                    "Детская одежда",
-                    "Унисекс",
-                    "Гаджеты",
-                    "Бытовая эл.техника",
-                    "Аксессуары"
-                ];
-                const sortedGenders = data.genders.sort((a, b) => genderOrder.indexOf(a) - genderOrder.indexOf(b));
-                setGenders(sortedGenders);
-            } catch (error) {
-                console.error('Error fetching genders:', error);
-            }
-        };
         fetchGenders();
 
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth <= 768);
         };
+
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [fetchGenders]);
 
-
-    const handleGenderClick = async (gender) => {
+    // Оптимизированный обработчик выбора пола
+    const handleGenderClick = useCallback(async (gender) => {
         if (selectedGender === gender) {
+            // Сброс фильтров
             setSelectedGender(null);
             setCategories([]);
+            setTypes([]);
             setProducts([]);
-
             setSearchTerm('');
             onSearch('');
-            
+            history.push('/catalog');
         } else {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`);
-                const data = await response.json();
-
-                setSearchTerm('');
-                onSearch('');
-
-                setCategories(data.categories);
+                // Сначала обновляем состояние, чтобы UI реагировал мгновенно
                 setSelectedGender(gender);
                 setSelectedCategory(null);
                 setSelectedType(null);
-                setProducts(data.products);
+                setSearchTerm('');
+                onSearch('');
 
+                // Затем делаем запрос к API
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/products/categories?gender=${gender}`
+                );
+                const data = await response.json();
+
+                // Обновляем состояния одним пакетом
+                setCategories(data.categories || []);
+                setTypes([]);
+                setProducts(data.products || []);
             } catch (error) {
                 console.error('Error fetching categories by gender:', error);
             }
         }
-    };
+    }, [selectedGender, setSelectedGender, setProducts, setSearchTerm, onSearch, history]);
 
-    const handleCategoryClick = async (category) => {
+    // Оптимизированный обработчик выбора категории
+    const handleCategoryClick = useCallback(async (category) => {
         if (selectedCategory === category) {
+            // Сброс фильтров
             setSelectedCategory(null);
             setTypes([]);
             setProducts([]);
         } else {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`);
-                const data = await response.json();
-                setTypes(data.types);
+                // Сначала обновляем состояние
                 setSelectedCategory(category);
                 setSelectedType(null);
-                setProducts(data.products);
 
+                // Затем делаем запрос
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/products/types?gender=${selectedGender}&category=${category}`
+                );
+                const data = await response.json();
+
+                // Обновляем состояния
+                setTypes(data.types || []);
+                setProducts(data.products || []);
                 setSearchTerm('');
                 onSearch('');
-
-
-
             } catch (error) {
                 console.error('Error fetching types by category:', error);
             }
         }
-    };
+    }, [selectedCategory, selectedGender, setSelectedCategory, setProducts, setSearchTerm, onSearch]);
 
-    const handleTypeClick = async (type) => {
+    // Оптимизированный обработчик выбора типа
+    const handleTypeClick = useCallback(async (type) => {
         if (selectedType === type) {
+            // Сброс фильтров
             setSelectedType(null);
             setProducts([]);
         } else {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`);
-                const data = await response.json();
+                // Сначала обновляем состояние
                 setSelectedType(type);
-                setProducts(data.products);
 
+                // Затем делаем запрос
+                const response = await fetch(
+                    `${process.env.REACT_APP_API_URL}/api/products?gender=${selectedGender}&category=${selectedCategory}&type=${type}`
+                );
+                const data = await response.json();
+
+                // Обновляем состояние
+                setProducts(data.products || []);
                 setSearchTerm('');
                 onSearch('');
 
+                // Закрываем сайдбар на мобильных устройствах
                 if (isSmallScreen) {
                     setShowSidebar(false);
                 }
@@ -132,7 +154,7 @@ const Sidebar = ({
                 console.error('Error fetching products by type:', error);
             }
         }
-    };
+    }, [selectedType, selectedGender, selectedCategory, setProducts, setSearchTerm, onSearch, isSmallScreen, setShowSidebar]);
 
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
@@ -143,7 +165,7 @@ const Sidebar = ({
                     <>
                         <h2 style={{ marginTop: "0", marginBottom: "5px" }}>Товары</h2>
                         <hr />
-                        {genders && genders.map((gender) => (
+                        {genders.map((gender) => (
                             <AccordionItem
                                 key={gender}
                                 gender={gender}
@@ -154,6 +176,7 @@ const Sidebar = ({
                                 selectedCategory={selectedCategory}
                                 types={types}
                                 onTypeClick={handleTypeClick}
+                                selectedType={selectedType}
                                 isSmallScreen={isSmallScreen}
                                 setShowSidebar={setShowSidebar}
                                 setSearchTerm={setSearchTerm}
@@ -166,4 +189,4 @@ const Sidebar = ({
     );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

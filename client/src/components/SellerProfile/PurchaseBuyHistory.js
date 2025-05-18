@@ -54,7 +54,7 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
                 <span> &#10006;</span>
             </span>
             {orders.length === 0 ? (
-                <p>Нет покупок.</p>
+                <h2 onClick={handleGoBack} ><p style={{textAlign: "center"}}>Нет покупок.</p></h2>
             ) : (
                 <table className="order-history-table">
                     <thead>

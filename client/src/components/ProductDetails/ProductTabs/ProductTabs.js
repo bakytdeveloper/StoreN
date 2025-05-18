@@ -7,42 +7,54 @@ const ProductTabs = ({ description, characteristics }) => {
     return (
         <div className="product-tabs">
             <div className="tab-header">
-                <div
-                    className={activeTab === 'description' ? 'tab-item active' : 'tab-item'}
+                <button
+                    className={`tab-btn ${activeTab === 'description' ? 'active' : ''}`}
                     onClick={() => setActiveTab('description')}
                 >
                     Описание
-                </div>
-                <div
-                    className={activeTab === 'characteristics' ? 'tab-item active' : 'tab-item'}
+                </button>
+                <button
+                    className={`tab-btn ${activeTab === 'characteristics' ? 'active' : ''}`}
                     onClick={() => setActiveTab('characteristics')}
                 >
                     Характеристики
-                </div>
-                <div
-                    className={activeTab === 'reviews' ? 'tab-item active' : 'tab-item'}
+                </button>
+                <button
+                    className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
                     onClick={() => setActiveTab('reviews')}
                 >
                     Отзывы
-                </div>
+                </button>
             </div>
+
             <div className="tab-content">
-                <div className={activeTab === 'description' ? 'description-content show' : 'description-content'}>
-                    {description}
-                </div>
-                <div className={activeTab === 'characteristics' ? 'characteristics-content show' : 'characteristics-content'}>
-                    <h3 className="characteristics-title">Характеристики:</h3>
-                    <ul>
-                        {characteristics.map((char) => (
-                            <li className="character" key={char.name}>
-                                <strong className="characteristics-title-name">{char.name}:</strong> {char.value}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className={activeTab === 'reviews' ? 'reviews-content show' : 'reviews-content'}>
-                    Здесь будут отзывы
-                </div>
+                {activeTab === 'description' && (
+                    <div className="description-content">
+                        <h3 className="content-title">Описание товара</h3>
+                        <div className="description-text">{description}</div>
+                    </div>
+                )}
+
+                {activeTab === 'characteristics' && (
+                    <div className="characteristics-content">
+                        <h3 className="content-title">Технические характеристики</h3>
+                        <div className="characteristics-grid">
+                            {characteristics.map((char, index) => (
+                                <React.Fragment key={index}>
+                                    <div className="characteristic-name">{char.name}</div>
+                                    <div className="characteristic-value">{char.value}</div>
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'reviews' && (
+                    <div className="reviews-content">
+                        <h3 className="content-title">Отзывы о товаре</h3>
+                        <p>Здесь будут отображаться отзывы покупателей</p>
+                    </div>
+                )}
             </div>
         </div>
     );
