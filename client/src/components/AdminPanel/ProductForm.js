@@ -509,9 +509,11 @@ const ProductForm = ({ setShowSidebar }) => {
             <label className="seller-form-add-once">Категория:</label>
             <select name="category" value={formData.category} onChange={handleChange}>
                 <option value="">Выберите категорию</option>
-                {categories.map((category, index) => (
-                    <option key={index} value={category}>{category}</option>
-                ))}
+                {categories
+                    .filter(category => category !== "Аксессуары") // Исключаем "Аксессуары" из списка
+                    .map((category, index) => (
+                        <option key={index} value={category}>{category}</option>
+                    ))}
                 <option value="Аксессуары">Аксессуары</option>
             </select>
             <input type="text" name="category" value={formData.category} onChange={handleChange} required/>
