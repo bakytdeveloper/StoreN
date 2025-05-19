@@ -2,7 +2,8 @@
 .header-container {
     width: 100%;
     position: fixed;
-    height: 120px;
+    height: auto;
+    /*background-color: #ee9696;*/
     background-color: #fff;
     z-index: 111;
 }
@@ -12,13 +13,24 @@
     justify-content: space-between;
     align-items: center;
     padding: 1px 20px;
+    /*background-color: #730f0f;*/
     background-color: #fff;
     max-width: 1340px;
     z-index: 111;
-    height: 120px;
+    height: auto;
     margin: 0 auto!important;
 
 }
+
+
+.titleN {
+    color: #f66f07;
+    font-family: Poppins;
+    font-weight: 600;
+
+    text-shadow: 3px 4px 4px #6b2424;
+}
+
 
 .titleH {
     font-family: Poppins;
@@ -27,12 +39,7 @@
     font-size: 60px;
     padding-top: 0;
     padding-bottom: 0;
-}
-
-.titleN {
-    color: #f66f07;
-    font-family: Poppins;
-    font-weight: 600;
+    text-shadow: 3px 4px 4px #585656;
 }
 
 .header-left {
@@ -138,7 +145,7 @@
 
 }
 .search {
-    margin-top: 11px!important;
+    margin-top: 1px!important;
 }
 
 .profileIcon-text {

@@ -12,7 +12,6 @@ const multer = require("multer");
 const fs = require("fs");
 const sharp = require("sharp");
 const Product = require("./models/Product");
-const {sendOTP} = require("./smtp/otpService");
 dotenv.config();
 
 const app = express();
