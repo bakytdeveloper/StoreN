@@ -3,10 +3,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    /*padding: 20px;*/
     background-color: #f8f8f8;
     min-height: 100vh;
     font-family: Poppins;
+    width: 100%;
 }
 
 .order-details-modal {
@@ -16,7 +17,7 @@
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 80%;
+    max-width: 90%;
     width: 100%;
     height: 100vh;
     padding: 20px 20px 40px 20px;
@@ -73,7 +74,7 @@ h2 {
     font-weight: bold;
 }
 
-ul {
+.ul-order-details-page {
     list-style-type: none;
     padding: 0;
 }

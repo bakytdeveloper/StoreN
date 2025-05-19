@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
 import OrderItem from "./OrderItem"; // Подключение стилей
-import OrderDetailsModal from './OrderDetailsModal'; // Создайте компонент для отображения деталей заказа
+// import OrderDetailsModal from './OrderDetailsModal'; // Создайте компонент для отображения деталей заказа
 import {useHistory} from "react-router-dom";
 
 const OrderList = ({ setShowSidebar }) => {
@@ -237,9 +237,6 @@ const OrderList = ({ setShowSidebar }) => {
 
 
             </table>
-            {selectedOrder && (
-                <OrderDetailsModal order={selectedOrder} onClose={handleCloseModal} />
-            )}
             <div className="pagination-order-admin">
                 <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Prev</button>
                 <span>Страница {page}</span>

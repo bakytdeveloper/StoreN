@@ -281,7 +281,7 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
 
                             <div>
                                 <hr />
-                                <ul>
+                                <ul className="ul-order-details-page">
                                     <h4 style={{ textAlign: "center" }}> Товары</h4>
                                     {order && order.products && order.products.map((item, index) => (
                                         <li key={index}>
