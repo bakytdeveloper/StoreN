@@ -430,306 +430,311 @@ const LoginRegister = ({ setShowSidebar, setShowHeader }) => {
 
 
     return (
+        <div className="form-login-page">
         <form className="form">
-            <span className="formCloseLogin"  type="button"  onClick={handleClose}>
+
+                <span className="formCloseLogin"  type="button"  onClick={handleClose}>
                 &#10006;
             </span>
-            <hr className="hr-line"/>
-            {/* Register Flow */}
-            {isRegisterMode && step === 1 && (
-                <div className="form-register-and-login">
-                    <h2>Создайте аккаунт</h2>
-                    <label>Email:</label>
-                    <input
-                        className="formInput"
-                        type="text"
-                        placeholder="Эл.почта"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                    />
-                    <button className="Login-register-button" type="button" onClick={handleSendOtp}>
-                        Продолжить
-                    </button>
-                </div>
-            )}
-            {isRegisterMode && step === 2 && (
-                <div className="form-register-and-login">
+               <hr className="hr-line"/>
+               {/* Register Flow */}
+               {isRegisterMode && step === 1 && (
+                   <div className="form-register-and-login">
+                       <h2>Создайте аккаунт</h2>
+                       <label>Email:</label>
+                       <input
+                           className="formInput"
+                           type="text"
+                           placeholder="Эл.почта"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
+                           onKeyPress={handleKeyPress}
+                       />
+                       <button className="Login-register-button" type="button" onClick={handleSendOtp}>
+                           Продолжить
+                       </button>
+                   </div>
+               )}
+               {isRegisterMode && step === 2 && (
+                   <div className="form-register-and-login">
                     <span
                         className="form-register-and-login-arrow"
                         onClick={handleCloseForm}>
                         ⟻ назад
                     </span>
 
-                    <h2>Подтвердите эл.почту</h2>
-                    <div className="login-step-email">
-                        Мы отправили подтверждение на email: <strong>{email}</strong>
-                    </div>
-                    <label>Введите код подтверждения</label>
-                    <input
-                        className="formInput"
-                        type="text"
-                        placeholder="Введите подтверждение"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                    />
-                    {otpError && <span className="otp-error">{otpError}</span>}
-                    <button className="Login-register-button" type="button" onClick={handleVerifyOtp}>
-                        Подтвердите
-                    </button>
-                    <div className="timer-login">
-                        {resendTimer > 0 ? (
-                            <div className="timer-login-time">
-                                Повторная отправка через: <strong>{resendTimer}</strong> секунд
-                            </div>
-                        ) : (
-                            <div className="new-otp-button">
-                                <div>Не получили код ?</div>
-                                <p className="resend-otp" onClick={handleSendOtp}>
-                                    Отправить снова
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-            {isRegisterMode && step === 3 && (
-                <div className="form-register-and-login">
-                    <h2>Заполните форму</h2>
-                    <label>Имя:</label>
-                    <input
-                        className="formInput"
-                        type="text"
-                        placeholder="Введите имя"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                    />
-                    <label>Email:</label>
-                    <input
-                        className="formInput"
-                        type="text"
-                        placeholder="Эл.почта"
-                        value={email}
-                        onKeyPress={handleKeyPress}
-                        readOnly
-                    />
-                    <div style={{ position: 'relative' }}>
-                        <label>Пароль:</label>
-                        <input
-                            className="formInput"
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="Введите пароль"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                        />
-                        <span
-                            style={{ position: 'absolute', right: '10px', top: '33px', cursor: 'pointer' }}
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                    </div>
-                    <label>Подтвердите пароль:</label>
-                    <input
-                        className="formInput"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Введите код"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                    />
-                    {passwordMatchError && (
-                        <span className="otp-error">Пароли не совпадают. Пожалуйста, проверьте введенные данные.</span>
-                    )}
-                    <button className="Login-register-button" type="button" onClick={handleLoginRegister}>
-                        Зарегистрировать
-                    </button>
-                </div>
-            )}
-            {/* Login Flow */}
-            {!isRegisterMode && !forgotPassword && (
-                <div className="form-register-and-login">
-                    <h2 style={{marginLeft:"0"}}>Войти в аккаунт</h2>
-                    <label>Email:</label>
-                    <input
-                        className="formInput"
-                        type="text"
-                        placeholder="Эл.адрес"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                    />
-                    <div style={{ position: 'relative' }}>
-                        <label>Пароль:</label>
-                        <input
-                            className="formInput"
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="Введите код"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                        />
-                        <span
-                            style={{ position: 'absolute', right: '10px', top: '33px', cursor: 'pointer' }}
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                    </div>
-                    <button className="Login-register-button" type="button" onClick={handleLoginRegister}>
-                        Login
-                    </button>
-                   <div className="text-login-or-register-block newPassword">
-                       <span>Забыли пароль?</span>
-                       <p
-                           className="text-login-or-register"
-                           onClick={() => {
-                               setForgotPassword(true);
-                               setForgotPasswordStep(1); // Reset forgot password flow step
-                               setForgotPasswordResendTimer(-1); // Reset forgot password timer
-                               setOtpErrorForgotPassword(''); // Reset OTP error
-                               setShowOtpInput(false); // Hide OTP input initially
-                           }}
-                       >
-                           Сменить пароль
-                       </p>
+                       <h2>Подтвердите эл.почту</h2>
+                       <div className="login-step-email">
+                           Мы отправили подтверждение на email: <strong>{email}</strong>
+                       </div>
+                       <label>Введите код подтверждения</label>
+                       <input
+                           className="formInput"
+                           type="text"
+                           placeholder="Введите подтверждение"
+                           value={otp}
+                           onChange={(e) => setOtp(e.target.value)}
+                           onKeyPress={handleKeyPress}
+                       />
+                       {otpError && <span className="otp-error">{otpError}</span>}
+                       <button className="Login-register-button" type="button" onClick={handleVerifyOtp}>
+                           Подтвердите
+                       </button>
+                       <div className="timer-login">
+                           {resendTimer > 0 ? (
+                               <div className="timer-login-time">
+                                   Повторная отправка через: <strong>{resendTimer}</strong> секунд
+                               </div>
+                           ) : (
+                               <div className="new-otp-button">
+                                   <div>Не получили код ?</div>
+                                   <p className="resend-otp" onClick={handleSendOtp}>
+                                       Отправить снова
+                                   </p>
+                               </div>
+                           )}
+                       </div>
                    </div>
-                </div>
-            )}
-            {/* Forgot Password Flow */}
-            {forgotPassword && (
-                <div>
-                    {/*<p className="formCloseLogin" onClick={() => setForgotPassword(false)}>*/}
-                    {/*    &#10006;*/}
-                    {/*</p>*/}
-                    {forgotPasswordStep === 1 && (
-                        <div  className="form-register-and-login">
-                            <h2>Восстановление пароля</h2>
-                            <div style={{marginTop:"11px", marginBottom:"11px"}}>
-                                Для восстановления пароля введите email указанный при регистрации</div>
-                          <label>Email:</label>
-                            <input
-                                className="formInput"
-                                type="text"
-                                placeholder="Эл.почта"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                            />
-                            <button className="Login-register-button" type="button" onClick={handleSendOtpForgotPassword}>
-                                Отправить OTP
-                            </button>
-                        </div>
-                    )}
-                    {forgotPasswordStep === 2 && (
-                        <div className="form-register-and-login">
+               )}
+               {isRegisterMode && step === 3 && (
+                   <div className="form-register-and-login">
+                       <h2>Заполните форму</h2>
+                       <label>Имя:</label>
+                       <input
+                           className="formInput"
+                           type="text"
+                           placeholder="Введите имя"
+                           value={name}
+                           onChange={(e) => setName(e.target.value)}
+                           onKeyPress={handleKeyPress}
+                       />
+                       <label>Email:</label>
+                       <input
+                           className="formInput"
+                           type="text"
+                           placeholder="Эл.почта"
+                           value={email}
+                           onKeyPress={handleKeyPress}
+                           readOnly
+                       />
+                       <div style={{ position: 'relative' }}>
+                           <label>Пароль:</label>
+                           <input
+                               className="formInput"
+                               type={showPassword ? 'text' : 'password'}
+                               placeholder="Введите пароль"
+                               value={password}
+                               onChange={(e) => setPassword(e.target.value)}
+                               onKeyPress={handleKeyPress}
+                           />
+                           <span className="span-fa-eye"
+                               // style={{ position: 'absolute', right: '10px', top: '33px', cursor: 'pointer' }}
+                               onClick={() => setShowPassword(!showPassword)}
+                           >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                       </div>
+                       <label>Подтвердите пароль:</label>
+                       <input
+                           className="formInput"
+                           type={showPassword ? 'text' : 'password'}
+                           placeholder="Введите код"
+                           value={confirmPassword}
+                           onChange={(e) => setConfirmPassword(e.target.value)}
+                           onKeyPress={handleKeyPress}
+                       />
+                       {passwordMatchError && (
+                           <span className="otp-error">Пароли не совпадают. Пожалуйста, проверьте введенные данные.</span>
+                       )}
+                       <button className="Login-register-button" type="button" onClick={handleLoginRegister}>
+                           Зарегистрировать
+                       </button>
+                   </div>
+               )}
+               {/* Login Flow */}
+               {!isRegisterMode && !forgotPassword && (
+                   <div className="form-register-and-login">
+                       <h2 style={{marginLeft:"0"}}>Войти в аккаунт</h2>
+                       <label>Email:</label>
+                       <input
+                           className="formInput"
+                           type="text"
+                           placeholder="Эл.адрес"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
+                           onKeyPress={handleKeyPress}
+                       />
+                       <div style={{ position: 'relative' }}>
+                           <label>Пароль:</label>
+                           <input
+                               className="formInput"
+                               type={showPassword ? 'text' : 'password'}
+                               placeholder="Введите код"
+                               value={password}
+                               onChange={(e) => setPassword(e.target.value)}
+                               onKeyPress={handleKeyPress}
+                           />
+                           <span
+                               className="span-fa-eye"
+                               // style={{ position: 'absolute', right: '10px', top: '33px', cursor: 'pointer' }}
+                               onClick={() => setShowPassword(!showPassword)}
+                           >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                       </div>
+                       <button className="Login-register-button" type="button" onClick={handleLoginRegister}>
+                           Login
+                       </button>
+                       <div className="text-login-or-register-block newPassword">
+                           <span>Забыли пароль?</span>
+                           <p
+                               className="text-login-or-register"
+                               onClick={() => {
+                                   setForgotPassword(true);
+                                   setForgotPasswordStep(1); // Reset forgot password flow step
+                                   setForgotPasswordResendTimer(-1); // Reset forgot password timer
+                                   setOtpErrorForgotPassword(''); // Reset OTP error
+                                   setShowOtpInput(false); // Hide OTP input initially
+                               }}
+                           >
+                               Сменить пароль
+                           </p>
+                       </div>
+                   </div>
+               )}
+               {/* Forgot Password Flow */}
+               {forgotPassword && (
+                   <div>
+                       {/*<p className="formCloseLogin" onClick={() => setForgotPassword(false)}>*/}
+                       {/*    &#10006;*/}
+                       {/*</p>*/}
+                       {forgotPasswordStep === 1 && (
+                           <div  className="form-register-and-login">
+                               <h2>Восстановление пароля</h2>
+                               <div style={{marginTop:"11px", marginBottom:"11px"}}>
+                                   Для восстановления пароля введите email указанный при регистрации</div>
+                               <label>Email:</label>
+                               <input
+                                   className="formInput"
+                                   type="text"
+                                   placeholder="Эл.почта"
+                                   value={email}
+                                   onChange={(e) => setEmail(e.target.value)}
+                                   onKeyPress={handleKeyPress}
+                               />
+                               <button className="Login-register-button" type="button" onClick={handleSendOtpForgotPassword}>
+                                   Отправить OTP
+                               </button>
+                           </div>
+                       )}
+                       {forgotPasswordStep === 2 && (
+                           <div className="form-register-and-login">
                               <span
                                   className="form-register-and-login-arrow"
                                   onClick={handleCloseFormPassword}>
                                 ⟻ назад
                             </span>
-                            <h2>Восстановление пароля</h2>
-                            <div className="login-step-email">
-                                Мы отправили подтверждение на email: <strong>{email}</strong>
-                            </div>
-                            <label>Введите код подтверждения:</label>
-                            <input
-                                className="formInput"
-                                type="text"
-                                placeholder="Введите код"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                            />
-                            {otpErrorForgotPassword && <span className="otp-error">{otpErrorForgotPassword}</span>}
-                            <button className="Login-register-button" type="button" onClick={handleVerifyOtpForgotPassword}>
-                                Подтвердите OTP
-                            </button>
-                            <div className="timer-login">
-                                {forgotPasswordResendTimer > 0 ? (
-                                    <div className="timer-login-time">
-                                        Повторная отправка через: <strong>{forgotPasswordResendTimer}</strong> секунд
-                                    </div>
-                                ) : (
-                                   <div className="load-new-password">
-                                       <div>Не получили код?</div>
-                                       <p className="resend-otp" onClick={handleSendOtpForgotPassword}>
-                                           Отправить снова
-                                       </p>
-                                   </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                    {forgotPasswordStep === 3 && (
-                        <div className="form-register-and-login">
-                            <h2>Обновление пароля</h2>
-                            <label>Введите пароль:</label>
-                            <input
-                                className="formInput"
-                                type={showPassword ? 'text' : 'password'}
-                                placeholder="Новый пароль"
-                                pattern={"6"}
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                            />
-                            <div style={{ position: 'relative' }}>
-                             <label>Подтвердите новый пароль:</label>
-                                <input
-                                    className="formInput password-yey"
-                                    type={showPassword ? 'text' : 'password'}
-                                    placeholder="Подтвердите новый пароль"
-                                    value={confirmPassword}
-                                    pattern={"6"}
+                               <h2>Восстановление пароля</h2>
+                               <div className="login-step-email">
+                                   Мы отправили подтверждение на email: <strong>{email}</strong>
+                               </div>
+                               <label>Введите код подтверждения:</label>
+                               <input
+                                   className="formInput"
+                                   type="text"
+                                   placeholder="Введите код"
+                                   value={otp}
+                                   onChange={(e) => setOtp(e.target.value)}
+                                   onKeyPress={handleKeyPress}
+                               />
+                               {otpErrorForgotPassword && <span className="otp-error">{otpErrorForgotPassword}</span>}
+                               <button className="Login-register-button" type="button" onClick={handleVerifyOtpForgotPassword}>
+                                   Подтвердите OTP
+                               </button>
+                               <div className="timer-login">
+                                   {forgotPasswordResendTimer > 0 ? (
+                                       <div className="timer-login-time">
+                                           Повторная отправка через: <strong>{forgotPasswordResendTimer}</strong> секунд
+                                       </div>
+                                   ) : (
+                                       <div className="load-new-password">
+                                           <div>Не получили код?</div>
+                                           <p className="resend-otp" onClick={handleSendOtpForgotPassword}>
+                                               Отправить снова
+                                           </p>
+                                       </div>
+                                   )}
+                               </div>
+                           </div>
+                       )}
+                       {forgotPasswordStep === 3 && (
+                           <div className="form-register-and-login">
+                               <h2>Обновление пароля</h2>
+                               <label>Введите пароль:</label>
+                               <input
+                                   className="formInput"
+                                   type={showPassword ? 'text' : 'password'}
+                                   placeholder="Новый пароль"
+                                   pattern={"6"}
+                                   value={newPassword}
+                                   onChange={(e) => setNewPassword(e.target.value)}
+                                   onKeyPress={handleKeyPress}
+                               />
+                               <div style={{ position: 'relative' }}>
+                                   <label>Подтвердите новый пароль:</label>
+                                   <input
+                                       className="formInput password-yey"
+                                       type={showPassword ? 'text' : 'password'}
+                                       placeholder="Подтвердите новый пароль"
+                                       value={confirmPassword}
+                                       pattern={"6"}
 
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    onKeyPress={handleKeyPress}
-                                />
-                                <span
-                                    className="formInput-password-eye"
-                                    style={{ position: 'absolute', right: '10px', top: '33px', cursor: 'pointer' }}
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
+                                       onChange={(e) => setConfirmPassword(e.target.value)}
+                                       onKeyPress={handleKeyPress}
+                                   />
+                                   <span
+                                       className="span-fa-eye"
+                                       // style={{ position: 'absolute', right: '10px', top: '33px', cursor: 'pointer' }}
+                                       onClick={() => setShowPassword(!showPassword)}
+                                   >
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
-                            </div>
-                            {passwordMatchError && (
-                                <span className="otp-error">Пароли не совпадают. Пожалуйста, проверьте введенные данные.</span>
-                            )}
-                            <button className="Login-register-button" type="button" onClick={handleForgotPassword}>
-                                Обновить пароль
-                            </button>
-                        </div>
-                    )}
-                </div>
-            )}
-            {/* Toggle between Login and Register */}
-            <div className="text-login-or-register-block">
-                <div>
-                  {isRegisterMode ? 'У вас уже есть аккаунт?' : 'Еще нет аккаунта?'}
-                </div>
-                <p
-                    className="text-login-or-register"
-                    onClick={() => {
-                        setRegisterMode(!isRegisterMode);
-                        setStep(1); // Reset step when mode changes
-                        setResendTimer(-1); // Reset timer when switching modes
-                        setForgotPassword(false); // Reset forgot password state
-                        setForgotPasswordStep(1); // Reset forgot password flow step
-                        setForgotPasswordResendTimer(-1); // Reset forgot password timer
-                        setOtpErrorForgotPassword(''); // Reset OTP error
-                        setShowOtpInput(false); // Hide OTP input initially
-                    }}
-                >
-                    {isRegisterMode ? 'Войти' : 'Зарегистрируйтесь'}
-                </p>
-            </div>
+                               </div>
+                               {passwordMatchError && (
+                                   <span className="otp-error">Пароли не совпадают. Пожалуйста, проверьте введенные данные.</span>
+                               )}
+                               <button className="Login-register-button" type="button" onClick={handleForgotPassword}>
+                                   Обновить пароль
+                               </button>
+                           </div>
+                       )}
+                   </div>
+               )}
+               {/* Toggle between Login and Register */}
+               <div className="text-login-or-register-block">
+                   <div>
+                       {isRegisterMode ? 'У вас уже есть аккаунт?' : 'Еще нет аккаунта?'}
+                   </div>
+                   <p
+                       className="text-login-or-register"
+                       onClick={() => {
+                           setRegisterMode(!isRegisterMode);
+                           setStep(1); // Reset step when mode changes
+                           setResendTimer(-1); // Reset timer when switching modes
+                           setForgotPassword(false); // Reset forgot password state
+                           setForgotPasswordStep(1); // Reset forgot password flow step
+                           setForgotPasswordResendTimer(-1); // Reset forgot password timer
+                           setOtpErrorForgotPassword(''); // Reset OTP error
+                           setShowOtpInput(false); // Hide OTP input initially
+                       }}
+                   >
+                       {isRegisterMode ? 'Войти' : 'Зарегистрируйтесь'}
+                   </p>
+               </div>
+
         </form>
-    );
+        </div>
+            );
 };
 
 export default LoginRegister;

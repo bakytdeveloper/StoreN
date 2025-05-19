@@ -11,6 +11,12 @@ const SalesHistory = ({ setShowSidebar }) => {
     const [perPage] = useState(5);
     const [totalOrders, setTotalOrders] = useState(0);
     const history = useHistory();
+    const statusTranslations = {
+        pending: "В ожидании",
+        inProgress: "В процессе",
+        completed: "Завершено",
+        cancelled: "Отменено"
+    };
 
     useEffect(() => {
         setShowSidebar(true);
@@ -77,8 +83,6 @@ const SalesHistory = ({ setShowSidebar }) => {
     const isNextDisabled = (page - 1) * perPage + orders.length >= totalOrders;
 
 
-    console.log("orders", orders)
-
     return (
         <div className="order">
             <h2>История продаж</h2>
@@ -106,7 +110,8 @@ const SalesHistory = ({ setShowSidebar }) => {
                             {index === 0 && (
                                 <>
                                     <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
-                                    <td rowSpan={order.products.length}>{order.status}</td>
+                                    <td rowSpan={order.products.length}>{statusTranslations[order.status] || order.status}</td>
+
                                 </>
                             )}
                             <td>{item.type}</td>

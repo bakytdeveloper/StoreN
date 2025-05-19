@@ -1,9 +1,6 @@
-
-// src/components/Admin/OrderList.js
 import React, { useState, useEffect } from 'react';
 import './OrderList.css';
 import OrderItem from "./OrderItem"; // Подключение стилей
-// import OrderDetailsModal from './OrderDetailsModal'; // Создайте компонент для отображения деталей заказа
 import {useHistory} from "react-router-dom";
 
 const OrderList = ({ setShowSidebar }) => {
@@ -166,12 +163,12 @@ const OrderList = ({ setShowSidebar }) => {
             <table>
                 <thead>
                 <tr>
-                    <th>Номер заказа</th>
+                    <th>№</th>
                     <th>Клиент</th>
                     <th>Имя</th>
                     <th>Email</th>
                     <th>Адрес</th>
-                    <th>№ Тел</th>
+                    <th>№Тел</th>
                     <th>Способ опл</th>
                     <th>Комментарии</th>
                     <th>Товары</th>

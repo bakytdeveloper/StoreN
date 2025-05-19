@@ -14,11 +14,11 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
     let statusColor;
     if (selectedStatus === 'pending') {
-        statusColor = '#f81a60';
+        statusColor = '#ca0644';
     } else if (selectedStatus === 'inProgress') {
-        statusColor = '#3291f8';
+        statusColor = '#065fbf';
     }  else if (selectedStatus === 'completed') {
-        statusColor = '#e0dcdc';
+        statusColor = '#34c304';
     } else if (selectedStatus === "cancelled") {
         statusColor = '#9f9d9d';
     }
@@ -28,13 +28,14 @@ const OrderItem = ({ order, onUpdateStatus }) => {
                 <select
                     value={selectedStatus}
                     onChange={handleChange}
-                    style={{ background: statusColor }}
+                    style={{ background: statusColor, fontWeight: "bold", color:"white", fontSize:"15px" }}
                     key={order._id}
                 >
-                    <option value="pending">Pending</option>
-                    <option value="inProgress">in Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
+                    <option value="pending">В ожидании</option>
+                    <option value="inProgress">В процессе</option>
+                    <option value="completed">Завершено</option>
+                    <option value="cancelled">Отменено</option>
+
                 </select>
     );
 };

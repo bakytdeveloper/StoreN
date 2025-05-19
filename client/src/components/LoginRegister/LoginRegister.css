@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+.form-login-page{
+    width: 100%;
+}
 
 .form {
     max-width: 400px;
@@ -159,8 +162,12 @@ p:hover {
     margin-left: 0;
 }
 
-/*style={{ position: 'absolute', right: '10px', top: '10px', cursor: 'pointer' }}*/
-
+.span-fa-eye {
+    position: absolute;
+    right: 10px;
+    top: 35px!important;
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 768px) {
 
@@ -187,9 +194,17 @@ p:hover {
     }
 
     .form {
-
-        margin: 55px 0 1px 17px;
+        display: block;
+        margin: 55px 0 0 17px;
         width: 90%;
+        /*height: 100vh;*/
+    }
+
+    .form-login-page {
+        width: 100%;
+        height: 35% !important;
+        margin-bottom: 150px;
+        overflow-y: auto;
     }
 
 
@@ -218,12 +233,16 @@ p:hover {
     .text-login-or-register-block {
         display: flex;
         position: relative;
-        margin-top: 33px;
+        margin-top: 13px;
     }
 
     .text-login-or-register {
         margin-top: 0;
     }
 
+    .span-fa-eye {
+        margin-top: 14px;
+        margin-right: 15px;
+    }
 
 }
