@@ -392,14 +392,6 @@ const ProductList = ({
         setCurrentPage(value);
     };
 
-    // const token = localStorage.getItem('token');
-    // let userId;
-    //
-    // if (token) {
-    //     const decodedToken = jwtDecode(token);
-    //     userId = decodedToken.userId;
-    // }
-
     const token = localStorage.getItem('token');
     let userId;
     let userRole;

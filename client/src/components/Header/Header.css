@@ -23,10 +23,11 @@
 }
 
 .titleH {
-    font-family: Kefa;
+    font-family: Roboto;
+    /*font-family: Kefa;*/
     /*font-family: Poppins;*/
     font-weight: 600;
-    color: #010e69;
+    color: #050c40;
     font-size: 70px;
     padding-top: 0;
     padding-bottom: 0;
@@ -36,7 +37,7 @@
 
 .titleN {
     color: #f66f07;
-    font-family: Kefa;
+    font-family: Roboto;
     text-shadow: 2px 3px 3px #a57e62;
 }
 
