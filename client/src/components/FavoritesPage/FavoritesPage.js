@@ -113,15 +113,17 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
 
                 ) : favorites.length === 0 ? (
                     <div className="emptyCartEls-all favorite-page-content-empty">
-                        <div className="emptyCartEls favorite-page-content-empty-text">
-                            <div className="emptyCart">Ваша страница избранных товаров пока пуста, кликните сюда, чтобы преобрести товар</div>
-                        </div>
-                        <div className="empty-cart-login">
-                            <div>Приступить к покупкам</div>
-                            <button className="empty-cart-login-button" onClick={goToCatalog}>
-                                Каталог
-                            </button>
-                        </div>
+                       <div className="emptyCartEls-all favorite-page-content-empty-block">
+                           <div className="emptyCartEls favorite-page-content-empty-text">
+                               <div className="emptyCart">Ваша страница избранных товаров пока пуста, кликните сюда, чтобы преобрести товар</div>
+                           </div>
+                           <div className="empty-cart-login">
+                               <div>Приступить к покупкам</div>
+                               <button className="empty-cart-login-button" onClick={goToCatalog}>
+                                   Каталог
+                               </button>
+                           </div>
+                       </div>
                     </div>
                 ) : (
                     favorites.map(item => (

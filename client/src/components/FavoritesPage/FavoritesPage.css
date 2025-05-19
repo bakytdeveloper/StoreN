@@ -41,6 +41,20 @@
 
 }
 
+.favorite-page-content-empty {
+    z-index: 999999;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    position: absolute!important;
+}
+
+.favorite-page-content-empty-block {
+    width: 40%!important;
+    margin: 0 25%;
+
+}
 
 .emptyCartEls.favorite-page-content-empty-text {
     display: flex!important;
@@ -240,6 +254,13 @@
     }
     .price-red {
         font-size: 21px!important;
+    }
+
+
+    .favorite-page-content-empty-block {
+        width: 100%!important;
+        margin: 0;
+
     }
 
 }
