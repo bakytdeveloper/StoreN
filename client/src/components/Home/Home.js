@@ -19,8 +19,8 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
         'Мужская одежда',
         'Женская одежда',
         'Детская одежда',
-        'Гаджеты',
         'Унисекс',
+        'Гаджеты',
         'Аксессуары',
         'Бытовая эл.техника',
         'Товары для всех'
