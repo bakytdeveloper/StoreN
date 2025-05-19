@@ -22,25 +22,24 @@
 
 }
 
+.titleH {
+    font-family: Kefa;
+    /*font-family: Poppins;*/
+    font-weight: 600;
+    color: #010e69;
+    font-size: 70px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-shadow: 2px 3px 3px #7e7b7b;
+}
+
 
 .titleN {
     color: #f66f07;
-    font-family: Poppins;
-    font-weight: 600;
-
-    text-shadow: 3px 4px 4px #6b2424;
+    font-family: Kefa;
+    text-shadow: 2px 3px 3px #a57e62;
 }
 
-
-.titleH {
-    font-family: Poppins;
-    font-weight: 600;
-    color: #00020c;
-    font-size: 60px;
-    padding-top: 0;
-    padding-bottom: 0;
-    text-shadow: 3px 4px 4px #585656;
-}
 
 .header-left {
     display: flex;
@@ -60,11 +59,12 @@
 
 .nav-links {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     margin-left: 32px;
     font-family: Poppins;
     font-weight: 500;
     font-size: 18px;
+    margin-top: 20px;
 }
 
 
@@ -455,7 +455,7 @@
 
     .titleH {
         align-items: center;
-        font-size: 35px;
+        font-size: 37px;
 
     }
 
