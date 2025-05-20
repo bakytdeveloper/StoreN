@@ -89,14 +89,6 @@ const Footer = ({
     }, [buttonClick, isAuthenticated, userRole, history]);
 
 
-
-    const handleSearchChange = (e) => {
-        const value = e.target.value;
-        setSearchTerm(value);
-        setCurrentPage(1);
-        onSearch(value);
-    };
-
     const handleButtonClick = (buttonName, component) => {
         if (buttonName === 'cart' || buttonName === 'contact') {
             if (!prevPath) {
@@ -127,21 +119,7 @@ const Footer = ({
         }
     };
 
-    const handleContactClick = () => {
-        if (isContactModalOpen) {
-            setActiveComponent(null);
-            setIsContactModalOpen(false);
-            setButtonClick(null);
-            history.push(prevPath || "/");
-        } else {
-            setIsContactModalOpen(true);
-            handleButtonClick('contact', 'contact');
-        }
-    };
-
     const handleCatalogClick = () => {
-        // Сохраняем текущий путь и параметры
-        const currentPath = location.pathname + location.search;
 
         // Если мы уже на странице каталога, просто переключаем сайдбар
         if (location.pathname === '/catalog') {
