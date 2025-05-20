@@ -140,13 +140,21 @@ const Footer = ({
     };
 
     const handleCatalogClick = () => {
-        // Сброс фильтров и текущей страницы
-        resetFilter();
-        setCurrentPage(1);
-        history.push('/catalog?page=1');
-        setSelectedOption('catalog');
-        setShowSidebar(prevState => !prevState);
-        setIsFooterCatalog(prevState => !prevState);
+        // Сохраняем текущий путь и параметры
+        const currentPath = location.pathname + location.search;
+
+        // Если мы уже на странице каталога, просто переключаем сайдбар
+        if (location.pathname === '/catalog') {
+            setShowSidebar(prevState => !prevState);
+        } else {
+            // Если не на каталоге, переходим на каталог с сохранением параметров страницы
+            const params = new URLSearchParams(location.search);
+            const page = params.get('page') || '1';
+            history.push(`/catalog?page=${page}`);
+            setShowSidebar(true);
+        }
+
+        setIsFooterCatalog(true);
         handleButtonClick('catalog', 'catalog');
     };
 

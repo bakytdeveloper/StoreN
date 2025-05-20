@@ -276,3 +276,22 @@ ul {
 
 }
 
+.sidebar-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.sidebar-close-btn:hover {
+    color: #ff0000;
+}
+
+/* Остальные существующие стили остаются без изменений */

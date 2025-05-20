@@ -3,6 +3,7 @@ import './Sidebar.css';
 import { useHistory } from "react-router-dom";
 import ContactsInfo from './ContactsInfo';
 import AccordionItem from "./AccordionItem";
+import {FaTimes} from "react-icons/fa";
 
 const Sidebar = ({
                      setProducts,
@@ -158,6 +159,17 @@ const Sidebar = ({
 
     return (
         <div className={`sidebar ${showSidebar ? '' : 'show'} ${isSmallScreen ? '' : 'permanent'}`}>
+
+            {isSmallScreen && (
+                <button
+                    className="sidebar-close-btn"
+                    onClick={() => setShowSidebar(true)}
+                    aria-label="Закрыть меню"
+                >
+                    <FaTimes />
+                </button>
+            )}
+
             <ul>
                 {selectedOption === 'contact' ? (
                     <ContactsInfo />
