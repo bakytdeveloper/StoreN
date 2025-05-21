@@ -44,8 +44,10 @@ const ProductList = ({
     const location = useLocation();
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const previousPathname = useRef(location.pathname);
+    // eslint-disable-next-line
     const [searchEmptyResult, setSearchEmptyResult] = useState(false);
     const [sellerInfo, setSellerInfo] = useState(null);
+    // eslint-disable-next-line
     const [lastPath, setLastPath] = useState(location.pathname);
     const [favorites, setFavorites] = useState([]);
 
@@ -59,6 +61,7 @@ const ProductList = ({
         }
 
         fetchData();
+        // eslint-disable-next-line
     }, [location.search]); // Зависимость от location.search вместо location.pathname
 
 
@@ -96,6 +99,7 @@ const ProductList = ({
         if (sellerId) {
             fetchData(sellerId);
         }
+        // eslint-disable-next-line
     }, [location.search]);
 
 
@@ -169,7 +173,9 @@ const ProductList = ({
 
 
     useEffect(() => {
+
         fetchData();
+        // eslint-disable-next-line
     }, [searchKeyword, selectedGender, windowWidth, selectedCategory, selectedType, location.search]);
 
 // Отображение сообщения о пустом результате поиска
@@ -191,6 +197,7 @@ const ProductList = ({
         } else {
             fetchData();
         }
+        // eslint-disable-next-line
     }, [products, currentPage]);
 
 // Обновление ширины окна браузера при изменении размера окна
@@ -245,7 +252,7 @@ const ProductList = ({
                     product.type.toLowerCase().includes(searchKeyword.toLowerCase())
                     : true
             )
-            .filter(product => !sellerId || product.seller && product.seller._id === sellerId);
+            .filter(product => !sellerId || product.seller?.["_id"] === sellerId);
     };
 
 // Фильтрация продуктов по выбранным параметрам
@@ -257,7 +264,7 @@ const ProductList = ({
             .filter(product => !selectedGender || product.gender === selectedGender)
             .filter(product => !selectedCategory || product.category === selectedCategory)
             .filter(product => !selectedType || product.type === selectedType)
-            .filter(product => !sellerId || product.seller && product.seller._id === sellerId);
+            .filter(product => !sellerId || product.seller?.["_id"] === sellerId);
     };
 
 // Добавление продукта в корзину покупок
@@ -405,6 +412,7 @@ const ProductList = ({
             }
         };
         fetchFavorites();
+        // eslint-disable-next-line
     }, [userId, token]);
 
 
