@@ -339,10 +339,10 @@ strong {
     }
 
     .details-names-all {
-        display: block;
-        flex-direction: column;
+        display: inline-flex;
         margin-top: 10px;
         line-height: 12px;
+
     }
 
     .main-picture-detail-two {
@@ -387,13 +387,6 @@ strong {
         width: 100%;
     }
 
-
-
-    .details-names-price {
-
-    }
-
-
     .original-price {
         display: inline-flex;
         font-size: 13px;
@@ -410,10 +403,11 @@ strong {
 
     }
 
-    .type-details,
-    .brand-details,
     .name-details {
-        margin-bottom: 8px;
+        display: flex;
+        padding-bottom: 4px;
+        margin-top: -7px;
+        margin-left: 10px;
     }
 
     .details-names-price {
@@ -533,3 +527,11 @@ strong {
         text-align: center;
     }
 }
+
+/* <div className="details-names-all">
+   <div className='details-names-all-type-band'>
+       <div className="type-details">{product.type}</div>
+       <div className="brand-details">{product.brand}</div>
+   </div>
+    <div className="name-details">{product.name}</div>
+</div>*/
