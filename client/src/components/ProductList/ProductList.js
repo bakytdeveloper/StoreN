@@ -50,17 +50,17 @@ const ProductList = ({
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        if (location.pathname === '/catalog') {
-            setSelectedGender(null);
-            setSelectedCategory(null);
-            setSelectedType(null);
-            setSearchTerm('');
-            onSearch('');
-            setCurrentPage(1);
-            history.push(lastPath);
-            fetchData();
+        const params = new URLSearchParams(location.search);
+        const searchParam = params.get('search');
+
+        if (searchParam) {
+            setSearchTerm(searchParam);
+            onSearch(searchParam);
         }
-    }, [location.pathname, setSelectedGender, setSelectedCategory, setSelectedType, setSearchTerm]);
+
+        fetchData();
+    }, [location.search]); // Зависимость от location.search вместо location.pathname
+
 
     useEffect(() => {
         if (searchTerm === '') {
@@ -80,32 +80,6 @@ const ProductList = ({
         };
         updateSidebar();
     }, [windowWidth, setShowSidebar, isFooterCatalog]);
-
-    // useEffect(() => {
-    //     const params = new URLSearchParams(location.search);
-    //     const sellerId = params.get('sellerId');
-    //
-    //     // Если есть sellerId в URL и это мобильное устройство, показываем сайдбар
-    //     if (sellerId && windowWidth <= 768) {
-    //         setShowSidebar(true);
-    //     }
-    // }, [location.search, windowWidth]);
-
-
-    // useEffect(() => {
-    //     const updateSidebar = () => {
-    //         const params = new URLSearchParams(location.search);
-    //         const sellerId = params.get('sellerId');
-    //         if (sellerId && windowWidth <= 768) {
-    //             setShowSidebar(true);
-    //         } else if (windowWidth >= 768) {
-    //             setShowSidebar(false);
-    //         } else {
-    //             setShowSidebar(isFooterCatalog);
-    //         }
-    //     };
-    //     updateSidebar();
-    // }, [windowWidth, setShowSidebar, isFooterCatalog, location.search]);
 
     useEffect(() => {
         if (location.pathname !== previousPathname.current) {
@@ -133,11 +107,14 @@ const ProductList = ({
             const sellerId = params.get('sellerId');
             const page = params.get('page') || 1;
             const limit = productsPerPage;
+            const searchQuery = searchTerm || '';
 
             const productsResponse = await fetch(
-                `${process.env.REACT_APP_API_URL}/api/products?search=${searchKeyword}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}&page=${page}&limit=${limit}${sellerId ? `&sellerId=${sellerId}` : ''}`,
+                `${process.env.REACT_APP_API_URL}/api/products?search=${searchQuery}&gender=${selectedGender}&category=${selectedCategory}&type=${selectedType}&page=${page}&limit=${limit}${sellerId ? `&sellerId=${sellerId}` : ''}`,
                 { timeout: 10000 }
             );
+
+
             const productsData = await productsResponse.json();
 
             setProducts(productsData);
@@ -157,8 +134,6 @@ const ProductList = ({
             setLoading(false);
         }
     };
-
-
 
 // Устанавливаем page=1 при переходе на страницу каталога
     useEffect(() => {
@@ -517,14 +492,12 @@ const ProductList = ({
                             displayedProducts.map(product => (
                                 <div className={`product-card ${!product.isActive ? 'inactive-product' : ''}`} onClick={clearSearch} key={product._id}>
                                     {product.isActive ? (
-                                        // <Link to={`/products/${product._id}`}>
                                             <div className="product-card-images">
                                                 {product.originalPrice && product.originalPrice > product.price && (
                                                     <div className="discount-percentage-badge">
                                                         - {calculateDiscountPercentage(product.originalPrice, product.price)}%
                                                     </div>
                                                 )}
-
                                                 <div className="favorite-icon"
                                                      onClick={(e) => {
                                                          e.stopPropagation();
@@ -541,16 +514,11 @@ const ProductList = ({
                                                 </div>
 
                                                 <Link to={`/products/${product._id}`}>
-
                                                     <div>
                                                         <img src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : bag} alt={product.name} />
-
                                                     </div>
-
                                                 </Link>
-
                                             </div>
-
                                     ) : (
                                         <div className="product-card-images">
                                             {product.originalPrice && product.originalPrice > product.price && (
@@ -563,7 +531,6 @@ const ProductList = ({
                                             <div className="favorite-icon" onClick={(e) => { e.stopPropagation(); handleFavoriteToggle(product._id); }}>
                                                 {favorites.includes(product._id) ? <FaHeart color="red" /> : <FaRegHeart />}
                                             </div>
-
                                         </div>
                                     )}
                                     <div className="product-content">
@@ -729,10 +696,8 @@ const ProductList = ({
                             </>
                         )}
                     </>
-
                 )}
             </div>
-
            <div className="pagination-container-block">
                <div className="pagination-container-block-one">
                    {displayedProducts && displayedProducts.length > 0 && (
@@ -745,8 +710,6 @@ const ProductList = ({
                        </div>
                    )}
                </div>
-
-
                <div className="pagination-container-block-two">
                    {displayedProducts >= 0 && displayedProductsNoSearch.length > 0 && (
                        <div className="pagination-container">
@@ -763,11 +726,8 @@ const ProductList = ({
                    )}
                </div>
            </div>
-
-
         </div>
     );
-
 };
 
 export default ProductList;

@@ -25,6 +25,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const [lastPath, setLastPath] = useState(location.pathname);
     const [searchResultMessage, setSearchResultMessage] = useState('');
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5506';
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchUserStatus = async () => {
@@ -96,14 +97,18 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         e.preventDefault();
         onSearch(searchTerm);
         setSearchResultMessage(searchTerm);
-        history.push('/catalog');
+        // Добавляем searchTerm в URL как параметр
+        history.push(`/catalog?search=${encodeURIComponent(searchTerm)}`);
         setIsFooterCatalog(true);
     };
 
     const handleClearSearch = () => {
         setSearchTerm('');
         onSearch('');
-        history.push(lastPath);
+        // Удаляем параметр search из URL
+        const params = new URLSearchParams(location.search);
+        params.delete('search');
+        history.push({ search: params.toString() });
     };
 
     const handleCartClick = () => {
@@ -250,8 +255,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         }
     };
 
-    const token = localStorage.getItem('token');
-
     return (
         <div className="header-container">
             <div className="header">
@@ -330,9 +333,6 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
             </div>
         </div>
     );
-
-
-
 };
 
 export default Header;

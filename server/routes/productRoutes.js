@@ -197,7 +197,7 @@ router.get('/products', async (req, res) => {
         if (search) {
             query.$or = [
                 { name: new RegExp(search, 'i') },
-                { description: new RegExp(search, 'i') },
+                // { description: new RegExp(search, 'i') },
                 { brand: new RegExp(search, 'i') },
                 { type: new RegExp(search, 'i') }
             ];
