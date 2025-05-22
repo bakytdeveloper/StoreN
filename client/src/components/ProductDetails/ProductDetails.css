@@ -528,10 +528,89 @@ strong {
     }
 }
 
-/* <div className="details-names-all">
-   <div className='details-names-all-type-band'>
-       <div className="type-details">{product.type}</div>
-       <div className="brand-details">{product.brand}</div>
-   </div>
-    <div className="name-details">{product.name}</div>
-</div>*/
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 111;
+    overflow-y: auto; /* Добавляем скролл для самого модального окна, если контент не помещается */
+
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 80vh;
+    display: block;
+    margin: 0 auto;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 20px 5px;
+    border-radius: 5px;
+}
+
+.modal-close-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.modal-arrow {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-arrow-left {
+    margin-left: 20px;
+}
+
+.modal-arrow-right {
+    margin-right: 20px;
+}
+
+/* Add cursor pointer to clickable images */
+.main-image-center-img, .main-picture-detail-one-img {
+    cursor: zoom-in;
+}
+
+
