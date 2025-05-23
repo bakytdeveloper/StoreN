@@ -29,7 +29,9 @@ const LoginRegister = ({ setShowSidebar, setShowHeader }) => {
     const [forgotPasswordStep, setForgotPasswordStep] = useState(1); // Forgot password step (1: Send OTP, 2: Verify OTP)
     const [forgotPasswordResendTimer, setForgotPasswordResendTimer] = useState(-1); // Timer for forgot password OTP resend
     const [otpErrorForgotPassword, setOtpErrorForgotPassword] = useState('');
+    // eslint-disable-next-line
     const [showOtpInput, setShowOtpInput] = useState(false); // Toggle OTP input for forgot password
+    // eslint-disable-next-line
     const [newPasswordMatchError, setNewPasswordMatchError] = useState(false); // State for new password match error
 
     const history = useHistory();
@@ -667,7 +669,7 @@ const LoginRegister = ({ setShowSidebar, setShowHeader }) => {
                        {forgotPasswordStep === 3 && (
                            <div className="form-register-and-login">
                                <h2>Обновление пароля</h2>
-                               <label>Введите пароль:</label>
+                               <label>Введите желаймый пароль:</label>
                                <input
                                    className="formInput"
                                    type={showPassword ? 'text' : 'password'}
