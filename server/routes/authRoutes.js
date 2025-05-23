@@ -121,7 +121,7 @@ router.post('/seller/register', async (req, res) => {
 
         const mailOptions = {
             from: 'your-email@gmail.com', // Замените на ваш email
-            to: 'bakytdeveloper@gmail.com', // Email администратора
+            to: process.env.ADMIN_EMAIL, // Email администратора
             subject: 'Новый запрос на регистрация продавца',
             text: `
                 Имя: ${firstName} ${lastName}
@@ -189,15 +189,37 @@ router.post('/login', async (req, res) => {
 router.post('/login/admin', async (req, res) => {
     const { email, password } = req.body;
     try {
-        if (email.toLowerCase() === 'a' && password === 'a') {
+        // Проверяем, что email и пароль совпадают с данными из .env
+        if (email.toLowerCase() === process.env.ADMIN_EMAIL.toLowerCase() &&
+            password === process.env.ADMIN_PASSWORD) {
+
             const adminRole = 'admin';
-            const adminToken = jwt.sign({ adminId: 'admin', email, role: adminRole }, process.env.SECRET_KEY);
-            return res.json({ user: { name: 'Admin', role: adminRole }, token: adminToken, success: true });
+            const adminToken = jwt.sign({
+                adminId: 'admin',
+                email,
+                role: adminRole
+            }, process.env.SECRET_KEY);
+
+            return res.json({
+                user: {
+                    name: 'Admin',
+                    email: email,
+                    role: adminRole
+                },
+                token: adminToken,
+                success: true
+            });
         }
+
         // Если администратор не найден
-        return res.status(401).json({ message: 'Invalid email or password' });
+        return res.status(401).json({
+            message: 'Invalid email or password'
+        });
     } catch (error) {
-        res.status(500).json({ message: error.message, success: false });
+        res.status(500).json({
+            message: error.message,
+            success: false
+        });
     }
 });
 

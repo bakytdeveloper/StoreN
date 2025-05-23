@@ -180,36 +180,33 @@ const LoginRegister = ({ setShowSidebar, setShowHeader }) => {
             return;
         }
 // Логин администратора
-        if (email.toLowerCase() === 'a' && password === 'a') {
-            const adminUrl = `${process.env.REACT_APP_API_URL}/api/auth/login/admin`;
-            try {
-                const adminResponse = await fetch(adminUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: email.toLowerCase(),
-                        password,
-                    }),
-                });
-                if (!adminResponse.ok) {
-                    const errorText = await adminResponse.text();
-                    console.error('Admin login error response text:', errorText);
-                    toast.error('Неверный email или пароль');
-                    return;
-                }
+        // Попытка входа как администратор
+        const adminUrl = `${process.env.REACT_APP_API_URL}/api/auth/login/admin`;
+        try {
+            const adminResponse = await fetch(adminUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email.toLowerCase(),
+                    password,
+                }),
+            });
+
+            if (adminResponse.ok) {
                 const adminData = await adminResponse.json();
                 localStorage.setItem('token', adminData.token);
                 localStorage.setItem('role', adminData.user.role);
                 const userName = adminData.user.name;
                 toast.success(`Приветствую вас, ${userName}!`);
-                history.push('/admin'); // Проверьте, что это вызывается корректно
-            } catch (error) {
-                console.error('Admin login fetch error:', error);
-                toast.error('Произошла ошибка');
+                history.push('/admin');
+                return; // Выходим, так как авторизация прошла успешно
             }
-            return;
+            // Если ответ не OK, продолжаем попытку обычного входа
+        } catch (error) {
+            console.error('Admin login fetch error:', error);
+            // Продолжаем попытку обычного входа
         }
 
 

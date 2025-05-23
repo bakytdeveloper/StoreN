@@ -14,6 +14,7 @@ const SellerProfile = ({ setShowSidebar }) => {
     const [editedEmail, setEditedEmail] = useState('');
     const [editedAddress, setEditedAddress] = useState('');
     const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
+    // eslint-disable-next-line
     const [editPassword, setEditPassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -135,10 +136,6 @@ const SellerProfile = ({ setShowSidebar }) => {
             console.error('Error updating seller profile:', error);
             toast.error('Ошибка при обновлении профиля', { position: toast.POSITION.BOTTOM_RIGHT });
         }
-    };
-
-    const handleEditPassword = () => {
-        setEditPassword(true);
     };
 
     const handleCancelEditPassword = () => {

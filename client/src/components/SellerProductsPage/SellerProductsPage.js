@@ -11,7 +11,6 @@ import {FaEllipsisV, FaEye, FaEyeSlash} from "react-icons/fa";
 const SellerProductsPage = ({setShowSidebar}) => {
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [showForm, setShowForm] = useState(false);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Состояние для отслеживания видимости модального окна подтверждения удаления
     const [formData, setFormData] = useState({
         name: '',
@@ -213,10 +212,10 @@ const SellerProductsPage = ({setShowSidebar}) => {
                                 <button className="close-menu" onClick={handleCloseMenu}>
                                     &#10006;
                                 </button>
-                                <button className="product-actions-menu-edit" onClick={() => handleEditProduct(product)}>&#128736; Edit</button>
-                                <button className="product-actions-menu-edit" onClick={() => handleDeleteProduct(product._id)}>&#10006; Delete</button>
+                                <button className="product-actions-menu-edit" onClick={() => handleEditProduct(product)}>&#128736; Изменить</button>
+                                <button className="product-actions-menu-edit" onClick={() => handleDeleteProduct(product._id)}>&#10006; Удалить</button>
                                 <button className="product-actions-menu-edit" onClick={() => handleToggleActive(product._id)}>
-                                    {product.isActive ? <FaEyeSlash /> : <FaEye />} {product.isActive ? 'Deactivate' : 'Activate'}
+                                    {product.isActive ? <FaEyeSlash /> : <FaEye />} {product.isActive ? 'Скрыть' : 'Отобразить'}
                                 </button>
                             </div>
                         </div>
