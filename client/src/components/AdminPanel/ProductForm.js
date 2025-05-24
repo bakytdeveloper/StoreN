@@ -7,9 +7,12 @@ import ImageManager from "./ImageManager";
 
 
 const ProductForm = ({ setShowSidebar }) => {
+    // eslint-disable-next-line
     const [selectedProduct, setSelectedProduct] = useState(null);
+    // eslint-disable-next-line
     const [products, setProducts] = useState([]);
     const {productId} = useParams();
+    // eslint-disable-next-line
     const [productData, setProductData] = useState(null);
     const location = useLocation();
     const {product} = location.state || {};
@@ -35,7 +38,9 @@ const ProductForm = ({ setShowSidebar }) => {
     const [types, setTypes] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false); // Состояние для отслеживания отправки формы
     const [direction, setDirection] = useState('');
+    // eslint-disable-next-line
     const [allCategories, setAllCategories] = useState([]);
+    // eslint-disable-next-line
     const [imagePreview, setImagePreview] = useState(null);
     const history = useHistory();
     const [imageUrl, setImageUrl] = useState('');
@@ -343,6 +348,7 @@ const ProductForm = ({ setShowSidebar }) => {
             }
         };
         fetchAllCategories();
+
     }, []);
 
 
@@ -361,15 +367,6 @@ const ProductForm = ({ setShowSidebar }) => {
     const handleDirectionChange = (value) => {
         setDirection(value);
         setFormData({...formData, direction: value}); // Обновить данные формы с учетом измененного направления
-    };
-
-
-
-    const handleImageAdd = () => {
-        setFormData({
-            ...formData,
-            images: [...formData.images, ''],
-        });
     };
 
 
@@ -510,230 +507,327 @@ const ProductForm = ({ setShowSidebar }) => {
     }, []);
 
     return (
-        <form className="sellerFormAdd" onSubmit={handleSubmit}>
-              <span style={{background:"none"}} className="sellersListClose" type="button" onClick={handleClose}>
-           &#10006;
-        </span>
-            <h2>Создание товара</h2>
-
-            <label>Пол:</label>
-            <select name="gender" value={formData.gender} onChange={handleChange} required>
-                <option value="">Выберите пол</option>
-                <option value="Мужская одежда">Мужская одежда</option>
-                <option value="Женская одежда">Женская одежда</option>
-                <option value="Детская одежда">Детская одежда</option>
-                <option value="Гаджеты">Гаджеты</option>
-                <option value="Унисекс">Унисекс</option>
-                {/*<option value="Аксессуары">Аксессуары</option>*/}
-                <option value="Бытовая эл.техника">Бытовая эл.техника</option>
-            </select>
-
-            <label className="seller-form-add-once">Категория:</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
-                <option value="">Выберите категорию</option>
-                {categories
-                    .filter(category => category !== "Аксессуары") // Исключаем "Аксессуары" из списка
-                    .map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
-                    ))}
-                <option value="Аксессуары">Аксессуары</option>
-            </select>
-            <input type="text" name="category" value={formData.category} onChange={handleChange} required/>
-
-            {formData.category === 'Аксессуары' && (
-                <div>
-                    <label>Направление:</label>
-                    <select
-                        name="direction"
-                        value={direction}
-                        onChange={(e) => handleDirectionChange(e.target.value)} // Обновлено: добавлен обработчик изменения направления
-                        disabled={!formData.category || formData.category !== 'Аксессуары'}
-                    >
-                        <option value="">Выберите направление</option>
-                        {categories
-                            .filter(category => category !== "Аксессуары")
-                            .map((category, index) => (
-                            <option key={index} value={category}>{category}</option>
-                        ))}
-                    </select>
-                </div>
-            )}
-
-            <label>Тип:</label>
-            <select name="type" value={formData.type} onChange={handleChange}>
-                <option value="">Выберите тип</option>
-                {types.map((type, index) => (
-                    <option key={index} value={type}>{type}</option>
-                ))}
-            </select>
-            <input type="text" name="type" value={formData.type} onChange={handleChange} required/>
-
-            <label>Бренд:</label>
-            <input type="text" name="brand" value={formData.brand} onChange={handleChange} required/>
-
-            <label>Название:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required/>
-
-            <label>Описание:</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} required/>
-
-
-            <label>Цена до скидки</label>
-            <input
-                min="0"
-                type="number"
-                name="originalPrice"
-                className="form-control"
-                value={formData.originalPrice}
-                onChange={handleChange}
-            />
-
-            <label>Цена:</label>
-            <input
-                   min="0"
-                   type="number"
-                   placeholder="0"
-                   name="price"
-                   value={formData.price}
-                   onChange={handleChange} required/>
-
-
-
-            <label htmlFor="quantity">Количество</label>
-            <input type="number"
-                   id="quantity"
-                   name="quantity"
-                   min="1"
-                   value={formData.quantity}
-                   onChange={handleChange} required />
-
-
-
-            <label>Размеры:</label>
-            <input
-                type="text"
-                name="sizes"
-                value={Array.isArray(formData.sizes) ? formData.sizes.join(',') : ''}
-                onChange={handleSizesChange}
-
-            />
-            <label>Цвета:</label>
-            {formData.colors && formData.colors.map((color, index) => (
-                <div key={index}>
-                    <input
-                        type="text"
-                        value={color.name}
-
-                        onChange={(e) => handleColorChange(index, 'name', e.target.value)}
-                        placeholder="Название цвета"
-                        required
-                    />
-                    <input
-                        type="color"
-                        value={color.value}
-                        onChange={(e) => handleColorChange(index, 'value', e.target.value)}
-                    />
-                    <button
-                        className="deleteField"
-                        type="button"
-                        onClick={() => setFormData({
-                            ...formData,
-                            colors: formData.colors.filter((_, i) => i !== index)
-                        })}
-                    >
-                        &#10006;
+        <div className="product-form-container">
+            <form className="product-form" onSubmit={handleSubmit}>
+                <div className="form-header">
+                    <h2>{productId ? 'Редактирование товара' : 'Создание товара'}</h2>
+                    <button type="button" className="close-btn" onClick={handleClose}>
+                        &times;
                     </button>
                 </div>
-            ))}
 
-            <button className="newProductAdd" type="button" onClick={() => setFormData({
-                ...formData,
-                colors: [...formData.colors, {name: '', value: '#000000'}]
-            })}>
-                Добавить цвет
-            </button>
+                <div className="form-section">
+                    <h3 className="section-title">Основная информация</h3>
 
-            <label>Характеристики:</label>
-            {formData.characteristics.map((char, index) => (
-                <div key={index}>
-                    <input
-                        type="text"
-                        value={char.name}
-                        onChange={(e) => handleCharacteristicChange(index, 'name', e.target.value)}
-                        placeholder="Название характеристики"
-                    />
-                    <input
-                        type="text"
-                        value={char.value}
-                        onChange={(e) => handleCharacteristicChange(index, 'value', e.target.value)}
-                        placeholder="Значение характеристики"
-                    />
-                    <button className="deleteField"
+                    <div className="form-group">
+                        <label className="required">Пол:</label>
+                        <select name="gender" value={formData.gender} onChange={handleChange} required>
+                            <option value="">Выберите пол</option>
+                            <option value="Мужская одежда">Мужская одежда</option>
+                            <option value="Женская одежда">Женская одежда</option>
+                            <option value="Детская одежда">Детская одежда</option>
+                            <option value="Гаджеты">Гаджеты</option>
+                            <option value="Унисекс">Унисекс</option>
+                            <option value="Бытовая эл.техника">Бытовая эл.техника</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="required">Категория:</label>
+                        <div className="select-with-input">
+                            <select name="category" value={formData.category} onChange={handleChange}>
+                                <option value="">Выберите категорию</option>
+                                {categories
+                                    .filter(category => category !== "Аксессуары")
+                                    .map((category, index) => (
+                                        <option key={index} value={category}>{category}</option>
+                                    ))}
+                                <option value="Аксессуары">Аксессуары</option>
+                            </select>
+                            <input
+                                type="text"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                placeholder="Или введите свою категорию"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    {formData.category === 'Аксессуары' && (
+                        <div className="form-group">
+                            <label className="required">Направление:</label>
+                            <select
+                                name="direction"
+                                value={direction}
+                                onChange={(e) => handleDirectionChange(e.target.value)}
+                                required
+                            >
+                                <option value="">Выберите направление</option>
+                                {categories
+                                    .filter(category => category !== "Аксессуары")
+                                    .map((category, index) => (
+                                        <option key={index} value={category}>{category}</option>
+                                    ))}
+                            </select>
+                        </div>
+                    )}
+
+                    <div className="form-group">
+                        <label className="required">Тип:</label>
+                        <div className="select-with-input">
+                            <select name="type" value={formData.type} onChange={handleChange}>
+                                <option value="">Выберите тип</option>
+                                {types.map((type, index) => (
+                                    <option key={index} value={type}>{type}</option>
+                                ))}
+                            </select>
+                            <input
+                                type="text"
+                                name="type"
+                                value={formData.type}
+                                onChange={handleChange}
+                                placeholder="Или введите свой тип"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="required">Бренд:</label>
+                        <input type="text" name="brand" value={formData.brand} onChange={handleChange} required/>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="required">Название:</label>
+                        <input type="text" name="name" value={formData.name} onChange={handleChange} required/>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="required">Описание:</label>
+                        <textarea name="description" value={formData.description} onChange={handleChange} required/>
+                    </div>
+                </div>
+
+                <div className="form-section">
+                    <h3 className="section-title">Цены и количество</h3>
+
+                    <div className="price-group">
+                        <div className="form-group">
+                            <label>Цена до скидки:</label>
+                            <input
+                                min="0"
+                                type="number"
+                                name="originalPrice"
+                                value={formData.originalPrice}
+                                onChange={handleChange}
+                                placeholder="0"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label className="required">Цена:</label>
+                            <input
+                                min="0"
+                                type="number"
+                                name="price"
+                                value={formData.price}
+                                onChange={handleChange}
+                                placeholder="0"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label className="required">Количество:</label>
+                        <input
+                            type="number"
+                            name="quantity"
+                            min="1"
+                            value={formData.quantity}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="form-section">
+                    <h3 className="section-title">Размеры и цвета</h3>
+
+                    <div className="form-group">
+                        <label>Размеры:</label>
+                        <input
+                            type="text"
+                            name="sizes"
+                            value={Array.isArray(formData.sizes) ? formData.sizes.join(', ') : ''}
+                            onChange={handleSizesChange}
+                            placeholder="Введите размеры через запятую"
+                        />
+                        <p className="input-hint">Например: S, M, L, XL</p>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Цвета:</label>
+                        {formData.colors && formData.colors.map((color, index) => (
+                            <div key={index} className="color-input-group">
+                                <input
+                                    type="text"
+                                    value={color.name}
+                                    onChange={(e) => handleColorChange(index, 'name', e.target.value)}
+                                    placeholder="Название цвета"
+                                />
+                                <input
+                                    type="color"
+                                    value={color.value}
+                                    onChange={(e) => handleColorChange(index, 'value', e.target.value)}
+                                />
+                                <button
+                                    className="remove-btn"
+                                    type="button"
+                                    onClick={() => setFormData({
+                                        ...formData,
+                                        colors: formData.colors.filter((_, i) => i !== index)
+                                    })}
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                        ))}
+
+                        <button
+                            className="add-btn"
                             type="button"
                             onClick={() => setFormData({
                                 ...formData,
-                                characteristics: formData.characteristics.filter((_, i) => i !== index)
+                                colors: [...formData.colors, {name: '', value: '#000000'}]
                             })}
+                        >
+                            + Добавить цвет
+                        </button>
+                    </div>
+                </div>
+
+                <div className="form-section">
+                    <h3 className="section-title">Характеристики</h3>
+
+                    {formData.characteristics.map((char, index) => (
+                        <div key={index} className="characteristic-input-group">
+                            <input
+                                type="text"
+                                value={char.name}
+                                onChange={(e) => handleCharacteristicChange(index, 'name', e.target.value)}
+                                placeholder="Название характеристики"
+                            />
+                            <input
+                                type="text"
+                                value={char.value}
+                                onChange={(e) => handleCharacteristicChange(index, 'value', e.target.value)}
+                                placeholder="Значение характеристики"
+                            />
+                            <button
+                                className="remove-btn"
+                                type="button"
+                                onClick={() => setFormData({
+                                    ...formData,
+                                    characteristics: formData.characteristics.filter((_, i) => i !== index)
+                                })}
+                            >
+                                &times;
+                            </button>
+                        </div>
+                    ))}
+
+                    <button
+                        className="add-btn"
+                        type="button"
+                        onClick={() => setFormData({
+                            ...formData,
+                            characteristics: [...formData.characteristics, {name: '', value: ''}]
+                        })}
                     >
-                        &#10006;
+                        + Добавить характеристику
                     </button>
                 </div>
-            ))}
-            <button className="newProductAdd" type="button" onClick={() => setFormData({
-                ...formData,
-                characteristics: [...formData.characteristics, {name: '', value: ''}]
-            })}>
-                Добавить характеристику
-            </button>
 
-            <label>Изображения:</label>
+                <div className="form-section">
+                    <h3 className="section-title">Изображения</h3>
+                    <p className="image-limit">Максимум 5 изображений (добавлено: {formData.images.length})</p>
 
-            {formData.images.map((image, index) => (
-                <ImageManager
-                    key={index}
-                    image={image}
-                    index={index}
-                    onMoveUp={handleMoveImageUp}
-                    onMoveDown={handleMoveImageDown}
-                    onRemove={handleImageRemove}
-                />
+                    <div className="image-preview-container">
+                        {formData.images.map((image, index) => (
+                            <ImageManager
+                                key={index}
+                                image={image}
+                                index={index}
+                                onMoveUp={handleMoveImageUp}
+                                onMoveDown={handleMoveImageDown}
+                                onRemove={handleImageRemove}
+                            />
+                        ))}
+                    </div>
 
-            ))}
+                    <div className="image-upload-options">
+                        <div className="form-group">
+                            <label>Загрузить изображение:</label>
+                            <input
+                                className="file-input"
+                                type="file"
+                                onChange={handleFileChange}
+                                accept="image/*"
+                                disabled={formData.images.length >= 5}
+                            />
+                        </div>
 
-            <label>Выберите подходящую картинку:</label>
-            <input style={{marginTop:"0" , marginBottom:"22px"}} className="newProductAdd-input" type="file" onChange={handleFileChange} accept="image/*" />
-            {/*{imagePreview && <img src={imagePreview} alt="Предпросмотр изображения" style={{ width: '100px', height: '100px' }} />}*/}
-              <label style={{ textDecoration:"none", cursor:"text"}}>Или введите URL:</label>
-            <input
-                className="w-full px-3 py-2 border rounded"
-                id="imageUrl"
-                name="imageUrl"
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-            />
-            <button
-                className="newProductAdd"
-                type="button"
-                onClick={handleAddImageByUrl}
-                disabled={formData.images.length >= 5}
-            >
-                {formData.images.length >= 5 ? 'Достигнут лимит (5)' : 'Добавить изображение'}
-            </button>
+                        <div className="form-group">
+                            <label>Или указать URL:</label>
+                            <div className="url-input-group">
+                                <input
+                                    type="text"
+                                    value={imageUrl}
+                                    onChange={(e) => setImageUrl(e.target.value)}
+                                    placeholder="https://example.com/image.jpg"
+                                    disabled={formData.images.length >= 5}
+                                />
+                                <button
+                                    className="add-url-btn"
+                                    type="button"
+                                    onClick={handleAddImageByUrl}
+                                    disabled={formData.images.length >= 5 || !imageUrl.trim()}
+                                >
+                                    Добавить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div className="submitBtn">
-                {/*<button className="submit" type="submit" disabled={isSubmitting}>&#10004; Создать продукт</button>*/}
-
-                <button className="submit" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? 'Отправка...' : productId ? 'Изменить продукт' : 'Создать продукт'}
-                </button>
-
-                <button className="cancel" type="button" onClick={closeProductForm}>&#10006; Отмена</button>
-            </div>
-        </form>
+                <div className="form-actions">
+                    <button
+                        className="cancel-btn"
+                        type="button"
+                        onClick={closeProductForm}
+                    >
+                        Отмена
+                    </button>
+                    <button
+                        className="submit-btn"
+                        type="submit"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? (
+                            <span className="loading">Сохранение...</span>
+                        ) : productId ? (
+                            'Сохранить изменения'
+                        ) : (
+                            'Создать товар'
+                        )}
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 };
 
-
 export default ProductForm;
-

@@ -1,31 +1,49 @@
 import React from 'react';
 import admin_cross from './admin-images/admin-cross.png';
-import admin_up from './admin-images/admin-up.png';
-import admin_down from './admin-images/admin-down.png';
 
 const ImageManager = ({ image, index, onMoveUp, onMoveDown, onRemove }) => {
-    const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
-
+    const imageBaseUrl = process.env.REACT_APP_API_URL;
 
     const getFullImageUrl = (image) => {
         return image.startsWith('/uploads') ? `${imageBaseUrl}${image}` : image;
     };
 
-
     return (
-        <div className="image-manager">
-               <button className="image-manager-move-up" type="button" onClick={() => onMoveUp(index)}>
-                <img src={admin_up}/>
-            </button>
+        <div className="image-manager-item">
+            <div className="image-manager-preview">
 
-            <img src={getFullImageUrl(image)} alt={`Image ${index + 1}`} style={{ width: '70px', height: '70px' }} />
-
-            <button className="image-manager-move-down" type="button" onClick={() => onMoveDown(index)}>
-                <img src={admin_down}/>
-            </button>
-            <button className="image-manager-move-delete" type="button" onClick={() => onRemove(index)}>
-                <img src={admin_cross}/>
-            </button>
+                <img
+                    src={getFullImageUrl(image)}
+                    alt={`Image ${index + 1}` || ''}
+                    className="image-preview"
+                />
+            </div>
+            <div className="image-manager-controls">
+                <button
+                    className="image-manager-btn move-left"
+                    type="button"
+                    onClick={() => onMoveUp(index)}
+                    aria-label="Move image left"
+                >
+                    &larr; {/* Символ стрелки влево */}
+                </button>
+                <button
+                    className="image-manager-btn move-right"
+                    type="button"
+                    onClick={() => onMoveDown(index)}
+                    aria-label="Move image right"
+                >
+                    &rarr; {/* Символ стрелки вправо */}
+                </button>
+                <button
+                    className="image-manager-btn remove"
+                    type="button"
+                    onClick={() => onRemove(index)}
+                    aria-label="Remove image"
+                >
+                    <img src={admin_cross} alt="Remove" />
+                </button>
+            </div>
         </div>
     );
 };
