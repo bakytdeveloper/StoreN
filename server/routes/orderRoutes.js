@@ -5,8 +5,6 @@ const User = require("../models/User");
 const {authenticateToken} = require("../middleware/authenticateToken");
 const Seller = require("../models/Seller");
 const Product = require("../models/Product");
-const fs = require('fs');
-const path = require('path');
 const {getSellerPurchaseHistory} = require("../controllers/orders");
 const {jwtDecode} = require("jwt-decode");
 const {checkRole} = require("../middleware/authenticateToken");
@@ -429,10 +427,8 @@ router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['a
 
 
 // Удаление товара из заказа
+// Удаление товара из заказа с возвратом на склад
 router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
-    console.log('Received request to remove product');
-    console.log('Request body:', req.body);
-
     const { orderId } = req.params;
     const { productIndex } = req.body;
 
@@ -446,8 +442,24 @@ router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']
             return res.status(404).json({ message: 'Product not found in order' });
         }
 
+        // Получаем информацию о товаре перед удалением
+        const productToRemove = order.products[productIndex];
+
+        // Удаляем товар из заказа
         order.products.splice(productIndex, 1);
-        order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
+
+        // Возвращаем товар на склад
+        await Product.findByIdAndUpdate(
+            productToRemove.product,
+            { $inc: { quantity: productToRemove.quantity } },
+            { new: true }
+        );
+
+        // Пересчитываем общую сумму
+        order.totalAmount = order.products.reduce(
+            (total, item) => total + (item.price || 0) * (item.quantity || 0),
+            0
+        );
 
         // Если после удаления товаров в заказе их не осталось, удаляем заказ
         if (order.products.length === 0) {
@@ -458,10 +470,10 @@ router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']
         await order.save();
         res.json(order);
     } catch (error) {
+        console.error('Error removing product from order:', error);
         res.status(500).json({ message: error.message });
     }
 });
-
 
 
 // Удаление заказа с возвратом товаров

@@ -9,7 +9,6 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
     const [order, setOrder] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
     const [editMode, setEditMode] = useState({});
-    const [sellers, setSellers] = useState([]);
     const [deleteConfirmation, setDeleteConfirmation] = useState(null);
     const [orderDeleteConfirmation, setOrderDeleteConfirmation] = useState(false);
     const [sellerInfo, setSellerInfo] = useState(null);
@@ -127,36 +126,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
         }
     };
 
-    // Добавим обработку статуса заказа
-    const updateOrderStatus = async (newStatus) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-status/${orderId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify({ status: newStatus }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to update order status');
-            }
-
-            const updatedOrder = await response.json();
-            setOrder(updatedOrder);
-            alert('Статус заказа успешно обновлен');
-        } catch (error) {
-            console.error('Error updating order status:', error);
-            alert('Ошибка при обновлении статуса заказа');
-        }
-    };
 
     const onDeleteItem = async (productIndex) => {
         if (productIndex === undefined || productIndex < 0) {
             console.log('Требуется индекс продукта');
             return;
         }
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/remove-product/${orderId}`, {
                 method: 'DELETE',
@@ -164,40 +140,55 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({ productIndex }), // Передаем индекс вместо productId
+                body: JSON.stringify({ productIndex }),
             });
+
             const result = await response.json();
+
             if (response.ok) {
-                if (result.message === 'Заказ удален, так как в нем не осталось товаров') {
-                    console.log('Заказ удален, так как в нем не осталось товаров');
+                if (result.message === 'Order deleted as it has no products left') {
+                    // Обработка удаления всего заказа
                     setOrder(null);
-                    setTotalAmount(0); // Обновляем состояние totalAmount
-                    // Обеспечиваем, что orders - массив перед фильтрацией
+                    setTotalAmount(0);
                     if (Array.isArray(orders)) {
                         const updatedOrders = orders.filter((order) => order._id !== orderId);
                         setOrders(updatedOrders);
                     }
+                    alert('Заказ удалён, так как в нём не осталось товаров');
+                    history.goBack();
                     return;
                 }
+
+                // Обновляем локальное состояние
                 const updatedOrder = { ...order };
+                const removedProduct = updatedOrder.products[productIndex];
                 updatedOrder.products.splice(productIndex, 1);
                 updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
+
                 setOrder(updatedOrder);
-                setTotalAmount(updatedOrder.totalAmount); // Обновляем состояние totalAmount
-                const updatedOrders = orders.map((order) =>
-                    order._id === orderId ? updatedOrder : order
-                );
-                setOrders(updatedOrders);
+                setTotalAmount(updatedOrder.totalAmount);
+
+                if (Array.isArray(orders)) {
+                    const updatedOrders = orders.map((order) =>
+                        order._id === orderId ? updatedOrder : order
+                    );
+                    setOrders(updatedOrders);
+                }
+
                 setDeleteConfirmation(null);
                 setEditMode({});
+
+                // Показываем уведомление о возврате товара
+                alert(`Товар "${removedProduct.name}" (${removedProduct.quantity} шт.) возвращён на склад`);
             } else {
                 console.error('Failed to delete item:', result);
+                alert('Ошибка при удалении товара: ' + (result.message || 'Неизвестная ошибка'));
             }
         } catch (error) {
             console.error('Error deleting item:', error);
+            alert('Ошибка при удалении товара: ' + error.message);
         }
     };
-
 
     const deleteOrder = async (orderId) => {
         if (!orderId) {
