@@ -4,10 +4,13 @@ import './AdminHomepage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ConfirmationModal from './ConfirmationModal';
+import {useHistory} from "react-router-dom";
 
 const AdminHomepage = () => {
     const [sliderImages, setSliderImages] = useState([]);
+    // eslint-disable-next-line
     const [genderImages, setGenderImages] = useState([]);
+    // eslint-disable-next-line
     const [promotion, setPromotion] = useState({});
     const [newSliderImage, setNewSliderImage] = useState('');
     const [promotionTitle, setPromotionTitle] = useState('');
@@ -28,6 +31,7 @@ const AdminHomepage = () => {
     const [showPromotionSection, setShowPromotionSection] = useState(false); // Для управления видимостью секции
     const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
     const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
+    // eslint-disable-next-line
     const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
     const [titleColor, setTitleColor] = useState('#000000'); // Цвет заголовка по умолчанию
     const [descriptionColor, setDescriptionColor] = useState('#000000'); // Цвет описания по умолчанию
@@ -75,6 +79,8 @@ const AdminHomepage = () => {
         'Trebuchet MS',
         'Impact'
     ];
+
+    const history = useHistory();
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/api/homepage`)
@@ -213,10 +219,19 @@ const AdminHomepage = () => {
         };
     }, []);
 
+    const handleClose = () => {
+        history.goBack();
+    };
+
 
     return (
         <div className="homepage-images">
             <h1 style={{textAlign:"center"}}>Управления главной страницей</h1>
+            <span
+                className="sellersListClose"
+                type="button" onClick={handleClose}>
+                &#10006;
+            </span>
             <section>
                 <h2>Картинка для слайдера</h2>
                 <input
@@ -383,7 +398,7 @@ const AdminHomepage = () => {
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
                 onConfirm={confirmRemoveSliderImage} // Передаем функцию подтверждения удаления
-                message="Вы уверены, что хотите удалить этот элемент из слайдера??"
+                message="Вы уверены, что хотите удалить этот элемент из слайдера?"
             />
             <ToastContainer />
         </div>

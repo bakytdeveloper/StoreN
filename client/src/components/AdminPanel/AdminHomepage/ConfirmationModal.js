@@ -9,8 +9,8 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, message }) => {
             <div className="confirmation-modal-content">
                 <h2>Confirm Action</h2>
                 <p>{message}</p>
-                <button onClick={onConfirm}>Confirm</button>
-                <button onClick={onClose}>Cancel</button>
+                <button onClick={onConfirm}>Подтвердить</button>
+                <button onClick={onClose}>Отменить</button>
             </div>
         </div>
     );

@@ -13,8 +13,11 @@ import {jwtDecode} from 'jwt-decode';
 const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalItems, setTotalItems] = useState(0);
+    // eslint-disable-next-line
     const [showPayment, setShowPayment] = useState(false);
+    // eslint-disable-next-line
     const [user, setUser] = useState(null);
+    // eslint-disable-next-line
     const [showCheckout, setShowCheckout] = useState(false);
     const [section, setSection] = useState(1);
     const [section1Filled, setSection1Filled] = useState(false);
@@ -101,11 +104,6 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const handleCheckout = () => {
         setShowCheckout(true);
         setSection(2);
-    };
-
-    const handlePayment = () => {
-        setShowPayment(true);
-        setSection(3);
     };
 
     const handleQuantityChange = (productId, newQuantity) => {
@@ -207,6 +205,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         };
 
         try {
+            // eslint-disable-next-line
             const [orderResponse, emailResponse] = await Promise.all([
                 fetch(`${apiUrl}/api/orders`, {
                     method: 'POST',
@@ -476,7 +475,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                        onClick={handlePlaceOrder}
                                        disabled={orderPlaced}
                                    >
-                                       Закрыть
+                                       Заказать
                                    </button>
                                </div>
 
@@ -512,7 +511,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                        {isLoading ? (
                            <div className="spinner"></div>
                        ) : (
-                           section === 3 ? 'Закрыть' : 'Продолжить'
+                           section === 3 ? 'Заказать' : 'Продолжить'
                        )}
                    </button>
                </div>

@@ -5,9 +5,11 @@ import {useHistory} from "react-router-dom";
 
 const OrderList = ({ setShowSidebar }) => {
     const [orders, setOrders] = useState([]);
+    // eslint-disable-next-line
     const [selectedOrder, setSelectedOrder] = useState(null);
     const history = useHistory();
     const [page, setPage] = useState(1);
+    // eslint-disable-next-line
     const [perPage, setPerPage] = useState(20);
 
     const fetchOrders = async (token) => {
@@ -37,9 +39,25 @@ const OrderList = ({ setShowSidebar }) => {
         }
     };
 
+    const getUserRole = (order) => {
+        if (order.seller) {
+            return 'Продавец';
+        }
+        if (order.user) {
+            switch(order.user.role) {
+                case 'customer': return 'Клиент';
+                case 'guest': return 'Гость';
+                case 'admin': return 'Админ';
+                default: return order.user.role || 'Клиент';
+            }
+        }
+        return 'Гость';
+    };
+
 
     useEffect(() => {
         fetchOrders();
+        // eslint-disable-next-line
     }, [page, perPage]);
 
     useEffect(() => {
@@ -52,6 +70,7 @@ const OrderList = ({ setShowSidebar }) => {
         }
 
         fetchOrders(token);
+        // eslint-disable-next-line
     }, [history, page, perPage]);
 
     const getOrderNumber = (index) => {
@@ -119,10 +138,6 @@ const OrderList = ({ setShowSidebar }) => {
         // window.location.reload();
     };
 
-    const handleCloseModal = () => {
-        setSelectedOrder(null);
-    };
-
     useEffect(() => {
         setShowSidebar(true);
         return () => {
@@ -182,10 +197,10 @@ const OrderList = ({ setShowSidebar }) => {
 
                 <tbody>
                 {sortedOrders.reverse().map((order, index) => (
-                    <tr key={order._id}>
+                    <tr key={order._id} style={{cursor:"pointer"}}>
                         <td style={{ textAlign: 'center' }}>{getOrderNumber(index)}</td>
                         <td onClick={() => handleOrderClick(order._id)}>
-                            {order.user ? order.user.role : order.sellerData ? 'Продавец' : 'Гость'}
+                            {getUserRole(order)}
                         </td>
                         <td onClick={() => handleOrderClick(order._id)}>
                             {order.user ? order.user.name : (order.sellerData ? order.sellerData.name : (order.guestInfo ? order.guestInfo.name : '-'))}
@@ -235,9 +250,9 @@ const OrderList = ({ setShowSidebar }) => {
 
             </table>
             <div className="pagination-order-admin">
-                <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Prev</button>
+                <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Назад</button>
                 <span>Страница {page}</span>
-                <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={orders.length < perPage}>Next</button>
+                <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={orders.length < perPage}>Вперёд</button>
             </div>
         </div>
     );
