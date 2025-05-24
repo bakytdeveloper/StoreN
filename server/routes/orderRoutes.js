@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
             const decodedToken = jwtDecode(token);  // Это может быть проблемным, если токен некорректен
             sellerId = decodedToken.role === 'seller' ? decodedToken.sellerId : null;
         } catch (error) {
-            console.error('Token decoding error:', error);
+            console.error('Это гость, он без токена');
         }
     }
 
