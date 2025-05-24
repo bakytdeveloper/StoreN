@@ -12,6 +12,40 @@ const {jwtDecode} = require("jwt-decode");
 const {checkRole} = require("../middleware/authenticateToken");
 const {transporter} = require('../smtp/otpService');
 
+
+// Возврат товаров на склад
+async function returnProductsToStock(products) {
+    for (const item of products) {
+        try {
+            await Product.findByIdAndUpdate(
+                item.product,
+                { $inc: { quantity: item.quantity } },
+                { new: true }
+            );
+        } catch (error) {
+            console.error(`Error returning product ${item.product} to stock:`, error);
+        }
+    }
+}
+
+// Уменьшение количества товаров на складе
+async function deductProductsFromStock(products) {
+    for (const item of products) {
+        try {
+            const product = await Product.findById(item.product);
+            if (product.quantity < item.quantity) {
+                throw new Error(`Insufficient quantity for product ${product.name}`);
+            }
+            product.quantity -= item.quantity;
+            await product.save();
+        } catch (error) {
+            console.error(`Error deducting product ${item.product} from stock:`, error);
+            throw error;
+        }
+    }
+}
+
+
 router.post('/', async (req, res) => {
     const { user, guestInfo, products, totalAmount, firstName, address, phoneNumber, paymentMethod, comments } = req.body;
     let userId;
@@ -278,11 +312,26 @@ router.get('/:orderId',  async (req, res) => {
 });
 
 // Обновление статуса заказа
+// Обновление статуса заказа с возвратом товаров при отмене
 router.put('/update-status/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
 
     try {
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        // Если статус меняется на "cancelled", возвращаем товары на склад
+        if (status === 'cancelled' && order.status !== 'cancelled') {
+            await returnProductsToStock(order.products);
+        }
+        // Если статус был "cancelled" и меняется на другой, снова уменьшаем количество товаров
+        else if (order.status === 'cancelled' && status !== 'cancelled') {
+            await deductProductsFromStock(order.products);
+        }
+
         const updatedOrder = await Order.findByIdAndUpdate(
             orderId,
             {
@@ -292,16 +341,11 @@ router.put('/update-status/:orderId', authenticateToken, checkRole(['admin']), a
             { new: true }
         );
 
-        if (updatedOrder) {
-            res.json(updatedOrder);
-        } else {
-            res.status(404).json({ message: 'Order not found' });
-        }
+        res.json(updatedOrder);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 // Обновление комментариев админа
 router.put('/update-comments-admin/:orderId', authenticateToken,  checkRole(['admin']), async (req, res) => {
@@ -328,10 +372,8 @@ router.put('/update-comments-admin/:orderId', authenticateToken,  checkRole(['ad
 
 
 // Обновление количества товара в заказе
+// Обновление количества товара в заказе
 router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
-    console.log('Received request to update product quantity');
-    console.log('Request body:', req.body);
-
     const { orderId } = req.params;
     const { productIndex, quantity } = req.body;
 
@@ -341,26 +383,50 @@ router.put('/update-product-quantity/:orderId', authenticateToken, checkRole(['a
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        const product = order.products[productIndex];
-        if (!product) {
+        const productItem = order.products[productIndex];
+        if (!productItem) {
             return res.status(404).json({ message: 'Product not found in order' });
         }
 
-        product.quantity = quantity;
-        order.totalAmount = order.products.reduce((total, item) => total + (item.price || 0) * (item.quantity || 0), 0);
-
-        // Если после обновления товаров в заказе их не осталось, удаляем заказ
-        if (order.products.length === 0) {
-            await Order.findByIdAndDelete(orderId);
-            return res.json({ message: 'Order deleted as it has no products left' });
+        // Находим продукт в базе данных
+        const product = await Product.findById(productItem.product);
+        if (!product) {
+            return res.status(404).json({ message: 'Original product not found' });
         }
+
+        // Вычисляем разницу в количестве
+        const quantityDifference = quantity - productItem.quantity;
+
+        // Проверяем, достаточно ли товара на складе для увеличения количества
+        if (quantityDifference > 0 && product.quantity < quantityDifference) {
+            return res.status(400).json({
+                message: 'Insufficient product quantity',
+                available: product.quantity
+            });
+        }
+
+        // Обновляем количество в заказе
+        productItem.quantity = quantity;
+
+        // Обновляем количество товара у продавца
+        product.quantity -= quantityDifference;
+        await product.save();
+
+        // Пересчитываем общую сумму заказа
+        order.totalAmount = order.products.reduce(
+            (total, item) => total + (item.price || 0) * (item.quantity || 0),
+            0
+        );
 
         await order.save();
         res.json(order);
     } catch (error) {
+        console.error('Error updating product quantity:', error);
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 // Удаление товара из заказа
 router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']), async (req, res) => {
@@ -398,13 +464,18 @@ router.delete('/remove-product/:orderId', authenticateToken, checkRole(['admin']
 
 
 
-// DELETE route to delete an order by ID
-router.delete('/:id', authenticateToken, async (req, res) => {
+// Удаление заказа с возвратом товаров
+router.delete('/:id', authenticateToken, checkRole(['admin']), async (req, res) => {
     try {
-        const deletedOrder = await Order.findByIdAndDelete(req.params.id);
-        if (!deletedOrder) {
+        const order = await Order.findById(req.params.id);
+        if (!order) {
             return res.status(404).json({ message: 'Order not found' });
         }
+
+        // Возвращаем товары на склад перед удалением заказа
+        await returnProductsToStock(order.products);
+
+        await Order.findByIdAndDelete(req.params.id);
         res.json({ message: 'Order deleted successfully' });
     } catch (error) {
         console.error('Error deleting order:', error);

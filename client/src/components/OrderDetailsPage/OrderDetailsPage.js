@@ -85,11 +85,13 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
             , 0);
     };
 
+// Обновим функцию updateQuantity для обработки ошибок недостатка товаров
     const updateQuantity = async (productIndex, newQuantity) => {
         if (newQuantity < 0) {
-            console.log('Нельзя установить отрицательное количество товара');
+            alert('Нельзя установить отрицательное количество товара');
             return;
         }
+
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-product-quantity/${orderId}`, {
                 method: 'PUT',
@@ -97,27 +99,56 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
-                body: JSON.stringify({ productIndex, quantity: newQuantity }), // Передаем индекс вместо productId
+                body: JSON.stringify({ productIndex, quantity: newQuantity }),
             });
-            const result = await response.json();
-            if (response.ok) {
-                const updatedOrder = { ...order };
-                updatedOrder.products[productIndex].quantity = newQuantity;
-                updatedOrder.totalAmount = calculateTotalAmountLocally(updatedOrder.products);
-                setOrder(updatedOrder);
-                setTotalAmount(updatedOrder.totalAmount); // Обновляем состояние totalAmount
-                // Обеспечиваем, что orders - массив перед вызовом map
-                if (Array.isArray(orders)) {
-                    const updatedOrders = orders.map((order) =>
-                        order._id === orderId ? updatedOrder : order
-                    );
-                    setOrders(updatedOrders);
+
+            if (!response.ok) {
+                const result = await response.json();
+                if (result.message === 'Insufficient product quantity') {
+                    alert(`Недостаточно товара на складе. Доступно: ${result.available}`);
+                    return;
                 }
-            } else {
-                console.error('Failed to update quantity:', result);
+                throw new Error(result.message || 'Failed to update quantity');
+            }
+
+            const updatedOrder = await response.json();
+            setOrder(updatedOrder);
+            setTotalAmount(calculateTotalAmountLocally(updatedOrder.products));
+
+            if (Array.isArray(orders)) {
+                const updatedOrders = orders.map((order) =>
+                    order._id === orderId ? updatedOrder : order
+                );
+                setOrders(updatedOrders);
             }
         } catch (error) {
             console.error('Error updating quantity:', error);
+            alert(`Ошибка при обновлении количества: ${error.message}`);
+        }
+    };
+
+    // Добавим обработку статуса заказа
+    const updateOrderStatus = async (newStatus) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/orders/update-status/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({ status: newStatus }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update order status');
+            }
+
+            const updatedOrder = await response.json();
+            setOrder(updatedOrder);
+            alert('Статус заказа успешно обновлен');
+        } catch (error) {
+            console.error('Error updating order status:', error);
+            alert('Ошибка при обновлении статуса заказа');
         }
     };
 
