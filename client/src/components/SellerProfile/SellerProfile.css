@@ -5,6 +5,23 @@
     bottom: 5px;
 }
 
+.button-sellers-profile-save {
+    padding: 5px 0;
+    text-align: center;
+}
+
+.seller-profile-buttons {
+    padding: 5px 0;
+    text-align: center;
+}
+
+.seller-profile-buttons-none {
+    margin-right: 10px;
+}
+.seller-profile-buttons-add {
+    margin-left: 10px;
+}
+
 
 @media only screen and (max-width: 768px) {
 

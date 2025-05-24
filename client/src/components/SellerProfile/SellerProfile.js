@@ -281,7 +281,7 @@ const SellerProfile = ({ setShowSidebar }) => {
             <div className="profile-content" >
                 {seller ? (
                     <div>
-                        <h3>Профиль Компании/ИП, "{seller.companyName}"</h3>
+                        <h3>Профиль Компании, "{seller.companyName}"</h3>
 
                         {activeTab === 'editProfile' && (
                             <div>
@@ -305,7 +305,9 @@ const SellerProfile = ({ setShowSidebar }) => {
                                     <label>Номер телефона:</label>
                                     <input type="text" value={editedPhoneNumber} onChange={(e) => setEditedPhoneNumber(e.target.value)} />
                                 </div>
-                                <button onClick={handleEditProfile}>Сохранить</button>
+                                <div className="button-sellers-profile-save">
+                                    <button onClick={handleEditProfile}>Сохранить</button>
+                                </div>
                             </div>
                         )}
                         {activeTab === 'editPassword' && (
@@ -332,8 +334,8 @@ const SellerProfile = ({ setShowSidebar }) => {
                                     </div>
                                 </div>
                                 <div className="seller-profile-buttons">
-                                    <button className="seller-profile-buttons-add" onClick={handleSavePassword}>Сохранить</button>
                                     <button className="seller-profile-buttons-none" onClick={handleCancelEditPassword}>Отмена</button>
+                                    <button className="seller-profile-buttons-add" onClick={handleSavePassword}>Сохранить</button>
                                 </div>
                             </div>
                         )}

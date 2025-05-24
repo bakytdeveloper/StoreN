@@ -1,10 +1,8 @@
 // src/components/Modal.js
 import React, {useEffect} from 'react';
 import './SellerProductsHide.css';
-import {useHistory} from "react-router-dom"; // Не забудьте создать этот файл с соответствующими стилями
 
 const SellerProductsHide = ({ show, actionText, onConfirm, onCancel }) => {
-    const history = useHistory();
 
     useEffect(() => {
         if (show) {
@@ -34,8 +32,8 @@ const SellerProductsHide = ({ show, actionText, onConfirm, onCancel }) => {
                 <h3>Подтверждение</h3>
                 <div>Вы уверены, что хотите {actionText}?</div>
                 <div className="modal-buttons">
-                    <button className="modal-buttons-left" onClick={onConfirm}>Подтвердить</button>
                     <button className="modal-buttons-right" onClick={onCancel}>Отмена</button>
+                    <button className="modal-buttons-left" onClick={onConfirm}>Подтвердить</button>
                 </div>
             </div>
         </div>

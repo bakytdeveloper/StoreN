@@ -11,6 +11,7 @@ import {jwtDecode} from 'jwt-decode';
 
 const Profile = ({ setShowSidebar }) => {
     const [user, setUser] = useState(null);
+    // eslint-disable-next-line
     const [orders, setOrders] = useState([]);
     const [userOrders, setUserOrders] = useState([]);
     const [activeTab, setActiveTab] = useState('editProfile');
@@ -24,9 +25,18 @@ const Profile = ({ setShowSidebar }) => {
     const [editedEmail, setEditedEmail] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [page, setPage] = useState(1);
+    // eslint-disable-next-line
     const [pageSize, setPageSize] = useState(5);
     const [totalPages, setTotalPages] = useState(0);
     const history = useHistory();
+
+    // Добавляем объект с переводами статусов
+    const statusTranslations = {
+        pending: "В ожидании",
+        inProgress: "В процессе",
+        completed: "Завершено",
+        cancelled: "Отменено"
+    };
 
     useEffect(() => {
         setShowSidebar(true);
@@ -168,6 +178,7 @@ const Profile = ({ setShowSidebar }) => {
         fetchProfile();
         fetchUserOrders();
         fetchPurchaseHistory();
+        // eslint-disable-next-line
     }, [page, pageSize]);
 
     const handleEditProfile = async () => {
@@ -395,7 +406,7 @@ const Profile = ({ setShowSidebar }) => {
                         {activeTab === 'editPassword' && (
                             <>
                                 <div className="profile-input">
-                                    <label>Current Password:</label>
+                                    <label>Текущий пароль:</label>
                                     <div className="password-input-container">
                                         <input
                                             type={showPassword ? 'text' : 'password'}
@@ -408,7 +419,7 @@ const Profile = ({ setShowSidebar }) => {
                                     </div>
                                 </div>
                                 <div className="profile-input">
-                                    <label>New Password:</label>
+                                    <label>Новый пароль:</label>
                                     <div className="password-input-container">
                                         <input
                                             type={showPassword ? 'text' : 'password'}
@@ -421,7 +432,7 @@ const Profile = ({ setShowSidebar }) => {
                                     </div>
                                 </div>
                                 <div className="profile-input">
-                                    <label>Confirm Password:</label>
+                                    <label>Подтвердите пароль:</label>
                                     <div className="password-input-container">
                                         <input
                                             type={showPassword ? 'text' : 'password'}
@@ -434,8 +445,8 @@ const Profile = ({ setShowSidebar }) => {
                                     </div>
                                 </div>
                                 <div className="profile-buttons">
-                                    <button className="addProfile" onClick={handleSavePassword}>Изменить</button>
                                     <button className="noAdd" onClick={handleCancelEditPassword}>Отменить</button>
+                                    <button className="addProfile" onClick={handleSavePassword}>Изменить</button>
                                 </div>
                             </>
                         )}
@@ -443,7 +454,7 @@ const Profile = ({ setShowSidebar }) => {
                             <div className="purchase-history">
                                 <table className="order-history-table">
                                     <thead>
-                                    <tr>
+                                    <tr className="purchase-history-title">
                                         <th>№</th>
                                         <th>Дата создания</th>
                                         <th>Статус</th>
@@ -474,7 +485,7 @@ const Profile = ({ setShowSidebar }) => {
                                             <tr key={order._id}>
                                                 <td>{(page - 1) * pageSize + index + 1}</td>
                                                 <td>{formatDate(order.date)}</td>
-                                                <td>{order.status}</td>
+                                                <td>{statusTranslations[order.status] || order.status}</td>
                                                 <td>
                                                     <ul>
                                                         {order.products.map(item => (

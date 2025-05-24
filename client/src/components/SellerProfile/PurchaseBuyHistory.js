@@ -59,6 +59,7 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
                 <table className="order-history-table">
                     <thead>
                     <tr>
+                        <th>№</th>
                         <th>Дата</th>
                         <th>Статус</th>
                         <th>Брэнд товара</th>
@@ -72,9 +73,10 @@ const PurchaseBuyHistory = ({ setShowSidebar }) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {orders.map((order) => (
+                    {orders.reverse().map((order, i) => (
                         order.products.map((item, index) => (
                             <tr key={`${order._id}-${item._id || index}`}>
+                                <td>{i+1}</td>
                                 {index === 0 && (
                                     <>
                                         <td rowSpan={order.products.length}>

@@ -390,8 +390,8 @@ const AdminHomepage = () => {
             </section>
             <section>
                 <div style={{display:"flex", margin:"0 auto", width:"80%", marginBottom:"30px" }}>
-                    <button onClick={handleSaveAll}>Сохранить все обновления</button>
                     <button onClick={handleReset} style={{ marginLeft: '10px' }}>Сбросить</button>
+                    <button onClick={handleSaveAll}>Сохранить все обновления</button>
                 </div>
             </section>
             <ConfirmationModal

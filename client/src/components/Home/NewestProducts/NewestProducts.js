@@ -10,6 +10,7 @@ const NewestProducts = ({ apiUrl }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    // eslint-disable-next-line
     const [columns, setColumns] = useState(6);
     const [favorites, setFavorites] = useState([]);
 
@@ -22,6 +23,7 @@ const NewestProducts = ({ apiUrl }) => {
         const decodedToken = jwtDecode(token);
         userId = decodedToken.userId;
     }
+
 
     useEffect(() => {
         const fetchNewestProducts = async () => {

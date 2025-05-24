@@ -92,6 +92,7 @@ const SalesHistory = ({ setShowSidebar }) => {
             <table>
                 <thead>
                 <tr>
+                    <th>№</th>
                     <th>Дата</th>
                     <th>Статус</th>
                     <th>Тип товара</th>
@@ -104,9 +105,10 @@ const SalesHistory = ({ setShowSidebar }) => {
                 </tr>
                 </thead>
                 <tbody>
-                {orders.map((order) => (
+                {orders.map((order, i) => (
                     order.products.map((item, index) => (
                         <tr key={`${order._id}-${item._id || `${item.name}-${item.color}-${item.size}-${index}`}`}>
+                            <td>{i+1}</td>
                             {index === 0 && (
                                 <>
                                     <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
