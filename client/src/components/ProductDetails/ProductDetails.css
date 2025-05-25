@@ -541,8 +541,13 @@ strong {
     justify-content: center;
     align-items: center;
     z-index: 111;
+    cursor: zoom-out;
     overflow-y: auto; /* Добавляем скролл для самого модального окна, если контент не помещается */
 
+}
+
+.modal-overlay .modal-content img {
+    cursor: default;
 }
 
 .modal-content {

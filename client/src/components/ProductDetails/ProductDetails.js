@@ -133,6 +133,13 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     const handleModalClick = (e) => {
         if (e.target.classList.contains('modal-overlay')) {
             handleCloseModal();
+            // setIsModalOpen(false);
+        }
+    };
+    const handleModalContentClick = (e) => {
+        if (e.target.classList.contains('modal-content')) {
+            handleCloseModal();
+            // setIsModalOpen(false);
         }
     };
 
@@ -187,7 +194,7 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
         <div className="product-details-container">
             {isModalOpen && (
                 <div className="modal-overlay" onClick={handleModalClick}>
-                    <div className="modal-content">
+                    <div className="modal-content" onClick={handleModalContentClick}>
                         <button className="modal-close-button" onClick={handleCloseModal}>×</button>
                         <img
                             src={getFullImageUrl(selectedImage)}
