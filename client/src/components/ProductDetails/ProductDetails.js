@@ -108,6 +108,38 @@ const ProductDetails = ({ setShowSidebar, cartItems, setCartItems }) => {
     }, [productId]);
 
     useEffect(() => {
+        if (isModalOpen) {
+            // Запоминаем текущую позицию скролла
+            const scrollY = window.scrollY;
+            // Блокируем скролл
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Разблокируем скролл и возвращаем позицию
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        }
+
+        return () => {
+            // Очистка при размонтировании компонента
+            if (isModalOpen) {
+                const scrollY = document.body.style.top;
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        };
+    }, [isModalOpen]);
+
+    useEffect(() => {
         if (selectedImage && product?.images) {
             const index = product.images.indexOf(selectedImage);
             setCurrentImageIndex(index);
