@@ -163,6 +163,22 @@ const ProductList = ({
     }, [location.search, setSelectedGender]);
 
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const gender = params.get('gender');
+        const category = params.get('category');
+        const page = params.get('page') ? parseInt(params.get('page'), 10) : 1;
+
+        if (gender) {
+            setSelectedGender(decodeURIComponent(gender));
+        }
+        if (category) {
+            setSelectedCategory(decodeURIComponent(category));
+        }
+        setCurrentPage(page);
+    }, [location.search, setSelectedGender, setSelectedCategory]);
+
+
 
     useEffect(() => {
         window.scrollTo({

@@ -71,6 +71,9 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
         setIsFooterCatalog(true);
         if (gender === 'Товары для всех') {
             catalogPage();
+        } else if (gender === 'Аксессуары') {
+            // Специальная обработка для аксессуаров
+            history.push(`/catalog?category=${encodeURIComponent('Аксессуары')}`);
         } else {
             history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
         }
