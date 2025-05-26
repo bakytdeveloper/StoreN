@@ -28,17 +28,17 @@ const AdminHomepage = () => {
         'Бытовая эл.техника': '',
         'Товары для всех': ''
     });
-    const [showPromotionSection, setShowPromotionSection] = useState(false); // Для управления видимостью секции
-    const [showModal, setShowModal] = useState(false); // Состояние для отображения модального окна
-    const [imageToRemove, setImageToRemove] = useState(''); // URL изображения для удаления
+    const [showPromotionSection, setShowPromotionSection] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [imageToRemove, setImageToRemove] = useState('');
     // eslint-disable-next-line
-    const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff'); // Новый стейт для цвета фона
-    const [titleColor, setTitleColor] = useState('#000000'); // Цвет заголовка по умолчанию
-    const [descriptionColor, setDescriptionColor] = useState('#000000'); // Цвет описания по умолчанию
-    const [fontSizeTitle, setFontSizeTitle] = useState('16px');  // Размер шрифта заголовка по умолчанию
-    const [fontSizeDescription, setFontSizeDescription] = useState('14px');  // Размер шрифта описания по умолчанию
-    const [fontFamilleTitle, setFontFamilleTitle] = useState('Arial');  // Добавлено для выбора шрифта заголовка
-    const [fontFamilleDescription, setFontFamilleDescription] = useState('Arial');  // Добавлено для выбора шрифта описания
+    const [selectedBackgroundColor, setSelectedBackgroundColor] = useState('#ffffff');
+    const [titleColor, setTitleColor] = useState('#000000');
+    const [descriptionColor, setDescriptionColor] = useState('#000000');
+    const [fontSizeTitle, setFontSizeTitle] = useState('16px');
+    const [fontSizeDescription, setFontSizeDescription] = useState('14px');
+    const [fontFamilleTitle, setFontFamilleTitle] = useState('Arial');
+    const [fontFamilleDescription, setFontFamilleDescription] = useState('Arial');
     const genderTitles = [
         'Мужская одежда',
         'Женская одежда',
@@ -114,7 +114,6 @@ const AdminHomepage = () => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-
     const handleSaveAll = () => {
         const updatedGenderImages = Object.entries(genderImageUrls).map(([category, url]) => ({ category, url }));
         const newPromotion = {
@@ -135,7 +134,6 @@ const AdminHomepage = () => {
                     fontSizeDescription: fontSizeDescription,
                     fontFamilleTitle: fontFamilleTitle,
                     fontFamilleDescription: fontFamilleDescription,
-
                 } :
                 img
         );
@@ -157,7 +155,6 @@ const AdminHomepage = () => {
             });
     };
 
-
     const handleReset = () => {
         window.location.reload();
     };
@@ -174,7 +171,6 @@ const AdminHomepage = () => {
         setShowModal(false);
     };
 
-
     const handleUpdatePromotion = (image) => {
         setSelectedSliderImage(image.url);
         const promotionData = image.promotions.length > 0 ? image.promotions[0] : {};
@@ -188,7 +184,6 @@ const AdminHomepage = () => {
         setFontSizeDescription(image.fontSizeDescription || '14px');
         setShowPromotionSection(true);
     };
-
 
     useEffect(() => {
         const handleWheel = (e) => {
@@ -223,181 +218,247 @@ const AdminHomepage = () => {
         history.goBack();
     };
 
-
     return (
         <div className="homepage-images">
-            <h1 style={{textAlign:"center"}}>Управления главной страницей</h1>
+            <h1 style={{textAlign:"center"}}>Управление главной страницей</h1>
             <span
                 className="sellersListClose"
                 type="button" onClick={handleClose}>
                 &#10006;
             </span>
-            <section>
-                <h2>Картинка для слайдера</h2>
-                <input
-                    type="text"
-                    value={newSliderImage}
-                    onChange={(e) => setNewSliderImage(e.target.value)}
-                    placeholder="Введите URL картинки новой картики слайдера"
-                    style={{marginBottom:"10px", marginTop:"10px"}}
-                />
-                <button onClick={() => {
-                    setSliderImages([...sliderImages, { url: newSliderImage, promotions: [], colorBackground: '#ffffff' }]);
-                    setNewSliderImage('');
-                }}>Добавить картинку в слайдер</button>
-                <div>
+
+            {/* Секция слайдера */}
+            <section className="admin-section">
+                <h2>Карточка для слайдера</h2>
+                <div className="input-group">
+                   <div className="input-group-add-card-to-slider">
+                       <label>URL новой картинки слайдера:</label>
+                       <input
+                           type="text"
+                           value={newSliderImage}
+                           onChange={(e) => setNewSliderImage(e.target.value)}
+                           placeholder="Введите URL картинки"
+                       />
+                       <button
+                           className="add-card-to-slider"
+                           onClick={() => {
+                               setSliderImages([...sliderImages, { url: newSliderImage, promotions: [], colorBackground: '#ffffff' }]);
+                               setNewSliderImage('');
+                           }}>Добавить карточку к слайдеру</button>
+                   </div>
+                </div>
+
+                <hr />
+
+                <div className="slider-images-container">
                     {sliderImages.map((image, index) => (
-                        <div key={index} style={{ display: 'inline-block', margin: '10px' }}>
+                        <div key={index} className="slider-image-item">
                             <div className="slider-img-background" style={{ backgroundColor: image.colorBackground || '#ffffff' }}>
-                                <img src={image.url} alt={`Slider ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                                <img src={image.url} alt={`Slider ${index}`} className="slider-thumbnail" />
                             </div>
-                            <input
-                                type="color"
-                                value={image.colorBackground || '#ffffff'}
-                                onChange={(e) => {
-                                    const updatedSliderImages = sliderImages.map((img, i) =>
-                                        i === index ? { ...img, colorBackground: e.target.value } : img
-                                    );
-                                    setSliderImages(updatedSliderImages);
-                                }}
-                            />
-                            <div style={{display:"flex", height:"33px", fontSize:"13px"}}>
-                                <div style={{display:"flex", height:"33px", fontSize:"13px"}}>
+                            <div className="slider-controls">
+                                <div className="color-picker-wrapper">
+                                    <label>Цвет фона:</label>
+                                    <input
+                                        type="color"
+                                        value={image.colorBackground || '#ffffff'}
+                                        onChange={(e) => {
+                                            const updatedSliderImages = sliderImages.map((img, i) =>
+                                                i === index ? { ...img, colorBackground: e.target.value } : img
+                                            );
+                                            setSliderImages(updatedSliderImages);
+                                        }}
+                                        className="small-color-input"
+                                    />
+                                </div>
+                                <div className="slider-buttons">
                                     <button onClick={() => handleRemoveSliderImage(image.url)}>Удалить</button>
-                                    <button onClick={() => handleUpdatePromotion(image)}>Обновить акцию</button>
+                                    <button onClick={() => handleUpdatePromotion(image)}>Редактировать</button>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </section>
+
+            {/* Секция акции */}
             {showPromotionSection && (
-                <section>
-                    <h2>Информация об акции на слайдере</h2>
-                    <input
-                        type="text"
-                        value={selectedSliderImage}
-                        onChange={(e) => {
-                            setSelectedSliderImage(e.target.value);
-                            const updatedImages = sliderImages.map(img =>
-                                img.url === selectedSliderImage ? { ...img, url: e.target.value } : img
-                            );
-                            setSliderImages(updatedImages);
-                        }}
-                        placeholder="Введите URL изображения для редактирования"
-                    />
+                <section className="admin-section">
+                    <h2>Настройки акции на слайдере</h2>
 
-                    <input
-                        type="text"
-                        value={promotionTitle}
-                        onChange={(e) => setPromotionTitle(e.target.value)}
-                        placeholder="Заголовок акции"
-                        style={{ marginBottom:"10px", marginTop:"10px", color: titleColor, fontSize: fontSizeTitle, fontFamily: fontFamilleTitle }} // Применение цвета заголовка
-                    />
+                    <div className="input-group">
+                        <label>URL изображения:</label>
+                        <input
+                            type="text"
+                            value={selectedSliderImage}
+                            onChange={(e) => {
+                                setSelectedSliderImage(e.target.value);
+                                const updatedImages = sliderImages.map(img =>
+                                    img.url === selectedSliderImage ? { ...img, url: e.target.value } : img
+                                );
+                                setSliderImages(updatedImages);
+                            }}
+                            placeholder="URL изображения"
+                        />
+                    </div>
 
-                    <input
-                        type="number"
-                        value={fontSizeTitle.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"
-                        onChange={(e) => setFontSizeTitle(`${e.target.value}px`)}
-                        placeholder="Размер шрифта заголовка"
-                    />
+                    <hr/>
 
-                    <select
-                        style={{marginBottom:"10px", marginTop:"10px"}}
-                        value={fontFamilleTitle}
-                        onChange={(e) => setFontFamilleTitle(e.target.value)}
-                    >
-                        {fontFamilies.map((font, index) => (
-                            <option key={index} value={font}>{font}</option>
-                        ))}
-                    </select>
+                    <div className="input-group">
+                        <label>Заголовок акции:</label>
+                        <input
+                            className="input-promotion-title"
+                            type="text"
+                            value={promotionTitle}
+                            onChange={(e) => setPromotionTitle(e.target.value)}
+                            placeholder="Заголовок акции"
+                            style={{ color: titleColor, fontSize: fontSizeTitle, fontFamily: fontFamilleTitle }}
+                        />
+                    </div>
 
-                    <input
-                        type="color"
-                        value={titleColor}
-                        onChange={(e) => setTitleColor(e.target.value)}
-                    />
+                    <div className="style-controls">
+                        <div className="style-control-group">
+                            <label>Шрифт:</label>
+                            <select
+                                value={fontFamilleTitle}
+                                onChange={(e) => setFontFamilleTitle(e.target.value)}
+                                className="small-select"
+                            >
+                                {fontFamilies.map((font, index) => (
+                                    <option key={index} value={font}>{font}</option>
+                                ))}
+                            </select>
+                        </div>
 
-                    <input
-                        type="text"
-                        value={promotionDescription}
-                        onChange={(e) => setPromotionDescription(e.target.value)}
-                        placeholder="Описание акции"
-                        style={{ color: descriptionColor, marginBottom:"10px", marginTop:"10px", fontSize: fontSizeDescription, fontFamily: fontFamilleDescription }} // Применение цвета описания
-                    />
+                        <div className="style-control-group">
+                            <label>Размер шрифта:</label>
+                            <input
+                                type="number"
+                                value={fontSizeTitle.replace('px', '')}
+                                onChange={(e) => setFontSizeTitle(`${e.target.value}px`)}
+                                className="small-input"
+                            />
+                        </div>
 
-                    <input
-                        type="number"
-                        value={fontSizeDescription.replace('px', '')}  // Убираем 'px' для удобства работы с input type="number"
-                        onChange={(e) => setFontSizeDescription(`${e.target.value}px`)}
-                        placeholder="Размер шрифта описания"
-                    />
+                        <div className="style-control-group">
+                            <label>Цвет:</label>
+                            <input
+                                type="color"
+                                value={titleColor}
+                                onChange={(e) => setTitleColor(e.target.value)}
+                                className="small-color-input"
+                            />
+                        </div>
+                    </div>
 
-                    <select
-                        style={{marginBottom:"10px", marginTop:"10px"}}
-                        value={fontFamilleDescription}
-                        onChange={(e) => setFontFamilleDescription(e.target.value)}
-                    >
-                        {fontFamilies.map((font, index) => (
-                            <option key={index} value={font}>{font}</option>
-                        ))}
-                    </select>
+                    <hr/>
 
-                    <input
-                        type="color"
-                        value={descriptionColor}
-                        onChange={(e) => setDescriptionColor(e.target.value)}
-                    />
+                    <div className="input-group">
+                        <label>Описание акции:</label>
+                        <input
+                            className="input-promotion-title"
+                            type="text"
+                            value={promotionDescription}
+                            onChange={(e) => setPromotionDescription(e.target.value)}
+                            placeholder="Описание акции"
+                            style={{ color: descriptionColor, fontSize: fontSizeDescription, fontFamily: fontFamilleDescription }}
+                        />
+                    </div>
 
-                    <input
-                        style={{marginBottom:"10px", marginTop:"10px"}}
-                        type="date"
-                        value={promotionStartDate}
-                        onChange={(e) => setPromotionStartDate(e.target.value)}
-                    />
+                    <div className="style-controls">
+                        <div className="style-control-group">
+                            <label>Шрифт:</label>
+                            <select
+                                value={fontFamilleDescription}
+                                onChange={(e) => setFontFamilleDescription(e.target.value)}
+                                className="small-select"
+                            >
+                                {fontFamilies.map((font, index) => (
+                                    <option key={index} value={font}>{font}</option>
+                                ))}
+                            </select>
+                        </div>
 
-                    <input
-                        type="date"
-                        value={promotionEndDate}
-                        onChange={(e) => setPromotionEndDate(e.target.value)}
-                    />
+                        <div className="style-control-group">
+                            <label>Размер шрифта:</label>
+                            <input
+                                type="number"
+                                value={fontSizeDescription.replace('px', '')}
+                                onChange={(e) => setFontSizeDescription(`${e.target.value}px`)}
+                                className="small-input"
+                            />
+                        </div>
+
+
+                        <div className="style-control-group">
+                            <label>Цвет:</label>
+                            <input
+                                type="color"
+                                value={descriptionColor}
+                                onChange={(e) => setDescriptionColor(e.target.value)}
+                                className="small-color-input"
+                            />
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div className="date-controls">
+                        <div className="input-group">
+                            <label>Дата начала:</label>
+                            <input
+                                type="date"
+                                value={promotionStartDate}
+                                onChange={(e) => setPromotionStartDate(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <label>Дата окончания:</label>
+                            <input
+                                type="date"
+                                value={promotionEndDate}
+                                onChange={(e) => setPromotionEndDate(e.target.value)}
+                            />
+                        </div>
+                    </div>
                 </section>
             )}
 
-
-            <section>
-                <h2>Картинки по пренадлежнасти</h2>
+            {/* Секция категорий */}
+            <section className="admin-section">
+                <h2>Картинки по категориям</h2>
                 {Object.keys(genderImageUrls).map((category, index) => (
-                    <div key={category} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
-                        <span>{genderTitles[index]}</span>
-                        {genderImageUrls[category] && (
-                            <div style={{ display: 'inline-block', margin: '10px' }}>
-                                <img src={genderImageUrls[category]} alt={category} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-                            </div>
-                        )}
-                        <input
-                            type="text"
-                            value={genderImageUrls[category]}
-                            style={{ width: '300px' }}
-                            onChange={(e) => setGenderImageUrls(prevState => ({
-                                ...prevState,
-                                [category]: e.target.value
-                            }))}
-                            placeholder={`Введите URL картинки ${category}`}
-                        />
+                    <div key={category} className="category-item">
+                        <label>{genderTitles[index]}</label>
+                        <div className="category-content">
+                            {genderImageUrls[category] && (
+                                <img src={genderImageUrls[category]} alt={category} className="category-thumbnail" />
+                            )}
+                            <input
+                                type="text"
+                                value={genderImageUrls[category]}
+                                onChange={(e) => setGenderImageUrls(prevState => ({
+                                    ...prevState,
+                                    [category]: e.target.value
+                                }))}
+                                placeholder={`URL картинки ${category}`}
+                            />
+                        </div>
                     </div>
                 ))}
             </section>
-            <section>
-                <div style={{display:"flex", margin:"0 auto", width:"80%", marginBottom:"30px" }}>
-                    <button onClick={handleReset} style={{ marginLeft: '10px' }}>Сбросить</button>
-                    <button onClick={handleSaveAll}>Сохранить все обновления</button>
-                </div>
+
+            {/* Кнопки управления */}
+            <section className="action-buttons">
+                <button onClick={handleReset}>Сбросить</button>
+                <button onClick={handleSaveAll}>Сохранить все изменения</button>
             </section>
+
             <ConfirmationModal
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
-                onConfirm={confirmRemoveSliderImage} // Передаем функцию подтверждения удаления
+                onConfirm={confirmRemoveSliderImage}
                 message="Вы уверены, что хотите удалить этот элемент из слайдера?"
             />
             <ToastContainer />
