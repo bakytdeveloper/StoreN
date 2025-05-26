@@ -135,10 +135,30 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
-.admin-panel {
-    width: 100%;
-    margin-top: 22px;
-    padding: 7px;
-}
+    .admin-panel {
+        width: 100%;
+        margin-top: 22px;
+        padding: 7px;
+    }
+
+    .customerOrdersBtnOne {
+        font-size: 12px;
+        padding: 3px;
+    }
+
+    .customerOrdersBtnTwo {
+        font-size: 12px;
+        padding: 3px;
+    }
+
+    .customerOrdersBtnThree {
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .customerOrdersBtnFour {
+        padding: 3px;
+        font-size: 12px;
+    }
 
 }
