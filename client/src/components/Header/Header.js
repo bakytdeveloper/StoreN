@@ -19,10 +19,13 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
     const userRole = localStorage.getItem('role');
     const history = useHistory();
     const profileRef = useRef(null);
+    // eslint-disable-next-line
     const [showSellerRegistration, setShowSellerRegistration] = useState(false);
     const location = useLocation();
     const [activePage, setActivePage] = useState('');
+    // eslint-disable-next-line
     const [lastPath, setLastPath] = useState(location.pathname);
+    // eslint-disable-next-line
     const [searchResultMessage, setSearchResultMessage] = useState('');
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5506';
     const token = localStorage.getItem('token');
@@ -43,6 +46,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
         };
 
         fetchUserStatus();
+        // eslint-disable-next-line
     }, []);
 
 
@@ -81,6 +85,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
 
     useEffect(() => {
         if (isAuthenticated && userRole === 'admin') {
@@ -243,6 +248,7 @@ const Header = ({ onSearch, searchTerm, setSearchTerm, setIsFooterCatalog, cartI
             // Если токена нет или пользователь админ
             setFavoritesCount([]); // Сброс счетчика
         }
+        // eslint-disable-next-line
     }, [localStorage.getItem('token'), localStorage.getItem('role')]); // Зависимости
 
 
