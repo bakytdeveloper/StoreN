@@ -236,9 +236,13 @@
 }
 
 .newest-products-title {
-    background: #06ddf8;
+    background: linear-gradient(to bottom, #00aaff, #ffffff); /* Голубой сверху, белый снизу */
+    /*background: #06ddf8;*/
     width: auto;
     padding: 2px 0!important;
+    font-family: 'Poppins';
+    color: #060b7a;
+    text-shadow: 3px 4px 4px #b7b7e0;
 }
 
 
