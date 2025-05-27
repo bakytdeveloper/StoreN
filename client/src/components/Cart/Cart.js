@@ -378,8 +378,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                                     -
                                                 </button>
                                                 <input
+                                                    className="quantity-in-cart"
                                                     type="number"
-                                                    style={{ marginTop: "13px", marginBottom:"12px" }}
                                                     value={item.quantity}
                                                     onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value))}
                                                 />

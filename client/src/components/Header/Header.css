@@ -349,8 +349,9 @@
 }
 
 .search-input {
-    border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px!important;
     border-right: none;
+    height: 39px;
 }
 
 .search-cross {
@@ -381,7 +382,7 @@
 .search-button {
     width: auto;
     border-radius: 5px;
-    height: 39px;
+    height: 38px;
     background: none;
     color: black;
     font-weight: 400;
@@ -474,6 +475,7 @@
         width: 55%;
         margin-right: 0;
         margin-left: 45%!important;
+
     }
 
     .form-search {

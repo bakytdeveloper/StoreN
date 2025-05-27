@@ -26,7 +26,7 @@ const ContactInfo = () => {
                        <img className="icon" src={tel} alt="Telegram Icon" />
                    </a>
                </div>
-               <div className="workingTime">с ПН по ВС - с 10:00 до 21:00</div>
+               <div className="workingTime">ПН/ВС - с 10:00 до 21:00</div>
            </div>
         </div>
     );

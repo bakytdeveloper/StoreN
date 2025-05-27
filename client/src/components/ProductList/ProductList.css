@@ -455,6 +455,13 @@
     display: block;
 }
 
+.favorite-page-content-empty-block {
+    z-index: 999999;
+    width: 50%;
+    position: absolute;
+    text-align: center;
+}
+
 /*sidebar show permanent*/
 
 @media only screen and (max-width: 1340px) {
@@ -506,13 +513,6 @@
 
 
 
-@media only screen and (width: 820px) {
-    .pagination {
-        /*margin-left: -127px!important;*/
-    }
-
-}
-
 @media only screen and (max-width: 768px) {
 
     .product-list-container {
@@ -524,26 +524,29 @@
 
     .product-list {
         margin: 0 1px 10px 1px !important;
-        padding-bottom: 0 !important;
         gap: 3px!important;
-        padding: 0 5px 5px 5px !important;
-        min-width: 380px!important;
+        padding: 0 5px 5px 2px !important;
+        min-width: 360px!important;
         /*flex-wrap: wrap;*/
         /*flex: auto;*/
-
     }
 
     .product-card {
         display: block;
-
         border: none;
-        /*border: 1px solid green;*/
+
+        text-align: center;
     }
 
     .cart-button {
-        /*margin-left: 2px;*/
-        width: 91%;
+        width: 170px!important;
         margin: 0 auto;
+        padding: 0 3px;
+        /*margin-right: 10px;*/
+    }
+
+    .add-to-cart-button {
+        width: 172px;
     }
 
     /* Add this to your CSS file */
@@ -558,7 +561,7 @@
         z-index: 0;
     }
     .pagination-container-block {
-        margin-bottom: 77px;
+        margin-bottom: 77px!important;
         margin-left: 0;
 
 
@@ -692,10 +695,24 @@
 
 .price {
     font-size: 21px!important;
-}
-.price-red {
-    font-size: 21px!important;
-}
+    }
+    .price-red {
+        font-size: 21px!important;
+    }
+
+    .favorite-page-content {
+        overflow-y: auto;
+        margin-bottom: 50px!important;
+    }
+
+    .favorite-page-content-empty-block {
+        z-index: 999;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+    }
+
+/*    emptyCartEls-all favorite-page-content-empty-block*/
 
 }
 
@@ -703,6 +720,24 @@
 @media only screen and (max-width: 480px) {
     .product-list {
         grid-template-columns: repeat(auto-fill, minmax(calc(100% / 2 - 20px), 1fr)) !important; /* Изменено */
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .cart-button {
+        width: 180px!important;
+        margin: 0 auto;
+        padding: 0 3px;
+        margin-right: 10px;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .cart-button {
+        width: 170px!important;
+        margin: 0 auto;
+        padding: 0 3px;
+        margin-right: 20px;
     }
 }
 

@@ -286,7 +286,6 @@ h5 {
 
     .cartAll {
         padding: 0;
-        /*padding-bottom: 100px;*/
 
     }
 
@@ -423,4 +422,22 @@ h5 {
         display: none;
     }
 
+    .quantity-in-cart {
+        margin-top: 13px;
+        margin-bottom: 12px;
+        height: 37px;
+        font-size: 17px!important;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+

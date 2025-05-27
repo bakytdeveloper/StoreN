@@ -37,10 +37,12 @@
         display: flex!important;
         width: 100%;
         top: 0!important;
-        margin-bottom: 70px!important;
+        margin-bottom: 66px!important;
         z-index: 0;
         justify-content: space-around;
         margin-top: -70px;
+        height: 40px;
+        padding: 0 5px;
     }
 
     .contact-info-all-context {
@@ -49,27 +51,33 @@
     }
     .phone {
         margin-left: -110px!important;
-        font-size: 14px!important;
-        margin-right: 10px;
+        font-size: 13px!important;
+        margin-right: 7px;
     }
 
     .social-icons {
-        width: 50%;
+        width: 55%;
         margin-left: 0;
+        margin-right: 4px;
     }
 
     .icon {
         margin-left: 4px;
         margin-right: 4px;
         padding: 0!important;
+        width: 5px;
+        height: 5px;
     }
+
+
 
     .workingTime {
         display: flex;
         margin-left: 0;
-        font-size: 12px;
-        width: 30%;
-        line-height: 20px;
+        font-size: 11px;
+        width: 47%;
+        padding: 0;
+        /*line-height: 20px;*/
     }
 
 }
