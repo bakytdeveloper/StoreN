@@ -168,91 +168,110 @@ const OrderList = ({ setShowSidebar }) => {
     const sortedOrders = Array.isArray(orders) ? orders.slice().sort((a, b) => new Date(a.date) - new Date(b.date)) : [];
 
     return (
-        <div className="order">
-            <h2>Список заказов</h2>
-            <span
-                className="order-list-close"
-                type="button" onClick={handleClose}>
-                &#10006;
-            </span>
-            <table>
-                <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Клиент</th>
-                    <th>Имя</th>
-                    <th>Email</th>
-                    <th>Адрес</th>
-                    <th>№Тел</th>
-                    <th>Способ опл</th>
-                    <th>Комментарии</th>
-                    <th>Товары</th>
-                    <th>Дата заказа</th>
-                    <th>Статус</th>
-                    <th>Время изменения статуса</th>
-                    <th>Сумма</th>
-                    <th>Комент админа</th>
-                </tr>
-                </thead>
+        <div className="order-list-container">
+            <div className="order-list-header">
+                <h2 className="order-list-title">Список заказов</h2>
+                <button
+                    className="order-list-close"
+                    type="button"
+                    onClick={handleClose}
+                    aria-label="Закрыть"
+                >
+                    &#10006;
+                </button>
+            </div>
 
-                <tbody>
-                {sortedOrders.reverse().map((order, index) => (
-                    <tr key={order._id} style={{cursor:"pointer"}}>
-                        <td style={{ textAlign: 'center' }}>{getOrderNumber(index)}</td>
-                        <td onClick={() => handleOrderClick(order._id)}>
-                            {getUserRole(order)}
-                        </td>
-                        <td onClick={() => handleOrderClick(order._id)}>
-                            {order.user ? order.user.name : (order.sellerData ? order.sellerData.name : (order.guestInfo ? order.guestInfo.name : '-'))}
-                        </td>
-                        <td onClick={() => handleOrderClick(order._id)}>
-                            {order.user ? order.user.email : (order.sellerData ? order.sellerData.email : (order.guestInfo ? order.guestInfo.email : '-'))}
-                        </td>
-                        <td onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
-                        <td onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-                        <td onClick={() => handleOrderClick(order._id)}>
-                            {order.paymentMethod ? order.paymentMethod : '-'}
-                        </td>
-                        <td>
-                <textarea
-                    style={{ boxSizing: "border-box", fontSize: "12px" }}
-                    defaultValue={order.comments ? order.comments : '-'}
-                ></textarea>
-                        </td>
-                        <td className="orderDetailOneClient" onClick={() => handleOrderClick(order._id)}>
-                            {order.products.map((item, itemIndex) => (
-                                <span key={itemIndex}>
-                        {item.product?.type || item.type}: {item.quantity}шт; <br />
-                    </span>
-                            ))}
-                        </td>
-                        <td onClick={() => handleOrderClick(order._id)}>{new Date(order.date).toLocaleString()}</td>
-                        <td>
-                            <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
-                        </td>
-                        <td>
-                            {order.statusHistory && order.statusHistory.length > 0
-                                ? new Date(order.statusHistory[order.statusHistory.length - 1].time).toLocaleString()
-                                : '-'}
-                        </td>
-                        <td onClick={() => handleOrderClick(order._id)}>{order.totalAmount.toFixed(2)} KGS</td>
-                        <td>
-                <textarea
-                    style={{ boxSizing: "border-box", fontSize: "12px" }}
-                    defaultValue={order.commentsAdmin ? order.commentsAdmin : ''}
-                    onBlur={(e) => updateCommentsAdmin(order._id, e.target.value)}
-                ></textarea>
-                        </td>
+            <div className="table-responsive">
+                <table className="order-list-table">
+                    <thead>
+                    <tr>
+                        <th className="col-number">№</th>
+                        <th className="col-role">Клиент</th>
+                        <th className="col-name">Имя</th>
+                        <th className="col-email">Email</th>
+                        <th className="col-address">Адрес</th>
+                        <th className="col-phone">№Тел</th>
+                        <th className="col-payment">Способ опл</th>
+                        <th className="col-comments">Комментарии</th>
+                        <th className="col-products">Товары</th>
+                        <th className="col-date">Дата заказа</th>
+                        <th className="col-status">Статус</th>
+                        <th className="col-status-time">Время изменения статуса</th>
+                        <th className="col-amount">Сумма</th>
+                        <th className="col-admin-comments">Комент админа</th>
                     </tr>
-                ))}
-                </tbody>
+                    </thead>
 
+                    <tbody>
+                    {sortedOrders.reverse().map((order, index) => (
+                        <tr key={order._id} className="order-row">
+                            <td className="col-number">{getOrderNumber(index)}</td>
+                            <td className="col-role" onClick={() => handleOrderClick(order._id)}>
+                                {getUserRole(order)}
+                            </td>
+                            <td className="col-name" onClick={() => handleOrderClick(order._id)}>
+                                {order.user ? order.user.name : (order.sellerData ? order.sellerData.name : (order.guestInfo ? order.guestInfo.name : '-'))}
+                            </td>
+                            <td className="col-email" onClick={() => handleOrderClick(order._id)}>
+                                {order.user ? order.user.email : (order.sellerData ? order.sellerData.email : (order.guestInfo ? order.guestInfo.email : '-'))}
+                            </td>
+                            <td className="col-address" onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
+                            <td className="col-phone" onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
+                            <td className="col-payment" onClick={() => handleOrderClick(order._id)}>
+                                {order.paymentMethod ? order.paymentMethod : '-'}
+                            </td>
+                            <td className="col-comments">
+                            <textarea
+                                className="order-comment-textarea"
+                                defaultValue={order.comments ? order.comments : '-'}
+                            ></textarea>
+                            </td>
+                            <td className="col-products order-detail" onClick={() => handleOrderClick(order._id)}>
+                                {order.products.map((item, itemIndex) => (
+                                    <span key={itemIndex}>
+                                    {item.product?.type || item.type}: {item.quantity}шт; <br />
+                                </span>
+                                ))}
+                            </td>
+                            <td className="col-date" onClick={() => handleOrderClick(order._id)}>{new Date(order.date).toLocaleString()}</td>
+                            <td className="col-status">
+                                <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
+                            </td>
+                            <td className="col-status-time">
+                                {order.statusHistory && order.statusHistory.length > 0
+                                    ? new Date(order.statusHistory[order.statusHistory.length - 1].time).toLocaleString()
+                                    : '-'}
+                            </td>
+                            <td className="col-amount" onClick={() => handleOrderClick(order._id)}>{order.totalAmount.toFixed(2)} KGS</td>
+                            <td className="col-admin-comments">
+                            <textarea
+                                className="admin-comment-textarea"
+                                defaultValue={order.commentsAdmin ? order.commentsAdmin : ''}
+                                onBlur={(e) => updateCommentsAdmin(order._id, e.target.value)}
+                            ></textarea>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
 
-            </table>
             <div className="pagination-order-admin">
-                <button onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))} disabled={page === 1}>Назад</button>
-                <span>Страница {page}</span>
-                <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={orders.length < perPage}>Вперёд</button>
+                <button
+                    className="pagination-button"
+                    onClick={() => setPage(prevPage => Math.max(prevPage - 1, 1))}
+                    disabled={page === 1}
+                >
+                    Назад
+                </button>
+                <span className="pagination-page">Страница {page}</span>
+                <button
+                    className="pagination-button"
+                    onClick={() => setPage(prevPage => prevPage + 1)}
+                    disabled={orders.length < perPage}
+                >
+                    Вперёд
+                </button>
             </div>
         </div>
     );

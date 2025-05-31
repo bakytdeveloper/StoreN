@@ -1,95 +1,193 @@
 /* OrderList.css */
-
-
-* {
-    box-sizing: border-box;
-}
-
-
-.order {
-    margin-top: 130px!important;
+.order-list-container {
+    margin-top: 130px;
     padding: 20px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    overflow-x: auto;
 }
 
-h2 {
+.order-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.order-list-title {
     font-size: 24px;
-    margin-bottom: 5px!important;
+    margin: 0;
 }
 
 .order-list-close {
-    color: black;
-    margin-left: 95%;
-    margin-top: 0;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    color: #333;
+    transition: color 0.3s;
 }
 
-.sellersListClose {
-    margin-top: 0;
+.order-list-close:hover {
+    color: #ff0000;
 }
 
-table {
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.order-list-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    min-width: 1200px; /* Минимальная ширина для таблицы */
 }
 
-thead th, tbody td {
-    border: 1px solid #ddd;
-    padding: 3px;
+.order-list-table thead th {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 4px 6px!important;
+    font-size: 14px;
+    font-weight: 600;
     text-align: left;
-    font-size: 12px;
+    border-bottom: 2px solid #dee2e6;
 }
 
-.orderDetailOneClient {
-    cursor: pointer;
+.order-list-table tbody td {
+    padding: 1px 3px!important;
+    font-size: 13px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: top;
 }
 
-thead th {
-    background-color: #f2f2f2;
+.order-row:hover {
+    background-color: #f8f9fa;
 }
 
-tbody tr:nth-child(even) {
+.order-row:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-tbody td p {
-    margin: 5px 0;
+.order-row:hover:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+.order-comment-textarea,
+.admin-comment-textarea {
+    width: 100%;
+    min-height: 50px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.order-detail {
+    max-width: 200px;
 }
 
 .pagination-order-admin {
-    display: inline-flex;
-    text-align: center;
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 45%;
     margin-top: 20px;
+    gap: 15px;
 }
 
-.pagination-order-admin span {
-    margin-left: 11px;
-    margin-right: 11px;
+.pagination-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Add more styles as needed */
+.pagination-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.pagination-page {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.order-item-status {
+/*    , fontWeight: "bold", color:"white", fontSize:"13px"*/
+    font-weight: bold;
+    color: white;
+    font-size: 13px;
+    padding: 5px;
+
+}
+
+/* Адаптивные стили */
+@media only screen and (max-width: 1200px) {
+    .order-list-container {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .order-list-container {
+        margin-top: 100px;
+    }
+}
 
 @media only screen and (max-width: 768px) {
-    .order {
-        margin-top: 0!important;
-        padding: 2px 10px;
-        padding-bottom: 111px!important;
+    .order-list-container {
+        margin-top: 0;
+        padding: 10px;
+        padding-bottom: 80px;
     }
 
-    .order h2  {
-        margin-top: 20px;
-        margin-bottom: 0!important;
+    .order-list-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-
-   .order span.sellersListClose {
-       color: #007bff!important;
-        margin-left: 88% !important;
-        background: none!important;
-       margin-top: 0!important;
+    .order-list-close {
+        margin-top: 10px;
+        align-self: flex-end;
     }
 
+    .order-list-title {
+        font-size: 20px;
+    }
+
+    .order-list-table thead th,
+    .order-list-table tbody td {
+        padding: 8px 5px;
+        font-size: 12px;
+    }
+
+    .order-comment-textarea,
+    .admin-comment-textarea {
+        min-height: 50px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .pagination-order-admin {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pagination-page {
+        margin: 0;
+    }
 }

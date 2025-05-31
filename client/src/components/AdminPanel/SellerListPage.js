@@ -112,78 +112,97 @@ const SellerListPage = ({ setShowSidebar }) => {
     };
 
     return (
-        <div className="sellersListPage">
-          <div className="sellers-list-page-table">
-              <h2 className="sellerTitle">Список продавцов</h2>
-              <div className="sellersListClose" type="button" onClick={handleClose}>
-                  <span> &#10006;</span>
-              </div>
-              <table>
-                  <thead>
-                  <tr>
-                      <th>№</th>
-                      <th>Название компании</th>
-                      <th>Имя Фам.</th>
-                      <th>Email</th>
-                      <th>Телефон</th>
-                      <th style={{ padding: '0 25px', width:"177px" }}>Направление компания</th>
-                      <th>Время</th>
-                      <th>Статус</th>
-                      <th>Время изменения статуса</th>
-                      <th>Действия</th>
-                      <th>Товары продавца</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {sellers.slice().reverse().map((seller, index) => (
-                      <tr key={seller._id}>
-                          <td style={{fontWeight:"bold"}}>{index + 1}</td>
-                          <td>{seller.companyName}</td>
-                          <td>{seller.name}</td>
-                          <td>{seller.email}</td>
-                          <td>{seller.phoneNumber}</td>
-                          <td>
-                            <textarea className="seller-list-page-textarea"
-                                      value={seller.companyDescription}
-                                      readOnly
-                            />
-                          </td>
-                          <td>{new Date(seller.createdAt).toLocaleString()}</td>
-                          <SellerItem key={seller._id} seller={seller} onUpdateStatus={updateStatusSeller} />
-                          <td>
-                              {seller.statusHistory && seller.statusHistory.length > 0
-                                  ? new Date(seller.statusHistory[seller.statusHistory.length - 1].time).toLocaleString()
-                                  : '-'}
-                          </td>
-                          <td>
-                              <button className="delete-button" onClick={() => handleDeleteClick(seller)}>Удалить</button>
-                          </td>
-                          <td  className="checkmark-button"  style={{ background: seller.isProductsVisible ? '#08a911' : '#ee579e'}}>
-                              {seller.isProductsVisible ? (
-                                  <>
-                                      <span role="img" aria-label="checkmark" style={{ fontSize: '20px' }}>✔️</span>
-                                      {` ${new Date(seller.lastVisibilityChange).toLocaleString()}`}
-                                  </>
-                              ) : (
-                                  <>
-                                      <span role="img" aria-label="exclamation" style={{ fontSize: '20px' }}>❗</span>
-                                      {` ${new Date(seller.lastVisibilityChange).toLocaleString()}`}
-                                  </>
-                              )}
-                          </td>
-                      </tr>
-                  ))}
-                  </tbody>
-              </table>
-              {selectedSeller && (
-                  <ConfirmationModal
-                      show={showModal}
-                      onClose={handleModalClose}
-                      onConfirm={handleDeleteSeller}
-                      seller={selectedSeller}
-                  />
-              )}
-          </div>
+        <div className="sellers-page-container">
+            <div className="sellers-content">
+                <div className="sellers-header">
+                    <h2 className="sellers-title">Список продавцов</h2>
+                    <button
+                        className="sellers-close-btn"
+                        type="button"
+                        onClick={handleClose}
+                        aria-label="Закрыть"
+                    >
+                        &#10006;
+                    </button>
+                </div>
+
+                <div className="table-container">
+                    <table className="sellers-table">
+                        <thead>
+                        <tr className="table-header-row">
+                            <th className="col-number">№</th>
+                            <th className="col-company">Название компании</th>
+                            <th className="col-name">Имя Фам.</th>
+                            <th className="col-email">Email</th>
+                            <th className="col-phone">Телефон</th>
+                            <th className="col-description">Направление компании</th>
+                            <th className="col-created">Время</th>
+                            <th className="col-status">Статус</th>
+                            <th className="col-status-time">Время изменения статуса</th>
+                            <th className="col-actions">Действия</th>
+                            <th className="col-products">Товары продавца</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {sellers.slice().reverse().map((seller, index) => (
+                            <tr key={seller._id} className="seller-row">
+                                <td className="col-number">{index + 1}</td>
+                                <td className="col-company">{seller.companyName}</td>
+                                <td className="col-name">{seller.name}</td>
+                                <td className="col-email">{seller.email}</td>
+                                <td className="col-phone">{seller.phoneNumber}</td>
+                                <td className="col-description">
+                                    <textarea
+                                        className="seller-description"
+                                        value={seller.companyDescription}
+                                        readOnly
+                                    />
+                                </td>
+                                <td className="col-created">{new Date(seller.createdAt).toLocaleString()}</td>
+                                <td className="col-status">
+                                    <SellerItem key={seller._id} seller={seller} onUpdateStatus={updateStatusSeller} />
+                                </td>
+                                <td className="col-status-time">
+                                    {seller.statusHistory && seller.statusHistory.length > 0
+                                        ? new Date(seller.statusHistory[seller.statusHistory.length - 1].time).toLocaleString()
+                                        : '-'}
+                                </td>
+                                <td className="col-actions">
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() => handleDeleteClick(seller)}
+                                    >
+                                        Удалить
+                                    </button>
+                                </td>
+                                <td className="col-products" data-visible={seller.isProductsVisible}>
+                                    {seller.isProductsVisible ? (
+                                        <>
+                                            <span className="status-icon" role="img" aria-label="checkmark">✔️</span>
+                                            <span className="status-time">{new Date(seller.lastVisibilityChange).toLocaleString()}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span className="status-icon" role="img" aria-label="exclamation">❗</span>
+                                            <span className="status-time">{new Date(seller.lastVisibilityChange).toLocaleString()}</span>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                {selectedSeller && (
+                    <ConfirmationModal
+                        show={showModal}
+                        onClose={handleModalClose}
+                        onConfirm={handleDeleteSeller}
+                        seller={selectedSeller}
+                    />
+                )}
+            </div>
         </div>
     );
 };

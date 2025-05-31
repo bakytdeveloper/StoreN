@@ -26,9 +26,10 @@ const OrderItem = ({ order, onUpdateStatus }) => {
 
     return (
                 <select
+                    className="order-item-status"
                     value={selectedStatus}
                     onChange={handleChange}
-                    style={{ background: statusColor, fontWeight: "bold", color:"white", fontSize:"15px" }}
+                    style={{ background: statusColor }}
                     key={order._id}
                 >
                     <option value="pending">В ожидании</option>
