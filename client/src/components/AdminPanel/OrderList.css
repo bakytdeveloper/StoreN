@@ -17,6 +17,12 @@ h2 {
     margin-bottom: 5px!important;
 }
 
+.order-list-close {
+    color: black;
+    margin-left: 95%;
+    margin-top: 0;
+}
+
 .sellersListClose {
     margin-top: 0;
 }

@@ -171,7 +171,7 @@ const OrderList = ({ setShowSidebar }) => {
         <div className="order">
             <h2>Список заказов</h2>
             <span
-                className="sellersListClose"
+                className="order-list-close"
                 type="button" onClick={handleClose}>
                 &#10006;
             </span>
