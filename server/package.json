@@ -33,14 +33,5 @@
   },
   "devDependencies": {
     "helmet": "^7.1.0"
-  },
-  "overrides": {
-    "express": {
-      "body-parser": "1.20.2",
-      "cookie": "0.7.0",
-      "path-to-regexp": "6.2.1",
-      "send": "0.18.0",
-      "serve-static": "1.15.0"
-    }
   }
 }

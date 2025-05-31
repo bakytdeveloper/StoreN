@@ -435,6 +435,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                                         </div>
                                         <div className="btnTwo">
                                             <input type="radio" id="pickup"
+                                                   className="btn-one-radio"
                                                    name="deliveryType" checked={deliveryType === 'pickup'}
                                                    onChange={() => handleDeliveryTypeChange('pickup')} />
                                             <label htmlFor="pickup">Самовывоз</label>

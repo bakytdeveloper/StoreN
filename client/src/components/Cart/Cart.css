@@ -47,7 +47,6 @@ h5 {
     width: 12px;
     height: auto;
     align-items: center;
-    margin-top: 13px!important;
     margin-right: 7px;
 
 }
@@ -55,7 +54,6 @@ h5 {
 #pickup {
 
     align-items: center;
-    margin-top: 13px!important;
     margin-right: 7px;
 }
 
@@ -175,18 +173,23 @@ h5 {
 
 .btnOne {
     display: flex;
-
 }
 
 .btnTwo {
     display: flex;
 }
 
-.radioButtons {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+.btn-one-radio {
+    margin-bottom: 7px;
 }
+
+.radioButtons {
+    display: inline-flex;
+    gap: 20px;
+    /*align-items: center;*/
+
+}
+
 
 .updateSection {
     padding: 10px 20px;
@@ -403,6 +406,7 @@ h5 {
     .btnTwo input {
         display: flex;
         left: 0!important;
+        margin-top: 7px;
 
     }
     .btnTwo label {
