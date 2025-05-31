@@ -93,6 +93,7 @@ const Sidebar = ({
                 console.error('Error fetching categories by gender:', error);
             }
         }
+        // eslint-disable-next-line
     }, [selectedGender, setSelectedGender, setProducts, setSearchTerm, onSearch, history]);
 
     // Оптимизированный обработчик выбора категории
@@ -123,6 +124,7 @@ const Sidebar = ({
                 console.error('Error fetching types by category:', error);
             }
         }
+        // eslint-disable-next-line
     }, [selectedCategory, selectedGender, setSelectedCategory, setProducts, setSearchTerm, onSearch]);
 
     // Оптимизированный обработчик выбора типа
@@ -155,6 +157,7 @@ const Sidebar = ({
                 console.error('Error fetching products by type:', error);
             }
         }
+        // eslint-disable-next-line
     }, [selectedType, selectedGender, selectedCategory, setProducts, setSearchTerm, onSearch, isSmallScreen, setShowSidebar]);
 
     return (

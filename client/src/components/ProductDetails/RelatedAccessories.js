@@ -13,6 +13,7 @@ const RelatedAccessories = ({ direction }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardCount, setCardCount] = useState(5); // Количество карточек по умолчанию
     const containerRef = useRef(null);
+    // eslint-disable-next-line
     const [scrollPosition, setScrollPosition] = useState(0);
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const [favorites, setFavorites] = useState([]);
@@ -170,7 +171,7 @@ const RelatedAccessories = ({ direction }) => {
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>
                     {/*&#8592; Назад*/}
-                    <img src={sliderLeft}/>
+                    <img src={sliderLeft} alt="img"/>
                 </button>
                 {accessories.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="product-card-related-accessories" key={product._id}>
@@ -194,7 +195,7 @@ const RelatedAccessories = ({ direction }) => {
                         onClick={handleNextClick}
                         disabled={currentIndex + cardCount >= accessories.length}>
                     {/*Вперёд &#8594;*/}
-                    <img src={sliderRight}/>
+                    <img src={sliderRight} alt="img"/>
                 </button>
             </div>
         </div>

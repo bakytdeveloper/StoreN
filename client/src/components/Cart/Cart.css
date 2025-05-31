@@ -255,7 +255,6 @@ h5 {
 .empty-cart-products {
     background: white;
     border-radius: 7px;
-    /*margin-top: 20px;*/
     padding-top: 10px;
     padding-bottom: 0;
 }
@@ -273,6 +272,11 @@ h5 {
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+.quantity-in-cart {
+    padding: 5px 3px!important;
+    font-size: 14px!important;
 }
 
 @keyframes spin {

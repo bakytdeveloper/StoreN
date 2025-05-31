@@ -45,6 +45,7 @@ const SellerListPage = ({ setShowSidebar }) => {
         };
 
         fetchSellersFromDatabase();
+        // eslint-disable-next-line
     }, [history]);
 
     const handleClose = () => {

@@ -10,6 +10,7 @@ const RelatedProducts = ({ productId }) => {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardCount, setCardCount] = useState(5); // Количество карточек по умолчанию
+    // eslint-disable-next-line
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
@@ -181,7 +182,7 @@ const RelatedProducts = ({ productId }) => {
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>
                     {/*&#8592; Назад*/}
-                    <img src={sliderLeft}/>
+                    <img src={sliderLeft} alt="img"/>
                 </button>
                 {relatedProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="product-cards-related-products" key={product._id}>
@@ -205,7 +206,7 @@ const RelatedProducts = ({ productId }) => {
                         onClick={handleNextClick}
                         disabled={currentIndex + cardCount >= relatedProducts.length}>
                     {/*Вперёд &#8594;*/}
-                    <img src={sliderRight}/>
+                    <img src={sliderRight} alt="img"/>
 
                 </button>
             </div>

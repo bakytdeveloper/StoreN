@@ -11,23 +11,19 @@ import {jwtDecode} from "jwt-decode";
 import {FaRegHeart} from "react-icons/fa";
 
 const Footer = ({
-                    onSearch,
                     cartItems = [],
                     showSidebar,
                     setShowSidebar,
-                    setSelectedOption,
-                    resetFilter,
-                    setCurrentPage,
                     setActiveComponent,
                     activeComponent,
                     setIsFooterCatalog
                 }) => {
-    const [searchTerm, setSearchTerm] = useState('');
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
     const history = useHistory();
     const profileRef = useRef(null);
     const location = useLocation();
+    // eslint-disable-next-line
     const [activeButton, setActiveButton] = useState(null);
     const [prevPath, setPrevPath] = useState(null);
     const [buttonClick, setButtonClick] = useState(null);
@@ -61,6 +57,7 @@ const Footer = ({
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -86,6 +83,7 @@ const Footer = ({
         }
         setActiveComponent(null);
         setButtonClick(null);
+        // eslint-disable-next-line
     }, [buttonClick, isAuthenticated, userRole, history]);
 
 
@@ -212,6 +210,7 @@ const Footer = ({
             // Если токена нет или пользователь админ
             setFavoritesCount([]); // Сброс счетчика
         }
+        // eslint-disable-next-line
     }, [localStorage.getItem('token'), localStorage.getItem('role')]); // Зависимости
 
 

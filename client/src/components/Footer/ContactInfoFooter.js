@@ -24,25 +24,26 @@ const ContactInfoFooter = ({setShowSidebar, onClose}) => {
     return (
         <div className="contact-info-modal">
             <button className="close-btn-modal" onClick={handleGoBack}>
-                {/*&times;*/}
-                <img src={cross}/>
-            </button> {/* Кнопка "крестик" */}
+                <img src={cross} alt="Закрыть"/>
+            </button>
 
             <h2 className="contact-info-modal-title">Наши контакты</h2>
             <div className="phone-modal">
-                <a className="phone-link-modal" href="tel:+996508100777"  target="_blank">0(508) 100 777</a>
+                <a className="phone-link-modal" href="tel:+996508100777"  target="_blank"  rel="noopener noreferrer">
+                    0(508) 100 777
+                </a>
             </div>
             <div className="social-icons-modal">
-                <a href="https://www.tiktok.com/" target="_blank">
+                <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
                     <img className="icon-modal" src={tik} alt="TikTok Icon" />
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=996508100777" target="_blank">
+                <a href="https://api.whatsapp.com/send?phone=996508100777" target="_blank" rel="noopener noreferrer">
                     <img className="icon-modal" src={what} alt="WhatsApp Icon" />
                 </a>
-                <a href="https://www.instagram.com/"  target="_blank" >
+                <a href="https://www.instagram.com/"  target="_blank"  rel="noopener noreferrer">
                     <img className="icon-modal ins-modal" src={ins} alt="Instagram Icon" />
                 </a>
-                <a href="https://t.me/kanatasa?phone=+996508100777" target="_blank">
+                <a href="https://t.me/kanatasa?phone=+996508100777" target="_blank" rel="noopener noreferrer">
                     <img className="icon-modal" src={tel} alt="Telegram Icon" />
                 </a>
             </div>

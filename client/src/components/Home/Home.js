@@ -64,6 +64,7 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
         }, 5000);
 
         return () => clearInterval(interval);
+        // eslint-disable-next-line
     }, [slides.length, isManualSwitch]);
 
 

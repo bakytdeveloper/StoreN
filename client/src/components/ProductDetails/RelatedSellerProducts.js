@@ -12,6 +12,7 @@ const RelatedSellerProducts = ({ productId }) => {
     const [sellerProducts, setSellerProducts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardCount, setCardCount] = useState(5); // Количество карточек по умолчанию
+    // eslint-disable-next-line
     const [scrollPosition, setScrollPosition] = useState(0);
     const containerRef = useRef(null);
     const [favorites, setFavorites] = useState([]);
@@ -58,6 +59,7 @@ const RelatedSellerProducts = ({ productId }) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
+        // eslint-disable-next-line
     }, [sellerProducts.length]);
 
     const handleScroll = () => {
@@ -185,7 +187,7 @@ const RelatedSellerProducts = ({ productId }) => {
             <div className="product-list-related-seller-products"  ref={containerRef} onScroll={handleScroll}>
                 <button className={`slider-control-one-left ${currentIndex === 0 ? 'disabled' : ''}`}
                         onClick={handlePrevClick} disabled={currentIndex === 0}>
-                    <img src={sliderLeft}/>
+                    <img src={sliderLeft} alt="img"/>
                 </button>
                 {sellerProducts.slice(currentIndex, currentIndex + cardCount).map((product, index) => (
                     <div className="product-cards-related-seller-products" key={product._id}>
@@ -208,7 +210,7 @@ const RelatedSellerProducts = ({ productId }) => {
                 <button className={`slider-control-one-right ${currentIndex + cardCount >= sellerProducts.length ? 'disabled' : ''}`}
                         onClick={handleNextClick}
                         disabled={currentIndex + cardCount >= sellerProducts.length}>
-                    <img src={sliderRight}/>
+                    <img src={sliderRight} alt="img"/>
                 </button>
             </div>
         </div>

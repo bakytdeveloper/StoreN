@@ -1,7 +1,7 @@
 
 
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import ProductList from './components/ProductList/ProductList';
@@ -35,13 +35,13 @@ import FavoritesPage from "./components/FavoritesPage/FavoritesPage";
 
 
 const App = () => {
-    const pathname = useLocation().pathname;
     const [searchKeyword, setSearchKeyword] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
     const [showSidebar, setShowSidebar] = useState(false);
     const [showHeader, setShowHeader] = useState(true);
     const [selectedOption, setSelectedOption] = useState(null);
+    // eslint-disable-next-line
     const [currentPage, setCurrentPage] = useState(1);
     const [orders, setOrders] = useState([]);
     const [selectedGender, setSelectedGender] = useState(null);
