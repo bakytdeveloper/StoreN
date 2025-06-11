@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {useHistory, useLocation} from "react-router-dom";
 import './Home.css';
 import NewestProducts from './NewestProducts/NewestProducts';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGender, setSearchTerm, setSelectedCategory, setSelectedType }) => {
@@ -68,15 +69,49 @@ const Home = ({ setShowSidebar, setCartItems, setIsFooterCatalog, setSelectedGen
     }, [slides.length, isManualSwitch]);
 
 
-    const handleImageClick = (gender) => {
+    const handleImageClick = async (gender) => {
         setIsFooterCatalog(true);
-        if (gender === 'Товары для всех') {
-            catalogPage();
-        } else if (gender === 'Аксессуары') {
-            // Специальная обработка для аксессуаров
-            history.push(`/catalog?category=${encodeURIComponent('Аксессуары')}`);
-        } else {
-            history.push(`/catalog?gender=${encodeURIComponent(gender)}`);
+
+        try {
+            // Формируем URL для запроса
+            let url;
+            if (gender === 'Товары для всех') {
+                catalogPage();
+                return;
+                // url = `${process.env.REACT_APP_API_URL}/api/products?page=1&limit=1`;
+            } else if (gender === 'Аксессуары') {
+                url = `${process.env.REACT_APP_API_URL}/api/products?category=${encodeURIComponent('Аксессуары')}&page=1&limit=1`;
+            } else {
+                url = `${process.env.REACT_APP_API_URL}/api/products?gender=${encodeURIComponent(gender)}&page=1&limit=1`;
+            }
+
+            // Запрос к API
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Ошибка загрузки данных');
+
+            const products = await response.json();
+            console.log("PRODUCTS:", products);
+
+            // Проверяем, есть ли товары по выбранному `gender` или в категории `Аксессуары`
+            const hasMatchingProducts = Array.isArray(products) && products.some(product =>
+                (gender === 'Аксессуары' && product.category === 'Аксессуары') ||
+                (product.gender === gender)
+            );
+
+            if (!hasMatchingProducts) {
+                toast.info(`Товары в категории "${gender}" отсутствуют`);
+                return; // НЕ выполняем переход
+            }
+
+            // Если товары есть, выполняем переход
+            let redirectUrl = gender === 'Аксессуары'
+                ? `/catalog?category=${encodeURIComponent('Аксессуары')}`
+                : `/catalog?gender=${encodeURIComponent(gender)}`;
+
+            history.push(redirectUrl);
+        } catch (error) {
+            console.error('Ошибка проверки товаров:', error);
+            toast.error('Произошла ошибка при проверке наличия товаров');
         }
     };
 
