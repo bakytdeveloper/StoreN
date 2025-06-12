@@ -3,9 +3,9 @@ import {Link, useHistory} from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 import {FaCartPlus, FaHeart, FaRegHeart} from 'react-icons/fa';
 import { toast } from 'react-toastify';
-// import './FavoritesPage.css';
+import './FavoritesPage.css';
 
-import '../ProductList/ProductList.css'
+// import '../ProductList/ProductList.css'
 
 
 const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
@@ -131,7 +131,7 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
                         </div>
                     ) : (
                         favorites.map(item => (
-                            <div className={`product-card ${!item.isActive ? 'inactive-product' : ''}`} key={item._id}>
+                            <div className={`product-card product-card-favorite ${!item.isActive ? 'inactive-product' : ''}`} key={item._id}>
                                 {item.isActive ? (
                                     <div className="product-card-images">
                                         {item.originalPrice && item.originalPrice > item.price && (
@@ -156,23 +156,25 @@ const FavoritesPage = ({ setShowSidebar, cartItems, setCartItems }) => {
                                         <img src="placeholder.jpg" alt="Product not available" />
                                     </div>
                                 )}
-                                <div className="product-card-details">
-                                    <div className="product-list-details-brand-and-name">
-                                        <div className="product-list-type">{item.type.length > 10 ? item.type.substring(0, 10) + '...' : item.type}</div>
-                                        <div className="product-list-brand">{item.brand.length > 10 ? item.brand.substring(0, 10) + '...' : item.brand}</div>
-                                    </div>
-                                    <div className="discounted-price">
-                                        {item.originalPrice ? (
-                                            <div className="price-red">{item.price}сом</div>
-                                        ) : (
-                                            <div className="price">{item.price}сом</div>
-                                        )}
-                                        {item.originalPrice && item.originalPrice > item.price && (
-                                            <div className="original-price"><s style={{ display: "inline" }}>{item.originalPrice}сом</s></div>
-                                        )}
+                                <div className="product-card-details product-card-details-favorite">
+                                    <div className="product-list-details-brand-and-name-favorite">
+                                        <div className="product-list-details-brand-and-name">
+                                            <div className="product-list-type">{item.type.length > 10 ? item.type.substring(0, 10) + '...' : item.type}</div>
+                                            <div className="product-list-brand">{item.brand.length > 10 ? item.brand.substring(0, 10) + '...' : item.brand}</div>
+                                        </div>
+                                        <div className="discounted-price">
+                                            {item.originalPrice ? (
+                                                <div className="price-red">{item.price}сом</div>
+                                            ) : (
+                                                <div className="price">{item.price}сом</div>
+                                            )}
+                                            {item.originalPrice && item.originalPrice > item.price && (
+                                                <div className="original-price"><s style={{ display: "inline" }}>{item.originalPrice}сом</s></div>
+                                            )}
+                                        </div>
                                     </div>
                                     <div className="product-list-actions">
-                                        <button className="add-to-cart-button cart-button" onClick={() => handleAddToCart(item)}>
+                                        <button className="add-to-cart-button cart-button cart-button-favorite" onClick={() => handleAddToCart(item)}>
                                             <FaCartPlus /> В корзину
                                         </button>
                                     </div>

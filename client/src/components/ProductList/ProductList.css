@@ -25,11 +25,11 @@
 
 
 .product-card {
-    max-height: 440px; /* Добавить минимальную высоту, чтобы карточки были одинакового размера */
+    height: 400px; /* Добавить минимальную высоту, чтобы карточки были одинакового размера */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid #fdfbfb;
+    border: 1px solid #d6d4d4;
     border-radius: 9px;
     overflow: hidden;
     transition: transform 0.3s;
@@ -84,12 +84,11 @@
 .product-card-images img {
 
     width: 100%;
-    /*height: 150px;*/
     object-fit: contain;
     background: white;
     padding: 2px;
     max-width: 225px;
-    height: 300px;
+    /*height: 300px;*/
     border-radius: 8px;
 }
 
@@ -499,6 +498,8 @@
         /*margin: 170px 4px 90px 1px !important;*/
         padding-bottom: 0 !important;
     }
+
+
 }
 
 
@@ -509,6 +510,8 @@
         padding-bottom: 0 !important;
         margin-bottom: 160px!important;
     }
+
+
 }
 
 
@@ -534,15 +537,23 @@
     .product-card {
         display: block;
         border: none;
-
         text-align: center;
+        height: 96%;
+        /*min-height: 390px;*/
+        margin-top: 1px;
     }
+
+
 
     .cart-button {
         width: 170px!important;
         margin: 0 auto;
         padding: 0 3px;
         /*margin-right: 10px;*/
+    }
+
+    .actions {
+        padding: 0;
     }
 
     .add-to-cart-button {
@@ -629,10 +640,6 @@
     }
 
 
-
-
-
-
     .quantity-progress-bar {
         height: 30px; /* Задаем фиксированную высоту для прогресс-бара */
         display: flex;
@@ -693,8 +700,8 @@
         background-color: red;
     }
 
-.price {
-    font-size: 21px!important;
+    .price {
+        font-size: 21px!important;
     }
     .price-red {
         font-size: 21px!important;
@@ -712,7 +719,9 @@
         text-align: center;
     }
 
-/*    emptyCartEls-all favorite-page-content-empty-block*/
+    /*    emptyCartEls-all favorite-page-content-empty-block*/
+
+
 
 }
 
@@ -721,7 +730,22 @@
     .product-list {
         grid-template-columns: repeat(auto-fill, minmax(calc(100% / 2 - 20px), 1fr)) !important; /* Изменено */
     }
+
 }
+
+@media only screen and (max-width: 430px) {
+
+    .cart-button {
+        width: 180px;
+        margin: 0 4px;
+        padding: 0 3px;
+
+        /*margin-right: 10px;*/
+    }
+
+}
+
+
 
 @media only screen and (max-width: 390px) {
     .cart-button {
@@ -758,9 +782,7 @@
 
 .product-list-seller-info {
     width: 100%;
-    /*padding-left: 255px;*/
-
-
+  
 }
 
 /* CSS для стилизации заголовка магазина */
@@ -815,7 +837,3 @@
         margin-top: 10px;
     }
 }
-
-
-
-
