@@ -16,6 +16,20 @@ const RelatedProducts = ({ productId }) => {
     const imageBaseUrl = process.env.REACT_APP_API_URL; // Базовый URL для изображений на сервере
     const [favorites, setFavorites] = useState([]);
     const history = useHistory();
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsSmallScreen(window.innerWidth <= 768);
+        };
+
+        // Проверить сразу при загрузке
+        checkScreenSize();
+
+        // И добавить слушатель изменений
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
 
 
     useEffect(() => {
@@ -195,9 +209,11 @@ const RelatedProducts = ({ productId }) => {
                                 alt={product.name}
                             />
                             <div className="details-related-products">
-                                <div className="type-related-products">{product.type}</div>
+                                <div className="type-related-products">
+                                    {isSmallScreen ? product.type.slice(0, 10) + (product.type.length > 10 ? '...' : '') : product.type}
+                                </div>
                                 <div className="brand-related-products">{product.brand}</div>
-                                <div className="name-related-products">{product.name}</div>
+                                {/*<div className="name-related-products">{product.name}</div>*/}
                             </div>
                         </Link>
                     </div>

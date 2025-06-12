@@ -17,6 +17,21 @@ const RelatedSellerProducts = ({ productId }) => {
     const containerRef = useRef(null);
     const [favorites, setFavorites] = useState([]);
     const history = useHistory();
+// В начале компонента добавьте хук для отслеживания ширины экрана
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsSmallScreen(window.innerWidth <= 768);
+        };
+
+        // Проверить сразу при загрузке
+        checkScreenSize();
+
+        // И добавить слушатель изменений
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
 
 
     useEffect(() => {
@@ -200,9 +215,10 @@ const RelatedSellerProducts = ({ productId }) => {
                                 alt={product.name}
                             />
                             <div className="details-related-seller-products">
-                                <div className="type-related-seller-products">{product.type}</div>
-                                <div className="brand-related-seller-products">{product.brand}</div>
-                                <div className="name-related-seller-products">{product.name}</div>
+                                <div className="type-related-seller-products">
+                                    {isSmallScreen ? product.type.slice(0, 10) + (product.type.length > 10 ? '...' : '') : product.type}
+                                </div>                                <div className="brand-related-seller-products">{product.brand}</div>
+                                {/*<div className="name-related-seller-products">{product.name}</div>*/}
                             </div>
                         </Link>
                     </div>
