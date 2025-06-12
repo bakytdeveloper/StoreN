@@ -669,7 +669,7 @@ const ProductForm = ({ setShowSidebar }) => {
                     </div>
 
                     <div className="form-group">
-                        <label>Цвета:</label>
+                        <label className="section-title">Цвета:</label>
                         {formData.colors && formData.colors.map((color, index) => (
                             <div key={index} className="color-input-group">
                                 <input
@@ -710,7 +710,8 @@ const ProductForm = ({ setShowSidebar }) => {
                 </div>
 
                 <div className="form-section">
-                    <h3 className="section-title">Характеристики</h3>
+                    <label className="section-title required">Характеристики:</label>
+                    {/*<h3 className="section-title">Характеристики</h3>*/}
 
                     {formData.characteristics.map((char, index) => (
                         <div key={index} className="characteristic-input-group">
@@ -752,7 +753,8 @@ const ProductForm = ({ setShowSidebar }) => {
                 </div>
 
                 <div className="form-section">
-                    <h3 className="section-title">Изображения</h3>
+                    <label className="section-title required">Изображения:</label>
+                    {/*<h3 className="section-title">Изображения</h3>*/}
                     <p className="image-limit">Максимум 5 изображений (добавлено: {formData.images.length})</p>
 
                     <div className="image-preview-container">
