@@ -109,9 +109,13 @@
 }
 
 .details-names-all {
-    display: inline-flex;
+    /*display: inline-flex;*/
     font-family: Poppins;
     font-weight: 600;
+}
+
+.details-names-all-type-band {
+    display: flex;
 }
 
 .description {
@@ -339,7 +343,7 @@ strong {
     }
 
     .details-names-all {
-        display: inline-flex;
+        display: block;
         margin-top: 10px;
         line-height: 12px;
 
@@ -399,15 +403,19 @@ strong {
 
     .details-names-all-type-band {
         display: flex;
+        width: 100%;
         justify-content: space-between;
+        line-height: 25px;
+        border-bottom: 2px solid #cccccc; /* Серый цвет */
 
     }
 
     .name-details {
-        display: flex;
+        display: block;
         padding-bottom: 4px;
-        margin-top: -7px;
-        margin-left: 10px;
+        margin-top: 7px;
+        /*border-top: 2px solid #cccccc; !* Серый цвет *!*/
+        justify-content: center;
     }
 
     .details-names-price {
