@@ -163,7 +163,7 @@ const NewestProducts = ({ apiUrl }) => {
                             </div>
                            <div className="new-product-img-card">
                                <Link to={`/products/${product._id}`}>
-                                   <img
+                                   <img className="new-product-img"
                                        src={product.images && product.images.length > 0 ? getFullImageUrl(product.images[0]) : 'placeholder.jpg'}
                                        alt={product.name}
                                    />

@@ -12,9 +12,22 @@
     gap: 20px;
 }
 
+.new-cards {
+    height: 95%;
+}
+
+.new-product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Сохраняет пропорции, полностью вписывая изображение */
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+
 .product-card-images {
     align-items: center;
-    padding: 0;
+    padding: 0!important;
 
 }
 
@@ -82,11 +95,11 @@
     }
 
     .new-brand {
-        font-size: 13px!important;
+        font-size: 11px!important;
     }
 
     .brand-and-name-new {
-        padding: 0;
+
     }
 }
 
