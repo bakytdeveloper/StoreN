@@ -74,8 +74,8 @@
 }
 
 .product-card-favorite {
-    max-height: 410px;
-    border: 1px solid #e2e1e1;
+    height: 410px;
+    /*border: 1px solid #e2e1e1;*/
 }
 
 
@@ -285,7 +285,7 @@
 
         text-align: center;
 
-        min-height: 345px!important;
+        height: 95%!important;
     }
 
     .cart-button {

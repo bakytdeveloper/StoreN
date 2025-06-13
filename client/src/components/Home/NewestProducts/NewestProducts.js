@@ -133,6 +133,12 @@ const NewestProducts = ({ apiUrl }) => {
         }
     };
 
+    // Функция для обрезки текста в зависимости от ширины экрана
+    const truncateText = (text) => {
+        const maxLength = windowWidth < 960 ? 7 : 10; // Меньше 960px - 7 символов, иначе 10
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    };
+
     if (loading) {
         return <h2>Loading...</h2>;
     }
@@ -166,8 +172,8 @@ const NewestProducts = ({ apiUrl }) => {
                         </div>
                         <div className="details-new-product">
                             <div className="brand-and-name-new">
-                                <div className="type">{product.type.length > 10 ? product.type.substring(0, 10) + '...' : product.type}</div>
-                                <div className="brand new-brand">{product.brand.length > 7 ? product.brand.substring(0, 7) + '...' : product.brand}</div>
+                                <div className="type">{truncateText(product.type)}</div>
+                                <div className="brand new-brand">{truncateText(product.brand)}</div>
                             </div>
                             <div className="discounted-price-new">
                                 {product.originalPrice ? (

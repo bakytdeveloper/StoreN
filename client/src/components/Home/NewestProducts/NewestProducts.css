@@ -68,9 +68,10 @@
         justify-content: center;
     }
 
-    .product-card.new-cards {
+    .new-cards {
         width: 100%;
         max-width: 88%;
+        height: 99%;
         margin: auto;
     }
 
@@ -78,6 +79,14 @@
         width: 100%;
         height: auto;
         object-fit: contain; /* Гарантирует полное отображение изображений */
+    }
+
+    .new-brand {
+        font-size: 13px!important;
+    }
+
+    .brand-and-name-new {
+        padding: 0;
     }
 }
 
