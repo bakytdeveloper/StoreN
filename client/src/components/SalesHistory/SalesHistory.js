@@ -48,21 +48,37 @@ const SalesHistory = ({ setShowSidebar }) => {
         fetchSalesHistory(page);
     }, [page, perPage]);
 
-    const formatDate = (date) => {
-        const options = { day: '2-digit', month: 'long', year: 'numeric' };
-        const formattedDate = new Date(date).toLocaleDateString('ru-RU', options);
+    // const formatDate = (date) => {
+    //     const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    //     const formattedDate = new Date(date).toLocaleDateString('ru-RU', options);
+    //
+    //     // Ручное форматирование дня числом
+    //     const parts = formattedDate.split(' ');
+    //     if (parts.length === 3) {
+    //         const day = parts[0];
+    //         const month = parts[1];
+    //         const year = parts[2];
+    //         return `${day}/${month}/${year}`;
+    //     } else {
+    //         return formattedDate;
+    //     }
+    // };
 
-        // Ручное форматирование дня числом
-        const parts = formattedDate.split(' ');
-        if (parts.length === 3) {
-            const day = parts[0];
-            const month = parts[1];
-            const year = parts[2];
-            return `${day}/${month}/${year}`;
-        } else {
-            return formattedDate;
-        }
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+
+        // Форматирование даты
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+
+        // Форматирование времени
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${day}.${month}.${year} / ${hours}:${minutes}`;
     };
+
 
 
     const handleGoBack = () => history.goBack();
@@ -93,7 +109,8 @@ const SalesHistory = ({ setShowSidebar }) => {
                 <thead>
                 <tr>
                     <th>№</th>
-                    <th>Дата</th>
+                    {/*<th>Дата</th>*/}
+                    <th>Дата/Время</th> {/* Новая колонка */}
                     <th>Статус</th>
                     <th>Тип товара</th>
                     <th>Название товара</th>
@@ -111,9 +128,9 @@ const SalesHistory = ({ setShowSidebar }) => {
                             <td>{i+1}</td>
                             {index === 0 && (
                                 <>
-                                    <td rowSpan={order.products.length}>{formatDate(order.date)}</td>
+                                    {/*<td rowSpan={order.products.length}>{formatDate(order.date)}</td>*/}
+                                    <td rowSpan={order.products.length}>{formatDateTime(order.date)}</td> {/* Новая ячейка */}
                                     <td rowSpan={order.products.length}>{statusTranslations[order.status] || order.status}</td>
-
                                 </>
                             )}
                             <td>{item.type}</td>
