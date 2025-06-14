@@ -5,8 +5,6 @@ import {useHistory} from "react-router-dom";
 
 const OrderList = ({ setShowSidebar }) => {
     const [orders, setOrders] = useState([]);
-    // eslint-disable-next-line
-    const [selectedOrder, setSelectedOrder] = useState(null);
     const history = useHistory();
     const [page, setPage] = useState(1);
     // eslint-disable-next-line
@@ -206,18 +204,18 @@ const OrderList = ({ setShowSidebar }) => {
                     {sortedOrders.reverse().map((order, index) => (
                         <tr key={order._id} className="order-row">
                             <td className="col-number">{getOrderNumber(index)}</td>
-                            <td className="col-role" onClick={() => handleOrderClick(order._id)}>
+                            <td style={{cursor:"pointer"}} className="col-role" onClick={() => handleOrderClick(order._id)}>
                                 {getUserRole(order)}
                             </td>
-                            <td className="col-name" onClick={() => handleOrderClick(order._id)}>
+                            <td style={{cursor:"pointer"}} className="col-name" onClick={() => handleOrderClick(order._id)}>
                                 {order.user ? order.user.name : (order.sellerData ? order.sellerData.name : (order.guestInfo ? order.guestInfo.name : '-'))}
                             </td>
-                            <td className="col-email" onClick={() => handleOrderClick(order._id)}>
+                            <td style={{cursor:"pointer"}} className="col-email" onClick={() => handleOrderClick(order._id)}>
                                 {order.user ? order.user.email : (order.sellerData ? order.sellerData.email : (order.guestInfo ? order.guestInfo.email : '-'))}
                             </td>
-                            <td className="col-address" onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
-                            <td className="col-phone" onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
-                            <td className="col-payment" onClick={() => handleOrderClick(order._id)}>
+                            <td style={{cursor:"pointer"}} className="col-address" onClick={() => handleOrderClick(order._id)}>{order.address ? order.address : '-'}</td>
+                            <td style={{cursor:"pointer"}} className="col-phone" onClick={() => handleOrderClick(order._id)}>{order.phoneNumber ? order.phoneNumber : '-'}</td>
+                            <td style={{cursor:"pointer"}} className="col-payment" onClick={() => handleOrderClick(order._id)}>
                                 {order.paymentMethod ? order.paymentMethod : '-'}
                             </td>
                             <td className="col-comments">
@@ -226,14 +224,14 @@ const OrderList = ({ setShowSidebar }) => {
                                 defaultValue={order.comments ? order.comments : '-'}
                             ></textarea>
                             </td>
-                            <td className="col-products order-detail" onClick={() => handleOrderClick(order._id)}>
+                            <td style={{cursor:"pointer"}} className="col-products order-detail" onClick={() => handleOrderClick(order._id)}>
                                 {order.products.map((item, itemIndex) => (
                                     <span key={itemIndex}>
                                     {item.product?.type || item.type}: {item.quantity}шт; <br />
                                 </span>
                                 ))}
                             </td>
-                            <td className="col-date" onClick={() => handleOrderClick(order._id)}>{new Date(order.date).toLocaleString()}</td>
+                            <td style={{cursor:"pointer"}} className="col-date" onClick={() => handleOrderClick(order._id)}>{new Date(order.date).toLocaleString()}</td>
                             <td className="col-status">
                                 <OrderItem key={order._id} order={order} onUpdateStatus={updateStatus} />
                             </td>
@@ -242,7 +240,7 @@ const OrderList = ({ setShowSidebar }) => {
                                     ? new Date(order.statusHistory[order.statusHistory.length - 1].time).toLocaleString()
                                     : '-'}
                             </td>
-                            <td className="col-amount" onClick={() => handleOrderClick(order._id)}>{order.totalAmount.toFixed(2)} KGS</td>
+                            <td style={{cursor:"pointer"}} className="col-amount" onClick={() => handleOrderClick(order._id)}>{order.totalAmount.toFixed(2)} KGS</td>
                             <td className="col-admin-comments">
                             <textarea
                                 className="admin-comment-textarea"

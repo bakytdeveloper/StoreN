@@ -279,23 +279,23 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     <strong>ID заказа:</strong> {order._id}
                                 </div>
                                 <div>
-                                    <strong>Имя:</strong>
+                                    <strong>Имя:{" "} </strong>
                                     {order.user ? order.user.name : order.guestInfo ? order.guestInfo.name : sellerInfo?.name || 'Неизвестно'}
                                 </div>
                                 <div>
-                                    <strong>Клиент:</strong>
+                                    <strong>Клиент:{" "} </strong>
                                     {order.user ? order.user.role : sellerInfo?.role || 'Гость'}
                                 </div>
                                 <div>
-                                    <strong>Адрес:</strong>
+                                    <strong>Адрес:{" "}</strong>
                                     {order.address || 'Не указан'}
                                 </div>
                                 <div>
-                                    <strong>Email:</strong>
+                                    <strong>Email:{" "}</strong>
                                     {order.user ? order.user.email : order.guestInfo ? order.guestInfo.email : sellerInfo?.email || 'Неизвестно'}
                                 </div>
                                 <div>
-                                    <strong>Телефон №:</strong>
+                                    <strong>Телефон:{" "}</strong>
                                     {order.phoneNumber || 'Не указан'}
                                 </div>
                             </div>
@@ -335,20 +335,22 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                                 </div>
                                             </div>
 
-                                            {deleteConfirmation === index ? (
-                                                <div className="confirmation-dialog">
-                                                    <div>Вы уверены, что хотите удалить этот товар?</div>
-                                                    <div className="confirmation-dialog-buttons">
-                                                        <button className="confirm-delete-button" onClick={() => { onDeleteItem(index); cancelDeleteItem(); toggleEditMode(item._id); }}>Да</button>
-                                                        <button className="cancel-delete-button" onClick={() => { cancelDeleteItem(); toggleEditMode(item._id); }}>Нет</button>
+                                            <div className="confirmation-dialog-edit-buttons">
+                                                {deleteConfirmation === index ? (
+                                                    <div className="confirmation-dialog">
+                                                        <div>Вы уверены, что хотите удалить этот товар?</div>
+                                                        <div className="confirmation-dialog-buttons">
+                                                            <button className="confirm-delete-button" onClick={() => { onDeleteItem(index); cancelDeleteItem(); toggleEditMode(item._id); }}>Да</button>
+                                                            <button className="cancel-delete-button" onClick={() => { cancelDeleteItem(); toggleEditMode(item._id); }}>Нет</button>
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : (
-                                                <div className="edit-buttons">
-                                                    <button className="edit-button" onClick={() => toggleEditMode(item._id)}>Редактировать</button>
-                                                </div>
-                                            )}
+                                                ) : (
+                                                    <div className="edit-buttons">
+                                                        <button className="edit-button" onClick={() => toggleEditMode(item._id)}>Редактировать</button>
+                                                    </div>
+                                                )}
+                                            </div>
 
                                             {editMode[item._id] && (
                                                 <div className="edit-quantity">
@@ -379,33 +381,37 @@ const OrderDetailsPage = ({ orders = [], setOrders, setShowSidebar }) => {
                                     ))}
                                 </ul>
                                 <hr />
-                                <h4>Итоговая сумма: {totalAmount}</h4>
-                                <div>
-                                    <strong>Дата заказа:</strong> {order.date}
-                                </div>
-                                <div>
-                                    <strong>Статус заказа:</strong> {order.status}
-                                </div>
-                                {orderDeleteConfirmation ? (
-                                    <div className="confirmation-buttons">
-                                        <div>Вы уверены, что хотите удалить этот заказ?</div>
+                               <div className="footer-output">
 
-                                        <div className="confirmation-buttons-all-order">
-                                            <button className="confirmation-buttons-all-order-left" onClick={() => deleteOrder(order._id)}>Да</button>
-                                            <button className="confirmation-buttons-all-order-right" onClick={cancelDeleteOrder}>Отмена</button>
-                                        </div>
+                                   <h4>Итоговая сумма: {totalAmount}</h4>
+                                   <div>
+                                       <strong>Дата заказа:</strong> {order.date}
+                                   </div>
+                                   <div>
+                                       <strong>Статус заказа:</strong> {order.status}
+                                   </div>
+                                   {orderDeleteConfirmation ? (
+                                       <div className="confirmation-buttons">
+                                           <div>Вы уверены, что хотите удалить этот заказ?</div>
 
-                                    </div>
-                                ) : (
-                                    <div className="details-order-edit">
-                                        <button className="ok-button" onClick={onClose}>
-                                            Одобренно
-                                        </button>
-                                        <button className="delete-button" onClick={confirmDeleteOrder}>
-                                            Удалить заказ
-                                        </button>
-                                    </div>
-                                )}
+                                           <div className="confirmation-buttons-all-order">
+                                               <button className="confirmation-buttons-all-order-left" onClick={() => deleteOrder(order._id)}>Да</button>
+                                               <button className="confirmation-buttons-all-order-right" onClick={cancelDeleteOrder}>Отмена</button>
+                                           </div>
+
+                                       </div>
+                                   ) : (
+                                       <div className="details-order-edit">
+                                           <button className="ok-button" onClick={onClose}>
+                                               Одобренно
+                                           </button>
+                                           <button className="delete-button" onClick={confirmDeleteOrder}>
+                                               Удалить заказ
+                                           </button>
+                                       </div>
+                                   )}
+
+                               </div>
                             </div>
                         </div>
                     </div>

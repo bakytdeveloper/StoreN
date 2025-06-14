@@ -214,6 +214,7 @@ button:hover {
     max-height: 40px;
     padding: 0 17px;
     align-items: center;
+
 }
 
 .details-order-edit {
@@ -228,6 +229,32 @@ button:hover {
     margin-left: 10px;
 }
 
+.footer-output {
+    margin-bottom: 40px;
+}
+
+.details-order-edit {
+    margin-top: 20px;
+}
+
+
+.confirmation-buttons {
+    margin-top: 20px;
+    background: #cfd1d2;
+}
+
+.confirmation-dialog-edit-buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.edit-quantity {
+    background: #fdfdfd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 
 
 /* Адаптивные стили */
@@ -239,7 +266,8 @@ button:hover {
         margin-top: 10px;
         /*padding: 1px 1px 100px;*/
         max-width: 95%;
-
+        padding-left: 2px;
+        padding-right: 2px;
 
     }
 
@@ -261,6 +289,20 @@ button:hover {
     }
 
     li h3 {
+        font-size: 18px;
+    }
+
+
+    .footer-output {
+        margin-bottom: 100px;
+    }
+
+    .details-order-edit {
+        margin-top: 10px;
+    }
+
+    .confirmation-buttons {
+        margin-top: 10px;
         font-size: 18px;
     }
 }
