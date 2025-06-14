@@ -18,6 +18,10 @@ const SalesHistory = ({ setShowSidebar }) => {
         cancelled: "Отменено"
     };
 
+    const getStatusClass = (status) => {
+        return `status-badge status-${status}`;
+    };
+
     useEffect(() => {
         setShowSidebar(true);
         return () => setShowSidebar(true);
@@ -130,7 +134,11 @@ const SalesHistory = ({ setShowSidebar }) => {
                                 <>
                                     {/*<td rowSpan={order.products.length}>{formatDate(order.date)}</td>*/}
                                     <td rowSpan={order.products.length}>{formatDateTime(order.date)}</td> {/* Новая ячейка */}
-                                    <td rowSpan={order.products.length}>{statusTranslations[order.status] || order.status}</td>
+                                    <td rowSpan={order.products.length}>
+                                        <span className={getStatusClass(order.status)}>
+                                            {statusTranslations[order.status] || order.status}
+                                        </span>
+                                    </td>
                                 </>
                             )}
                             <td>{item.type}</td>

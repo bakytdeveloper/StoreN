@@ -87,3 +87,31 @@ tbody td p {
     }
 
 }
+
+/* Стили для статусов */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Можно добавить конкретные классы для каждого статуса если нужно */
+.status-pending {
+    background-color: #ca0644!important;
+}
+
+.status-inProgress {
+    background-color: #065fbf!important;
+}
+
+.status-completed {
+    background-color: #34c304!important;
+}
+
+.status-cancelled {
+    background-color: #9f9d9d!important;
+}
