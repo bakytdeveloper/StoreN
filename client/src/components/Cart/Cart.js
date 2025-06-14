@@ -9,12 +9,11 @@ import CartSummary from './CartSummary';
 import emptyCart from './emptyCart.png'
 import NewestProducts from "../Home/NewestProducts/NewestProducts";
 import {jwtDecode} from 'jwt-decode';
+import ConfirmationModal from "./ConfirmationModal";
 
 const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalItems, setTotalItems] = useState(0);
-    // eslint-disable-next-line
-    const [showPayment, setShowPayment] = useState(false);
     // eslint-disable-next-line
     const [user, setUser] = useState(null);
     // eslint-disable-next-line
@@ -36,6 +35,8 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
     const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5506';
     const imageBaseUrl = process.env.REACT_APP_API_URL;
     const [tokenUser, setTokenUser] = useState('')
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
 
 
     const handleBackToShopping = () => {
@@ -125,12 +126,31 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
         setCartItems(updatedCart);
     };
 
+    // const handleRemoveItem = (productId) => {
+    //     if (window.confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
+    //         const updatedCart = cartItems.filter((item) => item.productId !== productId);
+    //         setCartItems(updatedCart);
+    //         toast.success('Товар удален из корзины');
+    //     }
+    // };
+
+    // 3. Обновите функцию handleRemoveItem
     const handleRemoveItem = (productId) => {
-        if (window.confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
-            const updatedCart = cartItems.filter((item) => item.productId !== productId);
-            setCartItems(updatedCart);
-            toast.success('Товар удален из корзины');
-        }
+        setItemToDelete(productId);
+        setShowDeleteModal(true);
+    };
+
+    const confirmDelete = () => {
+        const updatedCart = cartItems.filter((item) => item.productId !== itemToDelete);
+        setCartItems(updatedCart);
+        toast.success('Товар удален из корзины');
+        setShowDeleteModal(false);
+        setItemToDelete(null);
+    };
+
+    const cancelDelete = () => {
+        setShowDeleteModal(false);
+        setItemToDelete(null);
     };
 
     const handleContinue = () => {
@@ -339,7 +359,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                 ) : (
                     <div className="allSection">
                         <div className="sectionOne">
-                            <h5>1) Подтвердите заказ</h5>
+                            <h5 className="h5-title-cart">1) Подтвердите заказ</h5>
                             {section === 1 && (
                                 <div className="AllCartInfo">
                                     {cartItems.map((item) => (
@@ -412,7 +432,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                             {/*<hr />*/}
                         </div>
                         <div className="sectionTwo">
-                            <h5>2) Оформите заказ</h5>
+                            <h5 className="h5-title-cart">2) Оформите заказ</h5>
                             {section === 2 && (
                                 <div className="checkForm">
                                     <div style={{ fontSize: "10px", fontWeight: "bold" }}>Обязательные поля для заполнения - "<span style={{ fontWeight: "bold", color: "red", fontSize: "20px" }}>*</span>"</div>
@@ -467,7 +487,7 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                             )}
                         </div>
                         <div className="sectionThree">
-                            <h5>3) Оплатить заказ</h5>
+                            <h5 className="h5-title-cart">3) Оплатить заказ</h5>
                             {section === 3 && (
                                <div>
                                    <PaymentForm />
@@ -518,6 +538,12 @@ const Cart = ({ cartItems, setCartItems, setShowSidebar, setActiveComponent }) =
                </div>
 
             </div>
+            <ConfirmationModal
+                isOpen={showDeleteModal}
+                onClose={cancelDelete}
+                onConfirm={confirmDelete}
+                message="Вы уверены, что хотите удалить этот товар из корзины?"
+            />
         </div>
     );
 };

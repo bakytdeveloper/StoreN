@@ -92,8 +92,11 @@ h5 {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
-
+.h5-title-cart {
+    margin-left: 10px!important;
+    margin-bottom: 0!important;
 }
 
 .item-info {
@@ -198,6 +201,7 @@ h5 {
     color: #fff;
     border: none;
     border-radius: 3px;
+    margin-top: 20px;
 }
 
 
@@ -349,7 +353,7 @@ h5 {
     }
 
     .sectionOne, .sectionTwo, .sectionThree {
-        padding: 15px;
+        padding: 5px;
     }
 
     .checkForm {
