@@ -140,6 +140,14 @@ p:hover {
     margin-top: 1px!important;
 }
 
+
+.span-fa-eye {
+    position: absolute;
+    right: 10px;
+    top: 42px!important;
+    cursor: pointer;
+}
+
 .formInput-password-eye {
     position: absolute;
     /*margin-top: 10px;*/
@@ -162,12 +170,6 @@ p:hover {
     margin-left: 0;
 }
 
-.span-fa-eye {
-    position: absolute;
-    right: 10px;
-    top: 35px!important;
-    cursor: pointer;
-}
 
 @media only screen and (max-width: 768px) {
 
@@ -241,8 +243,8 @@ p:hover {
     }
 
     .span-fa-eye {
-        margin-top: 14px;
-        margin-right: 15px;
+        margin-top: 12px;
+        margin-right: 7px;
     }
 
 }
